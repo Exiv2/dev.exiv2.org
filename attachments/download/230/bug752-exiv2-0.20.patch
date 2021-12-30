@@ -1,0 +1,171 @@
+Index: trunk/src/tiffcomposite_int.hpp
+===================================================================
+--- trunk/src/tiffcomposite_int.hpp	(revision 2434)
++++ trunk/src/tiffcomposite_int.hpp	(revision 2435)
+@@ -1403,6 +1403,8 @@
+         void iniOrigDataBuf();
+         //! Update the original data buffer and its size, return true if successful.
+         bool updOrigDataBuf(const byte* pData, uint32_t size);
++        //! Set a flag to indicate if the array was decoded
++        void setDecoded(bool decoded) { decoded_ = decoded; }
+         //@}
+ 
+         //! @name Accessors
+@@ -1413,6 +1415,8 @@
+         const ArrayDef* def() const { return arrayDef_; }
+         //! Return the number of elements in the definition
+         int defSize() const { return defSize_; }
++        //! Return the flag which indicates if the array was decoded
++        bool decoded() const { return decoded_; }
+         //@}
+ 
+     protected:
+@@ -1481,6 +1485,7 @@
+         byte* origData_;            //!< Pointer to the original data buffer (unencrypted)
+         uint32_t origSize_;         //!< Size of the original data buffer
+         TiffComponent* pRoot_;      //!< Pointer to the root component of the TIFF tree. (Only used for intrusive writing.)
++        bool decoded_;              //!< Flag to indicate if the array was decoded
+     }; // class TiffBinaryArray
+ 
+     /*!
+Index: trunk/src/tiffcomposite.cpp
+===================================================================
+--- trunk/src/tiffcomposite.cpp	(revision 2434)
++++ trunk/src/tiffcomposite.cpp	(revision 2435)
+@@ -143,7 +143,8 @@
+           setSize_(0),
+           origData_(0),
+           origSize_(0),
+-          pRoot_(0)
++          pRoot_(0),
++          decoded_(false)
+     {
+         assert(arrayCfg != 0);
+     }
+@@ -162,7 +163,8 @@
+           setSize_(setSize),
+           origData_(0),
+           origSize_(0),
+-          pRoot_(0)
++          pRoot_(0),
++          decoded_(false)
+     {
+         // We'll figure out the correct cfg later
+         assert(cfgSelFct != 0);
+@@ -282,7 +284,8 @@
+           setSize_(rhs.setSize_),
+           origData_(rhs.origData_),
+           origSize_(rhs.origSize_),
+-          pRoot_(rhs.pRoot_)
++          pRoot_(rhs.pRoot_),
++          decoded_(false)
+     {
+     }
+ 
+@@ -841,6 +844,7 @@
+     {
+         TiffComponent* tc = tiffComponent.release();
+         elements_.push_back(tc);
++        setDecoded(true);
+         return tc;
+     } // TiffBinaryArray::doAddChild
+ 
+@@ -1036,7 +1040,7 @@
+ 
+     uint32_t TiffBinaryArray::doCount() const
+     {
+-        if (cfg() == 0) return TiffEntryBase::doCount();
++        if (cfg() == 0 || !decoded()) return TiffEntryBase::doCount();
+ 
+         if (elements_.empty()) return 0;
+ 
+@@ -1366,12 +1370,12 @@
+                                       uint32_t  dataIdx,
+                                       uint32_t& imageIdx)
+     {
+-        if (cfg() == 0) return TiffEntryBase::doWrite(ioWrapper,
+-                                                      byteOrder,
+-                                                      offset,
+-                                                      valueIdx,
+-                                                      dataIdx,
+-                                                      imageIdx);
++        if (cfg() == 0 || !decoded()) return TiffEntryBase::doWrite(ioWrapper,
++                                                                    byteOrder,
++                                                                    offset,
++                                                                    valueIdx,
++                                                                    dataIdx,
++                                                                    imageIdx);
+         if (cfg()->byteOrder_ != invalidByteOrder) byteOrder = cfg()->byteOrder_;
+         // Tags must be sorted in ascending order
+         std::sort(elements_.begin(), elements_.end(), cmpTagLt);
+@@ -1681,7 +1685,7 @@
+ 
+     uint32_t TiffBinaryArray::doSize() const
+     {
+-        if (cfg() == 0) return TiffEntryBase::doSize();
++        if (cfg() == 0 || !decoded()) return TiffEntryBase::doSize();
+ 
+         if (elements_.empty()) return 0;
+ 
+Index: trunk/src/tiffvisitor.cpp
+===================================================================
+--- trunk/src/tiffvisitor.cpp	(revision 2434)
++++ trunk/src/tiffvisitor.cpp	(revision 2435)
+@@ -496,7 +496,7 @@
+ 
+     void TiffDecoder::visitBinaryArray(TiffBinaryArray* object)
+     {
+-        if (object->cfg() == 0) {
++        if (object->cfg() == 0 || !object->decoded()) {
+             decodeTiffEntry(object);
+         }
+     }
+@@ -765,15 +765,18 @@
+ 
+     } // TiffEncoder::visitIfdMakernoteEnd
+ 
+-    void TiffEncoder::visitBinaryArray(TiffBinaryArray* /*object*/)
++    void TiffEncoder::visitBinaryArray(TiffBinaryArray* object)
+     {
+-        // Nothing to do
++        if (object->cfg() == 0 || !object->decoded()) {
++            encodeTiffComponent(object);
++        }
+     }
+ 
+     void TiffEncoder::visitBinaryArrayEnd(TiffBinaryArray* object)
+     {
+         assert(object != 0);
+ 
++        if (object->cfg() == 0 || !object->decoded()) return;
+         int32_t size = object->TiffEntryBase::doSize();
+         if (size == 0) return;
+         if (!object->initialize(pRoot_)) return;
+@@ -1550,10 +1553,26 @@
+             return;
+         }
+ 
++        // Check duplicates
++        TiffFinder finder(object->tag(), object->group());
++        pRoot_->accept(finder);
++        TiffEntryBase* te = dynamic_cast<TiffEntryBase*>(finder.result());
++        if (te && te->idx() != object->idx()) {
++#ifndef SUPPRESS_WARNINGS
++            std::cerr << "Not decoding duplicate binary array tag 0x"
++                      << std::setw(4) << std::setfill('0') << std::hex
++                      << object->tag() << std::dec << ", group "
++                      << tiffGroupName(object->group()) << ", idx " << object->idx()
++                      << "\n";
++#endif
++            object->setDecoded(false);
++            return;
++        }
++
+         if (object->TiffEntryBase::doSize() == 0) return;
+         if (!object->initialize(pRoot_)) return;
+-
+         const ArrayCfg* cfg = object->cfg();
++        if (cfg == 0) return;
+ 
+         const CryptFct cryptFct = cfg->cryptFct_;
+         if (cryptFct != 0) {

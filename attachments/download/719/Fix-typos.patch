@@ -1,0 +1,507 @@
+Index: config/config.h.cmake
+===================================================================
+--- config/config.h.cmake	(revision 3601)
++++ config/config.h.cmake	(working copy)
+@@ -208,13 +208,13 @@
+ #define EXV_HAVE_GXXCLASSVISIBILITY
+ #endif
+      
+-/* File path seperator */
++/* File path separator */
+ #if defined(WIN32) && !defined(__CYGWIN__)
+-#define EXV_SEPERATOR_STR "\\"
+-#define EXV_SEPERATOR_CHR '\\'
++#define EXV_SEPARATOR_STR "\\"
++#define EXV_SEPARATOR_CHR '\\'
+ #else
+-#define EXV_SEPERATOR_STR "/"
+-#define EXV_SEPERATOR_CHR '/'
++#define EXV_SEPARATOR_STR "/"
++#define EXV_SEPARATOR_CHR '/'
+ #endif
+ 
+ /* Shared library support, see http://gcc.gnu.org/wiki/Visibility */
+Index: contrib/organize/organize.cpp
+===================================================================
+--- contrib/organize/organize.cpp	(revision 3601)
++++ contrib/organize/organize.cpp	(working copy)
+@@ -349,7 +349,7 @@
+     po::options_description hidden("Hidden Options");
+     hidden.add_options()
+         ("source-dir", po::value< std::string >(), "directory of files to organize, may end in file wildcard")
+-        ("dest-dir", po::value< std::string >(), "desination directory for files, may not be within source-dir")
++        ("dest-dir", po::value< std::string >(), "designation directory for files, may not be within source-dir")
+         ("pattern", po::value< std::string >(), "subdirectory pattern for grouping files within dest-dir")
+         ;
+ 
+Index: include/exiv2/actions.hpp
+===================================================================
+--- include/exiv2/actions.hpp	(revision 3601)
++++ include/exiv2/actions.hpp	(working copy)
+@@ -134,7 +134,7 @@
+           prototype is replaced.
+ 
+           @param type Task type.
+-          @param task Pointer to the prototype. Ownership is transfered to the
++          @param task Pointer to the prototype. Ownership is transferred to the
+                  task factory. That's what the auto pointer indicates.
+         */
+         void registerTask(TaskType type, Task::AutoPtr task);
+@@ -356,7 +356,7 @@
+ 
+     private:
+         virtual Modify* clone_() const;
+-        //! Copy contructor needed because of AutoPtr member
++        //! Copy constructor needed because of AutoPtr member
+         Modify(const Modify& /*src*/) : Task() {}
+ 
+         //! Add a metadatum to \em pImage according to \em modifyCmd
+Index: include/exiv2/basicio.hpp
+===================================================================
+--- include/exiv2/basicio.hpp	(revision 3601)
++++ include/exiv2/basicio.hpp	(working copy)
+@@ -792,12 +792,12 @@
+     class EXIV2API XPathIo : public FileIo {
+     public:
+         /*!
+-            @brief The extention of the temporary file which is created when getting input data
++            @brief The extension of the temporary file which is created when getting input data
+                     to read metadata. This file will be deleted in destructor.
+         */
+         static const std::string TEMP_FILE_EXT;
+         /*!
+-            @brief The extention of the generated file which is created when getting input data
++            @brief The extension of the generated file which is created when getting input data
+                     to add or modify the metadata.
+         */
+         static const std::string GEN_FILE_EXT;
+Index: include/exiv2/exv_msvc-webready.h
+===================================================================
+--- include/exiv2/exv_msvc-webready.h	(revision 3601)
++++ include/exiv2/exv_msvc-webready.h	(working copy)
+@@ -111,9 +111,9 @@
+ #pragma comment(lib, "ws2_32.lib")
+ #pragma comment(lib, "wldap32.lib")
+ 
+-/* File path seperator */
+-#define EXV_SEPERATOR_STR "\\"
+-#define EXV_SEPERATOR_CHR '\\'
++/* File path separator */
++#define EXV_SEPARATOR_STR "\\"
++#define EXV_SEPARATOR_CHR '\\'
+ 
+ /* Windows unicode path support */
+ // #define EXV_UNICODE_PATH
+Index: include/exiv2/exv_msvc.h
+===================================================================
+--- include/exiv2/exv_msvc.h	(revision 3601)
++++ include/exiv2/exv_msvc.h	(working copy)
+@@ -111,9 +111,9 @@
+ #pragma comment(lib, "ws2_32.lib")
+ #pragma comment(lib, "wldap32.lib")
+ 
+-/* File path seperator */
+-#define EXV_SEPERATOR_STR "\\"
+-#define EXV_SEPERATOR_CHR '\\'
++/* File path separator */
++#define EXV_SEPARATOR_STR "\\"
++#define EXV_SEPARATOR_CHR '\\'
+ 
+ /* Windows unicode path support */
+ // #define EXV_UNICODE_PATH
+Index: include/exiv2/utilsvideo.hpp
+===================================================================
+--- include/exiv2/utilsvideo.hpp	(revision 3601)
++++ include/exiv2/utilsvideo.hpp	(working copy)
+@@ -36,7 +36,7 @@
+ public:
+     static bool compareTagValue(Exiv2::DataBuf &buf, const char *str);
+     static bool compareTagValue(Exiv2::DataBuf& buf,const char arr[][5],int32_t arraysize);
+-    static bool simpleBytesComparision(Exiv2::DataBuf& buf ,const char* str,int32_t size);
++    static bool simpleBytesComparison(Exiv2::DataBuf& buf ,const char* str,int32_t size);
+ }; // class UtilsVideo
+ 
+ } // namespace Exiv2
+Index: msvc2003/exivsimple/exivsimple.cpp
+===================================================================
+--- msvc2003/exivsimple/exivsimple.cpp	(revision 3601)
++++ msvc2003/exivsimple/exivsimple.cpp	(working copy)
+@@ -353,7 +353,7 @@
+     return rc;
+ }
+ 
+-// If multiple entires exist, this only remove the first one
++// If multiple entries exist, this only remove the first one
+ // found. Call multiple times to remove many.
+ // Returns 0 on success
+ EXIVSIMPLE_API int RemoveMeta(HIMAGE img, const char *key)
+Index: msvc2005/tools/depends/src/depends.cpp
+===================================================================
+--- msvc2005/tools/depends/src/depends.cpp	(revision 3601)
++++ msvc2005/tools/depends/src/depends.cpp	(working copy)
+@@ -85,7 +85,7 @@
+ 	LPCTSTR base = pModule->GetBaseName() ;
+     LPCTSTR result = base ;
+     if ( bQuiet ) {
+-        // keep quiet about these guys - they're build/compiler dependant
++        // keep quiet about these guys - they're build/compiler dependent
+ 	    if (   _strnicmp(base,"MSVCR",5) == 0 ) result = NULL ;
+ 	    if (   _strnicmp(base,"MSVCP",5) == 0 ) result = NULL ;
+ 	    if (   _strnicmp(base,"API-MS-Win",10) == 0 ) result = NULL ;
+Index: msvc2005/tools/issue984/issue984.cpp
+===================================================================
+--- msvc2005/tools/issue984/issue984.cpp	(revision 3601)
++++ msvc2005/tools/issue984/issue984.cpp	(working copy)
+@@ -3,9 +3,9 @@
+ 
+ int main(int argc, char** argv)
+ {
+-    printf("Opening file '%s' with FILE_SHARE_DELETE acess...\n", argv[1]);
++    printf("Opening file '%s' with FILE_SHARE_DELETE access...\n", argv[1]);
+ 
+-    HANDLE hFile = CreateFile(argv[1], GENERIC_READ,
++    HANDLE hFile = CreateFileA(argv[1], GENERIC_READ,
+             FILE_SHARE_DELETE|FILE_SHARE_READ|FILE_SHARE_WRITE,
+             NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+ 
+Index: msvc2005/tools/rm/rm.cpp
+===================================================================
+--- msvc2005/tools/rm/rm.cpp	(revision 3601)
++++ msvc2005/tools/rm/rm.cpp	(working copy)
+@@ -195,7 +195,7 @@
+  * option is TRUE, directories will be recursively emptied then deleted.
+  * If force is TRUE, file attributes will be changed to allow the program
+  * to delete the file.  The verbose option will cause non-fatal error messages
+- * to print to stderr.  The quiet option will supress all but fatal
++ * to print to stderr.  The quiet option will suppress all but fatal
+  * error messages
+  */
+ BOOL del(wchar_t* name, BOOL recurse, BOOL force, BOOL verbose, BOOL quiet) {
+Index: samples/geotag.cpp
+===================================================================
+--- samples/geotag.cpp	(revision 3601)
++++ samples/geotag.cpp	(working copy)
+@@ -451,7 +451,7 @@
+ 
+ std::string makePath(std::string dir,std::string file)
+ {
+-    return dir + std::string(EXV_SEPERATOR_STR) + file ;
++    return dir + std::string(EXV_SEPARATOR_STR) + file ;
+ }
+ 
+ const char* makePath(const char* dir,const char* file)
+Index: src/actions.cpp
+===================================================================
+--- src/actions.cpp	(revision 3601)
++++ src/actions.cpp	(working copy)
+@@ -1916,7 +1916,7 @@
+                       << path << "\n";
+             return 1;
+         }
+-        newPath =   Util::dirname(path) + EXV_SEPERATOR_STR
++        newPath =   Util::dirname(path) + EXV_SEPARATOR_STR
+                   + basename + Util::suffix(path);
+         if (   Util::dirname(newPath)  == Util::dirname(path)
+             && Util::basename(newPath) == Util::basename(path)) {
+@@ -1939,7 +1939,7 @@
+                     break;
+                 case Params::renamePolicy:
+                     newPath = Util::dirname(path)
+-                        + EXV_SEPERATOR_STR + basename
++                        + EXV_SEPARATOR_STR + basename
+                         + "_" + Exiv2::toString(seq++)
+                         + Util::suffix(path);
+                     break;
+@@ -1958,7 +1958,7 @@
+                     case 'R':
+                         fileExistsPolicy = Params::renamePolicy;
+                         newPath = Util::dirname(path)
+-                            + EXV_SEPERATOR_STR + basename
++                            + EXV_SEPARATOR_STR + basename
+                             + "_" + Exiv2::toString(seq++)
+                             + Util::suffix(path);
+                         break;
+@@ -1998,7 +1998,7 @@
+     {
+         std::string directory = Params::instance().directory_;
+         if (directory.empty()) directory = Util::dirname(path);
+-        std::string newPath =   directory + EXV_SEPERATOR_STR
++        std::string newPath =   directory + EXV_SEPARATOR_STR
+                               + Util::basename(path, true) + ext;
+         return newPath;
+     }
+Index: src/jp2image.cpp
+===================================================================
+--- src/jp2image.cpp	(revision 3601)
++++ src/jp2image.cpp	(working copy)
+@@ -171,7 +171,7 @@
+ #ifdef DEBUG
+             std::cout << "Exiv2::Jp2Image::readMetadata: Position: " << position << "\n";
+             std::cout << "Exiv2::Jp2Image::readMetadata: Find box type: " << std::string((const char*)&box.boxType)
+-                      << " lenght: " << box.boxLength << "\n";
++                      << " length: " << box.boxLength << "\n";
+ #endif
+             box.boxType   = getLong((byte*)&box.boxType, bigEndian);
+ 
+@@ -415,7 +415,7 @@
+ 
+ #ifdef DEBUG
+             std::cout << "Exiv2::Jp2Image::doWriteMetadata: Find box type: " << bheaderBuf.pData_ + 4
+-                      << " lenght: " << box.boxLength << "\n";
++                      << " length: " << box.boxLength << "\n";
+ #endif
+ 
+             if (box.boxLength == 0)
+@@ -459,7 +459,7 @@
+                 {
+ 
+ #ifdef DEBUG
+-                    std::cout << "Exiv2::Jp2Image::doWriteMetadata: Write JP2Header box (lenght: " << box.boxLength << ")\n";
++                    std::cout << "Exiv2::Jp2Image::doWriteMetadata: Write JP2Header box (length: " << box.boxLength << ")\n";
+ #endif
+                     if (outIo.write(boxBuf.pData_, boxBuf.size_) != boxBuf.size_) throw Error(21);
+ 
+@@ -488,7 +488,7 @@
+                             memcpy(boxData.pData_ + 8 + 16, rawExif.pData_, rawExif.size_);
+ 
+ #ifdef DEBUG
+-                            std::cout << "Exiv2::Jp2Image::doWriteMetadata: Write box with Exif metadata (lenght: "
++                            std::cout << "Exiv2::Jp2Image::doWriteMetadata: Write box with Exif metadata (length: "
+                                       << boxData.size_ << ")\n";
+ #endif
+                             if (outIo.write(boxData.pData_, boxData.size_) != boxData.size_) throw Error(21);
+@@ -511,7 +511,7 @@
+                             memcpy(boxData.pData_ + 8 + 16, rawIptc.pData_, rawIptc.size_);
+ 
+ #ifdef DEBUG
+-                            std::cout << "Exiv2::Jp2Image::doWriteMetadata: Write box with Iptc metadata (lenght: "
++                            std::cout << "Exiv2::Jp2Image::doWriteMetadata: Write box with Iptc metadata (length: "
+                                       << boxData.size_ << ")\n";
+ #endif
+                             if (outIo.write(boxData.pData_, boxData.size_) != boxData.size_) throw Error(21);
+@@ -541,7 +541,7 @@
+                         memcpy(boxData.pData_ + 8 + 16, xmp.pData_,   xmp.size_);
+ 
+ #ifdef DEBUG
+-                        std::cout << "Exiv2::Jp2Image::doWriteMetadata: Write box with XMP metadata (lenght: "
++                        std::cout << "Exiv2::Jp2Image::doWriteMetadata: Write box with XMP metadata (length: "
+                                   << boxData.size_ << ")\n";
+ #endif
+                         if (outIo.write(boxData.pData_, boxData.size_) != boxData.size_) throw Error(21);
+@@ -583,7 +583,7 @@
+                 default:
+                 {
+ #ifdef DEBUG
+-                    std::cout << "Exiv2::Jp2Image::doWriteMetadata: write box (lenght: " << box.boxLength << ")\n";
++                    std::cout << "Exiv2::Jp2Image::doWriteMetadata: write box (length: " << box.boxLength << ")\n";
+ #endif
+                     if (outIo.write(boxBuf.pData_, boxBuf.size_) != boxBuf.size_) throw Error(21);
+ 
+Index: src/preview.cpp
+===================================================================
+--- src/preview.cpp	(revision 3601)
++++ src/preview.cpp	(working copy)
+@@ -767,7 +767,7 @@
+         for (ExifData::const_iterator pos = exifData.begin(); pos != exifData.end(); ++pos) {
+             if (pos->groupName() == group_) {
+                 /*
+-                   Write only the neccessary TIFF image tags
++                   Write only the necessary TIFF image tags
+                    tags that especially could cause problems are:
+                    "NewSubfileType" - the result is no longer a thumbnail, it is a standalone image
+                    "Orientation" - this tag typically appears only in the "Image" group. Deleting it ensures
+Index: src/properties.cpp
+===================================================================
+--- src/properties.cpp	(revision 3601)
++++ src/properties.cpp	(working copy)
+@@ -1373,7 +1373,7 @@
+         { "MediaLangCode",      N_("Media Language Code"),          "Integer",               xmpText, xmpExternal, N_("A 16-bit integer that specifies the language code for this media.")   },
+         { "MediaModifyDate",    N_("Media Track Modify Date"),      "Integer",               xmpText, xmpExternal, N_("A 32-bit integer that indicates (in seconds since midnight, January 1, 1904) when the media header was last modified.")   },
+         { "MediaTimeScale",     N_("Media Time Scale"),             "Integer",               xmpText, xmpExternal, N_("A time value that indicates the time scale for this media-that is, the number of time units that pass per second in its time coordinate system." )   },
+-        { "OutputSampleRate",   N_("Output Audio Sample Rate"),     "Integer",               xmpText, xmpExternal, N_("The ouput audio sample rate. Can be any value, but commonly 32000, 41100, or 48000.") },
++        { "OutputSampleRate",   N_("Output Audio Sample Rate"),     "Integer",               xmpText, xmpExternal, N_("The output audio sample rate. Can be any value, but commonly 32000, 41100, or 48000.") },
+         { "SampleCount",        N_("Audio Sample Count"),           "Integer",               xmpText, xmpExternal, N_("Sample taken for Analyzing Audio Stream")   },
+         { "SampleRate",         N_("Audio Sample Rate"),            "Integer",               xmpText, xmpExternal, N_("The audio sample rate. Can be any value, but commonly 32000, 41100, or 48000.") },
+         { "SampleType",         N_("Audio Sample Type"),            "closed Choice of Text", xmpText, xmpExternal, N_("The audio sample type. One of: 8Int, 16Int, 32Int, 32Float.") },
+@@ -1438,11 +1438,11 @@
+                                                 N_("A list (concatenated and separated) of additional measurements, facts, characteristics, or assertions about the record. Meant to provide a mechanism for structured content such as key-value pairs.")
+             },
+ 
+-        // Occurence Level Class
+-        { "Occurence",                      N_("Occurence"),                         "Occurence",    xmpText,   xmpInternal, 
++        // Occurrence Level Class
++        { "Occurrence",                      N_("Occurrence"),                         "Occurrence",    xmpText,   xmpInternal, 
+                                             N_("The category of information pertaining to evidence of an occurrence in nature, in a collection, or in a dataset (specimen, observation, etc.)."),
+         },
+-            // Occurence Level Terms
++            // Occurrence Level Terms
+             { "occurrenceID",                   N_("Occurrence ID"),                        "Text",      xmpText,   xmpExternal,      
+                                                 N_("An identifier for the Occurrence (as opposed to a particular digital record of the occurrence). In the absence of a persistent global unique identifier, construct one from a combination of identifiers in the record that will most closely make the occurrenceID globally unique.")
+             },
+@@ -1537,7 +1537,7 @@
+                                                 N_("The amount of effort expended during an Event.")
+             },
+             { "Date",                           N_("Event Date"),                  "Date",      xmpText,    xmpExternal,      
+-                                                N_("The date-time or interval during which an Event occured. For occurrences, this is the date-time when the event was recorded. Not suitable for a time in a geological context. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).")
++                                                N_("The date-time or interval during which an Event occurred. For occurrences, this is the date-time when the event was recorded. Not suitable for a time in a geological context. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).")
+             },
+             { "earliestDate",                   N_("Event Earliest Date"),                  "Date",      xmpText,    xmpExternal,      
+                                                 N_("The date-time or interval during which an Event started. For occurrences, this is the date-time when the event was recorded. Not suitable for a time in a geological context. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).")
+Index: src/psdimage.cpp
+===================================================================
+--- src/psdimage.cpp	(revision 3601)
++++ src/psdimage.cpp	(working copy)
+@@ -195,7 +195,7 @@
+             throw Error(3, "Photoshop");
+         }
+ 
+-        // after the color data section, comes a list of resource blocks, preceeded by the total byte size
++        // after the color data section, comes a list of resource blocks, preceded by the total byte size
+         if (io_->read(buf, 4) != 4)
+         {
+             throw Error(3, "Photoshop");
+Index: src/sonymn.cpp
+===================================================================
+--- src/sonymn.cpp	(revision 3601)
++++ src/sonymn.cpp	(working copy)
+@@ -461,7 +461,7 @@
+                 N_("Release Mode"),
+                 sony1Id, makerTags, unsignedShort, -1, EXV_PRINT_TAG(sonyReleaseMode)),
+         TagInfo(0xB04A, "SequenceNumber", N_("Sequence Number"),
+-                N_("Shot number in continous burst mode"),
++                N_("Shot number in continuous burst mode"),
+                 sony1Id, makerTags, unsignedShort, -1, EXV_PRINT_TAG(sonySequenceNumber)),
+         TagInfo(0xB04B, "AntiBlur", N_("Anti-Blur"),
+                 N_("Anti-Blur"),
+Index: src/tags.cpp
+===================================================================
+--- src/tags.cpp	(revision 3601)
++++ src/tags.cpp	(working copy)
+@@ -299,8 +299,8 @@
+         { 34892, N_("Linear Raw")         }
+     };
+ 
+-    //! Threshholding, tag 0x0107
+-    extern const TagDetails exifThreshholding[] = {
++    //! Thresholding, tag 0x0107
++    extern const TagDetails exifThresholding[] = {
+         { 1, N_("No dithering or halftoning")           },
+         { 2, N_("Ordered dither or halftone technique") },
+         { 3, N_("Randomized process")                   }
+@@ -441,10 +441,10 @@
+                 N_("The pixel composition. In JPEG compressed data a JPEG "
+                 "marker is used instead of this tag."),
+                 ifd0Id, imgStruct, unsignedShort, 1, EXV_PRINT_TAG(exifPhotometricInterpretation)),
+-        TagInfo(0x0107, "Threshholding", N_("Threshholding"),
++        TagInfo(0x0107, "Thresholding", N_("Thresholding"),
+                 N_("For black and white TIFF files that represent shades of gray, "
+                    "the technique used to convert from gray to black and white pixels."),
+-                ifd0Id, imgStruct, unsignedShort, 1, EXV_PRINT_TAG(exifThreshholding)), // TIFF tag
++                ifd0Id, imgStruct, unsignedShort, 1, EXV_PRINT_TAG(exifThresholding)), // TIFF tag
+         TagInfo(0x0108, "CellWidth", N_("Cell Width"),
+                 N_("The width of the dithering or halftoning matrix used to create a "
+                    "dithered or halftoned bilevel file."),
+Index: src/utils.hpp
+===================================================================
+--- src/utils.hpp	(revision 3601)
++++ src/utils.hpp	(working copy)
+@@ -161,7 +161,7 @@
+     bool strtol(const char* nptr, long& n);
+ 
+     /*!
+-      @brief Replaces all occurences of \em searchText in the \em text string
++      @brief Replaces all occurrences of \em searchText in the \em text string
+              by \em replaceText.
+      */
+     void replace(std::string& text, const std::string& searchText, const std::string& replaceText);
+Index: src/utilsvideo.cpp
+===================================================================
+--- src/utilsvideo.cpp	(revision 3601)
++++ src/utilsvideo.cpp	(working copy)
+@@ -50,7 +50,7 @@
+     return result;
+ }
+ 
+-bool UtilsVideo::simpleBytesComparision(Exiv2::DataBuf& buf ,const char* str,int32_t size){
++bool UtilsVideo::simpleBytesComparison(Exiv2::DataBuf& buf ,const char* str,int32_t size){
+     for(int32_t i=0; i<size; i++ )
+         if(toupper(buf.pData_[i]) != str[i])
+             return false;
+Index: xmpsdk/include/TXMPIterator.hpp
+===================================================================
+--- xmpsdk/include/TXMPIterator.hpp	(revision 3601)
++++ xmpsdk/include/TXMPIterator.hpp	(working copy)
+@@ -62,7 +62,7 @@
+ /// are visited next. The fields of a struct or items of an array are visited after the qualifiers
+ /// of the parent.
+ ///
+-/// You can specify options when contructing the iteration object to control how the iteration is
++/// You can specify options when constructing the iteration object to control how the iteration is
+ /// performed.
+ ///
+ ///   \li \c #kXMP_IterJustChildren - Visit just the immediate children of the root. Skip the root
+Index: xmpsdk/include/TXMPUtils.hpp
+===================================================================
+--- xmpsdk/include/TXMPUtils.hpp	(revision 3601)
++++ xmpsdk/include/TXMPUtils.hpp	(working copy)
+@@ -857,7 +857,7 @@
+     ///   internal. You can use this flag together with \c #kXMPUtil_ReplaceOldValues to replace the
+     ///   values of existing top-level properties.
+     ///
+-    ///   \li \c #kXMPUtil_ReplaceOldValues: Propogate all top-level properties from the source to
++    ///   \li \c #kXMPUtil_ReplaceOldValues: Propagate all top-level properties from the source to
+     ///   the destination, replacing any existing values. The values of properties in the
+     ///   destination that are not in the source are not modified.<br>
+     ///   The keep-or-replace-old notion also applies within structs and arrays. Top-level
+Index: xmpsdk/src/ParseRDF.cpp
+===================================================================
+--- xmpsdk/src/ParseRDF.cpp	(revision 3601)
++++ xmpsdk/src/ParseRDF.cpp	(working copy)
+@@ -846,7 +846,7 @@
+ // are distinguished by their XML element content.
+ //
+ // NOTE: The RDF syntax does not explicitly include the xml:lang attribute although it can appear in
+-// many of these. We have to allow for it in the attibute counts below.
++// many of these. We have to allow for it in the attribute counts below.
+ 
+ static void
+ RDF_PropertyElement ( XMP_Node * xmpParent, const XML_Node & xmlNode, bool isTopLevel )
+Index: xmpsdk/src/XMPIterator.cpp
+===================================================================
+--- xmpsdk/src/XMPIterator.cpp	(revision 3601)
++++ xmpsdk/src/XMPIterator.cpp	(working copy)
+@@ -241,7 +241,7 @@
+ 		} else {
+ 			
+ 			// -------------------------------------------------------------------------------------------
+-			// Decide what to do with this iteration node based on its state. Don't use a switch statment,
++			// Decide what to do with this iteration node based on its state. Don't use a switch statement,
+ 			// some of the cases want to break from the loop. A break in a switch just exits the case.
+ 			
+ 			#if TraceIterators
+Index: xmpsdk/src/XMPMeta-Parse.cpp
+===================================================================
+--- xmpsdk/src/XMPMeta-Parse.cpp	(revision 3601)
++++ xmpsdk/src/XMPMeta-Parse.cpp	(working copy)
+@@ -1167,7 +1167,7 @@
+ 			
+ 				// We've got some leftover input, process it first then continue with the current
+ 				// buffer. Try to fill the pendingInput buffer before parsing further. We use a loop
+-				// for wierd edge cases like a 2 byte input buffer, using 1 byte for pendingInput,
++				// for weird edge cases like a 2 byte input buffer, using 1 byte for pendingInput,
+ 				// then having a partial UTF-8 end and need to absorb more.
+ 				
+ 				size_t pendingOverlap = kXMLPendingInputMax - parser.pendingCount;
+Index: xmpsdk/src/XMPUtils-FileInfo.cpp
+===================================================================
+--- xmpsdk/src/XMPUtils-FileInfo.cpp	(revision 3601)
++++ xmpsdk/src/XMPUtils-FileInfo.cpp	(working copy)
+@@ -845,7 +845,7 @@
+ 	if ( arrayNode->children.empty() ) goto EXIT;	// ! Need to set the output pointer and length.
+ 	
+ 	// Build the result, quoting the array items, adding separators. Hurl if any item isn't simple.
+-	// Start the result with the first value, then add the rest with a preceeding separator.
++	// Start the result with the first value, then add the rest with a preceding separator.
+ 	
+ 	currItem = arrayNode->children[0];
+ 	

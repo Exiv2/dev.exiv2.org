@@ -1,0 +1,134 @@
+diff --exclude .svn -urwEB exiv2-0.26-svn/CMakeLists.txt exiv2-0.26/CMakeLists.txt
+--- exiv2-0.26-svn/CMakeLists.txt	2017-01-10 13:48:06.238396927 -0500
++++ exiv2-0.26/CMakeLists.txt	2016-12-16 16:58:03.000000000 -0500
+@@ -51,13 +51,14 @@
+ OPTION( EXIV2_ENABLE_VIDEO         "Build video support into library"                      OFF )
+ OPTION( EXIV2_ENABLE_WEBREADY      "Build webready support into library"                   OFF )
+ IF (WIN32)
++    OPTION( EXIV2_ENABLE_DYNAMIC_RUNTIME  "Use dynamic runtime (used for static libs)"     OFF )
+     OPTION( EXIV2_ENABLE_WIN_UNICODE   "Use Unicode paths (wstring) on Windows"            OFF )
+     OPTION( EXIV2_ENABLE_CURL          "USE Libcurl for HttpIo"                            OFF )
+     OPTION( EXIV2_ENABLE_SSH           "USE Libssh for SshIo"                              OFF )
+ ELSE()
+     OPTION( EXIV2_ENABLE_CURL          "USE Libcurl for HttpIo"                            ON  )
+     OPTION( EXIV2_ENABLE_SSH           "USE Libssh for SshIo"                              ON  )
+-
++    SET ( EXIV2_ENABLE_DYNAMIC_RUNTIME OFF )
+ ENDIF()
+ 
+ # set include path for FindXXX.cmake files
+@@ -110,6 +111,7 @@
+ if( MSVC )
+     # cmake_policy(SET CMP0008)
+     ADD_DEFINITIONS(-DPSAPI_VERSION=1) # to be compatible with <= WinVista (#905)
++    set(CMAKE_DEBUG_POSTFIX "d")
+ endif( MSVC )
+ 
+ IF( EXIV2_ENABLE_XMP )
+diff --exclude .svn -urwEB exiv2-0.26-svn/CMake_msvc.txt exiv2-0.26/CMake_msvc.txt
+--- exiv2-0.26-svn/CMake_msvc.txt	2017-01-10 13:47:52.068208403 -0500
++++ exiv2-0.26/CMake_msvc.txt	2016-12-16 16:58:03.000000000 -0500
+@@ -4,10 +4,10 @@
+ 
+ ##
+ # msvc tuning macros
+-macro(msvc_runtime_set_static_ignores bDynamic)
++macro(msvc_runtime_set_static_ignores bDynamic bDynamicRuntime)
+   if(MSVC)
+     # don't link msvcrt for .exe which use shared libraries (use default libcmt)
+-	if ( ${bDynamic} STREQUAL "OFF" )
++	if ( ${bDynamic} STREQUAL "OFF" AND ${bDynamicRuntime} STREQUAL "OFF")
+ 		set(CMAKE_EXE_LINKER_FLAGS_DEBUG          "/NODEFAULTLIB:MSVCRTD")
+ 		set(CMAKE_EXE_LINKER_FLAGS_RELEASE        "/NODEFAULTLIB:MSVCRT")
+ 		set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL     "/NODEFAULTLIB:MSVCRT")
+@@ -17,7 +17,7 @@
+ endmacro()
+ 
+ # http://stackoverflow.com/questions/10113017/setting-the-msvc-runtime-in-cmake
+-macro(msvc_runtime_configure bDynamic)
++macro(msvc_runtime_configure bDynamic bDynamicRuntime)
+   if(MSVC)
+     set(variables
+       CMAKE_C_FLAGS_DEBUG
+@@ -29,7 +29,7 @@
+       CMAKE_CXX_FLAGS_RELEASE
+       CMAKE_CXX_FLAGS_RELWITHDEBINFO
+     )
+-    if( ${bDynamic} STREQUAL "ON" )
++    if( ${bDynamic} STREQUAL "ON" OR ${bDynamicRuntime} STREQUAL "ON")
+       message(STATUS  "MSVC -> forcing use of dynamically-linked runtime." )
+       foreach(variable ${variables})
+         if(${variable} MATCHES "/MT")
+@@ -55,7 +55,7 @@
+         endif()
+       endforeach()
+     endforeach()
+-    msvc_runtime_set_static_ignores(${bDynamic})
++    msvc_runtime_set_static_ignores(${bDynamic} ${bDynamicRuntime})
+   endif()
+ endmacro()
+ 
+diff --exclude .svn -urwEB exiv2-0.26-svn/config/CMakeChecks.txt exiv2-0.26/config/CMakeChecks.txt
+--- exiv2-0.26-svn/config/CMakeChecks.txt	2017-01-10 13:47:55.430253780 -0500
++++ exiv2-0.26/config/CMakeChecks.txt	2016-12-16 16:58:03.000000000 -0500
+@@ -111,6 +111,7 @@
+ IF( EXIV2_ENABLE_WIN_UNICODE )
+ 	IF (WIN32)
+     	SET ( UNICODE_PATH 1 )
++    	SET ( EXV_UNICODE_PATH 1 )
+     ENDIF()
+ ENDIF()
+ 
+@@ -337,6 +338,7 @@
+ OptionOutput( "USE Libssh for SshIo:               " EXIV2_ENABLE_SSH                )
+ endif ( EXIV2_ENABLE_WEBREADY )
+ IF (WIN32)
++OptionOutput( "Dynamic runtime override:           " EXIV2_ENABLE_DYNAMIC_RUNTIME    )
+ OptionOutput( "Unicode paths (wstring):            " EXIV2_ENABLE_WIN_UNICODE        )
+ ENDIF()
+ MESSAGE( STATUS "------------------------------------------------------------------" )
+diff --exclude .svn -urwEB exiv2-0.26-svn/samples/CMakeLists.txt exiv2-0.26/samples/CMakeLists.txt
+--- exiv2-0.26-svn/samples/CMakeLists.txt	2017-01-10 13:47:54.990247868 -0500
++++ exiv2-0.26/samples/CMakeLists.txt	2016-12-23 10:18:34.000000000 -0500
+@@ -42,7 +42,7 @@
+ ##
+ # msvn tuning
+ include(../CMake_msvc.txt)
+-msvc_runtime_configure(${EXIV2_ENABLE_SHARED})
++msvc_runtime_configure(${EXIV2_ENABLE_SHARED} ${EXIV2_ENABLE_DYNAMIC_RUNTIME})
+ 
+ FOREACH(entry ${SAMPLES})
+     STRING( REPLACE ".cpp" "" target ${entry})
+diff --exclude .svn -urwEB exiv2-0.26-svn/src/CMakeLists.txt exiv2-0.26/src/CMakeLists.txt
+--- exiv2-0.26-svn/src/CMakeLists.txt	2017-01-10 13:47:52.084208620 -0500
++++ exiv2-0.26/src/CMakeLists.txt	2016-12-16 16:57:57.000000000 -0500
+@@ -231,7 +231,7 @@
+ # msvn tuning
+ IF( MSVC )
+     include(../CMake_msvc.txt)
+-    msvc_runtime_configure(${EXIV2_ENABLE_SHARED})
++    msvc_runtime_configure(${EXIV2_ENABLE_SHARED} ${EXIV2_ENABLE_DYNAMIC_RUNTIME})
+ ENDIF( MSVC )
+ 
+ # ******************************************************************************
+@@ -309,7 +309,7 @@
+ INSTALL( TARGETS exiv2lib ${INSTALL_TARGET_STANDARD_ARGS} )
+ 
+ include(../CMake_msvc.txt)
+-msvc_runtime_configure(${EXIV2_ENABLE_SHARED})
++msvc_runtime_configure(${EXIV2_ENABLE_SHARED} ${EXIV2_ENABLE_DYNAMIC_RUNTIME})
+ 
+ # ******************************************************************************
+ # exiv2 application
+diff --exclude .svn -urwEB exiv2-0.26-svn/xmpsdk/CMakeLists.txt exiv2-0.26/xmpsdk/CMakeLists.txt
+--- exiv2-0.26-svn/xmpsdk/CMakeLists.txt	2017-01-10 13:47:55.798258723 -0500
++++ exiv2-0.26/xmpsdk/CMakeLists.txt	2016-12-16 16:58:03.000000000 -0500
+@@ -7,7 +7,7 @@
+ # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+ 
+ include(../CMake_msvc.txt)
+-msvc_runtime_configure(${EXIV2_ENABLE_SHARED})
++msvc_runtime_configure(${EXIV2_ENABLE_SHARED} ${EXIV2_ENABLE_DYNAMIC_RUNTIME})
+ 
+ if( POLICY CMP0026 )
+     cmake_policy(SET CMP0026 OLD) # Something to do with location

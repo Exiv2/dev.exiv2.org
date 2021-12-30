@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Use libexiv2 to parse TIFF-file and extract IFD? - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="cj6YFPQv+aiwOtGKoqnhlLgyVe0TjIOJ/3nGrXHzUJ6QczP7hlU1qOVezoYdfu2nh6ABlOJvIjMCWVYlMsq38Q==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Use libexiv2 to parse TIFF-file and extract IFD?</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/146">Anonymous Poster</a> <a title="23 May 2015 14:53" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>I'm working on a DNG-converter for Sony's ARW raw files. I'm already using libexiv2 to read the ARW's EXIF/XMP data. How (if at all) can I use libexiv2 to extract a single IFD from the ARW (Tiff-format) as a binary stream/buffer?</p>
+
+
+	<p>Background: I would like to preserve Sony's proprietary information in a DNGPrivate data field. Sony cameras write their prop information in 2 places<br /> - their MakerNote<br /> - a special "SR2"-IFD in the raw-file (with multiple sub-IFDs) with about 56 kb of data</p>
+
+
+	<p>The former, I can read fine through Exiv2::ExifData and the "Exif.Photo.MakerNote" (plus Exif.MakerNote.Offset, Exif.MakerNote.ByteOrder) tags. I'm struggling with the latter. I've been reading through the API docs and the TIFF-classes but am a bit confused. Ideally, I would construct the TIFF-structure "tree" and then extract one IFD as a binary stream.</p>
+
+
+	<p>Is this possible with libexiv2? Would appreciate any pointers.</p>
+
+
+	<p>Many thanks!</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (11)</h3>
+  <div class="message reply" id="message-2092">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2091?r=2092#message-2092">RE: Use libexiv2 to parse TIFF-file and extract IFD?</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="23 May 2015 16:29" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi,</p>
+
+
+	<p>Do you will write an open source DNG conveter or a closed source ?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2093">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2091?r=2093#message-2093">RE: Use libexiv2 to parse TIFF-file and extract IFD?</a>
+    -
+    Added by <a class="user active" href="/users/146">Anonymous Poster</a> <a title="23 May 2015 16:58" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm not starting from scratch but am building on <a class="external" href="https://github.com/jmue/dngconvert">https://github.com/jmue/dngconvert</a>, which I believe is based on your Digikam work.</p>
+
+
+	<p>My goal is just to optimise the code base for my Sony A7's raw files and bring it as close to Adobe's DNG-converter as possible (e.g., decoding the embedded lens profiles, etc). Had only my own use in mind but happy to publish back if anybody is interested.</p>
+
+
+	<p>Thanks for your work btw - wouldn't have been able to start this from scratch! Your old blog-entries were also helpful to get into the topic.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2094">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2091?r=2094#message-2094">RE: Use libexiv2 to parse TIFF-file and extract IFD?</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="23 May 2015 17:11" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Absolutely. Jens has work on digiKam DNGConverter.</p>
+
+
+	<p>The last code is in kipi tool. Why not to help us to improve this code instead to work on a forked implementation. As I use Sony Camera, i'm interested by this topic...</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2095">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2091?r=2095#message-2095">RE: Use libexiv2 to parse TIFF-file and extract IFD?</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="23 May 2015 17:13" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>And to respond to you original question i think yes it's possible. I remember to have played with private TIFF tag in DNGConverter.</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2096">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2091?r=2096#message-2096">RE: Use libexiv2 to parse TIFF-file and extract IFD?</a>
+    -
+    Added by <a class="user active" href="/users/146">Anonymous Poster</a> <a title="23 May 2015 17:52" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Sure. If you're interested in the Sony-format, I have documented my findings on the embedded lens-correction data in 3 postings here: <a class="external" href="https://variousphotography.wordpress.com/">https://variousphotography.wordpress.com/</a></p>
+
+
+	<p>If anybody could point me to the right entry class to parse the Tiff-file and extract the IFD, would be really helpful. Thanks!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2097">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2091?r=2097#message-2097">RE: Use libexiv2 to parse TIFF-file and extract IFD?</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="23 May 2015 20:20" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Look in DNG converter core code. It's a low level implementation. You have also a CLI tool to not use GUI :</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/extragear/graphics/kipi-plugins/repository/revisions/master/show/dngconverter/dngwriter">https://projects.kde.org/projects/extragear/graphics/kipi-plugins/repository/revisions/master/show/dngconverter/dngwriter</a></p>
+
+
+	<p>In extra sub folder you will found DNG sdk and XMP sdk from Adobe. You can forget these parts. The main class is DNGWriter, and especially here :</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/extragear/graphics/kipi-plugins/repository/revisions/master/entry/dngconverter/dngwriter/dngwriter.cpp#L1012">https://projects.kde.org/projects/extragear/graphics/kipi-plugins/repository/revisions/master/entry/dngconverter/dngwriter/dngwriter.cpp#L1012</a></p>
+
+
+	<p>...where Sony markernotes must be migrated from ARW to DNG.</p>
+
+
+	<p>Look also here :</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/extragear/graphics/kipi-plugins/repository/revisions/master/entry/dngconverter/dngwriter/dngwriter.cpp#L1055">https://projects.kde.org/projects/extragear/graphics/kipi-plugins/repository/revisions/master/entry/dngconverter/dngwriter/dngwriter.cpp#L1055</a></p>
+
+
+	<p>...where private markernotes TIFF tag is copied from original RAW.</p>
+
+
+	<p>In this code we use KPMetadata class, which is based on libkexiv2, which is a C++ wrapper for Exiv2 library :</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/kde/kdegraphics/libs/libkexiv2/repository">https://projects.kde.org/projects/kde/kdegraphics/libs/libkexiv2/repository</a></p>
+
+
+	<p>All patches are welcome for DNGWriter</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2098">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2091?r=2098#message-2098">RE: Use libexiv2 to parse TIFF-file and extract IFD?</a>
+    -
+    Added by <a class="user active" href="/users/146">Anonymous Poster</a> <a title="24 May 2015 12:21" href="/projects/exiv2/activity?from=2015-05-24">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks, I'm reusing that code. My problem is that Sony has proprietary information in 2 places (the MakerNote and another 'SR2'-IFD in the file). Your code copies the MakerNote fine (into the Adobe 'MakN' blob), Adobe's DNG-converter also copies the additional IFD (into an Adobe "SR2 " blob - can also be seen in the DNG SDK - dng_info.cpp). Since, I want to stay close to Adobe's version, I'm trying to add that (you can argue what's the 'right' behaviour, since the DNG-specification doesn't anything about it - but Adobe's process is "standard" when it comes to DNGs).</p>
+
+
+	<p>However, after re-reading the Exiftool (which can read this IFD) code/docs and spending some more time in a hex-editor, I realised that Sony stores the IFD-offset in a non-standard way under the DNGPrivateData tag. To my understanding, Exiv2 can currently not decode that, so will try to develop my own parsing.</p>
+
+
+	<p>Thanks for your help so far!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2099">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2091?r=2099#message-2099">RE: Use libexiv2 to parse TIFF-file and extract IFD?</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="24 May 2015 12:52" href="/projects/exiv2/activity?from=2015-05-24">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>Thanks, I'm reusing that code. My problem is that Sony has proprietary information in 2 places (the MakerNote and another 'SR2'-IFD in the file). Your code copies the MakerNote fine (into the Adobe 'MakN' blob), Adobe's DNG-converter also copies the >additional IFD (into an Adobe "SR2 " blob - can also be seen in the DNG SDK - dng_info.cpp). Since, I want to stay close to Adobe's version, I'm trying to add that (you can argue what's the 'right' behaviour, since the DNG-specification doesn't anything about it >- but Adobe's process is "standard" when it comes to DNGs).</p>
+
+
+</blockquote>
+
+	<p>well, it's a too specifc task for a simple RAW to DNG converter. It out of my mind when i designed this tool.</p>
+
+
+<blockquote>
+
+	<p>However, after re-reading the Exiftool (which can read this IFD) code/docs and spending some more time in a hex-editor, I realised that Sony stores the IFD-offset in a non-standard way under the DNGPrivateData tag. To my understanding, Exiv2 can currently >not decode that, so will try to develop my own parsing.</p>
+
+
+</blockquote>
+
+	<p>Well, this issue is a specific feature for Exiv2. Or perhaps somebody as Andreas who know better than me Exiv2 code arcane can give some pointer about this problem.</p>
+
+
+<blockquote>
+
+	<p>Thanks for your help so far!</p>
+
+
+</blockquote>
+
+	<p>In all cases, if you have patch for DNGConverter to improve it, i will be happy to review and include in repository.</p>
+
+
+	<p>Best</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2100">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2091?r=2100#message-2100">RE: Use libexiv2 to parse TIFF-file and extract IFD?</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="24 May 2015 15:34" href="/projects/exiv2/activity?from=2015-05-24">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Anonymous Poster wrote:</p>
+
+
+<blockquote>
+
+	<p>To my understanding, Exiv2 can currently not decode that, so will try to develop my own parsing.</p>
+
+
+</blockquote>
+
+	<p>Please contribute your changes back to exiv2 so that everyone can benefit rather then having to re-invent the wheel.</p>
+
+
+	<p>The wiki has details on getting and building the source code: <a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki">http://dev.exiv2.org/projects/exiv2/wiki</a></p>
+
+
+	<p>To get started: <pre>  $ svn checkout svn://dev.exiv2.org/svn/trunk </pre></p>
+
+
+	<p>You are probably best running the latest code from trunk for the type of project you are working on anyway.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2101">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2091?r=2101#message-2101">RE: Use libexiv2 to parse TIFF-file and extract IFD?</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="26 May 2015 22:42" href="/projects/exiv2/activity?from=2015-05-26">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Anonymous, how is the parsing going?</p>
+
+
+	<p>Also wondering if you have seen the documentation on TIFF files on the exiv2 wiki? </p>
+	<pre><code>[[<a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/The_Metadata_in_TIFF_files">http://dev.exiv2.org/projects/exiv2/wiki/The_Metadata_in_TIFF_files</a>]]</code></pre></div>
+  
+  </div>
+  <div class="message reply" id="message-2103">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2091?r=2103#message-2103">RE: Use libexiv2 to parse TIFF-file and extract IFD?</a>
+    -
+    Added by <a class="user active" href="/users/146">Anonymous Poster</a> <a title="28 May 2015 15:40" href="/projects/exiv2/activity?from=2015-05-28">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks. Hadn't seen it but I have solved my problem by now with some workarounds.</p>
+
+
+	<p>Basically in Sony ARWs, the DNGPrivateDataTag points to a "SR2"-IFD, containing (amongst other things) offset, length and encryption tags for a SubIFD, which contains the proprietary data I'm after.</p>
+
+
+	<p>I'm reading the SR2-IFD through BasicIO, then create a 'fake' TIFF-header and ending around it, feed the whole thing into TiffParser::decode, extract the relevant tags through ExifData.findKey() and read the final SubIFD again through BasicIO.</p>
+
+
+	<p>Bit complex but works. :-)</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-11/11)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

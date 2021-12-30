@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1291: MSVC: Public header pulls ins unnecessary headers and libraries - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="mhCJp4lUXK+3feevNuF0CcEe58HjHJP+4jNZesoWOhB4XSJI+y6Qr+IZ+KOJNng6/oyzuBL/MkQfE8nyiS/dfw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1291: MSVC: Public header pulls ins unnecessary headers and libraries" href="https://dev.exiv2.org/issues/1291.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1291</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>MSVC: Public header pulls ins unnecessary headers and libraries</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4008">T Modes</a> <a title="22 Apr 2017 16:53" href="/projects/exiv2/activity?from=2017-04-22">over 4 years</a> ago.
+        Updated <a title="24 Apr 2017 19:33" href="/projects/exiv2/activity?from=2017-04-24">over 4 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">22 Apr 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">5.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>When using libexiv2 from other program (e.g. using the shared library interface) the public header pull in now unnecessary other headers and libraries.<br />Unconditional the headers<br /><code>#include &lt;winsock2.h&gt;<br />#include &lt;windows.h&gt;<br />#include &lt;shlobj.h&gt;</code><br />are pulled in from <code>include/exiv2/config.h</code>. But these includes are not needed in public headers! Even worst it pulls these headers also into each calling program, what is not always wanted.<br />The same applies that now 2 libraries are also pulled into each calling program:<br /><code>#pragma comment(lib, "ws2_32.lib")<br />#pragma comment(lib, "wldap32.lib")</code><br />which is totally unneeded when using the shared exiv2 library.</p>
+
+
+	<p>These includes should be removed from the public headers. They should only be used in the private/internal files where needed, but not unconditional in the public headers.<br />Also the pragmas need to be moved into the internal source files, to correctly link the DLL.<br />(Maybe in static builds the pragma can be used in the public header, but only for static case. But why is then only ws2_32.lib linked this way, but not zlib.lib and xmpsdk.lib. This would be not consistent.)</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1153">incl_win.patch</a>    <span class="size">(700 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1153/incl_win.patch">incl_win.patch</a>  </td>
+  <td>Patch</td>
+  <td>
+      <span class="author">T Modes, 23 Apr 2017 16:14</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4761" href="/projects/exiv2/repository/exiv2/revisions/4761">Revision 4761</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4761/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 11:57" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: MSVC: Public header pulls ins unnecessary headers and libraries (Closed)" href="/issues/1291">#1291</a> Fix submitted.  Thank You to T Modes for reporting this issue.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4762" href="/projects/exiv2/repository/exiv2/revisions/4762">Revision 4762</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4762/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 16:28" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: MSVC: Public header pulls ins unnecessary headers and libraries (Closed)" href="/issues/1291">#1291</a>  Thank you to T Modes for reporting this and providing this patch.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4763" href="/projects/exiv2/repository/exiv2/revisions/4763">Revision 4763</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4763/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 17:31" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: MSVC: Public header pulls ins unnecessary headers and libraries (Closed)" href="/issues/1291">#1291</a> include header simplification</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4764" href="/projects/exiv2/repository/exiv2/revisions/4764">Revision 4764</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4764/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 19:29" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: MSVC: Public header pulls ins unnecessary headers and libraries (Closed)" href="/issues/1291">#1291</a> Reverting change in <a class="changeset" title="#1291 include header simplification" href="/projects/exiv2/repository/exiv2/revisions/4763">r4763</a> relating to windows.h as they break the Cygwin build.  Retain changes in exiv2/exiv2.hpp and exv_msvc.h</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5951" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Apr 2017 17:10" href="/projects/exiv2/activity?from=2017-04-22">over 4 years</a> ago
+      <span id="journal-5951-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>build</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>10</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-5951-notes" class="wiki"><p>T</p>
+
+
+	<p>Are you sure these aren't needed (both the headers and the linker statements)?</p>
+
+
+	<p>To answer your question concerning the different strategy for zlib, expat and xmpsdk the honest answer is "it's been that way since the beginning of our support for MSVC".  However there is another reason and that is that expat, zlib and xmpsdk are optional links.  The python program configure.py can rewrite the project/solution files to omit zlib, expat and xmpsdk.  Linking winsock is not optional.  All exiv2 applications can perform IO with class HttpIo which requires winsock.</p>
+
+
+	<p>IO in Exiv2 is handled by the code in basicio.cpp.  All versions of the library and sample applications can use the HttpIo object which requires access to WinSock and other Windows specific code.  I could include those headers in BasicIo.cpp and remove them from config.h</p>
+
+
+	<p>I have a couple of questions:</p>
+
+
+	<p>1) What harm is this causing?<br />2) Why does this need to be changed?</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5952" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4008">T Modes</a> <a title="22 Apr 2017 18:03" href="/projects/exiv2/activity?from=2017-04-22">over 4 years</a> ago
+      <span id="journal-5952-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5952-notes" class="wiki"><blockquote>
+
+	<p>Are you sure these aren't needed (both the headers and the linker statements)?</p>
+
+
+</blockquote>
+
+	<p>Yes. (I removed them in my local build and it still compiles and works. I removed the includes and pragmas from config.h, only <code>#include &lt;windows.h&gt;</code> was needed in rwlock.hpp and <code>#pragma comment(lib, "ws2_32.lib")</code> in http.cpp, nothing in basicio.cpp) <br />In version 0.25 these includes were not in config.h and it worked fine. And in 0.26 the API has not changed as far as I can see. So there are no additional requirements in the public headers which would require the additional headers.</p>
+
+
+<blockquote>
+
+	<p>All exiv2 applications can perform IO with class HttpIo which requires winsock.</p>
+
+
+</blockquote>
+
+	<p>But only exiv2.dll requires winsock.lib, not the calling program - because all call to the http are capsuled into the dynamic library. The calling program does not know about these internal and therefore don't need it.</p>
+
+
+	<p>After removing the pragma and compiling with MSVC 2015 I get the following dependency charts with Dependency Walker:<br /><pre>
+[  6] EXIV2.EXE
+     [  6] KERNEL32.DLL
+     [  6] EXIV2.DLL  &lt;---
+          [ ^6] KERNEL32.DLL
+          [  6] SHELL32.DLL
+          [  6] ZLIB.DLL
+          [ ^6] MSVCP140.DLL
+          [ ^6] WS2_32.DLL         &lt;---
+          [  6] PSAPI.DLL
+          [ ^6] VCRUNTIME140.DLL
+          [ ^6] API-MS-WIN-CRT-RUNTIME-L1-1-0.DLL
+          [ ^6] API-MS-WIN-CRT-STDIO-L1-1-0.DLL
+          [ ^6] API-MS-WIN-CRT-FILESYSTEM-L1-1-0.DLL
+          [ ^6] API-MS-WIN-CRT-HEAP-L1-1-0.DLL
+          [ ^6] API-MS-WIN-CRT-CONVERT-L1-1-0.DLL
+          [ ^6] API-MS-WIN-CRT-TIME-L1-1-0.DLL
+          [ ^6] API-MS-WIN-CRT-MATH-L1-1-0.DLL
+          [ ^6] API-MS-WIN-CRT-ENVIRONMENT-L1-1-0.DLL
+          [ ^6] API-MS-WIN-CRT-STRING-L1-1-0.DLL
+          [  6] EXPAT.DLL
+     [  6] MSVCP140.DLL
+     [  6] VCRUNTIME140.DLL
+     [  6] API-MS-WIN-CRT-RUNTIME-L1-1-0.DLL
+     [  6] API-MS-WIN-CRT-STDIO-L1-1-0.DLL
+     [  6] API-MS-WIN-CRT-FILESYSTEM-L1-1-0.DLL
+     [  6] API-MS-WIN-CRT-HEAP-L1-1-0.DLL
+     [  6] API-MS-WIN-CRT-STRING-L1-1-0.DLL
+     [  6] API-MS-WIN-CRT-CONVERT-L1-1-0.DLL
+     [  6] API-MS-WIN-CRT-TIME-L1-1-0.DLL
+     [  6] API-MS-WIN-CRT-ENVIRONMENT-L1-1-0.DLL
+     [  6] API-MS-WIN-CRT-MATH-L1-1-0.DLL
+     [  6] API-MS-WIN-CRT-LOCALE-L1-1-0.DLL
+</pre><br />You see only exiv2.dll loads WS2_32.DLL, but not exiv2.exe.</p>
+
+
+<blockquote>
+
+	<p>I have a couple of questions:</p>
+
+
+	<p>1) What harm is this causing?</p>
+
+
+</blockquote>
+
+	<p>It breaks the compilation of programs using libexiv2 (Hugin in my case, maybe also other programs). <br />It works fine with exiv2 0.25. (And I see no further changes in the normal headers exif.hpp, image.hpp and so on, only config.h changed).<br />Even it I could fix the compilation issues it would pull in these additional libraries, which I don't need and want.</p>
+
+
+<blockquote>
+
+	<p>2) Why does this need to be changed?</p>
+
+
+</blockquote>
+
+	<p>See point 1)<br />This way you are also mixing config variables and program logic (which types and functions are needed from other libs).<br />IMHO the public header should only include these headers which are needed in the public interface. Winsock2.h and the other one are not needed in the public interface.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5953" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Apr 2017 18:20" href="/projects/exiv2/activity?from=2017-04-22">over 4 years</a> ago
+      <span id="journal-5953-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>10</i> to <i>20</i></li>
+    </ul>
+    <div id="journal-5953-notes" class="wiki"><p>Thank you for a very thorough answer.  I regret this has caused issues with Hugin.  I will change this in the next 24 hours.</p>
+
+
+	<p>I can't even remember changing this between v0.25 and v0.26.  I think I discovered a load of MSVC specific code in different files and thought "I'll consolidate this in one location and avoid duplication in various files.".  However you're right, once exiv2 knows to load winsock, the calling applications do not need to link him unless  they use winsock directly.</p>
+
+
+	<p>One of our commercial licensees shipped a product in March with <em>more/or/less</em> Exiv2 v0.26.  They have a test suite of 200,000 files.  I wish I'd known about this when they were doing a LOT of testing in February.  None the less, your explanation is compelling and I will modify the code and run our test suite.</p>
+
+
+	<p>Thank You very much for reporting this and putting forward a strong case to support your request.  It will be so!</p>
+
+
+	<p>Incidentally, I gave a 4-minute "lightning" presentation at LGM in Rio today.  <a class="external" href="https://www.youtube.com/watch?v=3Fv57Lbhmqg">https://www.youtube.com/watch?v=3Fv57Lbhmqg</a></p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5954" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 12:09" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago
+      <span id="journal-5954-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5954-notes" class="wiki"><p>T:</p>
+
+
+	<p>Fix submitted: <a class="changeset" title="#1291 Fix submitted.  Thank You to T Modes for reporting this issue." href="/projects/exiv2/repository/exiv2/revisions/4761">r4761</a></p>
+
+
+	<p>I have retained the <em><code>#include &lt;windows.h&gt;</code></em> in config.h.  That's required by rwlock.hpp and I've moved the pragma to link winsock into http.cpp.  class HttpIo in basicio.cpp uses http.cpp to perform the socket io.  So basicio.cpp does not use winsock and is unchanged.</p>
+
+
+	<p>Can you review these changes in the Hugin build and confirm that we are closed on this matter.</p>
+
+
+	<p>I think I can remove the <em><code>#include &lt;windows.h&gt;</code></em> if I do some refactoring of rwlock.hpp  However if you are happy with the fix in <a class="changeset" title="#1291 Fix submitted.  Thank You to T Modes for reporting this issue." href="/projects/exiv2/repository/exiv2/revisions/4761">r4761</a>, I'd prefer not to touch rwlock.hpp as I didn't write that code.</p>
+
+
+	<p>I'm hoping to publish the v0.26 release in the next few days.  I won't release it until you've had a chance to look <a class="changeset" title="#1291 Fix submitted.  Thank You to T Modes for reporting this issue." href="/projects/exiv2/repository/exiv2/revisions/4761">r4761</a>.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5955" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4008">T Modes</a> <a title="23 Apr 2017 14:18" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago
+      <span id="journal-5955-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5955-notes" class="wiki"><p>Hi Robin,</p>
+
+
+	<p>thanks for the fix. It is a step forward. I'm getting less errors. <br />If the &lt;windows.h&gt; is only needed by rwlook.hpp, it should be moved into that file.</p>
+
+
+	<p>In rwlock.hpp we have already<br /><code><br />#ifndef _MSC_VER<br />#include &lt;pthread.h&gt;<br />#endif<br /></code><br />changing this to<br /><code><br />ifdef _MSC_VER<br />#include &lt;windows.h&gt;<br />#else<br />#include &lt;pthread.h&gt;<br />#endif<br /></code><br />This would be in accordance with the code below which is also divided into 3 sections.<br />In my test it works fine and fixes my problems. (I can remove #include &lt;windows.h&gt; from config.h)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5956" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 14:38" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago
+      <span id="journal-5956-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5956-notes" class="wiki"><p>T:</p>
+
+
+	<p>Not so fast.  rwlock.hpp has inline code that requires &lt;windows.h&gt;.  rwlock is needed by properties.hpp which is included in include/exiv2/exiv2.hpp.   So &lt;windows.h&gt; will be pulled in by the public headers.  The fix is to refactor rwlock.hpp into rwlock.hpp and rwlock.cpp and &lt;windows.h&gt; is only required in rwlock.cpp  This can be done of course - it's only work and I wanted to get your feedback before doing that.</p>
+
+
+	<p>I'll get on with this.  It shouldn't take long <em>(we know that's not true, a new file will break something in the build)</em>.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5957" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4008">T Modes</a> <a title="23 Apr 2017 15:00" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago
+      <span id="journal-5957-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5957-notes" class="wiki"><p>Robin,</p>
+
+
+	<p>include/exiv2/exiv2.hpp pulls also now &lt;windows.h&gt; via config.h -> futils.hpp/types.hpp -> include/exiv2/exiv2.hpp.<br />So my proposal would only move down nearer to the place where needed.<br />So moving down the include does not affect the public headers (no need for new files), but would fixes the error for me.</p>
+
+
+	<p>For explanation: Hugin does not include &lt;exiv2/exiv2.hpp&gt;, it includes only the necessary headers exif.hpp, easyaccess.hpp and image.hpp, which pull now into &lt;windows.h&gt; via types.hpp -> config.h.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5958" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 15:47" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago
+      <span id="journal-5958-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5958-notes" class="wiki"><p>Ah.  My recommended way to use exiv2 is:<pre>#include &lt;exiv2/exiv2.hpp&gt;</pre>  That's what all our sample code does.</p>
+
+
+	<p>I've moved include &lt;windows.h&gt; into rwlock.hpp:<pre>...
+#ifndef RW_LOCK_HPP
+#define RW_LOCK_HPP
+
+#ifdef   _MSC_VER
+#include &lt;windows.h&gt;
+#else
+#include &lt;pthread.h&gt;
+#endif
+
+namespace Exiv2 {
+...</pre></p>
+
+
+	<p>Can you send me a patch of what is working for you?</p>
+
+
+	<p>// Here's a note that I prepared earlier after investigating refactoring rwlock.hpp.</p>
+
+
+	<p>I've had a look into this.  Not so easy.  There's a static RWLock in properties.hpp.  <em><code>class RWLock</code></em> is platform dependent.  On MSVC <= 2012, it has a private <em><code>CRITICAL_SECTION</code></em>, else an <em><code>SRWLOCK</code></em>.  So rwlock.hpp still needs &lt;windows.h&gt; for those private members of <em><code>class RWLock</code></em>.  The work-around is to declare RWLock with a private member <em><code>char lock[80]</code></em> and memcpy a CRITICAL_SECTION/SRWLOCK into lock.  Loads of casts and stuff, however the only code that would really know what's in lock is rwlock.cpp  This would be a mess who's only purpose is to avoid having &lt;windows.h&gt; included by include/exiv2/exiv2.hpp  I don't feel it's a pain to include &lt;windows.h&gt; when building with MSVC.</p>
+
+
+	<p>Incidentally, a user sent me the rwlock.hpp code.  I do not like locks.  Multi-threading is subtle and locks are seldom a good idea.   However, I try to give everybody what they want and I accepted the rwlock.hpp code.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5959" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 16:08" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago
+      <span id="journal-5959-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>20</i> to <i>80</i></li>
+       <li><strong>Estimated time</strong> changed from <i>2.00 h</i> to <i>4.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5960" class="journal has-notes has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4008">T Modes</a> <a title="23 Apr 2017 16:14" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago
+      <span id="journal-5960-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1153">incl_win.patch</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1153/incl_win.patch">incl_win.patch</a> added</li>
+    </ul>
+    <div id="journal-5960-notes" class="wiki"><p>I have attached the patch, that works for me. (It's mainly in the form you have already written.)</p>
+
+
+<blockquote>
+
+	<p>Ah. My recommended way to use exiv2 is:</p>
+
+
+</blockquote>
+
+<blockquote>
+
+	<p>#include &lt;exiv2/exiv2.hpp&gt;</p>
+
+
+</blockquote>
+
+<blockquote>
+
+	<p>That's what all our sample code does.</p>
+
+
+</blockquote>
+
+	<p>I inherited the code. It is long time in this form. And there are many other libraries used by Hugin, so often there are conflicts/interferences between them (often only a small change can make a difference).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5961" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 16:52" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago
+      <span id="journal-5961-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>80</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-5961-notes" class="wiki"><p>Fix submitted <a class="changeset" title="#1291  Thank you to T Modes for reporting this and providing this patch." href="/projects/exiv2/repository/exiv2/revisions/4762">r4762</a>.  I reverted my local changes and submitted your patch.  Your changes and mine seem to be identical.</p>
+
+
+	<p>Thank You for working with me on this.  In software: 1+1=3.</p>
+
+
+	<p>The include &lt;foo&gt; is a preprocessor monstrosity.  Tiny changes in order of includes can be devastating and very difficult to debug.  That's why I modified all our samples to use include &lt;exiv2/exiv2.hpp&gt;.  If you only need to include one thing, what can go wrong?  (<em>answer: many many things can go wrong</em>).</p>
+
+
+	<p>&lt;windows.h&gt; is now only included in one library header:<pre>517 rmills@rmillsmbp:~/gnu/exiv2/trunk $ for d in src samples include ; do find $d -name "*hpp" -exec grep -H windows\.h {} \; ; done
+src/exiv2app.hpp:#include &lt;windows.h&gt;
+include/exiv2/rwlock.hpp:#include &lt;windows.h&gt;
+518 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre></p>
+
+
+	<p>Incidentally, I see windows.h is included in loads of places.  I've been working on this code for 9 years and I learn new things about it every day. <pre>515 rmills@rmillsmbp:~/gnu/exiv2/trunk $ for d in src samples include ; do find $d -name "*pp" -exec grep -H windows\.h {} \; ; done
+src/basicio.cpp:# include &lt;windows.h&gt;
+src/convert.cpp:# include &lt;windows.h&gt;
+src/exiv2app.hpp:#include &lt;windows.h&gt;
+src/http.cpp:#include &lt;windows.h&gt;
+src/jpgimage.cpp:#include &lt;windows.h&gt;
+src/makernote.cpp:#include &lt;windows.h&gt;
+src/types.cpp:# include &lt;windows.h&gt; // for MultiByteToWideChar etc
+src/version.cpp:#include &lt;windows.h&gt;
+src/version.cpp:# include &lt;windows.h&gt;
+samples/exiv2json.cpp:#include &lt;windows.h&gt;
+samples/geotag.cpp:#include &lt;windows.h&gt;
+include/exiv2/rwlock.hpp:#include &lt;windows.h&gt;
+516 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I think I'll remove all those pointless references in the .cpp files.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5962" class="journal has-notes has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 17:37" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago
+      <span id="journal-5962-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>4.00 h</i> to <i>5.00 h</i></li>
+    </ul>
+    <div id="journal-5962-notes" class="wiki"><p><a class="changeset" title="#1291 include header simplification" href="/projects/exiv2/repository/exiv2/revisions/4763">r4763</a></p>
+
+
+	<p>1) Reviewed and simplified references to windows.h.<br />2) modified exiv2/exiv2.hpp to reference files such as exiv2/types.hpp instead of types.hpp.  This will eliminate the possibility that types.hpp is read from a totally different library.  <br />3) Bumped the version to 0.26 in exv_msvc.h and exv_msvc-webready</p>
+
+
+	<p>T:<br />Can you build Hugin with this set of headers, please?<br />If you're good, I won't touch this stuff any more (unless there's a build issue on another platform such as CYGWIN or MINGW).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5963" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 19:45" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago
+      <span id="journal-5963-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5963-notes" class="wiki"><p><a class="changeset" title="#1291 Reverting change in r4763 relating to windows.h as they break the Cygwin build.  Retain cha..." href="/projects/exiv2/repository/exiv2/revisions/4764">r4764</a></p>
+
+
+	<p>I reverted the changes concerning windows.h in <a class="changeset" title="#1291 include header simplification" href="/projects/exiv2/repository/exiv2/revisions/4763">r4763</a> because they broke the cygwin build.  However I've retained the changes in exiv2/exiv2.hpp and exv_msvc.h as they are important/valid changes.  I don't expect the changes to exiv2/exiv2.hpp and exv_msvc.h to impact Hugel.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5971" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4008">T Modes</a> <a title="24 Apr 2017 15:48" href="/projects/exiv2/activity?from=2017-04-24">over 4 years</a> ago
+      <span id="journal-5971-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5971-notes" class="wiki"><p>At least for rwlock.hpp I have used <code>#ifdef _MSC_VER</code> intentionally (and not <code>defined (__WIN32)</code> or <code>... defined(__CYGWIN__) || defined(__MINGW__)</code>). The code in rwlock.hpp provide 3 different implementations: 2 for MS Visual Studio compilers of different ages, these needs &lt;windows.h&gt; for implementation because of the used functions. All other compiler (so cygwin, MinGW, gcc, and so on) use an implementation for class RWLock based on &lt;pthread.h&gt; (see also line 145 in rwlock.hpp). This implementation does not need &lt;windows.h&gt; and so the inclusion of defined (<i>CYGWIN</i>) and defined(<i>MINGW</i>) was not needed in this file (and not included in my patch).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5973" class="journal has-notes">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Apr 2017 17:30" href="/projects/exiv2/activity?from=2017-04-24">over 4 years</a> ago
+      <span id="journal-5973-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5973-notes" class="wiki"><p>T:</p>
+
+
+	<p>So where are we now?  Do you have a build issue when you build Hugin with <a class="changeset" title="#1291 Reverting change in r4763 relating to windows.h as they break the Cygwin build.  Retain cha..." href="/projects/exiv2/repository/exiv2/revisions/4764">r4764</a>?</p>
+
+
+	<p>Your analysis is correct.  rwlock.hpp has three platform dependent implementations.  <pre>535 rmills@rmillsmbp:~/gnu/exiv2/trunk $ grep -e '#' include/exiv2/rwlock.hpp 
+#ifndef RW_LOCK_HPP
+#define RW_LOCK_HPP
+#ifdef _MSC_VER
+#include &lt;windows.h&gt;
+#else
+#include &lt;pthread.h&gt;
+#endif
+#ifdef _MSC_VER
+#if _MSC_VER &gt;= 1800
+#else
+#if defined(MSDEV_2003) || defined(MSDEV_2005)
+#else
+#endif
+#endif
+#else
+#endif
+#endif // RW_LOCK_HPP
+536 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I believe the code you mention (involving MINGW and CYGWIN) resides in basicio.cpp (and something similar in actions.cpp, exiv2.cpp, http.cpp, makernote.cpp, utils.cpp, minoltamn.cpp and version.cpp)  In <a class="changeset" title="#1291 include header simplification" href="/projects/exiv2/repository/exiv2/revisions/4763">r4763</a>, I attempted to simplify and broke the build.  So in <a class="changeset" title="#1291 Reverting change in r4763 relating to windows.h as they break the Cygwin build.  Retain cha..." href="/projects/exiv2/repository/exiv2/revisions/4764">r4764</a>, I reverted the simplification.</p>
+
+
+	<p>I'm sure I could review and simplify all code using MINGW and CYGWIN and MSC_VER.  All of that code was introduced over the years.  Yesterday, I stood back and asked the question "can this be simplified?".  My priority at the moment is to release v0.26 and I don't want to get involved in changing anything unless it is indisputably broken.</p>
+
+
+	<p>Is there something else we must do here?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5974" class="journal has-notes">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4008">T Modes</a> <a title="24 Apr 2017 18:28" href="/projects/exiv2/activity?from=2017-04-24">over 4 years</a> ago
+      <span id="journal-5974-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5974-notes" class="wiki"><p>Hi Robin</p>
+
+
+<blockquote>
+
+	<p>So where are we now? Do you have a build issue when you build Hugin with <a class="changeset" title="#1291 Reverting change in r4763 relating to windows.h as they break the Cygwin build.  Retain cha..." href="/projects/exiv2/repository/exiv2/revisions/4764">r4764</a>?</p>
+
+
+</blockquote>
+
+	<p>It build all fine on my side. Thanks again for your help.</p>
+
+
+<blockquote>
+
+	<p>Yesterday, I stood back and asked the question "can this be simplified?".<br />My priority at the moment is to release v0.26 and I don't want to get <br />involved in changing anything unless it is indisputably broken.</p>
+
+
+</blockquote>
+
+	<p>I agree. It can maybe improved. But this is no task so short before a release.</p>
+
+
+<blockquote>
+
+	<p>Is there something else we must do here?</p>
+
+
+</blockquote>
+
+	<p>From my side there is nothing open.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5975" class="journal has-notes">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Apr 2017 19:33" href="/projects/exiv2/activity?from=2017-04-24">over 4 years</a> ago
+      <span id="journal-5975-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5975-notes" class="wiki"><p>Good.  I'm glad we're closed on this.</p>
+
+
+	<p>We're very close to release, so I don't want to change anything unless it is essential.  The other concern is that it's very easy to break the build with a thing like this.  We're supporting 6 different Microsoft Compilers, clang on Mac and various editions of GCC on Linux, MinGW and Cygwin.  And autotools/CMake and Visual Studio solution/project files.  A change can easily upset another platform.  The buildserver builds and tests everything every night.  However chasing down and smoothing everything is work I just don't want!</p>
+
+
+	<p>Glad we're done on this. Good Luck on Hugin.  I'm sure that's another demanding effort.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1291.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1291.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

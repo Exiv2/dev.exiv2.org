@@ -1,0 +1,57 @@
+diff -urwEB exiv2-0.26.org/src/basicio.cpp exiv2-0.26.delete/src/basicio.cpp
+--- exiv2-0.26.org/src/basicio.cpp	2017-01-03 12:16:25.000000000 -0500
++++ exiv2-0.26.delete/src/basicio.cpp	2017-01-19 13:55:21.000000000 -0500
+@@ -577,6 +577,10 @@
+ #else
+         nlink_t nlink = buf.st_nlink;
+ #endif
++#ifdef EXV_UNICODE_PATH
++        std::wstring wtmpname;
++#endif
++        std::string tmpname;
+ 
+         // If file is > 1MB and doesn't have hard links then use a file, otherwise
+         // use a memory buffer. I.e., files with hard links always use a memory
+@@ -586,23 +590,39 @@
+             std::auto_ptr<FileIo> fileIo;
+ #ifdef EXV_UNICODE_PATH
+             if (p_->wpMode_ == Impl::wpUnicode) {
+-                std::wstring tmpname = wpath() + s2ws(toString(pid));
+-                fileIo = std::auto_ptr<FileIo>(new FileIo(tmpname));
++                wtmpname = wpath() + s2ws(toString(pid));
++                fileIo = std::auto_ptr<FileIo>(new FileIo(wtmpname));
+             }
+             else
+ #endif
+             {
+-                std::string tmpname = path() + toString(pid);
++                tmpname = temporaryPath() + toString(pid);
+                 fileIo = std::auto_ptr<FileIo>(new FileIo(tmpname));
+             }
+             if (fileIo->open("w+b") != 0) {
+ #ifdef EXV_UNICODE_PATH
+                 if (p_->wpMode_ == Impl::wpUnicode) {
++#if defined(_MSC_VER) || defined(__MINGW__)
++                    if( !DeleteFileW( wtmpname.c_str() ) )
++#else
++                    if( remove( wtmpname.c_str() ) != 0 )
++#endif
++                    {
++                        perror("Error deleting file");
++                    }
+                     throw WError(10, wpath(), "w+b", strError().c_str());
+                 }
+                 else
+ #endif
+                 {
++#if defined(_MSC_VER) || defined(__MINGW__)
++                    if( !DeleteFile( tmpname.c_str() ) )
++#else
++                    if( remove( tmpname.c_str() ) != 0 )
++#endif
++                    {
++                        perror("Error deleting file");
++                    }
+                     throw Error(10, path(), "w+b", strError());
+                 }
+             }

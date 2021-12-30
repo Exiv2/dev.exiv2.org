@@ -1,0 +1,406 @@
+Index: src/convert.cpp
+===================================================================
+--- src/convert.cpp	(revision 1998)
++++ src/convert.cpp	(working copy)
+@@ -1325,7 +1325,7 @@
+         std::string outstr;
+         EXV_ICONV_CONST char *inptr = const_cast<char *>(str.c_str());
+         size_t inbytesleft = str.length();
+-
++        int outbytesProduced = 0;
+         while (inbytesleft) {
+             char outbuf[100];
+             char *outptr = outbuf;
+@@ -1335,6 +1335,7 @@
+                               &inbytesleft,
+                               &outptr,
+                               &outbytesleft);
++            outbytesProduced += sizeof(outbuf) - 1 - outbytesleft;
+             if (rc == size_t(-1) && errno != E2BIG) {
+ #ifndef SUPPRESS_WARNINGS
+                 std::cerr << "Warning: iconv: "
+@@ -1345,7 +1346,7 @@
+                 break;
+             }
+             *outptr = '\0';
+-            outstr.append(outbuf);
++            outstr.append(std::string(outbuf, outbytesProduced));
+         }
+         if (cd != (iconv_t)(-1)) {
+             iconv_close(cd);
+Index: src/exiv2.cpp
+===================================================================
+--- src/exiv2.cpp	(revision 1997)
++++ src/exiv2.cpp	(working copy)
+@@ -41,6 +41,7 @@
+ #include "exiv2.hpp"
+ #include "actions.hpp"
+ #include "utils.hpp"
++#include "convert.hpp"
+ #include "i18n.h"      // NLS support.
+ #include "xmp.hpp"
+ 
+@@ -117,7 +118,12 @@
+      */
+     bool parseLine(ModifyCmd& modifyCmd,
+                    const std::string& line, int num);
+-
++    
++    /*!
++      @brief Parses a string containing backslash-escapes
++      @param input Input string, assumed to be UTF-8
++     */
++    std::string parseEscapes(const std::string& input);
+ }
+ 
+ // *****************************************************************************
+@@ -1076,7 +1082,7 @@
+                 }
+             }
+ 
+-            value = line.substr(valStart, valEnd+1-valStart);
++            value = parseEscapes(line.substr(valStart, valEnd+1-valStart));
+             std::string::size_type last = value.length()-1;
+             if (   (value[0] == '"' && value[last] == '"')
+                 || (value[0] == '\'' && value[last] == '\'')) {
+@@ -1108,4 +1114,83 @@
+         return cmdIdAndString[i].cmdId_;
+     }
+ 
++    std::string parseEscapes(const std::string& input) 
++    {
++        std::string result = "";
++        for (unsigned int i = 0; i < input.length(); ++i) {
++            char ch = input[i];
++            if (ch == '\\') {
++                int escapeStart = i;
++                if (input.length() - 1 > i) {
++                    ++i;
++                    ch = input[i];
++                    switch (ch) {
++                        // Escaping of backslash
++                        case '\\':
++                        result.push_back('\\');
++                        break;
++                        
++                        // Escaping of newline
++                        case 'n':
++                        result.push_back('\n');
++                        break;
++                        
++                        // Escaping of tab
++                        case 't':
++                        result.push_back('\t');
++                        break;
++                        
++                        // Escaping of unicode
++                        case 'u':
++                        if (input.length() - 4 > i) {
++                            int acc = 0;
++                            for (int j = 0; j < 4; ++j) {
++                                ++i;
++                                acc <<= 4;
++                                if (input[i] >= '0' && input[i] <= '9') {
++                                    acc |= input[i] - '0';
++                                } else if (input[i] >= 'a' && input[i] <= 'f') {
++                                    acc |= input[i] - 'a' + 10;
++                                } else if (input[i] >= 'A' && input[i] <= 'F') {
++                                    acc |= input[i] - 'A' + 10;
++                                } else {
++                                    acc = -1;
++                                    break;
++                                }
++                            }
++                            if (acc == -1) {
++                                result.push_back('\\');
++                                i = escapeStart;
++                                break;
++                            }
++                            
++                            std::string ucs2toUtf8 = "";
++                            ucs2toUtf8.push_back((char) ((acc & 0xff00) >> 8));
++                            ucs2toUtf8.push_back((char) (acc & 0x00ff));
++                            
++                            if (Exiv2::convertStringCharset (ucs2toUtf8, "UCS-2BE", "UTF-8")) {
++                                result.append (ucs2toUtf8);
++                            }
++                        } else {
++                            result.push_back('\\');
++                            result.push_back(ch);
++                        }
++                        break;
++                        
++                        default:
++                        result.push_back('\\');
++                        result.push_back(ch);
++                    }
++                } else {
++                    result.push_back(ch);
++                }
++            } else {
++                result.push_back(ch);
++            }
++        }
++        
++        return result;
++    }
++    
+ }
++        
+Index: src/value.cpp
+===================================================================
+--- src/value.cpp	(revision 1997)
++++ src/value.cpp	(working copy)
+@@ -34,6 +34,7 @@
+ // included header files
+ #include "value.hpp"
+ #include "types.hpp"
++#include "convert.hpp"
+ #include "error.hpp"
+ 
+ // + standard includes
+@@ -457,15 +458,15 @@
+     int CommentValue::read(const std::string& comment)
+     {
+         std::string c = comment;
+-        CharsetId charsetId = undefined;
++        charsetId_ = undefined;
+         if (comment.length() > 8 && comment.substr(0, 8) == "charset=") {
+             std::string::size_type pos = comment.find_first_of(' ');
+             std::string name = comment.substr(8, pos-8);
+             // Strip quotes (so you can also specify the charset without quotes)
+             if (name[0] == '"') name = name.substr(1);
+             if (name[name.length()-1] == '"') name = name.substr(0, name.length()-1);
+-            charsetId = CharsetInfo::charsetIdByName(name);
+-            if (charsetId == invalidCharsetId) {
++            charsetId_ = CharsetInfo::charsetIdByName(name);
++            if (charsetId_ == invalidCharsetId) {
+ #ifndef SUPPRESS_WARNINGS
+                 std::cerr << "Warning: " << Error(28, name) << "\n";
+ #endif
+@@ -474,33 +475,107 @@
+             c.clear();
+             if (pos != std::string::npos) c = comment.substr(pos+1);
+         }
+-        const std::string code(CharsetInfo::code(charsetId), 8);
+-        return StringValueBase::read(code + c);
++        value_ = c;
++        
++        return 0;
+     }
++    
++    int CommentValue::read(const byte* buf, long len, ByteOrder byteOrder)
++    {
++        if (buf) {
++            std::string rawValue = std::string(reinterpret_cast<const char*>(buf), len);
++            if (rawValue.length() < 8) {
++                return 0;
++            }
++            charsetId_ = CharsetInfo::charsetIdByCode(rawValue.substr(0, 8));
++            value_ = std::string(rawValue.substr(8));
++            switch (charsetId_) {
++                case unicode:
++                if (byteOrder == littleEndian) {
++                    Exiv2::convertStringCharset(value_, "UCS-2LE", "UTF-8");
++                } else {
++                    Exiv2::convertStringCharset(value_, "UCS-2BE", "UTF-8");
++                }
++                break;
++                
++                case ascii:
++                break;
++                
++                case jis:
++                // The Exif 2.2 specification mentions JIS X 208-1990 as the
++                // encoding for "jis". The problem is that JIS X 208-1990 isn't
++                // a character encoding - that is, it doesn't specify how to
++                // encode a character set into bytes. Candidates (iconv names) are: 
++                // EUC-JP, SHIFT_JIS, CP932, ISO-2022-JP, ISO-2022-JP-2 and ISO-2022-JP-1. 
++                // Pending a definitive resolution to this, we'll just leave any JIS 
++                // comment as we found it.
++                break;
++                
++                default:
++                break;
++            }
++        }
++        return 0;
++    }
+ 
+     std::ostream& CommentValue::write(std::ostream& os) const
+     {
+-        CharsetId charsetId = this->charsetId();
+-        if (charsetId != undefined) {
+-            os << "charset=\"" << CharsetInfo::name(charsetId) << "\" ";
++        if (charsetId_ != undefined) {
++            os << "charset=\"" << CharsetInfo::name(charsetId_) << "\" ";
+         }
+         return os << comment();
+     }
++    
++    long CommentValue::copy(byte* buf, ByteOrder byteOrder) const
++    {
++        std::string encoded = encode (byteOrder);
++        memcpy(buf, encoded.c_str(), encoded.length());
++        return encoded.length();
++    }
++    
++    long CommentValue::count() const
++    {
++        return encode(littleEndian).length();
++    }
++    
++    long CommentValue::size() const 
++    {
++        return encode(littleEndian).length();
++    }
++    
++    std::string CommentValue::encode(ByteOrder byteOrder) const
++    {
++        std::string result = "";
++        result.append (std::string(CharsetInfo::code(charsetId()), 8));				
++        switch (charsetId()) {
++            case unicode: {
++                std::string copyOfComment = std::string(comment());
++                if (byteOrder == littleEndian) {
++                    Exiv2::convertStringCharset(copyOfComment, "UTF-8", "UCS-2LE");
++                } else {
++                    Exiv2::convertStringCharset(copyOfComment, "UTF-8", "UCS-2BE");
++                }
++                
++                result.append (copyOfComment);
++                return result;
++            }
++            
++            default:
++                result.append (comment());
++                return result;
++        }
++        
++        return result;
++    }
+ 
+     std::string CommentValue::comment() const
+     {
+-        if (value_.length() >= 8) return value_.substr(8);
+-        return "";
++        return value_;
+     }
+ 
+     CommentValue::CharsetId CommentValue::charsetId() const
+     {
+-        CharsetId charsetId = undefined;
+-        if (value_.length() >= 8) {
+-            const std::string code = value_.substr(0, 8);
+-            charsetId = CharsetInfo::charsetIdByCode(code);
+-        }
+-        return charsetId;
++        return charsetId_;
+     }
+ 
+     CommentValue* CommentValue::clone_() const
+Index: src/value.hpp
+===================================================================
+--- src/value.hpp	(revision 1997)
++++ src/value.hpp	(working copy)
+@@ -581,6 +581,11 @@
+         */
+         int read(const std::string& comment);
+         //@}
++        
++        /*!
++          @brief Read the value from a byte buffer
++         */
++        int read(const byte* buf, long len, ByteOrder /*byteOrder*/);
+ 
+         //! @name Accessors
+         //@{
+@@ -590,6 +595,11 @@
+           read(const std::string& comment).
+          */
+         std::ostream& write(std::ostream& os) const;
++        
++        long copy(byte* buf, ByteOrder byteOrder) const;
++        long count() const;
++        long size() const;
++        
+         //! Return the comment (without a charset="..." prefix)
+         std::string comment() const;
+         //! Return the charset id of the comment
+@@ -597,6 +607,12 @@
+         //@}
+ 
+     private:
++        //! The character set of the comment string
++        CharsetId charsetId_;
++        
++        //! Encodes this value as an EXIF-comment
++        std::string encode(ByteOrder byteOrder) const;
++        
+         //! Internal virtual copy constructor.
+         EXV_DLLLOCAL virtual CommentValue* clone_() const;
+ 
+Index: test/data/exiv2-bug662.jpg
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: test\data\exiv2-bug662.jpg
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: test/exifcomment-encoding-test.sh
+===================================================================
+--- test/exifcomment-encoding-test.sh	(revision 0)
++++ test/exifcomment-encoding-test.sh	(revision 0)
+@@ -0,0 +1,37 @@
++#! /bin/sh
++# Test driver for exiv2 Exif.Photo.UserComment character encoding tests
++scriptdir=`dirname $0`
++cd $scriptdir
++exiv2="../src/exiv2"
++
++# Function takes two parameters
++#
++# 1. A exiv2 comment spec
++# 2. The expected exiv2 hex dump of the UserComment value
++#
++function writeComment {
++    cp ./data/exiv2-bug662.jpg ./tmp/exiv2-bug662.jpg
++    $exiv2 mo "-Mset Exif.Photo.UserComment $1" ./tmp/exiv2-bug662.jpg
++    res=`$exiv2 pr -PEnh ./tmp/exiv2-bug662.jpg | grep --after-context=200 UserComment`
++
++    # remove newlines and the tag name
++    res=`echo $res | colrm 1 12 | sed -e 's/"//g'`
++    if [ "$res" != "$2" ] ; then
++        echo "Expected:"
++        echo $2
++        echo "Got:"
++        echo $res
++        return 1
++    fi
++}
++
++writeComment "charset=Ascii An ascii comment" "0000 41 53 43 49 49 00 00 00 41 6e 20 61 73 63 69 69 ASCII...An ascii 0010 20 63 6f 6d 6d 65 6e 74 comment"
++writeComment "charset=Ascii A\\nnewline" "0000 41 53 43 49 49 00 00 00 41 0a 6e 65 77 6c 69 6e ASCII...A.newlin 0010 65 e"
++writeComment "charset=Unicode A Unicode comment" "0000 55 4e 49 43 4f 44 45 00 41 00 20 00 55 00 6e 00 UNICODE.A. .U.n. 0010 69 00 63 00 6f 00 64 00 65 00 20 00 63 00 6f 00 i.c.o.d.e. .c.o. 0020 6d 00 6d 00 65 00 6e 00 74 00 m.m.e.n.t."
++writeComment "charset=Unicode \\u01c4" "0000 55 4e 49 43 4f 44 45 00 c4 01 UNICODE..."
++writeComment "charset=Unicode A\\u01c4C" "0000 55 4e 49 43 4f 44 45 00 41 00 c4 01 43 00 UNICODE.A...C."
++writeComment "charset=Unicode With\\nNewline" "0000 55 4e 49 43 4f 44 45 00 57 00 69 00 74 00 68 00 UNICODE.W.i.t.h. 0010 0a 00 4e 00 65 00 77 00 6c 00 69 00 6e 00 65 00 ..N.e.w.l.i.n.e."
++writeComment "charset=Unicode With\\tTab" "0000 55 4e 49 43 4f 44 45 00 57 00 69 00 74 00 68 00 UNICODE.W.i.t.h. 0010 09 00 54 00 61 00 62 00 ..T.a.b."
++
++# Test invalid escape sequences
++writeComment "charset=Unicode \\ugggg" "0000 55 4e 49 43 4f 44 45 00 5c 00 75 00 67 00 67 00 UNICODE.\.u.g.g. 0010 67 00 67 00 g.g."
+Index: test/Makefile
+===================================================================
+--- test/Makefile	(revision 1997)
++++ test/Makefile	(working copy)
+@@ -61,6 +61,7 @@
+         bugfixes-test.sh  \
+         exifdata-test.sh  \
+         exiv2-test.sh     \
++        exifcomment-encoding-test.sh \
+         imagetest.sh      \
+         iotest.sh         \
+         iptctest.sh       \

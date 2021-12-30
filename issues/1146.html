@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1146: Crash when saving a rotated JPG image - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="BeY2YqDgmXSngtwOzwLvEK99xD1g8kksvQXrYM8SW3/nq52N0ppVdPLmwwJw1eMjkO+QRJER6JZAJXvojCu8EA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1146: Crash when saving a rotated JPG image" href="https://dev.exiv2.org/issues/1146.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1146</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Crash when saving a rotated JPG image</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4594">Uwe Klotz</a> <a title="27 Dec 2015 19:31" href="/projects/exiv2/activity?from=2015-12-27">almost 6 years</a> ago.
+        Updated <a title="13 Jan 2016 19:01" href="/projects/exiv2/activity?from=2016-01-13">almost 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">tiff parser</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">27 Dec 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Rotating and saving a JPG image in gthumb (see attachment) results in a crash:</p>
+
+
+	<p>gthumb: tiffcomposite.cpp:749: virtual Exiv2::Internal::TiffComponent* Exiv2::Internal::TiffMnEntry::doAddPath(uint16_t, Exiv2::Internal::TiffPath&#38;, Exiv2::Internal::TiffComponent*, Exiv2::Internal::TiffComponent::AutoPtr): Assertion `mn_' failed.<br />Aborted (core dumped)</p>
+
+
+	<p>exiv 0.25<br />gthumb 3.4.1<br />Fedora 23 x86_64</p>
+
+
+	<p>See also:<br /><a class="external" href="https://bugzilla.gnome.org/show_bug.cgi?id=759908">https://bugzilla.gnome.org/show_bug.cgi?id=759908</a></p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/875">CIMG2598.JPG</a>    <span class="size">(1.23 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/875/CIMG2598.JPG">CIMG2598.JPG</a>  </td>
+  <td>Example image</td>
+  <td>
+      <span class="author">Uwe Klotz, 27 Dec 2015 19:31</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/876">libexiv2.so.14.0.0</a>    <span class="size">(4.56 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/876/libexiv2.so.14.0.0">libexiv2.so.14.0.0</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 28 Dec 2015 18:55</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1146" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="XTKBW4KrSfkkVHBxYus8nl2HdZyRvDxl1k2VdmnN3fe/fyq08NGF+XEwb33dPDCtYhUh5WBfnd8rbQX+KvQ6mA==" />
+  <table class="list issues odd-even"><tr id="relation-195" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1106" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1106">Bug #1106</a>: Crash in exiv2 due to assertion when setting rating on jpg with a Casio makernote</td><td class="status">Closed</td><td class="start_date">19 Aug 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1146/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1146&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4593" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Dec 2015 20:26" href="/projects/exiv2/activity?from=2015-12-27">almost 6 years</a> ago
+      <span id="journal-4593-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4593-notes" class="wiki"><p>Can you explain a little more about this, please?  The image you've sent is OK.</p>
+
+
+	<p>1) Does it crash in some tool in Gnome when you rotate it?  Which tool?<br />2) Have you been able to rotate it? Yes, I understand that it crashes, however it may have been correctly rotated.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4594" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4594">Uwe Klotz</a> <a title="27 Dec 2015 21:00" href="/projects/exiv2/activity?from=2015-12-27">almost 6 years</a> ago
+      <span id="journal-4594-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4594-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Can you explain a little more about this, please?  The image you've sent is OK.</p>
+
+
+	<p>1) Does it crash in some tool in Gnome when you rotate it?  Which tool?<br />2) Have you been able to rotate it? Yes, I understand that it crashes, however it may have been correctly rotated.</p>
+
+
+</blockquote>
+
+	<p>gthumb crashes each time when I try to save an image (after rotating, resizing, ...) from this particular camera. Only after clearing the Exif data those images can saved. Saving the image is the operation that causes the crash, independent of the previous operations.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4596" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Dec 2015 22:23" href="/projects/exiv2/activity?from=2015-12-27">almost 6 years</a> ago
+      <span id="journal-4596-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>tiff parser</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    <div id="journal-4596-notes" class="wiki"><p>Thanks for the clarification.  I'll investigate tomorrow.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4600" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Dec 2015 18:55" href="/projects/exiv2/activity?from=2015-12-28">almost 6 years</a> ago
+      <span id="journal-4600-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/876">libexiv2.so.14.0.0</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/876/libexiv2.so.14.0.0">libexiv2.so.14.0.0</a> added</li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>80</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-4600-notes" class="wiki"><p>Uwe</p>
+
+
+	<p>Thank You for letting me know about this.  There is something wrong with the 'vanilla' 0.25 in use.  I installed gThumb and everything seemed fine.  However I am using /usr/local/lib/libexiv2.so.14.0.0 which is my private build from last week.</p>
+
+
+	<p>I replaced the private build with a 'vanilla' build of v0.25 and it crashed.  I am surprised, because I can't think of any changes that may have fixed this.  And I don't know what has caused it either!</p>
+
+
+	<p>I download last night's linux build from our buildserver and that seems to be OK.  I attach the library.  Can you try this?  I hope you'll be happy!  You install this with: <pre>sudo cp libexiv2.so.14.0.0 /usr/local/lib</pre></p>
+
+
+	<p>You can get builds of Exiv2 (latest, daily, weekly, monthly, by platform etc) from: <a class="external" href="http://exiv2.dyndns.org:8080/userContent/builds/Categorized/Latest/">http://exiv2.dyndns.org:8080/userContent/builds/Categorized/Latest/</a></p>
+
+
+	<p><img src="http://clanmills.com/Exiv2Facebook.png" alt="" /></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4609" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4594">Uwe Klotz</a> <a title="28 Dec 2015 23:55" href="/projects/exiv2/activity?from=2015-12-28">almost 6 years</a> ago
+      <span id="journal-4609-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4609-notes" class="wiki"><p>Thanks for taking care, Robin! I tried the workaround you proposed and it works, no crash.</p>
+
+
+	<p>It would be nice to get an official fix version from Red Hat/Fedora, but I don't know where and how to address this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4610" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="29 Dec 2015 00:50" href="/projects/exiv2/activity?from=2015-12-29">almost 6 years</a> ago
+      <span id="journal-4610-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Feedback</i></li>
+       <li><strong>% Done</strong> changed from <i>80</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-4610-notes" class="wiki"><p>Uwe</p>
+
+
+	<p>That's wonderful.  I don't know how/when the Linux folks refresh their libraries.  I'm surprised by this, and very happy that we have a solution.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4611" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="29 Dec 2015 09:20" href="/projects/exiv2/activity?from=2015-12-29">almost 6 years</a> ago
+      <span id="journal-4611-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4611-notes" class="wiki"><p>I think it's unlikely that the Linux people will do anything about this until mid-2016.  We expect to ship v0.26 in spring (April or May) and that will arrive on the Linux platform some time later.</p>
+
+
+	<p>It's most unlikely that they would take code from our trunk and put it on the platform.  In fact, I would be shocked if they did that as the trunk is for development, not deployment.  Having said that, we have a good test suite that is run by our buildserver when code is submitted.  So our trunk is usually stable and useable.  None-the-less, I would be very surprised if they were to randomly take code from our trunk and put it on the platform.</p>
+
+
+	<p>The open-source community have achieved remarkable results.  However, for me at least, working on open source is a lonely business with almost no communication with other members of the community.</p>
+
+
+	<p>Before I retired, I worked for Adobe in Silicon Valley, California.  I have a mental image that Linux is like Adobe with thousands of engineers working together and emailing each other day and night.  However, for me working on Exiv2 in England, it's a lonely business.</p>
+
+
+	<p>I recommend that you update bugzilla with this result.  I'll be surprised if they do anything about this until we ship v0.26.</p>
+
+
+	<p><img src="http://exiv2.org/Exiv2Logo.png" alt="" /></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4612" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="29 Dec 2015 17:38" href="/projects/exiv2/activity?from=2015-12-29">almost 6 years</a> ago
+      <span id="journal-4612-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4612-notes" class="wiki"><p>The sample image has a Casio2 makernote: this issue is most likely a duplicate of <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Crash in exiv2 due to assertion when setting rating on jpg with a Casio makernote (Closed)" href="/issues/1106">#1106</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4614" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="29 Dec 2015 17:45" href="/projects/exiv2/activity?from=2015-12-29">almost 6 years</a> ago
+      <span id="journal-4614-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4614-notes" class="wiki"><p>You are 100% correct, Andreas (nothing unusual about that).  I was off working on our building project when you dealt with that matter.</p>
+
+
+	<p>Right.  That solves the puzzle of what has caused this issue with v0.25 <em><strong>AND</strong></em> solves the puzzle of why a build from the trunk has fixed it.</p>
+
+
+	<p>Well done, Andreas.  I hope you're having a great break over <em>"The Holidays"</em>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4694" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Jan 2016 19:01" href="/projects/exiv2/activity?from=2016-01-13">almost 6 years</a> ago
+      <span id="journal-4694-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Feedback</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1146.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1146.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

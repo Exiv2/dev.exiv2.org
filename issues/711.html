@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #711: exiv2 0.20 is corrupting ORF files from E-PL1 - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="mUT32L6pxpYKKysQHEKylDPblUjaWkNa/MQSrcYl2tl7CVw3zNMKll9PNByjlb6nDEnBMSu54uAB5IIlhRw9tg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #711: exiv2 0.20 is corrupting ORF files from E-PL1" href="https://dev.exiv2.org/issues/711.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #711</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>exiv2 0.20 is corrupting ORF files from E-PL1</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/843">Mark Haun</a> <a title="10 Jul 2010 17:04" href="/projects/exiv2/activity?from=2010-07-10">over 11 years</a> ago.
+        Updated <a title="22 Nov 2010 18:31" href="/projects/exiv2/activity?from=2010-11-22">almost 11 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/53">Andreas Huggel</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">-</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="01 Dec 2010" href="/versions/46">0.21</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">10 Jul 2010</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Using exiv2 0.20 from debian sid (0.20-2 amd64), I tried to change the Exif.Image.Orientation tags on a raw file from my E-PL1 camera.  exiv2 reports no errors, and the file on disk is changing, but the target tags don't seem to change.  I dumped the complete exif data before and after, and it seems to be changing data further down in the Exif.OlympusIP table!</p>
+
+
+	<p>I then tried changing the Exif.Image.Model tag, and noticed that the length reported by the exif dump after the change matches the new ASCII string that I supplied, but the actual data of the tag does not change, and again there is corruption further down in the OlympusIP tags.</p>
+
+
+	<p>I am attaching before and after ORF files for the attempted Model tag change, and the diff in exif contents.</p>
+
+
+	<p>haunma@angwin:~/oly$ exiv2 -u -p a 1.orf > 1<br />haunma@angwin:~/oly$ cp 1.orf 2.orf<br />haunma@angwin:~/oly$ exiv2 -v -M"set Exif.Image.Model test" mo 2.orf<br />File 1/1: 2.orf<br />Set Exif.Image.Model "test" (Ascii)<br />haunma@angwin:~/oly$ exiv2 -u -p a 2.orf > 2<br />haunma@angwin:~/oly$ diff 1 2 > diffs</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/180">1.orf</a>    <span class="size">(11 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/180/1.orf">1.orf</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Mark Haun, 10 Jul 2010 17:04</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/182">diffs</a>    <span class="size">(1.15 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/182/diffs">diffs</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Mark Haun, 10 Jul 2010 17:04</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2296" href="/projects/exiv2/repository/exiv2/revisions/2296">Revision 2296</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2296/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jul 2010 19:34" href="/projects/exiv2/activity?from=2010-07-21">over 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 0.20 is corrupting ORF files from E-PL1 (Closed)" href="/issues/711">#711</a>: Quickfix for Exif.OlympusIp.0x1104 which points to the beginning of the image. With this change the value is truncated now, i.e., it's size is set to 0.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2297" href="/projects/exiv2/repository/exiv2/revisions/2297">Revision 2297</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2297/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jul 2010 19:41" href="/projects/exiv2/activity?from=2010-07-21">over 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 0.20 is corrupting ORF files from E-PL1 (Closed)" href="/issues/711">#711</a>: Added FloatValue to deal with TIFF Float values. (Nice one! :)</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2303" href="/projects/exiv2/repository/exiv2/revisions/2303">Revision 2303</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2303/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="04 Aug 2010 18:46" href="/projects/exiv2/activity?from=2010-08-04">over 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Added DoubleValue to deal with TIFF Double values (see <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 0.20 is corrupting ORF files from E-PL1 (Closed)" href="/issues/711">#711</a>).</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2321" href="/projects/exiv2/repository/exiv2/revisions/2321">Revision 2321</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2321/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 Aug 2010 06:35" href="/projects/exiv2/activity?from=2010-08-16">over 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Added tests for TIFF Float and Double values added for <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 0.20 is corrupting ORF files from E-PL1 (Closed)" href="/issues/711">#711</a>.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2322" href="/projects/exiv2/repository/exiv2/revisions/2322">Revision 2322</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2322/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 Aug 2010 06:38" href="/projects/exiv2/activity?from=2010-08-16">over 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Remove makernote classes and pretty-print functions from the published interface (Closed)" href="/issues/719">#719</a>: Removed standard Exif tag definitions and pretty-print functions from the API. Fixed warnings in the code for Float and Double values (added for <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 0.20 is corrupting ORF files from E-PL1 (Closed)" href="/issues/711">#711</a>).</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1681" class="journal has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Jul 2010 23:11" href="/projects/exiv2/activity?from=2010-07-15">over 11 years</a> ago
+      <span id="journal-1681-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> set to <i>Andreas Huggel</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1682" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="18 Jul 2010 07:03" href="/projects/exiv2/activity?from=2010-07-18">over 11 years</a> ago
+      <span id="journal-1682-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1682-notes" class="wiki"><p>Thanks for reporting this important issue. After quite a bit of head-scratching, I can finally explain the reported corruption now; it is a combination of two problems:</p>
+
+
+	<ol>
+	<li>The offset of IFD entry Exif.OlympusIp.0x1104 in 1.orf points to the beginning of the image, i.e., it claims its value data occupies the first 4608 bytes of the image. However that area contains relevant structures of the image - the TIFF header followed by IFD0 etc., incl. the value data of the Exif.Image.Model tag. In the process of changing that tag, the new value is set but immediately overwritten and thus reset when Exif.OlympusIp.0x1104 is updated. (Exiftool reports an error for this tag and ignores it.)</li>
+		<li>Writing TIFF Float values is not properly supported as it turns out. This is a rather basic issue and I'm surprised it has not been reported earlier. The only explanation I have for this is that float values are rare - they can appear in TIFFs but are not part of the Exif standard, and the number of TIFF-like images that are modified compared to JPEGs (with standard Exif data) is small.</li>
+	</ol>
+
+
+	<p>Unfortunately I don't see a quick way to fix the corrupted metadata with exiv2. It would require tweaking specific bytes in the file.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1683" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/843">Mark Haun</a> <a title="18 Jul 2010 09:08" href="/projects/exiv2/activity?from=2010-07-18">over 11 years</a> ago
+      <span id="journal-1683-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1683-notes" class="wiki"><p>Hi Andreas,</p>
+
+
+	<p>Thanks for having a look.  I had tried exiftool also, and was having some problems there too.  This thread is relevant:</p>
+
+
+	<p><a class="external" href="http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=2730.0">http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=2730.0</a></p>
+
+
+	<p>Apparently if you tell exiftool to ignore the bad offset it does ok (see the other thread for the details).</p>
+
+
+	<p>I'm a bit confused about the float value issue; neither Orientation nor Model are floats.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1686" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="18 Jul 2010 18:21" href="/projects/exiv2/activity?from=2010-07-18">over 11 years</a> ago
+      <span id="journal-1686-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1686-notes" class="wiki"><blockquote>
+
+	<p><a class="external" href="http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=2730.0">http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=2730.0</a></p>
+
+
+</blockquote>
+
+	<p>Thanks for the link. Exiv2 makes this change ("non-intrusively") without modifying any offset, thus there are no such differences when you compare the Exiv2 modified image with the original. It only re-writes the TIFF structure if any tags were deleted, added or increased in size.</p>
+
+
+<blockquote>
+
+	<p>I'm a bit confused about the float value issue; neither Orientation nor Model are floats.</p>
+
+
+</blockquote>
+
+	<p>That issue causes the differences (see attached diff) in the values of Exif.OlympusIp.0x0800 and Exif.OlympusIp.0x150a (both float values).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1689" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jul 2010 19:52" href="/projects/exiv2/activity?from=2010-07-21">over 11 years</a> ago
+      <span id="journal-1689-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+       <li><strong>Target version</strong> set to <i>0.21</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-1689-notes" class="wiki"><p>Fixed with <a class="changeset" title="#711: Quickfix for Exif.OlympusIp.0x1104 which points to the beginning of the image. With this ch..." href="/projects/exiv2/repository/exiv2/revisions/2296">r2296</a> and <a class="changeset" title="#711: Added FloatValue to deal with TIFF Float values. (Nice one! :)" href="/projects/exiv2/repository/exiv2/revisions/2297">r2297</a>. Appreciate if you also test and confirm if it works for you. This is what I get here now:</p>
+
+
+<pre>
+$ ls -la 1.orf 
+-rw------- 1 andreas andreas 11523320 22-Jul-10 1.orf
+$ ./exiv2 -u -pa 1.orf &gt; tt1
+Error: Offset of directory OlympusIp, entry 0x1104 is out of bounds: Offset = 0xfffff440; truncating the entry
+$  ./exiv2 -v -M"set Exif.Image.Model test" 1.orf
+File 1/1: 1.orf
+Error: Offset of directory OlympusIp, entry 0x1104 is out of bounds: Offset = 0xfffff440; truncating the entry
+Set Exif.Image.Model "test" (Ascii)
+Error: Offset of directory OlympusIp, entry 0x1104 is out of bounds: Offset = 0xfffff440; truncating the entry
+$ ./exiv2 -u -pa 1.orf &gt; tt2
+$ ls -la 1.orf 
+-rw------- 1 andreas andreas 11523320 22-Jul-10 1.orf
+$ diff tt1 tt2
+8c8
+&lt; Exif.Image.Model                             Ascii      17  E-PL1           
+---
+&gt; Exif.Image.Model                             Ascii       5  test
+34c34
+&lt; Exif.Photo.MakerNote                         Undefined 1446464  (Binary value suppressed)
+---
+&gt; Exif.Photo.MakerNote                         Undefined 1161636  (Binary value suppressed)
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-1690" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jul 2010 19:53" href="/projects/exiv2/activity?from=2010-07-21">over 11 years</a> ago
+      <span id="journal-1690-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> deleted (<del><i>2.orf</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1796" class="journal has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="22 Nov 2010 18:31" href="/projects/exiv2/activity?from=2010-11-22">almost 11 years</a> ago
+      <span id="journal-1796-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/711.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/711.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

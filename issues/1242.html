@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1242: jp2 metadata: Unrecognized UUID EXIF box - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="3Cep6wFhxIIOb7rLSxQKluI9KkvTLPgimWeBVGTBaQ0+agIEcxsIglsLpcf0wwal3a9+MiLPWZhkRxHcJ/iOYg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1242: jp2 metadata: Unrecognized UUID EXIF box" href="https://dev.exiv2.org/issues/1242.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1242</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>jp2 metadata: Unrecognized UUID EXIF box</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4789">Herbert Kauer</a> <a title="11 Oct 2016 09:46" href="/projects/exiv2/activity?from=2016-10-11">about 5 years</a> ago.
+        Updated <a title="14 Oct 2016 17:47" href="/projects/exiv2/activity?from=2016-10-14">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">exif</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">11 Oct 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">6.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hello,</p>
+
+
+	<p>I work with digiKam and ShowFoto 5.2.0 on a win 7 system.<br />This application uses Exiv2 0.25 for working with metadata.</p>
+
+
+	<p>I opened a *.jpg (that contains only Exif metadata) image with ShowFoto and stored it as *.jp2.</p>
+
+
+	<p>Now Exiftool cannot read the Exif metadata written by Exiv2 (via ShowFoto).<br />It reports : Unrecognized UUID EXIF box.<br />Also XnViewMP - which uses an Adobe toolkit for metadata - does not read the metadata of *.jp2 file.</p>
+
+
+	<p>On the other hand ShowFoto/Exiv2 does not read the Exif metadata (in a*.jp2 file) stored by Exiftool.</p>
+
+
+	<p>I asked Phil Harvey, the developer of Exifttol, and he stated:<br />"ShowFoto has apparently written a JPEG EXIF header in front of the TIFF header (six extra bytes: "Exif\0\0"),<br />so ExifTool gives the warning and can't process the EXIF.</p>
+
+
+	<p>From interoperability point of view this a very bad situation.<br />Because Exiftool and XnViewXP write a "common format" of the uuid tag, I guess the problem could be on Exiv2 side.</p>
+
+
+	<p>Please help to solve the big problem, because of interoperability.<br />Thanks in advance<br />Best regards<br />Herb</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1078">Test.zip</a>    <span class="size">(12.8 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1078/Test.zip">Test.zip</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Herbert Kauer, 11 Oct 2016 13:46</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1079">jp2test.txt</a>    <span class="size">(3.42 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1079/jp2test.txt">jp2test.txt</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Herbert Kauer, 11 Oct 2016 13:46</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1080">dmpf.cpp</a>    <span class="size">(1.48 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1080/dmpf.cpp">dmpf.cpp</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 11 Oct 2016 20:35</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1081">0528.jp2</a>    <span class="size">(8.97 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1081/0528.jp2">0528.jp2</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Herbert Kauer, 12 Oct 2016 09:15</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1082">CB_TM432.jp2</a>    <span class="size">(341 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1082/CB_TM432.jp2">CB_TM432.jp2</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Herbert Kauer, 12 Oct 2016 09:15</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1083">relax.jp2</a>    <span class="size">(15.9 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1083/relax.jp2">relax.jp2</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Herbert Kauer, 12 Oct 2016 12:48</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1242" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="Hi5KtkS+Hp84Hav0/V0snpQZ7t/DWTloVw4sMHOzyIT8Y+FZNsTSn215tPhCiiCtq4u6pjK6mNKqLry4MIov6w==" />
+  <table class="list issues odd-even"><tr id="relation-251" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1243" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/1243">Feature #1243</a>: Improved JPEG 2000 Support</td><td class="status">Closed</td><td class="start_date">12 Oct 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1242/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1242&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4619" href="/projects/exiv2/repository/exiv2/revisions/4619">Revision 4619</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4619/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Oct 2016 21:04" href="/projects/exiv2/activity?from=2016-10-11">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: jp2 metadata: Unrecognized UUID EXIF box (Closed)" href="/issues/1242">#1242</a> Work in progress.  Fixing src/jp2image.cpp.  Added test file.  Test suite to be updated to use Reagan.jp2 (and hopefully additional test files)</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4622" href="/projects/exiv2/repository/exiv2/revisions/4622">Revision 4622</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4622/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Oct 2016 10:43" href="/projects/exiv2/activity?from=2016-10-12">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: jp2 metadata: Unrecognized UUID EXIF box (Closed)" href="/issues/1242">#1242</a> Test harness update to use test/data/Reagan.jp2</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4630" href="/projects/exiv2/repository/exiv2/revisions/4630">Revision 4630</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4630/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Oct 2016 10:26" href="/projects/exiv2/activity?from=2016-10-14">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: jp2 metadata: Unrecognized UUID EXIF box (Closed)" href="/issues/1242">#1242</a> Issue warning when we encounter erroneous Exif\0\0 in the Exif UUID box.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5670" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Oct 2016 10:01" href="/projects/exiv2/activity?from=2016-10-11">about 5 years</a> ago
+      <span id="journal-5670-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Priority</strong> changed from <i>High</i> to <i>Normal</i></li>
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>0.28</i></li>
+    </ul>
+    <div id="journal-5670-notes" class="wiki"><p>Please provide a sample image.  It will be investigated and fixed in v0.27.  I'm at the end of the v0.26 development cycle and very reluctant to take on anything new at this time.</p>
+
+
+	<p>I understand that you consider this is to be a high priority matter.  I disagree.  The jp2image.cpp code mostly dates from 2008 and, <em>to my knowledge</em>, this interoperability issue has never been reported.  For sure, I have neither sufficient time nor energy to delay v0.26 to investigate this matter.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5672" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4789">Herbert Kauer</a> <a title="11 Oct 2016 13:46" href="/projects/exiv2/activity?from=2016-10-11">about 5 years</a> ago
+      <span id="journal-5672-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1078">Test.zip</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1078/Test.zip">Test.zip</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/1079">jp2test.txt</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1079/jp2test.txt">jp2test.txt</a> added</li>
+    </ul>
+    <div id="journal-5672-notes" class="wiki"><p>Hello,</p>
+
+
+	<p>thanks for your quick reply.<br />Attached please find such a test.jp2 image.</p>
+
+
+	<p>Phil Harvey stated also that after removing the 6 byte header the remaining data are a proper Exif block.</p>
+
+
+	<p>And attached find also the verbose output of Exiftool when it tries to read metadata.<br />Maybe it helps a little bit.</p>
+
+
+	<p>Best regards<br />Herb</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5673" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Oct 2016 20:35" href="/projects/exiv2/activity?from=2016-10-11">about 5 years</a> ago
+      <span id="journal-5673-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1080">dmpf.cpp</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1080/dmpf.cpp">dmpf.cpp</a> added</li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Target version</strong> changed from <i>0.28</i> to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>40</i></li>
+       <li><strong>Estimated time</strong> set to <i>10.00 h</i></li>
+    </ul>
+    <div id="journal-5673-notes" class="wiki"><p>Herb</p>
+
+
+	<p>Thank you for providing a test file.  I will submit a fix for this tomorrow.</p>
+
+
+	<p>I have never studied the JP2 image format and I'm very surprised to see that we don't have such an image in our test suite.  When I dump your file (with the enclosed dmpf.cpp code), I see:<pre>  0x50     80: .uuidJpgTiffExif  -&gt;  1c  u  u  i  d  J  p  g  T  i  f  f  E  x  i  f
+  0x60     96: -&gt;JP2Exif..II*..  -&gt;   -  &gt;  J  P  2  E  x  i  f 00 00  I  I  * 00 08</pre>I have manufactured a small test file as follows:<pre>667 rmills@rmillsmbp:~/gnu/exiv2/trunk $ cp test/data/Reagan.jpg .
+668 rmills@rmillsmbp:~/gnu/exiv2/trunk $ convert Reagan.jpg Reagan.jp2
+669 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiftool -tagsfromfile Reagan.jpg -exif:all Reagan.jp2
+    1 image files updated
+670 rmills@rmillsmbp:~/gnu/exiv2/trunk $ dmpf Reagan.jp2 | grep -B 3 -A 3 uuid
+0x7fb0  32688: ...........(.c..  -&gt;  e7 8b 03 0c 2e c7 c5 b7 f7 80 05  ( ad  c 9e a4
+0x7fc0  32704: .t..!e.....0...   -&gt;  0f  t a4 a2  !  e 09 d9 12 ff   00  0 0c d5 d7
+0x7fd0  32720: .i....@..d.D....  -&gt;  09  i ed 02 f3 f4  @ ca 1f  d cc  D 14 ff d9 00
+0x7fe0  32736: ..&gt;uuidJpgTiffEx  -&gt;  00 05  &gt;  u  u  i  d  J  p  g  T  i  f  f  E  x
+0x7ff0  32752: if-&gt;JP2MM.*.....  -&gt;   i  f  -  &gt;  J  P  2  M  M 00  * 00 00 00 08 00
+0x8000  32768: ................  -&gt;  0d 01 0e 00 02 00 00 01 93 00 00 00 aa 01 0f 00
+0x8010  32784: ........&gt;.......  -&gt;  02 00 00 00 12 00 00 02  &gt; 01 10 00 02 00 00 00
+671 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre></p>
+
+
+	<p>I believe the 6 bytes <em><strong><code>Exif\0\0</code></strong></em> should not be there.</p>
+
+
+	<p>However, I've copied the metadata from Reagan.jpg to Reagan.jp2 using ExifTool and based on this discussion:  <a class="external" href="http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=5696.0">http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=5696.0</a></p>
+
+
+	<p>I would really like a "honest" JPEG2000 file that has never been touched by Exiv2 or ExifTool.  Preview on the Mac can export JPEG2000 however it remove the metadata.  My Adobe Tools (PS Elements 12 and LR5) do not support JPEG 2000.  Can you provide a small JP2 file that I can add to the test suite?</p>
+
+
+	<p>My implementation of the fix understands and silently forgives the erroneous <em><strong><code>Exif\0\0</code></strong></em> bytes when it reads such a file.  When it writes a JP2 does not write <em><strong><code>Exif\0\0</code></strong></em>.  So the fix is forgives sins past and fixes files when they are rewritten.</p>
+
+
+	<p>For exiv2 v0.25, I added the option <em><strong><code>-pS</code></strong></em> to print the structure of an image.  For exiv2 v0.26, I added the option <em><strong><code>-pR</code></strong></em> to recursively print the structure of an image.  By recursive, I mean that the print will dump image structures embedded in other structures.  This is particularly useful in this case as Exif metadata is usually encoded as a TIFF structure.  Both options <em><strong><code>-pS</code></strong></em> and <em><strong><code>-pR</code></strong></em> are implemented by the API <em><strong><code>Image::printStructure()</code></strong></em>.</p>
+
+
+	<p>For exiv2 v0.26, I have added support for ICC profiles.  I'd like to support <strong><em><code>printStructure()</code></strong></em> and ICC profiles in src/jp2image.cpp.  So, although I have the fix for your issue ready, I'd like to add these additional features.  More importantly, I'd like to add test files to our test suite to ensure these fixes are monitored.</p>
+
+
+	<p>This issue will be fixed and submitted to the trunk tomorrow (2016-10-12).  I would really appreciate a couple of small (50k or so) JPEG 2000 files.  I'd be great for those test files to have embedded Exif/IPTC/XMP/ICC metadata.  I hope you have a copy of PhotoShop Creative Suite with which to create those test files.  Alternatively, you could ask our good friend Phil to help us out with test data.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5674" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Oct 2016 21:07" href="/projects/exiv2/activity?from=2016-10-11">about 5 years</a> ago
+      <span id="journal-5674-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+    </ul>
+    <div id="journal-5674-notes" class="wiki"><p><a class="changeset" title="#1242 Work in progress.  Fixing src/jp2image.cpp.  Added test file.  Test suite to be updated to ..." href="/projects/exiv2/repository/exiv2/revisions/4619">r4619</a>.  Work in progress.  Hopefully Herb (or Phil) can provide more test files.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5675" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4789">Herbert Kauer</a> <a title="12 Oct 2016 09:15" href="/projects/exiv2/activity?from=2016-10-12">about 5 years</a> ago
+      <span id="journal-5675-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1081">0528.jp2</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1081/0528.jp2">0528.jp2</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/1082">CB_TM432.jp2</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1082/CB_TM432.jp2">CB_TM432.jp2</a> added</li>
+    </ul>
+    <div id="journal-5675-notes" class="wiki"><p>Hello,</p>
+
+
+	<p>thanks for all your investigations.</p>
+
+
+	<p>You asked for test images. But I regret, I do not have many *.jp2 images.<br />Background: I work on a small GUI that will display and/or modify metadata via Exiftool. I found ShowFoto and hoped to be able to create e.g. some *.jp2 images for testing with my GUI. So I came to this problem.</p>
+
+
+	<p>But nevertheless I have 2 *.jp2 images, which I found somewhere in the <a class="external" href="http://www..">www..</a>. I do not remember where I found it. I hope it helps</p>
+
+
+	<p>Thanks again and Best regards<br />Herb</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5676" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Oct 2016 10:43" href="/projects/exiv2/activity?from=2016-10-12">about 5 years</a> ago
+      <span id="journal-5676-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>40</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>10.00 h</i> to <i>6.00 h</i></li>
+    </ul>
+    <div id="journal-5676-notes" class="wiki"><p>Herb</p>
+
+
+	<p>Thanks for the files.  I don't think there is Exif/IPTC/XML/ICC data embedded in those files.  I had an unsuccessful Google for suitable files yesterday.  I have not been able to find the specification for JPEG2000.  Curiously exiftool does not write ICC profiles in JP2 files.   However I submitted the code update because I respect and trust Phil!</p>
+
+
+	<p>Here's what I've done about this:</p>
+
+
+	<p>1) I submitted the code and the test file Reagan.jp2 <a class="changeset" title="#1242 Work in progress.  Fixing src/jp2image.cpp.  Added test file.  Test suite to be updated to ..." href="/projects/exiv2/repository/exiv2/revisions/4619">r4619</a><br />2) I have updated our test harness to examine that file on every commit and every nightly build on every platform. <a class="changeset" title="#1242 Test harness update to use test/data/Reagan.jp2" href="/projects/exiv2/repository/exiv2/revisions/4622">r4622</a><br />3) I hope to recruit a student in 2017 to work on our raw image support and test (<a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Better raw file support and test (Assigned)" href="/issues/992">#992</a>).<br />4) I've opened a new issue (<a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Improved JPEG 2000 Support (Closed)" href="/issues/1243">#1243</a>) for v0.27 to implement <em><strong><code>jp2image::printStructure()</code></strong></em> to support options: <strong><code>-pX | -pS | -pC, -pR</code></strong></p>
+
+
+	<p>I'm closing this issue as I believe I've dealt with your immediate concern.  The follow-on matters involving <em><strong><code>printStructure()</code></strong></em> will be handled in v0.27 under <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Improved JPEG 2000 Support (Closed)" href="/issues/1243">#1243</a>.</p>
+
+
+	<p>Thank You for bringing this to my attention.  Thank You for using Exiv2.  Good Luck with your project.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5677" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4789">Herbert Kauer</a> <a title="12 Oct 2016 12:48" href="/projects/exiv2/activity?from=2016-10-12">about 5 years</a> ago
+      <span id="journal-5677-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1083">relax.jp2</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1083/relax.jp2">relax.jp2</a> added</li>
+    </ul>
+    <div id="journal-5677-notes" class="wiki"><p>Hello,</p>
+
+
+	<p>thanks for your investigations and the correction.</p>
+
+
+	<p>Looking for further *.jp2 images I found one on an (rarely useed) USB-stick that also contains an icc-profile.</p>
+
+
+	<p>Best regards<br />Herb</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5678" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Oct 2016 13:05" href="/projects/exiv2/activity?from=2016-10-12">about 5 years</a> ago
+      <span id="journal-5678-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5678-notes" class="wiki"><p>For sure, there's a profile following the '!colr' bytes.  All that scnrRGB XYZ stuff is ICC magic:<pre>  0x30     48: ...,............  -&gt;  00 00 01  , 00 00 01 90 00 03 07 07 01 00 00 00
+  0x40     64: .!colr..........  -&gt;  01  !  c  o  l  r 02 00 00 00 00 01 16 00 00 00
+  0x50     80: .. ..scnrRGB XYZ  -&gt;  00 02    00 00  s  c  n  r  R  G  B     X  Y  Z
+  0x60     96:  ............acs  -&gt;     07 d1 00 01 00 01 00 00 00 00 00 00  a  c  s
+  0x70    112: p...............  -&gt;   p 00 00 00 00 00 c0 00 00 00 00 00 00 00 00 00
+  0x80    128: ................  -&gt;  00 80 00 00 00 00 00 00 00 00 01 00 00 00 00 f6
+  0x90    144: ........-.......  -&gt;  d6 00 01 00 00 00 00 d3  - 00 00 00 00 00 00 00</pre>I'll attach this to <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Improved JPEG 2000 Support (Closed)" href="/issues/1243">#1243</a> and it will be very useful when that issue is serviced.  The existing code in jp2image.cpp can read/write Exif/IPTC/Xmp metadata.  With this file, I'm sure I can figure out adding ICC profile support.  However, I'm going to keep focus on getting v0.26 finished and return to JPEG2000 in v0.27.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5685" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Oct 2016 12:02" href="/projects/exiv2/activity?from=2016-10-13">about 5 years</a> ago
+      <span id="journal-5685-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5685-notes" class="wiki"><p>Herb</p>
+
+
+	<p>Thank You for this very useful file, I have been able to add ICC Profile support to jp2image.cpp.  <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Improved JPEG 2000 Support (Closed)" href="/issues/1243">#1243</a> will be finished today.</p>
+
+
+	<p>I'm particularly pleased to get this done as exiv2 can write/rewrite/modify/delete ICC profiles.  I don't believe ExifTool can write ICC profiles!  Incidentally, Exiv2 has a friendly working relationship with Phil Harvey.  He's inspirational.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5686" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="13 Oct 2016 20:07" href="/projects/exiv2/activity?from=2016-10-13">about 5 years</a> ago
+      <span id="journal-5686-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5686-notes" class="wiki"><p>FWIW, I patched ExifTool 10.30 (just released) to read the UUID EXIF box with the incorrect header, but it will issue a warning.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5687" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Oct 2016 20:44" href="/projects/exiv2/activity?from=2016-10-13">about 5 years</a> ago
+      <span id="journal-5687-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5687-notes" class="wiki"><p>Thanks for doing that, Phil.  I'm very surprised that this issue has been in the code for a long time without being raised.  Clearly very few people use Exiv2 with JP2.  I believe Jpeg2000 has not gathered much market acceptance.</p>
+
+
+	<p>I'm glad you issue a warning.  I'll update libexiv2 to do the same.  Silently forgiving spec violations amounts to changing the specification and is the road to chaos.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5688" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4789">Herbert Kauer</a> <a title="14 Oct 2016 09:58" href="/projects/exiv2/activity?from=2016-10-14">about 5 years</a> ago
+      <span id="journal-5688-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5688-notes" class="wiki"><p>Hello,</p>
+
+
+	<p>thanks to everybody who helped to solve that problem in such a short time.</p>
+
+
+	<p>Best regards<br />Herb</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5689" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Oct 2016 10:35" href="/projects/exiv2/activity?from=2016-10-14">about 5 years</a> ago
+      <span id="journal-5689-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5689-notes" class="wiki"><p>You're welcome.  Teamwork is really effective.  I have no idea why it's seldom used in the office.</p>
+
+
+	<p><a class="changeset" title="#1242 Issue warning when we encounter erroneous Exif\0\0 in the Exif UUID box." href="/projects/exiv2/repository/exiv2/revisions/4630">r4630</a> I've submitted the fix for exiv2 to issue a warning (on errout) when we read a file with the bad box.  I've cut'n'pasted Phil's message for consistency.<pre>724 rmills@rmillsmbp:~/gnu/exiv2/trunk/build $ exiftool -ver
+10.30
+725 rmills@rmillsmbp:~/gnu/exiv2/trunk/build $ exiftool ~/Downloads/Test.jp2 | grep -e Software -e UUID
+Warning                         : Reading non-standard UUID-EXIF_bad box
+Processing Software             : digiKam-5.2.0
+Software                        : Version 1.0
+726 rmills@rmillsmbp:~/gnu/exiv2/trunk/build $ </pre><pre>726 rmills@rmillsmbp:~/gnu/exiv2/trunk/build $ bin/Debug/exiv2 --verbose --version --grep svn
+exiv2 0.25 001900 (64 bit build)
+svn=4629
+727 rmills@rmillsmbp:~/gnu/exiv2/trunk/build $ bin/Debug/exiv2 -pa --grep Software ~/Downloads/Test.jp2
+Warning: Reading non-standard UUID-EXIF_bad box in /Users/rmills/Downloads/Test.jp2
+Warning: Directory OlympusCs, entry 0x0101: Strip 0 is outside of the data area; ignored.
+Exif.Image.ProcessingSoftware                Ascii      14  digiKam-5.2.0
+Exif.Image.Software                          Ascii      32  Version 1.0                    
+Xmp.tiff.Software                            XmpText    13  digiKam-5.2.0
+728 rmills@rmillsmbp:~/gnu/exiv2/trunk/build $ </pre>I hope to get the ICC profile written today and be totally finished with <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Improved JPEG 2000 Support (Closed)" href="/issues/1243">#1243</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5690" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="14 Oct 2016 15:18" href="/projects/exiv2/activity?from=2016-10-14">about 5 years</a> ago
+      <span id="journal-5690-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5690-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>I'm very surprised that this issue has been in the code for a long time without being raised.  Clearly very few people use Exiv2 with JP2.</p>
+
+
+</blockquote>
+
+	<p>...and even fewer that use EXIF in JP2.</p>
+
+
+	<p>A bit of history:</p>
+
+
+	<p>In 2007 the "JpgTiffExif->JP2" box was proposed to the JPEG group and added to ExifTool at that time, but never ratified by the JPEG group.  This was documented on the Jpeg2000 Wikipedia page, but it was edited out in 2008 (however it still lingers in some language versions of that page).</p>
+
+
+	<p>In 2011 I discovered that the Photoshop JPEG2000 plugin version 1.5 wrote EXIF with a different UUID (05 37 cd ab 9d 0c 44 31 a7 2a fa 56 1f 2a 11 3e) but the same format as the "JpgTiffExif->JP2" box (ie. no "Exif\0\0" header), so I added support for reading this, but ExifTool continued to write the earlier EXIF UUID box.  [I just tested this with the JPEG2000 plugin 2.0 and it still does the same thing.]</p>
+
+
+	<p>- Phil</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5691" class="journal has-notes">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Oct 2016 17:47" href="/projects/exiv2/activity?from=2016-10-14">about 5 years</a> ago
+      <span id="journal-5691-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5691-notes" class="wiki"><p>That's interesting.  Do you have a test file for that guid?  It sounds like a tiny change to support both the 16 byte "JpgTiffExif->JP2" and the 16 byte UUID "05 37 cd ab 9d 0c 44 31 a7 2a fa 56 1f 2a 11 3e".</p>
+
+
+	<p>I will only forgive/warn for Exif\0\0 with "JpgTiffExif->JP2".  For the "approved UUID", I'll throw an exception if Exif\0\0 is present.  The reasons to "forgive and warn" are:</p>
+
+
+	<ol>
+	<li>To avoid the embarrassment of admitting that Exiv2 generated illegal files.</li>
+		<li>I don't want to provide a repair utility for files damaged by exiv2  </li>
+		<li>When the file is to be rewritten it will be repaired.</li>
+	</ol>
+
+
+	<p>None of these reasons apply to the UUID.  So, I will not forgive/warn for the UUID.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1242.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1242.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

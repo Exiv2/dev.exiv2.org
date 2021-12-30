@@ -1,0 +1,20 @@
+--- src/Makefile_orig	2012-11-03 17:28:24.646553400 +0100
++++ src/Makefile	2012-11-03 17:28:01.510336333 +0100
+@@ -214,7 +214,7 @@
+ 
+ %.ii: %.cpp
+ 	set -e; \
+-	$(CXXCPP) $(CPPFLAGS) -DEXV_BUILDING_LIB=1 $< | sed '/^[ 	]*$$/d' > $@
++	$(CXXCPP) $(CPPFLAGS) -DEXV_BUILDING_LIB=1 $< | LC_ALL=C sed '/^[ 	]*$$/d' > $@
+ 
+ # ******************************************************************************
+ # Targets
+@@ -231,7 +231,7 @@
+ actions.cpp basicio.cpp exif.cpp exiv2.cpp futils.cpp image.cpp jpgimage.cpp utils.cpp: exv_conf.h
+ 
+ exv_conf.h: $(top_srcdir)/config/config.h
+-	sed 's/#define \([A-Z]\)/#define EXV_\1/; s/#undef \([A-Z]\)/#undef EXV_\1/' < $< > $@
++	LC_ALL=C sed 's/#define \([A-Z]\)/#define EXV_\1/; s/#undef \([A-Z]\)/#undef EXV_\1/' < $< > $@
+ 
+ $(LIBTOOL): $(LIBTOOL_DEPS)
+ 	$(SHELL) $(top_srcdir)/config.status --recheck

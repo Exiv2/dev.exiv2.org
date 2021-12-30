@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24 - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="4pTDmwosWMLDOQJf9yerRpQ12f53crXM40ais5BS188A2Wh0eFaUwpZdHVNI8Kd1q6eNh4aRFHYeZjI702swoA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4400">Oliver P</a> <a title="08 Apr 2015 10:13" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi, <br />I use exiv2 in a simple script for extracting GPS data from images.<br />Until now I used Version 0.21.1 and the command: 'exiv2 -Pv -g Exif.GPSInfo.GPSAltitude $filename'<br />This used to return somehting like <br />"123/1"</p>
+
+
+	<p>I was going to update the script a little, and installed the latest version on my new laptop, and realized it was giving me completely different results. After a while of digging I found out why: <br />the same command now returns:<br />"0<br />123/1" <br />(including the line break)<br />This is because searching for 'Exif.GPSInfo.GPSAltitude' now also returns the value for Exif.GPSInfo.GPSAltitudeRef. In other words it searches for Exif.GPSInfo.GPSAltitude* rather than just Exif.GPSInfo.GPSAltitude.<br />I only tested 0.21.1 and 0.24 and somewhere in between the behaviour changed. Of course this is not only the case with Altitude, but the same happens with Longitude (and LongitudeRef), Latitude, etc.</p>
+
+
+	<p>2 Questions: <br />1) Is this wanted behaviour or a bug? (I couldn't find anything about this in the changelog)<br />2) either way: how can I now retrieve a single value from the commandline?</p>
+
+
+	<p>I tried adding quotes around the Tag name (same result), adding a space behind the Tag (no more results), and a few more things, but never got the expected results.</p>
+
+
+	<p>Thanks.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (17)</h3>
+  <div class="message reply" id="message-1984">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=1984#message-1984">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Apr 2015 10:48" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I think the behaviour of the -g switch was changed from being "this key" to being "match keys" (a la grep) so -g GPSLatitude may match more than one key.  Piping the output through grep to ignore "Ref" will save the day.  Here's a photo I took yesterday on a trip to Windsor Castle:<pre>594 rmills@rmillsmbp:~/Pictures/2015/Windsor $ exiv2 -pa -g Latitude DSC_6503.jpg
+Exif.GPSInfo.GPSLatitudeRef                  Ascii       2  North
+Exif.GPSInfo.GPSLatitude                     Rational    3  51deg 28.81760' 
+595 rmills@rmillsmbp:~/Pictures/2015/Windsor $ exiv2 -pa -g Latitude DSC_6503.jpg | grep -v -e Ref
+Exif.GPSInfo.GPSLatitude                     Rational    3  51deg 28.81760' 
+596 rmills@rmillsmbp:~/Pictures/2015/Windsor $ </pre>Apologies for breaking your script.  Perhaps I should have used -G for "match/grep" and retained -g for "key".  I'm reluctant to change -g now as the "match" feature was put in place some time ago.  If I change it again, I'll break another user's script!</p>
+
+
+	<p>We intend to extend the -g option to take advantage of the platform's regex support.  <a class="external" href="http://dev.exiv2.org/issues/1024">http://dev.exiv2.org/issues/1024</a></p></div>
+  
+  </div>
+  <div class="message reply" id="message-1985">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=1985#message-1985">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Apr 2015 11:11" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've just noticed that you are using -Pv to get the vanilla (raw) value.  More apologies.  You'll have to display the name and filter/cut the output.<pre>echo $(for f in 2 3 4; do exiv2 -Pvn -g Latitude DSC_6503.jpg | grep -v -e Ref | sed -E -e 's/ +/ /g' | cut -d' ' -f $f ; done)
+51/1 288176/10000 0/1</pre>This is very tedious.  However, I'm reluctant to restore the previous behaviour.  Your thoughts/input are welcome and appreciated.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1986">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=1986#message-1986">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="08 Apr 2015 11:52" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>How about adding a "-k" option that only returns the value for the specified key?</p>
+
+
+	<p>While that would not restore the behaviour of 0.21, it is a bit more intuitive.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1987">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=1987#message-1987">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Apr 2015 12:06" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Good Idea, Alan.  -k (--keep) preserves timestamps.  -K (--key) is available to implement your idea.</p>
+
+
+	<p>I've found the change from -g key to -g match:  <a class="external" href="http://dev.exiv2.org/issues/0000727">http://dev.exiv2.org/issues/0000727</a></p>
+
+
+	<p>That was changed years ago, so we should not revert this.  I feel it's a good idea to keep -G available for some grep related purpose for the future.  So -K (--key) Key looks like the way to go.  Let's hear from Oliver before we decide.  If we're in agreement, I'll raised a "Feature" issue and reference this discussion.  The implementation is almost certainly a tiny change.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1988">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=1988#message-1988">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/4400">Oliver P</a> <a title="08 Apr 2015 12:30" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>don't worry about breaking my script - I can continue using 0.21.1 with that. I'm just looking for a future-proof way to continue using the same functionality</p>
+
+
+	<p><code>echo $(for f in 2 3 4; do exiv2 -Pvn -g Latitude DSC_6503.jpg | grep -v -e Ref | sed -E -e 's/ +/ /g' | cut -d' ' -f $f ; done)</code><br />is definitely not as nice as a simple --key option, so I'd vote for that :-)</p>
+
+
+	<p>Oliver</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1989">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=1989#message-1989">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Apr 2015 13:31" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I think we're all in enthusiastic agreement and let's say "Thank You" to Alan for nominating this proposal.</p>
+
+
+	<p>Feature request logged as <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Add option -K Key (--key Key) to specify one or more keys to output. (Closed)" href="/issues/1053">#1053</a> <a class="external" href="http://dev.exiv2.org/issues/1053">http://dev.exiv2.org/issues/1053</a></p>
+
+
+	<p>When -K is used, -g will be ignored.  Multiple -K values may be given (just as multiple -g values are allowed).</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1990">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=1990#message-1990">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Apr 2015 14:58" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm having a nice afternoon cup of coffee and thought of a less brutal work-around without the for loop:<pre>
+666 rmills@rmillsmbp:~/Pictures/2015/Windsor $ exiv2 -Pvn -g Latitude DSC_6503.jpg | grep -v -e Ref | cut -d' ' -f 2-
+                 51/1 288176/10000 0/1
+667 rmills@rmillsmbp:~/Pictures/2015/Windsor $ </pre>It's still ugly and tedious, particularly if we need sed to chop out the useless white space.<pre>665 rmills@rmillsmbp:~/Pictures/2015/Windsor $ for k in Latitude Longitude Altitude ; do echo -n "$k: " ; exiv2 -Pvn -g $k DSC_6503.jpg | grep -v -e Ref | cut -d' ' -f 2- | sed -E -e 's/^ +//'; done
+Latitude: 51/1 288176/10000 0/1
+Longitude: 0/1 362142/10000 0/1
+Altitude: 18/1
+666 rmills@rmillsmbp:~/Pictures/2015/Windsor $</pre>I have the grep option compiled into the code on the Mac.  We should be able to specify the pattern ^...$ pattern as in: <pre>exiv2 -pa -g "^Exif.GPSInfo.GPSLatitude$" DSC_6503.jpg</pre>Sadly shows no output.  Can't be bothered debugging this.  Much easier to implement -K option.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1991">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=1991#message-1991">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="08 Apr 2015 15:02" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Is it too late to change my suggestion?  I had missed that -k was already in use.</p>
+
+
+	<p>How about adding the "single key" option  to the -P switch? Then Oliver's script could simply use -PvK ...</p>
+
+
+	<p>There is already the -Pk combination which prints out all keys.</p>
+
+
+	<p>Might have been better to assign -PK to all keys and -Pk to a single key, but it's likely not a good idea to change that.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1992">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=1992#message-1992">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Apr 2015 15:56" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>It's never to late to change!  Oliver only has to change the -g to -K and he's done.</p>
+
+
+	<p>I prefer the [-K key]+ option for the following reasons:</p>
+
+
+	<ol>
+	<li>I think most people use the <em>-pmode</em> and not the <em>-Pflg</em> method to request reports.</li>
+		<li><em>-K Key</em> is independent of <em>-pmode</em> and <em>-Pflg</em> options ("orthogonal" in engineering-speak) </li>
+		<li>The user may wish to specify multiple <em>-K Key</em> options and I'm not sure your proposal can deal with that.</li>
+		<li>The <em>-K Key</em> option will cause values to be reported in the order of <em>-K Key</em> requests.  Mind you that's an artefact of the implementation, however it's a useful artefact.</li>
+		<li>What lead us into this was Steve's request to report multiple keys.  Let's not return all the way to having only a single Key.</li>
+	</ol>
+
+
+	<p>Oliver.  Do you have an opinion about this?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2001">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=2001#message-2001">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Apr 2015 10:39" href="/projects/exiv2/activity?from=2015-04-14">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p><a class="changeset" title="#1028 and #1053.  Change options to regex to respect ^ and $ in option -g" href="/projects/exiv2/repository/exiv2/revisions/3684">r3684</a> and <a class="changeset" title="#1024 and #1053.  Changed option REG_EXTENDED and REG_BASIC to support ^ as a begin marker." href="/projects/exiv2/repository/exiv2/revisions/3686">r3686</a>.  ^ and $ regex feature now works:<pre>$ exiv2 -pa -g "^Exif.GPSInfo.GPSLatitude$" DSC_6503.jpg
+Exif.GPSInfo.GPSLatitude                     Rational    3  51deg 28.81760' 
+$ exiv2 -pa -g "^Exif.GPSInfo.GPSLati" DSC_6503.jpg
+Exif.GPSInfo.GPSLatitudeRef                  Ascii       2  North
+Exif.GPSInfo.GPSLatitude                     Rational    3  51deg 28.81760' 
+$ exiv2 -pa -g "Latitude$" DSC_6503.jpg
+Exif.GPSInfo.GPSLatitude                     Rational    3  51deg 28.81760' 
+$ </pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2002">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=2002#message-2002">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/4400">Oliver P</a> <a title="15 Apr 2015 09:42" href="/projects/exiv2/activity?from=2015-04-15">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Great, thanks!<br />So will both options -g "^KeyName$" as well as -K "KeyName" be included in Release 0.25? <br />To me this is no urgent matter, and while I can test with a developer build, I'd prefer relying on a release.<br />Any plan when 0.25 will be released?</p>
+
+
+	<p>Oliver</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2003">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=2003#message-2003">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Apr 2015 10:33" href="/projects/exiv2/activity?from=2015-04-15">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I expect both -K and -g grep (with ^ and $) to ship in v0.25.  Thomas S is currently working on <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Provide regular expression support for the exiv2 -g feature (Closed)" href="/issues/1024">#1024</a> to provide regex support <a class="external" href="http://dev.exiv2.org/issues/1024">http://dev.exiv2.org/issues/1024</a>  I have to thank Thomas for discovering why ^ and $ were not working.</p>
+
+
+	<p>The team is having a meeting on Saturday week (2015-04-25) to discuss v0.25.  I'll put the meeting notes on the forum.  I don't want to guess when v0.25 will be released.  June maybe?  I don't know.</p>
+
+
+	<p>v0.25 has been delayed for the usual reason.  We are totally dependant on unpaid volunteers who have other priorities in their lives.  Sometimes we do the impossible quickly.  Sometimes we don't!  v0.25 is in the second category.  It has been code complete since December.</p>
+
+
+	<p>I retired last year and, among other things, spend many happy hours talking on the forum to folks like you.  So, our on-line support is usually quick (if I know the answer).  However making a release involves the whole team and goes through various processes.  svn://dev.exiv2.org/svn/trunk/website/Checklist.txt</p>
+
+
+	<p><a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/_Robin_Mills_">http://dev.exiv2.org/projects/exiv2/wiki/_Robin_Mills_</a></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2004">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=2004#message-2004">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/4400">Oliver P</a> <a title="15 Apr 2015 12:55" href="/projects/exiv2/activity?from=2015-04-15">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your answers and quick support!</p>
+
+
+	<p>I fully understand and appreciate the fact that you are all volunteering to code exiv2, and am very grateful to be able to make use of it! It feels quicker than exiftool, and I appreciate being able to easily get to the "vanilla" values easily (which is a lot more difficult in exiftool). June would be great - like I said, I'm in no hurry - we just use the script to show customers how they can extract GPS data from images (we don't use it in any production environment or so).</p>
+
+
+	<p>by the way, I enjoyed your lightning presentation on your wiki page - directly related to what I do for a living: [[<a class="external" href="http://www.foolography.com">http://www.foolography.com</a>]]</p>
+
+
+	<p>Oliver</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2005">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=2005#message-2005">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Apr 2015 13:23" href="/projects/exiv2/activity?from=2015-04-15">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your very nice words.  I really enjoyed the Python Conference.  Very nice weekend.</p>
+
+
+	<p>I attended "The Photography Show" at the NEC on the Monday.  Oh, I wish I'd known you were there.  I've registered with your web-site.  I have a Nikon D5300 with a Sigma 18-250 f2.8 Lens.  Really like the camera.  I bought it because it has built-in GPS.  In what way is the Unleashed Dx000 better than the built-in GPS?</p>
+
+
+	<p>Phil is a member of Team Exiv2.  He's "Professor Metadata".  Probably the world's leading expert in the field.  ExifTool is very nice - however it requires Perl.  Could you use ExifTool on an embedded controller with no operating system?  I doubt it.  For sure, it'd be a build challenge and require more memory and a beefy CPU.  So we don't compete with ExifTool - we're happy cousins!</p>
+
+
+	<p>The reason I became involved with Exiv2 was for GeoTagging.  In 2008, Exiv2 was a Linux only thing and I wanted to do the geotagging in Python (to learn Python) on Mac (and Windows).  The team has grown from  about 3 (Andreas, Gilles and Brad) to 13 now.  It's been a rewarding adventure.</p>
+
+
+	<p>Beautiful day in England.  I'm going out to cut the grass.  BBQ at my son's place for dinner this evening.  It's nice to be retired. <img src="/attachments/download/766/SpringOfficeAndGarden.png" alt="" /></p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/766">SpringOfficeAndGarden.png</a>    <span class="size">(1.38 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/766/SpringOfficeAndGarden.png">SpringOfficeAndGarden.png</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2006">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=2006#message-2006">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/4400">Oliver P</a> <a title="15 Apr 2015 15:33" href="/projects/exiv2/activity?from=2015-04-15">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>What a shame you missed us. But Monday was by far the busiest day for us, and to be honest - the only busy day.</p>
+
+
+	<p>You could probably tell me more about why the Unleashed Dx000 is better than the D5300, if you're using the D5300 with Geotagging turned on in real life! I bought the D5300 for testing as well, and it's a great camera! But I gave it to my father for "normal use" - and found out that he actually turns the GPS off all the time, since it drains the battery of the camera so quick that it's much more of a bother than a feature he likes to use. I suppose most customers have made the same experience, which is why Nikon removed the GPS from the successor the D5500...</p>
+
+
+	<p>But apart from battery usage (the Unleashed Dx000 uses very very little power from the camera battery, and only while you're actively using the camera), there are several other advantages:<br />It's compatible with any Bluetooth GPS on the market, so you can not only choose the GPS you want to use it with (whether it's a cheap one, or professional grade precision GPS for several thousand Euro), but you can also upgrade the GPS at any time, without having to upgrade the whole system - in your case the entire camera. Best of all: you don't have to wait for Nikon to integrate a newer GPS chipset into a camera! You don't even have to wait for us to update our products, but can always get the newest 3rd party GPS you can find, or of course you can keep using that old Bluetooth GPS that you might still have lying around in your "unused gadgets box" :-)<br />The Built-in GPS of the D5300 is also pretty slow (from what I've heard, and have tested in my few tests), so you have to wait for it to get a fix before being able to take geotagged photos. With our system, you leave the GPS on all the time (after turning it on at the beginning of the day, or at the beginning of your outing), and whenever you start using the camera, the Unleashed will only need to establish the bluetooth connection, which only takes 5 seconds or so. Even that first fix will be so much faster than what you're used to on the D5300, since an external GPS typically has a larger antenna, and much less electronics that might be causing interference, compared to the packed DSLRs. <br />Another feature we have is that our device remembers the last known position for 30 minutes - even if the GPS loses its fix - for example when you go indoors. Then you'll still have the geotags from outside the door. <br />The disadvantage of our "external device" is almost non-existant, since it's such a tiny, flat device on the side of the camera, that its never in the way while taking photos, or packing the camera into your bag - very unlike other GPS devices that sit on the hotshoe and have a cable plugged into the camera...</p>
+
+
+	<p>I also do all my work on a mac, so I appreciate your work that exiv2 works on the mac too, and since so many of my customers use windows, I'm glad it also works there :-) <br />I probably wouldn't try running exiftool in an embedded device, but luckily I don't have to - right now we don't actually have to handle metadata in our hardware - that's done by the Camera itself. Still, of course for its intended purposes, exiftool is an amazing tool.</p>
+
+
+	<p>Anyway, I still have to do a little more work before I can go outside and enjoy the beautiful weather here! I still have a few more years to go before my retirement ;-)</p>
+
+
+	<p>Greetings from Berlin!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2007">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=2007#message-2007">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Apr 2015 16:50" href="/projects/exiv2/activity?from=2015-04-15">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Berlin or Weisbaden?  I've  been to both.  I worked for GE in the 80s and they had an office there.  Beautiful Hotel.  The Royal George?</p>
+
+
+	<p>After I asked what's better about the Dx000, I had a more careful look on your web site.  What you have is much better than the GPS built into camera.  I'm not bowled over by the GPS in the camera.  I have a couple of batteries for the camera and power it up in the morning and don't turn it off all day - except to change the battery.  However, it doesn't always geotag.  It has a "recording" mode and you can extract the GPX and merge later.  I bought the D5300 to escape the bother of GPX/Merge.</p>
+
+
+	<p>Incidentally, I added a sample application geotag.cpp to Exiv2 a couple years ago to do the GPX/Exif merge dance.  I haven't used it because my python script (using pyexiv2) has been working perfectly since I wrote it in 2008.  And to be honest, I haven't used geotag.cpp enough to be totally certain that it's 100% perfect.  There's always something that seems more important.</p>
+
+
+	<p>I'd be happy to come and work with you for a day on your stand at NEC if you decide to go there again.  No charge.  Just to talk to folks.  You can buy me lunch or something.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2335">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1983?r=2335#message-2335">RE: commandline -Pv -g retrieving a single Tag value no longer works the same in 0.24</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Dec 2015 20:21" href="/projects/exiv2/activity?from=2015-12-12">almost 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hey Oliver:</p>
+
+
+	<p>A brochure arrived in the mail today about "The Photography Show" in Birmingham March 19 .. March 22 2016.  Are you attending?  My offer to spend a day on your stand is good.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-17/17)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+####
+####
+#### environment flags used
+#### CC=cc
+#### CFLAGS=-D__SUNOS__=1 -D__unix__=1 -D__SSE3__ -D__SSE__ -D__SSE2__ -D__SSE4__ -DOS_SOLARIS=1 -lumem -xO3 -xarch=sse3 -R/opt/darktable/lib -lumem 
+#### CXX=CC
+#### CXXFLAGS=-D__SUNOS__=1 -D__unix__=1 -D__SSE3__ -D__SSE__ -D__SSE2__ -D__SSE4__ -DOS_SOLARIS=1 -lumem -xO3 -xarch=sse3 -library=stdcxx4 -R/opt/darktable/lib -lumem 
+#### LDFLAGS=-R/opt/darktable/lib -lumem 
+#### PATH=/opt/SUNWspro/solarisstudio12.3/bin:/usr/perl5/bin:/opt/local/bin:/usr/gcc/4.6/bin/:/usr/bin:/usr/sbin:/bin:/sbin:/usr/dt/bin:/usr/sfw/bin:/usr/gnu/bin:
+
+####
+#### This was for a CMake build. The CMake command line was
+#### mkdir build && cd build 
+#### cmake ..  -DCMAKE_INSTALL_PREFIX=/opt/darktable -DCMAKE_INSTALL_RPATH=/opt/darktable:/usr/lib
+####
+
+Index: src/matroskavideo.cpp
+===================================================================
+--- src/matroskavideo.cpp	(revision 3014)
++++ src/matroskavideo.cpp	(working copy)
+@@ -457,7 +457,7 @@
+         int64_t temp = 0;
+ 
+         for(int i = size-1; i >= 0; i--) {
+-            temp = temp + static_cast<int64_t>(buf[i]*(pow(256.0, size-i-1)));
++            temp = temp + static_cast<int64_t>(buf[i]*(pow(256.0, (double)size-i-1)));
+         }
+ // Todo: remove debug output
+ //        std::cerr << "size = " << size << ", val = " << temp << std::hex << " (0x" << temp << std::dec << ")";
+Index: src/rcsid_int.hpp
+===================================================================
+--- src/rcsid_int.hpp	(revision 3014)
++++ src/rcsid_int.hpp	(working copy)
+@@ -55,7 +55,8 @@
+ 
+ #ifndef  __clang__
+ #define EXIV2_RCSID(id) \
+-    namespace { \
++//    namespace { \
++    { \
+         inline const char* getRcsId(const char*) { return id ; } \
+         const char* rcsId = getRcsId(rcsId); \
+     }
+Index: src/quicktimevideo.cpp
+===================================================================
+--- src/quicktimevideo.cpp	(revision 3014)
++++ src/quicktimevideo.cpp	(working copy)
+@@ -1,4 +1,4 @@
+-﻿// ***************************************************************** -*- C++ -*-
++// ***************************************************************** -*- C++ -*-
+ /*
+  * Copyright (C) 2004-2012 Andreas Huggel <ahuggel@gmx.net>
+  *
+@@ -559,7 +559,7 @@
+ #ifdef _MSC_VER
+             temp = temp + static_cast<int64_t>(buf.pData_[i]*(pow(static_cast<float>(256), n-i-1)));
+ #else
+-			temp = temp + buf.pData_[i]*(pow(256,n-i-1));
++	temp = temp + buf.pData_[i]*(pow((float)256,n-i-1));
+ #endif
+ 
+         return temp;
+@@ -577,7 +577,7 @@
+ #if _MSC_VER
+ 			temp = temp + static_cast<uint64_t>(buf.pData_[i]*(pow(static_cast<float>(256), n-i-1)));
+ #else
+-			temp = temp + buf.pData_[i]*(pow(256,n-i-1));
++	temp = temp + buf.pData_[i]*(pow((float)256,n-i-1));
+ #endif
+ 
+         return temp;
+Index: xmpsdk/include/XMP_Environment.h
+===================================================================
+--- xmpsdk/include/XMP_Environment.h	(revision 3014)
++++ xmpsdk/include/XMP_Environment.h	(working copy)
+@@ -27,7 +27,11 @@
+ // macros with 0 or 1 values.
+ 
+ /* 20-Oct-07, ahu: Determine the platform, set the above defines accordingly.                     */
++
++#if !defined(_FILE_OFFSET_BITS)
+ #define _FILE_OFFSET_BITS 64
++#endif
++
+ #if defined __CYGWIN32__ && !defined __CYGWIN__
+    /* For backwards compatibility with Cygwin b19 and
+       earlier, we define __CYGWIN__ here, so that
+@@ -139,3 +143,20 @@
+ // =================================================================================================
+ 
+ #endif  // __XMP_Environment_h__
++
++/*
++  If you're using Solaris and the Solaris Studio compiler, then you really
++  do need to use -library=stdcxx4 along with these inclusions below
++*/
++#if defined(OS_SOLARIS)
++#include <stdio.h>
++#include <string.h>
++#include <strings.h>
++#include <stdlib.h>
++#include <math.h>
++#if defined(__cplusplus)
++#include <ios>
++#include <fstream>
++#endif
++#endif
++
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(revision 3014)
++++ CMakeLists.txt	(working copy)
+@@ -53,7 +53,8 @@
+ OPTION( EXIV2_ENABLE_BUILD_PO      "Build translations files"                              OFF )
+ 
+ IF( MINGW OR UNIX )
+-    ADD_DEFINITIONS(-Wall
++    IF ( CMAKE_CXX_COMPILER STREQUAL "g++" OR CMAKE_C_COMPILER STREQUAL "gcc" ) 
++        ADD_DEFINITIONS(-Wall
+                     -Wcast-align
+                     -Wpointer-arith
+                     -Wformat-security
+@@ -61,6 +62,7 @@
+                     -Woverloaded-virtual
+                     -W
+                    )
++    ENDIF()
+ ENDIF( MINGW OR UNIX )
+ 
+ 
+Index: samples/geotag.cpp
+===================================================================
+--- samples/geotag.cpp	(revision 3014)
++++ samples/geotag.cpp	(working copy)
+@@ -404,15 +404,20 @@
+ {
+     time_t    now   = time(NULL);
+     struct tm local = *localtime(&now) ;
++    int offset;
+ 
+ #if   defined(_MSC_VER)
+     TIME_ZONE_INFORMATION TimeZoneInfo;
+     GetTimeZoneInformation( &TimeZoneInfo );
+-    int offset = - (((int)TimeZoneInfo.Bias + (int)TimeZoneInfo.DaylightBias) * 60);
++    offset = - (((int)TimeZoneInfo.Bias + (int)TimeZoneInfo.DaylightBias) * 60);
+ #elif defined(__CYGWIN__)
+     struct tm lcopy  = *localtime(&now);
+     time_t    gmt    =  timegm(&lcopy) ; // timegm modifies lcopy, so don't use local
+-    int       offset = (int) ( ((long signed int) gmt) - ((long signed int) now) ) ;
++              offset = (int) ( ((long signed int) gmt) - ((long signed int) now) ) ;
++#elif defined(OS_SOLARIS)
++    time_t local_tt = (int) mktime(&local);
++    time_t time_gmt = (int) mktime(gmtime(&now));
++    offset = time_gmt - local_tt;
+ #else
+     int offset = local.tm_gmtoff ;
+ #endif
+Index: config/config.h.in
+===================================================================
+--- config/config.h.in	(revision 3014)
++++ config/config.h.in	(working copy)
+@@ -246,3 +246,20 @@
+ #else
+ # define EXIV2API
+ #endif /* ! EXV_HAVE_DLL */
++
++/*
++  If you're using Solaris and the Solaris Studio compiler, then you really
++  do need to use -library=stdcxx4 along with these inclusions below
++*/
++#if defined(OS_SOLARIS)
++#include <stdio.h>
++#include <string.h>
++#include <strings.h>
++#include <stdlib.h>
++#include <math.h>
++#if defined(__cplusplus)
++#include <ios>
++#include <fstream>
++#endif
++#endif
++
+Index: config/config.h.cmake
+===================================================================
+--- config/config.h.cmake	(revision 3014)
++++ config/config.h.cmake	(working copy)
+@@ -246,3 +246,20 @@
+ #if defined(_MSC_VER) && (_MSC_VER >= 1400)
+ # pragma warning(disable : 4996 4251)
+ #endif
++
++/*
++  If you're using Solaris and the Solaris Studio compiler, then you really
++  do need to use -library=stdcxx4 along with these inclusions below
++*/
++#if defined(OS_SOLARIS)
++#include <stdio.h>
++#include <string.h>
++#include <strings.h>
++#include <stdlib.h>
++#include <math.h>
++#if defined(__cplusplus)
++#include <ios>
++#include <fstream>
++#endif
++#endif
++

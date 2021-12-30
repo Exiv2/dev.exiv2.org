@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>How correctly write GPS data - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="kPvA9lgfwy2Z9UPFx8MdHDylG2eQ3/mQDpKm1SYezR9ytmsZKmUPLcyRXMl4FBEvAzdPHmE8WCrzsjZdZScqcA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>How correctly write GPS data</h2>
+
+<div class="message">
+<p><span class="author">Added by Anonymous <a title="10 Sep 2011 11:35" href="/projects/exiv2/activity?from=2011-09-10">about 10 years</a> ago</span></p>
+<div class="wiki">
+<p>For writing GPS data I use:</p>
+	<pre><code>Exiv2::RationalValue::AutoPtr rv(new Exiv2::RationalValue);<br />    rv-&gt;read("5/3 1/3 1/4");<br />    Exiv2::ExifKey key = Exiv2::ExifKey("Exif.GPSInfo.GPSLongitude");<br />    exifData.add(key, rv.get());<br />    image-&gt;setExifData(exifData);<br />    image-&gt;writeMetadata();</code></pre>
+
+
+	<p>But if I read this data:</p>
+	<pre><code>Exiv2::ExifMetadata::iterator itL = exifData.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSLongitude"));<br />    out &lt;&lt; itL-&gt;value().toFloat(0) &lt;&lt; "° " &lt;&lt; itL-&gt;value().toFloat(1) &lt;&lt; "' " &lt;&lt; itL-&gt;value().toFloat(2) &lt;&lt; "\"";</code></pre>
+
+
+	<p>I get previous GPS data<br />When I run my program again displayed GPS value which I write.</p>
+
+
+	<p>So, how doing somуthing like fflush, or where is my mistake?</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (11)</h3>
+  <div class="message reply" id="message-969">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/966?r=969#message-969">RE: How correctly write GPS data</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="14 Sep 2011 17:02" href="/projects/exiv2/activity?from=2011-09-14">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>This looks ok, setExifData and writeMetadata is all that is required. If you can you reproduce the problem in a small sample program please post it here.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-971">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/966?r=971#message-971">RE: How correctly write GPS data</a>
+    -
+    Added by Anonymous <a title="15 Sep 2011 02:04" href="/projects/exiv2/activity?from=2011-09-15">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Now I use:<br />    char scratchBuf<sup><a href="#fn100">100</a></sup>;<br />    long int deg, min;<br />    exifData["Exif.GPSInfo.GPSLongitudeRef"] = (longitude < 0 ) ? "W" : "E";<br />        deg   = (int)floor(fabs(longitude)); // Slice off after decimal.<br />        min   = (int)floor((fabs(longitude) - floor(fabs(longitude))) * 60000000);<br />    snprintf(scratchBuf, 100, "%ld/1 %ld/1000000 0/1", deg, min);<br />    exifData["Exif.GPSInfo.GPSLongitude"] = scratchBuf;</p>
+	<pre><code>image-&gt;setExifData(exifData);<br />    image-&gt;writeMetadata();<br />and it work perfect.</code></pre></div>
+  
+  </div>
+  <div class="message reply" id="message-972">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/966?r=972#message-972">RE: How correctly write GPS data</a>
+    -
+    Added by Anonymous <a title="15 Sep 2011 03:01" href="/projects/exiv2/activity?from=2011-09-15">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>But, I have run time error when try:<br />   image->setExifData(exifData);<br />in PNG image in Windows(with JPG image it work good).<br />In Linux all work perfect.<br />So, why is this happening.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-973">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/966?r=973#message-973">RE: How correctly write GPS data</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Sep 2011 10:05" href="/projects/exiv2/activity?from=2011-09-15">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Please send us:<br />1 a sample image<br />2 reduce your code to the minimum for us to reproduce<br />3 which version and build of exiv2 are you using<br />4 how did you obtain the libraries (downloaded or did you build it)<br />5 if you build it (on Windows).  How?  DevStudio+version, MinGW, Cygwin?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-974">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/966?r=974#message-974">RE: How correctly write GPS data</a>
+    -
+    Added by Anonymous <a title="15 Sep 2011 13:04" href="/projects/exiv2/activity?from=2011-09-15">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>1) sample image: ico.png (I test a lot of PNG image but the result is the same)<br />2) main.cpp<br />3) Exiv2 v0.21.1 Source<br />4) I build libraries<br />5) I buil libraries on Linux for Windows using i586-mingw32</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/280">ico.png</a>    <span class="size">(369 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/280/ico.png">ico.png</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/281">main.cpp</a>    <span class="size">(2.66 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/281/main.cpp">main.cpp</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-975">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/966?r=975#message-975">RE: How correctly write GPS data</a>
+    -
+    Added by Anonymous <a title="16 Sep 2011 02:12" href="/projects/exiv2/activity?from=2011-09-16">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I found something, an interesting, incomprehensible for me:<br />GPS tag recorded in a Linux into PNG-image is visible in my and other(Gwenview, digiKam) viewer.<br />But in Windows in my and other viewer this tag(writed in Linux) is invisible. ;)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-976">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/966?r=976#message-976">RE: How correctly write GPS data</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="16 Sep 2011 08:26" href="/projects/exiv2/activity?from=2011-09-16">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Aleksandr</p>
+
+
+	<p>I attach a photo of Adobe's building (where I used to work).  I geotagged this with exiv2 (using the python pyexiv2 wrapper).  The geotagging of this photo seems works correctly for me on various applications on Windows/Mac/Linux.  Could you inspect this with your applications on Windows/Linux.</p>
+
+
+	<p>I tried to build exiv2 0.21.1 on Cygwin last night to reproduce your issues and was surprised to encounter a linking issue.  I'm sure this has something to do with my Cygwin setup on my laptop (it has always build easily in the past).  I probably won't have time today to try on a different machine.  So, I'll look at your code on Saturday afternoon (in California) and get back to you.</p>
+
+
+	<p>Robin</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/282">Adobe.jpg</a>    <span class="size">(3.85 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/282/Adobe.jpg">Adobe.jpg</a>  </td>
+  <td>Geotagged image of Adobe&#39;s building in San Jose, California.</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-977">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/966?r=977#message-977">RE: How correctly write GPS data</a>
+    -
+    Added by Anonymous <a title="16 Sep 2011 13:23" href="/projects/exiv2/activity?from=2011-09-16">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I build sample addmoddel.cpp in Windows on gcc.<br />I got(1.jpg):<br />1) my png image -- ico.png<br />2) image create in Adobe Photoshop -- Untitled-1.png<br />3) jpg image -- 05.JPG</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/283">1.jpg</a>    <span class="size">(205 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/283/1.jpg">1.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-979">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/966?r=979#message-979">RE: How correctly write GPS data</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="20 Sep 2011 12:46" href="/projects/exiv2/activity?from=2011-09-20">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Sasha</p>
+
+
+	<p>I'm sorry.  I can't be of any assistance to you.  I've tried on 3 different Windows machine on Saturday/Sunday/today to build exiv2 with MinGW.  I'm unable to get a successful build. I don't know why this isn't working as it has been fine in the past.  I'm quite certain that the issues are in the setup of the Windows machine (and not the exiv2 code).\</p>
+
+
+	<p>I cannot provide support for MinGW.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-981">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/966?r=981#message-981">RE: How correctly write GPS data</a>
+    -
+    Added by Anonymous <a title="21 Sep 2011 02:37" href="/projects/exiv2/activity?from=2011-09-21">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I had the same problem with building exiv2 library in Windows. But I build library in Linux with i586-mingw32 and use obtained dll in Windows (I can send you this dll).</p>
+
+
+	<p>It maybe not necessary for me to record exif data into PNG-image. But I can't catch exception (only in Windows) when I try to write EXIF data into not supported type of image.<br />Maybe you know, why this is happening?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-982">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/966?r=982#message-982">RE: How correctly write GPS data</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Sep 2011 07:56" href="/projects/exiv2/activity?from=2011-09-21">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>I can't catch exception (only in Windows) when I try to write EXIF data into not supported type of image.<br />Maybe you know, why this is happening?</p>
+
+
+</blockquote>
+
+	<p>We've seen this before in connection with the symbol visibility feature. Make sure you use the same settings for the DLL and program that uses it.<br />See issue <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: C++ symbol visibility support for gcc builds (Closed)" href="/issues/523">#523</a> and <a class="external" href="http://gcc.gnu.org/wiki/Visibility">http://gcc.gnu.org/wiki/Visibility</a> esp. the section "Problems with C++ exceptions"</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-11/11)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

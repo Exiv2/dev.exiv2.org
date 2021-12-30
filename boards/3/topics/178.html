@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Problems creating a redistributable binary for Mac OS-X - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="65ezNvX0Hb0OcKpOI3T8sJqxweES3cOCXLpYC23uaNYJ2hjZh47RvVsUtUKco/CDpSOVmOM+YjihmsiDLtePuQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Problems creating a redistributable binary for Mac OS-X</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/192">Bob Davies</a> <a title="30 Jun 2009 13:19" href="/projects/exiv2/activity?from=2009-06-30">over 12 years</a> ago</span></p>
+<div class="wiki">
+<p>Hey all.</p>
+
+
+	<p>I'm trying to build a redistributable version of the exiv2 binaries for mac (and linux) in command-line form to go into a firefox extension.</p>
+
+
+	<p>I'm having problems rebuilding the executable and dependencies into a neat package which can be executed from any desktop (so I don't have to tell users to go install MacPorts or Fink, then which packages to install from there (Sadly my userbase have little-to-none techie skills). I only really need to support 10.5, but below that would be a 'nice to have'.</p>
+
+
+	<p>I'm wondering if anyone here has had any success compiling Exiv2 into something neat for Mac (like the Windows executable) ? or might have any tips how to go about doing so?</p>
+
+
+	<p>Thanks for the Help.</p>
+
+
+	<p>Bob</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (6)</h3>
+  <div class="message reply" id="message-179">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/178?r=179#message-179">RE: Problems creating a redistributable binary for Mac OS-X</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="30 Jun 2009 19:07" href="/projects/exiv2/activity?from=2009-06-30">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Bob,</p>
+
+
+	<p>What about something like this:</p>
+
+
+<pre>
+$ cd exiv2-0.18.2
+$ ./configure --disable-shared
+$ make
+</pre>
+
+	<p>to build a standalone static binary src/exiv2.</p>
+
+
+	<p>(Add <code>$ strip src/exiv2</code> to discard symbols from the file and make it slightly smaller.)</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-180">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/178?r=180#message-180">RE: Problems creating a redistributable binary for Mac OS-X</a>
+    -
+    Added by <a class="user active" href="/users/192">Bob Davies</a> <a title="30 Jun 2009 20:21" href="/projects/exiv2/activity?from=2009-06-30">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>That looks like it may be the perfect solution, will just figure out how to stop windows clearing the executable bit when I wrap it into my extension xpi and it may just work.</p>
+
+
+	<p>Thanks soooo much :) Beats the proverbial c**p out of my previous solution of shipping with a Macport-ed .pkg and hoping I could manage the install :)</p>
+
+
+	<p>Cheers Andreas, another of your always-fantastic responses gratefully recieved :)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-181">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/178?r=181#message-181">RE: Problems creating a redistributable binary for Mac OS-X</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Jun 2009 21:52" href="/projects/exiv2/activity?from=2009-06-30">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>As always, Andreas is 100% correct in his solution and this will build a static version of exiv2.</p>
+
+
+	<p>If you want to distribute this to all Mac users, you may wish to build a "Universal" binary which includes the code for both Intel and PPC macs.   I have been able to do this by building the i386 version on my iMac and the PPC version on my (elderly) PowerBook Pro - and then combining them together with lipo.  If you want this (and can't build it for yourself), I'd be happy to build it and send you the binary.  Let me know.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-184">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/178?r=184#message-184">RE: Problems creating a redistributable binary for Mac OS-X</a>
+    -
+    Added by <a class="user active" href="/users/192">Bob Davies</a> <a title="02 Jul 2009 15:28" href="/projects/exiv2/activity?from=2009-07-02">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Finally got it all up and running :) Thanks for the help :)<br />Cheating a little to stop windows wiping my permission-bits by zipping it, then unzipping within the extension the first time a user requires it :)</p>
+
+
+	<p>Robin I saw your excellent article about compiling a Universal Binary, but I must confess ~90% of it went way over my head. (I was until recently a C# developer lol :)<br />I'd give it a go but without a ppc system to build on I think I'd be totally stumped. <br />If you have a universal binary available I'd love to run it, but if not no worries :)</p>
+
+
+	<p>Thanks<br />Bob</p></div>
+  
+  </div>
+  <div class="message reply" id="message-185">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/178?r=185#message-185">RE: Problems creating a redistributable binary for Mac OS-X</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Jul 2009 22:21" href="/projects/exiv2/activity?from=2009-07-03">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Bob</p>
+
+
+	<p>Here's the build:<br /><a class="external" href="http://clanmills.com/files/exiv2-0.18.2-MacUniversalStatic.zip">http://clanmills.com/files/exiv2-0.18.2-MacUniversalStatic.zip</a></p>
+
+
+	<p>I created the archive with the 'zip' command which I believe preserves the x-bit.</p>
+
+
+	<p>The difficulty in building a universal exiv2 on a Mac is cross compiling.  The build seems to be determined to produce a native build.  So on the PPC it builds for PPC and on Intel for i386.  So you really need a PPC to build the PPC version.  I don't think this is an exiv2 issue - I think it's in the dependent libraries.  Apple provide a Tech Note about creating universal builds: <a class="external" href="http://developer.apple.com/technotes/tn2005/tn2137.html">http://developer.apple.com/technotes/tn2005/tn2137.html</a></p>
+
+
+	<p>Once things are built, combining them together is easy with lipo:<br />lipo -arch ppc path/to/ppc/exiv2 -arch i386 path/to/i386/exiv2 -create -output path/to/universal/exiv2</p>
+
+
+	<p>I built the ppc version on Tiger (10.4) using the following commands:<br />./configure --disable-shared MACOSX_DEPLOYMENT_TARGET=10.4<br />make MACOSX_DEPLOYMENT_TARGET=10.4</p>
+
+
+	<p>I have much longer and more detailed build notes for building exiv2 and pyexiv2 at:  <br /><a class="external" href="http://clanmills/articles/gpsexiftags/macos.shtml">http://clanmills/articles/gpsexiftags/macos.shtml</a></p>
+
+
+	<p>The latest Mac/Universal (and Windows) build of pyexiv2 for Python 2.6 can be download from:<br /><a class="external" href="http://clanmills.com/files/pyexiv2-0-1-3+exiv2-0-18.zip">http://clanmills.com/files/pyexiv2-0-1-3+exiv2-0-18.zip</a></p>
+
+
+	<p>Tester's welcome!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-186">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/178?r=186#message-186">RE: Problems creating a redistributable binary for Mac OS-X</a>
+    -
+    Added by <a class="user active" href="/users/192">Bob Davies</a> <a title="04 Jul 2009 07:24" href="/projects/exiv2/activity?from=2009-07-04">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Heya Robin.</p>
+
+
+	<p>That's phenomenal :) Thanks so much for taking the time to build it :) Hugely appreciated :)</p>
+
+
+	<p>Bob</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-6/6)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

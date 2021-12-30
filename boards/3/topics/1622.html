@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>XmpParser::encode seems to fail when processing Exif binary UserComment - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ijHaU30nDpL2CQ9VGKHp+/L8RdpyegNVchHwlQhLkOdofHG8D13CkqNtEFmnduXIzW4Ro4OZou+PMWAdS3J3iA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>XmpParser::encode seems to fail when processing Exif binary UserComment</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/3672">Jean-François Rabasse</a> <a title="19 Sep 2013 14:14" href="/projects/exiv2/activity?from=2013-09-19">about 8 years</a> ago</span></p>
+<div class="wiki">
+<p>Hello,</p>
+
+
+	<p>I have a problem with an image and a personal C++ program that uses the libexiv2.</p>
+
+
+	<p>Roughly (I drop all errors handling, try, catch, etc.)<br />my code reads metadata from an image file :<br />...   Image::AutoPtr image = image = ImageFactory::open(iname);<br />...   image->readMetadata();<br />then I encode the Exif data into XMP schema :<br />...   copyExifToXmp(image->exifData(), image->xmpData());<br />last, I want the XMP packet into a text representation :<br />...   std::string packet;<br />...   XmpParser::encode(packet, image->xmpData());<br />and I « play » with that.</p>
+
+
+	<p>I've used that stuff for a long time, on thousands of images, works well.<br />Recently I happened to run this on a new image and encoding the packet failed.</p>
+
+
+	<p>I know it comes from encoding, because I modified the code to get the encode status,<br />...   int status = XmpParser::encode(packet, image->xmpData());<br />giving value 3. (The doc says 3 is XMP toolkit failed and raised an XMP_Error.)</p>
+
+
+	<p>My investigations :<br />I first tried to examine my metadata, running command line exiv2 and also exiftool.<br />What I noticed is that in this image file the UserComment in Exif data is binary encoded.<br />With exiv2 :<br />...    exiv2 -pt MyImage<br />gives<br />...    Exif.Photo.UserComment    Undefined 4104  (Binary value suppressed)</p>
+
+
+	<p>and with exiftool :<br />...    exiftool -X MyImage<br />gives<br />...    &lt;ExifIFD:UserComment rdf:datatype='http://www.w3.org/2001/XMLSchema#base64Binary'&gt;<br />...    EvgPOw==<br />...    &lt;/ExifIFD:UserComment&gt;</p>
+
+
+	<p>I've confirmed that by removing this comment from my image file, with exiftool :<br />...    exiftool -exif:UserComment= MyImage<br />then, running again my initial program works very well, I get a valid XMP packet with all XMP and Exif data.</p>
+
+
+	<p>So what...<br />My impression is that the presence of this binary comment raises a problem, when recoding Exif data<br />into XMP Exif schema (the copyExifToXmp(image->exifData(), image->xmpData()) procedure),<br />and something breaks the XmpParser::encode() function.<br />I can't be sure of that, but clearly, processing an image file with the Comment removed works very<br />well, as usual for me.</p>
+
+
+	<p>Has someone already met this kind of problem ?<br />I had never seen that, but my usual images have no UserComment or non binary comments (standard<br />encoding ASCII or UNICODE only)</p>
+
+
+	<p>Thanks in advance.<br />Regards,<br />Jean-François</p>
+
+
+	<p>PS: my exiv2, program and library, is 0.23</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (8)</h3>
+  <div class="message reply" id="message-1623">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1622?r=1623#message-1623">RE: XmpParser::encode seems to fail when processing Exif binary UserComment</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Sep 2013 14:28" href="/projects/exiv2/activity?from=2013-09-19">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jean-François</p>
+
+
+	<p>Thank for reporting this.  We haven't changed the version of xmpsdk in Exiv2 for several years, so 0.21, 0.22 etc will almost certain be the same.  We're about to ship 0.24 and it has the same xmpsdk.</p>
+
+
+	<p>Three questions:<br />1) Can you attach an image to this topic that demonstrates this issue?<br />2) Have you looked at the XMP Spec to see what it says about binary (non UTF-8) comments?<br />3a) Can you provide a command-line (using exiv2 or bin/xmpparse or any sample app) to reproduce this?<br />or<br />3b) If it can only be reproduced with your C++ code, can you provide a short main() command-line program to reproduce this?</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1625">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1622?r=1625#message-1625">RE: XmpParser::encode seems to fail when processing Exif binary UserComment</a>
+    -
+    Added by <a class="user active" href="/users/3672">Jean-François Rabasse</a> <a title="20 Sep 2013 01:44" href="/projects/exiv2/activity?from=2013-09-20">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hello Robin,</p>
+
+
+	<p>Thanks for your reply.</p>
+
+
+	<p><em>1) Can you attach an image to this topic that demonstrates this issue?</em></p>
+
+
+	<p>Sure, the attached image Lapon.jpg is the one I discovered the problem with.<br />(I don't know who put that binary comment in Exif. Image comes from a Samsung pocket camera and seems to have been processed with Gimp)</p>
+
+
+	<p><em>2) Have you looked at the XMP Spec to see what it says about binary (non UTF-8) comments?</em></p>
+
+
+	<p>I have the Adobe XMPSpecification, PDF version. What is said about that is that the XMP encoded exif:UserComment is to be a «Lang Alt» and such a value is an array of «alt Text».</p>
+
+
+	<p>So Text ! And as XMP/RDF requires a UTF-8 encoded XML tree, probably binary isn't welcome. But it's not said explicitly.<br />And it's not said how applications should behave. Drop binary values, or process as text keeping the Base64 representation ?</p>
+
+
+	<p><em>3a) Can you provide a command-line (using exiv2 or bin/xmpparse or any sample app) to reproduce this?</em></p>
+
+
+	<p>The exiv2 program seems to detect and drop the comment.<br /><pre>
+exiv2 -pt Lapon.jpg
+</pre><br />displays<br /><pre>
+Exif.Photo.UserComment Undefined 4104  (Binary value suppressed)
+</pre></p>
+
+
+	<p><em>3b) If it can only be reproduced with your C++ code, can you provide a short main() command-line program to reproduce this?</em></p>
+
+
+	<p>Please, find attached testxmp.cxx. It's the very very minimal source code. It does the metadata extraction and XMP serialization. I added a save function to have the serialized packet into a sidecar file.<br />Compile and link (with libexiv2:-)</p>
+
+
+	<p>Can be run on my image :<br /><pre>
+./testxmp Lapon.jpg
+Error: XMP Toolkit error 4: Invalid UTF-8 sequence length
+XMP serialize error 3
+</pre></p>
+
+
+	<p>And if you now make a copy of the original image and remove the Exif comment :<br /><pre>
+cp Lapon.jpg Lapon2.jpg
+exiv2 -M"del Exif.Photo.UserComment" Lapon2.jpg
+./testxmp Lapon2.jpg
+XMP serialized Ok
+XMP saved Ok
+</pre><br />all is fine.</p>
+
+
+	<p>My comment :<br />I'd signaled that problem because I've just discovered it. However I don't think it's very important. (I mean it's not worth spending time on that.)<br />The first reason is that encoding binary into comments isn't a usual practice. (Sounds a bit silly ?) It's the first time I see this, in over 12 years of digital images handling.<br />Also it's easy to workaround (remove the comment) if it is documented, something like « Warning, if your images contain binary comments, you may have problems. »</p>
+
+
+	<p>Regards,<br />Jean-François</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/542">testxmp.cxx</a>    <span class="size">(1.94 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/542/testxmp.cxx">testxmp.cxx</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-1626">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1622?r=1626#message-1626">RE: XmpParser::encode seems to fail when processing Exif binary UserComment</a>
+    -
+    Added by <a class="user active" href="/users/3672">Jean-François Rabasse</a> <a title="20 Sep 2013 01:45" href="/projects/exiv2/activity?from=2013-09-20">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Sorry, only one attached file. Here is the image...</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/543">Lapon.jpg</a>    <span class="size">(1.48 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/543/Lapon.jpg">Lapon.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-1627">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1622?r=1627#message-1627">RE: XmpParser::encode seems to fail when processing Exif binary UserComment</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Sep 2013 02:04" href="/projects/exiv2/activity?from=2013-09-20">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jean-François</p>
+
+
+	<p>Thanks for such a careful and detailed answer.  I'll look at this at the weekend.</p>
+
+
+	<p>I'm not surprised that the XMP Spec does not say what to do with syntax errors in XML (or UTF-8 errors).  I'm not sure it should even be concerned with this.  The spec after all is to say what is required and cannot really deal with the infinite set of spec violations.  However let's not talk like lawyers!  I'm an engineer, so I'll have a look at your files and code and get back to you.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1667">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1622?r=1667#message-1667">RE: XmpParser::encode seems to fail when processing Exif binary UserComment</a>
+    -
+    Added by <a class="user active" href="/users/3672">Jean-François Rabasse</a> <a title="18 Nov 2013 07:36" href="/projects/exiv2/activity?from=2013-11-18">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hello,</p>
+
+
+	<p>Well, I finaly found the problem, it's just unimplemented yet !</p>
+
+
+	<p>Having a look at exiv2 0.23 source code (it's not the version I run but it's the latest I've just downloaded) :<br />Source file : convert.cpp<br />Function : void Converter::cnvExifComment<br />(Lines 512 to 527 in source file)</p>
+
+
+	<p>Transfering the comment from Exif data to XMP data says :<br />524    // Todo: Convert to UTF-8 if necessary<br />525    (*xmpData_)[to] = cv->comment();</p>
+
+
+	<p>So, clear, the comment as read from the Exif section is raw copied to XMP.<br />UTF-8 encoding isn't implemented yet, and even though, in the case of a binary comment it won't work better because non text characters won't be UTF-8 encoded.<br />And this is what breaks the XMP parser when trying to encode a xpacket.<br />Cf. supra, Error: XMP Toolkit error 4: Invalid UTF-8 sequence length</p>
+
+
+	<p>I've solved my problem, the very dirty way :-).<br />If the comment string contains non text characters, i.e. a binary comment, I just erase the property. Anyway, I don't know what to do with a - undocumented - binary comment. <br />I don't known if it is expected to be frequent, my test image came from a Samsung smartphone.</p>
+
+
+	<p>Regards,<br />Jean-François</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1668">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1622?r=1668#message-1668">RE: XmpParser::encode seems to fail when processing Exif binary UserComment</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Nov 2013 09:09" href="/projects/exiv2/activity?from=2013-11-19">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Well done, Jean-François.  I think you've found the exact spot in the code to deal with this.</p>
+
+
+	<p>I'm not sure what we should do about this.  There are three things we could do:</p>
+
+
+	<p>1) Nothing (current behavior)<br />2) Convert to UTF8 (as the comment suggests)<br />3) Remove the comment if contains binary (as you have done)<br />4) Provide an option on exiv2(.exe) to select between 1,2,3.</p>
+
+
+	<p>If you feel we should change something, please open an issue report and it will be considered.  If you open an issue, please refer to this thread.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1669">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1622?r=1669#message-1669">RE: XmpParser::encode seems to fail when processing Exif binary UserComment</a>
+    -
+    Added by <a class="user active" href="/users/3672">Jean-François Rabasse</a> <a title="19 Nov 2013 13:48" href="/projects/exiv2/activity?from=2013-11-19">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hello Robin,</p>
+
+
+	<p>Well, not that easy to state the proper strategy as such an issue isn't very likely.<br />Exif UserComment are not widely used, most people and applications now use XMP Dublin Core Description field, way far more powerful.<br />And putting binary data into a comment makes no sense for me. I've processed metadata on over 10000 images these past years and it's the first time I see something like this.<br />(I doubt that opening an issue report for firmware upgrade at Samsung would have any effect:-)</p>
+
+
+	<p>However, I thing UTF8 encoding should probably be done, one day or the other, because the XMP standard requires Unicode and nothing else. I'm French, so a non ASCII user, and probably if I comment an image with something like : « C'est déjà Noël », I'd expect my XMP to be « C&apos;est dÃ©jÃ|  NoÃ«l »</p>
+
+
+	<p>UTF8 encoding would make the code standard conformant, but it won't solve a possible binary comment, because the XML standard (and XMP is XML based) allows only a subset of Unicode and forbids all control codes, U+0000 to U+001F and U+0080 to U+009F, except the linefeed and horizontal tab.<br />So, no way to transfer binary to a XMP data tree, except by keeping the original Base64 encoding.</p>
+
+
+	<p>Probably the best solution should be to UTF8 encode standard non ASCII text, and ignore binary comments.</p>
+
+
+	<p>Anyway, to answer your « If you feel we should change something », I don't think so. The too low occurence of such a thing isn't worth the work if it happens one time every 10000 years, and when such an issue appears, it's very easy to fix with the command line program :<br />exiv2 -M"del Exif.Photo.UserComment" Strangeimage</p>
+
+
+	<p>Shame on me, tar and feathers, I've fixed my code in a dirty way.<br />In case I rewrite a more clean implementation I'll send you a patch for the convert.cpp file.</p>
+
+
+	<p>Best regards,<br />Jean-François</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1670">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1622?r=1670#message-1670">RE: XmpParser::encode seems to fail when processing Exif binary UserComment</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Nov 2013 14:25" href="/projects/exiv2/activity?from=2013-11-19">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jean-François</p>
+
+
+	<p>Thanks for investigating and thinking about all of this.  Reporting anything to Samsung is unlikely to lead anywhere, and doesn't solve what Exiv2 should do about this.  Handling this as UTF8 sounds reasonable. I think the conclusion is to do nothing, and you keep you private fix.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-8/8)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

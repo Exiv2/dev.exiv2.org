@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #1137: Enable piping of selective copy of metadata between images  - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="buCdX3XC6zijlW5iOsLGtCdIvJCi3hykA3PdlRFmFVGMrTawB7gnOPbxcW6FFcqHGNro6VM9vR7+U00dUl/yPg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #1137: Enable piping of selective copy of metadata between images " href="https://dev.exiv2.org/issues/1137.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #1137</h2>
+
+<div class="issue tracker-2 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Enable piping of selective copy of metadata between images </h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Nov 2015 15:27" href="/projects/exiv2/activity?from=2015-11-23">almost 6 years</a> ago.
+        Updated <a title="22 Dec 2015 04:46" href="/projects/exiv2/activity?from=2015-12-22">almost 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">design</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">23 Nov 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">6.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>This was discussed on the forum.  <a class="external" href="http://dev.exiv2.org/boards/3/topics/2329">http://dev.exiv2.org/boards/3/topics/2329</a></p>
+
+
+	<p>I've added two features:<br />1 Option <del>mfilename will access -m</del> to mean standard-input<br />2 Option -PV is identical to -Pv AND adds the word 'set ' at the beginning of every output metadatum.</p>
+
+
+	<p>This enables the user to construct a pipeline such as this to copy the GPS (Latitude and Longitude) from one image to another.<pre>$ exiv2 -PkV --grep GPSL http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg | exiv2 -m- robin.jpg</pre>In the discussion on the forum, I used utility 'sed' to generate the 'set ' word on every line of the output.  For the convenience of Windows users (who will not have sed as a preinstalled command), the -PV option is provided.</p>
+
+
+	<p>In the discussion on the forum, I used a temporary file 'foo.cmd' to store the output of sed and read it into exiv2 with the <del>mfoo.cmd option.  The new feature that -m</del> represents stdin is more convenient and applies to all platforms.  The <del>m</del> option can of course be used by exiv2 and read from a pipe being filled by any application.  So this is a useful scripting feature for exiv2.</p>
+
+
+	<p>Breaking this down:<pre>$ exiv2 -PkV --grep GPSL http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg 
+set Exif.GPSInfo.GPSLatitudeRef                   N
+set Exif.GPSInfo.GPSLatitude                      51/1 106969/10000 0/1
+set Exif.GPSInfo.GPSLongitudeRef                  W
+set Exif.GPSInfo.GPSLongitude                     1/1 495984/10000 0/1</pre>And applying it to an empty image: <pre>$ curl -O --silent http://clanmills.com/robin.jpg
+$ exiv2 -pa robin.jpg
+$ </pre>Using the pipe:<pre>$ exiv2 -PkV --grep GPSL http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg | exiv2 -m- robin.jpg</pre>And examining the metadata:<pre>$ exiv2 -pa robin.jpg
+Exif.Image.GPSTag                            Long        1  26
+Exif.GPSInfo.GPSLatitudeRef                  Ascii       2  North
+Exif.GPSInfo.GPSLatitude                     Rational    3  51deg 10.69690' 
+Exif.GPSInfo.GPSLongitudeRef                 Ascii       2  West
+Exif.GPSInfo.GPSLongitude                    Rational    3  1deg 49.59840' 
+$</pre></p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/863">1173.patch</a>    <span class="size">(20.1 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/863/1173.patch">1173.patch</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 24 Nov 2015 18:27</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4044" href="/projects/exiv2/repository/exiv2/revisions/4044">Revision 4044</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4044/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Nov 2015 15:28" href="/projects/exiv2/activity?from=2015-11-23">almost 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Enable piping of selective copy of metadata between images  (Closed)" href="/issues/1137">#1137</a>.  Implemented.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4045" href="/projects/exiv2/repository/exiv2/revisions/4045">Revision 4045</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4045/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Nov 2015 16:03" href="/projects/exiv2/activity?from=2015-11-23">almost 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Enable piping of selective copy of metadata between images  (Closed)" href="/issues/1137">#1137</a>.  Updated manpage to document <del>m</del> and -pV and Added regression detector for both new options to test suite.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4046" href="/projects/exiv2/repository/exiv2/revisions/4046">Revision 4046</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4046/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Nov 2015 16:25" href="/projects/exiv2/activity?from=2015-11-23">almost 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Enable piping of selective copy of metadata between images  (Closed)" href="/issues/1137">#1137</a>.  Correction to <a class="changeset" title="#1137.  Updated manpage to document -m- and -pV and Added regression detector for both new option..." href="/projects/exiv2/repository/exiv2/revisions/4045">r4045</a>.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4047" href="/projects/exiv2/repository/exiv2/revisions/4047">Revision 4047</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4047/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Nov 2015 20:08" href="/projects/exiv2/activity?from=2015-11-23">almost 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Enable piping of selective copy of metadata between images  (Closed)" href="/issues/1137">#1137</a>.  Correction to <a class="changeset" title="#1137.  Updated manpage to document -m- and -pV and Added regression detector for both new option..." href="/projects/exiv2/repository/exiv2/revisions/4045">r4045</a>.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4050" href="/projects/exiv2/repository/exiv2/revisions/4050">Revision 4050</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4050/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Nov 2015 18:44" href="/projects/exiv2/activity?from=2015-11-26">almost 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Enable piping of selective copy of metadata between images  (Closed)" href="/issues/1137">#1137</a>.  Correction to <a class="changeset" title="#1137.  Updated manpage to document -m- and -pV and Added regression detector for both new option..." href="/projects/exiv2/repository/exiv2/revisions/4045">r4045</a>.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4504" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Nov 2015 16:07" href="/projects/exiv2/activity?from=2015-11-23">almost 6 years</a> ago
+      <span id="journal-4504-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>80</i></li>
+       <li><strong>Estimated time</strong> changed from <i>2.00 h</i> to <i>3.00 h</i></li>
+    </ul>
+    <div id="journal-4504-notes" class="wiki"><p>I'm going to mark this as 80% done as something might come up in the next few weeks.</p>
+
+
+	<p>The code to read the command files is in src/exiv2.cpp/parseCmdFiles().  I was a little surprised to see that it doesn't use basicio, so it's not possible to use -mhttp://this/that.  The parsing of the command files uses std::getline().  getline is not part of the basicio API.  The code could be modified to "suck up" the data using basicio into a temporary file and parsed with std::getline().</p>
+
+
+	<p>It's possible to argue at the -PV option should also imply -Pk as a convenience.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4505" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="23 Nov 2015 18:53" href="/projects/exiv2/activity?from=2015-11-23">almost 6 years</a> ago
+      <span id="journal-4505-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4505-notes" class="wiki"><p>Robin Mills wrote:<br /><pre>
+$ exiv2 -PkV --grep GPSL http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg | exiv2 -m- robin.jpg
+</pre></p>
+
+
+	<p>The equivalent ExifTool command is:</p>
+
+
+<pre>
+$ exiftool -tagsfromfile http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg "-gpsl*" robin.jpg
+</pre>
+
+	<p>which avoids the need for a pipe.  I wonder if a similar Exiv2 feature would be useful.  Copying specific tags from one file to another is a very common operation.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4506" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Nov 2015 20:43" href="/projects/exiv2/activity?from=2015-11-23">almost 6 years</a> ago
+      <span id="journal-4506-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>80</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> changed from <i>3.00 h</i> to <i>6.00 h</i></li>
+    </ul>
+    <div id="journal-4506-notes" class="wiki"><p>Ah, that's interesting, Phil.  If you've thought of this, I don't have a stupid idea!  Mind you, to give credit for the idea, it's Nick who asked if we could do something like this.</p>
+
+
+	<p>I'll say this is 50% done and bump the estimate from 3 to 6 hours.  Something to think about on a wet afternoon in England (shouldn't need to wait long for that in November).</p>
+
+
+	<p>The syntax of the exiv2 command is:<pre>$ exiv2 [options] [action] file</pre>We generally say "do abc ...." to one or more files and our insert/extract/preview/sidecar files are usually paired by name with the file.  The pipe idea fits nicely into that model as we are typically reading, or writing.  A command-option such as -tagsfromfile is a departure from our usual semantics as we are reading from one source and writing to one or more outputs.  Maybe the syntax could be:<pre>$ exiv2 -PkV1 --grep GPSL http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg robin.jpg</pre>The purpose of the '1' is to say read from the first, and apply to the rest.  Without the '1', the command:<pre>$ exiv2 -PkV --grep GPSL http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg robin.jpg</pre>Would say "Report by reading both DSC_7154.jpg AND robin.jpg".  Oh, I'm getting excited.  The command:<pre>$ exiv2 -PkV+ --grep GPSL http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg robin.jpg foo.jpg man.jpg</pre>Would be to <em><strong>pair</strong></em> the files, so copy from DSC... into robin.jpg, copy from foo.jpg to man.jpg.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4507" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="23 Nov 2015 21:44" href="/projects/exiv2/activity?from=2015-11-23">almost 6 years</a> ago
+      <span id="journal-4507-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4507-notes" class="wiki"><p>The pairing idea is interesting.  ExifTool has an automated way to do this which allows, for example, someone to copy GPS from sidecar XMP files to the corresponding JPG's:</p>
+
+
+<pre>
+exiftool -tagsfromfile %d%f.xmp "-gps*" some_directory/*.jpg
+</pre>
+
+	<p>Which is also very useful.</p>
+
+
+	<p>ExifTool also allows copying from multiple sources, ie) to copy Make and Model from another JPG, and GPS tags from the XMP sidecar:</p>
+
+
+<pre>
+exiftool -tagsfromfile other_directory/%f.jpg -make -model -tagsfromfile %d%f.xmp "-gps*" some_directory/*.jpg
+</pre>
+
+	<p>but this feature is rarely used.  However, if the syntax would allow it and it was easy to implement then it might be nice to have this ability too.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4508" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Nov 2015 18:27" href="/projects/exiv2/activity?from=2015-11-24">almost 6 years</a> ago
+      <span id="journal-4508-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/863">1173.patch</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/863/1173.patch">1173.patch</a> added</li>
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>90</i></li>
+    </ul>
+    <div id="journal-4508-notes" class="wiki"><p>I have implemented this and attach a patch.  I'm not going to submit this to trunk at the time, for a variety of reasons:</p>
+
+
+	<ol>
+	<li>There is an alternative to this using the pipe design.</li>
+		<li>Let's wait for feedback concerning the 'set a.b.c value' commands.  Life may be more complicated than this!</li>
+		<li>The -P1 and -P+ options are new semantics for the exiv2 application.  I'd like to pause and think before jumping into a major semantic change.</li>
+		<li>We should avoid adding complicated stuff to the exiv2 application as its purpose is to be our test harness and "more complex" sample application.</li>
+	</ol>
+
+
+	<p>So Phil: As always, I appreciate your input and encouragement.  And I want you to know that I have spent a rainy afternoon implementing this.  For the moment, I prefer to leave things as they are.</p>
+
+
+	<p>Demo:<pre>$ curl -O --silent http://clanmills.com/robin.jpg ; exiv2 -pa robin.jpg ; exiv2 -P1V --grep GPSL ~/temp/Stonehenge.jpg  robin.jpg ; exiv2 -pa robin.jpg
+Exif.Image.GPSTag                            Long        1  26
+Exif.GPSInfo.GPSLatitudeRef                  Ascii       2  North
+Exif.GPSInfo.GPSLatitude                     Rational    3  51deg 10.69690' 
+Exif.GPSInfo.GPSLongitudeRef                 Ascii       2  West
+Exif.GPSInfo.GPSLongitude                    Rational    3  1deg 49.59840' 
+779 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>Implementing the -P+ option is a mod to the code in exiv2.cpp around line 930.  <pre>    // #1137
+    // when -P1 is set (prFirst), pop the first file, print the metadata to stream and parse
+    // set the action to modify to read the generated commands
+    //
+    // implementing the -P+ (prPair) feature is a simple variation of this code
+    // to read (and subsequently remove) every other file in params-&gt;files_ to stream
+    //
+    if (rc == 0 &#38;&#38; Params::instance().printItems_ &#38; Params::prFirst ) {
+        Params&#38; params = Params::instance();
+        // Cancel prFirst
+        params.printItems_ |= !Params::prFirst;
+
+        // Read and pop the first file
+        std::string           file  = params.files_[0];
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(file);
+        assert(image.get() != 0);
+        image-&gt;readMetadata();
+        params.files_.erase (Params::instance().files_.begin());
+
+        // Write the 'set' commands and read them into modifyCmds_
+        Action::Print* printAction = new Action::Print();
+        std::ostringstream    os ;
+        printAction-&gt;printMetadata(image.get(),os);
+        delete printAction;
+        std::istringstream is(os.str());
+        parseCmdStream(modifyCmds_,is,file);
+
+        // Change action to modify
+        params.action_ = Action::modify;
+    }</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4509" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Nov 2015 13:05" href="/projects/exiv2/activity?from=2015-11-25">almost 6 years</a> ago
+      <span id="journal-4509-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4509-notes" class="wiki"><p>Nick:</p>
+
+
+	<p>I've made you a watcher of this issue.  So you'll get an email when this issue is updated.  You'll see that Phil and I have had a little discussion about this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4515" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4560">Nick Henshaw</a> <a title="27 Nov 2015 13:23" href="/projects/exiv2/activity?from=2015-11-27">almost 6 years</a> ago
+      <span id="journal-4515-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4515-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Nick:</p>
+
+
+	<p>I've made you a watcher of this issue.  So you'll get an email when this issue is updated.  You'll see that Phil and I have had a little discussion about this.</p>
+
+
+</blockquote>
+
+	<p>Thanks Robin</p>
+
+
+	<p>I can see that you have a number of solution options, and it's dificult for me, as a newby, to comment on the suitability of piping, copying, pairing.</p>
+
+
+	<p>However from a "user" point of view, the typical scenario is:<br />I have some pics taken with my phone (with GPS and usually telling the right local time), and some with my camera (elderly DSLR, GPS-ignorant and usually telling the wrong local time).  The camera pics are generally in clumps - I am less likely to wander and snap with this one, more likely (on balance) to get it out, take a few snaps in one place, put it away. So on the assumption that I have taken at least one pic with my phone in the same location, my typical requirement is to copy (in particular) GPS data from one phone pic to multiple camera pics.</p>
+
+
+	<p>Having said that, if I am generating exiv2 commands from lists, it is easier for me to generate multiple commands than to put multiple destinations on a single command line.</p>
+
+
+	<p>So:<br />exiv2 &lt;params&gt; Phonepic.JPG Camerapic1.JPG<br />exiv2 &lt;params&gt; Phonepic.JPG Camerapic2.JPG<br />exiv2 &lt;params&gt; Phonepic.JPG Camerapic3.JPG</p>
+
+
+	<p>is easier to generate than:<br />exiv2 &lt;params&gt; Phonepic.JPG Camerapic1.JPG Camerapic2.JPG Camerapic3.JPG</p>
+
+
+	<p>Don't know if this helps!</p>
+
+
+	<p>Nick</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4516" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Nov 2015 15:15" href="/projects/exiv2/activity?from=2015-11-27">almost 6 years</a> ago
+      <span id="journal-4516-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4516-notes" class="wiki"><p>Well you know how it is, Nick.  These things are just features.  They are horses for courses.  At the moment, I haven't submitted the patch, so you'll have to generate the commands:<pre>
+exiv2 -PkV --grep GPSL Phonepic.jpg | exiv2 -m- Camerapic1.jpg
+exiv2 -PkV --grep GPSL Phonepic.jpg | exiv2 -m- Camerapic2.jpg</pre>or<pre>exiv2 -PkV --grep GPSL Phonepic.jpg &gt; gps.txt
+exiv2 -mgps.txt Camerapic1.jpg Camerpic2.jpg Camerapic3.jpg</pre>or (and simplest)<pre>exiv2 -PkV --grep GPSL Phonepic.jpg | exiv2 -m- Camerapic1.jpg Camerpic2.jpg Camerapic3.jpg</pre>Incidentally, the reason I became interested in Exiv2 back in 2008 was to copy location data from the GPX file in my garmin running watch and update photos.  I did that in Python and the script has been working without change for years.  Today, I believe there are lots of applications that can read a GPX file and geotag your photos.  I gave a 5 minute 'lightning' presentation about this at the Python 2010 Conference in Atlanta, GA.  <a class="external" href="http://clanmills.com/2010/PyCon/RobinPyCon2010.mov">http://clanmills.com/2010/PyCon/RobinPyCon2010.mov</a></p>
+
+
+	<p>Last year I purchased a Nikon D5300 with a built-in GPS.  Very convenient.  I see the D5500 has removed the GPS feature.  You can get standalone GPS devices which work with a variety of cameras.  And it's possible that your phone can record a GPX file.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4517" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Nov 2015 15:28" href="/projects/exiv2/activity?from=2015-11-27">almost 6 years</a> ago
+      <span id="journal-4517-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4517-notes" class="wiki"><p>I've just had another idea.  We could write a script that calls exiv2 to get the time and location data from a directory of phone photos and writes a GPX file.  So you do: <pre>phone2gpx.bat c:\Pictures\From\Phone\ &gt; foo.gpx</pre>Then you drop foo.gpx into a directory of camera photos, and an use a geotagging application (such as my gps.py script).  Snuffing to it.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4560" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Dec 2015 04:46" href="/projects/exiv2/activity?from=2015-12-22">almost 6 years</a> ago
+      <span id="journal-4560-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>90</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1137.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1137.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

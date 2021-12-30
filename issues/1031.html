@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #1031: CMake build broken when using zlib/expat in clean way - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="DAhPQjAxGWsm0QB/M0ptq5MOtDBp0AEbyhdJOo4LwGDuReStQkvVa3O1H3OMnWGYrJzgSZgzoKE3N9myzTInDw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #1031: CMake build broken when using zlib/expat in clean way" href="https://dev.exiv2.org/issues/1031.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #1031</h2>
+
+<div class="issue tracker-2 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>CMake build broken when using zlib/expat in clean way</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/2456">Daniel Kaneider</a> <a title="15 Feb 2015 15:18" href="/projects/exiv2/activity?from=2015-02-15">almost 7 years</a> ago.
+        Updated <a title="28 Sep 2015 09:48" href="/projects/exiv2/activity?from=2015-09-28">about 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">15 Feb 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hi,</p>
+
+
+	<p>once again, I tried to upgrade the exiv2 library used in our project. And, surprise, surprise, CMake compilation was broken again. I hoped that the project would finally switch to support CMake as the main toolchain, but anyway.</p>
+
+
+	<p>The first problem was, that the compiler didn't honor any more our zlib version. We are using 1.2.8. The build scripts set it hardcoded to 1.2.7<br />Second problem, the compiler seems to have a problem with the expat library. I'm not sure where the root cause is, but your scripts seem to set the expat library hardcoded, once again.</p>
+
+
+	<p>I'm building using<br /><pre>
+cmake.exe -G "Visual Studio 11 Win64" -DCMAKE_PROGRAM_PATH=%SVN_DIR% -DZLIB_ROOT=..\zlib-%ZLIB_COMMIT%;..\zlib-%ZLIB_COMMIT%\Release -DCMAKE_INCLUDE_PATH=..\expat-2.1.0\lib -DCMAKE_LIBRARY_PATH=..\expat-2.1.0\%Configuration% -DEXIV2_ENABLE_BUILD_SAMPLES=OFF -DEXIV2_ENABLE_CURL=OFF -DEXIV2_ENABLE_SSH=OFF
+</pre></p>
+
+
+	<p>I discovered that commit 3479 broke a lot of things, my appended patch tries to solve at least those ones.</p>
+
+
+	<p>Regards,<br />Daniel</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/720">exiv2-cmake.patch</a>    <span class="size">(772 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/720/exiv2-cmake.patch">exiv2-cmake.patch</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Daniel Kaneider, 15 Feb 2015 15:18</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1031" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="ou/d9SAF0h8uDjendO9qOTqhbS8tz1U30bswVHiE72JAonYaUn8eH3tqKKvLOGYKBTM5Vtws9I0sm6DcO70IDQ==" />
+  <table class="list issues odd-even"><tr id="relation-134" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1041" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/1041">Feature #1041</a>: CMake toolchain for windows</td><td class="status">Closed</td><td class="start_date">15 Mar 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-136" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="536" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/536">Feature #536</a>: Switch to a unified build system based on cmake</td><td class="status">Closed</td><td class="start_date"></td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1031/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1031&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3612" href="/projects/exiv2/repository/exiv2/revisions/3612">Revision 3612</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3612/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Feb 2015 13:50" href="/projects/exiv2/activity?from=2015-02-25">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: CMake build broken when using zlib/expat in clean way (Closed)" href="/issues/1031">#1031</a>.  CMake development.  Builds OK on Mac.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3613" href="/projects/exiv2/repository/exiv2/revisions/3613">Revision 3613</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3613/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Feb 2015 14:57" href="/projects/exiv2/activity?from=2015-02-25">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: CMake build broken when using zlib/expat in clean way (Closed)" href="/issues/1031">#1031</a>  Thank You Daniel for the patch.  This submission is on the trunk.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3615" href="/projects/exiv2/repository/exiv2/revisions/3615">Revision 3615</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3615/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Feb 2015 22:39" href="/projects/exiv2/activity?from=2015-02-25">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: CMake build broken when using zlib/expat in clean way (Closed)" href="/issues/1031">#1031</a>.  CMake documentation update for v0.25.  No major work is planned for CMake in v0.25.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3137" class="journal has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Feb 2015 02:15" href="/projects/exiv2/activity?from=2015-02-16">almost 7 years</a> ago
+      <span id="journal-3137-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Priority</strong> changed from <i>High</i> to <i>Normal</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3167" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Feb 2015 14:22" href="/projects/exiv2/activity?from=2015-02-25">over 6 years</a> ago
+      <span id="journal-3167-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.25</i> to <i>0.26</i></li>
+    </ul>
+    <div id="journal-3167-notes" class="wiki"><p>I'm going to look at this on branches/jenkins.  I don't want to disturb the trunk at this time.  The submission <a class="changeset" title="#1031.  CMake development.  Builds OK on Mac." href="/projects/exiv2/repository/exiv2/revisions/3612">r3612</a> includes the code in your patch.</p>
+
+
+	<p>Submission <a class="changeset" title="trunk: exiv2 v0.25" href="/projects/exiv2/repository/exiv2/revisions/3479">r3479</a> was a very large submission to integrate the 'webready' code from Tuan's GSoC2013 project.  That <a class="changeset" title="trunk: exiv2 v0.25" href="/projects/exiv2/repository/exiv2/revisions/3479">r3479</a> breaks the CMake build environment is regrettable.  However, we have never claimed that our CMake support is ready for general use.  Our CMake/MSVC support is weak.  There are many challenges with CMake including: different platforms, in/out of source.  You will be aware that CMake and MSVC are not happy bed-fellows.  To compound this, nmake and the Visual Studio IDE present separate challenges.</p>
+
+
+	<p>It's not possible to move to CMake as our primary build platform at this time.  At the team meeting in July 2015, it was agreed that the build project for v0.25 was to implement a build server.  That project is mostly complete and operational.  I'd like to complete the build server project before doing more work on CMake.</p>
+
+
+	<p>I'm willing to make small changes to the CMake files on the trunk, however moving to CMake as our primary (or even secondary and supported) build chain cannot be undertaken at the moment.  I'd like very much to recruit a CMake Engineer to take on this task, however I haven't had the good fortune to do this yet.</p>
+
+
+	<p>I appreciate your offer (by private email) to provide CMake consultancy and I'd like to take advantage of your knowledge while not consuming lots of your time.</p>
+
+
+	<p>I've advanced the 'Target Version' of this issue to v0.26.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3168" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Feb 2015 14:59" href="/projects/exiv2/activity?from=2015-02-25">over 6 years</a> ago
+      <span id="journal-3168-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3168-notes" class="wiki"><p>Thank You, Daniel for the patch.  I've submitted it on the trunk. <a class="changeset" title="#1031  Thank You Daniel for the patch.  This submission is on the trunk." href="/projects/exiv2/repository/exiv2/revisions/3613">r3613</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3311" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Mar 2015 11:39" href="/projects/exiv2/activity?from=2015-03-26">over 6 years</a> ago
+      <span id="journal-3311-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>0.25</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3518" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Apr 2015 08:37" href="/projects/exiv2/activity?from=2015-04-26">over 6 years</a> ago
+      <span id="journal-3518-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Tracker</strong> changed from <i>Bug</i> to <i>Feature</i></li>
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>New</i></li>
+       <li><strong>Assignee</strong> deleted (<del><i>Robin Mills</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3521" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Apr 2015 08:43" href="/projects/exiv2/activity?from=2015-04-26">over 6 years</a> ago
+      <span id="journal-3521-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3521-notes" class="wiki"><p>Under no circumstances will I do any further work on CMake/MSVC.  I am overloaded.  I appreciate that Daniel has provided some assistance and encouragement.  However, I can do nothing more about this matter.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3789" class="journal has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="02 Jun 2015 23:40" href="/projects/exiv2/activity?from=2015-06-02">over 6 years</a> ago
+      <span id="journal-3789-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.25</i> to <i>0.26</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4305" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Sep 2015 09:48" href="/projects/exiv2/activity?from=2015-09-28">about 6 years</a> ago
+      <span id="journal-4305-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Closed</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-4305-notes" class="wiki"><p>This issue is being closed because I am working with Emmanuel and T in <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: CMake toolchain for windows (Closed)" href="/issues/1041">#1041</a> to resolve CMake/Visual Studio issues.  Both Emmanuel and T are optimistic of success.  My loathing of CMake/Visual Studio is complete and expressed in <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: CMake toolchain for windows (Closed)" href="/issues/1041">#1041</a>.  I don't believe CMake can reliably build any code using Visual Studio.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1031.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1031.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

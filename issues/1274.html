@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1274: crash in Exiv2 shared library when preview from image is extracted - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ivYbPySG2zSsva6Wvb0rZ4DPmreF/ot/fXX/m3yTXCdou7DQVvwXNPnZsZoCaidUv13OznQdKsWAVW8TP6q7SA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1274: crash in Exiv2 shared library when preview from image is extracted" href="https://dev.exiv2.org/issues/1274.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1274</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>crash in Exiv2 shared library when preview from image is extracted</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4748">Wil Cowb</a> <a title="31 Jan 2017 21:49" href="/projects/exiv2/activity?from=2017-01-31">almost 5 years</a> ago.
+        Updated <a title="09 Feb 2017 18:53" href="/projects/exiv2/activity?from=2017-02-09">almost 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">insufficient information</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">31 Jan 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Thread 166 "Thread (pooled)" hit Catchpoint 1 (exception thrown), 0x00007fffebe788bd in __cxa_throw () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6<br />(gdb) bt<br />#0  0x00007fffebe788bd in __cxa_throw () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6<br />#1  0x00007ffff5dcce3c in Exiv2::ImageFactory::open (io=...) at /b/ext_exiv2/ext_exiv2-prefix/src/ext_exiv2/src/image.cpp:858<br />#2  0x00007ffff5dccf49 in Exiv2::ImageFactory::open (path=..., useCurl=&lt;optimized out&gt;) at /b/ext_exiv2/ext_exiv2-prefix/src/ext_exiv2/src/image.cpp:833<br />#3  0x00007ffff680dce1 in Digikam::MetaEngine::load (this=this@entry=0x7fff21812970, filePath=...) at /b/dktemp/digikam-master/core/libs/dmetadata/metaengine.cpp:278<br />#4  0x00007ffff68564c6 in Digikam::DMetadata::load (this=this@entry=0x7fff21812970, filePath=...) at /b/dktemp/digikam-master/core/libs/dmetadata/dmetadata.cpp:96<br />#5  0x00007ffff6856542 in Digikam::DMetadata::DMetadata (this=0x7fff21812970, filePath=...) at /b/dktemp/digikam-master/core/libs/dmetadata/dmetadata.cpp:63<br />#6  0x00007ffff689b648 in Digikam::PreviewLoadingTask::loadImagePreview (this=this@entry=0x410d980, sizeLimit=1366)<br />    at /b/dktemp/digikam-master/core/libs/threadimageio/previewtask.cpp:586<br />#7  0x00007ffff689c8a9 in Digikam::PreviewLoadingTask::execute (this=0x410d980) at /b/dktemp/digikam-master/core/libs/threadimageio/previewtask.cpp:309<br />#8  0x00007ffff6886f12 in Digikam::LoadSaveThread::run (this=0xf17ed0) at /b/dktemp/digikam-master/core/libs/threadimageio/loadsavethread.cpp:133<br />#9  0x00007ffff68c4f6e in Digikam::DynamicThread::DynamicThreadPriv::run (this=0xf9e9d0) at /b/dktemp/digikam-master/core/libs/threads/dynamicthread.cpp:183<br />#10 0x00000031e02abf8d in ?? () from /tmp/.mount_71JDmt/usr/lib/libQt5Core.so.5<br />#11 0x00000031e02aef49 in ?? () from /tmp/.mount_71JDmt/usr/lib/libQt5Core.so.5<br />#12 0x00007ffff5a4e6ba in start_thread (arg=0x7fff21813700) at pthread_create.c:333<br />#13 0x00007fffeb60982d in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:109<br />(gdb)</p>
+
+
+	<p><a class="external" href="https://bugs.kde.org/show_bug.cgi?id=375815">https://bugs.kde.org/show_bug.cgi?id=375815</a></p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5816" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Jan 2017 23:49" href="/projects/exiv2/activity?from=2017-01-31">almost 5 years</a> ago
+      <span id="journal-5816-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>not-a-bug</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Closed</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-5816-notes" class="wiki"><p>Without a test file, there is nothing to be investigated.  Case closed.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5841" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Feb 2017 18:52" href="/projects/exiv2/activity?from=2017-02-09">almost 5 years</a> ago
+      <span id="journal-5841-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5841-notes" class="wiki"><p>This code is crashing in the C++ library and not in libexiv2 itself.  I had a private email discussion recently with a Qt user who was crashing on a path which contained an o-umlaut (Köln)  and I suggested he try Qt's <em><strong><code>(const char*)qstringPath.toUtf8() </code></strong></em>.    Indeed the following is now working for him:<pre>bool Picdok::getExifData(const QString &#38; inFile, QString &#38;retComm, QString &#38;retOrtn, QString &#38;retDate)
+// Get the UserComment, Orientation and DateTimeOriginal from the EXIF data.
+{
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open((const char*)inFile.toUtf8());
+...</pre>Looking at the code in <a class="external" href="https://cgit.kde.org/digikam.git/tree/libs/dmetadata/metaengine.cpp#n278">https://cgit.kde.org/digikam.git/tree/libs/dmetadata/metaengine.cpp#n278</a> I see:<pre>image        = Exiv2::ImageFactory::open((const char*)(QFile::encodeName(filePath)).constData());</pre>Can you try changing this to:<pre>image        = Exiv2::ImageFactory::open((const char*)filePath.toUtf8());</pre>If this doesn't fix things, please attach the file causing the crash and I will reopen this issue and investigate.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5842" class="journal has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Feb 2017 18:53" href="/projects/exiv2/activity?from=2017-02-09">almost 5 years</a> ago
+      <span id="journal-5842-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>not-a-bug</i> to <i>insufficient information</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1274.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1274.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

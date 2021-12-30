@@ -1,0 +1,51 @@
+Index: basicio.cpp
+===================================================================
+--- basicio.cpp	(revision 2659)
++++ basicio.cpp	(working copy)
+@@ -61,9 +61,10 @@
+ # include <unistd.h>                    // for getpid, stat
+ #endif
+ 
+-// MSVC doesn't provide mode_t
++// MSVC doesn't provide mode_t, nlink_t
+ #ifdef _MSC_VER
+ typedef unsigned short mode_t;
++typedef short nlink_t;
+ #endif
+ 
+ #if defined WIN32 && !defined __CYGWIN__
+@@ -246,6 +247,34 @@
+                 buf.st_nlink = st.st_nlink;
+             }
+         }
++
++#if defined WIN32 && !defined __CYGWIN__
++		// Windows implementation to determine st_nlink (on NTFS)
++		HANDLE hFd = (HANDLE)_get_osfhandle(fileno(fp_));
++		if (hFd != INVALID_HANDLE_VALUE) {
++			typedef BOOL (WINAPI * GetFileInformationByHandle_t)(HANDLE, LPBY_HANDLE_FILE_INFORMATION);
++			HMODULE hKernel = LoadLibrary("kernel32.dll");
++			if (hKernel) {
++				GetFileInformationByHandle_t pfcn_GetFileInformationByHandle = (GetFileInformationByHandle_t)GetProcAddress(hKernel, "GetFileInformationByHandle");
++				if (pfcn_GetFileInformationByHandle) {
++					BY_HANDLE_FILE_INFORMATION fi = {0};
++					if (pfcn_GetFileInformationByHandle(hFd, &fi)) {
++						if (fi.nNumberOfLinks > 1) {
++							buf.st_nlink = static_cast<nlink_t>(fi.nNumberOfLinks);
++						}
++					}
++#ifdef DEBUG
++					else EXV_DEBUG << "GetFileInformationByHandle failed\n";
++#endif
++				}
++				FreeLibrary(hKernel);
++			}
++		}
++#ifdef DEBUG
++		else EXV_DEBUG << "_get_osfhandle failed: INVALID_HANDLE_VALUE\n";
++#endif
++#endif // defined WIN32 && !defined __CYGWIN__
++
+         return ret;
+     } // FileIo::Impl::stat
+ 

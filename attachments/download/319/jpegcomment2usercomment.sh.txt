@@ -1,0 +1,43 @@
+#!/bin/bash
+#source /home/Steve/.promptcolor
+function makecopy () {
+	echo -e "Proceeding with copying data."
+	epuc=$(echo -e "$comm")
+	echo -e "Copying."
+	exiv2 -kM"set Exif.Photo.UserComment Comment $epuc" $line
+	echo -e "File $item now has an EXIF User Comment\nidentical to its JPEG comment."
+}
+function getlist () {
+	read -p "What list of files will I be using? " thelist
+	if [[ ! -f "$thelist" ]]; then
+		echo "I don't see $thelist in this folder."
+		echo -e "Maybe you spelled the name wrong?\n"
+		echo -e "I \e[4mcan't\e[0m continue -- \e[41mExiting\e[0m"
+		exit 1
+	fi
+}
+
+getlist
+while read 'line';
+do
+	item=${line##*/}
+	echo "Checking file $item for JPEG Comment data."
+	comm=$(exiv2 -pc $line)
+	if [ -n "$comm" ]; then
+		echo "File $item has a JPEG Comment."
+#		echo "Would you like to read it before"
+#		echo "copying it to the EXIF User Comment"
+#		echo -ne "part of this file? {y/n} "
+#	 	read -t 10 yesno
+#		if [[ "$yesno" == "y" ]]; then
+#		   echo -e "\n$comm\n"
+#		fi
+		makecopy
+	else
+		echo "File $item does not have a JPEG Comment."
+		echo -ne "\e[41mSkipping.\e[0m\n"
+	fi
+done<$thelist
+#N.B.: Change ^this when you modify the script.
+#NN.BB.: Changed on November 15, 2011 at 06:51:12 Z+5
+echo; echo "Finished."

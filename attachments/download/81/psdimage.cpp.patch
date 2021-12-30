@@ -1,0 +1,370 @@
+--- psdimage.cpp_r1750	2009-02-28 20:40:31.000000000 +0100
++++ psdimage.cpp	2009-02-24 11:22:48.000000000 +0100
+@@ -29,7 +29,7 @@
+ #include "rcsid.hpp"
+ EXIV2_RCSID("@(#) $Id: psdimage.cpp 1750 2009-02-16 14:30:51Z ahuggel $")
+ 
+-//#define DEBUG 1
++#define DEBUG 0
+ 
+ // *****************************************************************************
+ // included header files
+@@ -143,12 +143,134 @@
+         throw(Error(32, "Exif metadata", "Photoshop"));
+     }
+ 
+-    void PsdImage::setIptcData(const IptcData& /*iptcData*/)
++    void PsdImage::setIptcData(const IptcData& /*iptcData*/) 
+     {
+         // Todo: implement me!
+         throw(Error(32, "IPTC metadata", "Photoshop"));
+     }
+ 
++    uint32_t PsdImage::_setIptcData(const IptcData& iptcData, BasicIo& out)
++    {
++        uint32_t resLength = 0;
++        byte buf[8];
++
++        if (iptcData.count() > 0) {
++            DataBuf rawIptc = IptcParser::encode(iptcData);
++            if (rawIptc.size_ > 0) {
++#ifdef DEBUG
++                std::cerr << std::hex << "write: resourceId: " << kPhotoshopResourceID_IPTC_NAA << "\n";
++                std::cerr << std::dec << "Writing IPTC_NAA: size: " << rawIptc.size_ << "\n";
++#endif
++                ul2Data(buf, kPhotoshopResourceType, bigEndian);
++                if (out.write(buf, 4) != 4) throw Error(21);
++                us2Data(buf, kPhotoshopResourceID_IPTC_NAA, bigEndian);
++                if (out.write(buf, 2) != 2) throw Error(21);
++                us2Data(buf, 0, bigEndian);                      // NULL resource name
++                if (out.write(buf, 2) != 2) throw Error(21);
++                ul2Data(buf, rawIptc.size_, bigEndian);
++                if (out.write(buf, 4) != 4) throw Error(21);
++                // Write encoded Iptc data
++                if (out.write(rawIptc.pData_, rawIptc.size_) != rawIptc.size_) throw Error(21);
++                resLength += rawIptc.size_ + 12;
++                if (rawIptc.size_ & 1)    // even padding
++                {
++                    buf[0] = 0;
++                    if (out.write(buf, 1) != 1) throw Error(21);
++                    resLength++;
++                }
++            }
++        }
++        return resLength;
++    }
++
++    uint32_t PsdImage::_setExifData(const ExifData& exifData, BasicIo& out)
++    {
++        uint32_t resLength = 0;
++        byte buf[8];
++
++        if (exifData.count() > 0) {
++            Blob blob;
++            ByteOrder bo = byteOrder();
++            if (bo == invalidByteOrder) {
++                bo = littleEndian;
++                setByteOrder(bo);
++            }
++            ExifParser::encode(blob, bo, exifData);
++
++            if (blob.size() > 0) {
++#ifdef DEBUG
++                std::cerr << std::hex << "write: resourceId: " << kPhotoshopResourceID_ExifInfo << "\n";
++                std::cerr << std::dec << "Writing ExifInfo: size: " << blob.size() << "\n";
++#endif
++                ul2Data(buf, kPhotoshopResourceType, bigEndian);
++                if (out.write(buf, 4) != 4) throw Error(21);
++                us2Data(buf, kPhotoshopResourceID_ExifInfo, bigEndian);
++                if (out.write(buf, 2) != 2) throw Error(21);
++                us2Data(buf, 0, bigEndian);                      // NULL resource name
++                if (out.write(buf, 2) != 2) throw Error(21);
++                ul2Data(buf, blob.size(), bigEndian);
++                if (out.write(buf, 4) != 4) throw Error(21);
++                // Write encoded Exif data
++                if (out.write(&blob[0], blob.size()) != blob.size()) throw Error(21);
++                resLength += blob.size() + 12;
++                if (blob.size() & 1)    // even padding
++                {
++                    buf[0] = 0;
++                    if (out.write(buf, 1) != 1) throw Error(21);
++                    resLength++;
++                }
++            }
++        }
++        return resLength;
++    }
++
++    uint32_t PsdImage::_setXmpData(const XmpData& xmpData, BasicIo& out)
++    {
++        std::string xmpPacket;
++        uint32_t resLength = 0;
++        byte buf[8];
++
++#ifdef DEBUG
++        std::cerr << "writeXmpFromPacket(): " << writeXmpFromPacket() << "\n";
++#endif
++//        writeXmpFromPacket(true);
++        if (writeXmpFromPacket() == false) {
++            if (XmpParser::encode(xmpPacket, xmpData) > 1) {
++#ifndef SUPPRESS_WARNINGS
++                std::cerr << "Error: Failed to encode XMP metadata.\n";
++#endif
++            }
++        }
++
++        if (xmpPacket.size() > 0) {
++#ifdef DEBUG
++            std::cerr << std::hex << "write: resourceId: " << kPhotoshopResourceID_XMPPacket << "\n";
++            std::cerr << std::dec << "Writing XMPPacket: size: " << xmpPacket.size() << "\n";
++#endif
++            ul2Data(buf, kPhotoshopResourceType, bigEndian);
++            if (out.write(buf, 4) != 4) throw Error(21);
++            us2Data(buf, kPhotoshopResourceID_XMPPacket, bigEndian);
++            if (out.write(buf, 2) != 2) throw Error(21);
++            us2Data(buf, 0, bigEndian);                      // NULL resource name
++            if (out.write(buf, 2) != 2) throw Error(21);
++            ul2Data(buf, xmpPacket.size(), bigEndian);
++            if (out.write(buf, 4) != 4) throw Error(21);
++            // Write XMPPacket
++            if (out.write(reinterpret_cast<const byte*>(xmpPacket.data()), static_cast<long>(xmpPacket.size()))
++                != static_cast<long>(xmpPacket.size())) throw Error(21);
++            if (out.error()) throw Error(21);
++            resLength += xmpPacket.size() + 12;
++            if (xmpPacket.size() & 1)    // even padding
++            {
++                buf[0] = 0;
++                if (out.write(buf, 1) != 1) throw Error(21);
++                resLength++;
++            }
++        }
++        return resLength;
++    }
++
++
+     void PsdImage::setComment(const std::string& /*comment*/)
+     {
+         // Todo: implement me!
+@@ -243,6 +365,10 @@
+             uint32_t resourceSize = getULong(buf, bigEndian);
+             uint32_t curOffset = io_->tell();
+ 
++#ifdef DEBUG
++        std::cerr << std::hex << "resourceId: " << resourceId << std::dec << " length: " << resourceSize << std::hex << "\n";
++#endif
++
+             processResourceBlock(resourceId, resourceSize);
+             resourceSize = (resourceSize + 1) & ~1;        // pad to even
+             io_->seek(curOffset + resourceSize, BasicIo::beg);
+@@ -397,37 +523,18 @@
+         // Write oldResLength (will be updated later)
+         ul2Data(buf, oldResLength, bigEndian);
+         if (outIo.write(buf, 4) != 4) throw Error(21);
++
+ #ifdef DEBUG
+         std::cerr << std::dec << "oldResLength: " << oldResLength << "\n";
+ #endif
+-        // Write metadata resource blocks: IPTC_NAA, (TODO: ExifInfo, XMPPacket)
+-        if (iptcData_.count() > 0) {
+-            DataBuf rawIptc = IptcParser::encode(iptcData_);
+-            if (rawIptc.size_ > 0) {
+-#ifdef DEBUG
+-                std::cerr << std::dec << "Writing IPTC_NAA: size: " << rawIptc.size_ << "\n";
+-#endif
+-                ul2Data(buf, kPhotoshopResourceType, bigEndian);
+-                if (outIo.write(buf, 4) != 4) throw Error(21);
+-                us2Data(buf, kPhotoshopResourceID_IPTC_NAA, bigEndian);
+-                if (outIo.write(buf, 2) != 2) throw Error(21);
+-                us2Data(buf, 0, bigEndian);                      // NULL resource name
+-                if (outIo.write(buf, 2) != 2) throw Error(21);
+-                ul2Data(buf, rawIptc.size_, bigEndian);
+-                if (outIo.write(buf, 4) != 4) throw Error(21);
+-                // Write encoded Iptc data
+-                if (outIo.write(rawIptc.pData_, rawIptc.size_) != rawIptc.size_) throw Error(21);
+-                newResLength += rawIptc.size_ + 12;
+-                if (rawIptc.size_ & 1)    // even padding
+-                {
+-                    buf[0] = 0;
+-                    if (outIo.write(buf, 1) != 1) throw Error(21);
+-                    newResLength++;
+-                }
+-            }
+-        }
+ 
+-        // Iterate over original resource blocks and copy those not already processed
++        // Iterate over original resource blocks.
++        // Replace or insert IPTC, EXIF and XMP
++        // Original resource blocks assumed to be sorted ASC
++
++        bool iptcDone = false;
++        bool exifDone = false;
++        bool xmpDone = false;
+         while (oldResLength > 0)
+         {
+             if (io_->read(buf, 8) != 8)
+@@ -437,15 +544,12 @@
+ 
+             // read resource type and ID
+             uint32_t resourceType = getULong(buf, bigEndian);
+-            uint16_t resourceId = getUShort(buf + 4, bigEndian);
+-#ifdef DEBUG
+-            std::cerr << std::hex << "resourceId: " << resourceId << "\n";
+-            std::cerr << std::dec;
+-#endif
++
+             if (resourceType != kPhotoshopResourceType)
+             { 
+                 break; // bad resource type
+             }
++            uint16_t resourceId = getUShort(buf + 4, bigEndian);
+             uint32_t resourceNameLength = buf[6];
+             uint32_t adjResourceNameLen = resourceNameLength & ~1;
+             unsigned char resourceNameFirstChar = buf[7];
+@@ -465,65 +569,98 @@
+             uint32_t resourceSize = getULong(buf, bigEndian);
+             uint32_t curOffset = io_->tell();
+ 
+-            switch(resourceId)
++            // Write IPTC_NAA resource block
++            if (resourceId == kPhotoshopResourceID_IPTC_NAA ||
++                (resourceId > kPhotoshopResourceID_IPTC_NAA && iptcDone == false))
+             {
+-                case kPhotoshopResourceID_IPTC_NAA:
+-                {
+-                    resourceSize = (resourceSize + 1) & ~1;    // adjust for padding
+-                    break;   // already processed
+-                }
+-/*
+-                case kPhotoshopResourceID_ExifInfo:
+-                {
+-                    // TODO: skip here, if exiv2 writes it's own EXIF data
+-                    break;
+-                }
++                newResLength += _setIptcData(iptcData_, outIo);
++                resourceSize = (resourceSize + 1) & ~1;    // adjust for padding
++                iptcDone = true;
++            }
+ 
+-                case kPhotoshopResourceID_XMPPacket:
+-                {
+-                    // TODO: skip here, if exiv2 writes it's own XMP data
+-                    break;
+-                }
+-*/
+-                default:
+-                {
+-                    // Copy resource block to new PSD file
+-                    ul2Data(buf, kPhotoshopResourceType, bigEndian);
+-                    if (outIo.write(buf, 4) != 4) throw Error(21);
+-                    us2Data(buf, resourceId, bigEndian);
+-                    if (outIo.write(buf, 2) != 2) throw Error(21);
+-                    // Write resource name as Pascal string
+-                    buf[0] = resourceNameLength & 0x000f;
+-                    if (outIo.write(buf, 1) != 1) throw Error(21);
+-                    buf[0] = resourceNameFirstChar;
+-                    if (outIo.write(buf, 1) != 1) throw Error(21);
+-                    if (outIo.write(resName.pData_, adjResourceNameLen) != adjResourceNameLen) throw Error(21);
+-                    ul2Data(buf, resourceSize, bigEndian);
+-                    if (outIo.write(buf, 4) != 4) throw Error(21);
+-
+-                    readTotal = 0;
+-                    toRead = 0;
+-                    resourceSize = (resourceSize + 1) & ~1;        // pad to even
+-                    while (readTotal < resourceSize) {
+-                        toRead =   static_cast<long>(resourceSize - readTotal) < lbuf.size_
+-                                 ? resourceSize - readTotal : lbuf.size_;
+-                        if (io_->read(lbuf.pData_, toRead) != toRead)
+-                        {
+-                            throw Error(3, "Photoshop");
+-                        }
+-                        readTotal += toRead;
+-                        if (outIo.write(lbuf.pData_, toRead) != toRead) throw Error(21);
++            // Write ExifInfo resource block
++            else if (resourceId == kPhotoshopResourceID_ExifInfo ||
++                     (resourceId > kPhotoshopResourceID_ExifInfo && exifDone == false)) 
++            {
++                newResLength += _setExifData(exifData_, outIo);
++                resourceSize = (resourceSize + 1) & ~1;    // adjust for padding
++                exifDone = true;
++            }
++
++            // Write XMPpacket resource block
++            else if (resourceId == kPhotoshopResourceID_XMPPacket ||
++                     (resourceId > kPhotoshopResourceID_XMPPacket && xmpDone == false))
++            {
++                newResLength += _setXmpData(xmpData_, outIo);
++                resourceSize = (resourceSize + 1) & ~1;    // adjust for padding
++                xmpDone = true;
++            }
++
++            // Copy all other resource blocks
++            if (resourceId != kPhotoshopResourceID_IPTC_NAA &&
++                resourceId != kPhotoshopResourceID_ExifInfo &&
++                resourceId != kPhotoshopResourceID_XMPPacket)
++            {
++#ifdef DEBUG
++                std::cerr << std::hex << "copy : resourceId: " << resourceId << "\n";
++                std::cerr << std::dec;
++#endif
++                // Copy resource block to new PSD file
++                ul2Data(buf, kPhotoshopResourceType, bigEndian);
++                if (outIo.write(buf, 4) != 4) throw Error(21);
++                us2Data(buf, resourceId, bigEndian);
++                if (outIo.write(buf, 2) != 2) throw Error(21);
++                // Write resource name as Pascal string
++                buf[0] = resourceNameLength & 0x000f;
++                if (outIo.write(buf, 1) != 1) throw Error(21);
++                buf[0] = resourceNameFirstChar;
++                if (outIo.write(buf, 1) != 1) throw Error(21);
++                if (outIo.write(resName.pData_, adjResourceNameLen) != adjResourceNameLen) throw Error(21);
++                ul2Data(buf, resourceSize, bigEndian);
++                if (outIo.write(buf, 4) != 4) throw Error(21);
++
++                readTotal = 0;
++                toRead = 0;
++                resourceSize = (resourceSize + 1) & ~1;        // pad to even
++                while (readTotal < resourceSize) {
++                    toRead =   static_cast<long>(resourceSize - readTotal) < lbuf.size_
++                             ? resourceSize - readTotal : lbuf.size_;
++                    if (io_->read(lbuf.pData_, toRead) != toRead)
++                    {
++                        throw Error(3, "Photoshop");
+                     }
+-                    if (outIo.error()) throw Error(21);
+-                    newResLength += resourceSize + adjResourceNameLen + 12;
+-                    break;
++                    readTotal += toRead;
++                    if (outIo.write(lbuf.pData_, toRead) != toRead) throw Error(21);
+                 }
++                if (outIo.error()) throw Error(21);
++                newResLength += resourceSize + adjResourceNameLen + 12;
+             }
+ 
+             io_->seek(curOffset + resourceSize, BasicIo::beg);
+             oldResLength -= (12 + adjResourceNameLen + resourceSize);
+         }
+ 
++        // Append IPTC_NAA resource block, if not yet written
++        if (iptcDone == false)
++        {
++            newResLength += _setIptcData(iptcData_, outIo);
++            iptcDone = true;
++        }
++
++        // Append ExifInfo resource block, if not yet written
++        if (exifDone == false)
++        {
++            newResLength += _setExifData(exifData_, outIo);
++            exifDone = true;
++        }
++
++        // Append XmpPacket resource block, if not yet written
++        if (xmpDone == false)
++        {
++            newResLength += _setXmpData(xmpData_, outIo);
++            xmpDone = true;
++        }
++
+         // Copy remaining data
+         long readSize = 0;
+         while ((readSize=io_->read(lbuf.pData_, lbuf.size_))) {

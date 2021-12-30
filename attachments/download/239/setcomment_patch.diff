@@ -1,0 +1,20 @@
+Index: src/xmpsidecar.cpp
+===================================================================
+--- src/xmpsidecar.cpp	(Revision 2461)
++++ src/xmpsidecar.cpp	(Arbeitskopie)
+@@ -76,10 +76,13 @@
+         return "application/rdf+xml";
+     }
+ 
+-    void XmpSidecar::setComment(const std::string& /*comment*/)
++    void XmpSidecar::setComment(const std::string& comment)
+     {
+         // not supported
+-        throw(Error(32, "Image comment", "XMP"));
++        if (!comment.empty())
++        {
++            throw(Error(32, "Image comment", "XMP"));
++        }
+     }
+ 
+     void XmpSidecar::readMetadata()

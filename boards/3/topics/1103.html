@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Exiv2 and hard links - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="jKFHilxaSVAXQGa3Go/2uX+A2mJwfKVMXp8vnR+rfO1u7OxlLiCFUEIkebulWPqKQBKOG4GfBPajv78VXJKbgg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Exiv2 and hard links</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/3207">Anders Kamf</a> <a title="27 Jan 2012 01:25" href="/projects/exiv2/activity?from=2012-01-27">almost 10 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi!</p>
+
+
+	<p>I have some questions regarding how exiv2 handles file write when modyfing the metadata. I have search in mailing lists and documentation without finding any answers and hope someone here can help me out.</p>
+
+
+	<p>The problem I experience is destroyed hard links. My JPG photos are stored as hard links, i.e. I have the same physic photo available from serveral places in my file system. I like these files to be the same and have the same metadata. But when I use exiv2 to update a file the hard link breaks as well as the original file, i.e. all other "instances" of the photo, just becomes an empty file.</p>
+
+
+	<ul>
+	<li>Example of a file before it is updated with exiv2, as seen the hard link count is 4:<br /><code> -rwxrw-r-- 4 anders anders 2.4M 2008-06-12 21:46 IMG_4249.JPG</code></li>
+		<li>The file after the update, the hard link count is now 1:<br /><code> -rwxrw-r-- 1 anders anders 2.4M 2012-01-26 08:14 IMG_4249.JPG</code></li>
+		<li>Another "instance" of the file after the update, the size is 0 and hard link count decreased to 3:<br /><code> -rwxrw-r-- 3 anders anders    0 2012-01-26 08:14 IMG_4249.JPG</code></li>
+	</ul>
+
+
+	<p>My feeling is that exiv2 create a new file and transfer the content of the original file, including the new/edited metadata, to the new file. Then it remove the old, now empty, file and finally it rename the new file to the name of the old one. Hence the broken hard links and emptied files. Is this a somewhat correct description?</p>
+
+
+	<p>So, the first thing I wonder is whether I have interpreted the behavior correct and if so, is this the intended way it should work? <br />And secondly, is there any way, command option etc. to get around this so that the hard links not break?</p>
+
+
+	<p>Best regards<br />Anders</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (19)</h3>
+  <div class="message reply" id="message-1108">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1108#message-1108">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="28 Jan 2012 14:47" href="/projects/exiv2/activity?from=2012-01-28">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Anders,</p>
+
+
+	<p>not sure which OS you use but I can confirm this issue on WinXP using latest exiv2 SVN rev. And actually I consider this as a very critical issue. It is not just about breaking the hard link it is about loosing the linked files.</p>
+
+
+	<p>There is a "Check if the file can be written to, if it already exists" in basicio.cpp :: FileIo::transfer :: line 523 that opens the original (and linked) file in write mode and deletes the data. If this check is ignored the hard link is still broken but the original file is unchanged.</p>
+
+
+	<p>There is one possibility to preserve the hard link, ownership etc. Copy the original file to a temporary file and then overwrite the original file (with new metadata) - or in case of error with preserved temporary data. This behaviour could be optional.</p>
+
+
+	<p>Kind regards<br />Thomas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1109">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1109#message-1109">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="29 Jan 2012 05:34" href="/projects/exiv2/activity?from=2012-01-29">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>One quick fix preventing data loss is to test with "ab" or "a+b" (should not matter which) instead of "w+b".</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1110">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1110#message-1110">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="29 Jan 2012 07:27" href="/projects/exiv2/activity?from=2012-01-29">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks, I'll check that out as soon as I can</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1111">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1111#message-1111">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="30 Jan 2012 16:52" href="/projects/exiv2/activity?from=2012-01-30">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I was thinking of something along these lines earlier today. I've been steering clear of using Exiv2 to write to hardlinks, because I thought I'd get an error like "The data is of an unknown image type." Now I see that the situation, while not worse, is different. Yes, Exiv2 can find the file the hardlink references, but in the process the link breaks or becomes invalid.</p>
+
+
+	<p>If this is so, I think I'd prefer the "unknown image type" error to the consequence of breaking a link. This doesn't take all that much away from Exiv2's usability anyway, since what one is looking to do when one makes a link and invokes Exiv2 on it is to change is the metadata of the original file <em>in its original location.</em> Making a link of any sort is, then, an extra step. I assume there are times when such a thing is practical or even critical, though none come to mind at the moment.</p>
+
+
+	<p>Just a few thoughts on the matter.</p>
+
+
+	<p>SJW</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1112">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1112#message-1112">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="31 Jan 2012 02:16" href="/projects/exiv2/activity?from=2012-01-31">almost 10 years</a> ago
+  </h4>
+  <div class="wiki">Once an alternate (hard link) name is created, there is no chance to tell which is the original name and which is the new name. There are two valid options for exiv2 working on hard links:
+	<ol>
+	<li>Break the link and edit only the file to be changed (see my quick fix above)</li>
+		<li>Keep the links when editing the metdadata (should be a new option)</li>
+	</ol></div>
+  
+  </div>
+  <div class="message reply" id="message-1113">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1113#message-1113">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/3207">Anders Kamf</a> <a title="31 Jan 2012 03:18" href="/projects/exiv2/activity?from=2012-01-31">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi!</p>
+
+
+	<p>Thanks for the answers and attention to this issue!</p>
+
+
+	<p>Regarding version, I use Ubuntu 10.04 which includes exiv2 version 0.19. My first experience of the destroyed hard links is though from image tagging with digiKam, which uses exiv2 (as I guess you know) to write metadata to the files. A part from the Ubuntu machine I also run digiKam 2.2.0 on Windows7 64bit (not sure which exiv2 version that is) and experience the very same problem there (I have the pictures on a samba share on a Linux server).</p>
+
+
+	<p>From a user point of view, I can only speak for myself of course, but I would prefer that the link somehow can be kept. I see a logic in that, compare to e.g. how a text file that is hard linked is treated from most text editors or the linux system itself when for instance appending to a file "<code>>> output.txt</code>". The Wikipedia description describes my view on hard links quite well:</p>
+
+
+<blockquote>
+
+	<p>"This has the effect of creating multiple names for the same file, causing an aliasing effect: e.g. if the file is opened by one of its names, and changes are made to its content, then these changes will also be visible when the file is opened by an alternative name." &lt;en.wikipedia.org/wiki/Hard_link&gt;</p>
+
+
+</blockquote>
+
+	<p>Regards<br />Anders</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1118">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1118#message-1118">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Feb 2012 07:28" href="/projects/exiv2/activity?from=2012-02-01">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Sorry, I still haven't had time to really look into this. It is definitely a severe issue, although apparently not many Exiv2 users use hard links.<br />I'm thinking of implementing the quick fix Thomas described and a bugfix release (which is due anyway). The cleaner fix - copy the file away and overwrite (edit) the original - is expensive, it would roughly double the time required to write the metadata, so we shouldn't do that in the vast majority of cases where it's not necessary. Will have to play a bit and see how to detect hard links.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1120">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1120#message-1120">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="06 Feb 2012 20:56" href="/projects/exiv2/activity?from=2012-02-06">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Opened bug <a class="issue tracker-1 status-5 priority-5 priority-high3 closed" title="Bug: Exiv2 destroys hard links (Closed)" href="/issues/812">#812</a> for this, so that we have a bug number, but let's keep the discussion here.</p>
+
+
+	<p>I finally hatched a fix, checked in with <a class="changeset" title="#812: Don&#39;t destroy files when checking if they are writable; use a memory buffer instead of a te..." href="/projects/exiv2/repository/exiv2/revisions/2658">r2658</a> but only tested it on Linux with an ext3 filesystem so far. Appreciate if you try it with your own setup and feedback here.</p>
+
+
+	<p>Exiv2 now uses "a+b" when checking if a file is writable (that could actually be considered a separate long-standing bug).<br />To prevent breaking hard links when writing metadata, Exiv2 now always uses a memory buffer instead of a temporary file, if the image has hard links. Previously, memory buffers were only used for small files (up to 1MB).</p>
+
+
+	<p>This is still a workaround, it means you may experience issues with large images that have hard links on a system with limited memory. <br />Implementing the suggested proper solution that copies the file will require bigger changes, incl. possibly API changes (I don't quite see how to do this cleanly yet).</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1121">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1121#message-1121">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="08 Feb 2012 14:08" href="/projects/exiv2/activity?from=2012-02-08">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Andreas,</p>
+
+
+	<p>I needed to add typedef for <code>nlink_t</code> in <em>basicio.cpp</em></p>
+
+
+<pre>
+// MSVC doesn't provide mode_t, nlink_t
+#ifdef _MSC_VER
+typedef unsigned short mode_t;
+typedef short nlink_t;
+#endif
+</pre>
+
+	<p>to make it compile in Visual Studio.</p>
+
+
+	<p>Then <code>st_nlink</code> is always 1 when tested on NTFS drive and WinXP. Hard links are preserved for files less than 1MB size and destroyed for files greater than 1MB size. I guess <code>st_nlink</code> is only a dummy value on Windows platforms. Need to check on Win7.</p>
+
+
+	<p>Regards,<br />Thomas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1122">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1122#message-1122">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="08 Feb 2012 19:35" href="/projects/exiv2/activity?from=2012-02-08">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Do we need to use <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa364952(v=vs.85).aspx" class="external">GetFileInformationByHandle</a> and check <code>nNumberOfLinks</code> to determine the number of hardlinks on Windows and NTFS? But if so does that also mean we need to determine the filesystem first?</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1123">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1123#message-1123">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="09 Feb 2012 00:31" href="/projects/exiv2/activity?from=2012-02-09">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>Do we need to use <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa364952(v=vs.85).aspx" class="external">GetFileInformationByHandle</a> and check <code>nNumberOfLinks</code> to determine the number of hardlinks on Windows and NTFS? But if so does that also mean we need to determine the filesystem first?</p>
+
+
+</blockquote>
+
+	<p>Yes, this is the recommended way to retrieve the number of hard links on Windows. Never mind the file system. <code>nNumberOfLinks</code> will be 1 on non-NTFS file system. "GetFileInformationByHandle" requires WinXP. I am not sure what the minimum Win OS requirement for exiv2 is. If Win9x or Win2k is still supported "GetFileInformationByHandle" must not be called directly but dynamically loaded from "Kernel32.dll".</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1124">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1124#message-1124">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="09 Feb 2012 08:11" href="/projects/exiv2/activity?from=2012-02-09">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thomas, could you try the attached patch? (I haven't even compiled it, don't have a Windows development env nearby right now).</p>
+
+
+	<p>Andreas</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/321">GetFileInformationByHandle.patch</a>    <span class="size">(1.29 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/321/GetFileInformationByHandle.patch">GetFileInformationByHandle.patch</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-1125">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1125#message-1125">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="09 Feb 2012 12:05" href="/projects/exiv2/activity?from=2012-02-09">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>Thomas, could you try the attached patch? (I haven't even compiled it, don't have a Windows development env nearby right now).</p>
+
+
+</blockquote>
+
+	<p>It compiles and works as expected on WinXP. Hard links are preserved for files of any size. But be aware that exiv2 will stopp working on Win9x/Win2k. The attached patch does a dynamic load of <code>GetFileInformationByHandle</code>. Could only test on WinXP (32bit) so far where it works as expected.</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/322">GetFileInformationByHandleDynamicLoad.patch</a>    <span class="size">(1.6 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/322/GetFileInformationByHandleDynamicLoad.patch">GetFileInformationByHandleDynamicLoad.patch</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-1126">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1126#message-1126">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="09 Feb 2012 21:53" href="/projects/exiv2/activity?from=2012-02-09">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks! Since this looks like quite a bit of overhead now, I'm thinking of re-arranging the code and introducing a new function just for the number of hardlinks, since we need that only in one place, not everywhere where we call FileIo::Impl::stat().<br />How expensive is that dynamic loading? Is it worth treating Win9x/Win2k separately?<br />And do you know if stat() has been fixed in newer versions of Windows?</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1127">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1127#message-1127">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="10 Feb 2012 00:32" href="/projects/exiv2/activity?from=2012-02-10">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>How expensive is that dynamic loading?</p>
+
+
+</blockquote>
+
+	<p>Should not be expensive at all as kernel32 is already loaded.</p>
+
+
+<blockquote>
+
+	<p>Is it worth treating Win9x/Win2k separately?</p>
+
+
+</blockquote>
+
+	<p>I would not recommend to check for OS version. Best check is to see if <code>GetFileInformationByHandle</code> can be found.</p>
+
+
+<blockquote>
+
+	<p>And do you know if stat() has been fixed in newer versions of Windows?</p>
+
+
+</blockquote>
+
+	<p>I checked on Win7 with Visual Studio 2010 and <code>st_nlink</code> is always 1 regardless of actual number of hard links.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1128">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1128#message-1128">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="10 Feb 2012 20:08" href="/projects/exiv2/activity?from=2012-02-10">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the replies.</p>
+
+
+	<p>I've checked in <a class="changeset" title="#812: Added function to determine the number of hard links on Windows NTFS. (Thomas Beutlich)" href="/projects/exiv2/repository/exiv2/revisions/2660">r2660</a> which introduces a new function winNumberOfLinks() that is only used on Windows.<br />It uses the code from Thomas' patch without any changes (except for some additional debug output). <br />Appreciate if you can test if this works on Windows again.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1129">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1129#message-1129">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="12 Feb 2012 12:53" href="/projects/exiv2/activity?from=2012-02-12">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, it works as expected (using MSVC on WinXP) for arbitrary image size.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1141">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1141#message-1141">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="23 Mar 2012 14:11" href="/projects/exiv2/activity?from=2012-03-23">over 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Tiny correction: <code>LoadLibrary("kernel32.dll")</code> compiles only if <code>_UNICODE</code> or <code>UNICODE</code> is not defined. So better is to call <code>LoadLibraryA("kernel32.dll")</code> directly.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1142">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1103?r=1142#message-1142">RE: Exiv2 and hard links</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 Mar 2012 18:58" href="/projects/exiv2/activity?from=2012-03-23">over 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Updated, thanks.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-19/19)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

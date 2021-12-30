@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Need help rebuilding a BASH script in C (uses CLI tool calls &amp; is slow in Cygwin) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="gmrgivDbWpyd0Crjk3oy9Dad3YMAkBxZlP5AY4eIcAlgJ0tlgqGWnMi0Ne8srT7HCQ+J+vFzveNp3tDrxLGXZg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Need help rebuilding a BASH script in C (uses CLI tool calls &amp; is slow in Cygwin)</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="26 Sep 2010 16:20" href="/projects/exiv2/activity?from=2010-09-26">about 11 years</a> ago</span></p>
+<div class="wiki">
+<p>A text file version of the script is attached to this post.</p>
+
+
+	<p>I wrote it to evaluate JPEG files to determine which of the eight or nine IPTC tag entries I usually use are in a folder or many folders of files described by the lines of a plain text file. It makes 8 calls, all with the "-g" and "-Pv" options, to the command-line tool. In Ubuntu Linux on my laptop it runs very smooth and fast, but in Cygwin on my desktop, owing to the differences in threading of commands, spinning off of sub-processes and the like between Windows and L/Unix, it runs like a turtle on Valium <strong>and</strong> sends the CPU Usage meter in Task Manager to somewhere between 95 and 100% for the duration of its execution.</p>
+
+
+	<p>I wanted to get it to run equally fast on each, so I reduced the calls to  one, a <del>pi (I wanted to use -Pkv but as the result of that passed to a variable was a block of text, it was impossible to grep). Through fits and starts myself and a few stalwart souls on linuxquestions.org and the Unix and Linux Forums (<a class="external" href="http://www.unix.com">www.unix.com</a>) have determined that this script has reached the "maxed out BASH -</del> time to go to C or Python" stage. The problem here is I know next to nothing of either of those two other languages; certainly not enough to write anything this sophisticated in them.</p>
+
+
+	<p>For the time being, as the hardware my Windows and Cygwin are running on is a desktop configuration PC and not a tower, as my boot HDD is a perfect-for-business/inadequate-for-home 80GB SATA which is often -- too often -- 7/8 full with any conceivable class of thing, not just OS and emulators (Cygwin, for want of a better word to describe it), and for other reasons, my best option for getting this kind of task done with this script, and the pics on my Windows box,is to run it either on the laptop (which enjoins the extra step of opening <em>beaucoup</em> other folders to sharing over my two-machine LAN) or running Exiv2 off a LiveCD (see other thread re adding it to an ISO).</p>
+
+
+	<p>Steve W</p>
+</div>
+<div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/205">ninepointsr.sh.txt</a>    <span class="size">(1.71 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/205/ninepointsr.sh.txt">ninepointsr.sh.txt</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+</div>
+<br />
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

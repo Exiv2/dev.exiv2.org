@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #636: Exiv2 corrupts certain NEF images when writing to them (digiKam bug 193228) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="dStehvTiacg/TBhJVaXPkArRVyu63s9JzFyuC2sgTJ+XZvVphpilyGooB0XqcsOjNUMDUks9bvMxfD6DKBmr8A==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #636: Exiv2 corrupts certain NEF images when writing to them (digiKam bug 193228)" href="https://dev.exiv2.org/issues/636.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #636</h2>
+
+<div class="issue tracker-1 status-5 priority-6 priority-high2 closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Exiv2 corrupts certain NEF images when writing to them (digiKam bug 193228)</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="22 May 2009 07:17" href="/projects/exiv2/activity?from=2009-05-22">over 12 years</a> ago.
+        Updated <a title="24 Jun 2009 09:22" href="/projects/exiv2/activity?from=2009-06-24">over 12 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Urgent</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/53">Andreas Huggel</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">tiff parser</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="24 Jun 2009" href="/versions/43">0.18.2</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">22 May 2009</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Writing an IPTC keyword (probably any tag will do) to a NEF image can result in a corrupt NEF image.<br />Exiv2 will still read the metadata of the resulting image, but ufraw won't display it anymore.</p>
+
+
+	<p>To reproduce, run the following command on the attached file:</p>
+
+
+<pre>
+$ exiv2 -v -M'set Iptc.Application2.Keywords DigiKam Test' correct.NEF
+</pre>
+
+	<p>This bug was originally reported by Christian Ide as <a href="https://bugs.kde.org/show_bug.cgi?id=193228" class="external">digiKam bug 193228</a><br />Sample pictures courtesy of Christian Ide</p>
+
+
+	<p>correct.NEF is a picture taken with a Nikon D70s and edited with Nikon ViewNX 1.3<br />corrupt.NEF is the result of adding metadata to correct.NEF using digiKam (exiv2)</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/93">correct.NEF</a>    <span class="size">(6.45 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/93/correct.NEF">correct.NEF</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Andreas Huggel, 22 May 2009 07:17</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/94">corrupt.NEF</a>    <span class="size">(6.45 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/94/corrupt.NEF">corrupt.NEF</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Andreas Huggel, 23 May 2009 02:30</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/636" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="VNva9jlZNAY+LIEKsInJz47+yq9Vaqk7u+RK+K+z53K2lnEZSyP4BmtIngYPXsX8sWye1qSJCIFGxNpw7IoAHQ==" />
+  <table class="list issues odd-even"><tr id="relation-44" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="620" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/620">Feature #620</a>: Update Nikon makernotes</td><td class="status">Closed</td><td class="start_date">14 Mar 2009</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/636/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=636&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 1803" href="/projects/exiv2/repository/exiv2/revisions/1803">Revision 1803</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/1803/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="28 May 2009 04:35" href="/projects/exiv2/activity?from=2009-05-28">over 12 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-6 priority-high2 closed" title="Bug: Exiv2 corrupts certain NEF images when writing to them (digiKam bug 193228) (Closed)" href="/issues/636">#636</a>: Do not change makernote byte order unless requested. By default, use the same byte order as that of the image (for new makernote metadata). Right now, the only makernote that has its own byte order is Nikon3. Also added missing padding to IPTC binary data for Exif.Image.IPTCNAA.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1268" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="22 May 2009 07:26" href="/projects/exiv2/activity?from=2009-05-22">over 12 years</a> ago
+      <span id="journal-1268-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1268-notes" class="wiki"><p>I can only reproduce this on the attached image. Other NEFs work fine.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1269" class="journal has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 May 2009 02:30" href="/projects/exiv2/activity?from=2009-05-23">over 12 years</a> ago
+      <span id="journal-1269-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/94">corrupt.NEF</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/94/corrupt.NEF">corrupt.NEF</a> added</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1270" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 May 2009 02:46" href="/projects/exiv2/activity?from=2009-05-23">over 12 years</a> ago
+      <span id="journal-1270-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1270-notes" class="wiki"><p>The good news is that the image is not corrupted: all thumbnails can be extracted and the primary image data is identical to that in the correct image.</p>
+
+
+	<p>correct.NEF is written using little-endian (II) byte order.<br />corrupt.NEF also uses little-endian byte-order, except for the makernote, which is in big-endian (MM) byte order.<br />(and all my other NEF samples are MM)</p>
+
+
+	<p>Re-writing corrupt.NEF so that it only uses little-endian byte-order results in an image which ufraw can display again.</p>
+
+
+	<p>The required change: Exiv2 should write Nikon3 makernotes <del>using the same byte order as that of the rest of the image</del> without changing the byte order. (It currently writes Nikon3 makernotes always using MM.)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1271" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 May 2009 02:50" href="/projects/exiv2/activity?from=2009-05-23">over 12 years</a> ago
+      <span id="journal-1271-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Priority</strong> changed from <i>Immediate</i> to <i>Urgent</i></li>
+    </ul>
+    <div id="journal-1271-notes" class="wiki"><p>Reducing priority, since the "corrupt" images can be recovered.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1272" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 May 2009 21:08" href="/projects/exiv2/activity?from=2009-05-23">over 12 years</a> ago
+      <span id="journal-1272-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1272-notes" class="wiki"><p>Additional info from Dave Coffin:</p>
+
+
+	<p>"dcraw -w" fails because Exiv2 changed the MakerNote<br />byte order without byte-swapping the white balance in tag<br />0x97.  You cannot reorder a TIFF tag of type 7 (undefined)<br />without knowing its internal structure.  If it's encrypted,<br />you have to decrypt, shuffle bytes, then re-encrypt.</p>
+
+
+	<p>Nikon does this byte-swap correctly, so dcraw must<br />assume that data within a type-7 tag follows the MakerNote<br />byte order.  Therefore dcraw cannot support Exiv2-corrupted<br />images.</p>
+
+
+	<p>Be very careful when fixing these images, because many<br />NEF files in my collection, never touched by Exiv2, have<br />big-endian MakerNotes.  You should fix a file only if<br />"dcraw -i -v" shows nonsense values for "Camera multipliers".</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1273" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="24 May 2009 04:17" href="/projects/exiv2/activity?from=2009-05-24">over 12 years</a> ago
+      <span id="journal-1273-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1273-notes" class="wiki"><blockquote>
+
+	<p>The required change: Exiv2 should write Nikon3 makernotes <del>using the same byte order as that of the rest of the image</del> without changing the byte order. (It currently writes Nikon3 makernotes always using MM.)</p>
+
+
+</blockquote>
+
+	<p>Another idea: Make Exif.MakerNote.ByteOrder writable, i.e., write the makernote using the byteorder specified by this tag. (Of course only if the given makernote has its own byte order setting.) This achieves the above plus lets users set the makernote byte order if they want. For the time being (until <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Update Nikon makernotes (Closed)" href="/issues/620">#620</a> is done) that could be used to fix the corrupted NEF images.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1274" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="28 May 2009 04:55" href="/projects/exiv2/activity?from=2009-05-28">over 12 years</a> ago
+      <span id="journal-1274-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-1274-notes" class="wiki"><p>The issue is fixed with <a class="changeset" title="#636: Do not change makernote byte order unless requested. By default, use the same byte order as..." href="/projects/exiv2/repository/exiv2/revisions/1803">r1803</a>.</p>
+
+
+	<p>If you have Exiv2-corrupted NEF images as a result of this bug, you can fix them. Such an image shows the following symptoms:</p>
+
+
+	<ul>
+	<li>has metadata edited with Exiv2 0.18 or 0.18.1</li>
+		<li>isn't properly displayed in ufraw with the Camera WB setting, however, is ok with other white balance settings</li>
+		<li>the value of Exif.MakerNote.ByteOrder is MM and the byte order of the image itself is II (i.e., II in the first 2 bytes of the file)</li>
+	</ul>
+
+
+	<p>To fix an image corrupted due to this bug, get <a class="changeset" title="#636: Do not change makernote byte order unless requested. By default, use the same byte order as..." href="/projects/exiv2/repository/exiv2/revisions/1803">r1803</a> and run this command:</p>
+
+
+<pre>
+$ exiv2 -M'set Exif.MakerNote.ByteOrder II' corrupt.NEF
+</pre>
+
+	<p>This will change the makernote byte order back to little-endian and until <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Update Nikon makernotes (Closed)" href="/issues/620">#620</a> is done, it won't byte-swap the whitebalance tag, so that the result is correct again.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1275" class="journal has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="28 May 2009 04:57" href="/projects/exiv2/activity?from=2009-05-28">over 12 years</a> ago
+      <span id="journal-1275-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1284" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="08 Jun 2009 23:19" href="/projects/exiv2/activity?from=2009-06-08">over 12 years</a> ago
+      <span id="journal-1284-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> set to <i>0.18.2</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1314" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="24 Jun 2009 09:22" href="/projects/exiv2/activity?from=2009-06-24">over 12 years</a> ago
+      <span id="journal-1314-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/636.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/636.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

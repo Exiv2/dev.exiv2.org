@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>exiv2 vs exiftool: metadata inside DNG files - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="H3Vgo18gMszjqFIHJ8/cv0dymj+4cFrIlHFX8R1aFLD9OMtMLVr+zLbMTQuYGNCMeODORkmT+3JpUcd5XmPz3w==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>exiv2 vs exiftool: metadata inside DNG files</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/242">Gustavo Claramunt</a> <a title="10 Sep 2009 08:17" href="/projects/exiv2/activity?from=2009-09-10">about 12 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi, lately i've been ingesting a lot of information about DNG conversion for my workflow.<br />When converting my olympus raw files to DNG with adobe dng converter (using wine) i noticed not every exif info (mainly propietary olympus makernotes) was not saved into the converted DNG (looking at applications like digikam, photoMe, exiv2 commandline, etc). So i ended using dngconverter from kipi-plugins or copy/pasting exif data from my orf to the converted DNGs with exiv2.</p>
+
+
+	<p>But today i found one surprise to my little knowledge about exif and Adobe DNG...<br />If i convert a olympus ORF to DNG with "free" Adobe DNG Converter, it result as i said before in almost every application not displaying the makernotes metadata (like focusing info). But if i test exiftool (i think everyone knows about it) it shows that all the information is correctly inside the converted DNG.</p>
+
+
+	<p>So, adobe DNG converter <strong>DOES</strong> copy all my valuable information into DNG files... but maybe in a way other applications (but exiftool) not finding it?</p>
+
+
+	<p>Is better copy all exif data with exiv2 (orf->dng) or is a best practice "wish exiv2 support DNG metadata like exiftool does"?</p>
+
+
+	<p>One note:<br />This is generated by my lack of knowledge about exif and the thoughts that came in to me when trying to resolve a little bug in kipi-plugins dngconverter (look here <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=204437">https://bugs.kde.org/show_bug.cgi?id=204437</a>) because the bug resolution ended in removing one exif tag to get a properly working DNG...<br />And this is also a topic born when reading Barry Pearson site (<a class="external" href="http://www.barrypearson.co.uk/articles/dng/safety.htm">http://www.barrypearson.co.uk/articles/dng/safety.htm</a>) in a section where he quote "Olympus also fixed the bogus way they stored the MakerNotes in the new RAW file, so you won't have to depend on something like exiftool to restore the MakerNotes if you use that information".</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (7)</h3>
+  <div class="message reply" id="message-223">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/222?r=223#message-223">RE: exiv2 vs exiftool: metadata inside DNG files</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="10 Sep 2009 09:06" href="/projects/exiv2/activity?from=2009-09-10">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Gustavo,</p>
+
+
+	<p>See <a class="issue tracker-2 status-1 priority-4 priority-default" title="Feature: Support &quot;Adobe Makernote&quot; in DNGPrivateData (New)" href="/issues/574">#574</a>, I suspect this is what's causing the confusion (but would need samples to be sure).</p>
+
+
+	<p>The issue was discussed when Gilles implemented his DNG converter. The conclusion was</p>
+
+
+<pre>
+&gt;&gt; IMO they make a bad thing worse. I recommend that you boycot it and
+&gt;&gt; don't support this tag. Seriously. It is flawed in more than one way.
+&gt;
+&gt; right. But what can i do with makernote and DNG. i must continue to support
+&gt; Exif.Photo.Makernote as well ?
+
+Yes, just write a proper makernote.
+
+[...]
+&gt;
+&gt; Damned it's the hell... (:=)))
+&gt;
+
+Yes, that's why it's easier for me here in Kuala Lumpur to deal with
+it - we're already used to the hot climate here :)
+</pre>
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-224">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/222?r=224#message-224">RE: exiv2 vs exiftool: metadata inside DNG files</a>
+    -
+    Added by <a class="user active" href="/users/242">Gustavo Claramunt</a> <a title="10 Sep 2009 09:17" href="/projects/exiv2/activity?from=2009-09-10">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Damn.... i see the hell as well...<br />One question, is anyone, any site, any organization, anything out there apart from you both knowing about this "problem"? ;)<br />Because trying to "boicott" this behaviour is a dead-end if only 2 (now 3) peopele knows about it...</p></div>
+  
+  </div>
+  <div class="message reply" id="message-225">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/222?r=225#message-225">RE: exiv2 vs exiftool: metadata inside DNG files</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="10 Sep 2009 09:57" href="/projects/exiv2/activity?from=2009-09-10">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>I don't know. There are not many people crazy enough to spend their spare time (and I believe also not many companies paying people to spend time) trying to decode - or worse - encode makernotes. So this call for disobedience doesn't need to reach that many ;)</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-226">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/222?r=226#message-226">RE: exiv2 vs exiftool: metadata inside DNG files</a>
+    -
+    Added by <a class="user active" href="/users/242">Gustavo Claramunt</a> <a title="10 Sep 2009 11:25" href="/projects/exiv2/activity?from=2009-09-10">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yeah, i know ;)<br />My worrie is the posibility of getting a bunch of unuseful files (because of this "unofficial" way of storing exif inside DNG) as the official DNG grows by... or applications rejecting my files cause not being "standard"...<br />I'will break the meaning of converting to DNG :)</p>
+
+
+	<p>Anyway, i havent studied so deeply the official DNG specifications, so don't know if we are "allowed" to store makernotes this way without breaking compatibility.</p>
+
+
+	<p>How is the approach used by exiftool? It writes it the same way exiv does or the adobe way?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-227">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/222?r=227#message-227">RE: exiv2 vs exiftool: metadata inside DNG files</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="10 Sep 2009 21:49" href="/projects/exiv2/activity?from=2009-09-10">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Any Exif reader which knows how to read makernotes should have no problems reading native makernotes in DNG files.<br />Reading these Adobe makernotes is more difficult though: A reader still needs to be able to read native makernotes, plus it needs to know how to deal with that DNG tag. And extending a reader, which can deal with native makernotes, to also be able to extract them from that DNG tag is not trivial.</p>
+
+
+	<p>AFAICS this standard is meant for applications which can't write makernotes, perhaps not even read them, to allow them to write a DNG file without losing the makernote. But because it's more difficult to read that tag than reading a native makernote, that is of limited use - I would expect very few applications can decode it later.</p>
+
+
+	<p>So applications which <em>can</em> write native makernotes in DNG files, in my opinion should by all means do so, and not resort to that crutch.</p>
+
+
+	<p>For your specific workflow, I would look at it pragmatically and do what works best with the applications that you use. And keep backups of the original RAW files (assuming you have them).</p>
+
+
+<blockquote>
+
+	<p>How is the approach used by exiftool? It writes it the same way exiv does or the adobe way?</p>
+
+
+</blockquote>
+
+	<p>Give it a try, it would be interesting to know.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-228">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/222?r=228#message-228">RE: exiv2 vs exiftool: metadata inside DNG files</a>
+    -
+    Added by <a class="user active" href="/users/242">Gustavo Claramunt</a> <a title="11 Sep 2009 04:39" href="/projects/exiv2/activity?from=2009-09-11">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Well, my workflow, as i intend it to be, is as follows:<br />1.-Get all my raw files (yeah, the raw, not only the JPGs) tagged/cataloged within digikam.<br />2.-For those pictures worth the time, edited copies with digikam itself, gimp, maybe lightzone or rawtherapee (tests and time will give me the "one").</p>
+
+
+	<p>It's a simple "workflow" but having raw files in their native orf format, prevents me to fulfill meta information like iptc/xmp using digikam (yeah, i know digikam can handle comments/tags/ratings with every file including raws, but not every other xmp/iptc metadata not being in his database structure).</p>
+
+
+	<p>The way i see it is that all "data" should be associated at first to digital negatives and inherited later to their "manufactured children" (jpgs, pngs, tiffs), so this is where DNG appears to be the "best" solution as digital negative format.</p>
+
+
+	<p>But hey... maybe i'm missing something ;)</p>
+
+
+	<p>Concerning exiftool writing metadata, i did some tests:</p>
+
+
+	<p>1.-Get original file A.orf<br />2.-Convert to DNG with official Adobe DNG Converter 2 times (B1.dng and B2.dng) to make the tests.<br />3.-Copy metadata from A.orf to B1.dng with exiftool (-tagsFromFile)<br />4.-Copy metadata from A.orf to B2.dng with exiv2 (first export to .exv, then write to dng).</p>
+
+
+	<p>Step 1 finished. Results both B1 and B2 are different in size. Now display the info:</p>
+
+
+	<p>5.-Display metadata from B1 and B2 using "exiftool  -k -a -u -g1 -w txt". Resulting txt files differs in size and in a lot of contents and/or positions.<br />6.-Display metadata from B1 and B2 using "exiv2 -pt>file.txt". Resulting txt files differs in size (this time a LOT, cause exiv2 file contained Exif.Image.DNGPrivateData with 2Mb data) and in a lot of contents and/or positions.</p>
+
+
+	<p>Conclussions: i hadn't be able to get conclusions :) There are so many tags, so many data and so many differences i don't know where to start digging ;)</p>
+
+
+	<p>Maybe i need one "god" out there just telling me across the skies "hey you, yo should use This method instead this other", but it won't happen :)</p>
+
+
+	<p>Goose.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1723">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/222?r=1723#message-1723">RE: exiv2 vs exiftool: metadata inside DNG files</a>
+    -
+    Added by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="27 Feb 2014 10:14" href="/projects/exiv2/activity?from=2014-02-27">over 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>I am a bit late to this party, but I thought it would be worthwhile to respond anyway, for the record.</p>
+
+
+	<p>I agree that Adobe's method of reformatting native maker notes when writing to DNG is idiotic.  And worse:  It is seriously flawed when it comes to Olympus maker notes -- they don't actually parse the Olympus maker notes properly, so information is lost during the conversion.  I have talked to a senior developer at Adobe about this, and he has zero sympathy for solving this problem.</p>
+
+
+	<p>ExifTool (and apparently Exiv2) write DNG maker notes in the same location as TIFF and JPEG, which is the only thing that makes sense.  Adobe's technique is nonsensical.</p>
+
+
+	<p>- Phil</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-7/7)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

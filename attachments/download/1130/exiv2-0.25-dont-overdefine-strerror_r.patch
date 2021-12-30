@@ -1,0 +1,15 @@
+--- exiv2-0.25/include/exiv2/config.h.old	2015-06-21 14:21:21.000000000 +0000
++++ exiv2-0.25/include/exiv2/config.h	2017-01-21 00:10:00.955322655 +0000
+@@ -11,11 +11,9 @@
+ #endif
+ 
+ // Linux GCC 4.8 appears to be confused about strerror_r
+-#ifndef EXV_STRERROR_R_CHAR_P
+-#ifdef  __gnu_linux__
++#if !defined(EXV_STRERROR_R_CHAR_P) &&  defined( __gnu_linux__) && defined(__GLIBC__)
+ #define EXV_STRERROR_R_CHAR_P
+ #endif
+-#endif
+ 
+ #if defined(__MINGW32__) || defined(__MINGW64__)
+ #ifndef __MING__

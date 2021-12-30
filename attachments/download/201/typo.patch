@@ -1,0 +1,52 @@
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(revision 2353)
++++ CMakeLists.txt	(working copy)
+@@ -111,6 +116,6 @@
+     ADD_SUBDIRECTORY( samples )
+ ENDIF( EXIV2_ENABLE_BUILD_SAMPLES )
+ 
+-IF( EXIV2_BUILD_PO )
++IF( EXIV2_ENABLE_BUILD_PO )
+     ADD_SUBDIRECTORY( po )
+-ENDIF( EXIV2_BUILD_PO )
++ENDIF( EXIV2_ENABLE_BUILD_PO )
+Index: config/ConfigureChecks.cmake
+===================================================================
+--- config/ConfigureChecks.cmake	(revision 2353)
++++ config/ConfigureChecks.cmake	(working copy)
+@@ -276,5 +276,5 @@
+ OptionOutput( "Nikon lens database:                " EXIV2_ENABLE_LENSDATA           )
+ OptionOutput( "Commercial build:                   " EXIV2_ENABLE_COMMERCIAL         )
+ OptionOutput( "Build the unit tests:               " EXIV2_ENABLE_BUILD_SAMPLES      )
+-OptionOutput( "Building translations files:        " EXIV2_BUILD_PO                  )
++OptionOutput( "Building translations files:        " EXIV2_ENABLE_BUILD_PO           )
+ MESSAGE( STATUS "------------------------------------------------------------------" )
+Index: src/CMakeLists.txt
+===================================================================
+--- src/CMakeLists.txt	(revision 2353)
++++ src/CMakeLists.txt	(working copy)
+@@ -172,9 +172,9 @@
+ ENDIF( MSVC )
+ 
+ IF( EXIV2_ENABLE_XMP )
+-    IF( NOT EXIV2_EXIV2_ENABLE_LIBXMP )
++    IF( NOT EXIV2_ENABLE_LIBXMP )
+         SET( LIBEXIV2_SRC ${XMPSRC} ${LIBEXIV2_SRC} )
+-    ENDIF( NOT EXIV2_EXIV2_ENABLE_LIBXMP )
++    ENDIF( NOT EXIV2_ENABLE_LIBXMP )
+ ENDIF( EXIV2_ENABLE_XMP )
+ 
+ # ******************************************************************************
+@@ -188,9 +188,9 @@
+ 
+ TARGET_LINK_LIBRARIES( exiv2 ${EXPAT_LIBRARIES} )
+ 
+-if( EXIV2_EXIV2_ENABLE_LIBXMP )
++if( EXIV2_ENABLE_LIBXMP )
+     TARGET_LINK_LIBRARIES( exiv2 ${XMPLIB} )
+-ENDIF( EXIV2_EXIV2_ENABLE_LIBXMP )
++ENDIF( EXIV2_ENABLE_LIBXMP )
+ 
+ IF( EXIV2_ENABLE_PNG )
+     IF( ZLIB_FOUND )

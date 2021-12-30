@@ -1,0 +1,193 @@
+diff -u exiv2-0.21.1_orig/src/image.cpp exiv2-0.21.1/src/image.cpp
+--- exiv2-0.21.1_orig/src/image.cpp	2011-03-23 13:05:10.000000000 +0100
++++ exiv2-0.21.1/src/image.cpp	2011-04-21 13:58:21.000000000 +0200
+@@ -257,6 +257,16 @@
+         comment_ = comment;
+     }
+ 
++    const DataBuf& Image::preview() const
++    {
++        return preview_;
++    }
++
++    DataBuf& Image::preview()
++    {
++        return preview_;
++    }
++
+     void Image::setByteOrder(ByteOrder byteOrder)
+     {
+         byteOrder_ = byteOrder;
+diff -u exiv2-0.21.1_orig/src/image.hpp exiv2-0.21.1/src/image.hpp
+--- exiv2-0.21.1_orig/src/image.hpp	2011-02-13 15:39:15.000000000 +0100
++++ exiv2-0.21.1/src/image.hpp	2011-04-22 22:11:09.000000000 +0200
+@@ -385,6 +385,14 @@
+         bool supportsMetadata(MetadataId metadataId) const;
+         //! Return the flag indicating the source when writing XMP metadata.
+         bool writeXmpFromPacket() const;
++        /*!
++          @return modifiable reference to this image's native preview
++         */
++        virtual DataBuf& preview();
++        /*!
++          @return read only reference to this image's native preview
++         */
++        virtual const DataBuf& preview() const;
+         //@}
+ 
+     protected:
+@@ -397,6 +405,7 @@
+         std::string       xmpPacket_;         //!< XMP packet
+         int               pixelWidth_;        //!< image pixel width
+         int               pixelHeight_;       //!< image pixel height
++        DataBuf           preview_;           //!< generic preview image
+ 
+     private:
+         //! @name NOT implemented
+diff -u exiv2-0.21.1_orig/src/preview.cpp exiv2-0.21.1/src/preview.cpp
+--- exiv2-0.21.1_orig/src/preview.cpp	2011-02-13 15:39:15.000000000 +0100
++++ exiv2-0.21.1/src/preview.cpp	2011-04-22 23:52:35.000000000 +0200
+@@ -236,6 +236,26 @@
+     //! Function to create new LoaderTiff
+     Loader::AutoPtr createLoaderTiff(PreviewId id, const Image &image, int parIdx);
+ 
++    //! Loader for PSD previews in Jpeg format
++    class LoaderPsdJpeg : public Loader {
++    public:
++        // Constructor
++        LoaderPsdJpeg(PreviewId id, const Image &image, int parIdx);
++
++        //! Get properties of a preview image with given params
++        virtual PreviewProperties getProperties() const;
++
++        //! Get a buffer that contains the preview image
++        virtual DataBuf getData() const;
++
++        //! Read preview image dimensions
++        virtual bool readDimensions();
++
++    };
++
++    //! Function to create new LoaderPsdJpeg
++    Loader::AutoPtr createLoaderPsdJpeg(PreviewId id, const Image &image, int parIdx);
++
+ // *****************************************************************************
+ // class member definitions
+ 
+@@ -265,7 +285,8 @@
+         { 0,                   createLoaderExifJpeg,     5 },
+         { 0,                   createLoaderExifJpeg,     6 },
+         { "image/x-canon-cr2", createLoaderExifJpeg,     7 },
+-        { 0,                   createLoaderExifJpeg,     8 }
++        { 0,                   createLoaderExifJpeg,     8 },
++        { 0,                   createLoaderPsdJpeg,      0 }
+     };
+ 
+     const LoaderExifJpeg::Param LoaderExifJpeg::param_[] = {
+@@ -663,6 +684,59 @@
+         return DataBuf(mio.mmap(), mio.size());
+     }
+ 
++    LoaderPsdJpeg::LoaderPsdJpeg(PreviewId id, const Image &image, int parIdx)
++        : Loader(id, image)
++    {
++        if (image_.preview().size_ > 0) {
++            size_ = image_.preview().size_;
++            valid_ = true;
++        }
++    }
++
++    Loader::AutoPtr createLoaderPsdJpeg(PreviewId id, const Image &image, int parIdx)
++    {
++        return Loader::AutoPtr(new LoaderPsdJpeg(id, image, parIdx));
++    }
++
++    PreviewProperties LoaderPsdJpeg::getProperties() const
++    {
++        PreviewProperties prop = Loader::getProperties();
++        prop.mimeType_ = "image/jpeg";
++        prop.extension_ = ".jpg";
++#ifdef EXV_UNICODE_PATH
++        prop.wextension_ = EXV_WIDEN(".jpg");
++#endif
++        return prop;
++    }
++
++    DataBuf LoaderPsdJpeg::getData() const
++    {
++        if (!valid()) return DataBuf();
++        return DataBuf(image_.preview().pData_, image_.preview().size_);
++    }
++
++    bool LoaderPsdJpeg::readDimensions()
++    {
++        if (!valid()) return false;
++        if (width_ || height_) return true;
++
++        try {
++            Image::AutoPtr image = ImageFactory::open(image_.preview().pData_, image_.preview().size_);
++            if (image.get() == 0) return false;
++            image->readMetadata();
++
++            width_ = image->pixelWidth();
++            height_ = image->pixelHeight();
++        }
++        catch (const AnyError& /* error */ ) {
++#ifndef SUPPRESS_WARNINGS
++            EXV_WARNING << "Invalid JPEG preview image.\n";
++#endif
++            return false;
++        }
++        return true;
++    }
++
+ }                                       // namespace
+ 
+ // *****************************************************************************
+diff -u exiv2-0.21.1_orig/src/psdimage.cpp exiv2-0.21.1/src/psdimage.cpp
+--- exiv2-0.21.1_orig/src/psdimage.cpp	2011-03-27 12:11:03.000000000 +0200
++++ exiv2-0.21.1/src/psdimage.cpp	2011-04-22 23:06:29.000000000 +0200
+@@ -296,6 +296,43 @@
+                 break;
+             }
+ 
++            // - PS 4.0 preview data is fetched from ThumbnailResource
++            // - PS >= 5.0 preview data is fetched from ThumbnailResource2
++            case kPhotoshopResourceID_ThumbnailResource:
++            case kPhotoshopResourceID_ThumbnailResource2:
++            {
++                /* Photoshop thumbnail resosurce header
++                offset length   name           description
++                ====== =======  ====           ===========
++                 0     4 bytes  format         = 1 (kJpegRGB). Also supports kRawRGB (0).
++                 4     4 bytes  width          Width of thumbnail in pixels.
++                 8     4 bytes  height         Height of thumbnail in pixels.
++                12     4 bytes  widthbytes     Padded row bytes as (width * bitspixel + 31) / 32 * 4.
++                16     4 bytes  size           Total size as widthbytes * height * planes
++                20     4 bytes  compressedsize Size after compression. Used for consistentcy check.
++                24     2 bytes  bitspixel      = 24. Bits per pixel.
++                26     2 bytes  planes         = 1. Number of planes.
++                28     Variable Data           JFIF data in RGB format.
++                               Note: For resource ID 1033 the data is in BGR format.
++                */
++
++                byte buf[28];
++                if (io_->read(buf, 28) != 28)
++                {
++                    throw Error(3, "Photoshop");
++                }
++                uint32_t format_ = getLong(buf, bigEndian);
++                uint32_t size_ = getLong(buf + 20, bigEndian);    // compressedsize
++
++                if (format_ == 1 && size_ > 0) {
++                    DataBuf preview(size_);
++                    io_->read(preview.pData_, preview.size_);
++                    if (io_->error() || io_->eof()) throw Error(14);
++                    preview_ = preview;
++                }
++                break;
++            }
++
+             default:
+             {
+                 break;

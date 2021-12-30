@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #741: Pointer being freed was not allocated - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="FqYb388zo58y3i3VbpEu3shRvnzeacPkJTNK0Fsg8lv067AwvUlvn2e6MtnRRiLt98PqBS+KYl7YE9pYGBkVNA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #741: Pointer being freed was not allocated" href="https://dev.exiv2.org/issues/741.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #741</h2>
+
+<div class="issue tracker-1 status-6 priority-4 priority-default closed details">
+    <div class="next-prev-links contextual">
+      <a title="#859" accesskey="p" href="/issues/859">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;f%5B%5D=author_id&amp;op%5Bauthor_id%5D=%3D&amp;op%5Bstatus_id%5D=%2A&amp;page=1&amp;per_page=25&amp;set_filter=1&amp;sort=id%3Adesc&amp;v%5Bauthor_id%5D%5B%5D=1646&amp;v%5Bstatus_id%5D%5B%5D=">2 of 2</a>
+        </span> |
+      Next »
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Pointer being freed was not allocated</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/1646">Davide Anastasia</a> <a title="23 Nov 2010 07:11" href="/projects/exiv2/activity?from=2010-11-23">almost 11 years</a> ago.
+        Updated <a title="28 Nov 2010 17:42" href="/projects/exiv2/activity?from=2010-11-28">almost 11 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Rejected</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">-</div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">23 Nov 2010</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hi, I'm one of the Luminance HDR developers.<br />I'm getting this error using EXIV 0.19 from MacPorts:</p>
+
+
+	<p>luminance(98405,0xb018e000) malloc: *** error for object 0xa0103db0: pointer being freed was not allocated<br />set a breakpoint in malloc_error_break to debug</p>
+
+
+	<p>Using GDB and activating the backtrace, I obtain this:</p>
+
+
+	<p>#0  0x9332df82 in malloc_error_break ()<br />#1  0x9323db63 in free ()<br />#2  0x03c552f5 in operator delete ()<br />#3  0x03c319c1 in std::string::_Rep::_M_destroy ()<br />#4  0x03c2c626 in std::basic_stringbuf&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; >::Overflow ()<br />#5  0x03c30f31 in std::basic_streambuf&lt;char, std::char_traits&lt;char&gt; >::xsputn ()<br />#6  0x90d5418c in std::__ostream_write&lt;char, std::char_traits&lt;char&gt; > ()<br />#7  0x90d52208 in std::__ostream_insert&lt;char, std::char_traits&lt;char&gt; > ()<br />#8  0x90d5068a in std::operator<< &lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; > ()<br />#9  0x0038fe0e in Exiv2::AsciiValue::write ()<br />#10 0x003917f9 in Exiv2::Value::toString ()<br />#11 0x00387f70 in Exiv2::Internal::TiffReader::visitMnEntry ()<br />#12 0x003757fa in Exiv2::Internal::TiffMnEntry::doAccept ()<br />#13 0x00376c0d in Exiv2::Internal::TiffDirectory::doAccept ()<br />#14 0x0037654d in Exiv2::Internal::TiffSubIfd::doAccept ()<br />#15 0x00376c0d in Exiv2::Internal::TiffDirectory::doAccept ()<br />#16 0x0037c9f5 in Exiv2::Internal::TiffParserWorker::parse ()<br />#17 0x0037d291 in Exiv2::Internal::TiffParserWorker::decode ()<br />#18 0x0037d3fe in Exiv2::TiffParser::decode ()<br />#19 0x0037d631 in Exiv2::TiffImage::readMetadata ()<br />#20 0x00108cd0 in ExifOperations::obtain_avg_lum () at ExifOperations.cpp:108<br />#21 0x9326485d in _pthread_start ()<br />#22 0x932646e2 in thread_start ()</p>
+
+
+	<p>The function in Luminance HDR that owns the error is obtain_avg_lum(). You can look at the code here:<br /><a class="external" href="http://qtpfsgui.svn.sourceforge.net/viewvc/qtpfsgui/trunk/qtpfsgui/src/Exif/ExifOperations.cpp?revision=788&#38;view=markup">http://qtpfsgui.svn.sourceforge.net/viewvc/qtpfsgui/trunk/qtpfsgui/src/Exif/ExifOperations.cpp?revision=788&#38;view=markup</a><br />(as you can see, basic stuff).</p>
+
+
+	<p>We are only experiencing this error when we try to read RAW files.</p>
+
+
+	<p>Thanks,<br />Davide</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1815" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 Nov 2010 07:47" href="/projects/exiv2/activity?from=2010-11-23">almost 11 years</a> ago
+      <span id="journal-1815-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1815-notes" class="wiki"><p>This should be easy to reproduce. Can you please attach an image which causes this, I'd like to try that here.<br />Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1816" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1646">Davide Anastasia</a> <a title="23 Nov 2010 07:50" href="/projects/exiv2/activity?from=2010-11-23">almost 11 years</a> ago
+      <span id="journal-1816-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1816-notes" class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>This should be easy to reproduce. Can you please attach an image which causes this, I'd like to try that here.<br />Andreas</p>
+
+
+</blockquote>
+
+	<p>Use this one: it's a NEX-5 raw file.</p>
+
+
+	<p><a class="external" href="http://tolkov.com/valery/DSC02603.ARW">http://tolkov.com/valery/DSC02603.ARW</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-1817" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 Nov 2010 08:16" href="/projects/exiv2/activity?from=2010-11-23">almost 11 years</a> ago
+      <span id="journal-1817-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1817-notes" class="wiki"><p>No, I can't reproduce this. Valgrind is happy with this file. Can you reproduce the problem with exiv2 alone?</p>
+
+
+<pre>
+$ exiv2 DSC02603.ARW
+</pre>
+
+	<p>should be all that's needed as the issue is reported within TiffImage::readMetadata()</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1818" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1646">Davide Anastasia</a> <a title="23 Nov 2010 08:19" href="/projects/exiv2/activity?from=2010-11-23">almost 11 years</a> ago
+      <span id="journal-1818-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1818-notes" class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>No, I can't reproduce this. Valgrind is happy with this file. Can you reproduce the problem with exiv2 alone?</p>
+
+
+	<p>[...]</p>
+
+
+	<p>should be all that's needed as the issue is reported within TiffImage::readMetadata()</p>
+
+
+</blockquote>
+
+	<p>It didn't complain. Is my code faulty? What test I can do to find out the error?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1819" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 Nov 2010 08:37" href="/projects/exiv2/activity?from=2010-11-23">almost 11 years</a> ago
+      <span id="journal-1819-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1819-notes" class="wiki"><p>I highly recommend valgrind for such issues. Chances are it will tell you exactly what's wrong.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1820" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1646">Davide Anastasia</a> <a title="24 Nov 2010 02:32" href="/projects/exiv2/activity?from=2010-11-24">almost 11 years</a> ago
+      <span id="journal-1820-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1820-notes" class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>I highly recommend valgrind for such issues. Chances are it will tell you exactly what's wrong.</p>
+
+
+</blockquote>
+
+	<p>Valgrind doesn't give me any error on Linux. I'm using Ubuntu 9.10: what's the Exiv2 version in that distribution?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1821" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="24 Nov 2010 02:41" href="/projects/exiv2/activity?from=2010-11-24">almost 11 years</a> ago
+      <span id="journal-1821-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1821-notes" class="wiki"><blockquote>
+
+	<p>I'm using Ubuntu 9.10: what's the Exiv2 version in that distribution?</p>
+
+
+</blockquote>
+
+	<p><code>$ exiv2 -V</code></p>
+
+
+	<p>The latest version of Valgrind also works on Mac OS X, maybe MacPorts has it already (Fink does)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1823" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1646">Davide Anastasia</a> <a title="24 Nov 2010 03:38" href="/projects/exiv2/activity?from=2010-11-24">almost 11 years</a> ago
+      <span id="journal-1823-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1823-notes" class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote><blockquote>
+
+	<p>I'm using Ubuntu 9.10: what's the Exiv2 version in that distribution?</p>
+
+
+</blockquote>
+
+	<p><code>$ exiv2 -V</code></p>
+
+
+	<p>The latest version of Valgrind also works on Mac OS X, maybe MacPorts has it already (Fink does)</p>
+
+
+</blockquote>
+
+	<p>I've tried to use Valgrind on OS X in the past, but Qt (that I use for the UI) is so buggy that Valgrind stops the execution after a few steps (not enough to reach the point where I have the problem with Exiv).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1824" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1646">Davide Anastasia</a> <a title="27 Nov 2010 14:21" href="/projects/exiv2/activity?from=2010-11-27">almost 11 years</a> ago
+      <span id="journal-1824-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1824-notes" class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote><blockquote>
+
+	<p>I'm using Ubuntu 9.10: what's the Exiv2 version in that distribution?</p>
+
+
+</blockquote>
+
+	<p><code>$ exiv2 -V</code></p>
+
+
+	<p>The latest version of Valgrind also works on Mac OS X, maybe MacPorts has it already (Fink does)</p>
+
+
+</blockquote>
+
+	<p>I did find where the bug is and it has no relationship with Evix2. You can close this bug report. Sorry for bothering you.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1825" class="journal has-notes has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="28 Nov 2010 17:42" href="/projects/exiv2/activity?from=2010-11-28">almost 11 years</a> ago
+      <span id="journal-1825-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Rejected</i></li>
+    </ul>
+    <div id="journal-1825-notes" class="wiki"><p>Thanks for the feedback. Closing this, not a bug.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/741.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/741.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

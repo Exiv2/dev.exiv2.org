@@ -1,0 +1,230 @@
+From 9afd600b39be3eba80bbe57450b661770f97cb79 Mon Sep 17 00:00:00 2001
+From: Michael Pratt <michael@pratt.im>
+Date: Sat, 5 Jul 2014 15:30:18 -0700
+Subject: [PATCH 3/6] exif: convert metadata store from std::vector to
+ std::multimap
+
+Use a std::multimap to store Exif metadata, providing O(1) lookup times,
+rather than the O(n) lookup times provided by a std::vector.  This
+provides large performance improvements for images with a large number
+of Exif tags.
+
+This change makes minimal changes to the API.  map_value_iterator is
+used to provide metadata iterators that behave like the old std::vector
+iterators.  ExifData::sortByKey() and ExifData::sortByTag() are
+deprecated, as the std::multimap is always kept sorted by IfdId, than
+tag, with ExifKey::operator<().
+---
+ src/exif.cpp | 60 ++++++++++++++++++++++++++----------------------------------
+ src/exif.hpp | 17 ++++++++++++-----
+ src/tags.cpp |  9 +++++++++
+ src/tags.hpp |  2 ++
+ 4 files changed, 49 insertions(+), 39 deletions(-)
+
+diff --git a/src/exif.cpp b/src/exif.cpp
+index 99338ae..d873033 100644
+--- a/src/exif.cpp
++++ b/src/exif.cpp
+@@ -61,25 +61,6 @@ EXIV2_RCSID("@(#) $Id$")
+ // *****************************************************************************
+ namespace {
+ 
+-    //! Unary predicate that matches a Exifdatum with a given key
+-    class FindExifdatumByKey {
+-    public:
+-        //! Constructor, initializes the object with the key to look for
+-        FindExifdatumByKey(const std::string& key) : key_(key) {}
+-        /*!
+-          @brief Returns true if the key of \em exifdatum is equal
+-                 to that of the object.
+-        */
+-        bool operator()(const Exiv2::Exifdatum& exifdatum) const
+-        {
+-            return key_ == exifdatum.key();
+-        }
+-
+-    private:
+-        const std::string& key_;
+-
+-    }; // class FindExifdatumByKey
+-
+     /*!
+       @brief Exif %Thumbnail image. This abstract base class provides the
+              interface for the thumbnail image that is optionally embedded in
+@@ -317,6 +298,12 @@ namespace Exiv2 {
+         return value_.get() == 0 ? -1 : value_->setDataArea(buf, len);
+     }
+ 
++    const ExifKey& Exifdatum::exifKey() const
++    {
++        if (key_.get() == 0) throw Error(8);
++        return *key_;
++    }
++
+     std::string Exifdatum::key() const
+     {
+         return key_.get() == 0 ? "" : key_->key();
+@@ -562,13 +549,14 @@ namespace Exiv2 {
+ 
+     Exifdatum& ExifData::operator[](const std::string& key)
+     {
+-        ExifKey exifKey(key);
+-        iterator pos = findKey(exifKey);
+-        if (pos == end()) {
+-            add(Exifdatum(exifKey));
+-            pos = findKey(exifKey);
++        ExifKey k = ExifKey(key);
++        ExifMetadata::iterator it = exifMetadata_.find(k);
++        if (it != exifMetadata_.end()) {
++            return it->second;
+         }
+-        return *pos;
++
++        add(Exifdatum(k));
++        return (*this)[key];
+     }
+ 
+     void ExifData::add(const ExifKey& key, const Value* pValue)
+@@ -579,19 +567,17 @@ namespace Exiv2 {
+     void ExifData::add(const Exifdatum& exifdatum)
+     {
+         // allow duplicates
+-        exifMetadata_.push_back(exifdatum);
++        exifMetadata_.insert(std::make_pair(exifdatum.exifKey(), exifdatum));
+     }
+ 
+     ExifData::const_iterator ExifData::findKey(const ExifKey& key) const
+     {
+-        return std::find_if(exifMetadata_.begin(), exifMetadata_.end(),
+-                            FindExifdatumByKey(key.key()));
++        return exifMetadata_.find(key);
+     }
+ 
+     ExifData::iterator ExifData::findKey(const ExifKey& key)
+     {
+-        return std::find_if(exifMetadata_.begin(), exifMetadata_.end(),
+-                            FindExifdatumByKey(key.key()));
++        return exifMetadata_.find(key);
+     }
+ 
+     void ExifData::clear()
+@@ -601,22 +587,28 @@ namespace Exiv2 {
+ 
+     void ExifData::sortByKey()
+     {
+-        exifMetadata_.sort(cmpMetadataByKey);
++        // map is sorted by ifdId then tag
+     }
+ 
+     void ExifData::sortByTag()
+     {
+-        exifMetadata_.sort(cmpMetadataByTag);
++        // map is already sorted by ifdId then tag
+     }
+ 
+     ExifData::iterator ExifData::erase(ExifData::iterator beg, ExifData::iterator end)
+     {
+-        return exifMetadata_.erase(beg, end);
++        ExifData::iterator next = end;
++        next++;
++        exifMetadata_.erase(beg.it, end.it);
++        return next;
+     }
+ 
+     ExifData::iterator ExifData::erase(ExifData::iterator pos)
+     {
+-        return exifMetadata_.erase(pos);
++        ExifData::iterator next = pos;
++        next++;
++        exifMetadata_.erase(pos.it);
++        return next;
+     }
+ 
+     ByteOrder ExifParser::decode(
+diff --git a/src/exif.hpp b/src/exif.hpp
+index afc55f3..8f92bca 100644
+--- a/src/exif.hpp
++++ b/src/exif.hpp
+@@ -156,6 +156,7 @@ namespace Exiv2 {
+         //@{
+         //! Return the key of the %Exifdatum.
+         std::string key() const;
++        const ExifKey& exifKey() const;
+         const char* familyName() const;
+         std::string groupName() const;
+         std::string tagName() const;
+@@ -421,7 +422,7 @@ namespace Exiv2 {
+     }; // class ExifThumb
+ 
+     //! Container type to hold all metadata
+-    typedef std::list<Exifdatum> ExifMetadata;
++    typedef std::multimap<ExifKey, Exifdatum> ExifMetadata;
+ 
+     /*!
+       @brief A container for Exif data.  This is a top-level class of the %Exiv2
+@@ -438,9 +439,9 @@ namespace Exiv2 {
+     class EXIV2API ExifData {
+     public:
+         //! ExifMetadata iterator type
+-        typedef ExifMetadata::iterator iterator;
++        typedef map_value_iterator<ExifMetadata, ExifMetadata::iterator> iterator;
+         //! ExifMetadata const iterator type
+-        typedef ExifMetadata::const_iterator const_iterator;
++        typedef map_value_iterator<ExifMetadata, ExifMetadata::const_iterator, const typename ExifMetadata::const_iterator::value_type::second_type> const_iterator;
+ 
+         //! @name Manipulators
+         //@{
+@@ -486,9 +487,15 @@ namespace Exiv2 {
+                  Note that this also removes thumbnails.
+          */
+         void clear();
+-        //! Sort metadata by key
++        /*!
++          @deprecated Exif metadata is always kept sorted by IfdId, then tag.
++                This method is a no-op.
++         */
+         void sortByKey();
+-        //! Sort metadata by tag
++        /*!
++          @deprecated Exif metadata is always kept sorted by IfdId, then tag.
++                This method is a no-op.
++         */
+         void sortByTag();
+         //! Begin of the metadata
+         iterator begin() { return exifMetadata_.begin(); }
+diff --git a/src/tags.cpp b/src/tags.cpp
+index 08558d8..780491b 100644
+--- a/src/tags.cpp
++++ b/src/tags.cpp
+@@ -3036,6 +3036,15 @@ namespace Exiv2 {
+         return *this;
+     }
+ 
++    bool ExifKey::operator<(const ExifKey& b) const
++    {
++        if (this->ifdId() != b.ifdId()) {
++            return this->ifdId() < b.ifdId();
++        }
++
++        return this->tag() < b.tag();
++    }
++
+     void ExifKey::setIdx(int idx)
+     {
+         p_->idx_ = idx;
+diff --git a/src/tags.hpp b/src/tags.hpp
+index 61c9989..3745156 100644
+--- a/src/tags.hpp
++++ b/src/tags.hpp
+@@ -192,6 +192,8 @@ namespace Exiv2 {
+           @brief Assignment operator.
+          */
+         ExifKey& operator=(const ExifKey& rhs);
++        //! Comparison operator.
++        bool operator<(const ExifKey& b) const;
+         //! Set the index.
+         void setIdx(int idx);
+         //@}
+-- 
+2.0.0
+

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1073: test/bugfixes-test.sh is producing results that change with the time-zone - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="xZLwfs8wL7DDczaF+rtnNo+YyI8EwRRqNDQq2Sp51csn31uRvUrjsJYXKYlFbGsFsAqc9vUitdDJFLpRaUAypA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1073: test/bugfixes-test.sh is producing results that change with the time-zone" href="https://dev.exiv2.org/issues/1073.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1073</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>test/bugfixes-test.sh is producing results that change with the time-zone</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 May 2015 14:22" href="/projects/exiv2/activity?from=2015-05-01">over 6 years</a> ago.
+        Updated <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">testing</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">01 May 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>When run in BST:<pre>930 rmills@rmillsmbp:~/gnu/exiv2/trunk/test $ date +%Z
+BST
+931 rmills@rmillsmbp:~/gnu/exiv2/trunk/test $ ./bugfixes-test.sh 
+426 440 443 444 445 447 452 460 479 480 495 498 501 528 540 554 662 666 683 711 726 751 769 784 799 800 812 831 (836 skipped) 841 876 884 922 937 937a 1026 1040 1043 1044 1053 1054 1058 1062 
+all testcases passed.</pre>Now manually change the timezone to PDT (8 hours behind):<pre>932 rmills@rmillsmbp:~/gnu/exiv2/trunk/test $ date +%Z
+PDT
+933 rmills@rmillsmbp:~/gnu/exiv2/trunk/test $ ./bugfixes-test.sh 
+426 440 443 444 445 447 452 460 479 480 495 498 501 528 540 554 662 666 683 711 726 751 769 784 799 800 812 831 (836 skipped) 841 876 884 922 937 937a 1026 1040 1043 1044 1053 1054 1058 1062 
+Files /Users/rmills/gnu/exiv2/trunk/test/tmp/bugfixes-test.out-stripped and /Users/rmills/gnu/exiv2/trunk/test/data/bugfixes-test.out differ
+2055c2055
+&lt;             "DateTime": "2005:09:07 15:09:51",
+---
+&gt;             "DateTime": "2005:09:07 23:09:51",
+2063c2063
+&lt;             "DateTimeDigitized": "2005:09:07 15:07:40" 
+---
+&gt;             "DateTimeDigitized": "2005:09:07 23:07:40" 
+934 rmills@rmillsmbp:~/gnu/exiv2/trunk/test $ </pre></p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3774" href="/projects/exiv2/repository/exiv2/revisions/3774">Revision 3774</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3774/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 May 2015 19:25" href="/projects/exiv2/activity?from=2015-05-01">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: test/bugfixes-test.sh is producing results that change with the time-zone (Closed)" href="/issues/1073">#1073</a>.  I'm going to change the time-zone on the build server to Finland (FST+1) while this builds.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3778" href="/projects/exiv2/repository/exiv2/revisions/3778">Revision 3778</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3778/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 May 2015 13:03" href="/projects/exiv2/activity?from=2015-05-02">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: test/bugfixes-test.sh is producing results that change with the time-zone (Closed)" href="/issues/1073">#1073</a> test/tiff-test.sh rewritten to no longer require external utility exifprobe</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3571" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 May 2015 17:35" href="/projects/exiv2/activity?from=2015-05-01">over 6 years</a> ago
+      <span id="journal-3571-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3571-notes" class="wiki"><p>Curious. This is coming from the test for <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: xml:lang should be treated case insensitive (Closed)" href="/issues/1058">#1058</a>.  I happened to be using $ exiv2json test/data/BlueSquare.xmp, however exiv2json is irrelevant - that's just a formatter.  We can reproduce this with:<pre>525 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pa test/data/BlueSquare.xmp | grep Digitized
+Exif.Photo.DateTimeDigitized                 Ascii      20  2005:09:07 15:07:40
+526 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>The issue is being cause by timezone information the xmp:<pre>xap:CreateDate="2005-09-07T15:07:40-07:00"</pre>So, it's not an issue.  It's correct behaviour.  Curiously, the issue doesn't occur on Windows - so perhaps we have a convertor bug in Windows.</p>
+
+
+	<p>I will modify the test to avoid reporting times depend on the TZ of the host computer running the test.  At least 3 ways to fix it:</p>
+
+
+	<ol>
+	<li>Filter out the Dates and Times | grep -v -e Date -v -e Time</li>
+		<li>Use a different test file that doesn't have TZ information</li>
+		<li>Set an environment string for TZ (I think this will work)</li>
+	</ol></div>
+    </div>
+  </div>
+  
+  <div id="change-3572" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 May 2015 19:40" href="/projects/exiv2/activity?from=2015-05-01">over 6 years</a> ago
+      <span id="journal-3572-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3572-notes" class="wiki"><p>Fix submitted:  <a class="changeset" title="#1073.  I&#39;m going to change the time-zone on the build server to Finland (FST+1) while this builds." href="/projects/exiv2/repository/exiv2/revisions/3774">r3774</a></p>
+
+
+	<p>Easily fixed by setting the time-zone in test/functions.source <br /><pre>prepareTest()
+{
+    ##
+    # locale and TZ setting
+    export LC_ALL=C
+    export TZ=BST-1   # &lt;----- Use this. Robin submitted the reference file in British Summer Time
+</pre>I also changed the timezone on the build server to Helsinki EEST (East European Summer Time) (+1 in Summer) EEST.</p>
+
+
+	<p>Jenkins build 1999. <a class="external" href="http://exiv2.dyndns.org:8080/job/Exiv2-trunk/1999/">http://exiv2.dyndns.org:8080/job/Exiv2-trunk/1999/</a>  [Jenkins/Linux is screwed up.  However I've built manually and it's OK.  I'll cleanup the Jenkins Linux Workspace.  It'll be fine.</p>
+
+
+	<p><strong>Stop Press</strong></p>
+
+
+	<p>The builder had run out of disk-space.  It's fine.  I rebuilt Linux- jenkins build 2000. <a class="external" href="http://exiv2.dyndns.org:8080/job/Exiv2-trunk/2000/">http://exiv2.dyndns.org:8080/job/Exiv2-trunk/2000/</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3573" class="journal has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 May 2015 19:41" href="/projects/exiv2/activity?from=2015-05-01">over 6 years</a> ago
+      <span id="journal-3573-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3590" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 10:46" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3590-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3841" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3841-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1073.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1073.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

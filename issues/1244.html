@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1244: exiv2 without EXV_HAVE_MMAP throws an exception - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="0OzvIW2iwDKJyxvDDBe24P7R8pcBSIKtg5gwpG/wiIoyoUTOH9gMMtyvBM+zwLrTwUOm7vCrIxd+uKAsLMlv5Q==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1244: exiv2 without EXV_HAVE_MMAP throws an exception" href="https://dev.exiv2.org/issues/1244.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1244</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>exiv2 without EXV_HAVE_MMAP throws an exception</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Oct 2016 08:58" href="/projects/exiv2/activity?from=2016-10-15">about 5 years</a> ago.
+        Updated <a title="20 Oct 2016 18:26" href="/projects/exiv2/activity?from=2016-10-20">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">tiff parser</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">15 Oct 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">6.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p><a class="external" href="http://dev.exiv2.org/boards/3/topics/2756">http://dev.exiv2.org/boards/3/topics/2756</a></p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1244" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="Lduj0mybdhLKzZvW/rZughMPYHZLmoT7rP9GDQRkDxLPlgg9HuG6Ep+phNpBYWKxLJ00D7p5JUFR39aFR13ofQ==" />
+  <table class="list issues odd-even"><tr id="relation-253" class="issue hascontextmenu issue tracker-2 status-2 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="1245" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-2 priority-4 priority-default" href="/issues/1245">Feature #1245</a>: Better I/O implementation when EXV_HAVE_MMAP is not set</td><td class="status">Assigned</td><td class="start_date">17 Oct 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1244/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1244&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4633" href="/projects/exiv2/repository/exiv2/revisions/4633">Revision 4633</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4633/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Oct 2016 09:04" href="/projects/exiv2/activity?from=2016-10-15">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 without EXV_HAVE_MMAP throws an exception (Closed)" href="/issues/1244">#1244</a> Fix submitted.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4637" href="/projects/exiv2/repository/exiv2/revisions/4637">Revision 4637</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4637/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Oct 2016 16:32" href="/projects/exiv2/activity?from=2016-10-17">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 without EXV_HAVE_MMAP throws an exception (Closed)" href="/issues/1244">#1244</a>.  Removing experimental APIs introduced by <a class="changeset" title="#1244.  Removing experimental APIs introduced by r4637.  I submitted those APIs just to retain th..." href="/projects/exiv2/repository/exiv2/revisions/4637">r4637</a>.  I submitted those APIs just to retain the code somewhere.  I have no plan to release such as API.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4638" href="/projects/exiv2/repository/exiv2/revisions/4638">Revision 4638</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4638/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Oct 2016 19:24" href="/projects/exiv2/activity?from=2016-10-17">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 without EXV_HAVE_MMAP throws an exception (Closed)" href="/issues/1244">#1244</a>.  Correction to <a class="changeset" title="#1244.  Removing experimental APIs introduced by r4637.  I submitted those APIs just to retain th..." href="/projects/exiv2/repository/exiv2/revisions/4637">r4637</a>.  Added bigBlock_(NULL) to BasicIo::BasicIo().</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4639" href="/projects/exiv2/repository/exiv2/revisions/4639">Revision 4639</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4639/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Oct 2016 06:35" href="/projects/exiv2/activity?from=2016-10-18">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 without EXV_HAVE_MMAP throws an exception (Closed)" href="/issues/1244">#1244</a> Fix crwimage.cpp to read into memory (to make CRW work with RemoteIo).</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5692" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Oct 2016 09:39" href="/projects/exiv2/activity?from=2016-10-15">about 5 years</a> ago
+      <span id="journal-5692-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-5692-notes" class="wiki"><p>Fix submitted: <a class="changeset" title="#1244 Fix submitted." href="/projects/exiv2/repository/exiv2/revisions/4633">r4633</a></p>
+
+
+	<p>I've successfully run the test suite with EXV_HAVE_MMAP unset in include/exiv2/config.h:<pre>#undef EXV_HAVE_MMAP
+#undef EXV_HAVE_MUNMAP
+//
+// That's all Folks!
+#endif // _CONFIG_H_</pre>Time for test suite (without MMAP):<pre>real    1m11.472s
+user    0m28.147s
+sys    0m36.597s</pre>Time for test suite (with MMAP):<pre>656 rmills@rmillsmbp:~/gnu/exiv2/trunk $ time make tests &gt;/dev/null
+
+real    1m4.627s
+user    0m27.299s
+sys    0m34.565s
+657 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I'm not surprised that the time is similar.  The test suite does not have large files.  However the difference 5X when reading a 20mb .NEF</p>
+
+
+	<p>Without MMAP:<pre>$ time exiv2 -pa --grep Software DSC_0002.NEF 
+Exif.Image.Software                          Ascii      10  Ver.1.00 
+
+real    0m0.068s
+user    0m0.007s
+sys    0m0.036s</pre>With MMAP:<pre>$ time exiv2 -pa --grep Software DSC_0002.NEF 
+Exif.Image.Software                          Ascii      10  Ver.1.00 
+
+real    0m0.015s
+user    0m0.006s
+sys    0m0.005s</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5694" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Oct 2016 10:41" href="/projects/exiv2/activity?from=2016-10-15">about 5 years</a> ago
+      <span id="journal-5694-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5694-notes" class="wiki"><p>We should not read the whole file when EXV_HAVE_MMAP is not in use.  There is code in the RemoteIo class called a "Block Map".  In RemoteIo, we wanted to avoid reading the whole file.  To achieve that, we allocate a large block of memory which is sufficient to hold the complete file - however it is not populated.  We maintain a parallel map with one boolean for every "block" (of 8k or so).  When we read, or write, we consult the blockmap and populate the memory block <em>just in time</em>.  I'm confident that it is straightforward to promote the block map from RemoteIo to BasicIo and use this strategy in FileIo.  This will make a huge difference to the amount of reading being performed.</p>
+
+
+	<p>When this is done, we should also pay attention to the size of the "big block".  There is no need to allocate a block to hold the complete file.  We can realloc that block when necessary.</p>
+
+
+	<p>I am confident that we can make a huge improvement to the I/O and Memory demands of class FileIo when EXV_HAVE_MMAP is not set.  No changes are required in the TiffXxxxx classes as all of this activity will be performed invisibly within BasicIo.</p>
+
+
+	<p>The project to use the "BlockMap" within class FileIo cannot be undertaken for v0.26 as it involves too much work and risk at a very late stage in the project.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5704" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Oct 2016 18:26" href="/projects/exiv2/activity?from=2016-10-20">about 5 years</a> ago
+      <span id="journal-5704-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5704-notes" class="wiki"><p>Discussion with Asdiel Echevarria</p>
+
+
+<blockquote>
+
+	<p>We really like your idea and implementation for reading only the metadata blocks while still using File I/O and we are thinking to try to back port it to 0.26 once 0.26 is released.  We will of course share it back in the repository in case you guys do a release between 0.26 and 0.27.</p>
+
+
+</blockquote>
+
+	<p>My reply:</p>
+
+
+	<p>I’ve backported the necessary code from v0.26 to v0.25.  The changes to make that happen are mostly in src/*image.cpp and src/basicio.cpp (and their .hpp companions).  It’s not as trivial as I say because you have to update the build and other consequential magic.  There are new files in v0.26 (src/webpimage.cpp, src/ini.cpp).  However I’ve done everything in about two hours.  It builds and executes the v0.25 test suite without crashing.  The test suite reports various matters which have been fixed in v0.26.  The formatted output from the command exiv2 -pS is slightly different in v0.26.  For certain this is sufficient to be sent to your test/QE people. <a class="external" href="http://clanmills.com/exiv2/exiv2-0.25+.tar.gz">http://clanmills.com/exiv2/exiv2-0.25+.tar.gz</a> and I attach a patch for v0.25.</p>
+
+
+	<p>It reads TIFFs over the internet very efficiency.  I added instrumentation to HttpIo to see the blocks being fetched.  11 blocks of 1024bytes.<br /><pre>1052 rmills@rmillsmbp:~/gnu/exiv2 $ ssh secret@clanmills.com ls -alt www/files/Reagan.tiff
+-rw-r--r-- 1 secret secret 8628164 Oct 16 10:45 www/files/Reagan.tiff
+1053 rmills@rmillsmbp:~/gnu/exiv2/v0.25/build $ bin/Debug/exiv2 -pa --grep Software http://clanmills.com/files/Reagan.tiff
+HttpIo::HttpImpl::getDataByRange: 0,0
+HttpIo::HttpImpl::getDataByRange: 8416,8416
+HttpIo::HttpImpl::getDataByRange: 8417,8417
+HttpIo::HttpImpl::getDataByRange: 8418,8418
+HttpIo::HttpImpl::getDataByRange: 8419,8422
+HttpIo::HttpImpl::getDataByRange: 8423,8425
+Exif.Image.Software                          Ascii      29  Adobe Photoshop CS Macintosh
+1054 rmills@rmillsmbp:~/gnu/exiv2/v0.25/build $</pre>If/When you make the changes for the network drive, I will be very happy to accept a patch.  I’ll review and test it, then put it on the trunk after v0.26 has shipped.  From my point of view, there is no hurry at all with this.</p>
+
+
+	<p>Incidentally, I pulled down all the raw images yesterday from here: <a class="external" href="https://www.rawsamples.ch/index.php/en/">https://www.rawsamples.ch/index.php/en/</a>  Exiv2 reads all 322 without a single stumble when they are on local storage.  <a class="external" href="https://www.rawsamples.ch/index.php/en/">https://www.rawsamples.ch/index.php/en/</a>  The project for 2017 to enhance our raw image support and test will investigate that every image can be read efficiently over the internet.  I’m planning to recruit a Google Summer of Code student for that project.  So it would be good to have your patch by May 2017.<pre>529 rmills@rmillsmbp:~/gnu/exiv2/trunk $ time build/bin/Debug/exiv2 -pa -g Software http://clanmills.com/files/Reagan.tiff
+Exif.Image.Software                          Ascii      29  Adobe Photoshop CS Macintosh
+
+real    0m1.582s
+user    0m0.014s
+sys    0m0.012s
+530 rmills@rmillsmbp:~/gnu/exiv2/trunk $ time curl -O http://clanmills.com/files/Reagan.tiff
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 8425k  100 8425k    0     0   787k      0  0:00:10  0:00:10 --:--:-- 1601k
+
+real    0m10.745s
+user    0m0.074s
+sys    0m0.319s
+531 rmills@rmillsmbp:~/gnu/exiv2/trunk $ ls -alt Reagan.tiff
+-rw-r--r--+ 1 rmills staff 8628164 Oct 21 12:00 Reagan.tiff
+532 rmills@rmillsmbp:~/gnu/exiv2/trunk $</pre></p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1244.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1244.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

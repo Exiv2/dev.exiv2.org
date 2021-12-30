@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #923: Editing exif meta data corrupts MPO 3D image files - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="LavCD/yQ3i3NP4x46mtBNK/WdWpfflLXX6fxe0Epf6LP5mngjuoSLZhbk3RVvE0HkEQhE66d822ih2HzAhCYzQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #923: Editing exif meta data corrupts MPO 3D image files" href="https://dev.exiv2.org/issues/923.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #923</h2>
+
+<div class="issue tracker-1 status-2 priority-4 priority-default details">
+    <div class="next-prev-links contextual">
+      <a title="#873" accesskey="p" href="/issues/873">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;op%5Bstatus_id%5D=o&amp;page=1&amp;per_page=100&amp;set_filter=1&amp;sort=updated_on%3Adesc%2Csubject%2Cid%3Adesc&amp;v%5Bstatus_id%5D%5B%5D=">40 of 78</a>
+        </span> |
+      <a title="#894" accesskey="n" href="/issues/894">Next »</a>
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Editing exif meta data corrupts MPO 3D image files</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3974">Georg Eckert</a> <a title="30 Sep 2013 09:50" href="/projects/exiv2/activity?from=2013-09-30">about 8 years</a> ago.
+        Updated <a title="16 Sep 2016 06:52" href="/projects/exiv2/activity?from=2016-09-16">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Assigned</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">exif</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Dec 2020" href="/versions/54">0.28</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">30 Sep 2013</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>When editing metadata (e.g. title, caption, gps-coordinates) of mpo (multi picture object) images, these images cannot be displayed by the original camera or applications like geeqie, anymore. The windows freeware (e.g. via wine) application stereophoto maker is able to restore them.</p>
+
+
+	<p>exiv2 version: 0.23-1</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/547">_2012-11-10_17-18-27_.MPO</a>    <span class="size">(6.71 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/547/_2012-11-10_17-18-27_.MPO">_2012-11-10_17-18-27_.MPO</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Georg Eckert, 30 Sep 2013 11:27</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/548">_2013-01-25_11-31-09_.MPO</a>    <span class="size">(6.85 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/548/_2013-01-25_11-31-09_.MPO">_2013-01-25_11-31-09_.MPO</a>  </td>
+  <td>correct working file</td>
+  <td>
+      <span class="author">Georg Eckert, 30 Sep 2013 11:42</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2624" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2013 11:06" href="/projects/exiv2/activity?from=2013-09-30">about 8 years</a> ago
+      <span id="journal-2624-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2624-notes" class="wiki"><p>Georg</p>
+
+
+	<p>Thank you for reporting this matter.  Can you attach an image to this issue report for investigation.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2625" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3974">Georg Eckert</a> <a title="30 Sep 2013 11:27" href="/projects/exiv2/activity?from=2013-09-30">about 8 years</a> ago
+      <span id="journal-2625-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/547">_2012-11-10_17-18-27_.MPO</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/547/_2012-11-10_17-18-27_.MPO">_2012-11-10_17-18-27_.MPO</a> added</li>
+    </ul>
+    <div id="journal-2625-notes" class="wiki"><p>Yeah, here it is.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2626" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3974">Georg Eckert</a> <a title="30 Sep 2013 11:42" href="/projects/exiv2/activity?from=2013-09-30">about 8 years</a> ago
+      <span id="journal-2626-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/548">_2013-01-25_11-31-09_.MPO</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/548/_2013-01-25_11-31-09_.MPO">_2013-01-25_11-31-09_.MPO</a> added</li>
+    </ul>
+    <div id="journal-2626-notes" class="wiki"><p>and here is a correct working file</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2627" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3974">Georg Eckert</a> <a title="02 Oct 2013 04:34" href="/projects/exiv2/activity?from=2013-10-02">about 8 years</a> ago
+      <span id="journal-2627-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2627-notes" class="wiki"><p>I think I might have found out what causes the problem:</p>
+
+
+	<p><strong>MPO</strong> files contain <strong>MPF Exif Information</strong>.</p>
+
+
+	<p>The tag <strong>MPImageStart</strong> contains information where the second image in a MPO image begins. When adding a comment or GPS-Coordinates to a MPO image, the <em>position of the second image changes</em> and MPImageStart <strong>has to be updated</strong>. I think Exiv2 does not update this tag and therefore programs looking for a jpeg at the position provided by MPImageStart cannot find one.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2628" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Oct 2013 10:02" href="/projects/exiv2/activity?from=2013-10-02">about 8 years</a> ago
+      <span id="journal-2628-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2628-notes" class="wiki"><p>Georg</p>
+
+
+	<p>Thanks for letting me know about this.  I suspect you are correct about this.</p>
+
+
+	<p>Is this matter urgent?  I am still very busy with GSoC (Google Summer of Code) and I'd like to defer looking at this until early November.  Is that OK?</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2629" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3974">Georg Eckert</a> <a title="03 Oct 2013 06:48" href="/projects/exiv2/activity?from=2013-10-03">about 8 years</a> ago
+      <span id="journal-2629-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2629-notes" class="wiki"><p>No no,<br />it is not too urgent. I found a way to repair this as the problem is already known by the ExifTool Developers. But it definitely should be fixed - since it is a important matter. Have a look here - thats a description of the issue by the ExifTool developer: [[<a class="external" href="http://owl.phy.queensu.ca/~phil/exiftool/standards.html#MPF">http://owl.phy.queensu.ca/~phil/exiftool/standards.html#MPF</a>]]<br />Take your time and thank you for looking into this.</p>
+
+
+	<p>Georg</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2630" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2013 07:07" href="/projects/exiv2/activity?from=2013-10-03">about 8 years</a> ago
+      <span id="journal-2630-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Priority</strong> changed from <i>High</i> to <i>Normal</i></li>
+       <li><strong>Target version</strong> changed from <i>0.24</i> to <i>0.25</i></li>
+    </ul>
+    <div id="journal-2630-notes" class="wiki"><p>Georg</p>
+
+
+	<p>Thanks.  I'll deal with this after I finish with Google Summer of Code.  I hope the fix will be in 0.25 which is slated for the end of 2013.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2671" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3974">Georg Eckert</a> <a title="17 Dec 2013 05:15" href="/projects/exiv2/activity?from=2013-12-17">almost 8 years</a> ago
+      <span id="journal-2671-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2671-notes" class="wiki"><p>Is there any progress on this?</p>
+
+
+	<p>Georg</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2672" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Dec 2013 07:40" href="/projects/exiv2/activity?from=2013-12-17">almost 8 years</a> ago
+      <span id="journal-2672-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2672-notes" class="wiki"><p>Georg</p>
+
+
+	<p>I haven't done anything about this, Georg.  I'm surprised I actually accepted the challenge of fixing this as I don't know anything about MPO files.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3682" class="journal has-notes has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 May 2015 08:20" href="/projects/exiv2/activity?from=2015-05-09">over 6 years</a> ago
+      <span id="journal-3682-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.25</i> to <i>0.26</i></li>
+    </ul>
+    <div id="journal-3682-notes" class="wiki"><p>Deferred to v0.26. Insufficient time to deal with this for v0.25.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3763" class="journal has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 May 2015 08:41" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+      <span id="journal-3763-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> deleted (<del><i>Robin Mills</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5585" class="journal has-notes has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Sep 2016 06:52" href="/projects/exiv2/activity?from=2016-09-16">about 5 years</a> ago
+      <span id="journal-5585-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>0.28</i></li>
+    </ul>
+    <div id="journal-5585-notes" class="wiki"><p>I've put in around 1200 hours of unpaid work to get to code complete v0.26 and closed almost 200 issues. Regrettably, there are only 5 or 6 issues on which I have not been able to work.  This is one.  Deferred for v0.27.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/923.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/923.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

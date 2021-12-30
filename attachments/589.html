@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>dwc.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="Xe6zpowmXtHZU3JMEqas7T8gOsf3JshTmj1bWFwK8DC/oxhJ/lyS0Yw3bUCtcaDeALJuvgbFaelnHcvQHzMXXw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/589/dwc.patch">Download (51 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Support Darwin Core (DwC) XMP metadata" href="/issues/937">Feature #937</a> » dwc.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/4035">Alan Pater</a>, 21 Dec 2013 14:29</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/589" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      trunk.dwc/src/xmp.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">403</th>
+  <th class="line-num">403</th>
+  <td class="line-code ">
+    <pre>            xmpLockFct_ = xmpLockFct;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">404</th>
+  <th class="line-num">404</th>
+  <td class="line-code ">
+    <pre>            pLockData_ = pLockData;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">405</th>
+  <th class="line-num">405</th>
+  <td class="line-code ">
+    <pre>            initialized_ = SXMPMeta::Initialize();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">406</th>
+  <td class="line-code diff_in">
+    <pre>	    SXMPMeta::RegisterNamespace(&quot;http://rs.tdwg.org/dwc/terms/&quot;, &quot;dwc&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">406</th>
+  <th class="line-num">407</th>
+  <td class="line-code ">
+    <pre>            SXMPMeta::RegisterNamespace(&quot;http://www.digikam.org/ns/1.0/&quot;, &quot;digiKam&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">407</th>
+  <th class="line-num">408</th>
+  <td class="line-code ">
+    <pre>            SXMPMeta::RegisterNamespace(&quot;http://www.digikam.org/ns/kipi/1.0/&quot;, &quot;kipi&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">408</th>
+  <th class="line-num">409</th>
+  <td class="line-code ">
+    <pre>            SXMPMeta::RegisterNamespace(&quot;http://ns.microsoft.com/photo/1.0/&quot;, &quot;MicrosoftPhoto&quot;);</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      trunk.dwc/src/properties.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">98</th>
+  <th class="line-num">98</th>
+  <td class="line-code ">
+    <pre>    extern const XmpPropertyInfo xmpMWGRegionsInfo[];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">99</th>
+  <th class="line-num">99</th>
+  <td class="line-code ">
+    <pre>    extern const XmpPropertyInfo xmpVideoInfo[];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">100</th>
+  <th class="line-num">100</th>
+  <td class="line-code ">
+    <pre>    extern const XmpPropertyInfo xmpAudioInfo[];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">101</th>
+  <td class="line-code diff_in">
+    <pre>    extern const XmpPropertyInfo xmpDwCInfo[];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">101</th>
+  <th class="line-num">102</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">102</th>
+  <th class="line-num">103</th>
+  <td class="line-code ">
+    <pre>    extern const XmpNsInfo xmpNsInfo[] = {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">103</th>
+  <th class="line-num">104</th>
+  <td class="line-code ">
+    <pre>        // Schemas   -   NOTE: Schemas which the XMP-SDK doesn&#39;t know must be registered in XmpParser::initialize - Todo: Automate this</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">130</th>
+  <th class="line-num">131</th>
+  <td class="line-code ">
+    <pre>        { &quot;http://www.metadataworkinggroup.com/schemas/regions/&quot;, &quot;mwg-rs&quot;, xmpMWGRegionsInfo,N_(&quot;Metadata Working Group Regions schema&quot;)     },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">131</th>
+  <th class="line-num">132</th>
+  <td class="line-code ">
+    <pre>        { &quot;http://www.video&quot;,                                  &quot;video&quot;,          xmpVideoInfo,     N_(&quot;XMP Extended Video schema&quot;)                 },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">132</th>
+  <th class="line-num">133</th>
+  <td class="line-code ">
+    <pre>        { &quot;http://www.audio&quot;,                                  &quot;audio&quot;,          xmpAudioInfo,     N_(&quot;XMP Extended Audio schema&quot;)                 },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">134</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;http://rs.tdwg.org/dwc/terms/&quot;,                     &quot;dwc&quot;,            xmpDwCInfo,       N_(&quot;XMP Darwin Core schema&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">133</th>
+  <th class="line-num">135</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">134</th>
+  <th class="line-num">136</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">135</th>
+  <th class="line-num">137</th>
+  <td class="line-code ">
+    <pre>        // Structures</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1385</th>
+  <th class="line-num">1387</th>
+  <td class="line-code ">
+    <pre>        { 0, 0, 0, invalidTypeId, xmpInternal, 0 }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1386</th>
+  <th class="line-num">1388</th>
+  <td class="line-code ">
+    <pre>    };</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1387</th>
+  <th class="line-num">1389</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1390</th>
+  <td class="line-code diff_in">
+    <pre>   extern const XmpPropertyInfo xmpDwCInfo[] = {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1391</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;acceptedNameUsage&quot;,      N_(&quot;acceptedNameUsage&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name, with authorship and date information if known, of the currently valid (zoological) or accepted (botanical) taxon.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1392</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;acceptedNameUsageID&quot;,      N_(&quot;acceptedNameUsageID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the name usage (documented meaning of the name according to a source) of the currently valid (zoological) or accepted (botanical) taxon.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1393</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;accessRights&quot;,      N_(&quot;accessRights&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Information about who can access the resource or an indication of its security status. Access Rights may include information regarding access or restrictions based on privacy, security, or other policies.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1394</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;associatedMedia&quot;,      N_(&quot;associatedMedia&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of identifiers (publication, global unique identifier, URI) of media associated with the Occurrence.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1395</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;associatedOccurrences&quot;,      N_(&quot;associatedOccurrences&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of identifiers of other Occurrence records and their associations to this Occurrence.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1396</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;associatedReferences&quot;,      N_(&quot;associatedReferences&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of identifiers (publication, bibliographic reference, global unique identifier, URI) of literature associated with the Occurrence.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1397</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;associatedSequences&quot;,      N_(&quot;associatedSequences&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of identifiers (publication, global unique identifier, URI) of genetic sequence information associated with the Occurrence.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1398</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;associatedTaxa&quot;,      N_(&quot;associatedTaxa&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of identifiers or names of taxa and their associations with the Occurrence.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1399</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;basisOfRecord&quot;,      N_(&quot;basisOfRecord&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The specific nature of the data record - a subtype of the type. Recommended best practice is to use a controlled vocabulary such as the Darwin Core Type Vocabulary (http://rs.tdwg.org/dwc/terms/type-vocabulary/index.htm).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1400</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;bed&quot;,      N_(&quot;bed&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the lithostratigraphic bed from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1401</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;behavior&quot;,      N_(&quot;behavior&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A description of the behavior shown by the subject at the time the Occurrence was recorded. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1402</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;bibliographicCitation&quot;,      N_(&quot;bibliographicCitation&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A bibliographic reference for the resource as a statement indicating how this record should be cited (attributed) when used. Recommended practice is to include sufficient bibliographic detail to identify the resource as unambiguously as possible.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1403</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;catalogNumber&quot;,      N_(&quot;catalogNumber&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier (preferably unique) for the record within the data set or collection.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1404</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;class&quot;,      N_(&quot;class&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full scientific name of the class in which the taxon is classified.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1405</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;collectionCode&quot;,      N_(&quot;collectionCode&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name, acronym, coden, or initialism identifying the collection or data set from which the record was derived.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1406</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;collectionID&quot;,      N_(&quot;collectionID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the collection or dataset from which the record was derived. For physical specimens, the recommended best practice is to use the identifier in a collections registry such as the Biodiversity Collections Index (http://www.biodiversitycollectionsindex.org/).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1407</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;continent&quot;,      N_(&quot;continent&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name of the continent in which the Location occurs. Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names or the ISO 3166 Continent code.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1408</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;coordinatePrecision&quot;,      N_(&quot;coordinatePrecision&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A decimal representation of the precision of the coordinates given in the decimalLatitude and decimalLongitude.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1409</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;coordinateUncertaintyInMeters&quot;,      N_(&quot;coordinateUncertaintyInMeters&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The horizontal distance (in meters) from the given decimalLatitude and decimalLongitude describing the smallest circle containing the whole of the Location. Leave the value empty if the uncertainty is unknown, cannot be estimated, or is not applicable (because there are no coordinates). Zero is not a valid value for this term.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1410</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;country&quot;,      N_(&quot;country&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name of the country or major administrative unit in which the Location occurs. Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1411</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;countryCode&quot;,      N_(&quot;countryCode&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The standard code for the country in which the Location occurs. Recommended best practice is to use ISO 3166-1-alpha-2 country codes.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1412</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;county&quot;,      N_(&quot;county&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full, unabbreviated name of the next smaller administrative region than stateProvince (county, shire, department, etc.) in which the Location occurs.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1413</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;dataGeneralizations&quot;,      N_(&quot;dataGeneralizations&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Actions taken to make the shared data less specific or complete than in its original form. Suggests that alternative data of higher quality may be available on request.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1414</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;datasetID&quot;,      N_(&quot;datasetID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the set of data. May be a global unique identifier or an identifier specific to a collection or institution.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1415</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;datasetName&quot;,      N_(&quot;datasetName&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name identifying the data set from which the record was derived.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1416</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;dateIdentified&quot;,      N_(&quot;dateIdentified&quot;),      &quot;Date&quot;,      xmpText,      xmpInternal,      N_(&quot;The date on which the subject was identified as representing the Taxon. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1417</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;day&quot;,      N_(&quot;day&quot;),      &quot;Integer&quot;,      unsignedLong,      xmpInternal,      N_(&quot;The integer day of the month on which the Event occurred.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1418</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;decimalLatitude&quot;,      N_(&quot;decimalLatitude&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The geographic latitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a Location. Positive values are north of the Equator, negative values are south of it. Legal values lie between -90 and 90, inclusive.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1419</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;decimalLongitude&quot;,      N_(&quot;decimalLongitude&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The geographic longitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a Location. Positive values are east of the Greenwich Meridian, negative values are west of it. Legal values lie between -180 and 180, inclusive.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1420</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;disposition&quot;,      N_(&quot;disposition&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The current state of a specimen with respect to the collection identified in collectionCode or collectionID. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1421</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;dynamicProperties&quot;,      N_(&quot;dynamicProperties&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of additional measurements, facts, characteristics, or assertions about the record. Meant to provide a mechanism for structured content such as key-value pairs.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1422</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;earliestAgeOrLowestStage&quot;,      N_(&quot;earliestAgeOrLowestStage&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the earliest possible geochronologic age or lowest chronostratigraphic stage attributable to the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1423</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;earliestEonOrLowestEonothem&quot;,      N_(&quot;earliestEonOrLowestEonothem&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the earliest possible geochronologic eon or lowest chrono-stratigraphic eonothem or the informal name (\&quot;Precambrian\&quot;) attributable to the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1424</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;earliestEpochOrLowestSeries&quot;,      N_(&quot;earliestEpochOrLowestSeries&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the earliest possible geochronologic epoch or lowest chronostratigraphic series attributable to the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1425</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;earliestEraOrLowestErathem&quot;,      N_(&quot;earliestEraOrLowestErathem&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the earliest possible geochronologic era or lowest chronostratigraphic erathem attributable to the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1426</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;earliestPeriodOrLowestSystem&quot;,      N_(&quot;earliestPeriodOrLowestSystem&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the earliest possible geochronologic period or lowest chronostratigraphic system attributable to the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1427</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;endDayOfYear&quot;,      N_(&quot;endDayOfYear&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The latest ordinal day of the year on which the Event occurred (1 for January 1, 365 for December 31, except in a leap year, in which case it is 366).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1428</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;establishmentMeans&quot;,      N_(&quot;establishmentMeans&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The process by which the biological individual(s) represented in the Occurrence became established at the location. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1429</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;eventDate&quot;,      N_(&quot;eventDate&quot;),      &quot;Date&quot;,      xmpText,      xmpInternal,      N_(&quot;The date-time or interval during which an Event occurred. For occurrences, this is the date-time when the event was recorded. Not suitable for a time in a geological context. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1430</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;eventID&quot;,      N_(&quot;eventID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the set of information associated with an Event (something that occurs at a place and time). May be a global unique identifier or an identifier specific to the data set.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1431</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;eventRemarks&quot;,      N_(&quot;eventRemarks&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Comments or notes about the Event.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1432</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;eventTime&quot;,      N_(&quot;eventTime&quot;),      &quot;Date&quot;,      xmpText,      xmpInternal,      N_(&quot;The time or interval during which an Event occurred. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1433</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;family&quot;,      N_(&quot;family&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full scientific name of the family in which the taxon is classified.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1434</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;fieldNotes&quot;,      N_(&quot;fieldNotes&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;One of a) an indicator of the existence of, b) a reference to (publication, URI), or c) the text of notes taken in the field about the Event.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1435</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;fieldNumber&quot;,      N_(&quot;fieldNumber&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier given to the event in the field. Often serves as a link between field notes and the Event.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1436</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;footprintSpatialFit&quot;,      N_(&quot;footprintSpatialFit&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The ratio of the area of the footprint (footprintWKT) to the area of the true (original, or most specific) spatial representation of the Location. Legal values are 0, greater than or equal to 1, or undefined. A value of 1 is an exact match or 100% overlap. A value of 0 should be used if the given footprint does not completely contain the original representation. The footprintSpatialFit is undefined (and should be left blank) if the original representation is a point and the given georeference is not that same point. If both the original and the given georeference are the same point, the footprintSpatialFit is 1.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1437</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;footprintSRS&quot;,      N_(&quot;footprintSRS&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A Well-Known Text (WKT) representation of the Spatial Reference System (SRS) for the footprintWKT of the Location. Do not use this term to describe the SRS of the decimalLatitude and decimalLongitude, even if it is the same as for the footprintWKT - use the geodeticDatum instead.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1438</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;footprintWKT&quot;,      N_(&quot;footprintWKT&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A Well-Known Text (WKT) representation of the shape (footprint, geometry) that defines the Location. A Location may have both a point-radius representation (see decimalLatitude) and a footprint representation, and they may differ from each other.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1439</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;formation&quot;,      N_(&quot;formation&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the lithostratigraphic formation from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1440</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;genus&quot;,      N_(&quot;genus&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full scientific name of the genus in which the taxon is classified.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1441</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;geodeticDatum&quot;,      N_(&quot;geodeticDatum&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The ellipsoid, geodetic datum, or spatial reference system (SRS) upon which the geographic coordinates given in decimalLatitude and decimalLongitude as based. Recommended best practice is use the EPSG code as a controlled vocabulary to provide an SRS, if known. Otherwise use a controlled vocabulary for the name or code of the geodetic datum, if known. Otherwise use a controlled vocabulary for the name or code of the ellipsoid, if known. If none of these is known, use the value \&quot;unknown\&quot;.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1442</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;geologicalContextID&quot;,      N_(&quot;geologicalContextID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the set of information associated with a GeologicalContext (the location within a geological context, such as stratigraphy). May be a global unique identifier or an identifier specific to the data set.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1443</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;georeferencedBy&quot;,      N_(&quot;georeferencedBy&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of names of people, groups, or organizations who determined the georeference (spatial representation) for the Location.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1444</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;georeferencedDate&quot;,      N_(&quot;georeferencedDate&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The date on which the Location was georeferenced. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1445</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;georeferenceProtocol&quot;,      N_(&quot;georeferenceProtocol&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A description or reference to the methods used to determine the spatial footprint, coordinates, and uncertainties.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1446</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;georeferenceRemarks&quot;,      N_(&quot;georeferenceRemarks&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Notes or comments about the spatial description determination, explaining assumptions made in addition or opposition to the those formalized in the method referred to in georeferenceProtocol.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1447</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;georeferenceSources&quot;,      N_(&quot;georeferenceSources&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of maps, gazetteers, or other resources used to georeference the Location, described specifically enough to allow anyone in the future to use the same resources.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1448</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;georeferenceVerificationStatus&quot;,      N_(&quot;georeferenceVerificationStatus&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A categorical description of the extent to which the georeference has been verified to represent the best possible spatial description. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1449</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;group&quot;,      N_(&quot;group&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the lithostratigraphic group from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1450</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;habitat&quot;,      N_(&quot;habitat&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A category or description of the habitat in which the Event occurred.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1451</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;higherClassification&quot;,      N_(&quot;higherClassification&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of taxa names terminating at the rank immediately superior to the taxon referenced in the taxon record. Recommended best practice is to order the list starting with the highest rank and separating the names for each rank with a semi-colon ;&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1452</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;higherGeography&quot;,      N_(&quot;higherGeography&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of geographic names less specific than the information captured in the locality term.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1453</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;higherGeographyID&quot;,      N_(&quot;higherGeographyID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the geographic region within which the Location occurred. Recommended best practice is to use an persistent identifier from a controlled vocabulary such as the Getty Thesaurus of Geographic Names.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1454</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;highestBiostratigraphicZone&quot;,      N_(&quot;highestBiostratigraphicZone&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the highest possible geological biostratigraphic zone of the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1455</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;identificationID&quot;,      N_(&quot;identificationID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the Identification (the body of information associated with the assignment of a scientific name). May be a global unique identifier or an identifier specific to the data set.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1456</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;identificationQualifier&quot;,      N_(&quot;identificationQualifier&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A brief phrase or a standard term (\&quot;cf.\&quot; \&quot;aff.\&quot;) to express the determiner&#39;s doubts about the Identification.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1457</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;identificationReferences&quot;,      N_(&quot;identificationReferences&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of references (publication, global unique identifier, URI) used in the Identification.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1458</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;identificationRemarks&quot;,      N_(&quot;identificationRemarks&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Comments or notes about the Identification.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1459</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;identificationVerificationStatus&quot;,      N_(&quot;identificationVerificationStatus&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A categorical indicator of the extent to which the taxonomic identification has been verified to be correct. Recommended best practice is to use a controlled vocabulary such as that used in HISPID/ABCD.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1460</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;identifiedBy&quot;,      N_(&quot;identifiedBy&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of names of people, groups, or organizations who assigned the Taxon to the subject.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1461</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;individualCount&quot;,      N_(&quot;individualCount&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The number of individuals represented present at the time of the Occurrence.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1462</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;individualID&quot;,      N_(&quot;individualID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for an individual or named group of individual organisms represented in the Occurrence. Meant to accommodate resampling of the same individual or group for monitoring purposes. May be a global unique identifier or an identifier specific to a data set.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1463</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;informationWithheld&quot;,      N_(&quot;informationWithheld&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Additional information that exists, but that has not been shared in the given record.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1464</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;infraspecificEpithet&quot;,      N_(&quot;infraspecificEpithet&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name of the lowest or terminal infraspecific epithet of the scientificName, excluding any rank designation.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1465</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;institutionCode&quot;,      N_(&quot;institutionCode&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name (or acronym) in use by the institution having custody of the object(s) or information referred to in the record.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1466</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;institutionID&quot;,      N_(&quot;institutionID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the institution having custody of the object(s) or information referred to in the record.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1467</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;island&quot;,      N_(&quot;island&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name of the island on or near which the Location occurs. Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1468</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;islandGroup&quot;,      N_(&quot;islandGroup&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name of the island group in which the Location occurs. Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1469</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;kingdom&quot;,      N_(&quot;kingdom&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full scientific name of the kingdom in which the taxon is classified.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1470</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;language&quot;,      N_(&quot;language&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A language of the resource. Recommended best practice is to use a controlled vocabulary such as RFC 4646 [RFC4646].&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1471</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;latestAgeOrHighestStage&quot;,      N_(&quot;latestAgeOrHighestStage&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the latest possible geochronologic age or highest chronostratigraphic stage attributable to the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1472</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;latestEonOrHighestEonothem&quot;,      N_(&quot;latestEonOrHighestEonothem&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the latest possible geochronologic eon or highest chrono-stratigraphic eonothem or the informal name (\&quot;Precambrian\&quot;) attributable to the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1473</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;latestEpochOrHighestSeries&quot;,      N_(&quot;latestEpochOrHighestSeries&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the latest possible geochronologic epoch or highest chronostratigraphic series attributable to the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1474</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;latestEraOrHighestErathem&quot;,      N_(&quot;latestEraOrHighestErathem&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the latest possible geochronologic era or highest chronostratigraphic erathem attributable to the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1475</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;latestPeriodOrHighestSystem&quot;,      N_(&quot;latestPeriodOrHighestSystem&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the latest possible geochronologic period or highest chronostratigraphic system attributable to the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1476</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;lifeStage&quot;,      N_(&quot;lifeStage&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The age class or life stage of the biological individual(s) at the time the Occurrence was recorded. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1477</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;lithostratigraphicTerms&quot;,      N_(&quot;lithostratigraphicTerms&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The combination of all litho-stratigraphic names for the rock from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1478</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;locality&quot;,      N_(&quot;locality&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The specific description of the place. Less specific geographic information can be provided in other geographic terms (higherGeography, continent, country, stateProvince, county, municipality, waterBody, island, islandGroup). This term may contain information modified from the original to correct perceived errors or standardize the description.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1479</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;locationAccordingTo&quot;,      N_(&quot;locationAccordingTo&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Information about the source of this Location information. Could be a publication (gazetteer), institution, or team of individuals.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1480</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;locationID&quot;,      N_(&quot;locationID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the set of location information (data associated with Location). May be a global unique identifier or an identifier specific to the data set.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1481</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;locationRemarks&quot;,      N_(&quot;locationRemarks&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Comments or notes about the Location.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1482</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;lowestBiostratigraphicZone&quot;,      N_(&quot;lowestBiostratigraphicZone&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the lowest possible geological biostratigraphic zone of the stratigraphic horizon from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1483</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;maximumDepthInMeters&quot;,      N_(&quot;maximumDepthInMeters&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The greater depth of a range of depth below the local surface, in meters.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1484</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;maximumDistanceAboveSurfaceInMeters&quot;,      N_(&quot;maximumDistanceAboveSurfaceInMeters&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The greater distance in a range of distance from a reference surface in the vertical direction, in meters. Use positive values for locations above the surface, negative values for locations below. If depth measures are given, the reference surface is the location given by the depth, otherwise the reference surface is the location given by the elevation.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1485</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;maximumElevationInMeters&quot;,      N_(&quot;maximumElevationInMeters&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The upper limit of the range of elevation (altitude, usually above sea level), in meters.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1486</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;measurementAccuracy&quot;,      N_(&quot;measurementAccuracy&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The description of the potential error associated with the measurementValue.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1487</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;measurementDeterminedBy&quot;,      N_(&quot;measurementDeterminedBy&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of names of people, groups, or organizations who determined the value of the MeasurementOrFact.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1488</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;measurementDeterminedDate&quot;,      N_(&quot;measurementDeterminedDate&quot;),      &quot;Date&quot;,      xmpText,      xmpInternal,      N_(&quot;The date on which the MeasurementOrFact was made. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1489</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;measurementID&quot;,      N_(&quot;measurementID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the MeasurementOrFact (information pertaining to measurements, facts, characteristics, or assertions). May be a global unique identifier or an identifier specific to the data set.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1490</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;measurementMethod&quot;,      N_(&quot;measurementMethod&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A description of or reference to (publication, URI) the method or protocol used to determine the measurement, fact, characteristic, or assertion.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1491</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;measurementRemarks&quot;,      N_(&quot;measurementRemarks&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Comments or notes accompanying the MeasurementOrFact.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1492</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;measurementType&quot;,      N_(&quot;measurementType&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The nature of the measurement, fact, characteristic, or assertion. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1493</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;measurementUnit&quot;,      N_(&quot;measurementUnit&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The units associated with the measurementValue. Recommended best practice is to use the International System of Units (SI).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1494</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;measurementValue&quot;,      N_(&quot;measurementValue&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The value of the measurement, fact, characteristic, or assertion.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1495</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;member&quot;,      N_(&quot;member&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name of the lithostratigraphic member from which the cataloged item was collected.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1496</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;minimumDepthInMeters&quot;,      N_(&quot;minimumDepthInMeters&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The lesser depth of a range of depth below the local surface, in meters.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1497</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;minimumDistanceAboveSurfaceInMeters&quot;,      N_(&quot;minimumDistanceAboveSurfaceInMeters&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The lesser distance in a range of distance from a reference surface in the vertical direction, in meters. Use positive values for locations above the surface, negative values for locations below. If depth measures are given, the reference surface is the location given by the depth, otherwise the reference surface is the location given by the elevation.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1498</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;minimumElevationInMeters&quot;,      N_(&quot;minimumElevationInMeters&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The lower limit of the range of elevation (altitude, usually above sea level), in meters.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1499</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;modified&quot;,      N_(&quot;modified&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The most recent date-time on which the resource was changed. For Darwin Core, recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1500</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;month&quot;,      N_(&quot;month&quot;),      &quot;Integer&quot;,      unsignedLong,      xmpInternal,      N_(&quot;The ordinal month in which the Event occurred.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1501</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;municipality&quot;,      N_(&quot;municipality&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full, unabbreviated name of the next smaller administrative region than county (city, municipality, etc.) in which the Location occurs. Do not use this term for a nearby named place that does not contain the actual location.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1502</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;nameAccordingTo&quot;,      N_(&quot;nameAccordingTo&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin \&quot;sensu\&quot; or \&quot;sec.\&quot; (from secundum, meaning \&quot;according to\&quot;). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1503</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;nameAccordingToID&quot;,      N_(&quot;nameAccordingToID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the source in which the specific taxon concept circumscription is defined or implied. See nameAccordingTo.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1504</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;namePublishedIn&quot;,      N_(&quot;namePublishedIn&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A reference for the publication in which the scientificName was originally established under the rules of the associated nomenclaturalCode.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1505</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;namePublishedInID&quot;,      N_(&quot;namePublishedInID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the publication in which the scientificName was originally established under the rules of the associated nomenclaturalCode.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1506</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;namePublishedInYear&quot;,      N_(&quot;namePublishedInYear&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The four-digit year in which the scientificName was published.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1507</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;nomenclaturalCode&quot;,      N_(&quot;nomenclaturalCode&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The nomenclatural code (or codes in the case of an ambiregnal name) under which the scientificName is constructed. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1508</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;nomenclaturalStatus&quot;,      N_(&quot;nomenclaturalStatus&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The status related to the original publication of the name and its conformance to the relevant rules of nomenclature. It is based essentially on an algorithm according to the business rules of the code. It requires no taxonomic opinion.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1509</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;occurrenceID&quot;,      N_(&quot;occurrenceID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the Occurrence (as opposed to a particular digital record of the occurrence). In the absence of a persistent global unique identifier, construct one from a combination of identifiers in the record that will most closely make the occurrenceID globally unique.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1510</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;occurrenceRemarks&quot;,      N_(&quot;occurrenceRemarks&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Comments or notes about the Occurrence.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1511</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;occurrenceStatus&quot;,      N_(&quot;occurrenceStatus&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A statement about the presence or absence of a Taxon at a Location. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1512</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;order&quot;,      N_(&quot;order&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full scientific name of the order in which the taxon is classified.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1513</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;originalNameUsage&quot;,      N_(&quot;originalNameUsage&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The taxon name, with authorship and date information if known, as it originally appeared when first established under the rules of the associated nomenclaturalCode. The basionym (botany) or basonym (bacteriology) of the scientificName or the senior/earlier homonym for replaced names.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1514</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;originalNameUsageID&quot;,      N_(&quot;originalNameUsageID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the name usage (documented meaning of the name according to a source) in which the terminal element of the scientificName was originally established under the rules of the associated nomenclaturalCode.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1515</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;otherCatalogNumbers&quot;,      N_(&quot;otherCatalogNumbers&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of previous or alternate fully qualified catalog numbers or other human-used identifiers for the same Occurrence, whether in the current or any other data set or collection.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1516</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;ownerInstitutionCode&quot;,      N_(&quot;ownerInstitutionCode&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name (or acronym) in use by the institution having ownership of the object(s) or information referred to in the record.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1517</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;parentNameUsage&quot;,      N_(&quot;parentNameUsage&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full name, with authorship and date information if known, of the direct, most proximate higher-rank parent taxon (in a classification) of the most specific element of the scientificName.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1518</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;parentNameUsageID&quot;,      N_(&quot;parentNameUsageID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the name usage (documented meaning of the name according to a source) of the direct, most proximate higher-rank parent taxon (in a classification) of the most specific element of the scientificName.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1519</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;phylum&quot;,      N_(&quot;phylum&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full scientific name of the phylum or division in which the taxon is classified.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1520</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;pointRadiusSpatialFit&quot;,      N_(&quot;pointRadiusSpatialFit&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The ratio of the area of the point-radius (decimalLatitude, decimalLongitude, coordinateUncertaintyInMeters) to the area of the true (original, or most specific) spatial representation of the Location. Legal values are 0, greater than or equal to 1, or undefined. A value of 1 is an exact match or 100% overlap. A value of 0 should be used if the given point-radius does not completely contain the original representation. The pointRadiusSpatialFit is undefined (and should be left blank) if the original representation is a point without uncertainty and the given georeference is not that same point (without uncertainty). If both the original and the given georeference are the same point, the pointRadiusSpatialFit is 1.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1521</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;preparations&quot;,      N_(&quot;preparations&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of preparations and preservation methods for a specimen.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1522</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;previousIdentifications&quot;,      N_(&quot;previousIdentifications&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of previous assignments of names to the Occurrence.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1523</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;recordedBy&quot;,      N_(&quot;recordedBy&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of names of people, groups, or organizations responsible for recording the original Occurrence. The primary collector or observer, especially one who applies a personal identifier (recordNumber), should be listed first.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1524</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;recordNumber&quot;,      N_(&quot;recordNumber&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier given to the Occurrence at the time it was recorded. Often serves as a link between field notes and an Occurrence record, such as a specimen collector&#39;s number.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1525</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;references&quot;,      N_(&quot;references&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A related resource that is referenced, cited, or otherwise pointed to by the described resource.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1526</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;relatedResourceID&quot;,      N_(&quot;relatedResourceID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for a related resource (the object, rather than the subject of the relationship).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1527</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;relationshipAccordingTo&quot;,      N_(&quot;relationshipAccordingTo&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The source (person, organization, publication, reference) establishing the relationship between the two resources.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1528</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;relationshipEstablishedDate&quot;,      N_(&quot;relationshipEstablishedDate&quot;),      &quot;Date&quot;,      xmpText,      xmpInternal,      N_(&quot;The date-time on which the relationship between the two resources was established. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1529</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;relationshipOfResource&quot;,      N_(&quot;relationshipOfResource&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The relationship of the resource identified by relatedResourceID to the subject (optionally identified by the resourceID). Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1530</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;relationshipRemarks&quot;,      N_(&quot;relationshipRemarks&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Comments or notes about the relationship between the two resources.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1531</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;reproductiveCondition&quot;,      N_(&quot;reproductiveCondition&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The reproductive condition of the biological individual(s) represented in the Occurrence. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1532</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;resourceID&quot;,      N_(&quot;resourceID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the resource that is the subject of the relationship.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1533</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;resourceRelationshipID&quot;,      N_(&quot;resourceRelationshipID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for an instance of relationship between one resource (the subject) and another (relatedResource, the object).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1534</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;rights&quot;,      N_(&quot;rights&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Information about rights held in and over the resource. Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1535</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;rightsHolder&quot;,      N_(&quot;rightsHolder&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A person or organization owning or managing rights over the resource.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1536</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;samplingEffort&quot;,      N_(&quot;samplingEffort&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The amount of effort expended during an Event.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1537</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;samplingProtocol&quot;,      N_(&quot;samplingProtocol&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name of, reference to, or description of the method or protocol used during an Event.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1538</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;scientificName&quot;,      N_(&quot;scientificName&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full scientific name, with authorship and date information if known. When forming part of an Identification, this should be the name in lowest level taxonomic rank that can be determined. This term should not contain identification qualifications, which should instead be supplied in the IdentificationQualifier term.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1539</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;scientificNameAuthorship&quot;,      N_(&quot;scientificNameAuthorship&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The authorship information for the scientificName formatted according to the conventions of the applicable nomenclaturalCode.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1540</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;scientificNameID&quot;,      N_(&quot;scientificNameID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the nomenclatural (not taxonomic) details of a scientific name.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1541</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;sex&quot;,      N_(&quot;sex&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The sex of the biological individual(s) represented in the Occurrence. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1542</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;specificEpithet&quot;,      N_(&quot;specificEpithet&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name of the first or species epithet of the scientificName.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1543</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;startDayOfYear&quot;,      N_(&quot;startDayOfYear&quot;),      &quot;Integer&quot;,      unsignedLong,      xmpInternal,      N_(&quot;The earliest ordinal day of the year on which the Event occurred (1 for January 1, 365 for December 31, except in a leap year, in which case it is 366).&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1544</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;stateProvince&quot;,      N_(&quot;stateProvince&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name of the next smaller administrative region than country (state, province, canton, department, region, etc.) in which the Location occurs.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1545</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;subgenus&quot;,      N_(&quot;subgenus&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The full scientific name of the subgenus in which the taxon is classified. Values should include the genus to avoid homonym confusion.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1546</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;taxonConceptID&quot;,      N_(&quot;taxonConceptID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the taxonomic concept to which the record refers - not for the nomenclatural details of a taxon.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1547</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;taxonID&quot;,      N_(&quot;taxonID&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;An identifier for the set of taxon information (data associated with the Taxon class). May be a global unique identifier or an identifier specific to the data set.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1548</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;taxonomicStatus&quot;,      N_(&quot;taxonomicStatus&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The status of the use of the scientificName as a label for a taxon. Requires taxonomic opinion to define the scope of a taxon. Rules of priority then are used to define the taxonomic status of the nomenclature contained in that scope, combined with the experts opinion. It must be linked to a specific taxonomic reference that defines the concept. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1549</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;taxonRank&quot;,      N_(&quot;taxonRank&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The taxonomic rank of the most specific name in the scientificName. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1550</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;taxonRemarks&quot;,      N_(&quot;taxonRemarks&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;Comments or notes about the taxon or name.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1551</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;type&quot;,      N_(&quot;type&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The nature or genre of the resource. For Darwin Core, recommended best practice is to use the name of the class that defines the root of the record.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1552</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;typeStatus&quot;,      N_(&quot;typeStatus&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A list (concatenated and separated) of nomenclatural types (type status, typified scientific name, publication) applied to the subject.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1553</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;verbatimCoordinates&quot;,      N_(&quot;verbatimCoordinates&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The verbatim original spatial coordinates of the Location. The coordinate ellipsoid, geodeticDatum, or full Spatial Reference System (SRS) for these coordinates should be stored in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1554</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;verbatimCoordinateSystem&quot;,      N_(&quot;verbatimCoordinateSystem&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The spatial coordinate system for the verbatimLatitude and verbatimLongitude or the verbatimCoordinates of the Location. Recommended best practice is to use a controlled vocabulary.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1555</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;verbatimDepth&quot;,      N_(&quot;verbatimDepth&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The original description of the depth below the local surface.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1556</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;verbatimElevation&quot;,      N_(&quot;verbatimElevation&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The original description of the elevation (altitude, usually above sea level) of the Location.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1557</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;verbatimEventDate&quot;,      N_(&quot;verbatimEventDate&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The verbatim original representation of the date and time information for an Event.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1558</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;verbatimLatitude&quot;,      N_(&quot;verbatimLatitude&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The verbatim original latitude of the Location. The coordinate ellipsoid, geodeticDatum, or full Spatial Reference System (SRS) for these coordinates should be stored in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1559</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;verbatimLocality&quot;,      N_(&quot;verbatimLocality&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The original textual description of the place.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1560</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;verbatimLongitude&quot;,      N_(&quot;verbatimLongitude&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The verbatim original longitude of the Location. The coordinate ellipsoid, geodeticDatum, or full Spatial Reference System (SRS) for these coordinates should be stored in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1561</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;verbatimSRS&quot;,      N_(&quot;verbatimSRS&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The ellipsoid, geodetic datum, or spatial reference system (SRS) upon which coordinates given in verbatimLatitude and verbatimLongitude, or verbatimCoordinates are based. Recommended best practice is use the EPSG code as a controlled vocabulary to provide an SRS, if known. Otherwise use a controlled vocabulary for the name or code of the geodetic datum, if known. Otherwise use a controlled vocabulary for the name or code of the ellipsoid, if known. If none of these is known, use the value \&quot;unknown\&quot;.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1562</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;verbatimTaxonRank&quot;,      N_(&quot;verbatimTaxonRank&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The taxonomic rank of the most specific name in the scientificName as it appears in the original record.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1563</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;vernacularName&quot;,      N_(&quot;vernacularName&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;A common or vernacular name.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1564</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;waterBody&quot;,      N_(&quot;waterBody&quot;),      &quot;Text&quot;,      xmpText,      xmpExternal,      N_(&quot;The name of the water body in which the Location occurs. Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names.&quot;)      },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1565</th>
+  <td class="line-code diff_in">
+    <pre>        { &quot;year&quot;,      N_(&quot;year&quot;),      &quot;Integer&quot;,      unsignedLong,      xmpInternal,      N_(&quot;The four-digit year in which the Event occurred, according to the Common Era Calendar.&quot;)      },      // End of list marker</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1566</th>
+  <td class="line-code diff_in">
+    <pre>        { 0, 0, 0, invalidTypeId, xmpInternal, 0 }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1567</th>
+  <td class="line-code diff_in">
+    <pre>    };</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1568</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1388</th>
+  <th class="line-num">1569</th>
+  <td class="line-code ">
+    <pre>    extern const XmpPrintInfo xmpPrintInfo[] = {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1389</th>
+  <th class="line-num">1570</th>
+  <td class="line-code ">
+    <pre>        {&quot;Xmp.crs.CropUnits&quot;,                 EXV_PRINT_TAG(crsCropUnits)   },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1390</th>
+  <th class="line-num">1571</th>
+  <td class="line-code ">
+    <pre>        {&quot;Xmp.exif.ApertureValue&quot;,            print0x9202                   },</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"><li class="previous page"><a href="/attachments/583/DwC.patch">« Previous</a></li><li class="page"><a href="/attachments/580/DwCproperties.cpp">1</a></li><li class="spacer"><span>&hellip;</span></li><li class="page"><a href="/attachments/582/DwC2.txt">3</a></li><li class="page"><a href="/attachments/583/DwC.patch">4</a></li><li class="current"><span>5</span></li><li class="page"><a href="/attachments/590/xmp.cpp">6</a></li><li class="page"><a href="/attachments/591/properties.cpp">7</a></li><li class="spacer"><span>&hellip;</span></li><li class="page"><a href="/attachments/618/blank.test.jpg">13</a></li><li class="next page"><a href="/attachments/590/xmp.cpp">Next »</a></li></ul><span><span class="items">(5-5/13)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

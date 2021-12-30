@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Exception handling in Mac OS X - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="XnYjcrsUEmJXAW2YQDkofkogrhRAwWk5afCqtqGKrRa8O4idyW7eYgJlcpT/7iRNdbL6bbEiyIOU0Do+4rNKeQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Exception handling in Mac OS X</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/165">Charles Myers</a> <a title="01 Jun 2009 09:31" href="/projects/exiv2/activity?from=2009-06-01">over 12 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi guys,</p>
+
+
+	<p>I have an issue with the exception handling on the Mac.<br />I'm new to the Mac and get a little stumped when the behvior differs from Windows.</p>
+
+
+	<p>My problem is that I have a try/catch block tht looks something like;</p>
+
+
+	<p>try {<br /> do some exiv2 stuff<br />}<br />catch (Exiv2::Error &#38;error) {<br /> store error message from error.what().c_str()<br /> continue doing stuff.<br />}</p>
+
+
+	<p>However on the Mac my application hangs if there is an exception.<br />If I run the app from the command line I get:</p>
+
+
+	<p>terminate called after throwing an instance of 'Exiv2::Error'<br /> what(): &lt;error message&gt;<br />Abort trap</p>
+
+
+	<p>I want to catch the exception and do something with it.<br />Any help appriciated.</p>
+
+
+	<p>charlie</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (5)</h3>
+  <div class="message reply" id="message-166">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/165?r=166#message-166">RE: Exception handling in Mac OS X</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Jun 2009 09:43" href="/projects/exiv2/activity?from=2009-06-01">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Charlie</p>
+
+
+	<p>I'll have to investigate this.  Andreas might have a super smart inspired idea of course.</p>
+
+
+	<p>Can you send me your code and project (a zip or dmg or whatever's convenient) and your makefile(s) or XCode project or whatever you use to build.  You can post the archive here OR if you want to keep your code confidential, then email it directly to me.  (I believe you've got my email address and it's in exiv2/msvc/README-MSVC.txt)</p>
+
+
+	<p>It's 9:30am in California at the moment so I'm at work.  I'll investigate this evening at home.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-167">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/165?r=167#message-167">RE: Exception handling in Mac OS X</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Jun 2009 21:48" href="/projects/exiv2/activity?from=2009-06-01">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Charlie</p>
+
+
+	<p>I made a few little changes to exiv2/samples/exifprint.cpp (I attach exifprint.cpp.changed) and rebuilt it:</p>
+
+
+	<p>538 /Users/rmills> cd ~/gnu/exiv2/samples</p>
+
+
+	<p>539 /Users/rmills/gnu/exiv2/samples> make exifprint<br />g++ -O2 -fvisibility=hidden -fvisibility-inlines-hidden -Wall -Wcast-align -Wpointer-arith -Wformat-security -Wmissing-format-attribute -Woverloaded-virtual -W -MMD `pkg-config exiv2 --cflags` -c -o exifprint.o exifprint.cpp<br />../libtool --mode=link g++ `pkg-config exiv2 --libs` -o exifprint exifprint.o<br />g++ -Wl,-framework -Wl,CoreFoundation -o exifprint exifprint.o -Wl,-bind_at_load  -L/opt/local/lib /opt/local/lib/libexiv2.dylib -L/opt/local/var/macports/build/_opt_local_var_macports_sources_rsync.macports.org_release_ports_graphics_exiv2/work/exiv2-0.18/xmpsdk/src /opt/local/lib/libintl.dylib -lc /opt/local/lib/libiconv.dylib -lz /opt/local/lib/libexpat.dylib</p>
+
+
+	<p>540 /Users/rmills/gnu/exiv2/samples> exifprint ~/nosuchfile<br />Caught Exiv2 exception '/Users/rmills/nosuchfile: Failed to open the data source: No such file or directory (2)'<br />exifprint.cpp is alive and kicking</p>
+
+
+	<p>541 /Users/rmills/gnu/exiv2/samples> exifprint ~/.profile <br />Caught Exiv2 exception '/Users/rmills/.profile: The file contains data of an unknown image type'<br />exifprint.cpp is alive and kicking</p>
+
+
+	<p>542 /Users/rmills/gnu/exiv2/samples> exifprint ~/P/WesternStatesTraining/Sunday/Robin\ on\ the\ trail.jpg <br />Exif.Image.Make                              0x010f Ascii       6  Canon<br />... stuff deleted ...<br />Exif.Thumbnail.JPEGInterchangeFormatLength   0x0202 Long        1  5985<br />exifprint.cpp is alive and kicking</p>
+
+
+	<p>543 /Users/rmills/gnu/exiv2/samples></p>
+
+
+	<p>Everything behaves as I would expect!  Not a hang in sight.</p>
+
+
+	<p>I think your issue may be related to your build environment/linking.  Are you using XCode and its (secret) Mac Magic?</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/95">exifprint.cpp.changed</a>    <span class="size">(1.65 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/95/exifprint.cpp.changed">exifprint.cpp.changed</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-168">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/165?r=168#message-168">RE: Exception handling in Mac OS X</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Jun 2009 23:14" href="/projects/exiv2/activity?from=2009-06-01">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Charlie,</p>
+
+
+	<p>Misbehaving exceptions usually have something to do with the "visibility" feature (see <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: C++ symbol visibility support for gcc builds (Closed)" href="/issues/523">#523</a>).</p>
+
+
+	<p>To confirm if that's also the case here, can you recompile the exiv2 library with an additional --disable-visibility option to the configure script and see if your application works with that?</p>
+
+
+	<p>If it does, turn it back on and we'll investigate where the incompatibility is.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-169">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/165?r=169#message-169">RE: Exception handling in Mac OS X</a>
+    -
+    Added by <a class="user active" href="/users/165">Charles Myers</a> <a title="02 Jun 2009 03:50" href="/projects/exiv2/activity?from=2009-06-02">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Cheers guys,</p>
+
+
+	<p>I posted just before finishing here yesterday so picking this up now.</p>
+
+
+	<p>I've added --disable-visibility and all is well.<br />What is the impact of disabling this flag? Can I keep in disabled?</p>
+
+
+	<p>charlie</p></div>
+  
+  </div>
+  <div class="message reply" id="message-170">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/165?r=170#message-170">RE: Exception handling in Mac OS X</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="02 Jun 2009 05:11" href="/projects/exiv2/activity?from=2009-06-02">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Firstly, can you please provide some info about your build environment for future reference here? Which OSX version/g++ do you have, how do you compile, etc.</p>
+
+
+	<p>Then, yes, you can keep it disabled. The functionality of the library remains the same. See the Exiv2 feature I linked to earlier and <a href="http://gcc.gnu.org/wiki/Visibility" class="external">this page</a> for details about what it does.</p>
+
+
+	<p>Of course it would be good to get to the bottom of this particular case too and find out what's the root cause of the problem. For all you know, it might turn out to be an Exiv2 bug. Some ideas:</p>
+
+
+	<ul>
+	<li>Check if the library compiled with the standard visibility-hidden options exports the Exiv2::Error symbol (nm -C -D &lt;library&gt;.so)</li>
+		<li>Create a small reproducer for your problem to experiment with (I don't have a Mac so won't be able to assist)</li>
+		<li>Check if certain compiler optimization settings trigger the problem (e.g., after running configure, remove the -O2 from config/config.mk or try with -O2, with -fvisibility=hidden but without -fvisibility-inlines-hidden) - there have been such issues before</li>
+		<li>Check if this may be a Mac OSX gcc bug as described <a href="http://developer.apple.com/technotes/tn2007/tn2185.html" class="external">here</a> or <a href="http://www.nabble.com/boost::filesystem-exception-not-caught-on-MacOS-X-td13931648.html" class="external">here</a> - does adding the option -no_dead_strip_inits_and_terms help?</li>
+	</ul>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-5/5)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

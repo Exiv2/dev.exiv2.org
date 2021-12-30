@@ -1,0 +1,62 @@
+#!/bin/bash
+friendlyhello () {
+	echo -e "\nFiles for use with this script" 
+	echo "must have the file name to be annotated"
+	echo -e "in the first line.\n"
+	echo "Annotations must be in the sequence"
+	echo -e "\"CATEGORY-CREDIT-SOURCE-WRITER-\nTRANSMISSION REFERENCE-FIXTURE IDENTIFIER-\nOBJECT NAME-SUBLOCATION\""
+	echo "(each on its own line)"
+	echo "or else they'll come out wrong."
+	echo
+}
+loadfile () {
+	echo "What file will I be using?"
+	read thefile
+	echo -e "Thanks.\n"
+}
+
+friendlyhello
+loadfile
+
+echo "Source file is $thefile"
+filenum=$(grep -c 'jpg' $thefile)
+echo -e "There are $filenum JPEGs listed in it."
+howlong=$(cat $thefile | wc -l)
+mapfile -t metadata <$thefile
+
+x=0; set=1; writn=0
+while [[ "$x" -le "$howlong" ]];
+do
+file=${metadata[x]}
+echo -e "I see \033[1;31m${metadata[x+0]}\033[0m as the \033[1mfile name\033[0m for file #$set."
+if [ ! -f "$file" ]; then
+	echo "I also see that it's not in this folder."
+	echo "Skipping..."
+else
+	echo -e "Writing \033[1;31m${metadata[x+1]}\033[0m as \033[1mCategory\033[0m to $file"
+	exiv2 -kM"set Iptc.Application2.Category ${metadata[x+1]}" $file
+	echo -e "Writing \033[1;31m${metadata[x+2]}\033[0m as \033[1mCredit\033[0m to $file"
+	exiv2 -kM"set Iptc.Application2.Credit ${metadata[x+2]}" $file
+	echo -e "Writing \033[1;31m${metadata[x+3]}\033[0m as \033[1mSource\033[0m to $file"
+	exiv2 -kM"set Iptc.Application2.Source ${metadata[x+3]}" $file
+	echo -e "Writing \033[1;31m${metadata[x+4]}\033[0m as \033[1mWriter\033[0m to $file"
+	exiv2 -kM"set Iptc.Application2.Writer ${metadata[x+4]}" $file
+	echo -e "Writing \033[1;31m${metadata[x+5]}\033[0m as \033[1mTransmission Reference\033[0m to $file"
+	exiv2 -kM"set Iptc.Application2.TransmissionReference ${metadata[x+5]}" $file
+	echo -e "Writing \033[1;31m${metadata[x+6]}\033[0m as \033[1mFixture Identifier\033[0m to $file"
+	exiv2 -kM"set Iptc.Application2.FixtureId ${metadata[x+6]}" $file
+	echo -e "Writing \033[1;31m${metadata[x+7]}\033[0m as \033[1mObject Name\033[0m to $file"
+	exiv2 -kM"set Iptc.Application2.ObjectName ${metadata[x+7]}" $file
+	echo -e "Writing \033[1;31m${metadata[x+8]}\033[0m as \033[1mSub-Location\033[0m to $file"
+	exiv2 -kM"set Iptc.Application2.SubLocation ${metadata[x+8]}" $file
+	writn=$[writn+1]
+fi
+echo
+x=$[x+10]
+done
+if [[ "$writn" -gt "0" ]]; then
+	echo -e "Done. $writn files annotated."
+else
+	echo "Done. No files annotated."
+fi
+

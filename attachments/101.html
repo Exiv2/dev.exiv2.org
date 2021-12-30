@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>exiv2-iptc-charset.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="SerKm/dHfNpa2PIiC5Ga3E82fkQEwKirVX+grSzoSPerp2F0hT2w2g+87S60RpbvcKQqPfUjCRGoXzAlb9GvmA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/101/exiv2-iptc-charset.patch">Download (10.2 KB)</a></div>
+
+<h2>
+  <a href="/boards/3/topics/220?r=229#message-229">RE: Charset conversion</a> » exiv2-iptc-charset.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/137">Vladimir Nadvornik</a>, 12 Sep 2009 03:07</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/101" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      iptc.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">229</th>
+  <th class="line-num">229</th>
+  <td class="line-code ">
+    <pre>        return iptcMetadata_.erase(pos);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">230</th>
+  <th class="line-num">230</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">231</th>
+  <th class="line-num">231</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">232</th>
+  <td class="line-code diff_in">
+    <pre>    const char *IptcData::detectCharset() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">233</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">234</th>
+  <td class="line-code diff_in">
+    <pre>        const_iterator pos = findKey(IptcKey(&quot;Iptc.Envelope.CharacterSet&quot;));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">235</th>
+  <td class="line-code diff_in">
+    <pre>        if (pos != end()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">236</th>
+  <td class="line-code diff_in">
+    <pre>            const std::string value = pos-&gt;toString();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">237</th>
+  <td class="line-code diff_in">
+    <pre>            if (!pos-&gt;value().ok()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">238</th>
+  <td class="line-code diff_in">
+    <pre>                if (value == &quot;\033%G&quot;)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">239</th>
+  <td class="line-code diff_in">
+    <pre>                    return &quot;UTF-8&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">240</th>
+  <td class="line-code diff_in">
+    <pre>                // other values are probably not practically relevant</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">241</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">242</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">243</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">244</th>
+  <td class="line-code diff_in">
+    <pre>        bool ascii = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">245</th>
+  <td class="line-code diff_in">
+    <pre>        bool utf8 = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">246</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">247</th>
+  <td class="line-code diff_in">
+    <pre>        for (pos = begin(); pos != end(); ++pos) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">248</th>
+  <td class="line-code diff_in">
+    <pre>            std::string value = pos-&gt;toString();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">249</th>
+  <td class="line-code diff_in">
+    <pre>            if (pos-&gt;value().ok()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">250</th>
+  <td class="line-code diff_in">
+    <pre>                int seqCount = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">251</th>
+  <td class="line-code diff_in">
+    <pre>                std::string::iterator i;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">252</th>
+  <td class="line-code diff_in">
+    <pre>                for (i = value.begin(); i != value.end(); ++i) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">253</th>
+  <td class="line-code diff_in">
+    <pre>                    char c = *i;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">254</th>
+  <td class="line-code diff_in">
+    <pre>                    if (seqCount) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">255</th>
+  <td class="line-code diff_in">
+    <pre>                        if ((c &amp; 0xc0) != 0x80) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">256</th>
+  <td class="line-code diff_in">
+    <pre>                            utf8 = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">257</th>
+  <td class="line-code diff_in">
+    <pre>                            break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">258</th>
+  <td class="line-code diff_in">
+    <pre>                        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">259</th>
+  <td class="line-code diff_in">
+    <pre>                        --seqCount;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">260</th>
+  <td class="line-code diff_in">
+    <pre>                    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">261</th>
+  <td class="line-code diff_in">
+    <pre>                    else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">262</th>
+  <td class="line-code diff_in">
+    <pre>                        if (c &amp; 0x80) ascii = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">263</th>
+  <td class="line-code diff_in">
+    <pre>                        else continue; // ascii character</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">264</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">265</th>
+  <td class="line-code diff_in">
+    <pre>                        if      ((c &amp; 0xe0) == 0xc0) seqCount = 1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">266</th>
+  <td class="line-code diff_in">
+    <pre>                        else if ((c &amp; 0xf0) == 0xe0) seqCount = 2;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">267</th>
+  <td class="line-code diff_in">
+    <pre>                        else if ((c &amp; 0xf8) == 0xf0) seqCount = 3;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">268</th>
+  <td class="line-code diff_in">
+    <pre>                        else if ((c &amp; 0xfc) == 0xf8) seqCount = 4;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">269</th>
+  <td class="line-code diff_in">
+    <pre>                        else if ((c &amp; 0xfe) == 0xfc) seqCount = 5;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">270</th>
+  <td class="line-code diff_in">
+    <pre>                        else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">271</th>
+  <td class="line-code diff_in">
+    <pre>                            utf8 = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">272</th>
+  <td class="line-code diff_in">
+    <pre>                            break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">273</th>
+  <td class="line-code diff_in">
+    <pre>                        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">274</th>
+  <td class="line-code diff_in">
+    <pre>                    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">275</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">276</th>
+  <td class="line-code diff_in">
+    <pre>                if (seqCount) utf8 = false; // unterminated seq</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">277</th>
+  <td class="line-code diff_in">
+    <pre>                if (!utf8) break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">278</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">279</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">280</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">281</th>
+  <td class="line-code diff_in">
+    <pre>        if (ascii) return &quot;ASCII&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">282</th>
+  <td class="line-code diff_in">
+    <pre>        if (utf8) return &quot;UTF-8&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">283</th>
+  <td class="line-code diff_in">
+    <pre>        return NULL;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">284</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">285</th>
+  <td class="line-code diff_in">
+    <pre>    </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">232</th>
+  <th class="line-num">286</th>
+  <td class="line-code ">
+    <pre>    const byte IptcParser::marker_ = 0x1C;          // Dataset marker</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">233</th>
+  <th class="line-num">287</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">234</th>
+  <th class="line-num">288</th>
+  <td class="line-code ">
+    <pre>    int IptcParser::decode(</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      convert.hpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">69</th>
+  <th class="line-num">69</th>
+  <td class="line-code ">
+    <pre>    EXIV2API void syncExifWithXmp(ExifData&amp; exifData, XmpData&amp; xmpData);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">70</th>
+  <th class="line-num">70</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">71</th>
+  <th class="line-num">71</th>
+  <td class="line-code ">
+    <pre>    //! Convert (copy) IPTC datasets to XMP properties.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">72</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    EXIV2API void copyIptcToXmp(const IptcData&amp; iptcData, XmpData&amp; xmpData<span></span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">72</th>
+  <td class="line-code diff_in">
+    <pre>    EXIV2API void copyIptcToXmp(const IptcData&amp; iptcData, XmpData&amp; xmpData<span>, const char *iptcCharset = 0</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">73</th>
+  <th class="line-num">73</th>
+  <td class="line-code ">
+    <pre>    //! Convert (move) IPTC datasets to XMP properties, remove converted IPTC datasets.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">74</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    EXIV2API void moveIptcToXmp(IptcData&amp; iptcData, XmpData&amp; xmpData<span></span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">74</th>
+  <td class="line-code diff_in">
+    <pre>    EXIV2API void moveIptcToXmp(IptcData&amp; iptcData, XmpData&amp; xmpData<span>, const char *iptcCharset = 0</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">75</th>
+  <th class="line-num">75</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">76</th>
+  <th class="line-num">76</th>
+  <td class="line-code ">
+    <pre>    //! Convert (copy) XMP properties to IPTC datasets.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">77</th>
+  <th class="line-num">77</th>
+  <td class="line-code ">
+    <pre>    EXIV2API void copyXmpToIptc(const XmpData&amp; xmpData, IptcData&amp; iptcData);</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      iptc.hpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">304</th>
+  <th class="line-num">304</th>
+  <td class="line-code ">
+    <pre>          @brief Return the exact size of all contained IPTC metadata</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">305</th>
+  <th class="line-num">305</th>
+  <td class="line-code ">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">306</th>
+  <th class="line-num">306</th>
+  <td class="line-code ">
+    <pre>        long size() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">307</th>
+  <td class="line-code diff_in">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">308</th>
+  <td class="line-code diff_in">
+    <pre>          @brief Return the metadata charset name or 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">309</th>
+  <td class="line-code diff_in">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">310</th>
+  <td class="line-code diff_in">
+    <pre>        const char *detectCharset() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">307</th>
+  <th class="line-num">311</th>
+  <td class="line-code ">
+    <pre>        //@}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">308</th>
+  <th class="line-num">312</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">309</th>
+  <th class="line-num">313</th>
+  <td class="line-code ">
+    <pre>    private:</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      convert.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">36</th>
+  <th class="line-num">36</th>
+  <td class="line-code ">
+    <pre>#include &quot;exif.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">37</th>
+  <th class="line-num">37</th>
+  <td class="line-code ">
+    <pre>#include &quot;iptc.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">38</th>
+  <th class="line-num">38</th>
+  <td class="line-code ">
+    <pre>#include &quot;xmp.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">39</th>
+  <td class="line-code diff_in">
+    <pre>#include &quot;futils.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">39</th>
+  <th class="line-num">40</th>
+  <td class="line-code ">
+    <pre>#include &quot;convert.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">40</th>
+  <th class="line-num">41</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">41</th>
+  <th class="line-num">42</th>
+  <td class="line-code ">
+    <pre>// + standard includes</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">47</th>
+  <th class="line-num">48</th>
+  <td class="line-code ">
+    <pre># define snprintf _snprintf</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">48</th>
+  <th class="line-num">49</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">49</th>
+  <th class="line-num">50</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">51</th>
+  <td class="line-code diff_in">
+    <pre>#ifdef EXV_HAVE_ICONV</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">52</th>
+  <td class="line-code diff_in">
+    <pre># include &lt;iconv.h&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">53</th>
+  <td class="line-code diff_in">
+    <pre># include &lt;errno.h&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">54</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">55</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">50</th>
+  <th class="line-num">56</th>
+  <td class="line-code ">
+    <pre>// Adobe XMP Toolkit</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">51</th>
+  <th class="line-num">57</th>
+  <td class="line-code ">
+    <pre>#ifdef EXV_HAVE_XMP_TOOLKIT</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">52</th>
+  <th class="line-num">58</th>
+  <td class="line-code ">
+    <pre># define TXMP_STRING_TYPE std::string</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">66</th>
+  <th class="line-num">72</th>
+  <td class="line-code ">
+    <pre>      The return code indicates if the operation was successful.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">67</th>
+  <th class="line-num">73</th>
+  <td class="line-code ">
+    <pre>     */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">68</th>
+  <th class="line-num">74</th>
+  <td class="line-code ">
+    <pre>    bool getTextValue(std::string&amp; value, const Exiv2::XmpData::iterator&amp; pos);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">75</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">76</th>
+  <td class="line-code diff_in">
+    <pre>    /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">77</th>
+  <td class="line-code diff_in">
+    <pre>      @brief Convert string charset with iconv.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">78</th>
+  <td class="line-code diff_in">
+    <pre>     */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">79</th>
+  <td class="line-code diff_in">
+    <pre>    bool convertStringCharset(std::string &amp;str, const char* from, const char* to);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">80</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">69</th>
+  <th class="line-num">81</th>
+  <td class="line-code ">
+    <pre>}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">70</th>
+  <th class="line-num">82</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">71</th>
+  <th class="line-num">83</th>
+  <td class="line-code ">
+    <pre>// *****************************************************************************</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">97</th>
+  <th class="line-num">109</th>
+  <td class="line-code ">
+    <pre>        //! Constructor for Exif tags and XMP properties.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">98</th>
+  <th class="line-num">110</th>
+  <td class="line-code ">
+    <pre>        Converter(ExifData&amp; exifData, XmpData&amp; xmpData);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">99</th>
+  <th class="line-num">111</th>
+  <td class="line-code ">
+    <pre>        //! Constructor for Iptc tags and XMP properties.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">100</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        Converter(IptcData&amp; iptcData, XmpData&amp; xmpData<span></span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">112</th>
+  <td class="line-code diff_in">
+    <pre>        Converter(IptcData&amp; iptcData, XmpData&amp; xmpData<span>, const char *iptcCharset = 0</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">101</th>
+  <th class="line-num">113</th>
+  <td class="line-code ">
+    <pre>        //@}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">102</th>
+  <th class="line-num">114</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">103</th>
+  <th class="line-num">115</th>
+  <td class="line-code ">
+    <pre>        //! @name Manipulators</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">277</th>
+  <th class="line-num">289</th>
+  <td class="line-code ">
+    <pre>        ExifData *exifData_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">278</th>
+  <th class="line-num">290</th>
+  <td class="line-code ">
+    <pre>        IptcData *iptcData_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">279</th>
+  <th class="line-num">291</th>
+  <td class="line-code ">
+    <pre>        XmpData  *xmpData_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">292</th>
+  <td class="line-code diff_in">
+    <pre>        const char *iptcCharset_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">280</th>
+  <th class="line-num">293</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">281</th>
+  <th class="line-num">294</th>
+  <td class="line-code ">
+    <pre>    }; // class Converter</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">282</th>
+  <th class="line-num">295</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">411</th>
+  <th class="line-num">424</th>
+  <td class="line-code ">
+    <pre>    };</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">412</th>
+  <th class="line-num">425</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">413</th>
+  <th class="line-num">426</th>
+  <td class="line-code ">
+    <pre>    Converter::Converter(ExifData&amp; exifData, XmpData&amp; xmpData)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">414</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        : erase_(false), overwrite_(true), exifData_(&amp;exifData), iptcData_(0), xmpData_(&amp;xmpData)<span></span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">427</th>
+  <td class="line-code diff_in">
+    <pre>        : erase_(false), overwrite_(true), exifData_(&amp;exifData), iptcData_(0), xmpData_(&amp;xmpData)<span>, iptcCharset_(0)</span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">415</th>
+  <th class="line-num">428</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">416</th>
+  <th class="line-num">429</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">417</th>
+  <th class="line-num">430</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">418</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    Converter::Converter(IptcData&amp; iptcData, XmpData&amp; xmpData<span></span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">419</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        : erase_(false), overwrite_(true), exifData_(0), iptcData_(&amp;iptcData), xmpData_(&amp;xmpData)<span></span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">431</th>
+  <td class="line-code diff_in">
+    <pre>    Converter::Converter(IptcData&amp; iptcData, XmpData&amp; xmpData<span>, const char *iptcCharset</span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">432</th>
+  <td class="line-code diff_in">
+    <pre>        : erase_(false), overwrite_(true), exifData_(0), iptcData_(&amp;iptcData), xmpData_(&amp;xmpData)<span>, iptcCharset_(iptcCharset)</span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">420</th>
+  <th class="line-num">433</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">421</th>
+  <th class="line-num">434</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">422</th>
+  <th class="line-num">435</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1056</th>
+  <th class="line-num">1069</th>
+  <td class="line-code ">
+    <pre>                    ++pos;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1057</th>
+  <th class="line-num">1070</th>
+  <td class="line-code ">
+    <pre>                    continue;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1058</th>
+  <th class="line-num">1071</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1072</th>
+  <td class="line-code diff_in">
+    <pre>                if (iptcCharset_) convertStringCharset(value, iptcCharset_, &quot;UTF-8&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1059</th>
+  <th class="line-num">1073</th>
+  <td class="line-code ">
+    <pre>                (*xmpData_)[to] = value;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1060</th>
+  <th class="line-num">1074</th>
+  <td class="line-code ">
+    <pre>                if (erase_) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1061</th>
+  <th class="line-num">1075</th>
+  <td class="line-code ">
+    <pre>                    pos = iptcData_-&gt;erase(pos);</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1208</th>
+  <th class="line-num">1222</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1209</th>
+  <th class="line-num">1223</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1210</th>
+  <th class="line-num">1224</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1225</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1211</th>
+  <th class="line-num">1226</th>
+  <td class="line-code ">
+    <pre>    // *************************************************************************</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1212</th>
+  <th class="line-num">1227</th>
+  <td class="line-code ">
+    <pre>    // free functions</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1213</th>
+  <th class="line-num">1228</th>
+  <td class="line-code ">
+    <pre>    void copyExifToXmp(const ExifData&amp; exifData, XmpData&amp; xmpData)</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1242</th>
+  <th class="line-num">1257</th>
+  <td class="line-code ">
+    <pre>        converter.syncExifWithXmp();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1243</th>
+  <th class="line-num">1258</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1244</th>
+  <th class="line-num">1259</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1245</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    void copyIptcToXmp(const IptcData&amp; iptcData, XmpData&amp; xmpData<span></span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1260</th>
+  <td class="line-code diff_in">
+    <pre>    void copyIptcToXmp(const IptcData&amp; iptcData, XmpData&amp; xmpData<span>, const char *iptcCharset</span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1246</th>
+  <th class="line-num">1261</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1247</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        Converter converter(const_cast&lt;IptcData&amp;&gt;(iptcData), xmpData);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1262</th>
+  <td class="line-code diff_in">
+    <pre>        if (!iptcCharset) iptcCharset = iptcData.detectCharset();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1263</th>
+  <td class="line-code diff_in">
+    <pre>        if (!iptcCharset) iptcCharset = &quot;ISO-8859-1&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1264</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1265</th>
+  <td class="line-code diff_in">
+    <pre>        Converter converter(const_cast&lt;IptcData&amp;&gt;(iptcData), xmpData, iptcCharset);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1248</th>
+  <th class="line-num">1266</th>
+  <td class="line-code ">
+    <pre>        converter.cnvToXmp();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1249</th>
+  <th class="line-num">1267</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1250</th>
+  <th class="line-num">1268</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1251</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    void moveIptcToXmp(IptcData&amp; iptcData, XmpData&amp; xmpData<span></span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1269</th>
+  <td class="line-code diff_in">
+    <pre>    void moveIptcToXmp(IptcData&amp; iptcData, XmpData&amp; xmpData<span>, const char *iptcCharset</span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1252</th>
+  <th class="line-num">1270</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1253</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        Converter converter(const_cast&lt;IptcData&amp;&gt;(iptcData), xmpData);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1271</th>
+  <td class="line-code diff_in">
+    <pre>        if (!iptcCharset) iptcCharset = iptcData.detectCharset();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1272</th>
+  <td class="line-code diff_in">
+    <pre>        if (!iptcCharset) iptcCharset = &quot;ISO-8859-1&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1273</th>
+  <td class="line-code diff_in">
+    <pre>        Converter converter(const_cast&lt;IptcData&amp;&gt;(iptcData), xmpData, iptcCharset);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1254</th>
+  <th class="line-num">1274</th>
+  <td class="line-code ">
+    <pre>        converter.setErase();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1255</th>
+  <th class="line-num">1275</th>
+  <td class="line-code ">
+    <pre>        converter.cnvToXmp();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1256</th>
+  <th class="line-num">1276</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1259</th>
+  <th class="line-num">1279</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1260</th>
+  <th class="line-num">1280</th>
+  <td class="line-code ">
+    <pre>        Converter converter(iptcData, const_cast&lt;XmpData&amp;&gt;(xmpData));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1261</th>
+  <th class="line-num">1281</th>
+  <td class="line-code ">
+    <pre>        converter.cnvFromXmp();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1282</th>
+  <td class="line-code diff_in">
+    <pre>        iptcData[&quot;Iptc.Envelope.CharacterSet&quot;] = &quot;\033%G&quot;; // indicate UTF-8 encoding</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1262</th>
+  <th class="line-num">1283</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1263</th>
+  <th class="line-num">1284</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1264</th>
+  <th class="line-num">1285</th>
+  <td class="line-code ">
+    <pre>    void moveXmpToIptc(XmpData&amp; xmpData, IptcData&amp; iptcData)</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1266</th>
+  <th class="line-num">1287</th>
+  <td class="line-code ">
+    <pre>        Converter converter(iptcData, const_cast&lt;XmpData&amp;&gt;(xmpData));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1267</th>
+  <th class="line-num">1288</th>
+  <td class="line-code ">
+    <pre>        converter.setErase();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1268</th>
+  <th class="line-num">1289</th>
+  <td class="line-code ">
+    <pre>        converter.cnvFromXmp();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1290</th>
+  <td class="line-code diff_in">
+    <pre>        iptcData[&quot;Iptc.Envelope.CharacterSet&quot;] = &quot;\033%G&quot;; // indicate UTF-8 encoding</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1269</th>
+  <th class="line-num">1291</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1270</th>
+  <th class="line-num">1292</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1271</th>
+  <th class="line-num">1293</th>
+  <td class="line-code ">
+    <pre>}                                       // namespace Exiv2</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1301</th>
+  <th class="line-num">1323</th>
+  <td class="line-code ">
+    <pre>        return pos-&gt;value().ok();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1302</th>
+  <th class="line-num">1324</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1303</th>
+  <th class="line-num">1325</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1326</th>
+  <td class="line-code diff_in">
+    <pre>    bool convertStringCharset(std::string &amp;str, const char* from, const char* to)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1327</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1328</th>
+  <td class="line-code diff_in">
+    <pre>        if (std::string(from) == to) return true; // nothing to do</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1329</th>
+  <td class="line-code diff_in">
+    <pre>#if defined EXV_HAVE_ICONV</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1330</th>
+  <td class="line-code diff_in">
+    <pre>        bool ret = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1331</th>
+  <td class="line-code diff_in">
+    <pre>        iconv_t cd;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1332</th>
+  <td class="line-code diff_in">
+    <pre>        cd = iconv_open(to, from);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1333</th>
+  <td class="line-code diff_in">
+    <pre>        if (cd == (iconv_t)(-1)) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1334</th>
+  <td class="line-code diff_in">
+    <pre>#ifndef SUPPRESS_WARNINGS</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1335</th>
+  <td class="line-code diff_in">
+    <pre>            std::cerr &lt;&lt; &quot;Warning: iconv_open: &quot; &lt;&lt; Exiv2::strError() &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1336</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1337</th>
+  <td class="line-code diff_in">
+    <pre>            return false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1338</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1339</th>
+  <td class="line-code diff_in">
+    <pre>        std::string outstr;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1340</th>
+  <td class="line-code diff_in">
+    <pre>        char *inptr = const_cast&lt;char *&gt;(str.c_str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1341</th>
+  <td class="line-code diff_in">
+    <pre>        size_t inbytesleft = str.length();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1342</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1343</th>
+  <td class="line-code diff_in">
+    <pre>        while (inbytesleft) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1344</th>
+  <td class="line-code diff_in">
+    <pre>            char outbuf[100];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1345</th>
+  <td class="line-code diff_in">
+    <pre>            char *outptr = outbuf;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1346</th>
+  <td class="line-code diff_in">
+    <pre>            size_t outbytesleft = sizeof(outbuf) - 1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1347</th>
+  <td class="line-code diff_in">
+    <pre>            size_t rc = iconv(cd,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1348</th>
+  <td class="line-code diff_in">
+    <pre>                              &amp;inptr,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1349</th>
+  <td class="line-code diff_in">
+    <pre>                              &amp;inbytesleft,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1350</th>
+  <td class="line-code diff_in">
+    <pre>                              &amp;outptr,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1351</th>
+  <td class="line-code diff_in">
+    <pre>                              &amp;outbytesleft);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1352</th>
+  <td class="line-code diff_in">
+    <pre>            if (rc == size_t(-1) &amp;&amp; errno != E2BIG) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1353</th>
+  <td class="line-code diff_in">
+    <pre>#ifndef SUPPRESS_WARNINGS</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1354</th>
+  <td class="line-code diff_in">
+    <pre>                std::cerr &lt;&lt; &quot;Warning: iconv: &quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1355</th>
+  <td class="line-code diff_in">
+    <pre>                          &lt;&lt; Exiv2::strError()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1356</th>
+  <td class="line-code diff_in">
+    <pre>                          &lt;&lt; &quot; inbytesleft = &quot; &lt;&lt; inbytesleft &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1357</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1358</th>
+  <td class="line-code diff_in">
+    <pre>                ret = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1359</th>
+  <td class="line-code diff_in">
+    <pre>                break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1360</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1361</th>
+  <td class="line-code diff_in">
+    <pre>            *outptr = &#39;\0&#39;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1362</th>
+  <td class="line-code diff_in">
+    <pre>            outstr.append(outbuf);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1363</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1364</th>
+  <td class="line-code diff_in">
+    <pre>        if (cd != (iconv_t)(-1)) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1365</th>
+  <td class="line-code diff_in">
+    <pre>            iconv_close(cd);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1366</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1367</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1368</th>
+  <td class="line-code diff_in">
+    <pre>        if (ret) str = outstr;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1369</th>
+  <td class="line-code diff_in">
+    <pre>        return ret;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1370</th>
+  <td class="line-code diff_in">
+    <pre>#else // !EXV_HAVE_ICONV</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1371</th>
+  <td class="line-code diff_in">
+    <pre>        return false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1372</th>
+  <td class="line-code diff_in">
+    <pre>#endif // EXV_HAVE_ICONV</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1373</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1374</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1304</th>
+  <th class="line-num">1375</th>
+  <td class="line-code ">
+    <pre>}</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      datasets.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">141</th>
+  <th class="line-num">141</th>
+  <td class="line-code ">
+    <pre>                &quot;invocation or designation of coded character sets. The control functions follow &quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">142</th>
+  <th class="line-num">142</th>
+  <td class="line-code ">
+    <pre>                &quot;the ISO 2022 standard and may consist of the escape control &quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">143</th>
+  <th class="line-num">143</th>
+  <td class="line-code ">
+    <pre>                &quot;character and one or more graphic characters.&quot;),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">144</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                false, false, 0, 32, Exiv2::<span>undefined</span>, IptcDataSets::envelope, &quot;&quot;),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">144</th>
+  <td class="line-code diff_in">
+    <pre>                false, false, 0, 32, Exiv2::<span>string</span>, IptcDataSets::envelope, &quot;&quot;),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">145</th>
+  <th class="line-num">145</th>
+  <td class="line-code ">
+    <pre>        DataSet(IptcDataSets::UNO, &quot;UNO&quot;, N_(&quot;Unique Name Object&quot;),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">146</th>
+  <th class="line-num">146</th>
+  <td class="line-code ">
+    <pre>                N_(&quot;This tag provide a globally unique &quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">147</th>
+  <th class="line-num">147</th>
+  <td class="line-code ">
+    <pre>                &quot;identification for objects as specified in the IIM, independent of &quot;</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"></ul><span><span class="items">(1-1/1)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

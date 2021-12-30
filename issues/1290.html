@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Support #1290: write exif to a libgphoto2 buffer image - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="9aKjKRhedkpeEEZjfoiUcb1rWyXb9VKCyAEa2jP2aVgX7wjGaiS6Sgt0WW/BX5hCgvkPXCoW8zg1IYpScM+ONw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Support #1290: write exif to a libgphoto2 buffer image" href="https://dev.exiv2.org/issues/1290.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Support #1290</h2>
+
+<div class="issue tracker-3 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>write exif to a libgphoto2 buffer image</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/5425">Nacho Sánchez Moreno</a> <a title="21 Apr 2017 10:09" href="/projects/exiv2/activity?from=2017-04-21">over 4 years</a> ago.
+        Updated <a title="26 Apr 2017 06:23" href="/projects/exiv2/activity?from=2017-04-26">over 4 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">not-a-bug</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">21 Apr 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">7.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hello,</p>
+
+
+	<p>I'm trying to write exif data to a libgphoto2 buffer.</p>
+
+
+	<p>unsigned long int file_size = 0;<br />const char *file_data = NULL;</p>
+
+
+	<p>with gp_file_get_data_and_size(file, &#38;file_data, &#38;file_size) i retrive the buffer and size for an NEF image (nikkon d810)<br />After i try:</p>
+
+
+	<p>Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open((const Exiv2::byte*)file_data, file_size);</p>
+
+
+	<p>Exiv2::ExifData exifData;<br />exifData["Exif.Image.Software"] = this->_metadataExif.Software;<br />exifData["Exif.Image.Artist"] = this->_metadataExif.Artist;<br />exifData["Exif.Image.Copyright"] = this->_metadataExif.Copyright;</p>
+
+
+	<p>// Set EXIF data and write it to the file<br />image->setExifData(exifData);<br />image->writeMetadata();</p>
+
+
+	<p>file_size = image->io().size(); <br />image->io().seek(0,Exiv2::BasicIo::beg);<br />Exiv2::DataBuf buff = image->io().read(file_size);</p>
+
+
+	<p>// ---------------------------------------------------------<br />// Write the buff to disk<br />FILE * filen = ::fopen(fname.c_str(), "w"); <br />::fwrite(buff.pData_, file_size, 1, filen); <br />::fclose(filen);</p>
+
+
+	<p>gp_file_free(file);</p>
+
+
+	<p>them, the exif metadata information is ok, but the file is corrupted.</p>
+
+
+	<p>where is the problem?<br />thanks</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1154">src.zip.001</a>    <span class="size">(20 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1154/src.zip.001">src.zip.001</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Nacho Sánchez Moreno, 25 Apr 2017 08:13</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1155">src.zip.002</a>    <span class="size">(20 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1155/src.zip.002">src.zip.002</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Nacho Sánchez Moreno, 25 Apr 2017 08:13</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1156">src.zip.003</a>    <span class="size">(11.9 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1156/src.zip.003">src.zip.003</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Nacho Sánchez Moreno, 25 Apr 2017 08:13</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5944" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Apr 2017 11:35" href="/projects/exiv2/activity?from=2017-04-21">over 4 years</a> ago
+      <span id="journal-5944-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>not-a-bug</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    <div id="journal-5944-notes" class="wiki"><p>Nacho</p>
+
+
+	<p>I don't know libgphoto.  I believe you are using Exiv2 to manipulate the image in memory and then use fopen/fwrite/fclose to write the image to disk.  I believe this should work, so without your libgphoto code, I can't say why this isn't working for you.</p>
+
+
+	<p>I've written the following code to simulate libgphoto using our old friends malloc/stat/fread:<br /><pre>// g++ testExiv2MemIO.cpp -lexiv2 -o testExiv2MemIO
+
+#include &lt;exiv2/exiv2.hpp&gt;
+
+#include &lt;sys/stat.h&gt;
+#include &lt;unistd.h&gt;
+
+int main(int argc,const char* argv[])
+{
+    const char*           program  = argv[0];
+    if ( argc != 3 )      return printf("syntax %s in-path out-path\n",program);
+
+    const char*           path_in  = argv[1];
+    const char*           path_out = argv[2];
+
+    struct stat           buf      ;
+    if (    stat(path_in,&#38;buf) ) return printf("path %s does not exist\n",path_in);
+
+    // allocate a memory buffer into which to read path_in
+    unsigned long int     file_size = buf.st_size;
+    const char*           file_data = (const char*) ::malloc(file_size);
+    if ( !file_data)      return printf("unable to allocate %lu bytes for %s",file_size,path_in);
+
+    // read path_in into a memory buffer
+    FILE*                 file_in   = ::fopen(path_in,"rb");
+    if ( !file_in )       return printf("unable to open %s\n",path_in);
+    int                   n         = fread( (void*) file_data,1,file_size,file_in);
+    printf("fread %ld bytes from %s\n",file_size,path_in);
+
+    // create an Exiv2 image from the buffer
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open((const Exiv2::byte*)file_data, file_size);
+
+    // modify the Exiv2 metadata
+    Exiv2::ExifData       exifData;
+    exifData["Exif.Image.Software"] = program;
+    exifData["Exif.Image.Artist"]   = program;
+
+    // write metadata to memory
+    image-&gt;setExifData(exifData);
+    image-&gt;writeMetadata();
+
+    // recover Exiv2 image buff
+    file_size = image-&gt;io().size();
+    image-&gt;io().seek(0,Exiv2::BasicIo::beg);
+    Exiv2::DataBuf buff = image-&gt;io().read(file_size);
+
+    // Write buff to disk
+    FILE *                file_out = ::fopen(path_out, "w");
+    n = ::fwrite((void*)  buff.pData_, 1,file_size, file_out);
+    ::fclose(file_out);
+    printf("fwrite %ld bytes to %s\n",file_size,path_out);
+
+    ::free((void*)file_data);
+
+    return 0;
+}</pre>This seems to work fine:<pre>
+559 rmills@rmillsmbp:~/temp $ cp ~/Pictures/Wallpapers/Stonehenge\,England.jpg Stonehenge.jpg
+560 rmills@rmillsmbp:~/temp $ exiv2 -pa --grep Software --grep Artist Stonehenge.jpg 
+Exif.Image.Software                          Ascii      10  Ver.1.00 
+561 rmills@rmillsmbp:~/temp $ ./testExiv2MemIO Stonehenge.jpg S.jpg
+fread 6780056 bytes from Stonehenge.jpg
+fwrite 6764223 bytes to S.jpg
+562 rmills@rmillsmbp:~/temp $ exiv2 -pa --grep Software --grep Artist S.jpg 
+Exif.Image.Software                          Ascii      17  ./testExiv2MemIO
+Exif.Image.Artist                            Ascii      17  ./testExiv2MemIO
+563 rmills@rmillsmbp:~/temp $ </pre>I've tried the code on a .NEF from my Nikon D5300:<pre>564 rmills@rmillsmbp:~/temp $ cp /Photos/2016/Raw/DSC_0001.NEF .
+565 rmills@rmillsmbp:~/temp $ ./testExiv2MemIO DSC_0001.NEF D.NEF
+fread 22330428 bytes from DSC_0001.NEF
+fwrite 18158964 bytes to D.NEF
+566 rmills@rmillsmbp:~/temp $ exiv2 -pa --grep Software --grep Artist D.NEF 
+Exif.Image.Software                          Ascii      17  ./testExiv2MemIO
+Exif.Image.Artist                            Ascii      17  ./testExiv2MemIO
+567 rmills@rmillsmbp:~/temp $ </pre></p>
+
+
+	<p>I suspect the issue lies in the libgphoto buffer.  A modified strategy for you is to write the libgphoto buffer to disk.  Then use Exiv2 to open, read, modify and write your file.  Can you try this?</p>
+
+
+	<p>If you're still stuck, please share your libgphoto code and I will download libgphoto and build your code.  When we are <em>"both on the same page"</em>, I believe we'll quickly resolve this matter.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5945" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/5425">Nacho Sánchez Moreno</a> <a title="21 Apr 2017 12:10" href="/projects/exiv2/activity?from=2017-04-21">over 4 years</a> ago
+      <span id="journal-5945-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5945-notes" class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Thanks a lot for your answer.</p>
+
+
+	<p>Yes, i tryed too with the strategy of to write the libgphoto2 to disk, and i've had some problems depending the code, with errors like:</p>
+
+
+	<p>basicio.cpp:598: virtual long int Exiv2::FileIo::write(Exiv2::BasicIo&#38;): Assertion `p_->fp_ != 0' failed when i use fileio.write(image->io());</p>
+
+
+	<p>or:</p>
+
+
+	<p>Program received signal SIGSEGV, Segmentation fault.<br />0x766e5404 in fwrite () from /lib/arm-linux-gnueabihf/libc.so.6 when i use ::fwrite(buff.pData_, buffersize, 1, fileio);</p>
+
+
+	<p>Anyway I will continue to insist on the initial solution, ie using the image in memory because i've retrive the image from the camera previously and i think that is the moment to write de exif data before to write to disk.</p>
+
+
+	<p>thanks again</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5946" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Apr 2017 12:23" href="/projects/exiv2/activity?from=2017-04-21">over 4 years</a> ago
+      <span id="journal-5946-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-5946-notes" class="wiki"><p>You are asking me to debug a scenario that I cannot reproduce.  Can I ask you to strip your libgphoto code to the minimum and let me build/reproduce your error.</p>
+
+
+	<p>I'm going out for three hours.  Drop me your code <em><strong>and together</strong></em>, we can fix this today.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5947" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/5425">Nacho Sánchez Moreno</a> <a title="21 Apr 2017 12:41" href="/projects/exiv2/activity?from=2017-04-21">over 4 years</a> ago
+      <span id="journal-5947-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5947-notes" class="wiki"><p>Hi,</p>
+
+
+	<p>Thank you very much,</p>
+
+
+	<p>I also have to leave, and probably until Tuesday can not continue. I think I'm not taking precaution with memory somewhere. Because the files it generates them, but all of the same size and corrupted, but with the exif data.</p>
+
+
+	<p>At the finaly of the code i've comment some tries about the second scenario, ie save to disk previously</p>
+
+
+	<p>Basically the code is:<pre>
+CameraFile *file;
+
+ret = gp_file_new(&#38;file);
+
+if (ret != GP_OK)
+    continue;
+
+// get de photo from the camera
+ret = gp_camera_file_get(this-&gt;_camera, cPath.folder, cPath.name, GP_FILE_TYPE_NORMAL, file, this-&gt;_ctx);
+
+if (ret != GP_OK)
+    continue;
+
+// get buffer and size
+ret = gp_file_get_data_and_size (file, &#38;file_data, &#38;file_size);
+if (ret != GP_OK)
+    continue;
+
+try {
+    // Open image file (WITH YOUR NOTES)
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open((const Exiv2::byte*)file_data, file_size);
+
+    Exiv2::ExifData exifData;
+    exifData["Exif.Image.Software"] = this-&gt;_metadataExif.Software; // IT'S OK
+    exifData["Exif.Image.Artist"] = this-&gt;_metadataExif.Artist; // IT'S OK
+    exifData["Exif.Image.Copyright"] = this-&gt;_metadataExif.Copyright; // IT'S OK
+
+    // write metadata to memory
+    image-&gt;setExifData(exifData);
+    image-&gt;writeMetadata();
+
+    // recover Exiv2 image buff
+    file_size = image-&gt;io().size();
+    image-&gt;io().seek(0,Exiv2::BasicIo::beg);
+    Exiv2::DataBuf buff = image-&gt;io().read(file_size);
+
+    // The file's name:
+    fname = this-&gt;_pName + "/" + fname;
+
+    // ---------------------------------------------------------
+    // Write the buff to disk
+    FILE * file_out = ::fopen(fname.c_str(), "w"); 
+    ::fwrite((void*) buff.pData_, 1, file_size, file_out);
+    ::fclose(file_out); 
+}
+catch (Exiv2::AnyError&#38; e) {
+    std::cout &lt;&lt; "Caught Exiv2 exception '" &lt;&lt; e &lt;&lt; "'\n";
+}
+
+fname = this-&gt;_pName + "/" + fname;
+
+//ret = gp_file_save(file, fname.c_str());
+
+gp_file_free(file);
+
+//if (ret != GP_OK)
+//    continue;
+
+/*
+Exiv2::DataBuf buf = Exiv2::readFile(fname.c_str());
+Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(buf.pData_, buf.size_);
+image-&gt;readMetadata();
+Exiv2::ExifData &#38;exifData = image-&gt;exifData();
+exifData["Exif.Image.Software"] = this-&gt;_metadataExif.Software;
+exifData["Exif.Image.Artist"] = this-&gt;_metadataExif.Artist;
+exifData["Exif.Image.Copyright"] = this-&gt;_metadataExif.Copyright;
+image-&gt;writeMetadata();
+
+string fname1 = this-&gt;_pName + "/" + "_try_" + fname;
+
+Exiv2::FileIo fileio(fname1.c_str());
+fileio.open();
+fileio.write(image-&gt;io());
+*/
+
+/*
+file_size = image-&gt;io().size(); 
+image-&gt;io().seek(0,Exiv2::BasicIo::beg);
+Exiv2::DataBuf buff = image-&gt;io().read(file_size);
+
+FILE * fileio = ::fopen(fname1.c_str(), "w"); 
+::fwrite(buff.pData_, file_size, 1, fileio); 
+::fclose(fileio); 
+*/
+
+file_size = 0;
+file_data = NULL;</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5948" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/5425">Nacho Sánchez Moreno</a> <a title="21 Apr 2017 12:44" href="/projects/exiv2/activity?from=2017-04-21">over 4 years</a> ago
+      <span id="journal-5948-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5948-notes" class="wiki"><p>Sorry,</p>
+
+
+	<p>Strange things have happened with the format</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5949" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Apr 2017 12:52" href="/projects/exiv2/activity?from=2017-04-21">over 4 years</a> ago
+      <span id="journal-5949-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5949-notes" class="wiki"><p>Thanks for the code.  I'll look at this tonight.  We'll successfully fix this.</p>
+
+
+	<p>Don't worry about the format.  You should enclose code: <strong><code>&lt;</code><code>pre</code><code>&gt;</code></strong> ... <strong><code>&lt;</code><code>/pre</code><code>&gt;</code></strong>.   I'll edit your comments and fix the formatting later.</p>
+
+
+	<p>Have a nice day and weekend.  Speak later.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5950" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Apr 2017 14:10" href="/projects/exiv2/activity?from=2017-04-21">over 4 years</a> ago
+      <span id="journal-5950-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>80</i></li>
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>4.00 h</i></li>
+    </ul>
+    <div id="journal-5950-notes" class="wiki"><p>I think I know what's wrong with this.  I haven't debugged your code, I've deduced it by inspection.</p>
+
+
+	<p>Only a tiny part of an image contains metadata.  Most of the data in an image is pixels.  When you use <em><strong>image->readMetadata()</strong></em>, Exiv2 finds the metadata and puts it into the Exiv2::ExifData vector.  It is possible for <em><strong>image->readMetadata()</strong></em> to be successful on a corrupted image.  However <em><strong>image->writeMetadata()</strong></em> could fail if the pixel data in the image is corrupted.  It's an uncommon scenario for images to be created from memory buffers.  Images are normally created by reading good images into memory.</p>
+
+
+	<p>I think there is something wrong with the data <em><strong><code>file_data</code></strong></em> and <em><strong><code>file_size</code></strong></em>.  Can I ask you to write that data immediately to path <em><strong>foo.image</strong></em> (using a variant of your code: <em><strong><code>fileio ::fopen ::write ::fclose</code></strong></em>).  If <em><strong>foo.image</strong></em> is corrupt, it has <strong>not</strong> been corrupted by Exiv2 as no Exiv2 code has seen that data.</p>
+
+
+	<p>You can analyse <em><strong>foo.image</strong></em> with the command: <pre>$ exiv2 -pR foo.image</pre>Please attach <em><strong>foo.image</strong></em> to this report.</p>
+
+
+	<p>My earlier suggestion to write to disk and use <em><strong>Exiv2::ImageFactory::open(path)</strong></em> has been ineffective because the image written to disk is corrupted.  Opening an image is essentially (inside Exiv2) <em><strong>::fopen</strong></em> followed by <em><strong>readMetadata()</strong></em>.  The image is still corrupt and will again be detected by your call to <em><strong>image->writeMetadata()</em></strong></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5964" class="journal has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Apr 2017 08:13" href="/projects/exiv2/activity?from=2017-04-24">over 4 years</a> ago
+      <span id="journal-5964-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>80</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5976" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/5425">Nacho Sánchez Moreno</a> <a title="25 Apr 2017 07:32" href="/projects/exiv2/activity?from=2017-04-25">over 4 years</a> ago
+      <span id="journal-5976-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5976-notes" class="wiki"><p>Hello,</p>
+
+
+	<p>I tried again with the program.</p>
+
+
+<pre>
+with:
+                // fname_out is the name file from the camera to disk
+                string fname_out = this-&gt;_pName + "/" + fname;
+
+                // save the file from the buffer to disk (IT'S OK)
+                ret = gp_file_save(file, fname_out.c_str());
+
+                gp_file_free(file);
+
+                Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fname_out.c_str());
+
+                image-&gt;readMetadata();
+                Exiv2::ExifData &#38;exifData = image-&gt;exifData();
+
+                exifData["Exif.Image.Software"] = this-&gt;_metadataExif.Software;
+                exifData["Exif.Image.Artist"] = this-&gt;_metadataExif.Artist;
+                exifData["Exif.Image.Copyright"] = this-&gt;_metadataExif.Copyright;
+                // write metadata to memory
+                image-&gt;setExifData(exifData);
+                image-&gt;writeMetadata();
+
+                // fname1 is a name for the file with exif metadata
+                string fname1 = this-&gt;_pName + "/" + "_2_" + fname;
+
+                // recover Exiv2 image buff (I'VE TESTED THAT THE SIZE IS OK)
+                file_size = image-&gt;io().size(); 
+                // the program fails here:
+                image-&gt;io().seek(0, Exiv2::BasicIo::beg);
+                // the error is:  basicio.cpp:850: virtual int Exiv2::FileIo::seek(long int, Exiv2::BasicIo::Position): Assertion `p_-&gt;fp_ != 0' failed.
+
+                Exiv2::DataBuf buff = image-&gt;io().read(file_size);
+
+                FILE * file_out = ::fopen(fname1.c_str(), "w"); 
+                int n = ::fwrite((void*)  buff.pData_, 1,file_size, file_out);
+                ::fclose(file_out);
+
+                printf("fwrite %ld bytes to %s\n", file_size, fname1.c_str());
+
+i've tried with another version:
+
+                // fname_out is the name file from the camera to disk
+                string fname_out = this-&gt;_pName + "/" + fname;
+
+                // save the file from the buffer to disk (IT'S OK)
+                ret = gp_file_save(file, fname_out.c_str());
+
+                gp_file_free(file);
+
+                Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fname_out.c_str());
+
+                image-&gt;readMetadata();
+                Exiv2::ExifData &#38;exifData = image-&gt;exifData();
+
+                exifData["Exif.Image.Software"] = this-&gt;_metadataExif.Software;
+                exifData["Exif.Image.Artist"] = this-&gt;_metadataExif.Artist;
+                exifData["Exif.Image.Copyright"] = this-&gt;_metadataExif.Copyright;
+                // write metadata to memory
+                image-&gt;setExifData(exifData);
+                image-&gt;writeMetadata();
+
+                // fname1 is a name for the file with exif metadata
+                string fname1 = this-&gt;_pName + "/" + "_2_" + fname;
+
+                Exiv2::FileIo file_out(fname1.c_str());
+                file_out.open();
+                // the program fails here:
+                file_out.write(image-&gt;io());
+                // the error is the same:  basicio.cpp:598: virtual long int Exiv2::FileIo::write(Exiv2::BasicIo&#38;): Assertion `p_-&gt;fp_ != 0' failed.
+
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-5977" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2017 07:54" href="/projects/exiv2/activity?from=2017-04-25">over 4 years</a> ago
+      <span id="journal-5977-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5977-notes" class="wiki"><p>Nancho</p>
+
+
+	<p>Please attach your saved file to this issue.  I believe you are crashing because it does not contain a valid image.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5978" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/5425">Nacho Sánchez Moreno</a> <a title="25 Apr 2017 08:13" href="/projects/exiv2/activity?from=2017-04-25">over 4 years</a> ago
+      <span id="journal-5978-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1154">src.zip.001</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1154/src.zip.001">src.zip.001</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/1155">src.zip.002</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1155/src.zip.002">src.zip.002</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/1156">src.zip.003</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1156/src.zip.003">src.zip.003</a> added</li>
+    </ul>
+    <div id="journal-5978-notes" class="wiki"><p>Ok,</p>
+
+
+	<p>I upload two images:</p>
+
+
+	<p>DSC_2172_gp.NEF is the original image created with nikon d810 and saved in disk using gp_file_save(file, fname_out.c_str());<br />and _2_DSC_2172_gp is the image corrupted but with the exif data.</p>
+
+
+	<p>I not sure that the process could have problems after gp_file_save and gp_file_free for the image is not in the disk totally before open again with Exiv2::ImageFactory::open(fname_out.c_str());</p>
+
+
+	<p>It's because i think that the best proccess is manage the buffer in memory that to save to disk instead</p>
+
+
+	<p>i used peazip to compress</p>
+
+
+	<p>(sorry for my english)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5979" class="journal has-notes has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2017 10:11" href="/projects/exiv2/activity?from=2017-04-25">over 4 years</a> ago
+      <span id="journal-5979-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>not-a-bug</i> to <i>image format</i></li>
+       <li><strong>Status</strong> changed from <i>Closed</i> to <i>Assigned</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> changed from <i>4.00 h</i> to <i>10.00 h</i></li>
+    </ul>
+    <div id="journal-5979-notes" class="wiki"><p>Thanks for the files.  Good News.  I can now reproduce your result with testExiv2MemIO.cpp (my code above).  And with my Raw file from my D5300.</p>
+
+
+	<p>You've send me two files. DSC_2172_gp.NEF  is good.  _2_DSC_2172_gp.NEF is corrupted. <pre>579 rmills@rmillsmbp:~/Downloads $ cat src.zip.001 src.zip.002 src.zip.003 &gt; src.zip
+580 rmills@rmillsmbp:~/Downloads $ unzip src.zip
+Archive:  src.zip
+  inflating: DSC_2172_gp.NEF         
+  inflating: _2_DSC_2172_gp.NEF      
+581 rmills@rmillsmbp:~/Downloads $ dir src
+-rwxr-xr-x+ 1 rmills staff 32M Apr 25 08:41 ./src/DSC_2172_gp.NEF*
+-rwxr-xr-x+ 1 rmills staff 30M Apr 25 08:41 ./src/_2_DSC_2172_gp.NEF*
+582 rmills@rmillsmbp:~/temp $ </pre>Running testExiv2MemIO on your good file creates a file that is corrupted.  <pre>
+601 rmills@rmillsmbp:~/Downloads $ cd ~/temp
+602 rmills@rmillsmbp:~/temp $ ./testExiv2MemIO ~/Downloads/src/DSC_2172_gp.NEF ungood.NEF
+fread 33007232 bytes from /Users/rmills/Downloads/src/DSC_2172_gp.NEF
+fwrite 31002552 bytes to ungood.NEF
+603 rmills@rmillsmbp:~/temp $ ls -alt ungood.NEF
+-rw-r--r-- 1 rmills staff 31002552 Apr 25 10:35 ungood.NEF
+604 rmills@rmillsmbp:~/temp $ $ ls -alt ungood.NEF
+-rw-r--r-- 1 rmills staff 31002552 Apr 25 10:35 ungood.NEF
+604 rmills@rmillsmbp:~/temp $ exiv2 -pa ungood.NEF 
+Exif.Image.Software                          Ascii      17  ./testExiv2MemIO
+Exif.Image.Artist                            Ascii      17  ./testExiv2MemIO
+Exif.Image.SubIFDs                           Long        1  86
+Exif.SubImage1.NewSubfileType                Long        1  Primary image
+Exif.SubImage1.ImageWidth                    Long        1  4820
+Exif.SubImage1.ImageLength                   Long        1  3216
+Exif.SubImage1.BitsPerSample                 Short       1  14
+Exif.SubImage1.Compression                   Short       1  Uncompressed
+Exif.SubImage1.PhotometricInterpretation     Short       1  Color Filter Array
+Exif.SubImage1.StripOffsets                  Long        1  312
+Exif.SubImage1.SamplesPerPixel               Short       1  1
+Exif.SubImage1.RowsPerStrip                  Long        1  3216
+Exif.SubImage1.StripByteCounts               Long        1  31002240
+Exif.SubImage1.XResolution                   Rational    1  300
+Exif.SubImage1.YResolution                   Rational    1  300
+Exif.SubImage1.PlanarConfiguration           Short       1  1
+Exif.SubImage1.ResolutionUnit                Short       1  inch
+Exif.SubImage1.CFARepeatPatternDim           Short       2  2 2
+Exif.SubImage1.CFAPattern                    Byte        4  0 1 1 2
+Exif.SubImage1.SensingMethod                 Short       1  2
+605 rmills@rmillsmbp:~/temp $ </pre>Good progress.  I now have something to debug.  I've revisited my test on a file from my Nikon D5300.  I only inspected the output for Artist and Copyright.  The NikonD5300 file has been corrupted.  The issue appears to be when we rewrite the NEF file.</p>
+
+
+	<p>However, I can rewrite the the file with the exiv2 application: <pre>609 rmills@rmillsmbp:~/temp $ cp /Photos/2016/RAW/DSC_0001.NEF .
+610 rmills@rmillsmbp:~/temp $ many exiv2
+611 rmills@rmillsmbp:~/temp $ ls -alt DSC_0001.NEF ; exiv2 -M'set Exif.Image.Artist Robin' DSC_0001.NEF ; ls -alt DSC_0001.NEF 
+-rwxr-xr-x 1 rmills staff 22330428 Apr 25 10:54 DSC_0001.NEF
+-rwxr-xr-x 1 rmills staff 22328818 Apr 25 10:56 DSC_0001.NEF
+612 rmills@rmillsmbp:~/temp $ open DSC_0001.NEF 
+613 rmills@rmillsmbp:~/temp $ </pre>And using your file:<pre>618 rmills@rmillsmbp:~/temp $ ls -alt DSC_2172_gp.NEF;exiv2 -M'set Exif.Image.Artist Robin' DSC_2172_gp.NEF;ls -alt DSC_2172_gp.NEF 
+-rwxr-xr-x 1 rmills staff 33007232 Apr 25 10:59 DSC_2172_gp.NEF
+-rwxr-xr-x 1 rmills staff 32996840 Apr 25 11:00 DSC_2172_gp.NEF
+619 rmills@rmillsmbp:~/temp $ open DSC_2172_gp.NEF 
+620 rmills@rmillsmbp:~/temp $ </pre></p>
+
+
+	<p>Conclusion:  These files can be successfully updated, so we're using the API incorrectly in some way.</p>
+
+
+	<p>I would like to defer this issue for the moment.  My priority for this week is to release v0.26.  I deferred the release last week to work on a presentation about Exiv2 for a conference in Rio.  And worked on a couple of other issues <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: MSVC: Public header pulls ins unnecessary headers and libraries (Closed)" href="/issues/1291">#1291</a> and <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 corrupts files larger than 2GB with Exif IFD at the end of the file (Closed)" href="/issues/1175">#1175</a>.  If v0.26 is going to ship this week, I will have to put your issue to the side for the moment.  Perhaps you could say something about the urgency of this matter to you.</p>
+
+
+	<p><a class="external" href="https://www.youtube.com/watch?v=3Fv57Lbhmqg">https://www.youtube.com/watch?v=3Fv57Lbhmqg</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5980" class="journal has-notes has-details">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2017 12:35" href="/projects/exiv2/activity?from=2017-04-25">over 4 years</a> ago
+      <span id="journal-5980-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>image format</i> to <i>not-a-bug</i></li>
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>10.00 h</i> to <i>6.00 h</i></li>
+    </ul>
+    <div id="journal-5980-notes" class="wiki"><p>More good news.  I have testExiv2MemIO.cpp working by  adding a couple of lines of code.  These are lines of code that you already have.<pre>    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open((const Exiv2::byte*)file_data, file_size);
+    image-&gt;readMetadata(); // &lt;--- add this
+
+    // modify the Exiv2 metadata
+    Exiv2::ExifData&#38;      exifData  = image-&gt;exifData();  // &lt;--- add this
+    exifData["Exif.Image.Software"] = program;
+    exifData["Exif.Image.Artist"]   = program;</pre>I can't solve this issue until we can both reproduce the fault with identical code and identical test files.  Can I ask you to confirm that testExiv2MemIO.cpp is working for you with those changes? <pre>735 rmills@rmillsmbp:~/temp $ g++ testExiv2MemIO.cpp -lexiv2 -o testExiv2MemIO
+736 rmills@rmillsmbp:~/temp $ ./testExiv2MemIO ~/Downloads/src/DSC_2172_gp.NEF foo.NEF
+fread 33007232 bytes from /Users/rmills/Downloads/src/DSC_2172_gp.NEF
+fwrite 32996846 bytes to foo.NEF
+737 rmills@rmillsmbp:~/temp $ ls -alt ~/Downloads/src/DSC_2172_gp.NEF foo.NEF
+-rw-r--r--  1 rmills staff 32996846 Apr 25 13:22 foo.NEF
+-rwxr-xr-x+ 1 rmills staff 33007232 Apr 25 08:41 /Users/rmills/Downloads/src/DSC_2172_gp.NEF
+738 rmills@rmillsmbp:~/temp $ </pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5981" class="journal has-notes has-details">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2017 13:37" href="/projects/exiv2/activity?from=2017-04-25">over 4 years</a> ago
+      <span id="journal-5981-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>6.00 h</i> to <i>7.00 h</i></li>
+    </ul>
+    <div id="journal-5981-notes" class="wiki"><p>I've had lunch and looked again at your code.  The first branch of your code is working too hard.  If you open a path with ImageFactory, the image will be written to disk when the image is closed or goes out of scope.  You don't need to seek, copy the buffer or anything like that.  It's as simple as this:<pre>    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(path);
+    image-&gt;readMetadata();
+
+    // modify the Exiv2 metadata
+    Exiv2::ExifData&#38;      exifData  = image-&gt;exifData();
+    exifData["Exif.Image.Software"] = program;
+    exifData["Exif.Image.Artist"]   = program;
+    image-&gt;writeMetata();</pre>The second branch of your code is failing because you haven't opened the image for write!<pre>    Exiv2::FileIo file_out(fname1.c_str());
+    file_out.open(); // "wb" to write
+    // the program fails here:
+    file_out.write(image-&gt;io());</pre></p>
+
+
+	<p>I wrote testExiv2MemIO.cpp to illustrate manipulating in-memory images and how to write them to disk.  I thought that would match your libgphoto2 workflow.</p>
+
+
+	<p>Here's a simple example that only involves modifying an image that is already on disk: <pre>// g++ exiv2SetArtist.cpp -lexiv2 -o exiv2SetArtist
+
+#include &lt;exiv2/exiv2.hpp&gt;
+
+int main(int argc,const char* argv[])
+{
+    const char*           program  = argv[0];
+    if ( argc != 2 )      return printf("syntax %s path\n",program);
+
+    const char*           path     = argv[1];
+
+    // open the image
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(path);
+    image-&gt;readMetadata();
+
+    // modify the Exiv2 metadata
+    Exiv2::ExifData&#38;      exifData  = image-&gt;exifData();
+    exifData["Exif.Image.Software"] = program;
+    exifData["Exif.Image.Artist"]   = program;
+    image-&gt;writeMetadata();
+
+    return 0;
+}</pre>Build and test it: <pre>741 rmills@rmillsmbp:~/temp $ g++ exiv2SetArtist.cpp -lexiv2 -o exiv2SetArtist
+742 rmills@rmillsmbp:~/temp $ cp ~/Downloads/src/DSC_2172_gp.NEF .
+743 rmills@rmillsmbp:~/temp $ exiv2 -pa DSC_2172_gp.NEF | wc
+    210     997   14561
+744 rmills@rmillsmbp:~/temp $ ./exiv2SetArtist DSC_2172_gp.NEF 
+745 rmills@rmillsmbp:~/temp $ exiv2 -pa DSC_2172_gp.NEF | wc
+    210     998   14540
+746 rmills@rmillsmbp:~/temp $ exiv2 -pa -g Artist -g Software DSC_2172_gp.NEF 
+Exif.Image.Software                          Ascii      17  ./exiv2SetArtist
+Exif.Image.Artist                            Ascii      17  ./exiv2SetArtist
+747 rmills@rmillsmbp:~/temp $ </pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5982" class="journal has-notes">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2017 18:48" href="/projects/exiv2/activity?from=2017-04-25">over 4 years</a> ago
+      <span id="journal-5982-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5982-notes" class="wiki"><p>Returning to the code you presented at the start of this issue.  I think we now have the issue identified and you should make three changes to your code:<pre>unsigned long int file_size = 0;
+const char *file_data = NULL;
+
+with gp_file_get_data_and_size(file, &#38;file_data, &#38;file_size) i retrive the buffer and size for an NEF image (nikkon d810)
+After i try:
+
+Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open((const Exiv2::byte*)file_data, file_size);
+
+Exiv2::ExifData exifData;
+exifData["Exif.Image.Software"] = this-&gt;_metadataExif.Software;
+exifData["Exif.Image.Artist"] = this-&gt;_metadataExif.Artist;
+exifData["Exif.Image.Copyright"] = this-&gt;_metadataExif.Copyright;
+
+// Set EXIF data and write it to the file
+image-&gt;setExifData(exifData);
+image-&gt;writeMetadata();
+
+file_size = image-&gt;io().size(); 
+image-&gt;io().seek(0,Exiv2::BasicIo::beg);
+Exiv2::DataBuf buff = image-&gt;io().read(file_size);
+
+// ---------------------------------------------------------
+// Write the buff to disk
+FILE * filen = ::fopen(fname.c_str(), "w"); 
+::fwrite(buff.pData_, file_size, 1, filen); 
+::fclose(filen);
+
+gp_file_free(file);</pre>The changes are:</p>
+
+
+	<p>1) You need image->readMetadata() before attempting to manipulate the metadata in the image.</p>
+
+
+	<p>2) Get a reference to the metadata in the image with: <pre>Exiv2::ExifData&#38; exifData = image-&gt;exifData();</pre></p>
+
+
+	<p>3) Because you are operating on a reference to the metadata, I don't think you need the statement: <pre>image-&gt;setExifData(...)</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5983" class="journal has-notes">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/5425">Nacho Sánchez Moreno</a> <a title="26 Apr 2017 06:23" href="/projects/exiv2/activity?from=2017-04-26">over 4 years</a> ago
+      <span id="journal-5983-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5983-notes" class="wiki"><p>thanks a lot</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1290.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1290.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

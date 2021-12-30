@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="H7mZ9LGUsWDAwg3RvBKF30goTXhWgFLdW0pGiYGixGT99DIbw+59YJWmEt0DxYnsd7oZAadj82ematYBwpsjCw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/8575">Susanne Jaeckel</a> <a title="07 Dec 2018 22:01" href="/projects/exiv2/activity?from=2018-12-07">almost 3 years</a> ago</span></p>
+<div class="wiki">
+<p>Hello,</p>
+
+
+	<p>I'm trying to use libexiv2 (Version 0.25) for writing xmp-sidecar files for RAW files.</p>
+
+
+	<p>The first initial setting is working without problems (no matter, if I write xmp.Rating or Exif.Image.Artist). The first write works.<br />The Problem is, if I would like to update the entry. It doesn't work with my code using libexiv2 and even with:</p>
+
+
+<pre>
+exiv2 -M"set Exif.Image.Artist Ascii Susi2" PA120009.xmp
+</pre>
+
+	<p>Everything works, if I update the entries in an jpg etc. file. Initial setting and update is working.</p>
+
+
+	<p>Only the update for the xmp-sidecar file doesn't work. I might miss something. Should I post an example? (But with the above command -> same problem)</p>
+
+
+	<p>Happy for any information! :-)</p>
+
+
+	<p>Thanks in advance,<br />Susanne.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (15)</h3>
+  <div class="message reply" id="message-3250">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3250#message-3250">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Dec 2018 11:31" href="/projects/exiv2/activity?from=2018-12-08">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Susanne</p>
+
+
+	<p>Thanks for getting in touch.  And thank you for using Exiv2.    I've been working with Exiv2 for more than 10 years and I think this could be the first time that anybody has discussed side-car files.  And I think you have uncovered a bug that's been there forever!</p>
+
+
+	<p>You have also revealed a <em><strong>confuser</strong></em> error.  Any tag that begins with "Exif" is a member of the Exif family of tags and shouldn't be in XMP.  The library has <em><strong>convertors</strong></em> to synchronise Exif, IPTC and XMP.  So messing with Exif.Image.Artist in a side-car isn't a good idea, however it should work.</p>
+
+
+	<p>I'll investigate next week and give you an update.</p>
+
+
+	<p>You may be interested to hear that we reached Exiv2 v0.27 RC3 yesterday and I'm confident that we will achieve Exiv2 v0.27 GM on 28 December 2018.  <a class="external" href="http://exiv2.dyndns.org">http://exiv2.dyndns.org</a></p>
+
+
+	<p>Robin</p>
+
+
+<pre>686 rmills@rmillsmbp:~/temp $ exiv2 -pX http://clanmills.com/Stonehenge.jpg &gt; S.xmp
+687 rmills@rmillsmbp:~/temp $ xmllint --format --pretty 2 S.xmp 
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket
+begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta
+    xmlns:x="adobe:ns:meta/" 
+    x:xmptk="XMP Core 4.4.0-Exiv2" 
+  &gt;&lt;rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+    &gt;&lt;rdf:Description
+        xmlns:xmp="http://ns.adobe.com/xap/1.0/" 
+        xmlns:dc="http://purl.org/dc/elements/1.1/" 
+        rdf:about="" 
+        xmp:Rating="0" 
+        xmp:ModifyDate="2015-07-16T20:25:28+01:00" 
+      &gt;&lt;dc:description
+        &gt;&lt;rdf:Alt
+          &gt;&lt;rdf:li
+              xml:lang="x-default" 
+            &gt;Classic View&lt;/rdf:li
+          &gt;&lt;/rdf:Alt
+        &gt;&lt;/dc:description
+      &gt;&lt;/rdf:Description
+    &gt;&lt;/rdf:RDF
+  &gt;&lt;/x:xmpmeta
+&gt;
+&lt;?xpacket
+end="w"?&gt;
+688 rmills@rmillsmbp:~/temp $ for i in {1..5}; do exiv2 -M"set Exif.Image.Artist $i" S.xmp; done
+689 rmills@rmillsmbp:~/temp $ xmllint --format --pretty 2 S.xmp 
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket
+begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta
+    xmlns:x="adobe:ns:meta/" 
+    x:xmptk="XMP Core 4.4.0-Exiv2" 
+  &gt;&lt;rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+    &gt;&lt;rdf:Description
+        xmlns:xmp="http://ns.adobe.com/xap/1.0/" 
+        xmlns:dc="http://purl.org/dc/elements/1.1/" 
+        rdf:about="" 
+        xmp:ModifyDate="2015-07-16T20:25:28+01:00" 
+        xmp:Rating="0" 
+      &gt;&lt;dc:creator
+        &gt;&lt;rdf:Seq
+          &gt;&lt;rdf:li
+            &gt;1&lt;/rdf:li  &lt;---- This was only updated once!
+          &gt;&lt;/rdf:Seq
+        &gt;&lt;/dc:creator
+      &gt;&lt;dc:description
+        &gt;&lt;rdf:Alt
+          &gt;&lt;rdf:li
+              xml:lang="x-default" 
+            &gt;Classic View&lt;/rdf:li
+          &gt;&lt;/rdf:Alt
+        &gt;&lt;/dc:description
+      &gt;&lt;/rdf:Description
+    &gt;&lt;/rdf:RDF
+  &gt;&lt;/x:xmpmeta
+&gt;
+&lt;?xpacket
+end="w"?&gt;
+690 rmills@rmillsmbp:~/temp $ </pre></div>
+  
+  </div>
+  <div class="message reply" id="message-3251">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3251#message-3251">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Dec 2018 11:45" href="/projects/exiv2/activity?from=2018-12-08">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've logged a bug against v0.27 for this matter and hope it will be fixed.  <a class="external" href="https://github.com/Exiv2/exiv2/issues/589">https://github.com/Exiv2/exiv2/issues/589</a></p>
+
+
+	<p>I'm very surprised by this.  I almost can't imagine how that could happen as the code reads the XMP into an internal memory structure which is then modified by the -M"set..." command.  Then the XMP is rewritten to file, <em>if it has been modified</em>.  Clearly the XMP doesn't know it has been modified.  Ah, yes, there's the explanation.  It has something to do with the convertors who are busy restoring the data.  Crap!  The convertors are a bad idea.  We should only read/write exactly what is in the file.  No magic.  No confusion.  We should never use the convertors on a side-car.  I'm confident that I'll find this next week.  I expect it'll be a "low risk" fix although we are now in "code freeze" for v0.27.  I'll update you next week.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3252">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3252#message-3252">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Dec 2018 13:19" href="/projects/exiv2/activity?from=2018-12-08">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Susanne:</p>
+
+
+	<p>I've investigated this and reported my fix in <a class="external" href="https://github.com/Exiv2/exiv2/issues/589">https://github.com/Exiv2/exiv2/issues/589</a></p>
+
+
+	<p>As we are now in "code freeze", I'm unwilling to add this to Exiv2 v0.27.  If you built Exiv2 from source, you can update your code and rebuild.  If you don't want to build from source, I'm happy to complete the fix so that the test harness passes and give you a private build on v0.27.0.4 with this included.  Let me know which platform you require.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3253">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3253#message-3253">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/8575">Susanne Jaeckel</a> <a title="10 Dec 2018 11:50" href="/projects/exiv2/activity?from=2018-12-10">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Wow! Thanks a lot! That's fast! :-D</p>
+
+
+	<p>I saw, that libexiv2 could handle xmp-sidecar files, though why should i use another lib to handle them ;-)</p>
+
+
+	<p>From my point of view, I would be happy, if the converters (I think you mean e.g.: write Exif.Image.Artist to Xmp.dc.creator) would function as before, it's quite handy. And - from my point of view - would be nice, if the sidecar files and the image-files has the same logic from the view of the developer who uses libexiv2. ... just my 2ct. (If I'm allowed).</p>
+
+
+	<p>I'm currently use the packaged libexiv2 from Linux-Mint and Debian which is currently 0.25. I think I will need to compile it by myself for the future, to have the newest version available.</p>
+
+
+	<p>Thanks a lot Robin!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3254">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3254#message-3254">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Dec 2018 14:55" href="/projects/exiv2/activity?from=2018-12-10">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Susanne</p>
+
+
+	<p>Don't use another library.  Exiv2 is best of breed (by far).</p>
+
+
+	<p>When I published v0.27 RC3 on Friday, I hoped it would be the final RC.  Regrettably not.  Last night, a user reported some security issues which I will fix and push to RC4 later this week.</p>
+
+
+	<p>I will push "your fix" into RC4.  There is almost no risk to libexiv2 and no test suite changes.  It's simply a fix for a bug that's been there for about 10 years!</p>
+
+
+	<p>Perhaps you could download and install Exiv2 v0.27 RC4 Linux bundle and let me know how it works for you.   You don't need to build anything and I don't expect it to disturb your machine.  It'll be available tomorrow on <a class="external" href="http://exiv2.dyndns.org:8080/userContent/builds/Version/0.27.0.4/">http://exiv2.dyndns.org:8080/userContent/builds/Version/0.27.0.4/</a></p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3255">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3255#message-3255">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/8575">Susanne Jaeckel</a> <a title="10 Dec 2018 16:24" href="/projects/exiv2/activity?from=2018-12-10">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin, great to hear!</p>
+
+
+	<p>I'll try it tomorrow to build it and give it a try! Thanks a lot! :-)</p>
+
+
+	<p>Thanks a lot, again! :-)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3256">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3256#message-3256">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Dec 2018 17:32" href="/projects/exiv2/activity?from=2018-12-10">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>If you want to build it, you'll have to pull down the RC4 code:<br /><pre>$ git clone https://github.com/exiv2/exiv2 --depth 50 --branch 0.27-RC4
+$ cd exiv2
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+$ make test
+$ sudo make install</pre>Or you can pull down the bundle from exiv2.dyndns.org.  The build server runs Ubuntu.  I don't know if those builds can be used on Mint.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3257">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3257#message-3257">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/8575">Susanne Jaeckel</a> <a title="10 Dec 2018 17:39" href="/projects/exiv2/activity?from=2018-12-10">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin,</p>
+
+
+	<p>Don't know if it's already the version which I should test... (downloaded from github 0.27-RC4) or should I wait for <a class="external" href="http://exiv2.dyndns.org:8080">http://exiv2.dyndns.org:8080</a> ...?</p>
+
+
+	<p>I encountered the following:</p>
+
+
+	<p>In XMP-sidecars:<br />changing Exif.Image.Artist works only the first time. (changes Exif.Image.Artist and Xmp.dc.creator)<br />changing Xmp.dc.creator works like an array (like Xmp.dc.subject), it adds every entry to a list and shows this list comma-separated. And the list is displayed as Exif.Image.Artist.</p>
+
+
+	<p>In JPG-files:<br />changing Exif.Image.Artist changes only Exif.Image.Artist and I could change it as often as I like.<br />changing Xmp.dc.creator works like an array (like Xmp.dc.subject), it adds every entry to a list and shows this list comma-separated. It DOESN't change Exif.Image.Artist.</p>
+
+
+	<p>Sorry if I missunderstand something!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3258">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3258#message-3258">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Dec 2018 19:33" href="/projects/exiv2/activity?from=2018-12-10">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>The build is now available <a class="external" href="http://exiv2.dyndns.org:8080/userContent/builds/all/exiv2-0.27.0.4-Linux64-2018%3A12%3A10_18%3A56%3A49.tar.gz">http://exiv2.dyndns.org:8080/userContent/builds/all/exiv2-0.27.0.4-Linux64-2018%3A12%3A10_18%3A56%3A49.tar.gz</a></p>
+
+
+	<p>I'm not sure what you're looking at on Github.  Is it the issue report?  <a class="external" href="https://github.com/Exiv2/exiv2/issues/589">https://github.com/Exiv2/exiv2/issues/589</a>  I've pushed the fix for <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: SVN property changes (Closed)" href="/issues/589">#589</a> into branch 0.27-RC4, so if you've built from source, it should be working.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3259">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3259#message-3259">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/8575">Susanne Jaeckel</a> <a title="11 Dec 2018 11:47" href="/projects/exiv2/activity?from=2018-12-11">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I updated my git-clone of 0.27-RC4 this morning to the latest changes and did a recompile.</p>
+
+
+	<p>I have the following code to write my metadata to objects (e.g. xmp-files):</p>
+
+
+	<a name="my-code-to-write-metadata-is-something-like"></a>
+<h2 ><ins>my code to write metadata is something like</ins><a href="#my-code-to-write-metadata-is-something-like" class="wiki-anchor">&para;</a></h2>
+	<pre><code>void ImageBrowserModel::write(QString xmpfile, QString exifKey, QString text) {<br />        if (currentDirectory.exists(xmpFile)) {<br />            Exiv2::Image::AutoPtr xmpImage = Exiv2::ImageFactory::open(xmpFile.toLatin1().data());<br />            xmpImage-&gt;readMetadata();<br />            if (exifKey.startsWith("Exif")) {<br />                Exiv2::ExifData exifData = xmpImage-&gt;exifData();<br />                Exiv2::XmpProperties::registerNs("http://ns.adobe.com/tiff/1.0/", "tiff");<br />                exifData[exifKey.toLatin1().data()] = text.toLatin1().data();<br />                xmpImage-&gt;setExifData(exifData);<br />            }  else if (exifKey.startsWith("Xmp")) {<br />                Exiv2::XmpData xmpData = xmpImage-&gt;xmpData();<br />                Exiv2::XmpProperties::registerNs("http://ns.adobe.com/tiff/1.0/", "tiff");<br />                xmpData[exifKey.toLatin1().data()] = text.toLatin1().data();<br />                xmpImage-&gt;setXmpData(xmpData);<br />            }  else if (exifKey.startsWith("Iptc")) {<br />                Exiv2::IptcData iptcData = xmpImage-&gt;iptcData();<br />                Exiv2::XmpProperties::registerNs("http://ns.adobe.com/tiff/1.0/", "tiff");<br />                iptcData[exifKey.toLatin1().data()] = text.toLatin1().data();<br />                xmpImage-&gt;setIptcData(iptcData);<br />            }<br />            xmpImage-&gt;writeMetadata();<br />        } else {<br />            Exiv2::Image::AutoPtr xmpImage = Exiv2::ImageFactory::create(Exiv2::ImageType::xmp, xmpFile.toLatin1().data());<br />            if (exifKey.startsWith("Exif")) {<br />                Exiv2::ExifData exifData;<br />                Exiv2::XmpProperties::registerNs("http://ns.adobe.com/tiff/1.0/", "tiff");<br />                exifData[exifKey.toLatin1().data()] = text.toLatin1().data();<br />                xmpImage-&gt;setExifData(exifData);<br />            }  else if (exifKey.startsWith("Xmp")) {<br />                Exiv2::XmpData xmpData;<br />                Exiv2::XmpProperties::registerNs("http://ns.adobe.com/tiff/1.0/", "tiff");<br />                xmpData[exifKey.toLatin1().data()] = text.toLatin1().data();<br />                xmpImage-&gt;setXmpData(xmpData);<br />            }  else if (exifKey.startsWith("Iptc")) {<br />                Exiv2::IptcData iptcData;<br />                Exiv2::XmpProperties::registerNs("http://ns.adobe.com/tiff/1.0/", "tiff");<br />                iptcData[exifKey.toLatin1().data()] = text.toLatin1().data();<br />                xmpImage-&gt;setIptcData(iptcData);<br />            }<br />            xmpImage-&gt;writeMetadata();<br />        }<br />    }</code></pre>
+
+
+	<a name="my-tests-are"></a>
+<h2 ><ins>my tests are</ins><a href="#my-tests-are" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>1.) if the file doesn't exists and I write <strong>Exif.Image.Artist = This is a test</strong>, it results in: (output of <strong>exiv2 -p a &lt;filename&gt;</strong>)</p>
+
+
+<pre>
+Exif.Image.Artist                            Ascii      15  This is a test
+Iptc.Application2.Byline                     String     14  This is a test
+Iptc.Envelope.CharacterSet                   String      3  
+Xmp.dc.creator                               XmpSeq      1  This is a test
+</pre>
+
+	<p>2.) if the file exists and I try to write <strong>Exif.Image.Artist = This a test2</strong>, nothing changed.</p>
+
+
+	<p>3.) even with <strong>exiv2 -M"set Exif.Image.Artist Ascii This is a test2" RAW_OLYMPUS_E-M10.xmp</strong> same result, nothing changed.</p>
+
+
+	<p>4.) if the file exists and I try to write <strong>Xmp.dc.creator = This is a test2</strong> it results in:</p>
+
+
+<pre>
+Exif.Image.Artist                            Ascii      32  This is a test, This is a test2
+Iptc.Application2.Byline                     String     14  This is a test
+Iptc.Application2.Byline                     String     15  This is a test2
+Iptc.Envelope.CharacterSet                   String      3  
+Xmp.dc.creator                               XmpSeq      2  This is a test, This is a test2
+</pre>
+
+	<p>5.) if the file exists and I execute <strong>exiv2 -M"set Xmp.dc.creator XmpSeq This is a test3" RAW_OLYMPUS_E-M10.xmp</strong>, it results in:</p>
+
+
+<pre>
+Exif.Image.Artist                            Ascii      49  This is a test, This is a test2, This is a test3
+Iptc.Application2.Byline                     String     14  This is a test
+Iptc.Application2.Byline                     String     15  This is a test2
+Iptc.Application2.Byline                     String     15  This is a test3
+Iptc.Envelope.CharacterSet                   String      3  
+Xmp.dc.creator                               XmpSeq      3  This is a test, This is a test2, This is a test3
+</pre>
+
+	<p>6.) and 7.)<br />Is it correct, that with<br /><strong>exiv2 -M"del Exif.Image.Artist Ascii" RAW_OLYMPUS_E-M10.xmp</strong> and<br /><strong>exiv2 -M"del Xmp.dc.creator" RAW_OLYMPUS_E-M10.xmp</strong><br />nothing changed and the output is still:</p>
+
+
+	<p>susanne@snoopy ~/abc/OlyRawTest2 $ exiv2 -p a RAW_OLYMPUS_E-M10.xmp</p>
+
+
+<pre>
+Exif.Image.Artist                            Ascii      49  This is a test, This is a test2, This is a test3
+Iptc.Application2.Byline                     String     14  This is a test
+Iptc.Application2.Byline                     String     15  This is a test2
+Iptc.Application2.Byline                     String     15  This is a test3
+Iptc.Envelope.CharacterSet                   String      3  
+Xmp.dc.creator                               XmpSeq      3  This is a test, This is a test2, This is a test3
+</pre>
+
+	<a name="my-conclusion-"></a>
+<h2 ><ins>my conclusion ...</ins><a href="#my-conclusion-" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>I'm happy, that my code results in the same as the command-line utility! (uff! yeah! :-) )</p>
+
+
+	<p>Would you think, that this behaviour is the expected one? (Makes me a bit confused... )</p>
+
+
+	<p>Initial writings could be done through the Exif-Tags, changes only via the Xmp-tags?</p>
+
+
+	<p>For me, it would be great to also have the possibility, to change the content through exif-tags also ... (But I know it's your project and decision!) :-)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3260">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3260#message-3260">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Dec 2018 14:25" href="/projects/exiv2/activity?from=2018-12-11">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Susanne</p>
+
+
+	<p>Would you like to talk one-to-one on Skype?  I'm in England.  My Skype name is "clanmills".  Or we can talk on the phone, if you prefer.  I'm 100% confident of success and that you will be happy.  A little more work will get us to your destination.</p>
+
+
+	<p>I didn't write Exiv2, so I'm not too sure what's expected in some places.  And for sure, I don't know what you expect!   I don't think the convertors are a good idea.  I like deterministic systems.  The convertors introduce some "random" behaviour.  However the convertors have been there forever, so I can't just "yang them out".</p>
+
+
+	<p>Comments:<br />1) You don't need to register the tiff namespace.  It's "preregistered" for you.  You can see the pregistered namespace with the command <strong><code>$ exiv2 --verbose --version</code></strong>.  And you can filter that with --grep:<pre>522 rmills@rmillsmbp:~/gnu/exiv2/team/drawings $ exiv2 -vVg xmlns | grep tiff
+xmlns=tiff:http://ns.adobe.com/tiff/1.0/
+523 rmills@rmillsmbp:~/gnu/exiv2/team/drawings $ </pre></p>
+
+
+	<p>2) The "this is a test, this is a test" is because Xmp.dc.creator is an XmpSeq (an array).  So every time you define another value, it's added to the XmpSeq.  You can delete the XmpSeq with <strong><code>-M"del Xmp.dc.creator foo.xmp" </code></strong> and then define it as an XmpText with <strong><code>-M"set Xmp.dc.creator  XmpText Robin Mills" foo.xmp </code></strong>.</p>
+
+
+	<p>3) I think it's very useful to inspect the XML in the image: <strong><code>$ exiv2 -pX foo.xmp | xmllint --format -- </code></strong> as this makes it easier to see what's happing.  This is very useful when you are operating with XMPSeq and XMPBag (a structure/object entity).  There's also a utility exiv2json which will format the objects in JSON which you can browse.</p>
+
+
+	<p>4) I don't think you need ASCII in the code <strong><code>-M"del .... ASCII" image.xmp</code></strong></p>
+
+
+	<p>5) Is the only difference in the <strong><code>if ( exists ) {...} is </code></strong> calling ImageFactory create or open.  If that's the case we can condense this to::<br /><pre>
+void ImageBrowserModel::write(QString xmpfile, QString exifKey, QString text)
+{
+    Exiv2::Image::AutoPtr xmpImage = currentDirectory.exists(xmpFile) 
+                                   ? Exiv2::ImageFactory::open(xmpFile.toLatin1().data())
+                                   : Exiv2::ImageFactory::create(Exiv2::ImageType::xmp, xmpFile.toLatin1().data())
+                                   ;
+    xmpImage-&gt;readMetadata();
+    if (exifKey.startsWith("Exif")) {
+        Exiv2::ExifData exifData = xmpImage-&gt;exifData();
+        exifData[exifKey.toLatin1().data()] = text.toLatin1().data();
+        xmpImage-&gt;setExifData(exifData);
+    }  else if (exifKey.startsWith("Xmp")) {
+        Exiv2::XmpData xmpData = xmpImage-&gt;xmpData();
+        xmpData[exifKey.toLatin1().data()] = text.toLatin1().data();
+        xmpImage-&gt;setXmpData(xmpData);
+    }  else if (exifKey.startsWith("Iptc")) {
+        Exiv2::IptcData iptcData = xmpImage-&gt;iptcData();
+        iptcData[exifKey.toLatin1().data()] = text.toLatin1().data();
+        xmpImage-&gt;setIptcData(iptcData);
+    }
+    xmpImage-&gt;writeMetadata();
+}
+</pre>And then I can refactor into two functions (to remove the Qt stuff):<pre>void writeMetadata(const char* xmpFile, const char* exifKey, const char* text)
+{
+    bool  bExists = false;
+    FILE* f       = fopen(xmpFile,"r");
+    if  ( f ) {
+        fclose(f);
+        bExists = true ;
+    }
+    Exiv2::Image::AutoPtr xmpImage = bExists
+                                   ? Exiv2::ImageFactory::open(xmpFile)
+                                   : Exiv2::ImageFactory::create(Exiv2::ImageType::xmp, xmpFile)
+                                   ;
+    xmpImage-&gt;readMetadata();
+    if (exifKey.startsWith("Exif")) {
+        Exiv2::ExifData exifData = xmpImage-&gt;exifData();
+        exifData[exifKey.toLatin1().data()] = ;
+        xmpImage-&gt;setExifData(exifData);
+    }  else if (exifKey.startsWith("Xmp")) {
+        Exiv2::XmpData xmpData = xmpImage-&gt;xmpData();
+        xmpData[exifKey.toLatin1().data()] = text.toLatin1().data();
+        xmpImage-&gt;setXmpData(xmpData);
+    }  else if (exifKey.startsWith("Iptc")) {
+        Exiv2::IptcData iptcData = xmpImage-&gt;iptcData();
+        iptcData[exifKey.toLatin1().data()] = text.toLatin1().data();
+        xmpImage-&gt;setIptcData(iptcData);
+    }
+    xmpImage-&gt;writeMetadata();
+}
+
+void ImageBrowserModel::write(QString xmpfile, QString exifKey, QString text)
+{
+    writeMetadata(xmpfile.text.toLatin1().data(), exifKey.text.toLatin1().data(),text.text.toLatin1().data());
+}</pre>So now we have a function <strong><code>writeMetadata()</code></strong> which you can call from Qt and I can use from the command line.</p>
+
+
+	<p>6) I'm going to get some coffee and walk each of your commands using the dentist's method (you pull them out, <em><strong>one at a time</strong></em>).</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3261">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3261#message-3261">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/8575">Susanne Jaeckel</a> <a title="11 Dec 2018 15:14" href="/projects/exiv2/activity?from=2018-12-11">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin,</p>
+
+
+	<p>please don't invest so much time in it. It's my problem, I don't want to hold you back from your day to day work!</p>
+
+
+	<p>I've so little knowledge about c++ and qt (I'm more in groovy/grails/java the last years) but I picked c++ and qt for a little private project of mine (<a class="external" href="https://github.com/susannej/interlace">https://github.com/susannej/interlace</a>  but it's really dirty code!!! Need lots of cleanup!)<br />Currently I display a lot of exif/xmp data for each photo, I should condense it to the most important and do a programmatic switch for updating (if the user selects "copyright" I should update Xmp.dc.rights for instance if it's an xmp and Exif.Image.Copyright and Xmp.dc.rights if it's an jpeg etc.) But that's nothing which belongs to exiv2 and I wouldn't like to spam here with my own program problems!</p>
+
+
+	<p>Many, many thanks!!! :-)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3262">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3262#message-3262">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/4190">Jim Easterbrook</a> <a title="11 Dec 2018 17:59" href="/projects/exiv2/activity?from=2018-12-11">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Susanne,</p>
+
+
+	<p>If you're doing a lot of metadata handling, and working with both Exif and XMP, then it might be worth having a look at the Metadata Working Group (MWG) guidelines (if you haven't already). They have good advice on how to handle conflicts between different representations of the same information. The specs should be at <a class="external" href="http://www.metadataworkinggroup.org/specs/">http://www.metadataworkinggroup.org/specs/</a> but the site's not currently working for me.</p>
+
+
+	<p>(My little metadata project might amuse you: <a class="external" href="https://github.com/jim-easterbrook/Photini">https://github.com/jim-easterbrook/Photini</a>)</p>
+
+
+	<p>Jim</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3263">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3263#message-3263">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Dec 2018 20:38" href="/projects/exiv2/activity?from=2018-12-11">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jim:<br />Nice to hear from you again.  It's been a while.  More than a year, perhaps?</p>
+
+
+	<p>You're right about MWG.  I know lots about manipulating metadata in C++.  What does the data mean and how should it be used to ensure smooth work-flows across products.  I believe that's the business of MWG.</p>
+
+
+	<p>Susanne:<br />I'm retired.  That's why I have so much time to spend on Exiv2!  So, if I can help, please let me know.  I admire your courage in taking on Qt/C++ on your own.  It's a big/bad/amazing/robust/fragile SOB!</p>
+
+
+	<p>Both:<br />When we release Exiv2 v0.27 on December 28, 2018, I will stop contributing C++.  In 2019/2020, I'll deal with users, releases, documentation and the web-site.  I plan less time for Exiv2 to pursue other items on my bucket list.  <a class="external" href="https://clanmills.com/BucketList.shtml">https://clanmills.com/BucketList.shtml</a></p>
+
+
+	<p>Good Luck to you both with your projects and thank you for using Exiv2.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3266">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3249?r=3266#message-3266">RE: libexiv2 for writing and updating xmp-sidecar file (update doesn&#39;t work)</a>
+    -
+    Added by <a class="user active" href="/users/8575">Susanne Jaeckel</a> <a title="17 Dec 2018 11:01" href="/projects/exiv2/activity?from=2018-12-17">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Sorry for the delay, I catched a bad cold ...</p>
+
+
+	<p>Jim:<br />Thanks for the tip! Thanks to the wayback-machine, I could get a copy of it!<br />I'll have a look into your project, looks promising! I hope I could get a few ideas from it. :-) Nothing to amuse, that's something I had in my mind at first, but I would like to extend it a bit (with a database behind etc.) Thanks for the link!</p>
+
+
+	<p>Robin:<br />Thanks a lot! It's nice to know to have someone I could ask! :-)</p>
+
+
+	<p>Your bucket-list is something, I should have to work out for me, too. My plan - for the moment - is, to spend next year more time for photographing and guitar-playing (and get to a point with my little program, where I could tag and find my images easier than now...) (for photographing -> travelling to different places at the german north-sea coast and/or Scotland etc.)</p>
+
+
+	<p>Thanks a lot to you!</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-15/15)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

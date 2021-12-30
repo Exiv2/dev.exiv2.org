@@ -1,0 +1,132 @@
+Index: config/ConfigureChecks.cmake
+===================================================================
+--- config/ConfigureChecks.cmake	(revision 2076)
++++ config/ConfigureChecks.cmake	(working copy)
+@@ -30,20 +30,22 @@
+ #
+ # ConfigureChecks for exiv2
+ 
+-set( CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/config )
++set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/config )
+ include( CheckIncludeFile )
+ include( CheckFunctionExists )
+ include( CheckSymbolExists )
+ include( CheckCSourceCompiles )
+ include( CheckCXXSourceCompiles )
+ 
++include( FindIconv )
++
+ set( STDC_HEADERS ON )
+ set( HAVE_DECL_STRERROR_R 0 )
+ 
+ set( HAVE_PRINTUCS2 ${EXIV2_ENABLE_PRINTUCS2} )
+ set( HAVE_LENSDATA ${EXIV2_ENABLE_LENSDATA} )
+ 
+-include_directories( ${CMAKE_INCLUDE_PATH} ${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}/xmpsdk/include )
++include_directories( ${CMAKE_INCLUDE_PATH} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/include )
+ link_directories( ${CMAKE_LIBRARY_PATH} )
+ set( CMAKE_REQUIRED_INCLUDES ${CMAKE_INCLUDE_PATH} )
+ 
+@@ -84,10 +86,11 @@
+ endif( EXIV2_ENABLE_COMMERCIAL )
+ 
+ find_package(Iconv)
+-if( ICONV_TEST )
++if( ICONV_FOUND )
+     set( HAVE_ICONV 1 )
++    include_directories(${ICONV_INCLUDE_DIR})
+     message ( "================> ICONV_LIBRARIES : " ${ICONV_LIBRARIES} )
+-endif( ICONV_TEST )
++endif( ICONV_FOUND )
+ 
+ if( ICONV_ACCEPTS_CONST_INPUT )
+     message ( "ICONV_ACCEPTS_CONST_INPUT : yes" )
+@@ -236,14 +239,14 @@
+ #    message( EXV_${entry} " : " ${${entry}} )
+ endforeach( entry ${EXV_SYMBOLS} )
+ 
+-configure_file( config/config.h.cmake ${CMAKE_BINARY_DIR}/exv_conf.h )
+-configure_file( config/exv_msvc.h.cmake ${CMAKE_BINARY_DIR}/exv_msvc.h COPYONLY )
+-install( FILES ${CMAKE_BINARY_DIR}/exv_conf.h DESTINATION include/exiv2 )
+-install( FILES ${CMAKE_BINARY_DIR}/exv_msvc.h DESTINATION include/exiv2 )
++configure_file( config/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/exv_conf.h )
++configure_file( config/exv_msvc.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/exv_msvc.h COPYONLY )
++install( FILES ${CMAKE_CURRENT_BINARY_DIR}/exv_conf.h DESTINATION include/exiv2 )
++install( FILES ${CMAKE_CURRENT_BINARY_DIR}/exv_msvc.h DESTINATION include/exiv2 )
+ 
+ if( NOT MSVC )
+-    configure_file( config/exiv2.pc.cmake ${CMAKE_BINARY_DIR}/exiv2.pc )
+-    install( FILES ${CMAKE_BINARY_DIR}/exiv2.pc DESTINATION lib/pkgconfig )
++    configure_file( config/exiv2.pc.cmake ${CMAKE_CURRENT_BINARY_DIR}/exiv2.pc )
++    install( FILES ${CMAKE_CURRENT_BINARY_DIR}/exiv2.pc DESTINATION lib/pkgconfig )
+ endif( NOT MSVC )
+ 
+ # ******************************************************************************
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(revision 2076)
++++ CMakeLists.txt	(working copy)
+@@ -54,7 +54,7 @@
+ option( BUILD_samples             "Build the unit tests"                                  OFF )
+ 
+ if( MINGW OR UNIX )
+-    add_definitions( -Wall -Wcast-align -Wpointer-arith -Wformat-security -Wmissing-format-attribute -Woverloaded-virtual -W )
++        add_definitions( -Wall -Wcast-align -Wpointer-arith -Wformat-security -Wmissing-format-attribute -Woverloaded-virtual -W )
+ endif( MINGW OR UNIX )
+ 
+ if( EXIV2_ENABLE_XMP )
+@@ -71,22 +71,22 @@
+ set( INSTALL_TARGET_STANDARD_ARGS RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib )
+ 
+ # add sources from XMPSDK directory - this needs to be done here
+-set( XMPSRC ${CMAKE_SOURCE_DIR}/xmpsdk/src/ExpatAdapter.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/MD5.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/ParseRDF.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/UnicodeConversions.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/WXMPIterator.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/WXMPMeta.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/WXMPUtils.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/XML_Node.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/XMPCore_Impl.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/XMPIterator.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/XMPMeta-GetSet.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/XMPMeta-Parse.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/XMPMeta-Serialize.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/XMPMeta.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/XMPUtils-FileInfo.cpp
+-            ${CMAKE_SOURCE_DIR}/xmpsdk/src/XMPUtils.cpp )
++set( XMPSRC ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/ExpatAdapter.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/MD5.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/ParseRDF.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/UnicodeConversions.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/WXMPIterator.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/WXMPMeta.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/WXMPUtils.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/XML_Node.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/XMPCore_Impl.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/XMPIterator.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/XMPMeta-GetSet.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/XMPMeta-Parse.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/XMPMeta-Serialize.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/XMPMeta.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/XMPUtils-FileInfo.cpp
++            ${CMAKE_CURRENT_SOURCE_DIR}/xmpsdk/src/XMPUtils.cpp )
+ 
+ # the following lines need to be added to circumvent the error in xmpsdk\src\MD5.h
+ if( ${EXV_HAVE_STDINT_H} )
+@@ -99,3 +99,15 @@
+ if( BUILD_samples )
+     add_subdirectory( samples )
+ endif( BUILD_samples )
++
++if( EXIV2_ENABLE_XMP )
++    add_dependencies(exiv2 xmp)
++endif( EXIV2_ENABLE_XMP )
++
++# Compatibility settings for interoperability with FindExiv2.cmake
++set(EXIV2_FOUND true                               PARENT_SCOPE)
++set(EXIV2_LIBRARY exiv2                            PARENT_SCOPE)
++set(EXIV2_INCLUDE_DIR
++    ${CMAKE_CURRENT_BINARY_DIR}
++    ${CMAKE_CURRENT_SOURCE_DIR}/src                PARENT_SCOPE)
++set(EXIV2_LIBRARIES exiv2 ${XMPLIB}                PARENT_SCOPE)

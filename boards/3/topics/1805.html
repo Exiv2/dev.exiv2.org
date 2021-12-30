@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Build Failure on Windows Using Clang 3.4.2 with Cygwin - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="fMTEdgY1g9kLqEow2iCYK8pMstcx3lJz9cvVEY22VGyeiW+ZdE9P2V7MVTxl95QY9d7mrsA988kI60WZzo+zAw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Build Failure on Windows Using Clang 3.4.2 with Cygwin</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/3762">Nehal J Wani</a> <a title="17 Aug 2014 13:23" href="/projects/exiv2/activity?from=2014-08-17">over 7 years</a> ago</span></p>
+<div class="wiki">
+<p>I was trying to build exiv2 on Win7 using cygwin and clang compiler and following is the error that the build encounters:<br /><pre>
+libtool: compile:  clang++ -O2 -Wall -Wcast-align -Wpointer-arith -Wformat-security -Wmissing-format-attribute -Woverloaded-virtual -W -MMD 
+-I. -DEXV_LOCALEDIR=\"/usr/local/share/locale\" -I../xmpsdk/include -c -DEXV_BUILDING_LIB=1 futils.cpp  -DDLL_EXPORT -DPIC -o .libs/futils.o
+futils.cpp:112:15: error: cannot initialize a variable of type 'int' with an rvalue of type 'char *'
+        int   dummy = strerror_r(error, buff, n);
+              ^       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+Makefile:184: recipe for target 'futils.o' failed
+make[1]: *** [futils.o] Error 1
+make[1]: Leaving directory '/home/user/trunk/src'
+Makefile:60: recipe for target 'all' failed
+make: *** [all] Error 2
+</pre><br />Interestingly, when I did ./configure, one of the things reported was:<br />checking whether strerror_r returns char *... no</p>
+
+
+	<p>If I try building exiv2 on fedora/ubuntu using clang, it doesn't throw any error. (Those clang versions are older)</p>
+
+
+	<p>Also, man strerror_r, states:<br /><pre>
+       int strerror_r(int errnum, char *buf, size_t buflen);
+                   /* XSI-compliant */
+
+       char *strerror_r(int errnum, char *buf, size_t buflen);
+                   /* GNU-specific */
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       The XSI-compliant version of strerror_r() is provided if:
+       (_POSIX_C_SOURCE &gt;= 200112L || _XOPEN_SOURCE &gt;= 600) &#38;&#38; ! _GNU_SOURCE
+       Otherwise, the GNU-specific version is provided.
+</pre><br />Since I am no expert in this matter, I asked around on #llvm at irc.oftc.net and one guy suggested to use the correct feature test macro. Something like adding -D_XOPEN_SOURCE=600 to the CPP Compiler flags, so I I edited _config/config.mk.in and added -D_XOPEN_SOURCE=600 to CPPFLAGS. But it didn't help.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (5)</h3>
+  <div class="message reply" id="message-1810">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1805?r=1810#message-1810">RE: Build Failure on Windows Using Clang 3.4.2 with Cygwin</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Aug 2014 15:15" href="/projects/exiv2/activity?from=2014-08-18">over 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>I think you've fallen into a dark and mysterious place in the code base.  I believe there are two "standards" for strerror_r - one that returns an int, and the other that returns a char*.  Try extending the code at line 92 to save GCC 4.8 to also help out Clang<br /><pre>
+// Linux GCC 4.8 appears to be confused about strerror_r
+#ifndef EXV_STRERROR_R_CHAR_P
+#ifdef  __gnu_linux__
+#define EXV_STRERROR_R_CHAR_P
+#endif
+#endif
+</pre><br />Change to:<br /><pre>
+// Linux GCC 4.8 and Clang appear to be confused about strerror_r
+#ifndef EXV_STRERROR_R_CHAR_P
+#if defined( __gnu_linux__) || defined(__clang__)
+#define EXV_STRERROR_R_CHAR_P
+#endif
+#endif
+</pre><br />Shawn and I build Exiv2 with Clang in late 2012.  Clang is now the only Apple supported compiler on the Mac.  I don't believe it is really ready for "prime time" on Windows. However, I believe Clang is going to be important going forward.  For the moment, Exiv2 builds with GCC on most platforms, all MSVC compilers 2003-2012, and Xcode 5 (clang).</p>
+
+
+	<p>The UI for the Exiv2 build server provides support for selecting GCC/Clang.  Currently, the build is always performed with GCC on *nix platforms.  I'm hoping that early in 2015 (once v<br />0.25 has shipped) to build/test clang builds on Unix and Windows on a regular basis.  We're not there yet.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1811">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1805?r=1811#message-1811">RE: Build Failure on Windows Using Clang 3.4.2 with Cygwin</a>
+    -
+    Added by <a class="user active" href="/users/3762">Nehal J Wani</a> <a title="19 Aug 2014 04:06" href="/projects/exiv2/activity?from=2014-08-19">over 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>My solution of adding -D_XOPEN_SOURCE=600 and your solution of changing line 92, both get rid of the above error, which is good, but at linking the final binary, the build cries:<br /><pre>
+libtool: link: clang++ -o ../bin/.libs/exiv2 exiv2.o actions.o utils.o  -L/home/user/trunk/xmpsdk/src ./.libs/libexiv2.a -liconv -lz -lexpat -lpsapi -L/usr/local/lib
+exiv2.o:fake:(.eh_frame+0x67): undefined reference to `__gxx_personality_v0'
+exiv2.o:fake:(.eh_frame$_ZN6ParamsC2Ev+0x13): undefined reference to `__gxx_personality_v0'
+exiv2.o:fake:(.eh_frame$_ZN6ParamsD2Ev+0x13): undefined reference to `__gxx_personality_v0'
+exiv2.o:fake:(.eh_frame$_ZN6ParamsD0Ev+0x13): undefined reference to `__gxx_personality_v0'
+exiv2.o:fake:(.eh_frame$_ZNSt6vectorISsSaISsEE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPSsS1_EERKSs+0x13): undefined reference to `__gxx_personality_v0'
+exiv2.o:fake:(.eh_frame$_ZNSt20__uninitialized_copyILb0EE13__uninit_copyIPSsS2_EET0_T_S4_S3_+0x13): more undefined references to `__gxx_personality_v0' follow
+collect2: error: ld returned 1 exit status
+clang: error: linker (via gcc) command failed with exit code 1 (use -v to see invocation)
+Makefile:241: recipe for target '../bin/exiv2' failed
+make[1]: *** [../bin/exiv2] Error 1
+make[1]: Leaving directory '/home/user/trunk/src'
+Makefile:60: recipe for target 'all' failed
+make: *** [all] Error 2
+</pre></p>
+
+
+	<p>I am not very sure, but we may need <a href="http://libcxxabi.llvm.org/" class="external">libcxxabi</a> and have -lc++abi as a compiler flag but this is not available in cygwin collection of packages. We may have to build it from source :'(</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1812">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1805?r=1812#message-1812">RE: Build Failure on Windows Using Clang 3.4.2 with Cygwin</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Aug 2014 04:12" href="/projects/exiv2/activity?from=2014-08-19">over 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Very good progress, Nehal.  I think we should defer this and visit it again in 2015. It seems that Clang isn't ready for everyday use yet on Windows.  If we have this trouble, so will our users.  No user has requested this.</p>
+
+
+	<p>Can you confirm that exiv2 is working OK with Clang on Linux?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1813">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1805?r=1813#message-1813">RE: Build Failure on Windows Using Clang 3.4.2 with Cygwin</a>
+    -
+    Added by <a class="user active" href="/users/3762">Nehal J Wani</a> <a title="19 Aug 2014 04:49" href="/projects/exiv2/activity?from=2014-08-19">over 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes Robin, on <em>linux</em> (fedora/ubuntu), build with <em>clang</em> works just fine.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1814">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1805?r=1814#message-1814">RE: Build Failure on Windows Using Clang 3.4.2 with Cygwin</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Aug 2014 05:27" href="/projects/exiv2/activity?from=2014-08-19">over 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Right.  We're building fine on the Mac with Xcode5/Clang and you're reporting the Linux/Clang is also fine.  We'll support those for v0.25 from Jenkins.  We'll revisit Windows/Clang support next year.  This is the status the Shawn and I discovered in November 2012.  For sure, Windows/Clang is working better now, however it's still not working well enough for us to support it.</p>
+
+
+	<p><a class="external" href="http://clanmills.com/exiv2/clang.shtml">http://clanmills.com/exiv2/clang.shtml</a></p>
+
+
+	<p>For v0.25 it's more important to support MinGW because that is needed by our Qt users.  There have ben Qt/Exiv2 topics discussed on the Forum, however nobody's ever asked about Clang/Windows.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-5/5)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

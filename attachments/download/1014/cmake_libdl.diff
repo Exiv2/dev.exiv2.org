@@ -1,0 +1,26 @@
+Index: src/CMakeLists.txt
+===================================================================
+--- src/CMakeLists.txt	(revision 4326)
++++ src/CMakeLists.txt	(working copy)
+@@ -238,12 +238,6 @@
+     OUTPUT_NAME   exiv2
+ )
+ 
+-IF ( UNIX ) 
+-  IF ( NOT CYGWIN AND NOT MINGW )
+-    SET (LINUX 1)
+-  ENDIF()
+-ENDIF()
+-
+ if ( MSVC )
+     source_group("Header Files" FILES ${LIBEXIV2_HDR} )
+     TARGET_LINK_LIBRARIES( exiv2lib ${PRIVATE_VAR} ${EXPAT_LIBRARIES} )
+@@ -252,7 +246,7 @@
+     source_group("Header Files" FILES ${SSH_HDR} )
+     TARGET_LINK_LIBRARIES( exiv2lib ${PRIVATE_VAR} ${SSH_LIBRARIES} )
+ else()
+-    if ( LINUX )
++    if ( ${CMAKE_SYSTEM_NAME} STREQUAL "Linux" )
+         TARGET_LINK_LIBRARIES( exiv2lib ${PRIVATE_VAR} dl ${EXPAT_LIBRARIES} )
+         TARGET_LINK_LIBRARIES( exiv2lib ${PRIVATE_VAR} dl ${CURL_LIBRARIES} )
+         TARGET_LINK_LIBRARIES( exiv2lib ${PRIVATE_VAR} dl ${SSH_LIBRARIES} )

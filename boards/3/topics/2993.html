@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>retrieving exif data blob - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="YtKS9LDQ+0u4H15hODBBWni3MjaR1z6pZJ1O+YX1ytuAnzkbwqo3S+17QW2H501pRyVmT2A0nxOZvd5xxswttA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>retrieving exif data blob</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/6307">folkert van heusden</a> <a title="27 Sep 2017 20:04" href="/projects/exiv2/activity?from=2017-09-27">about 4 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>I would like to add the exif data by hand: while generating a jpeg-file, just before the pixels are written, I would like to dump the exif blob.<br />How can I retrieve the exif data as binary data that can be inserted in a JPEG_APP+1?</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (2)</h3>
+  <div class="message reply" id="message-2994">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2993?r=2994#message-2994">RE: retrieving exif data blob</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Sep 2017 20:35" href="/projects/exiv2/activity?from=2017-09-27">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>I don't believe we have command options for this exact feature.  However Exiv2 can help you to achieve this goal.</p>
+
+
+	<p>The command:<pre>$ exiv2 -pS image</pre>will review the structure of the JPG.  For example:<pre>$ exiv2 -pS ~/Stonehenge.jpg 
+STRUCTURE OF JPEG FILE: /Users/rmills/Stonehenge.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe1 APP1  |   15288 | Exif..II*......................
+   15292 | 0xffe1 APP1  |    2610 | http://ns.adobe.com/xap/1.0/.&lt;?x
+   17904 | 0xffed APP13 |      96 | Photoshop 3.0.8BIM.......'.....
+   18002 | 0xffe2 APP2  |    4094 | MPF.II*...............0100.....
+   22098 | 0xffdb DQT   |     132 
+   22232 | 0xffc0 SOF0  |      17 
+   22251 | 0xffc4 DHT   |     418 
+   22671 | 0xffda SOS  
+$ </pre>We support the options: <em><strong><code>-pX</code></strong></em> to extract XMP (xml) to stdout and <em><strong><code>-pC</code></strong></em> to extract the ICC profile to stdout.  There is no option <em><strong><code>-pE</code></strong></em> to extract Exif to stdout.  Nobody has ever mention anything like this before!  However you can use the utility dd to extract this data using this using the information on the line:<pre>       2 | 0xffe1 APP1  |   15288 | Exif..II*......................</pre>This is discussed here:  <a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/The_Metadata_in_TIFF_files">http://dev.exiv2.org/projects/exiv2/wiki/The_Metadata_in_TIFF_files</a></p>
+
+
+	<p>There's a quick way to do this with the option <em><strong><code>-ee</code></strong></em> which extracts the exif metadata into a .exv file. <pre>$ exiv2 -pS ~/Stonehenge.exv 
+STRUCTURE OF JPEG FILE: /Users/rmills/Stonehenge.exv
+ address | marker       |  length | data
+       0 | 0xff01      
+       7 | 0xffe1 APP1  |   15296 | Exif..II*......................
+   15305 | 0xffd9 EOI  
+$ </pre>I believe it's easy edit that file as you only need to replace the single APP1 segment with your data.  The exif data block in the modified <em><strong><code>.exv</code></strong></em> file can be inserted into the original (or another JPEG) with the command <em><strong><code>$ exiv2 -ie image</code></strong></em> which will read from image.exv</p>
+
+
+	<p>So, although I don't believe there is a single command to achieve your goal, a little bash scripting will deliver the capability you have requested.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2995">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2993?r=2995#message-2995">RE: retrieving exif data blob</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Sep 2017 20:40" href="/projects/exiv2/activity?from=2017-09-27">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Another comment about this.  You'll find the following command useful for debugging your script. <pre>$ exiv2 -pR image</pre>This will <em><strong>Recursively</strong></em> print the structure of your JPEG.  In addition to the structure information displayed by <em><strong><code>-pS</code></strong></em>, the recursive variant will also dump the contents of TIFF, IPTC and some other types of metadata.  For example:<pre>$ exiv2 -pR ~/Stonehenge.jpg 
+STRUCTURE OF JPEG FILE: /Users/rmills/Stonehenge.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe1 APP1  |   15288 | Exif..II*......................
+  STRUCTURE OF TIFF FILE (II): MemIo
+   address |    tag                              |      type |    count |    offset | value
+        10 | 0x010f Make                         |     ASCII |       18 |       146 | NIKON CORPORATION
+        22 | 0x0110 Model                        |     ASCII |       12 |       164 | NIKON D5300
+        34 | 0x0112 Orientation                  |     SHORT |        1 |           | 1
+        46 | 0x011a XResolution                  |  RATIONAL |        1 |       176 | 300/1
+        58 | 0x011b YResolution                  |  RATIONAL |        1 |       184 | 300/1
+        70 | 0x0128 ResolutionUnit               |     SHORT |        1 |           | 2
+        82 | 0x0131 Software                     |     ASCII |       10 |       192 | Ver.1.00 
+        94 | 0x0132 DateTime                     |     ASCII |       20 |       202 | 2015:07:16 20:25:28
+       106 | 0x0213 YCbCrPositioning             |     SHORT |        1 |           | 1
+       118 | 0x8769 ExifTag                      |      LONG |        1 |           | 222
+    STRUCTURE OF TIFF FILE (II): MemIo
+     address |    tag                              |      type |    count |    offset | value
+         224 | 0x829a ExposureTime                 |  RATIONAL |        1 |       732 | 10/4000
+         236 | 0x829d FNumber                      |  RATIONAL |        1 |       740 | 100/10
+         248 | 0x8822 ExposureProgram              |     SHORT |        1 |           | 0
+         260 | 0x8827 ISOSpeedRatings              |     SHORT |        1 |           | 200
+         272 | 0x8830 SensitivityType              |     SHORT |        1 |           | 2
+         284 | 0x9000 ExifVersion                  | UNDEFINED |        4 |           | 0230
+         296 | 0x9003 DateTimeOriginal             |     ASCII |       20 |       748 | 2015:07:16 15:38:54
+         308 | 0x9004 DateTimeDigitized            |     ASCII |       20 |       768 | 2015:07:16 15:38:54
+         320 | 0x9101 ComponentsConfiguration      | UNDEFINED |        4 |           | ...
+         332 | 0x9102 CompressedBitsPerPixel       |  RATIONAL |        1 |       788 | 2/1
+         344 | 0x9204 ExposureBiasValue            | SRATIONAL |        1 |       796 | 0/6
+         356 | 0x9205 MaxApertureValue             |  RATIONAL |        1 |       804 | 43/10
+         368 | 0x9207 MeteringMode                 |     SHORT |        1 |           | 5
+         380 | 0x9208 LightSource                  |     SHORT |        1 |           | 0
+         392 | 0x9209 Flash                        |     SHORT |        1 |           | 16
+         404 | 0x920a FocalLength                  |  RATIONAL |        1 |       812 | 440/10
+         416 | 0x927c MakerNote                    | UNDEFINED |     3152 |       914 | Nikon.....II*.....9.........0211 ...
+      STRUCTURE OF TIFF FILE (II): MemIo
+       address |    tag                              |      type |    count |    offset | value
+            10 | 0x0001 Version                      | UNDEFINED |        4 |           | 0211
+            22 | 0x0002 ISOSpeed                     |     SHORT |        2 |           | 0 200
+            34 | 0x0004 Quality                      |     ASCII |        8 |       698 | NORMAL 
+            46 | 0x0005 WhiteBalance                 |     ASCII |       13 |       706 | AUTO        
+            58 | 0x0007 Focus                        |     ASCII |        7 |       719 | AF-A  
+            70 | 0x0008 FlashSetting                 |     ASCII |       13 |       726 |             
+            82 | 0x0009 GPSStatus                    |     ASCII |       20 |       739 |                    
+            94 | 0x000b ProcessingSoftware           |    SSHORT |        2 |           | 0 0
+           106 | 0x000c GPSSpeedRef                  |  RATIONAL |        4 |       759 | 538/256 354/256 256/256 256/256
+           118 | 0x000d GPSSpeed                     | UNDEFINED |        4 |           | ...
+           130 | 0x000e GPSTrackRef                  | UNDEFINED |        4 |           | ...
+           142 | 0x0012 GPSMapDatum                  | UNDEFINED |        4 |           | ...
+           154 | 0x0013 GPSDestLatitudeRef           |     SHORT |        2 |           | 0 200
+           166 | 0x0016 GPSDestLongitude             |     SHORT |        4 |       791 | 0 0 6000 4000
+           178 | 0x0017 GPSDestBearingRef            | UNDEFINED |        4 |           | ...
+           190 | 0x0018 GPSDestBearing               | UNDEFINED |        4 |           | ...
+           202 | 0x0019 GPSDestDistanceRef           | SRATIONAL |        1 |       799 | 0/6
+           214 | 0x001b GPSProcessingMethod          |     SHORT |        7 |       807 | 0 6016 4016 6016 4016 ...
+           226 | 0x001c GPSAreaInformation           | UNDEFINED |        3 |           | ...
+           238 | 0x001d GPSDateStamp                 |     ASCII |        8 |       821 | 2567806
+           250 | 0x001e GPSDifferential              |     SHORT |        1 |           | 1
+           262 | 0x001f                              | UNDEFINED |        8 |       829 | 0100...
+           274 | 0x0022                              |     SHORT |        1 |           | 65535
+           286 | 0x0023                              | UNDEFINED |       58 |       837 | 0100STANDARD............STANDARD ...
+           298 | 0x0024                              | UNDEFINED |        4 |           | ...
+           310 | 0x0025                              | UNDEFINED |       14 |       895 | H.....H......
+           322 | 0x002b                              | UNDEFINED |       16 |       909 | 0100...........
+           334 | 0x002c                              | UNDEFINED |      574 |       925 | 0101#.......................... ...
+           346 | 0x002d                              |     SHORT |        3 |      1499 | 512 0 0
+           358 | 0x0032                              | UNDEFINED |        8 |      1505 | 0100...
+           370 | 0x0035                              | UNDEFINED |        6 |      1513 | 0200.
+           382 | 0x003b                              |  RATIONAL |        4 |      1519 | 256/256 256/256 256/256 256/256
+           394 | 0x003c                              |     SHORT |        1 |           | 1
+           406 | 0x0083                              |      BYTE |        1 |           | .
+           418 | 0x0084                              |  RATIONAL |        4 |      1551 | 180/10 2500/10 35/10 63/10
+           430 | 0x0087                              |      BYTE |        1 |           | 
+           442 | 0x0089                              |     SHORT |        1 |           | 0
+           454 | 0x008a                              |     SHORT |        1 |           | 1
+           466 | 0x008b                              | UNDEFINED |        4 |           | 7..
+           478 | 0x0095                              |     ASCII |        5 |      1583 | OFF 
+           490 | 0x0097                              | UNDEFINED |     1188 |      1588 | 0219.dU....W..2......:.......F.# ...
+           502 | 0x0098                              | UNDEFINED |       33 |      2776 | 0204.W....z.o..#[.....!o.x..E... ...
+           514 | 0x009d                              |     SHORT |        1 |           | 0
+           526 | 0x009e                              |     SHORT |       10 |      2809 | 0 0 0 0 0 ...
+           538 | 0x00a2                              |      LONG |        1 |           | 6173648
+           550 | 0x00a3                              |      BYTE |        1 |           | 
+           562 | 0x00a7                              |      LONG |        1 |           | 9608
+           574 | 0x00a8                              | UNDEFINED |       49 |      2829 | 0106........................... ...
+           586 | 0x00ab                              |     ASCII |       16 |      2878 | AUTO(FLASH OFF)
+           598 | 0x00b0                              | UNDEFINED |       16 |      2894 | 0100...........
+           610 | 0x00b1                              |     SHORT |        1 |           | 4
+           622 | 0x00b6                              | UNDEFINED |        8 |      2910 | .......
+           634 | 0x00b7                              | UNDEFINED |       30 |      2918 | 0100....i....................
+           646 | 0x00b8                              | UNDEFINED |      172 |      2948 | 0100..e........................ ...
+           658 | 0x00bb                              | UNDEFINED |        8 |      3120 | 0200...
+           670 | 0x00bf                              |     SHORT |        1 |           | 0
+           682 | 0x00c0                              | UNDEFINED |        8 |      3128 | &lt;......
+      END MemIo
+         428 | 0x9286 UserComment                  | UNDEFINED |       44 |       820 | ASCII...                         ...
+         440 | 0x9290 SubSecTime                   |     ASCII |        3 |           | 00
+         452 | 0x9291 SubSecTimeOriginal           |     ASCII |        3 |           | 00
+         464 | 0x9292 SubSecTimeDigitized          |     ASCII |        3 |           | 00
+         476 | 0xa000 FlashpixVersion              | UNDEFINED |        4 |           | 0100
+         488 | 0xa001 ColorSpace                   |     SHORT |        1 |           | 1
+         500 | 0xa002 PixelXDimension              |     SHORT |        1 |           | 6000
+         512 | 0xa003 PixelYDimension              |     SHORT |        1 |           | 4000
+         524 | 0xa005 InteroperabilityTag          |      LONG |        1 |           | 4306
+         536 | 0xa217 SensingMethod                |     SHORT |        1 |           | 2
+         548 | 0xa300 FileSource                   | UNDEFINED |        1 |           | .
+         560 | 0xa301 SceneType                    | UNDEFINED |        1 |           | .
+         572 | 0xa302 CFAPattern                   | UNDEFINED |        8 |       864 | ........
+         584 | 0xa401 CustomRendered               |     SHORT |        1 |           | 0
+         596 | 0xa402 ExposureMode                 |     SHORT |        1 |           | 0
+         608 | 0xa403 WhiteBalance                 |     SHORT |        1 |           | 0
+         620 | 0xa404 DigitalZoomRatio             |  RATIONAL |        1 |       872 | 1/1
+         632 | 0xa405 FocalLengthIn35mmFilm        |     SHORT |        1 |           | 66
+         644 | 0xa406 SceneCaptureType             |     SHORT |        1 |           | 0
+         656 | 0xa407 GainControl                  |     SHORT |        1 |           | 0
+         668 | 0xa408 Contrast                     |     SHORT |        1 |           | 0
+         680 | 0xa409 Saturation                   |     SHORT |        1 |           | 0
+         692 | 0xa40a Sharpness                    |     SHORT |        1 |           | 0
+         704 | 0xa40c SubjectDistanceRange         |     SHORT |        1 |           | 0
+         716 | 0xa420 ImageUniqueID                |     ASCII |       33 |       880 | 090caaf2c085f3e102513b24750041aa ...
+    END MemIo
+       130 | 0x8825 GPSTag                       |      LONG |        1 |           | 4060
+      4338 | 0x0103 Compression                  |     SHORT |        1 |           | 6
+      4350 | 0x011a XResolution                  |  RATIONAL |        1 |      4426 | 300/1
+      4362 | 0x011b YResolution                  |  RATIONAL |        1 |      4434 | 300/1
+      4374 | 0x0128 ResolutionUnit               |     SHORT |        1 |           | 2
+      4386 | 0x0201 JPEGInterchangeFormat        |      LONG |        1 |           | 4442
+      4398 | 0x0202 JPEGInterchangeFormatLength  |      LONG |        1 |           | 10837
+      4410 | 0x0213 YCbCrPositioning             |     SHORT |        1 |           | 1
+  END MemIo
+   15292 | 0xffe1 APP1  |    2610 | http://ns.adobe.com/xap/1.0/.&lt;?x
+   17904 | 0xffed APP13 |      96 | Photoshop 3.0.8BIM.......'.....
+  Record | DataSet | Name                     | Length | Data
+       1 |       0 | ModelVersion             |      2 | ..
+       1 |      90 | CharacterSet             |      3 | .%G
+       2 |       0 | RecordVersion            |      2 | ..
+       2 |     120 | Caption                  |     12 | Classic View
+   18002 | 0xffe2 APP2  |    4094 | MPF.II*...............0100.....
+  STRUCTURE OF TIFF FILE (II): MemIo
+   address |    tag                              |      type |    count |    offset | value
+        10 | 0xb000 MPFVersion                   | UNDEFINED |        4 |           | 0100
+        22 | 0xb001 MPFNumberOfImages            |      LONG |        1 |           | 3
+        34 | 0xb002 MPFImageList                 | UNDEFINED |       48 |        52 | .....N_............@.....G^.... ...
+  END MemIo
+   22098 | 0xffdb DQT   |     132 
+   22232 | 0xffc0 SOF0  |      17 
+   22251 | 0xffc4 DHT   |     418 
+   22671 | 0xffda SOS  
+$ </pre></p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-2/2)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

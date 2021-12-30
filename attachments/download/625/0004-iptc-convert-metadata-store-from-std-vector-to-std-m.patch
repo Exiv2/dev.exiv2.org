@@ -1,0 +1,256 @@
+From 979c3ed615e0e28bc8c44a964a239da7270bfad4 Mon Sep 17 00:00:00 2001
+From: Michael Pratt <michael@pratt.im>
+Date: Sat, 5 Jul 2014 15:32:52 -0700
+Subject: [PATCH 4/6] iptc: convert metadata store from std::vector to
+ std::multimap
+
+Use a std::multimap to store Iptc metadata, providing O(1) lookup times,
+rather than the O(n) lookup times provided by a std::vector.  This
+provides large performance improvements for images with a large number
+of Iptc tags.
+
+This change makes minimal changes to the API.  map_value_iterator is
+used to provide metadata iterators that behave like the old std::vector
+iterators.  IptcData::sortByKey() and IptcData::sortByTag() are
+deprecated, as the std::multimap is always kept sorted by record, than
+tag, with IptcKey::operator<().
+---
+ src/datasets.cpp |  9 +++++++
+ src/datasets.hpp |  4 ++++
+ src/iptc.cpp     | 72 +++++++++++++++++++++++---------------------------------
+ src/iptc.hpp     | 17 +++++++++----
+ 4 files changed, 54 insertions(+), 48 deletions(-)
+
+diff --git a/src/datasets.cpp b/src/datasets.cpp
+index 2849f22..34f1666 100644
+--- a/src/datasets.cpp
++++ b/src/datasets.cpp
+@@ -622,6 +622,15 @@ namespace Exiv2 {
+         return *this;
+     }
+ 
++    bool IptcKey::operator<(const IptcKey& b) const
++    {
++        if (this->record() != b.record()) {
++            return this->record() < b.record();
++        }
++
++        return this->tag() < b.tag();
++    }
++
+     std::string IptcKey::key() const
+     {
+         return key_;
+diff --git a/src/datasets.hpp b/src/datasets.hpp
+index cbc329a..44c482b 100644
+--- a/src/datasets.hpp
++++ b/src/datasets.hpp
+@@ -308,6 +308,10 @@ namespace Exiv2 {
+           @brief Assignment operator.
+          */
+         IptcKey& operator=(const IptcKey& rhs);
++        /*!
++          @brief Comparison operator.
++         */
++        bool operator<(const IptcKey& b) const;
+         //@}
+ 
+         //! @name Accessors
+diff --git a/src/iptc.cpp b/src/iptc.cpp
+index a6507ac..4d903dd 100644
+--- a/src/iptc.cpp
++++ b/src/iptc.cpp
+@@ -61,28 +61,6 @@ namespace {
+         const Exiv2::byte*     data,
+               uint32_t         sizeData
+     );
+-
+-    //! Unary predicate that matches an Iptcdatum with given record and dataset
+-    class FindIptcdatum {
+-    public:
+-        //! Constructor, initializes the object with the record and dataset id
+-        FindIptcdatum(uint16_t dataset, uint16_t record)
+-            : dataset_(dataset), record_(record) {}
+-        /*!
+-          @brief Returns true if the record and dataset id of the argument
+-                Iptcdatum is equal to that of the object.
+-        */
+-        bool operator()(const Exiv2::Iptcdatum& iptcdatum) const
+-        {
+-            return dataset_ == iptcdatum.tag() && record_ == iptcdatum.record();
+-        }
+-
+-    private:
+-        // DATA
+-        uint16_t dataset_;
+-        uint16_t record_;
+-
+-    }; // class FindIptcdatum
+ }
+ 
+ // *****************************************************************************
+@@ -117,6 +95,12 @@ namespace Exiv2 {
+         return os << value();
+     }
+ 
++    const IptcKey& Iptcdatum::iptcKey() const
++    {
++        if (key_.get() == 0) throw Error(8);
++        return *key_;
++    }
++
+     std::string Iptcdatum::key() const
+     {
+         return key_.get() == 0 ? "" : key_->key();
+@@ -269,13 +253,14 @@ namespace Exiv2 {
+ 
+     Iptcdatum& IptcData::operator[](const std::string& key)
+     {
+-        IptcKey iptcKey(key);
+-        iterator pos = findKey(iptcKey);
+-        if (pos == end()) {
+-            add(Iptcdatum(iptcKey));
+-            pos = findKey(iptcKey);
++        IptcKey k = IptcKey(key);
++        IptcMetadata::iterator it = iptcMetadata_.find(k);
++        if (it != iptcMetadata_.end()) {
++            return it->second;
+         }
+-        return *pos;
++
++        add(Iptcdatum(k));
++        return (*this)[key];
+     }
+ 
+     long IptcData::size() const
+@@ -309,47 +294,48 @@ namespace Exiv2 {
+              return 6;
+         }
+         // allow duplicates
+-        iptcMetadata_.push_back(iptcDatum);
++        iptcMetadata_.insert(std::make_pair(iptcDatum.iptcKey(), iptcDatum));
+         return 0;
+     }
+ 
+     IptcData::const_iterator IptcData::findKey(const IptcKey& key) const
+     {
+-        return std::find_if(iptcMetadata_.begin(), iptcMetadata_.end(),
+-                            FindIptcdatum(key.tag(), key.record()));
++        return iptcMetadata_.find(key);
+     }
+ 
+     IptcData::iterator IptcData::findKey(const IptcKey& key)
+     {
+-        return std::find_if(iptcMetadata_.begin(), iptcMetadata_.end(),
+-                            FindIptcdatum(key.tag(), key.record()));
++        return iptcMetadata_.find(key);
+     }
+ 
+     IptcData::const_iterator IptcData::findId(uint16_t dataset, uint16_t record) const
+     {
+-        return std::find_if(iptcMetadata_.begin(), iptcMetadata_.end(),
+-                            FindIptcdatum(dataset, record));
++        IptcKey key = IptcKey(dataset, record);
++        return findKey(key);
+     }
+ 
+     IptcData::iterator IptcData::findId(uint16_t dataset, uint16_t record)
+     {
+-        return std::find_if(iptcMetadata_.begin(), iptcMetadata_.end(),
+-                            FindIptcdatum(dataset, record));
++        IptcKey key = IptcKey(dataset, record);
++        return findKey(key);
+     }
+ 
+     void IptcData::sortByKey()
+     {
+-        std::sort(iptcMetadata_.begin(), iptcMetadata_.end(), cmpMetadataByKey);
++        // map is sorted by record, then tag
+     }
+ 
+     void IptcData::sortByTag()
+     {
+-        std::sort(iptcMetadata_.begin(), iptcMetadata_.end(), cmpMetadataByTag);
++        // map is already sorted by record, then tag
+     }
+ 
+     IptcData::iterator IptcData::erase(IptcData::iterator pos)
+     {
+-        return iptcMetadata_.erase(pos);
++        IptcData::iterator next = pos;
++        next++;
++        iptcMetadata_.erase(pos.it);
++        return next;
+     }
+ 
+     const char *IptcData::detectCharset() const
+@@ -487,12 +473,12 @@ namespace Exiv2 {
+         byte *pWrite = buf.pData_;
+ 
+         // Copy the iptc data sets and sort them by record but preserve the order of datasets
+-        IptcMetadata sortedIptcData;
++        std::vector<Iptcdatum> sortedIptcData;
+         std::copy(iptcData.begin(), iptcData.end(), std::back_inserter(sortedIptcData));
+         std::stable_sort(sortedIptcData.begin(), sortedIptcData.end(), cmpIptcdataByRecord);
+ 
+-        IptcData::const_iterator iter = sortedIptcData.begin();
+-        IptcData::const_iterator end = sortedIptcData.end();
++        std::vector<Iptcdatum>::const_iterator iter = sortedIptcData.begin();
++        std::vector<Iptcdatum>::const_iterator end = sortedIptcData.end();
+         for ( ; iter != end; ++iter) {
+             // marker, record Id, dataset num
+             *pWrite++ = marker_;
+diff --git a/src/iptc.hpp b/src/iptc.hpp
+index 131728a..04b4889 100644
+--- a/src/iptc.hpp
++++ b/src/iptc.hpp
+@@ -122,6 +122,7 @@ namespace Exiv2 {
+                  multiple metadata with the same key.
+          */
+         std::string key() const;
++        const IptcKey& iptcKey() const;
+         /*!
+            @brief Return the name of the record (deprecated)
+            @return record name
+@@ -164,7 +165,7 @@ namespace Exiv2 {
+     }; // class Iptcdatum
+ 
+     //! Container type to hold all metadata
+-    typedef std::vector<Iptcdatum> IptcMetadata;
++    typedef std::multimap<IptcKey, Iptcdatum> IptcMetadata;
+ 
+     /*!
+       @brief A container for IPTC data. This is a top-level class of
+@@ -180,9 +181,9 @@ namespace Exiv2 {
+     class EXIV2API IptcData {
+     public:
+         //! IptcMetadata iterator type
+-        typedef IptcMetadata::iterator iterator;
++        typedef map_value_iterator<IptcMetadata, IptcMetadata::iterator> iterator;
+         //! IptcMetadata const iterator type
+-        typedef IptcMetadata::const_iterator const_iterator;
++        typedef map_value_iterator<IptcMetadata, IptcMetadata::const_iterator, const typename IptcMetadata::const_iterator::value_type::second_type> const_iterator;
+ 
+         // Use the compiler generated constructors and assignment operator
+ 
+@@ -223,9 +224,15 @@ namespace Exiv2 {
+           @brief Delete all Iptcdatum instances resulting in an empty container.
+          */
+         void clear() { iptcMetadata_.clear(); }
+-        //! Sort metadata by key
++        /*!
++          @deprecated Iptc metadata is always kept sorted by record, then tag.
++                This method is a no-op.
++         */
+         void sortByKey();
+-        //! Sort metadata by tag (aka dataset)
++        /*!
++          @deprecated Iptc metadata is always kept sorted by record, then tag.
++                This method is a no-op.
++         */
+         void sortByTag();
+         //! Begin of the metadata
+         iterator begin() { return iptcMetadata_.begin(); }
+-- 
+2.0.0
+

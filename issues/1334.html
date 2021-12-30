@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1334: Version 0.26 is returns unwanted data when the key value is received from RW2 files (Panasonic DMC-GF6 camera) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="rEVI9DihniAnYgNBUFDvKusIQENRpE3VP5RAuqBNMn5OCOMbSttSIHIGHE3vh+MZ1JoUOqBH7G/CtNAy43TVEQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1334: Version 0.26 is returns unwanted data when the key value is received from RW2 files (Panasonic DMC-GF6 camera)" href="https://dev.exiv2.org/issues/1334.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1334</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Version 0.26 is returns unwanted data when the key value is received from RW2 files (Panasonic DMC-GF6 camera)</h3></div>
+</div>
+        <p class="author">
+        Added by Anonymous <a title="28 Jan 2018 12:55" href="/projects/exiv2/activity?from=2018-01-28">almost 4 years</a> ago.
+        Updated <a title="18 Sep 2018 13:30" href="/projects/exiv2/activity?from=2018-09-18">about 3 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">image format</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Dec 2018" href="/versions/55">0.27</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">28 Jan 2018</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Version 0.26 is returns unwanted data when the key value is received from RW2 files.<br /><strong>Version <ins>0.25 works fine!</ins></strong></p>
+
+
+	<p><strong>$ exiv2 -g Exif.Photo.ISOSpeedRatings -Pt ./P1110094.rw2</strong><br /><pre>
+RW2 IMAGE
+160
+</pre></p>
+
+
+	<p>The first line in output <strong><em>'RW2 IMAGE'</em></strong> is unwanted data. <br />I expected to get only the numerical value of ISO.<br />But, in the first line of output, I get the file type, although it is already known to me.</p>
+
+
+	<p>This bug is only relevant for the Panasonic DMC-GF6 camera for getting any keys values.<br />If I try to get the value of the key from the RAW file of Canon, then everything works fine!</p>
+
+
+	<p><strong>$ exiv2 -g Exif.Photo.ISOSpeedRatings -Pt ./IMG_0503.CR2</strong> <br /><pre>
+100
+</pre></p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1209">P1110094.rw2</a>    <span class="size">(18.4 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1209/P1110094.rw2">P1110094.rw2</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Anonymous, 28 Jan 2018 12:55</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-6148" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Jan 2018 13:19" href="/projects/exiv2/activity?from=2018-01-28">almost 4 years</a> ago
+      <span id="journal-6148-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6148-notes" class="wiki"><p>Thanks for reporting this, Alex.  The fix is at the beginning of Rw2Image::printStructure() in src/rw2image.cpp:<pre>    void Rw2Image::printStructure(std::ostream&#38; out, PrintStructureOption option, int depth) {
+        out &lt;&lt; "RW2 IMAGE" &lt;&lt; std::endl;
+        if (io_-&gt;open() != 0) throw Error(9, io_-&gt;path(), strError());
+        ... </pre>I'll submit this fix later today.  I'm very surprised that this issue was not detected by our test harness and I will also rectify that.</p>
+
+
+	<p>Are you my old buddy Alex Stepanov from Adobe Systems Incorporated in San Jose, California?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6149" class="journal has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Jan 2018 13:23" href="/projects/exiv2/activity?from=2018-01-28">almost 4 years</a> ago
+      <span id="journal-6149-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>image format</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.27</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>20</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-6150" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by Anonymous <a title="28 Jan 2018 14:28" href="/projects/exiv2/activity?from=2018-01-28">almost 4 years</a> ago
+      <span id="journal-6150-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6150-notes" class="wiki"><p>Thanks for the quick response!<br />Very glad to help! Thanks for the exiv2!<br />No, I'm not from Adobe Systems Incorporated in San Jose, California.</p>
+
+
+	<p>I'm a new buddy from small resort city Pyatigorsk, Russia :-)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6151" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Jan 2018 16:16" href="/projects/exiv2/activity?from=2018-01-28">almost 4 years</a> ago
+      <span id="journal-6151-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6151-notes" class="wiki"><p>Thank you for using exiv2.</p>
+
+
+	<p>Your namesake is a very famous engineer.  He invented STL:  <a class="external" href="https://en.wikipedia.org/wiki/Alexander_Stepanov">https://en.wikipedia.org/wiki/Alexander_Stepanov</a>  He's also an incredibly nice and fun guy.  I'm retired now.  I had nothing to do with metadata when I worked at Adobe.</p>
+
+
+	<p>I'm always looking for volunteers to contribute to Exiv2.  If you'd like to be involved, I'd be delighted to Welcome You to Team Exiv2.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6152" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by Anonymous <a title="28 Jan 2018 16:48" href="/projects/exiv2/activity?from=2018-01-28">almost 4 years</a> ago
+      <span id="journal-6152-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6152-notes" class="wiki"><p>Thanks for a link! It was interesting to read!<br />Yes, Alexander Stepanov by link in wiki is a very strong programmer and engineer! To me, of course, very far from his success!<br />The most interesting is that he is my full namesake. I, too, Alexander Alexandrovich Stepanov!</p>
+
+
+	<p>Thank you for the invitation to participate in the Team Exiv2! Only I do not have experience working in similar projects. But, if I can be of any use, I'm ready to help! I think it will be a good practice.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6264" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2018 13:30" href="/projects/exiv2/activity?from=2018-09-18">about 3 years</a> ago
+      <span id="journal-6264-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>20</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-6264-notes" class="wiki"><p>I believe this is fixed in Exiv2 v0.27 RC1.<br /><pre>847 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ bin/exiv2 ~/Downloads/P1110094.rw2 
+File name       : /Users/rmills/Downloads/P1110094.rw2
+File size       : 19335680 Bytes
+MIME type       : image/x-panasonic-rw2
+Image size      : 4816 x 3464
+Camera make     : Panasonic
+Camera model    : DMC-GF6
+Image timestamp : 2018:01:23 19:36:42
+Image number    : 
+Exposure time   : 1/6 s
+Aperture        : F5.6
+Exposure bias   : 0 EV
+Flash           : No, compulsory
+Flash bias      : 0
+Focal length    : 42.0 mm (35 mm equivalent: 84.0 mm)
+Subject distance: 
+ISO speed       : 160
+Exposure mode   : Aperture priority
+Metering mode   : Multi-segment
+Macro mode      : Off
+Image quality   : Raw
+Exif Resolution : 
+White balance   : Auto
+Thumbnail       : image/jpeg, 2125 Bytes
+Copyright       : 
+Exif comment    : 
+
+848 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ bin/exiv2 -pR ~/Downloads/P1110094.rw2 
+RW2 IMAGE
+STRUCTURE OF TIFF FILE (II): /Users/rmills/Downloads/P1110094.rw2
+ address |    tag                              |      type |    count |    offset | value
+      26 | 0x0001 Version                      | UNDEFINED |        4 |           | 0320
+      38 | 0x0002 ISOSpeed                     |     SHORT |        1 |           | 4816
+      50 | 0x0003 ColorMode                    |     SHORT |        1 |           | 3464
+      62 | 0x0004 Quality                      |     SHORT |        1 |           | 8
+      74 | 0x0005 WhiteBalance                 |     SHORT |        1 |           | 8
+      86 | 0x0006 Sharpening                   |     SHORT |        1 |           | 3456
+      98 | 0x0007 Focus                        |     SHORT |        1 |           | 4600
+     110 | 0x0008 FlashSetting                 |     SHORT |        1 |           | 1
+     122 | 0x0009 GPSStatus                    |     SHORT |        1 |           | 2
+     134 | 0x000a 0x000a                       |     SHORT |        1 |           | 12
+     146 | 0x000b ProcessingSoftware           |     SHORT |        1 |           | 34316
+     158 | 0x000d GPSSpeed                     |     SHORT |        1 |           | 1
+     170 | 0x000e GPSTrackRef                  |     SHORT |        1 |           | 4095
+     182 | 0x000f ISOSelection                 |     SHORT |        1 |           | 4095
+     194 | 0x0010 DataDump                     |     SHORT |        1 |           | 4095
+     206 | 0x0017 GPSDestBearingRef            |     SHORT |        1 |           | 160
+     218 | 0x0018 GPSDestBearing               |     SHORT |        1 |           | 256
+     230 | 0x0019 GPSDestDistanceRef           |     SHORT |        1 |           | 256
+     242 | 0x001a GPSDestDistance              |     SHORT |        1 |           | 256
+     254 | 0x001b GPSProcessingMethod          | UNDEFINED |       42 |       558 | ..d....................... . .  ...
+     266 | 0x001c GPSAreaInformation           |     SHORT |        1 |           | 128
+     278 | 0x001d GPSDateStamp                 |     SHORT |        1 |           | 128
+     290 | 0x001e GPSDifferential              |     SHORT |        1 |           | 128
+     302 | 0x0024                              |     SHORT |        1 |           | 667
+     314 | 0x0025                              |     SHORT |        1 |           | 265
+     326 | 0x0026                              |     SHORT |        1 |           | 402
+     338 | 0x0027                              | UNDEFINED |       58 |       600 | ....P.......w...........p....... ...
+     350 | 0x0029                              | UNDEFINED |       36 |       658 | ............................... ...
+     362 | 0x002a                              | UNDEFINED |       32 |       694 | ...............................
+     374 | 0x002b                              | UNDEFINED |       16 |       726 | ...............
+     386 | 0x002c                              | UNDEFINED |       72 |       742 | ............................... ...
+     398 | 0x002d                              |     SHORT |        1 |           | 4
+     410 | 0x002e                              | UNDEFINED |   262656 |      2048 | ......Exif..II*................ ...
+     422 | 0x010f Make                         |     ASCII |       10 |       814 | Panasonic
+     434 | 0x0110 Model                        |     ASCII |        8 |       824 | DMC-GF6
+     446 | 0x0111 StripOffsets                 |      LONG |        1 |           | 4294967295
+     458 | 0x0112 Orientation                  |     SHORT |        1 |           | 1
+     470 | 0x0116 RowsPerStrip                 |     SHORT |        1 |           | 3464
+     482 | 0x0117 StripByteCounts              |      LONG |        1 |           | 0
+     494 | 0x0118                              |      LONG |        1 |           | 264704
+     506 | 0x0119                              | UNDEFINED |       32 |       832 | t"......................6...p...
+     518 | 0x011a XResolution                  |     SHORT |        1 |           | 2
+     530 | 0x011b YResolution                  | UNDEFINED |       64 |       864 | ........g.......y.....H......... ...
+     542 | 0x8769 ExifTag                      |      LONG |        1 |           | 928
+  STRUCTURE OF TIFF FILE (II): /Users/rmills/Downloads/P1110094.rw2
+   address |    tag                              |      type |    count |    offset | value
+       930 | 0x829a ExposureTime                 |  RATIONAL |        1 |      1078 | 10/60
+       942 | 0x829d FNumber                      |  RATIONAL |        1 |      1086 | 56/10
+       954 | 0x8822 ExposureProgram              |     SHORT |        1 |           | 3
+       966 | 0x9000 ExifVersion                  | UNDEFINED |        4 |           | 0230
+       978 | 0x9003 DateTimeOriginal             |     ASCII |       20 |      1094 | 2018:01:23 19:36:42
+       990 | 0x9004 DateTimeDigitized            |     ASCII |       20 |      1114 | 2018:01:23 19:36:42
+      1002 | 0x9204 ExposureBiasValue            | SRATIONAL |        1 |      1134 | 0/100
+      1014 | 0x9205 MaxApertureValue             |  RATIONAL |        1 |      1142 | 1273/256
+      1026 | 0x9207 MeteringMode                 |     SHORT |        1 |           | 5
+      1038 | 0x9209 Flash                        |     SHORT |        1 |           | 16
+      1050 | 0x920a FocalLength                  |  RATIONAL |        1 |      1150 | 420/10
+      1062 | 0xa300 FileSource                   | UNDEFINED |        1 |           | .
+  END /Users/rmills/Downloads/P1110094.rw2
+END /Users/rmills/Downloads/P1110094.rw2
+849 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ bin/exiv2 -pa ~/Downloads/P1110094.rw2 
+Exif.PanasonicRaw.Version                    Undefined   4  3.20
+Exif.PanasonicRaw.SensorWidth                Short       1  4816
+Exif.PanasonicRaw.SensorHeight               Short       1  3464
+Exif.PanasonicRaw.SensorTopBorder            Short       1  8
+Exif.PanasonicRaw.SensorLeftBorder           Short       1  8
+Exif.PanasonicRaw.ImageHeight                Short       1  3456
+Exif.PanasonicRaw.ImageWidth                 Short       1  4600
+Exif.PanasonicRaw.ISOSpeed                   Short       1  160
+Exif.PanasonicRaw.WBRedLevel                 Short       1  667
+Exif.PanasonicRaw.WBGreenLevel               Short       1  265
+Exif.PanasonicRaw.WBBlueLevel                Short       1  402
+Exif.PanasonicRaw.PreviewImage               Undefined 262656  (Binary value suppressed)
+Exif.PanasonicRaw.Make                       Ascii      10  Panasonic
+Exif.PanasonicRaw.Model                      Ascii       8  DMC-GF6
+Exif.PanasonicRaw.StripOffsets               Long        1  4294967295
+Exif.PanasonicRaw.Orientation                Short       1  top, left
+Exif.PanasonicRaw.RowsPerStrip               Short       1  3464
+Exif.PanasonicRaw.StripByteCounts            Long        1  0
+Exif.PanasonicRaw.RawDataOffset              Long        1  264704
+Exif.PanasonicRaw.ExifTag                    Long        1  928
+Exif.Photo.ExposureTime                      Rational    1  1/6 s
+Exif.Photo.FNumber                           Rational    1  F5.6
+Exif.Photo.ExposureProgram                   Short       1  Aperture priority
+Exif.Photo.ExifVersion                       Undefined   4  2.30
+Exif.Photo.DateTimeOriginal                  Ascii      20  2018:01:23 19:36:42
+Exif.Photo.DateTimeDigitized                 Ascii      20  2018:01:23 19:36:42
+Exif.Photo.ExposureBiasValue                 SRational   1  0 EV
+Exif.Photo.MaxApertureValue                  Rational    1  F5.6
+Exif.Photo.MeteringMode                      Short       1  Multi-segment
+Exif.Photo.Flash                             Short       1  No, compulsory
+Exif.Photo.FocalLength                       Rational    1  42.0 mm
+Exif.Photo.FileSource                        Undefined   1  Digital still camera
+Exif.Image.Make                              Ascii      10  Panasonic
+Exif.Image.Model                             Ascii       8  DMC-GF6
+Exif.Image.Orientation                       Short       1  top, left
+Exif.Image.XResolution                       Rational    1  180
+Exif.Image.YResolution                       Rational    1  180
+Exif.Image.ResolutionUnit                    Short       1  inch
+Exif.Image.Software                          Ascii      10  Ver.1.2  
+Exif.Image.DateTime                          Ascii      20  2018:01:23 19:36:42
+Exif.Image.ExifTag                           Long        1  634
+Exif.Photo.ISOSpeedRatings                   Short       1  160
+Exif.Photo.SensitivityType                   Short       1  1
+Exif.Photo.LightSource                       Short       1  Unknown
+Exif.Photo.MakerNote                         Undefined 12200  (Binary value suppressed)
+Exif.MakerNote.Offset                        Long        1  1148
+Exif.MakerNote.ByteOrder                     Ascii       3  II
+Exif.Panasonic.Quality                       Short       1  Raw
+Exif.Panasonic.FirmwareVersion               Undefined   4  0 1 2 0
+Exif.Panasonic.WhiteBalance                  Short       1  Auto
+Exif.Panasonic.FocusMode                     Short       1  Manual
+Exif.Panasonic.AFMode                        Byte        2  1-area
+Exif.Panasonic.ImageStabilization            Short       1  On, Mode 1
+Exif.Panasonic.Macro                         Short       1  Off
+Exif.Panasonic.ShootingMode                  Short       1  Aperture priority
+Exif.Panasonic.Audio                         Short       1  No
+Exif.Panasonic.DataDump                      Undefined 8200  (Binary value suppressed)
+Exif.Panasonic.FlashBias                     Short       1  0
+Exif.Panasonic.InternalSerialNumber          Undefined  16  F921308220191
+Exif.Panasonic.ExifVersion                   Undefined   4  4.04
+Exif.Panasonic.TimeSincePowerOn              Long        1  00:06:46.67
+Exif.Panasonic.BurstMode                     Short       1  Off
+Exif.Panasonic.SequenceNumber                Long        1  0
+Exif.Panasonic.SelfTimer                     Short       1  Off
+Exif.Panasonic.Rotation                      Short       1  Horizontal (normal)
+Exif.Panasonic.AFAssistLamp                  Short       1  Enabled but Not Used
+Exif.Panasonic.BabyAge1                      Ascii      20  not set
+Exif.Panasonic.ConversionLens                Short       1  Off
+Exif.Panasonic.TravelDay                     Short       1  not set
+Exif.Panasonic.WorldTimeLocation             Short       1  Home
+Exif.Panasonic.TextStamp1                    Short       1  Off
+Exif.Panasonic.ProgramISO                    Short       1  160
+Exif.Panasonic.AdvancedSceneType             Short       1  1
+Exif.Panasonic.TextStamp2                    Short       1  Off
+Exif.Panasonic.FacesDetected                 Short       1  0
+Exif.Panasonic.ColorTempKelvin               Short       1  7500
+Exif.Panasonic.BracketSettings               Short       1  No Bracket
+Exif.Panasonic.WBAdjustAB                    Short       1  0
+Exif.Panasonic.WBAdjustGM                    Short       1  0
+Exif.Panasonic.FlashCurtain                  Short       1  n/a
+Exif.Panasonic.LongShutterNoiseReduction     Short       1  On
+Exif.Panasonic.ImageWidth                    Long        1  4592
+Exif.Panasonic.ImageHeight                   Long        1  3448
+Exif.Panasonic.AFPointPosition               Rational    2  4294967295/256 4294967295/256
+Exif.Panasonic.FaceDetInfo                   Undefined  42  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Exif.Panasonic.LensType                      Ascii      34  LUMIX G VARIO 14-42/F3.5-5.6 II 
+Exif.Panasonic.LensSerialNumber              Ascii      14  13GEA0601591
+Exif.Panasonic.AccessoryType                 Ascii      34  NO-ACCESSORY
+Exif.Panasonic.AccessorySerialNumber         Ascii      14  0000000
+Exif.Panasonic.LensFirmwareVersion           Undefined   4  0 1 1 0
+Exif.Panasonic.FaceRecInfo                   Undefined 148  (Binary value suppressed)
+Exif.Panasonic.Title                         Undefined  64  
+Exif.Panasonic.BabyName                      Undefined  64  
+Exif.Panasonic.Location                      Undefined  64  
+Exif.Panasonic.Country                       Undefined  72  
+Exif.Panasonic.State                         Undefined  72  
+Exif.Panasonic.City                          Undefined  72  
+Exif.Panasonic.Landmark                      Undefined 128  
+Exif.Panasonic.IntelligentResolution         Byte        1  Standard
+Exif.Panasonic.BurstSheed                    Short       1  0
+Exif.Panasonic.IntelligentDRange             Short       1  Standard
+Exif.Panasonic.ClearRetouch                  Short       1  Off
+Exif.Panasonic.City2                         Undefined  72  
+Exif.Panasonic.PhotoStyle                    Short       1  Natural
+Exif.Panasonic.ShadingCompensation           Short       1  On
+Exif.Panasonic.AccelerometerZ                Short       1  252
+Exif.Panasonic.AccelerometerX                Short       1  -12
+Exif.Panasonic.AccelerometerY                Short       1  20
+Exif.Panasonic.SweepPanoramaDirection        Byte        1  Off
+Exif.Panasonic.PanoramaFieldOfView           Short       1  0
+Exif.Panasonic.TimerRecording                Byte        1  Off
+Exif.Panasonic.InternalNDFilter              Rational    1  0/128
+Exif.Panasonic.HDR                           Short       1  Off
+Exif.Panasonic.ClearRetouchValue             Rational    1  0/0
+Exif.Panasonic.TouchAE                       Short       1  Off
+Exif.Panasonic.MakerNoteVersion              Undefined   4  1.44
+Exif.Panasonic.FlashFired                    Short       1  No
+Exif.Panasonic.TextStamp3                    Short       1  Off
+Exif.Panasonic.TextStamp4                    Short       1  Off
+Exif.Panasonic.BabyAge2                      Ascii      20  not set
+Exif.Photo.FlashpixVersion                   Undefined   4  1.00
+Exif.Photo.InteroperabilityTag               Long        1  13356
+Exif.Iop.InteroperabilityIndex               Ascii       4  R98
+Exif.Iop.InteroperabilityVersion             Undefined   4  1.00
+Exif.Photo.SensingMethod                     Short       1  One-chip color area
+Exif.Photo.ExposureMode                      Short       1  Auto
+Exif.Photo.WhiteBalance                      Short       1  Auto
+Exif.Photo.FocalLengthIn35mmFilm             Short       1  84.0 mm
+Exif.Thumbnail.Compression                   Short       1  JPEG (old-style)
+Exif.Thumbnail.Orientation                   Short       1  top, left
+Exif.Thumbnail.XResolution                   Rational    1  180
+Exif.Thumbnail.YResolution                   Rational    1  180
+Exif.Thumbnail.ResolutionUnit                Short       1  inch
+Exif.Thumbnail.JPEGInterchangeFormat         Long        1  14836
+Exif.Thumbnail.JPEGInterchangeFormatLength   Long        1  2125
+Exif.Thumbnail.YCbCrPositioning              Short       1  Co-sited
+850 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ </pre></p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1334.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1334.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

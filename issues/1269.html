@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #1269: Enable using dynamic runtime libs with when disabling shared libs for Windows - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="h6zlmHn5NumKYc3RIxE4ngr6aXCl3gxprel+nnNC4Bxl4U53C4P66d8F0t2cxjStNWg9CVQ9rdNQye4WMHsHcw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #1269: Enable using dynamic runtime libs with when disabling shared libs for Windows" href="https://dev.exiv2.org/issues/1269.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #1269</h2>
+
+<div class="issue tracker-2 status-5 priority-4 priority-default closed details">
+    <div class="next-prev-links contextual">
+      <a title="#1270" accesskey="p" href="/issues/1270">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;f%5B%5D=author_id&amp;op%5Bauthor_id%5D=%3D&amp;op%5Bstatus_id%5D=%2A&amp;page=1&amp;per_page=100&amp;set_filter=1&amp;sort=id%3Adesc&amp;v%5Bauthor_id%5D%5B%5D=4722&amp;v%5Bstatus_id%5D%5B%5D=">6 of 9</a>
+        </span> |
+      <a title="#1268" accesskey="n" href="/issues/1268">Next »</a>
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Enable using dynamic runtime libs with when disabling shared libs for Windows</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4722">Ben Touchette</a> <a title="10 Jan 2017 19:04" href="/projects/exiv2/activity?from=2017-01-10">almost 5 years</a> ago.
+        Updated <a title="17 Mar 2017 16:25" href="/projects/exiv2/activity?from=2017-03-17">over 4 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">10 Jan 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">4.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>This patch enables using dynamic runtime libraries when using NO_SHARED libraries with cmake instead of the staticly linked version. For use and tested in Windows with CMake / MSVC.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1123">msvc.diff</a>    <span class="size">(5.71 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1123/msvc.diff">msvc.diff</a>  </td>
+  <td>Enable using dynamic runtime with static lib for windows</td>
+  <td>
+      <span class="author">Ben Touchette, 10 Jan 2017 19:04</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4740" href="/projects/exiv2/repository/exiv2/revisions/4740">Revision 4740</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4740/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Mar 2017 12:58" href="/projects/exiv2/activity?from=2017-03-17">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Enable using dynamic runtime libs with when disabling shared libs for Windows (Closed)" href="/issues/1269">#1269</a> Thank You to Ben for reporting this and providing the patch.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4741" href="/projects/exiv2/repository/exiv2/revisions/4741">Revision 4741</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4741/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Mar 2017 16:18" href="/projects/exiv2/activity?from=2017-03-17">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Enable using dynamic runtime libs with when disabling shared libs for Windows (Closed)" href="/issues/1269">#1269</a> cmakeBuild.cmd --static to set  cmake -DEXIV2_ENABLE_DYNAMIC_RUNTIME=OFF (and --shared will set ON)</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5843" class="journal has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Feb 2017 20:34" href="/projects/exiv2/activity?from=2017-02-09">almost 5 years</a> ago
+      <span id="journal-5843-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>build</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5869" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Feb 2017 18:49" href="/projects/exiv2/activity?from=2017-02-16">almost 5 years</a> ago
+      <span id="journal-5869-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-5869-notes" class="wiki"><p>Ben</p>
+
+
+	<p>Thanks for reporting this.  We made a policy decision (in 2008) to support "all dlls, or all static".  Mikayel asked for "dlls with static run-time".  This is a lethal combination which I investigated and discussed in detail.  <a class="external" href="http://dev.exiv2.org/issues/1157">http://dev.exiv2.org/issues/1157</a></p>
+
+
+	<p>The problem is that linking DLLs with static run-time can result in several copies of run-time library because every dll (eg libexiv2.dll contains a static run-time library) and the executable/client app have their own run-time library.  If you open a FILE* in libexiv2.dll and fclose() it in the application, the application will crash. That typically does not happen, however memory resources (new/delete) often cross the library boundaries with very bad consequences.</p>
+
+
+	<p>I think static libraries that all use a shared dynamic runtime will work.  Thanks for your patch.  I'll review this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5870" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4722">Ben Touchette</a> <a title="16 Feb 2017 19:03" href="/projects/exiv2/activity?from=2017-02-16">almost 5 years</a> ago
+      <span id="journal-5870-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5870-notes" class="wiki"><p>The patch was made to leave things the way they work as is, but gives the option of creating a static only lib that requires linking to dynamic runtimes a way to do so. Yes the whole app needs to be linked that way as well else it just won't link i would think :)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5922" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Mar 2017 13:29" href="/projects/exiv2/activity?from=2017-03-17">over 4 years</a> ago
+      <span id="journal-5922-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>2.00 h</i> to <i>4.00 h</i></li>
+    </ul>
+    <div id="journal-5922-notes" class="wiki"><p>Patch submitted <a class="changeset" title="#1269 Thank You to Ben for reporting this and providing the patch." href="/projects/exiv2/repository/exiv2/revisions/4740">r4740</a>.  Thanks very much to be for reporting this, investigating this matter and providing the patch.</p>
+
+
+	<p>The origins of this go back to 2012 when the file CMakeList_msvc.txt was created in the project to support MSVC/CMake.  That project was shelved and complete in 2014.  The 2014 project does handle static and shared libraries.  However I forgot to cause the static library to use the static runtime.  Thank You for completing this.  The msvc build environment is "all shared" or "all static".  With msvc, if you generate a DLL, it will use the dynamic runtime.  If you generate a static library, it will use the static runtime.</p>
+
+
+	<p>Three observations:<br />1) It's very likely that contrib/cmakeBuild.cmd requires an update to convert options <em><strong><code>--static/--shared</code></strong></em> to set the CMake option: <em><strong><code>-DEXIV2_ENABLE_DYNAMIC_RUNTIME=OFF/ON</code></strong></em> I will investigate this.</p>
+
+
+	<p>2) Testing on MSVC 2005/8/10/12/13/15 (in 32 and 64 bit) is very time consuming.  If this patch survives the nightly build on the buildserver (which builds shared libraries), I'm going to allow it to ship in v0.26 as the patch has <em>done no harm</em>.</p>
+
+
+	<p>3) I personally don't care for using the "d" in ./CMakeLists.txt:    <code>set(CMAKE_DEBUG_POSTFIX "d")</code>.  This has the effect of adding a 'd' to library file.  So libexiv2.dll becomes libexiv2d.dll  This is different from the libraries generated by msvc project files.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5923" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Mar 2017 16:25" href="/projects/exiv2/activity?from=2017-03-17">over 4 years</a> ago
+      <span id="journal-5923-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-5923-notes" class="wiki"><p>Good News, Ben.</p>
+
+
+	<p><a class="changeset" title="#1269 cmakeBuild.cmd --static to set  cmake -DEXIV2_ENABLE_DYNAMIC_RUNTIME=OFF (and --shared will..." href="/projects/exiv2/repository/exiv2/revisions/4741">r4741</a>  I've set -DEXIV2_ENABLE_DYNAMIC_RUNTIME=OFF for when cmakeBuild.cmd --static is used.  It's working.  I've tested both --static and --shared.  Options --static and --shared are exclusive because of the architecture of CMake/Visual Studio.  I have a feeling it was working correctly anyway (although I'm not sure how!).</p>
+
+
+	<p>I've tested that Debug DLLs use the debug share run-time library and the DLL is exiv2d.dll (and it uses the zlibd.dll)<br /><pre>C:\Users\rmills\gnu\exiv2\build\&gt;cmd /c "vcvars 2005 &#38;&#38; cmakeBuild --shared --rebuild --pause --config Debug"</pre></p>
+
+
+<pre>C:\Users\rmills\gnu\exiv2\build\dist\2005\x64\dll\Debug\bin&gt;dir *.dll
+ Volume in drive C has no label.
+ Volume Serial Number is 0899-EF40
+
+ Directory of C:\Users\rmills\gnu\exiv2\build\dist\2005\x64\dll\Debug\bin
+
+2017-03-17  03:56 PM         5,929,984 exiv2d.dll
+2017-03-17  03:53 PM           310,784 expat.dll
+2017-03-17  03:52 PM           181,760 zlibd.dll
+               3 File(s)      6,422,528 bytes
+               0 Dir(s)  13,136,359,424 bytes free
+
+C:\Users\rmills\gnu\exiv2\build\dist\2005\x64\dll\Debug\bin&gt;</pre></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1269.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1269.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

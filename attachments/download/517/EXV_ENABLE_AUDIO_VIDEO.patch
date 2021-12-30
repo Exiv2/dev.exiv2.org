@@ -1,0 +1,191 @@
+Index: msvc/include/exv_msvc.h
+===================================================================
+--- msvc/include/exv_msvc.h	(revision 2956)
++++ msvc/include/exv_msvc.h	(working copy)
+@@ -61,6 +61,9 @@
+ 
+ #endif /* !EXV_COMMERCIAL_VERSION */
+ 
++/* Define to 1 to enable audio/video metadata support. */
++# undef EXV_ENABLE_AUDIO_VIDEO
++
+ /* Define to 1 if you have the `iconv' function. */
+ # undef EXV_HAVE_ICONV
+ 
+Index: src/asfvideo.cpp
+===================================================================
+--- src/asfvideo.cpp	(revision 3110)
++++ src/asfvideo.cpp	(working copy)
+@@ -31,6 +31,13 @@
+ 
+ // *****************************************************************************
+ // included header files
++#ifdef _MSC_VER
++# include "exv_msvc.h"
++#else
++# include "exv_conf.h"
++#endif
++
++#ifdef EXV_ENABLE_AUDIO_VIDEO
+ #include "asfvideo.hpp"
+ #include "futils.hpp"
+ #include "basicio.hpp"
+@@ -815,3 +822,4 @@
+     }
+ 
+ }                                       // namespace Exiv2
++#endif // EXV_ENABLE_AUDIO_VIDEO
+Index: src/image.cpp
+===================================================================
+--- src/image.cpp	(revision 3110)
++++ src/image.cpp	(working copy)
+@@ -60,10 +60,12 @@
+ #include "tgaimage.hpp"
+ #include "bmpimage.hpp"
+ #include "jp2image.hpp"
++#ifdef EXV_ENABLE_AUDIO_VIDEO
+ #include "matroskavideo.hpp"
+ #include "quicktimevideo.hpp"
+ #include "riffvideo.hpp"
+ #include "asfvideo.hpp"
++#endif // EXV_ENABLE_AUDIO_VIDEO
+ #include "rw2image.hpp"
+ #include "pgfimage.hpp"
+ #include "xmpsidecar.hpp"
+@@ -131,11 +133,13 @@
+         { ImageType::tga,  newTgaInstance,  isTgaType,  amNone,      amNone,      amNone,      amNone      },
+         { ImageType::bmp,  newBmpInstance,  isBmpType,  amNone,      amNone,      amNone,      amNone      },
+         { ImageType::jp2,  newJp2Instance,  isJp2Type,  amReadWrite, amReadWrite, amReadWrite, amNone      },
++#ifdef EXV_ENABLE_AUDIO_VIDEO
+         { ImageType::qtime,newQTimeInstance,isQTimeType,amRead,      amNone,      amRead,      amNone      },
+         { ImageType::riff, newRiffInstance, isRiffType, amRead,      amNone,      amRead,      amNone      },
+         { ImageType::asf,  newAsfInstance,  isAsfType,  amNone,      amNone,      amRead,      amNone      },
+         { ImageType::mkv,  newMkvInstance,  isMkvType,  amNone,      amNone,      amRead,      amNone      },
+-        // End of list marker
++#endif // EXV_ENABLE_AUDIO_VIDEO
++		// End of list marker
+         { ImageType::none, 0,               0,          amNone,      amNone,      amNone,      amNone      }
+     };
+ 
+Index: src/matroskavideo.cpp
+===================================================================
+--- src/matroskavideo.cpp	(revision 3110)
++++ src/matroskavideo.cpp	(working copy)
+@@ -31,6 +31,13 @@
+ 
+ // *****************************************************************************
+ // included header files
++#ifdef _MSC_VER
++# include "exv_msvc.h"
++#else
++# include "exv_conf.h"
++#endif
++
++#ifdef EXV_ENABLE_AUDIO_VIDEO
+ #include "matroskavideo.hpp"
+ #include "futils.hpp"
+ #include "basicio.hpp"
+@@ -760,3 +767,4 @@
+     }
+ 
+ }                                       // namespace Exiv2
++#endif // EXV_ENABLE_AUDIO_VIDEO
+Index: src/properties.cpp
+===================================================================
+--- src/properties.cpp	(revision 3110)
++++ src/properties.cpp	(working copy)
+@@ -96,9 +96,10 @@
+     extern const XmpPropertyInfo xmpMicrosoftPhotoRegionInfoInfo[];
+     extern const XmpPropertyInfo xmpMicrosoftPhotoRegionInfo[];
+     extern const XmpPropertyInfo xmpMWGRegionsInfo[];
+-    extern const XmpPropertyInfo xmpVideoInfo[];
++#ifdef EXV_ENABLE_AUDIO_VIDEO
++	extern const XmpPropertyInfo xmpVideoInfo[];
+     extern const XmpPropertyInfo xmpAudioInfo[];
+-
++#endif // EXV_ENABLE_AUDIO_VIDEO
+     extern const XmpNsInfo xmpNsInfo[] = {
+         // Schemas   -   NOTE: Schemas which the XMP-SDK doesn't know must be registered in XmpParser::initialize - Todo: Automate this
+         { "http://purl.org/dc/elements/1.1/",             "dc",             xmpDcInfo,        N_("Dublin Core schema")                        },
+@@ -128,10 +129,11 @@
+         { "http://ns.microsoft.com/photo/1.2/t/RegionInfo#", "MPRI",  xmpMicrosoftPhotoRegionInfoInfo, N_("Microsoft Photo RegionInfo schema")},
+         { "http://ns.microsoft.com/photo/1.2/t/Region#",     "MPReg", xmpMicrosoftPhotoRegionInfo,     N_("Microsoft Photo Region schema")    },
+         { "http://www.metadataworkinggroup.com/schemas/regions/", "mwg-rs", xmpMWGRegionsInfo,N_("Metadata Working Group Regions schema")     },
+-        { "http://www.video",                                  "video",          xmpVideoInfo,     N_("XMP Extended Video schema")                 },
++#ifdef EXV_ENABLE_AUDIO_VIDEO
++		{ "http://www.video",                                  "video",          xmpVideoInfo,     N_("XMP Extended Video schema")                 },
+         { "http://www.audio",                                  "audio",          xmpAudioInfo,     N_("XMP Extended Audio schema")                 },
++#endif //EXV_ENABLE_AUDIO_VIDEO
+ 
+-
+         // Structures
+         { "http://ns.adobe.com/xap/1.0/g/",                   "xapG",    0, N_("Colorant structure")           },
+         { "http://ns.adobe.com/xap/1.0/sType/Dimensions#",    "stDim",   0, N_("Dimensions structure")         },
+@@ -991,7 +993,8 @@
+         { 0, 0, 0, invalidTypeId, xmpInternal, 0 }
+     };
+ 
+-    extern const XmpPropertyInfo xmpVideoInfo[] = {
++#ifdef EXV_ENABLE_AUDIO_VIDEO
++	extern const XmpPropertyInfo xmpVideoInfo[] = {
+         { "Album",                  N_("Album"),                            "Text",                     xmpText, xmpExternal, N_("The name of the album.")   },
+         { "ArchivalLocation",       N_("Archival Location"),                "Text",                     xmpText, xmpExternal, N_("Information about the Archival Location.")   },
+         { "Arranger",               N_("Arranger"),                         "Text",                     xmpText, xmpExternal, N_("Information about the Arranger.")   },
+@@ -1384,8 +1387,9 @@
+         { "VendorID",           N_("Vendor ID"),                    "Text",                  xmpText, xmpExternal, N_("A 32-bit integer that specifies the developer of the compressor that generated the compressed data. Often this field contains 'appl' to indicate Apple Computer, Inc.")   },
+         { 0, 0, 0, invalidTypeId, xmpInternal, 0 }
+     };
++#endif EXV_ENABLE_AUDIO_VIDEO
+ 
+-    extern const XmpPrintInfo xmpPrintInfo[] = {
++	extern const XmpPrintInfo xmpPrintInfo[] = {
+         {"Xmp.crs.CropUnits",                 EXV_PRINT_TAG(crsCropUnits)   },
+         {"Xmp.exif.ApertureValue",            print0x9202                   },
+         {"Xmp.exif.BrightnessValue",          printFloat                    },
+Index: src/quicktimevideo.cpp
+===================================================================
+--- src/quicktimevideo.cpp	(revision 3110)
++++ src/quicktimevideo.cpp	(working copy)
+@@ -31,6 +31,13 @@
+ 
+ // *****************************************************************************
+ // included header files
++#ifdef _MSC_VER
++# include "exv_msvc.h"
++#else
++# include "exv_conf.h"
++#endif
++
++#ifdef EXV_ENABLE_AUDIO_VIDEO
+ #include "quicktimevideo.hpp"
+ #include "futils.hpp"
+ #include "basicio.hpp"
+@@ -1649,4 +1656,4 @@
+     }
+ 
+ }                                       // namespace Exiv2
+-
++#endif // EXV_ENABLE_AUDIO_VIDEO
+Index: src/riffvideo.cpp
+===================================================================
+--- src/riffvideo.cpp	(revision 3110)
++++ src/riffvideo.cpp	(working copy)
+@@ -31,6 +31,13 @@
+ 
+ // *****************************************************************************
+ // included header files
++#ifdef _MSC_VER
++# include "exv_msvc.h"
++#else
++# include "exv_conf.h"
++#endif
++
++#ifdef EXV_ENABLE_AUDIO_VIDEO
+ #include "riffvideo.hpp"
+ #include "futils.hpp"
+ #include "basicio.hpp"
+@@ -1245,3 +1252,4 @@
+     }
+ 
+ }                                       // namespace Exiv2
++#endif // EXV_ENABLE_AUDIO_VIDEO

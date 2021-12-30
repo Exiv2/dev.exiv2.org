@@ -1,0 +1,51 @@
+#!/bin/bash 
+tuna=0; catfood=0
+function dav () {
+echo -e "What text file will I be using?"
+read -er item
+f=$item
+while IFS="^" read -r f k
+do
+echo -e "File is \e[31m$f\e[0m"
+if [[ ! -f "$f" ]]; then
+	echo "I don't see $f in this directory."
+	echo "Moving to next list item."
+	continue
+fi
+((catfood++))
+dothedeed
+done<"$f"
+}
+function twokey () {
+	taxt=$(echo "$k" | cut -d, -f2)
+	keycount=$(echo "$k" | tr ',' ' ' | wc -w)
+for keys in $(echo "$k" | tr ',' ' ' | wc -w)
+do
+echo "${keys}"
+/usr/bin/exiv2 --keep -M"add Iptc.Application2.Keywords $taxt" -M"add Xmp.dc.subject $taxt" "$f"
+((taxt++))
+done
+/usr/bin/exiv2 -g Iptc.Application2.Keywords -Pv "$f"
+}
+function dothedeed () {
+echo -e "Adding Keywords to \e[5;42m$f\e[0m."
+echo -e "$f\t$k"
+keycount=$(echo "$k" | tr ',' ' ' | wc -w)
+echo "$f: There are $keycount keywords."
+echo "Here's the Keyword string."
+echo -e "$k"
+	exiftool -sep "," -fast5 -overwrite_original_in_place -q -P -Keywords+="$k" -Subject+="$k" "$f"
+twokey
+((tuna++))
+}
+
+echo "Uses Exiftool."
+echo
+
+dav
+echo "$tuna out of $catfood files were annotated with Keywords this time."
+
+#putk
+#echo "Here's the Keyword string."
+#echo -e "$k"
+

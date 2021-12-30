@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1038: QuickTimeVideo::discard() works incorrectly with MemIo - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="rWsWwKOuDUFA81tx3MNKga8NRAUIB+h7jA2/PQo2ibVPJr0v0dTBQRWXRH1jFEaykJ8QfPnkScFxLS+1SQ9u2g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1038: QuickTimeVideo::discard() works incorrectly with MemIo" href="https://dev.exiv2.org/issues/1038.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1038</h2>
+
+<div class="issue tracker-1 status-1 priority-4 priority-default details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>QuickTimeVideo::discard() works incorrectly with MemIo</h3></div>
+</div>
+        <p class="author">
+        Added by Anonymous <a title="08 Mar 2015 22:36" href="/projects/exiv2/activity?from=2015-03-08">over 6 years</a> ago.
+        Updated <a title="16 Sep 2016 07:01" href="/projects/exiv2/activity?from=2016-09-16">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">New</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">video</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Dec 2020" href="/versions/54">0.28</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">08 Mar 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hi!<br />There's a bug in libexiv2 which stops KDE's GwenView from parsing mp4 video metadata correctly. GwenView's idea is to use libexiv2 on first 65536 bytes of the file, using MemIo.<br />It's probably an incorrect idea for mp4 becausemoov may be in the end of file, not in the beginning, but it still works this way...<br />So, when the QuickTimeVideo parser wants to skip some data by discard()ing it, it calls MemIo::seek(). But MemIo::seek() discovers that the requested offset is beyond the end of the currently allocated area (65536 bytes) and just fails (returns 1) without changing current position. discard() does not change for the error code and also returns.<br />So, the block data remains non-skipped and decodeBlock() starts to parse data as new blocks, which is incorrect and usually leads to a hang.<br />The possible ways of fixing this problem are either to allow MemIo::seek() to seek beyond the EOF, or teaching discard() to look at error codes.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/724">patch-exiv2-0.24-fix-mp4.diff</a>    <span class="size">(2.88 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/724/patch-exiv2-0.24-fix-mp4.diff">patch-exiv2-0.24-fix-mp4.diff</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Anonymous, 08 Mar 2015 22:58</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/731">2009_10_20_10_32_27.avi</a>    <span class="size">(35.4 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/731/2009_10_20_10_32_27.avi">2009_10_20_10_32_27.avi</a>  </td>
+  <td>Bad truncated avi file</td>
+  <td>
+      <span class="author">Anonymous, 15 Mar 2015 08:30</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/747">patch-exiv2-0.24-fix-mp4.diff</a>    <span class="size">(3.17 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/747/patch-exiv2-0.24-fix-mp4.diff">patch-exiv2-0.24-fix-mp4.diff</a>  </td>
+  <td>Updated patch</td>
+  <td>
+      <span class="author">Anonymous, 01 Apr 2015 09:35</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3620" href="/projects/exiv2/repository/exiv2/revisions/3620">Revision 3620</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3620/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Mar 2015 10:28" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-1 priority-4 priority-default" title="Bug: QuickTimeVideo::discard() works incorrectly with MemIo (New)" href="/issues/1038">#1038</a>.  Thank You to Vitaliy for reporting this and providing the patch.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3628" href="/projects/exiv2/repository/exiv2/revisions/3628">Revision 3628</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3628/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Mar 2015 22:33" href="/projects/exiv2/activity?from=2015-03-21">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-1 priority-4 priority-default" title="Bug: QuickTimeVideo::discard() works incorrectly with MemIo (New)" href="/issues/1038">#1038</a>.  Initialize timeScale_ in ctor because MSVC (correctly) refused header member variable initialization.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3179" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by Anonymous <a title="08 Mar 2015 22:40" href="/projects/exiv2/activity?from=2015-03-08">over 6 years</a> ago
+      <span id="journal-3179-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3179-notes" class="wiki"><blockquote>
+
+	<p>discard() does not change for the error code and also returns.</p>
+
+
+</blockquote>
+
+	<p>sorry, I mean discard() does not <strong>check</strong> for the error code and also returns.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3180" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by Anonymous <a title="08 Mar 2015 22:58" href="/projects/exiv2/activity?from=2015-03-08">over 6 years</a> ago
+      <span id="journal-3180-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/724">patch-exiv2-0.24-fix-mp4.diff</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/724/patch-exiv2-0.24-fix-mp4.diff">patch-exiv2-0.24-fix-mp4.diff</a> added</li>
+    </ul>
+    <div id="journal-3180-notes" class="wiki"><p>I fixed this issue + another issue with timescale==0 with the attached patch</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3181" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Mar 2015 10:28" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago
+      <span id="journal-3181-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3181-notes" class="wiki"><p>Patch subitted: <a class="changeset" title="#1038.  Thank You to Vitaliy for reporting this and providing the patch." href="/projects/exiv2/repository/exiv2/revisions/3620">r3620</a>.  Thank You to Vitaliy for reporting this and providing the patch.</p>
+
+
+	<p>Vitaliy<br />I had to edit your patch and use the utility 'patch' to submit this because my SVN client (SmartSVN) didn't recognise it.  And the file quicktimevideo.hpp has been moved from src -> include/exiv2.  I hope you will help us another day and I would like to ask you to prepare the patch in the following steps:</p>
+
+
+	<ol>
+	<li>$ svn://dev.exiv2.org/svn/trunk</li>
+		<li>-- edit the files --</li>
+		<li>(optional build and test) $ make config ; ./configure ; make -j4 ; sudo make install ; make -j4 samples ; make tests</li>
+		<li>$ svn diff > bla-dee-bla.patch</li>
+	</ol>
+
+
+	<p>When I submit your patch it will be built and tested on Mac / Linux / Cygwin / MinGW / MSVC on our Jenkins build server at <a class="external" href="http://exiv2.dyndns.org:8080">http://exiv2.dyndns.org:8080</a></p>
+
+
+	<p>I will add a topic "Submitting Patches" to our FAQ on exiv2.org</p>
+
+
+	<p>Thank You for doing this, Vitaliy.  Your contribution to Exiv2 is appreciated.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3182" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by Anonymous <a title="09 Mar 2015 10:45" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago
+      <span id="journal-3182-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3182-notes" class="wiki"><p>By the way, am I correct about the default value of 1 for the time scale?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3183" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Mar 2015 10:51" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago
+      <span id="journal-3183-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>video</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Abhinav Badola</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-3183-notes" class="wiki"><p>Vitaly</p>
+
+
+	<p>The value 1 seems OK to me.  I'll assign this issue to Abhinav, one of our video engineers, and ask him to review this.</p>
+
+
+	<p>I have added a topic to our FAQ about submitting patches.  <a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/Guidelines_for_submitting_patches">http://dev.exiv2.org/projects/exiv2/wiki/Guidelines_for_submitting_patches</a></p>
+
+
+	<p>Abhinav<br />If you're happy, can you mark this issue "Resolved".  If you're not certain, assign the issue to me and I will give this more careful thought.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3184" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by Anonymous <a title="09 Mar 2015 12:15" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago
+      <span id="journal-3184-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3184-notes" class="wiki"><p>OK, thanks for quick response :)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3185" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="09 Mar 2015 16:26" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago
+      <span id="journal-3185-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3185-notes" class="wiki"><p>Vitaliy Filippov wrote:</p>
+
+
+<blockquote>
+
+	<p>OK, thanks for quick response :)</p>
+
+
+</blockquote>
+
+	<p>Hi Vitaliy,</p>
+
+
+	<p>Thanks for finding the issue and providing the patch. :)</p>
+
+
+	<p>I was under the impression that KDE apps use a wrapper library <strong>libkexiv2</strong> to access Exiv2 libraries, and not use it directly.<br />And similarly the Gnome family uses the wrapper <strong>libgexiv2</strong>.</p>
+
+
+	<p>You found a very good bug, and this use-case never occurred to me, prior to your bug report.</p>
+
+
+	<p>Actually, as you have very well described in your bug, we can never rely on the initial metadata found in Quicktime types of files.</p>
+
+
+	<p>This is because the metadata can be placed anywhere, and thus, sometimes towards the end of the file as well.<br />In a lot of samples that I used for testing, I found that the metadata was hidden towards the end of file.<br />Maybe Gwenview should also upgrade, if it doesn't want to miss any information. (But that is all up to their team members)</p>
+
+
+	<p>But, indeed, it is a very relevant bug and I am happy that you found it in time. :)<br />Thanks again, for the valuable patch.</p>
+
+
+	<p>@Robin,<br />Thanks for adding the patch to Exiv2. <br />I will look into the code soon.<br />I will mark this as resolved, if I feel that the timescale patch works fine with all the videos samples that I have. :)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3186" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by Anonymous <a title="09 Mar 2015 18:36" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago
+      <span id="journal-3186-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3186-notes" class="wiki"><blockquote>
+
+	<p>In a lot of samples that I used for testing, I found that the metadata was hidden towards the end of file.</p>
+
+
+</blockquote>
+
+	<p>Metadata in the end is actually the default layout for mp4 files... I think it comes from the simplicity of encoding process: encoder does not know full metadata until the encoding is finished, so it writes metadata only after finishing the file. This makes a problem for video pseudo-streaming over http: you can't start watching file until it's fully downloaded. So there's a 'qt-faststart' utility which moves metadata ('moov' atom) from the end to the beginning...</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3212" class="journal has-notes has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by Anonymous <a title="15 Mar 2015 08:30" href="/projects/exiv2/activity?from=2015-03-15">over 6 years</a> ago
+      <span id="journal-3212-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/731">2009_10_20_10_32_27.avi</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/731/2009_10_20_10_32_27.avi">2009_10_20_10_32_27.avi</a> added</li>
+    </ul>
+    <div id="journal-3212-notes" class="wiki"><p>Reported the bug to KDE bugtracker: <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=345169">https://bugs.kde.org/show_bug.cgi?id=345169</a></p>
+
+
+	<p>+++ It seems your RiffVideo parser also has a similar bug - libexiv2 hangs reading a truncated AVI file... see the attachment. You can reproduce the bug using commandline exiv2 utility.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3351" class="journal has-notes has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by Anonymous <a title="01 Apr 2015 09:35" href="/projects/exiv2/activity?from=2015-04-01">over 6 years</a> ago
+      <span id="journal-3351-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/747">patch-exiv2-0.24-fix-mp4.diff</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/747/patch-exiv2-0.24-fix-mp4.diff">patch-exiv2-0.24-fix-mp4.diff</a> added</li>
+    </ul>
+    <div id="journal-3351-notes" class="wiki"><p>I've discovered that there is another method that should be patched, it's MemIo::getb() - if it's not, exiv2 crashes on truncated JPEG files.</p>
+
+
+	<p>See the updated patch in attachment.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3352" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Apr 2015 08:45" href="/projects/exiv2/activity?from=2015-04-02">over 6 years</a> ago
+      <span id="journal-3352-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> changed from <i>Abhinav Badola</i> to <i>Thomas Beutlich</i></li>
+    </ul>
+    <div id="journal-3352-notes" class="wiki"><p>Thanks for reporting this, Vitaliy.  I'm on vacation at the moment.  So I'm going to ask Thomas to have a look at your patch as he's involved in other work concerning MemIO.</p>
+
+
+	<p>Thomas:<br />Can you have a look at this patch, please?  If you don't have time, please assign it to me and I'll deal with it next week.  When we're done with this, push the bug back to Abhinav.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3400" class="journal has-notes has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="10 Apr 2015 19:49" href="/projects/exiv2/activity?from=2015-04-10">over 6 years</a> ago
+      <span id="journal-3400-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> changed from <i>Thomas Beutlich</i> to <i>Abhinav Badola</i></li>
+    </ul>
+    <div id="journal-3400-notes" class="wiki"><p>The <code>MemIo::getb</code> patch was commited by <a class="changeset" title="refs 1038: Fix eof detection in MemIo::getb and avoid crash on truncated jpeg files (Vitaliy Fili..." href="/projects/exiv2/repository/exiv2/revisions/3677">r3677</a>.</p>
+
+
+	<p>I wonder why only <code>MemIo::seek</code> was patched by <a class="changeset" title="#1038.  Thank You to Vitaliy for reporting this and providing the patch." href="/projects/exiv2/repository/exiv2/revisions/3620">r3620</a> but not e.g. <code>RemoteIo::seek</code>. Is this really by design or simply overlooked?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3401" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by Anonymous <a title="10 Apr 2015 21:35" href="/projects/exiv2/activity?from=2015-04-10">over 6 years</a> ago
+      <span id="journal-3401-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3401-notes" class="wiki"><p>I just haven't looked at other Io's in my patch, if that's what you're speaking about :)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3421" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="13 Apr 2015 19:00" href="/projects/exiv2/activity?from=2015-04-13">over 6 years</a> ago
+      <span id="journal-3421-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3421-notes" class="wiki"><p>Vitaliy Filippov wrote:</p>
+
+
+<blockquote>
+
+	<p>I just haven't looked at other Io's in my patch, if that's what you're speaking about :)</p>
+
+
+</blockquote>
+
+	<p>Yes, that is what I had in mind.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3790" class="journal has-details">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="02 Jun 2015 23:41" href="/projects/exiv2/activity?from=2015-06-02">over 6 years</a> ago
+      <span id="journal-3790-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.25</i> to <i>0.26</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5592" class="journal has-notes has-details">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Sep 2016 07:01" href="/projects/exiv2/activity?from=2016-09-16">about 5 years</a> ago
+      <span id="journal-5592-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>New</i></li>
+       <li><strong>Assignee</strong> deleted (<del><i>Abhinav Badola</i></del>)</li>
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>0.28</i></li>
+    </ul>
+    <div id="journal-5592-notes" class="wiki"><p>I'm going to defer this for v0.27.  I'm also removing Abhinav as the assignee.  I hope to have a team hangout in October 2016 to deal with assignments for v0.27.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1038.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1038.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Extracting UTF8 metadata - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="+VpZiVt6tOGzEg9vwMJ4HHWX9DiO9Lj54DjJNiaooxYbF/JmKQB44eZ2EGN/FXQvSgWgQX8XGUMdGFm+ZZFEeQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Extracting UTF8 metadata</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/265">gary cohen</a> <a title="19 Oct 2009 18:04" href="/projects/exiv2/activity?from=2009-10-19">about 12 years</a> ago</span></p>
+<div class="wiki">
+<p>I'm having trouble extracting the Exif.Photo.UserComment from an image that has it in Unicode and I'm wondering what I'm doing wrong. I've successfully called readMetadata() and get a valid iterator via exifData.findKey( Exiv2::ExifKey("Exif.Photo.UserComment") ); But, when I go to get the value I'm not getting what I expect...</p>
+	<pre><code>const std::string value = i-&gt;getValue()-&gt;toString() =&gt; "charset=\"Unicode\" "</code></pre>
+
+
+	<p>I thought maybe since there's a null character I can't use the std::string version, but then how do I get the comment? I've tried using:</p>
+	<pre><code>uint8_t value[5000];<br />  i-&gt;getValue()-&gt;copy( value, Exiv2::littleEndian ); // i see the littleEndian flag isn't used but something has to go there, right?</code></pre>
+
+
+	<p>but that seems to give me the raw data back.</p>
+
+
+	<p>In short, I need to get the UserComment back as UTF8 and store it in a std::string for output. Any help would be much appreciated. Attached is a test image.</p>
+</div>
+<div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/109">exif_comment.jpg</a>    <span class="size">(60.2 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/109/exif_comment.jpg">exif_comment.jpg</a>  </td>
+  <td>unicode encoded user comment</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (5)</h3>
+  <div class="message reply" id="message-245">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/244?r=245#message-245">RE: Extracting UTF8 metadata</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 Oct 2009 12:05" href="/projects/exiv2/activity?from=2009-10-20">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Gary,</p>
+
+
+	<p>You're doing just fine. Both of these methods should work. The actual comment is after the "charset=\"Unicode\" " string in the first method and after the first 8 bytes in the second. And in both cases you'll access the same 'raw' data as Exiv2 doesn't convert the comment in any way.</p>
+
+
+	<p>Besides, having null characters in an std::string is no issue (just avoid c_str() and use data() instead if you need a char pointer), so that's ok too.</p>
+
+
+	<p>Of course, instead of using getValue(), in the first method, you could just say i->toString() which would be a bit more efficient. In the second method, i->value().copy(...) would similarly avoid the overhead of getValue().</p>
+
+
+	<p>And in addition to these two methods there are several others:</p>
+
+
+	<ul>
+	<li>i->print(&#38;exifData) returns an std::string without the leading "charset=\"Unicode\" " and without trailing 0 bytes.</li>
+		<li>Exiv2::CommentValue::comment() returns an std::string without the leading "charset=\"Unicode\" ". You'll need a dynamic_cast to access that method though.</li>
+	</ul>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-246">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/244?r=246#message-246">RE: Extracting UTF8 metadata</a>
+    -
+    Added by <a class="user active" href="/users/265">gary cohen</a> <a title="20 Oct 2009 15:48" href="/projects/exiv2/activity?from=2009-10-20">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Andreas,</p>
+
+
+	<p>I liked your idea to use Exiv2::CommentValue::comment and when I do, I get an empty string.</p>
+
+
+	<p>(gdb) p csid<br />$1 = Exiv2::CommentValue::unicode<br />(gdb) n<br />(gdb) p value<br />$2 = {static npos = 4294967295, <em>M_dataplus = {&lt;std::allocator&lt;char&gt;> = {&lt;</em>_gnu_<br />cxx::new_allocator&lt;char&gt;> = {&lt;No data fields&gt;}, &lt;No data fields&gt;}, _M_p = 0x84a8<br />c2c ""}}</p>
+
+
+	<p>But, I know the UserComment has data there. Any ideas?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-247">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/244?r=247#message-247">RE: Extracting UTF8 metadata</a>
+    -
+    Added by <a class="user active" href="/users/265">gary cohen</a> <a title="20 Oct 2009 15:51" href="/projects/exiv2/activity?from=2009-10-20">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Oh, and the code:</p>
+
+
+	<p>... part of a loop ...
+{<br />    if ( attr == "Exif.Photo.UserComment" )
+    {<br />        const Exiv2::CommentValue &#38;commentValue = dynamic_cast< const Exiv2::CommentValue &#38; >( iter->value() );<br />        Exiv2::CommentValue::CharsetId csid = commentValue.charsetId();<br />        std::string value = commentValue.comment();<br />    }<br />}</p></div>
+  
+  </div>
+  <div class="message reply" id="message-248">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/244?r=248#message-248">RE: Extracting UTF8 metadata</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Oct 2009 13:43" href="/projects/exiv2/activity?from=2009-10-21">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Gary,</p>
+
+
+	<p>The code you posted looks ok, I can't see what's wrong. And it works fine here, I can access the comment in the sample image you provided using the various methods discussed and convert it to UTF-8. A complete simple test program is attached.</p>
+
+
+	<p>Andreas</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/110">try2.cpp</a>    <span class="size">(3.01 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/110/try2.cpp">try2.cpp</a>  </td>
+  <td>Access user comment  in various ways and convert it to UTF-8</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-249">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/244?r=249#message-249">RE: Extracting UTF8 metadata</a>
+    -
+    Added by <a class="user active" href="/users/265">gary cohen</a> <a title="21 Oct 2009 15:26" href="/projects/exiv2/activity?from=2009-10-21">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>thank you. you helped me find my problem. i was doing something wrong with the utf8 conversion.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-5/5)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

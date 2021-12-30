@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>DOS batch file and EXIF date stamps - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="yeG2XqcrpLTDTp/+AooaYhPjKctzPg19yxZtu7gJu10rrB2x1VFotJYqgPK9XRZRLHF9soLdrMc2Nv0z+zBcMg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>DOS batch file and EXIF date stamps</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4515">Francois Laverdure</a> <a title="18 Sep 2015 16:02" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi!<br />I'm currently building a batch file and I need some help.<br />Here's the story: I have many scanned files that contain absolutely no EXIF data and I am building a batch file to run exiv2 with pre-programmed commands to do the most regular chores.<br />One of the problems I run into is that I need to set date stamps but I run into a specific problem that is annoying me.<br />Thing is, to set the date I must use the yyy:mm:dd hh:mm:ss format but the required colons (:) are a reserved character in DOS batch files...<br />Does anyone have any idea of how to go around this?</p>
+
+
+	<p>I'm running under Windows 10.</p>
+
+
+	<p>Thanks</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (11)</h3>
+  <div class="message reply" id="message-2233">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2231?r=2233#message-2233">RE: DOS batch file and EXIF date stamps</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2015 16:43" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Are you using cmd.exe or powershell?  The DOS/cmd.exe escape character is ^.  However, I don't believe you need it for the colon ":".</p>
+
+
+	<p>Here's a little test I've just run on W7/64 with exiv2.exe (v0.25, head of trunk):<pre>Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;dir exiv2.exe
+ Volume in drive C has no label.
+ Volume Serial Number is 0899-EF40
+ Directory of C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll
+09/14/2015  04:54 PM           403,456 exiv2.exe
+               1 File(s)        403,456 bytes
+               0 Dir(s)  22,731,194,368 bytes free
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;exiv2 -vV -g version -g svn
+exiv2 0.25 001900 (64 bit build)
+version=8.00
+svn=3940
+id=$Id: version.cpp 3931 2015-09-08 13:01:05Z robinwmills $
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;echo 10:20:30
+10:20:30
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;echo 10^:20^:30
+10:20:30
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;echo 10^^:20^^:30
+10^:20^:30
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;copy c:\temp\BabyGnuTux-BigWLPG.jpg foo.jpg
+        1 file(s) copied.
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;exiv2 -pa -g Date foo.jpg
+Exif.Image.DateTime                          Ascii      20  2012:01:04 20:34:45
+Xmp.xmp.CreateDate                           XmpText    25  2012-01-04T20:32:52+01:00
+Xmp.xmp.ModifyDate                           XmpText    25  2012-01-04T20:34:45+01:00
+Xmp.xmp.MetadataDate                         XmpText    25  2012-01-04T20:34:45+01:00
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;exiv2 "-Mset Exif.Image.DateTime 2015:09:18 17:35:02" foo.jpg
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;exiv2 -pa -g Date foo.jpg
+Exif.Image.DateTime                          Ascii      20  2015:09:18 17:35:02
+Xmp.xmp.CreateDate                           XmpText    25  2012-01-04T20:32:52+01:00
+Xmp.xmp.ModifyDate                           XmpText    25  2012-01-04T20:34:45+01:00
+Xmp.xmp.MetadataDate                         XmpText    25  2012-01-04T20:34:45+01:00</pre>I'd be astonished to learn that Windows 10 DOS is different from Windows 7.  I can't remember the last time I noticed anything new in DOS.  It's been very static for about 20 years.  My wife's laptop runs 10 and I can have a sniff around on that if you're still in trouble.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2235">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2231?r=2235#message-2235">RE: DOS batch file and EXIF date stamps</a>
+    -
+    Added by <a class="user active" href="/users/4515">Francois Laverdure</a> <a title="18 Sep 2015 16:55" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Wow, that was fast!</p>
+
+
+	<p>Yes, I'm running the good old cmd.exe dos prompt. I figured that it's old and cruddy enough so that my script will run on anything.<br />the problem that I'm running into is that in a batch file, the : is considered as a command all by itself, so I have to work around that.<br />I'm starting to think that the only way around would be to create a text file containing all the commands, send it through exiv2 and then delete it. But that's proving to be a real pain... but it might be the only way around this.</p>
+
+
+	<p>Right now, just getting the system date in the proper order is proving to be another problem... but at least once this part is written, the rest should come in easy.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2236">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2231?r=2236#message-2236">RE: DOS batch file and EXIF date stamps</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2015 17:20" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I think you're doing something wrong.  Make sure you have the time enclosed in "  .... ".  Like this:<pre>
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;type foo.bat
+@echo off
+exiv2 "-Mset Exif.Image.DateTime 2015:09:18 18:02:02" foo.jpg
+exiv2 -pa -g Exif.Image.DateTime foo.jpg
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;foo.bat
+Exif.Image.DateTime                          Ascii      20  2015:09:18 18:02:02
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\debugdll&gt;</pre>There's a really good web-site with loads of useful tips about cmd.exe.  <a class="external" href="http://www.dostips.com">http://www.dostips.com</a>  Without doubt cmd.exe is not a good scripting environment, however it's more capable that most folks think.  Many folks think DOS is unusable - although I'm not a member of the Microsoft hate brigade.  I like Windows.</p>
+
+
+	<p>I've also heard people say great things about PowerShell.  I've never wanted to use PS because it's M/S only.  I seldom work exclusively on Windows.  When I write scripts, I usually want then to run on any platform.  I like bash/cygwin.  I've found python to be a very nice cross-platform environment.  For example the msvc2005/configure.bat script in the Exiv2 build system.</p>
+
+
+	<p>There's an Exiv2 user in Silicon Valley who has a scanning business.  I think he has scripts for a lot of this stuff.  I could put you in touch with him and maybe you can collaborate.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2237">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2231?r=2237#message-2237">RE: DOS batch file and EXIF date stamps</a>
+    -
+    Added by <a class="user active" href="/users/4515">Francois Laverdure</a> <a title="18 Sep 2015 18:02" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>DOS is definitely the underdog of the programming world, but I think that's why I like it.<br />A long time ago I used to do a lot of stuff in classic Visual Basic but I got tired of it. While it does make nice interfaces, I like the smallness of script files. They rarely get to be incompatible with some system update and don't need a ton of junk just to run.</p>
+
+
+	<p>Right now, I think I may be on my way to figuring some way to bypass the problems... as they say, simplify until it doesn't work and start from there. I'm thinking my script might have been overly complicated. I found out that for some reason it doesn't like to set values in an IF block... I call it quirkiness.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2239">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2231?r=2239#message-2239">RE: DOS batch file and EXIF date stamps</a>
+    -
+    Added by <a class="user active" href="/users/4515">Francois Laverdure</a> <a title="18 Sep 2015 19:42" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I think I might actually have cracked it!<br />I need to put the commands into a separate file like I thought. And to get the system date I need to do it in a separate sub and then bring the values back where they can be used...<br />Here's a sample of what I've done. Still needs some work but it seems OK so far.<br /><pre>
+@ECHO OFF
+rem change codepage to allow nice graphics ;-)
+chcp 65001
+CLS
+rem Check WMIC is available
+WMIC.EXE Alias /? &gt;NUL 2&gt;&#38;1 || GOTO s_error
+SETLOCAL
+
+rem set location where exiv2 is located
+rem default is set to Program Files folder 
+rem like: set EXIV2_PATH=%ProgramFiles%\EXIV2
+rem Use double quotes"" when the name contains spaces
+
+set EXIV2_PATH="d:\Portable Apps\EXIV2" 
+IF EXIST %EXIV2_PATH% SET PATH=%PATH%;%EXIV2_PATH%
+if not exist %EXIV2_PATH%\exiv2.exe goto Error
+
+rem Go to drag and drop folder
+if "%~1" == "" exit
+cd "%~1" 
+
+rem Get current dir name
+for %%* in (.) do set CurrDirName=%%~n*
+
+:DATE
+rem select date to use
+choice /m "Use System date and time or Custom date?" /C sc
+IF ERRORLEVEL 2 call :CustomDate
+IF ERRORLEVEL 1 call :SystemDate
+
+rem Display the date/time in ISO 8601 format:
+Set _isodate=%_yyyy%:%_mm%:%_dd% %_hour%:%_minute%:00
+Echo %_isodate%
+rem make a command file with all commands for exiv2
+(
+echo add Exif.Image.DateTime %_isodate%
+echo add Exif.Image.DateTimeOriginal %_isodate%
+echo add Exif.Photo.DateTimeOriginal %_isodate%
+echo add Xmp.xmp.CreateDate %_isodate%
+echo add Xmp.xmp.ModifyDate %_isodate%
+echo add Xmp.xmp.MetadataDate %_isodate%
+) &gt;%temp%\Commands.txt
+
+rem view command content just for fun
+type %temp%\Commands.txt
+rem add the proper tags to the filed in the dragged folder
+exiv2 -m "%temp%\Commands.txt" "%~1"\*.jpg
+pause
+rem remove the commands from the temp folder
+del %temp%\Commands.txt
+GOTO END
+
+:SystemDate
+rem get system date and time in a uniform fashion
+FOR /F "skip=1 tokens=1-6" %%G IN ('WMIC Path Win32_LocalTime Get Day^,Hour^,Minute^,Month^,Second^,Year /Format:table') DO (
+   IF "%%~L"=="" goto s_done
+      Set _yyyy=%%L
+      Set _mm=00%%J
+      Set _dd=00%%G
+      Set _hour=00%%H
+      SET _minute=00%%I
+)
+:s_done
+rem Pad digits with leading zeros
+      Set _mm=%_mm:~-2%
+      Set _dd=%_dd:~-2%
+      Set _hour=%_hour:~-2%
+      Set _minute=%_minute:~-2%
+exit /B
+
+:CustomDate
+set /p _yyyy=Enter Year:
+set /p _mm=Enter Month 
+rem this adds the leading zeros when needed
+Set _mm=%_mm:~-2%
+set /p _dd=Enter Day
+Set _dd=%_dd:~-2%
+set /p _hour=Enter Hour (24)
+Set _hour=%_hour:~-2%
+set /p _minute=Enter Minutes
+Set _minute=%_minute:~-2%
+rem return to the call command that originated
+exit /B
+
+:END
+ECHO Thank you for using this script
+pause
+Exit
+</pre></p>
+
+
+	<p>All I need to do is drop a folder on the batch file and it checks everything and does the job. I still need to test it with a user input instead of an automatic date but it should work equally well.</p>
+
+
+	<p>Thanks!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2240">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2231?r=2240#message-2240">RE: DOS batch file and EXIF date stamps</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2015 19:56" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Well done, Francois.  I'm not too convinced about the temporary file business - however it's working that's what counts.  Take the rest of the day off!</p>
+
+
+	<p>For sure the DOS '(' and ')' for if and stuff is a very slippery customer.  I agree with your comments about VB.  Nice people don't let their friends use VB.  VB = Very brittle.  However making a little GUI in VB is fun and you can use it to launch your batch file.  However, only do fluffy gui stuff in VB.  Invest your effort in durable/fixable code.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2241">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2231?r=2241#message-2241">RE: DOS batch file and EXIF date stamps</a>
+    -
+    Added by <a class="user active" href="/users/4515">Francois Laverdure</a> <a title="18 Sep 2015 20:01" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I don't like the temp file stuff very much either but it seems to be the lesser of two evils. Besides, it simplifies things and I clean up when I'm done...<br />I could create a ramdrive, store the file there and then collapse the memory... but that would be messy for nothing.<br />If I just had a penny for every program that leaves junk lying everywhere on my drive...</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2242">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2231?r=2242#message-2242">RE: DOS batch file and EXIF date stamps</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="18 Sep 2015 23:12" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Good job Robin!</p>
+
+
+	<p>Apologies in advance for a bit of an OT reply, but I'm always interested in seeing how people handle dates for their images. The Metadata Working Group has some information and guidelines on which tags are which and includes recommendations for scanned images.</p>
+	<pre><code><a class="external" href="http://www.metadataworkinggroup.org/pdf/mwg_guidance.pdf#page=37">http://www.metadataworkinggroup.org/pdf/mwg_guidance.pdf#page=37</a></code></pre>
+
+
+	<p>For instance Xmp.photoshop.DateCreated is the equivalent of Exif.Image.DateTimeOriginal.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2243">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2231?r=2243#message-2243">RE: DOS batch file and EXIF date stamps</a>
+    -
+    Added by <a class="user active" href="/users/4515">Francois Laverdure</a> <a title="19 Sep 2015 17:54" href="/projects/exiv2/activity?from=2015-09-19">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the link.<br />I'm going to check it out for sure as I want my images to be properly read by software and websites.</p>
+
+
+	<p>As for now, my metadata handling is primitive at best. I often feel some tags are harder to get correct than others.<br />For instance, I always slave over the aperture info and the date gave me hell. Shutter speed is another one...</p>
+
+
+	<p>Anyways, I'll check it out.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2244">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2231?r=2244#message-2244">RE: DOS batch file and EXIF date stamps</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Sep 2015 19:31" href="/projects/exiv2/activity?from=2015-09-19">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Aperture is a tricky customer - it's stored as a rational - however converting to a decimal is wrong.  It's an APEX number.  The exiv2(.exe) application knows what to do with the syntax Fn.m to convert it to an Apex rational.  <a class="external" href="http://dev.exiv2.org/issues/1039">http://dev.exiv2.org/issues/1039</a></p>
+
+
+	<p>As Alan says, dates are another black art.  The Exif standard does not include Time Zone information.  I also believe it does <em><strong>not</strong></em> handle time resolution less than than 1 second and that's a bummer when processing bracketed images (for HDR).  I think there's an Exif standard for sub seconds, however this is all messy.  Xmp follows the better XML date/time standard.  <a class="external" href="http://dev.exiv2.org/issues/1112">http://dev.exiv2.org/issues/1112</a></p>
+
+
+	<p>I can't say much about exposure.  Shutter speed (Exif.Photo.ExposureTime) is stored as a rational second.  There was an issue recently relating to this.  <a class="external" href="http://dev.exiv2.org/issues/935">http://dev.exiv2.org/issues/935</a></p>
+
+
+	<p>I've dumped the exposure data from a photo I took in July at Stonehenge.  It has all this EV stuff which I think is a setting on the camera to under/overexpose.  And mostly in the Nikon MakerNotes from my D5300.    I'm a retired Adobe Software Engineer and joined Team Exiv2 to add MSVC support.  I've been on a 7 year adventure into the mysterious land of metadata and still have a great deal to learn.  <pre>$ exiv2 -pa -g Exposure http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg
+Exif.Photo.ExposureTime                      Rational    1  1/400 s
+Exif.Photo.ExposureProgram                   Short       1  Not defined
+Exif.Photo.ExposureBiasValue                 SRational   1  0 EV
+Exif.Nikon3.ExposureDiff                     Undefined   4  0.0 EV
+Exif.Nikon3.FlashExposureComp                Undefined   4  0.0 EV
+Exif.Nikon3.ExposureBracketComp              SRational   1  0/6
+Exif.Nikon3.ExposureTuning                   Undefined   3  0 1 6
+Exif.NikonMe.MultiExposureMode               Long        1  Off
+Exif.NikonMe.MultiExposureShots              Long        1  0
+Exif.NikonMe.MultiExposureAutoGain           Long        1  Off
+Exif.Photo.ExposureMode                      Short       1  Auto
+$ </pre>I suspect however you don't need to throw too much metadata into scanned images.  If you're scanning, what does exposure and aperture mean?  To be useful, you really need to capture that data when the photo was taken.  If you're scanning an old slide from years back, it's probably impossible to even guess most of the stuff that's effortlessly stored by a digital camera.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2245">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2231?r=2245#message-2245">RE: DOS batch file and EXIF date stamps</a>
+    -
+    Added by <a class="user active" href="/users/4515">Francois Laverdure</a> <a title="19 Sep 2015 20:54" href="/projects/exiv2/activity?from=2015-09-19">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, it is for scanning old negatives.<br />The good thing is I know which lenses were used so I can set the lens mm, focal length equivalent and maximum aperture pretty easily.<br />Exposure mode, flash on/off are another one I can easily set without much knowledge.</p>
+
+
+	<p>Thing is I regularly scan stuff and then use AnalogEXIF to add the tags back in. But this program hasn't seen any development in ages and contains more than a few bugs, some of them intermittent and mysterious... the type of stuff we all hate. On the other hand, EXIV2 has been around for quite some time (I used to use it back when it didn't support XML) so I naturally migrated to it and am attempting to rebuild the same functionality as analogexif but in a bulletproof batch file.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-11/11)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+#!/bin/bash
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+
+real=0
+fake=0
+function gettext () {
+echo -e "What list will I be using?"
+read capfile
+}
+gettext
+while read 'line';
+do
+	file=$(basename "$line")
+	echo -e "Checking to see if Exiv2 likes $file."
+	exiv2 -pi $line 1>>fileinfo.txt 2>>errorbucket2.text
+	r=$(cat errorbucket2.text | grep Error)
+	s=$(cat errorbucket2.text | grep Warning)
+	if [[ "$r" != "" ]] || [[ "$s" != "" ]]; then
+		echo "$file: Errors or warnings were found."
+		echo "$file">>errantfiles.txt
+		echo -ne "$line\n$r\n">>errorbucket.txt
+		echo -ne "$line\n$s\n">>errorbucket.txt
+	fi
+	rm errorbucket2.text
+	:> errorbucket2.text
+
+done<$capfile
+IFS=$SAVEIFS

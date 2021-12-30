@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>How to correctly read all Exif tags - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="tMOAdGmtnozoxOC4WDPzWy3ZHvsND3kGE+592MKIQhNWjiubG9dSjL2g/7Tn5P9oEktKgvzs2Lzuzu1QgbGlfA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>How to correctly read all Exif tags</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="24 Mar 2015 14:25" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>I have the following question:</p>
+
+
+	<p>Everything works just fine when trying to read all the available tags like:</p>
+
+
+	<p>@std::string res = "{ ";</p>
+
+
+	<p>Exiv2::ExifData::const_iterator end = exifData.end();<br />for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {<br />    res += i->key();<br />    res += " <del>> ";<br />    res += toString(exifData[i</del>>key()]);<br />    res += ", ";<br />}</p>
+
+
+	<p>if (res.length() >= 5) res = res.substr(0, res.size() - 2);<br />res += "}";<br />std::cout << res << "\n";@</p>
+
+
+	<p>But if I try to get any tag that doesn't has value (if the tag has value everything goes fine), e.g. GPSLatitudeRef, and only then read all the tags, it crashes:</p>
+
+
+	<p>@try{<br />    std::cout << exifData["Exif.GPSInfo.GPSLatitudeRef"];<br />}<br />catch (Exiv2::Error&#38; e) {<br />    std::cout << "Caught Exiv2 exception '" << e.what() << "'\n";<br />}</p>
+
+
+	<p>std::string res = "{ ";</p>
+
+
+	<p>Exiv2::ExifData::const_iterator end = exifData.end();<br />for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {<br />    res += i->key();<br />    res += " <del>> ";<br />    res += toString(exifData[i</del>>key()]);<br />    res += ", ";<br />}</p>
+
+
+	<p>if (res.length() >= 5) res = res.substr(0, res.size() - 2);<br />res += "}";<br />std::cout << res << "\n";@</p>
+
+
+	<p>I noticed that doing <code>exifData.clear()</code> in the catch block helps, but it is not a solution.</p>
+
+
+	<p>Could anyone please lead me to have an idea what I am doing wrong?</p>
+
+
+	<p>Thanks in advance!<br />Mikayel</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (11)</h3>
+  <div class="message reply" id="message-1934">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1931?r=1934#message-1934">RE: How to correctly read all Exif tags</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 14:50" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mikayel</p>
+
+
+	<p>You cannot thank somebody in advance.  You thank somebody when they have provided a solution.</p>
+
+
+	<p>Once more I refer you to our old friend samples/exifprint.cpp.  You will see that he is writing the meta data to a stream - in this case std::cout.  I suggest you use the stream type that is backed by a string (I can remember what it is called).  When you've finished writing to that stream, the encapsulated string will be the formatted metadata.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1936">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1931?r=1936#message-1936">RE: How to correctly read all Exif tags</a>
+    -
+    Added by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="24 Mar 2015 15:22" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin,</p>
+
+
+	<p>"Thank in advance" is an alternative method to show respect when you ask a question, same as "Thanks", "Any assistance pleases", etc...</p>
+
+
+	<p>I don't want to write it using std::cout.<br />Could you be so kind please, if you noticed any bug in the code I wrote?</p>
+
+
+	<p>The issues here is that when I try to get a tag that doesn't have a value set, an Exiv2::Error&#38; type error saying that the value is not set is rises, which somehow brakes the code that comes after.</p>
+
+
+	<p>Thanks!<br />Mikayel</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1937">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1931?r=1937#message-1937">RE: How to correctly read all Exif tags</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 16:33" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Make it easy for yourself.  Use the ostringstream class. <pre>// ***************************************************************** -*- C++ -*-
+// exifprint.cpp, $Rev: 3090 $
+// Sample program to print the Exif metadata of an image
+
+#include &lt;exiv2/exiv2.hpp&gt;
+
+#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;cassert&gt;
+
+int main(int argc, char* const argv[])
+try {
+
+    if (argc != 2) {
+        std::cout &lt;&lt; "Usage: " &lt;&lt; argv[0] &lt;&lt; " file\n";
+        return 1;
+    }
+
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(argv[1]);
+    assert(image.get() != 0);
+    image-&gt;readMetadata();
+
+    std::ostringstream out;
+
+    Exiv2::ExifData &#38;exifData = image-&gt;exifData();
+    if (exifData.empty()) {
+        std::string error(argv[1]);
+        error += ": No Exif data found in the file";
+        throw Exiv2::Error(1, error);
+    }
+    Exiv2::ExifData::const_iterator end = exifData.end();
+    for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {
+        const char* tn = i-&gt;typeName();
+        out &lt;&lt; std::setw(44) &lt;&lt; std::setfill(' ') &lt;&lt; std::left
+                  &lt;&lt; i-&gt;key() &lt;&lt; " " 
+                  &lt;&lt; "0x" &lt;&lt; std::setw(4) &lt;&lt; std::setfill('0') &lt;&lt; std::right
+                  &lt;&lt; std::hex &lt;&lt; i-&gt;tag() &lt;&lt; " " 
+                  &lt;&lt; std::setw(9) &lt;&lt; std::setfill(' ') &lt;&lt; std::left
+                  &lt;&lt; (tn ? tn : "Unknown") &lt;&lt; " " 
+                  &lt;&lt; std::dec &lt;&lt; std::setw(3)
+                  &lt;&lt; std::setfill(' ') &lt;&lt; std::right
+                  &lt;&lt; i-&gt;count() &lt;&lt; "  " 
+                  &lt;&lt; std::dec &lt;&lt; i-&gt;value()
+                  &lt;&lt; "\n";
+    }
+
+    std::cout &lt;&lt; "The string = " &lt;&lt; out.str();
+
+    return 0;
+}
+//catch (std::exception&#38; e) {
+//catch (Exiv2::AnyError&#38; e) {
+catch (Exiv2::Error&#38; e) {
+    std::cout &lt;&lt; "Caught Exiv2 exception '" &lt;&lt; e.what() &lt;&lt; "'\n";
+    return -1;
+}</pre>I don't really want to debug your code, however if you're really stuck, please format into a "pre" block so I can read it easily - or attach code to this thread.</p>
+
+
+	<p>"Thanks in advance" to me means.  "Don't expect me to thank because I want your help now and I am too busy to thank you later.".  There is no respect or sincerity.  How about "I will sincerely appreciate any help you can provide.  Thanks".</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1939">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1931?r=1939#message-1939">RE: How to correctly read all Exif tags</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 17:33" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mikayel</p>
+
+
+	<p>Your code is almost correct.  You need to catch the exception.  I've written a new sample <em><strong>$ showkey file key</strong></em> and here's the output on two files.  ~/P.jpg is not geotagged.  ~/Q.jpg is.<pre>608 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ exiv2 -pa -g GPS ~/P.jpg ~/Q.jpg
+/Users/rmills/P.jpg   Exif.Image.GPSTag                            Long        1  15236
+/Users/rmills/P.jpg   Exif.GPSInfo.GPSVersionID                    Byte        4  2.3.0.0
+
+/Users/rmills/Q.jpg   Exif.Image.GPSTag                            Long        1  15236
+/Users/rmills/Q.jpg   Exif.GPSInfo.GPSVersionID                    Byte        4  2.3.0.0
+/Users/rmills/Q.jpg   Exif.GPSInfo.GPSLatitudeRef                  Ascii       2  North
+/Users/rmills/Q.jpg   Exif.GPSInfo.GPSLatitude                     Rational    3  32deg 52.24230' 
+/Users/rmills/Q.jpg   Exif.GPSInfo.GPSLongitudeRef                 Ascii       2  West
+/Users/rmills/Q.jpg   Exif.GPSInfo.GPSLongitude                    Rational    3  96deg 56.11870' 
+/Users/rmills/Q.jpg   Exif.GPSInfo.GPSTimeStamp                    Rational    3  22:50:32.5
+/Users/rmills/Q.jpg   Exif.GPSInfo.GPSSatellites                   Ascii       3  04
+/Users/rmills/Q.jpg   Exif.GPSInfo.GPSMapDatum                     Ascii      17  WGS-84          
+/Users/rmills/Q.jpg   Exif.GPSInfo.GPSDateStamp                    Ascii      11  2015:01:29</pre>When I ask for the key 'Exif.GPSInfo.GPSLatitude', here's the result:<pre>609 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ ../bin/showkey ~/P.jpg Exif.GPSInfo.GPSLatitude
+key Exif.GPSInfo.GPSLatitude = *** no value ***
+610 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ ../bin/showkey ~/Q.jpg Exif.GPSInfo.GPSLatitude
+key Exif.GPSInfo.GPSLatitude = 32deg 52.24230' 
+611 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ </pre>Here's the code.<pre>// ***************************************************************** -*- C++ -*-
+// showkey.cpp
+// Sample program to print an Exif metadata key in a file
+
+#include &lt;exiv2/exiv2.hpp&gt;
+
+#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;cassert&gt;
+#include &lt;string&gt;
+
+int main(int argc, char* const argv[])
+{
+    if (argc != 3) {
+        std::cout &lt;&lt; "Usage: " &lt;&lt; argv[0] &lt;&lt; " file key\n";
+        return 1;
+    }
+    const char* file = argv[1];
+    const char* key  = argv[2];
+
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(file);
+    assert(image.get() != 0);
+    image-&gt;readMetadata();
+
+    std::ostringstream out;
+    Exiv2::ExifData &#38;exifData = image-&gt;exifData();
+    if (! exifData.empty()) {
+        try {
+            out &lt;&lt; exifData[argv[2]];
+        } catch ( ... ) {
+            out &lt;&lt; "*** no value ***" ;
+        }
+        std::cout &lt;&lt; "key " &lt;&lt; key &lt;&lt; " = " &lt;&lt; out.str() &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; "no metadata found in file " &lt;&lt; file &lt;&lt; std::endl;
+    }
+
+    return 0;
+}
+</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-1940">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1931?r=1940#message-1940">RE: How to correctly read all Exif tags</a>
+    -
+    Added by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="24 Mar 2015 17:54" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin,</p>
+
+
+	<p>Maybe I explained the issue bad, I will try to do it better.<br />@<br />#include &lt;exiv2/exiv2.hpp&gt;<br />#include &lt;iostream&gt;<br />#include &lt;iomanip&gt;<br />#include &lt;cassert&gt;<br />#include &lt;string&gt;</p>
+
+
+	<p>int main(int argc, char* const argv[])
+{<br />    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(file);<br />    assert(image.get() != 0);<br />    image->readMetadata();</p>
+	<pre><code>std::string out;<br />    Exiv2::ExifData &#38;exifData = image-&gt;exifData();<br />    if (! exifData.empty()) {<br />        try {<br />            std::cout &lt;&lt; exifData["Exif.GPSInfo.GPSLatitudeRef"]; <strong>// Here can be any tag that doesn't have value</strong><br />        } catch ( Exiv2::Error e ) {<br />            out += e.what();<br />        }</code></pre>
+	<pre><code>Exiv2::ExifData::const_iterator end = exifData.end(); <strong>//Crashes here!</strong><br />        for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {<br />       out += i-&gt;key();<br />       out += " <del>&gt; ";<br />       out += toString(exifData[i</del>&gt;key()]);<br />       out += ", ";<br />        }        </code></pre>
+	<pre><code>std::cout &lt;&lt; out;<br />    } else {<br />        ...<br />    }</code></pre>
+	<pre><code>return 0;<br />}@</code></pre>
+
+
+	<p>Why does this crash?</p>
+
+
+	<p>Thank you!<br />Mikayel</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1942">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1931?r=1942#message-1942">RE: How to correctly read all Exif tags</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 19:15" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm not certain why you are crashing.  I didn't write Exiv2.  I'm the build/test engineer for the project.  I don't know where you are located.  I'm in England.  I can give you some time 1-to-1 on Skype if you'd like to talk and I can mentor you through this.</p>
+
+
+	<p>Here are my thoughts about the code you have presented.  A word of warning - I haven't debugged any of the code here.  It's "about right", however it's straight from my head and fingers and not compiled or tested.</p>
+
+
+	<p>When you do this:<pre>std::cout &lt;&lt; exifData["Call.My.Bluff"]; 
+...
+exifData.end();</pre>It may be crashing because the exifData object is in error.  calling exifData.clear() before the exifData.end() may be required as you suggested earlier.</p>
+
+
+	<p>You cannot use exifData key/values as though they are strings.  The are not strings.  They are instances of the Exiv2::Key and Exiv2::MetaDatum classes.  These classes have their << operators defined to write to streams.  So you get the string value of a key or value by:<pre>ostringstream key_stream ;
+key_stream &lt;&lt; key ;
+key_stream.str() is your string!</pre>and something similar for the value.</p>
+
+
+	<p>If you really want a toString(value) function, you could do something like: <pre>std::string toString(Exiv2::Key key){
+    ostringstream out ;
+    out &lt;&lt; key;
+    return out.str();
+}</pre>However your strategy to append strings is flawed.  Don't do this:<pre>std::string out;
+...
+out += i-&gt;key ;
+...</pre>Go with the flow and let the classes work for you.  Do this:<pre>ostringstream out;
+out &lt;&lt; i-&gt;key ;
+...
+The string you want is out.str()</pre>I hope this helps.  Please consider my offer to have a 1-to-1 session on Skype.  It will save us both time.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1943">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1931?r=1943#message-1943">RE: How to correctly read all Exif tags</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 19:46" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mikayel</p>
+
+
+	<p>I've updated the showkey.cpp file to build a string of comma separated keys in an image.  It doesn't seem to crash on the ->end() statement when the key is unknown:<pre>// ***************************************************************** -*- C++ -*-
+// showkey.cpp, $Rev: 3090 $
+// Sample program to print the Exif metadata of an image
+
+#include &lt;exiv2/exiv2.hpp&gt;
+
+#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;cassert&gt;
+#include &lt;string&gt;
+
+int main(int argc, char* const argv[])
+{
+    if (argc != 3) {
+        std::cout &lt;&lt; "Usage: " &lt;&lt; argv[0] &lt;&lt; " file key\n";
+        return 1;
+    }
+    const char* file = argv[1];
+    const char* key  = argv[2];
+
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(file);
+    assert(image.get() != 0);
+    image-&gt;readMetadata();
+
+    std::ostringstream out;
+    Exiv2::ExifData &#38;exifData = image-&gt;exifData();
+    if (! exifData.empty()) {
+        try {
+            out &lt;&lt; exifData[argv[2]];
+        } catch ( ... ) {
+            out &lt;&lt; "*** no value ***" ;
+        }
+        std::cout &lt;&lt; "key " &lt;&lt; key &lt;&lt; " = " &lt;&lt; out.str() &lt;&lt; std::endl;
+
+        std::ostringstream keys ;
+        bool more = false ;
+        Exiv2::ExifData::const_iterator end = exifData.end(); //Crashes here!
+        for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {
+            if ( more ) keys &lt;&lt; ", ";
+            keys &lt;&lt; i-&gt;key() ;
+            more = true;
+        }
+        std::cout &lt;&lt; "keys = " &lt;&lt; keys.str() &lt;&lt; std::endl ;
+    } else {
+        std::cout &lt;&lt; "no metadata found in file " &lt;&lt; file &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</pre>And here it's running on P.jpg (with no Latitude tag)<pre>626 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ ../bin/showkey ~/P.jpg Exif.GPSInfo.GPSLatitude
+key Exif.GPSInfo.GPSLatitude = *** no value ***
+keys = Exif.Image.Make, Exif.Image.Model, Exif.Image.Orientation, Exif.Image.XResolution, Exif.Image.YResolution, Exif.Image.ResolutionUnit, Exif.Image.Software, Exif.Image.DateTime, Exif.Image.YCbCrPositioning, Exif.Image.ExifTag, Exif.Photo.Exposure
+...</pre>And on Q.jpg with a latitude tag:<pre>627 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ ../bin/showkey ~/Q.jpg Exif.GPSInfo.GPSLatitude
+key Exif.GPSInfo.GPSLatitude = 32deg 52.24230' 
+keys = Exif.Image.Make, Exif.Image.Model, Exif.Image.Orientation, Exif.Image.XResolution, Exif.Image.YResolution, Exif.Image.ResolutionUnit, Exif.Image.Software, Exif.Image.DateTime, Exif.Image.YCbCrPositioning, Exif.Image.ExifTag, ...</pre>We could even make it fancy with something like:<pre>        for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {
+            if ( more ) keys &lt;&lt; ", ";
+            keys &lt;&lt; i-&gt;key() ;
+            more = true;
+            if ( keys.str().length() - keys.str().find_last_of('\n') &gt; 60 ) {
+                keys &lt;&lt; std::endl;
+                more = false;
+            }
+        }</pre>And the output is beautifully formatted:<pre>635 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ ../bin/showkey ~/Q.jpg Exif.GPSInfo.GPSLatitude
+key Exif.GPSInfo.GPSLatitude = 32deg 52.24230' 
+keys = Exif.Image.Make, Exif.Image.Model, Exif.Image.Orientation, Exif.Image.XResolution
+Exif.Image.YResolution, Exif.Image.ResolutionUnit, Exif.Image.Software
+Exif.Image.DateTime, Exif.Image.YCbCrPositioning, Exif.Image.ExifTag
+Exif.Photo.ExposureTime, Exif.Photo.FNumber, Exif.Photo.ExposureProgram
+Exif.Photo.ISOSpeedRatings, Exif.Photo.SensitivityType, Exif.Photo.ExifVersion
+Exif.Photo.DateTimeOriginal, Exif.Photo.DateTimeDigitized, Exif.Photo.ComponentsConfiguration
+Exif.Photo.CompressedBitsPerPixel, Exif.Photo.ExposureBiasValue
+Exif.Photo.MaxApertureValue, Exif.Photo.MeteringMode, Exif.Photo.LightSource
+...</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-1948">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1931?r=1948#message-1948">RE: How to correctly read all Exif tags</a>
+    -
+    Added by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="25 Mar 2015 08:51" href="/projects/exiv2/activity?from=2015-03-25">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin,</p>
+
+
+	<p>Thanks for your answer.</p>
+
+
+	<p>Still in your example, if you try to get exifData[i->key()] instead of i->key() it will crash.</p>
+
+
+	<p>Thanks,<br />Mikayel</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1950">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1931?r=1950#message-1950">RE: How to correctly read all Exif tags</a>
+    -
+    Added by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="25 Mar 2015 09:52" href="/projects/exiv2/activity?from=2015-03-25">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin,</p>
+
+
+	<p>Can you please add me on Skype - megibyan</p>
+
+
+	<p>Thanks,<br />Mikayel</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1952">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1931?r=1952#message-1952">RE: How to correctly read all Exif tags</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Mar 2015 12:09" href="/projects/exiv2/activity?from=2015-03-25">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mikayel Egibyan wrote:</p>
+
+
+<blockquote>
+
+	<p>Robin,</p>
+
+
+	<p>Thanks for your answer.</p>
+
+
+	<p>Still in your example, if you try to get exifData[i->key()] instead of i->key() it will crash.</p>
+
+
+	<p>Thanks,<br />Mikayel</p>
+
+
+</blockquote>
+
+	<p>Mikael</p>
+
+
+	<p>You know the answer!</p>
+
+
+	<p>exifData["duby.dubee.doo"] expects a std::string.  i->key() is NOT a string!   Ssshsshs.</p>
+
+
+	<p>I've added you on Skype.  I am 'clanmills'.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1962">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1931?r=1962#message-1962">RE: How to correctly read all Exif tags</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Mar 2015 19:23" href="/projects/exiv2/activity?from=2015-03-25">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mikayel</p>
+
+
+	<p>I've added two new programs to samples.  I decided on the names:</p>
+
+
+	<ul>
+	<li><em><strong>exifdata</strong></em> for the program to format exif data into JSON/CSV/XML/Wolf (was showkeys)</li>
+		<li><em><strong>exifvalue</strong></em> to show a single exif value (was showkey).</li>
+	</ul>
+
+
+	<p>I've built and tested them on Mac and Windows (32 and 64 bit):<pre>C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2003\bin\Release&gt;exifvalue
+Usage: exifvalue file key
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2003\bin\Release&gt;exifdata
+Usage: exifdata file format
+formats: csv | json | wolf | xml
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2003\bin\Release&gt;exifdata y:\P.jpg json | grep GPS
+  "Exif.Image.GPSTag":"15236",
+  "Exif.GPSInfo.GPSVersionID":"2 3 0 0",
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2003\bin\Release&gt;exifdata y:\Q.jpg json | grep GPS
+  "Exif.Image.GPSTag":"15236",
+  "Exif.GPSInfo.GPSVersionID":"2 3 0 0",
+  "Exif.GPSInfo.GPSLatitudeRef":"N",
+  "Exif.GPSInfo.GPSLatitude":"32/1 522423/10000 0/1",
+  "Exif.GPSInfo.GPSLongitudeRef":"W",
+  "Exif.GPSInfo.GPSLongitude":"96/1 561187/10000 0/1",
+  "Exif.GPSInfo.GPSTimeStamp":"22/1 50/1 3245/100",
+  "Exif.GPSInfo.GPSSatellites":"04",
+  "Exif.GPSInfo.GPSMapDatum":"WGS-84          ",
+  "Exif.GPSInfo.GPSDateStamp":"2015:01:29",
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2003\bin\Release&gt;exifvalue
+Usage: exifvalue file key
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2003\bin\Release&gt;exifvalue y:\Q.jpg Exif.GPSInfo.GPSLatitude
+32deg 52.24230'
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2003\bin\Release&gt;exifvalue y:\P.jpg Exif.GPSInfo.GPSLatitude
+Caught Exiv2 exception 'Value not set'
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2003\bin\Release&gt;</pre>I haven't been able to reproduce the crash we discussed concerning:<pre>
+exifData["Exif.GPSInfo.GPSLatitude"]
+</pre>when the value is not defined in the file.  exifvalue is catching the exception 'Value not set'.  If you continue to experience trouble with this, I'd like to ask you to build and test it with exifvalue.cpp.  If you are able to reproduce this with exifvalue.cpp, please report an Issue on exiv2.org and it will be investigated.  Please include all relevant platform information and a test file.  The following command generates a very useful report:<pre>
+exiv --verbose --version
+</pre>You will appreciate that issues can be resolved more easily when you and I are working with the same code, the same platform and with the same image files.</p>
+
+
+	<p>Good Luck.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-11/11)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Exif copying will not include profile data. - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="0Khb6tcO86Apd6F6ROwGDVlHol3uSQxinDkzjo6ekOwy5fAFpXQ/oHwTvnb7Owo+ZtX2JB+qrdhhGaMGzad3gw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Exif copying will not include profile data.</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4107">Tim Zaman</a> <a title="10 Feb 2014 00:43" href="/projects/exiv2/activity?from=2014-02-10">almost 8 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi all,</p>
+
+
+	<p>I have a fairly straightforward piece of code that seems to work for copying Exif data from one image to another. However, although it seems to loop over all exif data, it does not include the (embedded) (icc) color profile and related information. What have i overlooked here? Congratulations on an excellent library.</p>
+
+
+<pre>
+      std::cerr &lt;&lt; "processing file: " &lt;&lt; from.c_str() &lt;&lt; " and " &lt;&lt; to.c_str() &lt;&lt; std::endl;
+       //get source and destination exif data
+       //THROWS, if opening the file fails or it contains data of an unknown image type.
+       Exiv2::Image::AutoPtr sourceimage = Exiv2::ImageFactory::open(from);
+       Exiv2::Image::AutoPtr destimage = Exiv2::ImageFactory::open(to);
+       //Callers must check the size of individual metadata types before accessing the data.
+       //readMetadata THROWS an exception if opening or reading of the file fails or the image data is not valid (does not look like data of the specific image type).
+       sourceimage-&gt;readMetadata();
+       Exiv2::ExifData &#38;src_exifData = sourceimage-&gt;exifData();
+       if (src_exifData.empty()) {
+              throw Exiv2::Error(1, "No exif data found in the image");
+       }
+       if (dont_overwrite) {
+              //doesn't throw anything if it is empty
+              destimage-&gt;readMetadata();
+              //doesn't throw anything if it is empty
+              Exiv2::ExifData &#38;dest_exifData = destimage-&gt;exifData();
+              //end delimiter for this source image data
+              Exiv2::ExifData::const_iterator end_src = src_exifData.end();
+              //for all the tags in the source exif data
+              for (Exiv2::ExifData::const_iterator i = src_exifData.begin(); i != end_src; ++i) {
+                            //check if current source key exists in destination file
+                            Exiv2::ExifData::iterator maybe_exists = dest_exifData.findKey( Exiv2::ExifKey(i-&gt;key()) );
+                            //if exists AND we are told not to overwrite
+                            if (maybe_exists != dest_exifData.end()) {
+                                   continue;
+                            } else {
+                                   //here we copy the value
+                                   //we create a new tag in the destination file, the tag has the key of the source
+                                   Exiv2::Exifdatum&#38; dest_tag = dest_exifData[i-&gt;key()];
+                                   //now the tag has also the value of the source
+                                   dest_tag.setValue(&#38;(i-&gt;value()));
+                            }
+              }
+       } else {
+              destimage-&gt;setExifData(src_exifData);
+       }
+
+       //THROWS Exiv2::Error if the operation fails
+       destimage-&gt;writeMetadata();
+</pre>
+</div>
+
+</div>
+<br />
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+Patch which fixes Exiv2 MP4 metadata parsing (especially with Gwenview)
+
+Index: exiv2-0.24/src/basicio.cpp
+===================================================================
+--- exiv2-0.24.orig/src/basicio.cpp
++++ exiv2-0.24/src/basicio.cpp
+@@ -1145,7 +1145,6 @@ namespace Exiv2 {
+         case BasicIo::end: newIdx = p_->size_ + offset; break;
+         }
+ 
+-        if ( /*newIdx < 0 || */ newIdx > static_cast<uint64_t>(p_->size_) ) return 1;
+         p_->idx_ = static_cast<long>(newIdx);   //not very sure about this. need more test!!    - note by Shawn  fly2xj@gmail.com //TODO
+         p_->eof_ = false;
+         return 0;
+@@ -1161,7 +1160,7 @@ namespace Exiv2 {
+         case BasicIo::end: newIdx = p_->size_ + offset; break;
+         }
+ 
+-        if (newIdx < 0 || newIdx > p_->size_) return 1;
++        if (newIdx < 0) return 1;
+         p_->idx_ = newIdx;
+         p_->eof_ = false;
+         return 0;
+@@ -1215,7 +1214,7 @@ namespace Exiv2 {
+ 
+     long MemIo::read(byte* buf, long rcount)
+     {
+-        long avail = p_->size_ - p_->idx_;
++        long avail = EXV_MAX(p_->size_ - p_->idx_, 0);
+         long allow = EXV_MIN(rcount, avail);
+         std::memcpy(buf, &p_->data_[p_->idx_], allow);
+         p_->idx_ += allow;
+Index: exiv2-0.24/src/quicktimevideo.cpp
+===================================================================
+--- exiv2-0.24.orig/src/quicktimevideo.cpp
++++ exiv2-0.24/src/quicktimevideo.cpp
+@@ -1456,6 +1456,8 @@ namespace Exiv2 {
+                 else if (currentStream_ == Audio)
+                     xmpData_["Xmp.audio.MediaTimeScale"] = returnBufValue(buf);
+                 time_scale = returnBufValue(buf);
++                if (time_scale <= 0)
++                    time_scale = 1;
+                 break;
+             case MediaDuration:
+                 if(currentStream_ == Video)
+@@ -1571,7 +1573,9 @@ namespace Exiv2 {
+                 xmpData_["Xmp.video.ModificationDate"] = returnUnsignedBufValue(buf); break;
+             case TimeScale:
+                 xmpData_["Xmp.video.TimeScale"] = returnBufValue(buf);
+-                timeScale_ = returnBufValue(buf); break;
++                timeScale_ = returnBufValue(buf);
++                if (timeScale_ <= 0) timeScale_ = 1;
++                break;
+             case Duration:
+                 xmpData_["Xmp.video.Duration"] = returnBufValue(buf) * 1000 / timeScale_; break;
+             case PreferredRate:
+Index: exiv2-0.24/src/quicktimevideo.hpp
+===================================================================
+--- exiv2-0.24.orig/src/quicktimevideo.hpp
++++ exiv2-0.24/src/quicktimevideo.hpp
+@@ -223,7 +223,7 @@ namespace Exiv2 {
+ 
+     private:
+         //! Variable which stores Time Scale unit, used to calculate time.
+-        uint64_t timeScale_;
++        uint64_t timeScale_ = 1;
+         //! Variable which stores current stream being processsed.
+         int currentStream_;
+         //! Variable to check the end of metadata traversing.

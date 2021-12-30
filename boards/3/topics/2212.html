@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Creation of Tiff Images - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="6Q/iIGMG5GfWJZW3KMUIPrLzPt2tc3y4ncxtsYMS3vMLQknPEXwoZ4NBiruXEgQNjWFqpFyQ3QJg7P05wCs5nA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Creation of Tiff Images</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4508">Immanuel Weber</a> <a title="09 Sep 2015 11:38" href="/projects/exiv2/activity?from=2015-09-09">about 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>I tried to create a tiff image using Exiv2::ImageFactory::create(Exiv2::ImageType::tiff, qPrintable(fileName));<br />Unfortunately this results in error 13: "Image type 4 (tiff) is not supported".<br />I dug into the code and found that in the TiffImage ctor the parameter create is not used and hence I think creation is not implemented, is that correct or am I doing something wrong?<br />If not, are there plans or even patches to support tiff creation?</p>
+
+
+	<p>Cheers,<br />Immanuel</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (15)</h3>
+  <div class="message reply" id="message-2213">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2213#message-2213">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Sep 2015 22:40" href="/projects/exiv2/activity?from=2015-09-09">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Immanuel:</p>
+
+
+	<p>I've never visited this part of the code before.  It appears that the create API has not been implemented for TIFF.  I haven't looked at other image types.  I attach my version of tiffimage.cpp.  Can you try this and let me know how it works for you.</p>
+
+
+	<p>Robin</p>
+
+
+<hr />
+
+
+	<p>I've just been watching a cookery program on TV (The Great British Bake-off).  So here's my recipe for creating this file.</p>
+
+
+	<p>1) I created a "no thrills" tiff from test/data/mini9.tif and removing some metadata.<pre>$ cp test/data/mini9.tif foo.tif ; exiv2 -pa foo.tif
+Exif.Image.NewSubfileType                    Long        1  Primary image
+Exif.Image.ImageWidth                        Short       1  9
+Exif.Image.ImageLength                       Short       1  9
+Exif.Image.BitsPerSample                     Short       3  8 8 8
+Exif.Image.Compression                       Short       1  Uncompressed
+Exif.Image.PhotometricInterpretation         Short       1  RGB
+Exif.Image.DocumentName                      Ascii      24  /home/ahuggel/mini9.tif
+Exif.Image.ImageDescription                  Ascii      18  Created with GIMP
+Exif.Image.StripOffsets                      Long        1  8
+Exif.Image.Orientation                       Short       1  top, left
+Exif.Image.SamplesPerPixel                   Short       1  3
+Exif.Image.RowsPerStrip                      Short       1  64
+Exif.Image.StripByteCounts                   Long        1  243
+Exif.Image.XResolution                       Rational    1  72
+Exif.Image.YResolution                       Rational    1  72
+Exif.Image.PlanarConfiguration               Short       1  1
+Exif.Image.ResolutionUnit                    Short       1  inch
+$ exiv2 -M"del Exif.Image.DocumentName" -M"del Exif.Image.ImageDescription" foo.tif
+$ exiv2 -pa foo.tif
+Exif.Image.NewSubfileType                    Long        1  Primary image
+Exif.Image.ImageWidth                        Short       1  9
+Exif.Image.ImageLength                       Short       1  9
+Exif.Image.BitsPerSample                     Short       3  8 8 8
+Exif.Image.Compression                       Short       1  Uncompressed
+Exif.Image.PhotometricInterpretation         Short       1  RGB
+Exif.Image.StripOffsets                      Long        1  216
+Exif.Image.Orientation                       Short       1  top, left
+Exif.Image.SamplesPerPixel                   Short       1  3
+Exif.Image.RowsPerStrip                      Short       1  64
+Exif.Image.StripByteCounts                   Long        1  243
+Exif.Image.XResolution                       Rational    1  72
+Exif.Image.YResolution                       Rational    1  72
+Exif.Image.PlanarConfiguration               Short       1  1
+Exif.Image.ResolutionUnit                    Short       1  inch
+892 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>Then I ran the file through od/sed magic to create a "C" structure:<pre>    char tiff[S] = {
+0x49,0x49,0x00,0x2a,0x00,0x08,0x00,0x00,0x00,0x0f,0x00,0xfe,0x00,0x04,0x00,0x01,
+...
+0xff,0x00,0x00,0x00,0x00,0xff,0xff,0x00,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x00,
+0x00,0xff,0xff,0x00,0x00,0x00,0x00,0xff,0xff,0x00,0x00,0x00};</pre>The od/sed magic was something like:<pre>$ od -h foo.tif | sed -E -e 's/(..)/0x$1/g' &gt; foo.cpp</pre>Popped it in the debugger to bake for 15 minutes and and with some local changes to exiv2.cpp to get it to create files on demand (new home-made option -E) it seems to work.<pre>$ rm -rf foo.tif ; exiv2 -E -pa foo.tif ; ls -alt foo.tif 
+Exif.Image.NewSubfileType                    Long        1  Primary image
+Exif.Image.ImageWidth                        Short       1  9
+Exif.Image.ImageLength                       Short       1  9
+Exif.Image.BitsPerSample                     Short       3  8 8 8
+Exif.Image.Compression                       Short       1  Uncompressed
+Exif.Image.PhotometricInterpretation         Short       1  RGB
+Exif.Image.StripOffsets                      Long        1  216
+Exif.Image.Orientation                       Short       1  top, left
+Exif.Image.SamplesPerPixel                   Short       1  3
+Exif.Image.RowsPerStrip                      Short       1  64
+Exif.Image.StripByteCounts                   Long        1  243
+Exif.Image.XResolution                       Rational    1  72
+Exif.Image.YResolution                       Rational    1  72
+Exif.Image.PlanarConfiguration               Short       1  1
+Exif.Image.ResolutionUnit                    Short       1  inch
+-rw-r--r--+ 1 rmills  staff  460  9 Sep 23:31 foo.tif
+$ </pre></p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/828">tiffimage.cpp</a>    <span class="size">(115 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/828/tiffimage.cpp">tiffimage.cpp</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2214">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2214#message-2214">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/4508">Immanuel Weber</a> <a title="10 Sep 2015 09:57" href="/projects/exiv2/activity?from=2015-09-10">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>thanks for the nice recipe. The cake came out nice ;)<br />But the cake is extremly slow. Now I have to explain more about what I'm trying to do.<br />I'm writting image data using gdal or libtiff (the latter is faster under my conditions) and want to add metadata to the image files.<br />I found exiv2 to be really convenient for that and implemented it quickly.</p>
+
+
+	<p>Unfortunatly when I started to measure execution time (my application needs to be able to write a lot of images fast), I found out that the call to writeMetaData() makes the execution time to rise from 5-6 ms to 60 ms.<br />And that even when I did not add any data to the exifdata container. I profiled it using Intel VTune Amplifier, which shows a big difference between cpu time and elapsed time, like 0.25 s to 6.1 s for 100 iterations of creating a tiff file with your new code plus calling writeMetaData(). <br />That made me think that there may be some buffering or locking or whatever which prevents the access for 55 ms or so.<br />But then I tested writing to the image file with libtiff and right after it with gdal, and that caused no big jump in elapsed time.<br />That lead me to the assumption, that this maybe has something to do how exiv2 accesses the file, the memory mapping or something.<br />Then I tried to create the image file with exiv2 to start with an empty image and later write the data to it with gdal/libtiff. That resulted in my question above.<br />But now that I can create tiff files with exiv2 and still the call to writeMetaData() results in a jump to 60 ms, I don't now what to do.<br />And to add on top, if I just open the files which have been created in a test run before and call writeMetaData() the time drops to 7 ms (still long I think, but acceptable).</p>
+
+
+	<p>I hope my writing is not overly complicated and my problem is understandable.<br />Any ideas on that?</p>
+
+
+	<p>Cheers,<br />Immanuel</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2215">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2215#message-2215">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/4508">Immanuel Weber</a> <a title="10 Sep 2015 10:01" href="/projects/exiv2/activity?from=2015-09-10">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>just additional infos about my environment:<br />Win7, MSVC2013update5, x64, exiv2 0.25</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2216">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2216#message-2216">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Sep 2015 12:36" href="/projects/exiv2/activity?from=2015-09-10">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Gosh, you've dug hard into this matter.  I'm very surprised that the code is slow.</p>
+
+
+	<p>We have an abstract class BasicIo which has methods such as create/open/write/read/seek/tell/close (and others).  When you're writing to the local machine file system, the <em>concrete</em> class FileIo wraps a stdio FILE.  As you can see in the code (fresh from the oven), I do a open/write/seek.</p>
+
+
+	<p>The hex stuff (courtesy of the od/sed magic) could be compiled already byte swapped and that would save something.  I suspect you couldn't even measure the difference.  Here's the new magic:<pre>$ cat src/tiffimage.cpp | sed -E -e 's/(0x..),(0x..),/\2,\1,/g'</pre>And the revised code for tiffimage.cpp/TiffImage::TiffImage() becomes:<pre>{
+        if ( create ) {
+#define S 460
+    char tiff[S] = {
+0x49,0x49,0x2a,0x00,0x08,0x00,0x00,0x00,0x0f,0x00,0xfe,0x00,0x04,0x00,0x01,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0x03,0x00,0x01,0x00,0x00,0x00,0x09,0x00,
+0x00,0x00,0x01,0x01,0x03,0x00,0x01,0x00,0x00,0x00,0x09,0x00,0x00,0x00,0x02,0x01,
+0x03,0x00,0x03,0x00,0x00,0x00,0xc2,0x00,0x00,0x00,0x03,0x01,0x03,0x00,0x01,0x00,
+0x00,0x00,0x01,0x00,0x00,0x00,0x06,0x01,0x03,0x00,0x01,0x00,0x00,0x00,0x02,0x00,
+0x00,0x00,0x11,0x01,0x04,0x00,0x01,0x00,0x00,0x00,0xd8,0x00,0x00,0x00,0x12,0x01,
+0x03,0x00,0x01,0x00,0x00,0x00,0x01,0x00,0x00,0x00,0x15,0x01,0x03,0x00,0x01,0x00,
+0x00,0x00,0x03,0x00,0x00,0x00,0x16,0x01,0x03,0x00,0x01,0x00,0x00,0x00,0x40,0x00,
+0x00,0x00,0x17,0x01,0x04,0x00,0x01,0x00,0x00,0x00,0xf3,0x00,0x00,0x00,0x1a,0x01,
+0x05,0x00,0x01,0x00,0x00,0x00,0xc8,0x00,0x00,0x00,0x1b,0x01,0x05,0x00,0x01,0x00,
+0x00,0x00,0xd0,0x00,0x00,0x00,0x1c,0x01,0x03,0x00,0x01,0x00,0x00,0x00,0x01,0x00,
+0x00,0x00,0x28,0x01,0x03,0x00,0x01,0x00,0x00,0x00,0x02,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x08,0x00,0x08,0x00,0x08,0x00,0x00,0x00,0x00,0x48,0x00,0x00,0x00,0x01,
+0x00,0x00,0x00,0x48,0x00,0x00,0x00,0x01,0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,
+0x00,0xff,0x00,0x00,0x00,0xff,0x00,0x00,0x00,0xff,0xff,0x00,0x00,0xff,0x00,0x00,
+0xff,0x00,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x3f,0x7f,0xbf,0x3f,
+0x7f,0xbf,0x3f,0x7f,0xbf,0x00,0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x00,0x00,
+0xff,0x00,0x00,0xff,0x3f,0x7f,0xbf,0xff,0x00,0x00,0x00,0xff,0x00,0x00,0x00,0xff,
+0x3f,0x7f,0xbf,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0xff,0x00,0x3f,0x7f,0xbf,0xff,
+0x00,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x3f,0x7f,
+0xbf,0xff,0x00,0x00,0x00,0xff,0x00,0x3f,0x7f,0xbf,0xff,0x00,0x00,0x00,0x00,0xff,
+0x00,0x00,0xff,0x00,0x00,0xff,0x00,0xff,0x00,0x3f,0x7f,0xbf,0xff,0x00,0x00,0x00,
+0xff,0x00,0x3f,0x7f,0xbf,0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,
+0x00,0x00,0xff,0x00,0x3f,0x7f,0xbf,0xff,0x00,0x00,0x00,0x00,0xff,0x00,0x00,0xff,
+0x3f,0x7f,0xbf,0x00,0x00,0xff,0xff,0x00,0x00,0x00,0xff,0x00,0x3f,0x7f,0xbf,0x00,
+0x00,0xff,0x00,0x00,0xff,0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x00,0x3f,0x7f,
+0xbf,0x3f,0x7f,0xbf,0x3f,0x7f,0xbf,0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x00,
+0x00,0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x00,0x00,0xff,0xff,0x00,0x00,0x00,
+0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x00,0xff,0x00,0x00};
+
+            if ( isBigEndian() ) {
+                for ( size_t i = 0 ; i &lt; S ; i+= 2 ) {
+                    char t = tiff[i];
+                    tiff[i] = tiff[i+1];
+                    tiff[i+1] = t;
+                }
+            }
+            io_-&gt;open();
+            io_-&gt;write((const byte*)tiff,S);
+            io_-&gt;seek(0,BasicIo::beg);
+        }
+    } // TiffImage::TiffImage </pre>Then I assume you're calling readMetadata() ... doing something ... writeMetadata().</p>
+
+
+	<p>I think we need to instrument 4 steps:</p>
+
+
+	<ol>
+	<li>image = create(Exiv2::ImageType::tiff,path);</li>
+		<li>image->readMetadata()</li>
+		<li>... doing something ...</li>
+		<li>image->writeMetadata()</li>
+	</ol>
+
+
+	<p>If it really is create(...) that's slow <em><strong>AND</strong></em> you know you're always on the local file system, we could try:</p>
+
+
+	<ol>
+	<li>memory map the file to write the file</li>
+		<li>something in Windows OS to create/write a file</li>
+	</ol>
+
+
+	<p>Either strategy would avoid all the buffering involved when using FILE.  However before we dive into that, let's be certain where the delay occurs.</p>
+
+
+	<p>Two more thoughts:</p>
+
+
+	<ol>
+	<li>create a much smaller "foo.tif" - the template file.  I'm sure we could figure out the smallest possible TIFF file (hopefully 50 bytes or less).  You have the recipe above to convert any file into and char* tiff = { 0x00...... }.  This would involve writing less blocks during create() and less work during readMetadata().</li>
+		<li>don't ask the library to create the file.  Call Exiv2::fileExists(path,true) and if it doesn't exist, you create it for yourself in your code, then Exiv2::ImageFactory::open.</li>
+	</ol>
+
+
+	<p>So, lots of possibilities for you to explore.  I'm going to enjoy a nice sunny English Summer afternoon crawling around on the roof (we're putting a new roof our house).  You can crawl around Visual Studio.  We'll talk later.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2217">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2217#message-2217">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/4508">Immanuel Weber</a> <a title="10 Sep 2015 15:11" href="/projects/exiv2/activity?from=2015-09-10">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>hope you are doing well on your roof!<br />I dug depper and can certainly say that create is not slow in the sense that it operations take too long.<br />I ran process monitor (log file appended) and now I found something interesting: there is a WriteFile operation which results in a FILE LOCK CONFLICT, it retries 6 times, with 10 ms intervals and after that it successfully writes the data to the file.<br />Now I looked into the stacks of each operation and I think I found the place where the conflicts are created: basicio.cpp(984) which is part of Exiv2::FileIo::size(): <br />(I tried to post the function here, but I'm to stupid to make the inline code thing working)<br /><em>commit(_fileno(p</em>->fp_)); this is the line mentioned in the call stack.<br />After reading the documentation of _commit, I commented it out and ran a test.<br />BAM. down to 5 ms.<br />So the comment in the function says the call to _commit is necessary on win with msvc for the following code to be successful. <br />I compared the values returned by size() with _commit and without it and the values are the same (with two different images).<br />What to do now? Is _commit still necessary or maybe only on some win plattforms?<br />I wrote that post over the time a figured out where things go "wrong", hence some parts maybe of no interest in the end, but I'm to lazy to rewrite :)</p>
+
+
+	<p>Cheers,<br />Immanuel</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/829">Logfile2.CSV</a>    <span class="size">(8.53 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/829/Logfile2.CSV">Logfile2.CSV</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2218">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2218#message-2218">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Sep 2015 15:51" href="/projects/exiv2/activity?from=2015-09-10">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Well done!  Between us we've got this figured out.  In software (1+1)==3</p>
+
+
+	<p>I'll try this change on MSVC and run our test suite.  The _commit() code was added in <a class="changeset" title="#579: Implemented mmap for Windows directly in FileIo and made that class use the Pimpl idiom (#5..." href="/projects/exiv2/repository/exiv2/revisions/1967">r1967</a> (2009-12-27) by Andreas and I have no doubt there was solid reason at the time.  It's saying "don't trust msvcrt/stat() without a _commit()".  Maybe that was true for msvcrt in Visual Studio 2008 and earlier (or even VC6 or something).  I'll have a google into this tonight and decide what to do.</p>
+
+
+	<p>Roof is coming on great and the weather is perfect.  We'll be watertight on Friday afternoon.<br /><img src="/attachments/download/830/DSC_7358.jpg" alt="" /></p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/830">DSC_7358.jpg</a>    <span class="size">(83.8 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/830/DSC_7358.jpg">DSC_7358.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2219">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2219#message-2219">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Sep 2015 15:57" href="/projects/exiv2/activity?from=2015-09-10">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I investigated making a smaller tiff file.  I attach smallest.tif (168 bytes).   It was created with this code: <pre>// mktiff.cpp
+// build: $ make mktiff LDFLAGS=-ltiff
+#include "tiffio.h" 
+#include &lt;string.h&gt; // for memcpy
+
+// http://research.cs.wisc.edu/graphics/Courses/638-f1999/libtiff_tutorial.htm
+
+int main(int arg, const char* argv[])
+{
+    TIFF* out = TIFFOpen("smallest.tif", "w");
+    const int   width = 0 ;
+    const int   height = 1 ;
+    const int   sampleperpixel = 1 ;
+    char* image[(width+1)*height*sampleperpixel];
+
+    TIFFSetField(out, TIFFTAG_IMAGEWIDTH, width);  // set the width of the image
+    TIFFSetField(out, TIFFTAG_IMAGELENGTH, height);    // set the height of the image
+    TIFFSetField(out, TIFFTAG_SAMPLESPERPIXEL, sampleperpixel);   // set number of channels per pixel
+    TIFFSetField(out, TIFFTAG_BITSPERSAMPLE, 8);    // set the size of the channels
+    TIFFSetField(out, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);    // set the origin of the image.
+
+    //   Some other essential fields to set that you do not have to understand for now.
+    TIFFSetField(out, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
+    TIFFSetField(out, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
+    tsize_t linebytes = sampleperpixel * width;
+    unsigned char buf[200];        // buffer used to store the row of pixel information for writing to file
+
+    // We set the strip size of the file to be size of one row of pixels
+    TIFFSetField(out, TIFFTAG_ROWSPERSTRIP, TIFFDefaultStripSize(out, width*sampleperpixel));
+
+    //Now writing image to the file one strip at a time
+    for (uint32 row = 0; row &lt; height; row++)
+    {
+        ::memcpy(buf, &#38;image[(height-row-1)*linebytes], linebytes);    // check the index here, and figure out why not using h*linebytes
+        if (TIFFWriteScanline(out, buf, row, 0) &lt; 0)
+        break;
+    }
+
+    // Finally we close the output file, and destroy the buffer
+    TIFFClose(out);
+    return 0;
+}</pre>And here's the output when I run exiv2 -pa smallest.tif<pre>$ exiv2 -pa smallest.tif 
+Exif.Image.ImageWidth                        Short       1  0
+Exif.Image.ImageLength                       Short       1  1
+Exif.Image.BitsPerSample                     Short       1  8
+Exif.Image.Compression                       Short       1  Uncompressed
+Exif.Image.PhotometricInterpretation         Short       1  RGB
+Exif.Image.StripOffsets                      Long        1  0
+Exif.Image.Orientation                       Short       1  top, left
+Exif.Image.SamplesPerPixel                   Short       1  1
+Exif.Image.RowsPerStrip                      Short       1  8192
+Exif.Image.StripByteCounts                   Long        1  0
+Exif.Image.PlanarConfiguration               Short       1  1
+$ </pre></p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/831">smallest.tif</a>    <span class="size">(146 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/831/smallest.tif">smallest.tif</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2220">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2220#message-2220">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Sep 2015 16:25" href="/projects/exiv2/activity?from=2015-09-10">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hey, I've had a thought about the "FILE_LOCK_CONFLICT".  Do you have a virus detector running on your machine?  It seems odd that a single process could block/retry itself.  Or is your application multithreaded and fighting with itself?  The log file is using Memory Mapping and we're using FILE at the same time.  I'll investigate this on Windows tonight.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2221">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2221#message-2221">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/4508">Immanuel Weber</a> <a title="10 Sep 2015 16:58" href="/projects/exiv2/activity?from=2015-09-10">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>I also thought about it in the beginning and my virus detector is indeed checking on that file, that happens shortly after it is created. I turned it off (don't tell my IT department), but the FILE LOCK CONFLICT still occurs. (I also ruled out windows indexing of that file)<br />On the hunt for the smallest tiff:<br />    TIFF* out = TIFFOpen("smallest.tif", "w");<br />    TIFFSetField(out, TIFFTAG_IMAGEWIDTH, 0); <br />    TIFFSetField(out, TIFFTAG_IMAGELENGTH, 0);<br />    TIFFClose(out);<br />this still lets exiv2.exe report info about the file and is only 50 bytes. <br />I will investigate tomorrow if it is possible to take that stripped down file, add metadata and afterwards add imagedata to it, that's something I still have to confirm for myself...</p>
+
+
+	<p>Your roof looks like you are making good progress!</p>
+
+
+	<p>Cheers,<br />Immanuel</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2222">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2222#message-2222">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Sep 2015 17:30" href="/projects/exiv2/activity?from=2015-09-10">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'll investigate the MM/FILE puzzle later.</p>
+
+
+	<p>That's curious about smallest.tif of 50 bytes.  I'd tried different settings (including 0,0) and got a file of 8 bytes which exiv2 doesn't recognise as a tiff!  You've inspired me to comment off some fields and got down to 110 bytes.  Can attach your smallest.tif?</p>
+
+
+	<p>I'm wondering if create is a good idea at all.  We should really only open/read (and modify/write) existing files.  There isn't really such a thing as a template image file because an image (almost from birth) is set up with image-size/color-space/pixel-format/plane-config and so on.  Perhaps the correct resolution of this matter is for Exiv2 to throw an exception and say "Create your own damn file!".</p>
+
+
+	<p>If you create your own file and only use Exiv2::ImageFactory::open(...), do you still hit this retry/commit() issue?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2223">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2223#message-2223">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="11 Sep 2015 02:47" href="/projects/exiv2/activity?from=2015-09-11">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>That _commit() call is an good find! It actually dates back to commit <a class="changeset" title="Fixed changes introduced in previous revision. Added call to _commit() before stat() instead of i..." href="/projects/exiv2/repository/exiv2/revisions/566">r566</a> from April 2005. The issues with stat() on MSVC from then may very well not exist anymore in the currently supported Visual Studio versions, as Robin says.</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2224">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2224#message-2224">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/4508">Immanuel Weber</a> <a title="11 Sep 2015 15:17" href="/projects/exiv2/activity?from=2015-09-11">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I have to correct my "smallest tif code", because the resulting tif wont be accepted by libtiff (hence gdal) and I think the standard tiff implementation should be able to open it.<br />Hence a new version:<br />    TIFF * file = TIFFOpen("smallest.tif", "w");<br />    TIFFSetField(file, TIFFTAG_IMAGEWIDTH, 1);<br />    TIFFSetField(file, TIFFTAG_IMAGELENGTH, 1);<br />    char pixel = 0;<br />    TIFFWriteScanline(file, &#38;pixel, 0, 0);<br />    TIFFClose(file);<br />The resulting tif (attached) is 76 bytes "large". (NOTE: The code above should never be used as a template for "real" image writting.)<br />Robin, I understand your argument regarding why even bother with creating a tif with exiv2. The reason why I was trying to do that was because I had the hope that I could write the metadata to a small tif file and write the imagedata later to it.<br />The time for mapping and writing of the metadata is proportional to the image size, hence I wanted to write the metadata to a small file.<br />Unfortunately, as I just found out, this appears not to be possible. So I have to stick with writing imagedata first and metadata second.<br />So at the moment I think I don't need the create tif function in exiv2. Maybe add it for consistency as some other formats can be created?<br />By the way I profiled the code a few times with different creators of the file etc and observed that the calls to fopen still consume most of the time, whereas the libtiff opening of the file is done with windows api CreateFile, which does not even appear as a hot spot. Maybe there is some overhead introduced by fopen, but testing that appears to be some bigger task. As I'm going on vacation tomorrow for two weaks I will leave it alone for the moment and I'm happy that the code is allready much faster now. As I clicked arround I found in the documentation for fopen a flag "c": "Enable the commit flag for the associated filename so that the contents of the file buffer are written directly to disk if either fflush or _flushall is called.", maybe that can be of interest too or is just an old one.<br />Thanks for the help so far!<br />Immanuel</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/832">smallest.tif</a>    <span class="size">(76 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/832/smallest.tif">smallest.tif</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2225">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2225#message-2225">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Sep 2015 15:44" href="/projects/exiv2/activity?from=2015-09-11">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks very much for getting back to me.  I'm probably not going to pursue this any further for now as I have my doubts about the validity of the concept that Exiv2 should ever create an image.  Our mission is to reliably read/modify/delete metadata.  Creating image files is probably out of scope.</p>
+
+
+	<p>I investigated the MM/FILE puzzle. I think the MM is being done by msvcrt and not in the Exiv2 code when I run the command to create a tif:<pre>$ exiv2 -pa -E foo.tif</pre>Caution: the -E option to create files is not in the public code base - it's something I've added locally on my machine.</p>
+
+
+	<p>I'm unwilling to remove the msvc/_commit() in FileIo::size().  One wet day, I'll write a program to use FileIo to create files and agressively probe size() with/without the _commit().  Then run it with different versions of Visual Studio.  However, not today - the sun is shining and I want to get the roof finished.</p>
+
+
+	<p>I'll have to review all the image types to see if create() is supported for any format.  I suspect it isn't and <code>BasicIo::create()</code> joined the API at the birth of class BasicIo.  Although well intended, create() is actually still-born!</p>
+
+
+	<p>Here's the bill for the help that Andreas and I have provided.  I'd like you to get to OpenHub <a class="external" href="https://www.openhub.net/p/exiv2">https://www.openhub.net/p/exiv2</a> and check the "I use this" - you'll have to register (it's free).  If you'd like to give Exiv2 a review, or kudos to me and/or Andreas - even better.  <a class="external" href="https://www.openhub.net/p/13985/contributors/60065117754297">https://www.openhub.net/p/13985/contributors/60065117754297</a></p>
+
+
+	<p>Enjoy your vacation.   I'm sure we'll talk when you're back at work.  Have fun.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2226">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2226#message-2226">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="12 Sep 2015 04:11" href="/projects/exiv2/activity?from=2015-09-12">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p><a href="http://www.exiv2.org/doc/classExiv2_1_1ImageFactory.html#898303828413f8276109ac2d99648d33" class="external">ImageFactory::create()</a> seems to have been there since the beginning of time. As documented and confirmed by Immanuel here, it throws an <code>Error</code> if creation of the requested target image type is not supported. Some image formats can apparently be created, e.g., <a href="http://www.exiv2.org/doc/classExiv2_1_1JpegImage.html#3b477e95800ba50d5f231a36236596bf" class="external">JpegImage</a>.</p>
+
+
+	<p>But I fully concur with Robin, this API is suspicious and questionable nowadays; we deal with image metadata, not the creation of images.</p>
+
+
+	<p>Immanuel, for your use-case, I wonder if you could add metadata to the TIFF image in memory, using the appropriate call to <a href="http://www.exiv2.org/doc/classExiv2_1_1ImageFactory.html#8692f9f2ec13b2e8df084b8a2156db78" class="external">ImageFactory::open</a>, instead of writing it to a file twice?</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2227">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2212?r=2227#message-2227">RE: Creation of Tiff Images</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Sep 2015 12:44" href="/projects/exiv2/activity?from=2015-09-14">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>It's a wet Monday morning in England and the new roof is working fine.</p>
+
+
+	<p>I've written code to probe FileIo::size().  The msvcrt/_commit code is required on Visual Studio 2003/5/8.  I haven't tried on 10 or 12.  I think I would prefer to see this expressed as (BasicIo.cpp#982): <pre>#if defined _MSC_VER
+            // This is required on msvcrt before stat after writing to a file
+            _commit(_fileno(p_-&gt;fp_));
+#endif</pre>However I'm going to leave the code the way it is because it has worked fine for years.  Here's my test code, which I dropped into samples/exifprint.cpp<pre>// ***************************************************************** -*- C++ -*-
+// exifprint.cpp, $Rev: 3090 $
+// Sample program to print the Exif metadata of an image
+
+#include &lt;exiv2/exiv2.hpp&gt;
+
+#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;cassert&gt;
+
+#include &lt;stdlib.h&gt;
+#include &lt;time.h&gt;
+
+#define TIMES 10
+#define TO    10000
+
+int main(int argc, char* const argv[])
+try {
+
+    if (argc != 2) {
+        std::cout &lt;&lt; "Usage: " &lt;&lt; argv[0] &lt;&lt; " file\n";
+        return 1;
+    }
+
+    const char* path         = argv[1];
+
+    double block             = 2.0 * TO/TIMES;
+    long   now               = 0;
+    long   alloced           = 100 + ((2*TO)/TIMES);
+    const  Exiv2::byte* buff = (const Exiv2::byte*) malloc( alloced );
+
+    srand((unsigned int)time(NULL)); // randomize seed
+
+    Exiv2::FileIo f(path) ;
+    f.open("wb");
+
+    for ( size_t i = 0 ; f.size() &lt; TO  ; i++ ) {
+        long add = (long) ((rand()*block)/RAND_MAX);
+        if ( now + add &gt; TO ) add = TO - now ;
+        if ( add &gt; alloced  ) add = alloced  ;
+        // std::cout &lt;&lt; "-add,block = " &lt;&lt; add &lt;&lt; "," &lt;&lt; block &lt;&lt; std::endl;
+        f.write(buff,add);
+        now += add ;
+        if ( now != f.size() ) {
+            std::cout &lt;&lt; "now = " &lt;&lt; now &lt;&lt; " add,f.size() = " &lt;&lt; add &lt;&lt; "," &lt;&lt; f.size() &lt;&lt; std::endl;
+            exit(1);
+        }
+    }
+
+    return 0;
+}
+//catch (std::exception&#38; e) {
+//catch (Exiv2::AnyError&#38; e) {
+catch (Exiv2::Error&#38; e) {
+    std::cout &lt;&lt; "Caught Exiv2 exception '" &lt;&lt; e.what() &lt;&lt; "'\n";
+    return -1;
+}</pre>Here's typical output with the _commit commented off.  In this case it was generated by Visual Studio 2008:<pre>C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\Win32\DebugDLL&gt;exifprint.exe foo.txt
+now = 746 add,f.size() = 746,0
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\Win32\DebugDLL&gt;dir foo.txt
+ Volume in drive C has no label.
+ Volume Serial Number is 0899-EF40
+
+ Directory of C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\Win32\DebugDLL
+
+09/14/2015  01:06 PM               746 foo.txt
+               1 File(s)            746 bytes
+               0 Dir(s)   9,690,226,688 bytes free
+</pre>Then I restore the _commit(), build exifprint.exe and here's the output:<pre>C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\Win32\DebugDLL&gt;exifprint.exe foo.txt
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\Win32\DebugDLL&gt;dir foo.txt
+ Volume in drive C has no label.
+ Volume Serial Number is 0899-EF40
+
+ Directory of C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\Win32\DebugDLL
+
+09/14/2015  01:08 PM            10,000 foo.txt
+               1 File(s)         10,000 bytes
+               0 Dir(s)   9,690,218,496 bytes free
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\Win32\DebugDLL&gt;</pre>I'm not even sure that this is a bug in msvcrt.  It has something to do with how the buffers are being flushed to disk.  And I think that also explains the blocking/retry recorded in Immanuel's log.  The _commit() really forces the buffer flush to disk and has to wait for the OS to perform that.</p>
+
+
+	<p>We could reprogram the FileIo:: class to maintain it's own size status as we do for RemoteIo().  I suspect the C runtime on Unix/Mac/Cygwin does something like this and _stat is not really reporting the true size on disk, but something in the library that understands about flushed buffers that haven't yet reached the storage device.  The _commit() code is necessary with MSVC.</p>
+
+
+	<p>It's been fun to pursue this puzzle.  I don't think this warrants further effort nor changes to the codebase.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-15/15)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

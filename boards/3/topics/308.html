@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Exiv2 compilation under mingw32  - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="A1tN0RiKQ1qHCGWIa/4J2pb8b7D2RGj0cba2HfrpbjrhFuY+avCPWtJseoTUKQXpqW47yQenyU6MliaVudCJVQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Exiv2 compilation under mingw32 </h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/319">Jos De Laender</a> <a title="24 Dec 2009 03:44" href="/projects/exiv2/activity?from=2009-12-24">almost 12 years</a> ago</span></p>
+<div class="wiki">
+<p>Dear all,</p>
+
+
+	<p>I'm using the exiv2 library in a raw convertor of mine.</p>
+
+
+	<p>While porting this application to Windows, I got completely stuck with compiling Exiv2 under mingw32 (TDM-2 mingw32) gcc 4.4.1.</p>
+
+
+	<p>I got errors along the lines that follow.<br />Did someone actually succeed in compiling this with a similar configuration ? Any hints appreciated.</p>
+
+
+	<p>I realize it might be as well a mingw32 issue, or even more likely a combination of issues in mingw and in exiv2.</p>
+
+
+	<p>Additional info : <br />- It does compile all very well under linux.<br />- It used to compile with some older mingw32 (but I think this was still based on gcc 4.3.X)</p>
+
+
+	<p>Thanks for your help and/or referrals.</p>
+
+
+	<p>Jos</p>
+
+
+	<p>if test "x1" = "x1"; then cd xmpsdk/src &#38;&#38; make xmpsdk; fi;<br />make<sup><a href="#fn1">1</a></sup>: Entering directory `/c/jdlRaw/exiv2-0.18.2/xmpsdk/src'<br /> g++ -O2 -fvisibility=hidden -fvisibility-inlines-hidden -Wall -Wcast-align -Wpointer-arith -Wformat-security -Wmissing-format-attribute -Woverloaded-virtual -W -MMD -I. -DEXV_LOCALEDIR=\"/mingw/share/locale\" -I../include -funsigned-char -DNDEBUG=1 -DEXV_HAVE_STDINT_H=1 -c XMPMeta.cpp  -DDLL_EXPORT -DPIC -o .libs/XMPMeta.o<br />XMPMeta.cpp:32: warning: ignoring #pragma warning <br />XMPMeta.cpp:33: warning: ignoring #pragma warning <br />XMPMeta.cpp:34: warning: ignoring #pragma warning <br />XMPMeta.cpp:35: warning: ignoring #pragma warning <br />In file included from XMPMeta.cpp:23:<br />c:\mingw\bin\../lib/gcc/mingw32/4.4.1/include/c++/cstdio:165: error: '::snprintf' has not been declared<br />c:\mingw\bin\../lib/gcc/mingw32/4.4.1/include/c++/cstdio:176: error: '__gnu_cxx::snprintf' has not been declared<br />XMPMeta.cpp: In function 'XMP_Status DumpNodeOptions(XMP_OptionBits, XMP_Status (<strong>)(void</strong>, const char*, XMP_StringLen), void*)':<br />XMPMeta.cpp:179: error: 'snprintf' was not declared in this scope<br />XMPMeta.cpp: In function 'XMP_Status DumpPropertyTree(const XMP_Node*, int, size_t, XMP_Status (<strong>)(void</strong>, const char*, XMP_StringLen), void*)':<br />XMPMeta.cpp:219: error: 'snprintf' was not declared in this scope<br />XMPMeta.cpp: In static member function 'static bool XMPMeta::Initialize()':<br />XMPMeta.cpp:578: warning: unused variable 'flag'<br />XMPMeta.cpp: In static member function 'static bool XMPMeta::RegisterNamespace(const char*, const char*, const char**, XMP_StringLen*)':<br />XMPMeta.cpp:902: error: 'snprintf' was not declared in this scope<br />make<sup><a href="#fn1">1</a></sup>: <b>* [XMPMeta.o] Error 1<br />make<sup><a href="#fn1">1</a></sup>: Leaving directory `/c/jdlRaw/exiv2-0.18.2/xmpsdk/src'<br />make: *</b> [xmpsdk] Error 2</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (11)</h3>
+  <div class="message reply" id="message-312">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/308?r=312#message-312">RE: Exiv2 compilation under mingw32 </a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="24 Dec 2009 23:14" href="/projects/exiv2/activity?from=2009-12-24">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jos</p>
+
+
+	<p>I'll look at this after Christmas.  Happy Holidays to you and your family.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-313">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/308?r=313#message-313">RE: Exiv2 compilation under mingw32 </a>
+    -
+    Added by <a class="user active" href="/users/319">Jos De Laender</a> <a title="25 Dec 2009 01:22" href="/projects/exiv2/activity?from=2009-12-25">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Dear,</p>
+
+
+	<p>Thanks for your prompt reply.</p>
+
+
+	<p>Some further feedback.<br />This feedback is pointing largely to the build environment rather than exiv2 but nevertheless prevents me from building smoothly.</p>
+
+
+	<p>So what have I now :<br />1. I took Qt (open source gui toolkit) which includes a mingw32 with gcc 4.4.0 compiler environment.<br />2. MSYS as 'shell' and elementary tools.<br />3. Latest released exiv2.</p>
+
+
+	<p>The errors are the same as with the TDM-mingw32, and I could get rid of it by :<br />1.Changing the 'include &lt;cstdio&gt;' by 'include &lt;stdio.h&gt;' in XMPMeta.cpp<br />2.Pasting all the #defines at the end of config.log generated by ./configure into config/config.h.</p>
+
+
+	<p>I would agree that both are probably mingw related issues or even mingw bugs.<br />The second case seems at least on my machine somehow consistent : config.h or alike is not generated by ./configure.</p>
+
+
+	<p>Again, while this doesn't point into an exiv2 issue, it looks like exiv2 can't be build on a recent standard mingw / gcc 4.4.0 environment ?<br />I would be interested in experiences of people that <strong>did</strong> succeed.</p>
+
+
+	<p>Once more thanks for the efforts on this program. And best wished to you as well.</p>
+
+
+	<p>Jos</p></div>
+  
+  </div>
+  <div class="message reply" id="message-314">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/308?r=314#message-314">RE: Exiv2 compilation under mingw32 </a>
+    -
+    Added by <a class="user active" href="/users/319">Jos De Laender</a> <a title="25 Dec 2009 01:39" href="/projects/exiv2/activity?from=2009-12-25">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Dear,</p>
+
+
+	<p>Most of the issues were generated because I ran apparently in a known issue when decompressing exiv2 via WinZip :<br /><a class="external" href="http://sourceforge.net/tracker/index.php?func=detail&#38;aid=2894666&#38;group_id=2435&#38;atid=102435">http://sourceforge.net/tracker/index.php?func=detail&#38;aid=2894666&#38;group_id=2435&#38;atid=102435</a></p>
+
+
+	<p>When I decompress via the MSYS shell, the whole issue with having to paste config.log => config.h disappears. The configuration works OK then.</p>
+
+
+	<p>The first issue ( resolved by changing the 'include &lt;cstdio&gt;' by 'include &lt;stdio.h&gt;' in XMPMeta.cpp ) stays though. <br />My feeling is it is a mingw/msys issue as well, but I don't find it.</p>
+
+
+	<p>Again , if someone was able to compile completely without changing exiv2 under mingw/msys (with a gcc 4.4.X compiler), I would appreciate the feedback.</p>
+
+
+	<p>Best regards,</p>
+
+
+	<p>Jos</p></div>
+  
+  </div>
+  <div class="message reply" id="message-315">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/308?r=315#message-315">RE: Exiv2 compilation under mingw32 </a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="25 Dec 2009 02:04" href="/projects/exiv2/activity?from=2009-12-25">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Jos,</p>
+
+
+	<p>I think this is <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: SVN 1912 fails to build (Closed)" href="/issues/653">#653</a>, Exiv2 0.18.2 doesn't compile with gcc 4.4<br />The bug is fixed in the trunk but that has some other issues on MinGW/MSYS which I'll resolve in the next few days.<br />For now, I suggest you either fix the problem locally by adding the missing #includeS or use gcc 3.4.5 on MinGW/MSYS.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-316">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/308?r=316#message-316">RE: Exiv2 compilation under mingw32 </a>
+    -
+    Added by <a class="user active" href="/users/319">Jos De Laender</a> <a title="25 Dec 2009 03:09" href="/projects/exiv2/activity?from=2009-12-25">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas,</p>
+
+
+	<p>I need gcc 4.4 so I will resolve locally right now.</p>
+
+
+	<p>Is there any value in me trying the latest one on the trunk under MinGW/MSYS with gcc 4.4 and reporting back ?<br />Or do you prefer me to just wait and see ?</p>
+
+
+	<p>By the way : thanks for a great program !</p>
+
+
+	<p>Jos</p></div>
+  
+  </div>
+  <div class="message reply" id="message-318">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/308?r=318#message-318">RE: Exiv2 compilation under mingw32 </a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="25 Dec 2009 03:40" href="/projects/exiv2/activity?from=2009-12-25">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jos,</p>
+
+
+	<p>Yes please try and report back if you run into issues! I'm still using the old version 3.4.5 right now.<br />The configuration for iconv needs work, you might need to manually undefine EXV_HAVE_ICONV in src/exv_conf.h, then run "make clean; make" in the src directory again. But do that only if you really encounter an iconv-related problem.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-319">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/308?r=319#message-319">RE: Exiv2 compilation under mingw32 </a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="25 Dec 2009 17:19" href="/projects/exiv2/activity?from=2009-12-25">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>The configuration for iconv needs work, you might need to manually undefine EXV_HAVE_ICONV</p>
+
+
+</blockquote>
+
+	<p>That should be fixed now, pls update to <a class="changeset" title="Removed --disable-printucs2 configure option." href="/projects/exiv2/repository/exiv2/revisions/1965">r1965</a></p></div>
+  
+  </div>
+  <div class="message reply" id="message-322">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/308?r=322#message-322">RE: Exiv2 compilation under mingw32 </a>
+    -
+    Added by <a class="user active" href="/users/319">Jos De Laender</a> <a title="26 Dec 2009 10:52" href="/projects/exiv2/activity?from=2009-12-26">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas,</p>
+
+
+	<p>I saw that the XMPMeta.cpp is altered bringing in the #include &lt;stdio.h&gt;<br />Still on my mingw32 (TDM-Mingw32 again) this is of no help.<br />I still have to comment the #include &lt;cstdio&gt;.</p>
+
+
+	<p>I'm not sure it is a exiv2 bug, but again, it doesn't build off the shelf on a 'popular' mingw32.</p>
+
+
+	<p>Best regards,</p>
+
+
+	<p>Jos</p></div>
+  
+  </div>
+  <div class="message reply" id="message-325">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/308?r=325#message-325">RE: Exiv2 compilation under mingw32 </a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="27 Dec 2009 07:24" href="/projects/exiv2/activity?from=2009-12-27">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Jos,</p>
+
+
+	<p>If the fix is so simple, we should just do it. I'm not sure if I understand correctly what you modified though. I've done this: <a class="external" href="http://dev.exiv2.org/repositories/diff/exiv2?rev=1971">http://dev.exiv2.org/repositories/diff/exiv2?rev=1971</a> and it works on Mac OSX (gcc 4.2.1) and Linux (gcc 4.4.2), I'll test with my old MinGW gcc 3.4.5 and MSVC 9 tomorrow.</p>
+
+
+	<p>Can you pls confirm if this is what you meant? Does the trunk compile on your MinGW installation with this change?</p>
+
+
+	<p>Thanks,<br />Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-326">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/308?r=326#message-326">RE: Exiv2 compilation under mingw32 </a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="27 Dec 2009 07:32" href="/projects/exiv2/activity?from=2009-12-27">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>...and now I've also realized that XMPMeta.cpp includes &lt;stdio.h&gt; not twice, but three times(!), <a href="http://dev.exiv2.org/repositories/diff/exiv2?rev=1972" class="external">so I've removed two of them</a>. Only tested on Mac OSX.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-327">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/308?r=327#message-327">RE: Exiv2 compilation under mingw32 </a>
+    -
+    Added by <a class="user active" href="/users/319">Jos De Laender</a> <a title="27 Dec 2009 08:32" href="/projects/exiv2/activity?from=2009-12-27">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas,</p>
+
+
+	<p>Yes, just substituting &lt;cstdio&gt; by &lt;stdio.h&gt; as you did, works on my TDM-MinGW32.<br />Including it once should be ok ;).</p>
+
+
+	<p>I cannot confirm if it works on other platforms, but you seem to be checking and it looks good.</p>
+
+
+	<p>Thanks,</p>
+
+
+	<p>Jos</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-11/11)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

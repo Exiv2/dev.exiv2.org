@@ -1,0 +1,210 @@
+From 44f3be92e57fa331c671a99e290b7e34850e9508 Mon Sep 17 00:00:00 2001
+From: Michael Pratt <michael@pratt.im>
+Date: Sat, 5 Jul 2014 15:25:38 -0700
+Subject: [PATCH 2/6] xmp: convert metadata store from std::vector to
+ std::multimap
+
+Use a std::multimap to store XMP metadata, providing O(1) lookup times,
+rather than the O(n) lookup times provided by a std::vector.  This
+provides large performance improvements for images with a large number
+of XMP tags.
+
+This change makes minimal changes to the API.  map_value_iterator is
+used to provide metadata iterators that behave like the old std::vector
+iterators.  XmpData::sortByKey() is deprecated, as the std::multimap is
+always kept sorted by key, with XmpKey::operator<().
+---
+ src/properties.cpp |  9 +++++++++
+ src/properties.hpp |  2 ++
+ src/xmp.cpp        | 51 +++++++++++++++++++++------------------------------
+ src/xmp.hpp        | 12 ++++++++----
+ 4 files changed, 40 insertions(+), 34 deletions(-)
+
+diff --git a/src/properties.cpp b/src/properties.cpp
+index 9d36777..0d84ef5 100644
+--- a/src/properties.cpp
++++ b/src/properties.cpp
+@@ -2300,6 +2300,15 @@ namespace Exiv2 {
+         return *this;
+     }
+ 
++    bool XmpKey::operator<(const XmpKey& b) const
++    {
++        if (this->groupName() != b.groupName()) {
++            return this->groupName() < b.groupName();
++        }
++
++        return this->tagName() < b.tagName();
++    }
++
+     XmpKey::AutoPtr XmpKey::clone() const
+     {
+         return AutoPtr(clone_());
+diff --git a/src/properties.hpp b/src/properties.hpp
+index b56a65d..2a9ae31 100644
+--- a/src/properties.hpp
++++ b/src/properties.hpp
+@@ -265,6 +265,8 @@ namespace Exiv2 {
+         //@{
+         //! Assignment operator.
+         XmpKey& operator=(const XmpKey& rhs);
++        //! Comparison operator.
++        bool operator<(const XmpKey& b) const;
+         //@}
+ 
+         //! @name Accessors
+diff --git a/src/xmp.cpp b/src/xmp.cpp
+index 870aad4..27659de 100644
+--- a/src/xmp.cpp
++++ b/src/xmp.cpp
+@@ -52,23 +52,6 @@ EXIV2_RCSID("@(#) $Id$")
+ // *****************************************************************************
+ // local declarations
+ namespace {
+-    //! Unary predicate that matches an Xmpdatum by key
+-    class FindXmpdatum {
+-    public:
+-        //! Constructor, initializes the object with key
+-        FindXmpdatum(const Exiv2::XmpKey& key)
+-            : key_(key.key()) {}
+-        /*!
+-          @brief Returns true if prefix and property of the argument
+-                 Xmpdatum are equal to that of the object.
+-        */
+-        bool operator()(const Exiv2::Xmpdatum& xmpdatum) const
+-            { return key_ == xmpdatum.key(); }
+-
+-    private:
+-        std::string key_;
+-
+-    }; // class FindXmpdatum
+ 
+ #ifdef EXV_HAVE_XMP_TOOLKIT
+     //! Convert XMP Toolkit struct option bit to Value::XmpStruct
+@@ -181,6 +164,12 @@ namespace Exiv2 {
+         delete p_;
+     }
+ 
++    const XmpKey& Xmpdatum::xmpKey() const
++    {
++        if (p_->key_.get() == 0) throw Error(8);
++        return *p_->key_;
++    }
++
+     std::string Xmpdatum::key() const
+     {
+         return p_->key_.get() == 0 ? "" : p_->key_->key();
+@@ -315,13 +304,14 @@ namespace Exiv2 {
+ 
+     Xmpdatum& XmpData::operator[](const std::string& key)
+     {
+-        XmpKey xmpKey(key);
+-        iterator pos = findKey(xmpKey);
+-        if (pos == end()) {
+-            add(Xmpdatum(xmpKey));
+-            pos = findKey(xmpKey);
++        XmpKey k = XmpKey(key);
++        XmpMetadata::iterator it = xmpMetadata_.find(k);
++        if (it != xmpMetadata_.end()) {
++            return it->second;
+         }
+-        return *pos;
++
++        add(Xmpdatum(k));
++        return (*this)[key];
+     }
+ 
+     int XmpData::add(const XmpKey& key, const Value* value)
+@@ -331,20 +321,18 @@ namespace Exiv2 {
+ 
+     int XmpData::add(const Xmpdatum& xmpDatum)
+     {
+-        xmpMetadata_.push_back(xmpDatum);
++        xmpMetadata_.insert(std::make_pair(xmpDatum.xmpKey(), xmpDatum));
+         return 0;
+     }
+ 
+     XmpData::const_iterator XmpData::findKey(const XmpKey& key) const
+     {
+-        return std::find_if(xmpMetadata_.begin(), xmpMetadata_.end(),
+-                            FindXmpdatum(key));
++        return xmpMetadata_.find(key);
+     }
+ 
+     XmpData::iterator XmpData::findKey(const XmpKey& key)
+     {
+-        return std::find_if(xmpMetadata_.begin(), xmpMetadata_.end(),
+-                            FindXmpdatum(key));
++        return xmpMetadata_.find(key);
+     }
+ 
+     void XmpData::clear()
+@@ -354,7 +342,7 @@ namespace Exiv2 {
+ 
+     void XmpData::sortByKey()
+     {
+-        std::sort(xmpMetadata_.begin(), xmpMetadata_.end(), cmpMetadataByKey);
++        return;  // multimap is kept sorted by key
+     }
+ 
+     XmpData::const_iterator XmpData::begin() const
+@@ -389,7 +377,10 @@ namespace Exiv2 {
+ 
+     XmpData::iterator XmpData::erase(XmpData::iterator pos)
+     {
+-        return xmpMetadata_.erase(pos);
++        XmpData::iterator next = pos;
++        next++;
++        xmpMetadata_.erase(pos.it);
++        return next;
+     }
+ 
+     bool XmpParser::initialized_ = false;
+diff --git a/src/xmp.hpp b/src/xmp.hpp
+index bb86b94..a5aab86 100644
+--- a/src/xmp.hpp
++++ b/src/xmp.hpp
+@@ -132,6 +132,7 @@ namespace Exiv2 {
+                  contain multiple metadata with the same key.
+          */
+         std::string key() const;
++        const XmpKey& xmpKey() const;
+         const char* familyName() const;
+         //! Return the (preferred) schema namespace prefix.
+         std::string groupName() const;
+@@ -164,7 +165,7 @@ namespace Exiv2 {
+     }; // class Xmpdatum
+ 
+     //! Container type to hold all metadata
+-    typedef std::vector<Xmpdatum> XmpMetadata;
++    typedef std::multimap<XmpKey, Xmpdatum> XmpMetadata;
+ 
+     /*!
+       @brief A container for XMP data. This is a top-level class of
+@@ -179,9 +180,9 @@ namespace Exiv2 {
+     class EXIV2API XmpData {
+     public:
+         //! XmpMetadata iterator type
+-        typedef XmpMetadata::iterator iterator;
++        typedef map_value_iterator<XmpMetadata, XmpMetadata::iterator> iterator;
+         //! XmpMetadata const iterator type
+-        typedef XmpMetadata::const_iterator const_iterator;
++        typedef map_value_iterator<XmpMetadata, XmpMetadata::const_iterator, const typename XmpMetadata::const_iterator::value_type::second_type> const_iterator;
+ 
+         //! @name Manipulators
+         //@{
+@@ -215,7 +216,10 @@ namespace Exiv2 {
+         iterator erase(iterator pos);
+         //! Delete all Xmpdatum instances resulting in an empty container.
+         void clear();
+-        //! Sort metadata by key
++        /*!
++          @deprecated Xmp metadata is always kept sorted by key.
++                This method is a no-op.
++         */
+         void sortByKey();
+         //! Begin of the metadata
+         iterator begin();
+-- 
+2.0.0
+

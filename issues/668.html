@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #668: &quot;TIFF-safe&quot; setExifData variant - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="CuOjygkDgBNP30OSm2GRsRKyeOhGNg9n2LBf3AoXQhjorggle3lMExq7XJ4ktp2CLSAskbfVrt0lkM9USS6ldw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #668: &quot;TIFF-safe&quot; setExifData variant" href="https://dev.exiv2.org/issues/668.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #668</h2>
+
+<div class="issue tracker-2 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>&quot;TIFF-safe&quot; setExifData variant</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="03 Jan 2010 05:40" href="/projects/exiv2/activity?from=2010-01-03">almost 12 years</a> ago.
+        Updated <a title="29 May 2010 10:43" href="/projects/exiv2/activity?from=2010-05-29">over 11 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/53">Andreas Huggel</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">design</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="30 May 2010" href="/versions/45">0.20</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">03 Jan 2010</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>For TIFF and TIFF-like images, there should be an interface which just "does the right thing".<br />Currently, a fair bit of special purpose code is required to achieve that.</p>
+
+
+	<p>See <a href="http://dev.exiv2.org/boards/3/topics/show/201#message-209" class="external">this discussion</a> for details.</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/668" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="wcx15fKABiBfK97q68DbFXVRcZRqX8MqdLG4TTx6qGUjgd4KgPrKIApPweZUF9cmSsMl7Zu8YpCJkSjFf0NPCg==" />
+  <table class="list issues odd-even"><tr id="relation-53" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="665" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/665">Feature #665</a>: Write support for Olympus RAW ORF files</td><td class="status">Closed</td><td class="start_date">29 Dec 2009</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-92" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="831" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/831">Bug #831</a>: For TIFF-like images, non-intrusive writing is not used when it should</td><td class="status">Closed</td><td class="start_date">04 Jul 2012</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-223" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1182" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1182">Bug #1182</a>: Exiv2 is unable to update any Exif.SubImageN.xxx tag such as Exif.SubImage1.DefaultScale in a DNG</td><td class="status">Closed</td><td class="start_date">02 May 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-225" class="issue hascontextmenu issue tracker-2 status-2 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="992" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-2 priority-4 priority-default" href="/issues/992">Feature #992</a>: Better raw file support and test</td><td class="status">Assigned</td><td class="start_date">18 Sep 2014</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-72" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="701" /></td><td class="subject" style="width: 50%">Blocked by Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/701">Bug #701</a>: Nikon capture nx won&#39;t save a raw file which was metadata manipulated from svn exiv2</td><td class="status">Closed</td><td class="start_date">03 May 2010</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/668/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=668&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2037" href="/projects/exiv2/repository/exiv2/revisions/2037">Revision 2037</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2037/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Apr 2010 09:20" href="/projects/exiv2/activity?from=2010-04-01">over 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: &quot;TIFF-safe&quot; setExifData variant (Closed)" href="/issues/668">#668</a>: In TIFF and TIFF-like images, never modify 'image tags'. This patch implements the basic idea.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2046" href="/projects/exiv2/repository/exiv2/revisions/2046">Revision 2046</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2046/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="04 Apr 2010 08:50" href="/projects/exiv2/activity?from=2010-04-04">over 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: &quot;TIFF-safe&quot; setExifData variant (Closed)" href="/issues/668">#668</a>: Extended list of TIFF image tags. (It turned out that there are quite a few standard TIFF tags missing from the Exiv2. To be added separately).</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2198" href="/projects/exiv2/repository/exiv2/revisions/2198">Revision 2198</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2198/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="26 Apr 2010 07:06" href="/projects/exiv2/activity?from=2010-04-26">over 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: &quot;TIFF-safe&quot; setExifData variant (Closed)" href="/issues/668">#668</a>: Fix copying of composite objects. (digiKam bug 235171)</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2212" href="/projects/exiv2/repository/exiv2/revisions/2212">Revision 2212</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2212/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="07 May 2010 04:48" href="/projects/exiv2/activity?from=2010-05-07">over 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: &quot;TIFF-safe&quot; setExifData variant (Closed)" href="/issues/668">#668</a>: Fixed obscure issue when copying SubIFDs. (digiKam bug 236127)</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1547" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 Feb 2010 09:35" href="/projects/exiv2/activity?from=2010-02-20">over 11 years</a> ago
+      <span id="journal-1547-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1547-notes" class="wiki"><p>In TIFF and TIFF-like images, some <code>Exif.*.*</code> tags are required to correctly display the primary image. These <em>image tags</em> contain image data rather than metadata.</p>
+
+
+	<p>When Exiv2 writes metadata, it must not add, modify or delete any <em>image tags</em>.</p>
+
+
+	<p>The Exiv2 write operation is a two step process:</p>
+
+
+	<p>First, it attempts <em>non-intrusive</em> writing, i.e., in-place updating of the image without re-writing the TIFF structure. The existing image is parsed into a TIFF composite tree and updated with the Exif tags from the Exiv2 Image. No tags are added or deleted in this step and <strong>modifying of <em>image tags</em> must be avoided</strong>.</p>
+
+
+	<p>Second, if <em>non-intrusive</em> writing is not possible, Exiv2 re-writes the TIFF structure. In this step, <strong>all <em>image tags</em> from the original image must be copied to the new TIFF structure</strong>. The Exif tags from the Exiv2 Image are used to complete the new TIFF structure. <strong>They must not be used to add, modify or delete any of the <em>image tags</em> from the original image</strong>.</p>
+
+
+	<p>It should still be possible to create TIFF or TIFF-like images from scratch. In this case (<em>intrusive</em> writing <ins>without</ins> an original image), the <em>image tags</em> set as Exif tags in the Exiv2 Image will be written to the TIFF structure.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1548" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Feb 2010 02:29" href="/projects/exiv2/activity?from=2010-02-21">over 11 years</a> ago
+      <span id="journal-1548-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1548-notes" class="wiki"><p>Required is</p>
+
+
+	<ul>
+	<li>for each TIFF-like image format, a mechanism to determine if a tag is an <em>image tag</em></li>
+		<li>a way to access this mechanism from <code>TiffParserWorker::encode</code> and <code>TiffEncoder</code></li>
+		<li>logic in <code>TiffParserWorker::encode</code> to copy <em>image tags</em> from the original image to the new TIFF structure in case of <em>intrusive</em> writing</li>
+		<li>logic in <code>TiffEncoder::encodeTiffComponent</code> to avoid adding, modifying and deleting <em>image tags</em> during both, <em>non-intrusive</em> and <em>intrusive</em> writing</li>
+	</ul></div>
+    </div>
+  </div>
+  
+  <div id="change-1563" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 Mar 2010 01:50" href="/projects/exiv2/activity?from=2010-03-20">over 11 years</a> ago
+      <span id="journal-1563-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1563-notes" class="wiki"><blockquote>
+
+	<ul>
+	<li>logic in <code>TiffParserWorker::encode</code> to copy <em>image tags</em> from the original image to the new TIFF structure in case of <em>intrusive</em> writing</li>
+	</ul>
+
+
+</blockquote>
+
+	<p>That's turning out to be the messy part. Added a <code>TiffCopier</code> visitor and introducing a <code>clone()</code> function on <code>TiffComponent</code> now.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1569" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="31 Mar 2010 22:40" href="/projects/exiv2/activity?from=2010-03-31">over 11 years</a> ago
+      <span id="journal-1569-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1569-notes" class="wiki"><p>Getting there...</p>
+
+
+	<ul>
+	<li>eventually the "special purpose code" should be removed from the command line utility</li>
+	</ul></div>
+    </div>
+  </div>
+  
+  <div id="change-1570" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Apr 2010 09:22" href="/projects/exiv2/activity?from=2010-04-01">over 11 years</a> ago
+      <span id="journal-1570-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Andreas Huggel</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>80</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1647" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="25 May 2010 19:31" href="/projects/exiv2/activity?from=2010-05-25">over 11 years</a> ago
+      <span id="journal-1647-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>80</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1664" class="journal has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="29 May 2010 10:43" href="/projects/exiv2/activity?from=2010-05-29">over 11 years</a> ago
+      <span id="journal-1664-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/668.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/668.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

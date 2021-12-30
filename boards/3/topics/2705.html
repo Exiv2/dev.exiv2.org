@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Integrating exiv2 with qt - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ik2klgj/CjP+oIsMirQUqlp5JLwXg9rX9TQILAcxDKFoAA95eoXGM6vElAA1YxiZZetwxeZge20IFJikRAjrzg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Integrating exiv2 with qt</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4749">SAITEJA Tallam</a> <a title="06 Sep 2016 07:40" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi</p>
+
+
+	<p>I am trying to integrate exiv2 library with qt but when I tried to use a function, I get an error "undefined reference to".</p>
+
+
+	<p>I have written based on the code in this <a class="wiki-page new" href="/projects/exiv2/wiki/Link">link</a>http://www.exiv2.org/examples.html example1.</p>
+
+
+	<p><strong>MainWindow.cpp</strong></p>
+
+
+	<p>void MainWindow::on_actionLoad_Image_triggered()
+{<br />    fileName =  QFileDialog::getOpenFileName(this,tr("Open Image"), QDir::homePath(), tr("Image Files (*.png *.jpg *.bmp)"));<br />    QFile file(fileName);<br />    if(!file.exists()) return;<br />    std::string pth = fileName.toStdString();<br />    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(pth);</p>
+
+
+	<p>}</p>
+
+
+	<p><strong>.pro file</strong></p>
+
+
+	<p>win32: LIBS += -L$$PWD/libs/exif/lib/ -llibexiv2.dll<br />win32: LIBS += -L$$PWD/libs/exif/lib/ -llibz.dll<br />win32: LIBS += -L$$PWD/libs/exif/lib/ -llibexpat.dll<br />win32: LIBS += -L$$PWD/libs/exif/lib/ -lexiv2<br />win32: LIBS += -L$$PWD/libs/exif/lib/ -lz<br />win32: LIBS += -L$$PWD/libs/exif/lib/ -lexpat</p>
+
+
+	<p>INCLUDEPATH += $$PWD/libs/exif/include<br />DEPENDPATH += $$PWD/libs/exif/include</p>
+
+
+	<p><strong>Qt Version and Kit Details:</strong><br />Qt 5.6.1 MinGW 32 bit</p>
+
+
+	<p><strong>Error:</strong></p>
+
+
+	<p>C:...\exifData\mainwindow.cpp:23: error: undefined reference to `Exiv2::ImageFactory::open(std::string const&#38;, bool)'</p>
+
+
+	<p>Any help in this regard please.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (24)</h3>
+  <div class="message reply" id="message-2707">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2707#message-2707">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2016 08:09" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>The message sounds like a linker error so I don't think you're linking the library correctly.  I think you may have to link the file libexiv2.dll.a  That's a library (.a in Unix/MinGW) that knows how to operate with your dll.  So, link the library and he'll use the DLL at run-time.</p>
+
+
+	<p>There are notes about Qt here: <a class="external" href="http://clanmills.com/exiv2/qt.shtml">http://clanmills.com/exiv2/qt.shtml</a></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2708">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2708#message-2708">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/4749">SAITEJA Tallam</a> <a title="06 Sep 2016 11:34" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I have made the changes but it still returns the same error</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2709">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2709#message-2709">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2016 12:09" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>It's impossible for me to debug this for you from a single error message.  Here are my suggestions:</p>
+
+
+	<p>1) The subject of Qt/MinGW has arise and been discussed in the Forum several times.  Can you use "Search" on the forum to see if there's something like this which has been resolved in the past?<br />2) You try again. I did get this to work and have documented it.  It will work if you try hard enough.<br />3) Bundle your project directory into a a zip and attach it to this discussion.<br />4) If you built the MinGW libexiv2 library from source, can you attach the .dll and .dll.a for me to test?<br />5) I can discuss it with you on an Instant Messenger such as Skype or Google Plus or Facebook.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2710">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2710#message-2710">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2016 12:21" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Oh, here's another couple of suggestions.</p>
+
+
+	<p>1 Use absolute paths in the .pro file.</p>
+
+
+	<p>$$PWD is presumably your current directory.  However, it could be almost anywhere (where qmake is running, quake's own directory, your home directory - and probably many other possibilities.  Use an absolute path and get your code to link.  Once it's working, you can go back an use environment strings to locate the libraries.</p>
+
+
+	<p>2 Format the absolute paths as documented: <pre> $$quote(C:/MinGW/msys/1.0/local/include) </pre>3 Avoid paths with a space ' ' in their name such as <em><strong><code>c:\Program Files</code></strong></em></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2711">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2711#message-2711">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/4749">SAITEJA Tallam</a> <a title="06 Sep 2016 12:30" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi</p>
+
+
+	<p>This is what I have used in the .pro file</p>
+
+
+	<p>win32 {<br />    INCLUDEPATH  += $$quote(C:/MinGW/msys/1.0/local/include)<br />    INCLUDEPATH  += $$quote(C:/MinGW/msys/1.0/local/bin)<br />    LIBS         += $$quote(C:/MinGW/msys/1.0/local/lib/libexiv2.dll.a)<br />}</p>
+
+
+	<p>but there seems to be no difference. I get the same error</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2712">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2712#message-2712">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2016 12:42" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Please attach your binaries and send them to me.  Zip up the /usr/local directory.  And please attach your project files and code.  I will have to install Qt 5.6.1 MinGW 32 bit on my machine because I haven't used Qt for a few years.</p>
+
+
+	<p>I would not be demotivated if you had the courtesy to say "Thank You, Robin for your time and helping me.  I know you are an unpaid volunteer."</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2713">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2713#message-2713">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/4749">SAITEJA Tallam</a> <a title="06 Sep 2016 13:02" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin</p>
+
+
+	<p>First of all, I am really sorry for my behavior. I have installed many softwares so my local dir is very large (200 MB). SO I am attaching only the files related to exifv2. Please tell me if I need to attach any other dependent libraries also. I have also attached the Qt code dir. Thank you Robin for your time and instant replies.</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1050">local.zip</a>    <span class="size">(1.59 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1050/local.zip">local.zip</a>  </td>
+  <td>local files having exif binaries only</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1051">exifData.zip</a>    <span class="size">(7.41 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1051/exifData.zip">exifData.zip</a>  </td>
+  <td>Qt files</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2714">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2714#message-2714">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2016 13:05" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>That's more like the thing.  Thank You for taking the time and interest to use Exiv2.</p>
+
+
+	<p>My machine has installed Qt 5.6.  I'll look at your code this afternoon.  (it's 14:04 in England).</p>
+
+
+	<p><img src="/attachments/download/1052/Exiv2Logo.png" alt="" /></p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1052">Exiv2Logo.png</a>    <span class="size">(15.2 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1052/Exiv2Logo.png">Exiv2Logo.png</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2715">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2715#message-2715">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/4749">SAITEJA Tallam</a> <a title="06 Sep 2016 13:18" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank You!! Please do tell me if you require anyother details from my side</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2716">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2716#message-2716">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="06 Sep 2016 14:42" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>libkexiv2 does not do the job?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2717">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2717#message-2717">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/4749">SAITEJA Tallam</a> <a title="06 Sep 2016 14:45" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Alan</p>
+
+
+	<p>No. I have successfully compiled a simple main.cpp from the mingw terminal by this command:</p>
+
+
+	<p>g++ -IC:/MinGW/msys/1.0/local/include/ -LC:/MinGW/msys/1.0/local/bin/ -lexiv2-14 main.cpp</p>
+
+
+	<p>I have tried including and linking the same libraries with Qt but it does not do the job.</p>
+
+
+	<p>Thanks</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2718">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2718#message-2718">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2016 16:43" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've got this to link and start.  Then it crashes (discussed below).  However, this is good step forward.</p>
+
+
+	<p>I'm using the Qt 5.6 command console.  I've set the local\bin on the path:<pre>set "PATH=%PATH%;c:\MinGW\msys\1.0\local\bin"</pre>And I moved the .dll's into the bin:<pre>C:\MinGW\msys\1.0\local&gt;dir/s *.dll
+ Volume in drive C has no label.
+ Volume Serial Number is 0899-EF40
+
+ Directory of C:\MinGW\msys\1.0\local\bin
+
+09/02/2016  12:25 PM         3,813,237 libexiv2-14.dll
+10/14/2014  10:19 AM           633,171 libexpat-1.dll
+10/14/2014  10:33 AM           108,544 zlib.dll
+10/14/2014  10:33 AM           108,544 zlib1.dll
+               4 File(s)      4,663,496 bytes
+
+     Total Files Listed:
+               4 File(s)      4,663,496 bytes
+               0 Dir(s)  21,487,067,136 bytes free
+
+C:\MinGW\msys\1.0\local&gt;</pre></p>
+
+
+	<p>I modified your code:<pre>// mainwindow.cpp
+
+#include "mainwindow.h" 
+#include "ui_mainwindow.h" 
+#include &lt;exiv2/exiv2.hpp&gt;
+#include &lt;string&gt;
+
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui-&gt;setupUi(this);
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::on_actionLoad_Image_triggered()
+{
+    fileName =  QFileDialog::getOpenFileName(this,tr("Open Image"), QDir::homePath(), tr("Image Files (*.png *.jpg *.bmp)"));
+    QFile file(fileName);
+    if(!file.exists()) return;
+    std::string path = fileName.toStdString();                    // &lt;--- get the path
+    const Exiv2::byte* b    = (const Exiv2::byte*) path.c_str();  // &lt;--- pointer to c_str
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(b,0); // &lt;--- open it
+}</pre>And I modified your project file:<pre>#-------------------------------------------------
+# exifData.pro
+# Project created by QtCreator 2016-09-02T17:16:51
+#
+#-------------------------------------------------
+
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+TARGET = exifData
+TEMPLATE = app
+
+SOURCES += main.cpp\
+        mainwindow.cpp
+
+HEADERS  += mainwindow.h
+
+FORMS    += mainwindow.ui
+
+win32 {
+    INCLUDEPATH  += $$quote(C:/MinGW/msys/1.0/local/include)
+    INCLUDEPATH  += $$quote(C:/MinGW/msys/1.0/local/bin)
+    LIBS         += -L$$quote(C:/MinGW/msys/1.0/local/lib) -lexiv2.dll
+    // &lt;- -L to add a library search path -lexiv2.dll to link libexiv2.dll.a
+}</pre>It links and runs.  It doesn't start.   It dies a horrible death on start up.</p>
+
+
+	<p><em><strong>How to fix it?</strong></em></p>
+
+
+	<p>I'm not sure how you obtained the build of the library.  It's v0.24.  I'd like to see you upgrade to a more current release.  And I'd like to see the code compiled on the build machine with the tools being being used by Qt/MinGW.</p>
+
+
+	<p>I'm attempting to do that at the moment.  It's complaining about can't find zlib and expat.  I think I'll have to build them from source.</p>
+
+
+	<p>Anyway, you should be able to move ahead with this information.  For sure, I don't believe there is anything wrong.  It's hard work to get code up and running on an unfamiliar platform.  I haven't worked with Qt/MinGW for more than 5 years.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2719">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2719#message-2719">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2016 17:22" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Stellarium also uses zlib and here's their recipe to build their library to run on MinGW with Qt5: <a class="external" href="http://stellarium.sourceforge.net/wiki/index.php/Compile_with_MSYS_and_Qt5">http://stellarium.sourceforge.net/wiki/index.php/Compile_with_MSYS_and_Qt5</a></p>
+
+
+	<p>Complicated. Yes, think so.  MinGW is my least favourite build platform.  Our buildserver builds on-demand and runs our test suite on MinGW.  It uses the TDM-GCC-64 tool chain for 64 bit builds.  It took quite an effort to get it to work.  I suspect it's going to take quite a lot of work to get expat/zlib/exiv2 to build on the Qt/MinGW 492 platform.  For sure, when I try to build zlib, ./configure reports errors with sed.  Something equally unpleasant with expat.</p>
+
+
+	<p>The alternative is to use Qt/msvc_2013 (or 2015).  You can build exiv2 for either of those platforms.  We build them every night and you can download them from our buildserver.  We even build and include the zlib and expat DLLs, libraries and headers.  A much easier way to go.</p>
+
+
+	<p>Anyway, Mr T.  I got up this morning at 6am to try to get to exiv2 v0.26 feature-complete today.  I've spent 6 hours on this investigation.  I want to return to my primary mission (very close, making good progress).</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2720">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2720#message-2720">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/4749">SAITEJA Tallam</a> <a title="06 Sep 2016 17:59" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks a lot Robin. I have actually built the latest version (exisV2-0.25) and sent those binaries. If needed I can add those binaries also and send. I will try from my side based on the hints given.</p>
+
+
+	<p>I had one more doubt. Is it possible to add the source to Qt project and build or it will still have problems with expat and zlib. Once again Thanks for your precious time and</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1054">exiv2_vsn.PNG</a>    <span class="size">(32.4 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1054/exiv2_vsn.PNG">exiv2_vsn.PNG</a>  </td>
+  <td>version</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2722">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2722#message-2722">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/4749">SAITEJA Tallam</a> <a title="06 Sep 2016 18:44" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>As you have suggested, I have made the changes and it is crashing at start. I have found this error when I ran it through the debugger.</p>
+
+
+	<p><strong>during startup program exited with code 0x0000c135</strong></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2723">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2723#message-2723">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2016 19:41" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>If you have built v0.25, you sent me v0.24 include files.  That's a problem.  It's essential to align the headers, library and dll.</p>
+
+
+	<p>I'm not going to do anything more on this for several reasons:</p>
+
+
+	<p>1) I'm really busy.  I want to get to exiv2 v0.26 feature complete.  I'll never get there if I keep working on other folk's stuff. 12 hour days are not fun.</p>
+
+
+	<p>2) I honestly don't believe this is an issue for Exiv2 because it has worked in the past.</p>
+
+
+	<p>3) Please remember that open-source is exactly that.  You get source-code.  Building that on different platforms is another matter.  We provide a lot of build support and have a build server.  None-the-less, I can't jump into an investigation of building the code on a platform that I've never used.</p>
+
+
+	<p>4) I find MinGW to be a very obstinate platform.  I haven't used it a lot.  I'd use it more if it were not so obstinate.  If I used it more, it wouldn't be so obstinate.</p>
+
+
+	<p>You might be able to build libexiv2 with QtCreator and link everything together.  You will need expat and zlib.  And you will have to build xmpsdk (which is a static library that is built and linked by exiv2).  I don't think it's a trivial project to build libexiv2 with QtCreator.  It's possible, however QtCreator is not a supported build environment.</p>
+
+
+	<p>Qt 5.6 appears to be using GCC 4.9.2 which I believe defaults to C++11.  It warns constantly about deprecated AutoPtr.  Supporting C++11 (and C++14) is on the feature list for v0.27 <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Provide build support for C++11 (Closed)" href="/issues/1188">#1188</a>).  <a class="external" href="http://dev.exiv2.org/projects/exiv2/news">http://dev.exiv2.org/projects/exiv2/news</a>  I believe the flag CXXFLAGS=-std=c++98 compiles "traditional" C++.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2724">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2724#message-2724">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2016 23:52" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I am totally certain about what is wrong here.  However I haven't been able to get it to build yet.  I will on Wednesday.</p>
+
+
+	<p>What's wrong is that the header files and the libraries are different.  So when you compile Exiv2::ImageFactory::open(const std::string&#38;) from your headers and the name is appropriately mangled.  However the library was compiled with different headers which do not have that entry point.  That's what's wrong.</p>
+
+
+	<p>I've built exiv2 from the trunk using the autotools in the Qt 5.6 for Desktop Console.  I've set some environment PATH variables:<pre>c:\Users\rmills\gnu\exiv2\trunk&gt;set | grep PATH
+BINARY_PATH=/cygdrive/c/MinGW/msys/1.0/local/bin
+INCLUDE_PATH=/cygdrive/c/MinGW/msys/1.0/local/include
+LIBRARY_PATH=/cygdrive/c/MinGW/msys/1.0/local/lib
+PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/lib/pkgconfig
+
+c:\Users\rmills\gnu\exiv2\trunk&gt;</pre>And the path has been set to use the Qt Tools AND to the location of the MinGW bash shell right at the top:<pre>c:\Users\rmills\gnu\exiv2\trunk&gt;echo %PATH%
+c:\Qt\Qt5.6.0\Tools\mingw492_32\bin;c:\MinGW\msys\1.0\bin;C:\Qt\Qt5.6.0\5.6\mingw49_32\bin;C:\Qt\Qt5.6.0\Tools\mingw492_32\bin;C:\Program Files (x86)\Parallels\Parallels Tools\Applications;C:\Program Files\7-Zip;C:\Program Files (x86)\WANdisco\Subversion;C:\ProgramData\Oracle\Java\javapath;C:\Python34\;C:\Python27\;C:\Python27\Scripts;C:\Perl64\site\bin;C:\Perl64\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\TDM-GCC-64\bin;C:\Program Files (x86)\WinMerge;C:\Users\rmills\com\Subversion\bin;C:\Program Files (x86)\CMake\bin;C:\gnu\exiv2\trunk\contrib\cmake\msvc;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\gnu\exiv2\trunk\contrib\cmake\msvc;c:\Users\rmills\com;c:\Users\rmills\com\Subversion;c:\cygwin64\home\rmills\bin;c:\cygwin64\bin;c:\cygwin64\usr\sbin;C:\Users\rmills\AppData\Roaming\Python\Scripts</pre></p>
+
+
+	<p>And now, I can build expat and zlib in the usual way. However you have to set <code>--prefix=/cygdrive/c/MinGW/msys/1.0/local</code>to have them built into you local directory.  And now you can build exiv2 as follows:<pre>c:\Users\rmills\gnu\exiv2\trunk&gt;bash -c "./configure --prefix=/cygdrive/c/MinGW/msys/1.0/local/ --with-zlib=/cygdrive/c/MinGW/msys/1.0/local --with-expat=/cygdrive/c/MinGW/msys/1.0/local CXXFLAGS=-std=c++98"</pre></p>
+
+
+	<p>Here's your local directory:<pre>c:\Users\rmills\gnu\exiv2\trunk&gt;dir c:\MinGW\msys\1.0\local\bin
+ Volume in drive C has no label.
+ Volume Serial Number is 0899-EF40
+
+ Directory of c:\MinGW\msys\1.0\local\bin
+
+09/06/2016  11:34 PM    &lt;DIR&gt;          .
+09/06/2016  11:34 PM    &lt;DIR&gt;          ..
+09/06/2016  10:30 PM           435,520 libexpat-1.dll
+09/06/2016  10:30 PM           111,662 xmlwf
+10/14/2014  10:33 AM           108,544 zlib.dll
+10/14/2014  10:33 AM           108,544 zlib1.dll
+               4 File(s)        764,270 bytes
+               2 Dir(s)  21,416,603,648 bytes free
+
+c:\Users\rmills\gnu\exiv2\trunk&gt;dir c:\MinGW\msys\1.0\local\lib
+ Volume in drive C has no label.
+ Volume Serial Number is 0899-EF40
+
+ Directory of c:\MinGW\msys\1.0\local\lib
+
+09/06/2016  11:32 PM    &lt;DIR&gt;          .
+09/06/2016  11:32 PM    &lt;DIR&gt;          ..
+09/06/2016  11:27 PM         4,338,074 libexiv2.dll.a
+09/06/2016  10:30 PM           549,498 libexpat.a
+09/06/2016  10:30 PM            55,826 libexpat.dll.a
+09/06/2016  10:30 PM               902 libexpat.la
+09/06/2016  10:53 PM         1,675,852 libxmpsdk.a
+09/06/2016  10:32 PM           124,160 libz.a
+10/14/2014  10:33 AM            46,874 libz.dll.a
+09/06/2016  10:30 PM    &lt;DIR&gt;          pkgconfig
+               7 File(s)      6,791,186 bytes
+               3 Dir(s)  21,416,603,648 bytes free
+
+c:\Users\rmills\gnu\exiv2\trunk&gt;</pre></p>
+
+
+	<p>Now there's an issue.  Something is going wrong in BasicIo.cpp that won't compile some windows special code.  I think there must be an include file not available on the Qt Tool Chain that's provided by the TDM-GCC-64 tool chain.  I also had a message I've never seen before about difficulty linking some of the XMP code to libexiv2.dll.a</p>
+
+
+	<p>When I get the DLL to link, it will go into the local/bin and your code will work! <pre>C:\Users\rmills\Downloads\exifData&gt;set PATH=c:\MinGW\msys\1.0\local\bin;%PATH%
+C:\Users\rmills\Downloads\exifData&gt;make -B CXXFLAGS=-std=c++98
+....
+C:\Users\rmills\Downloads\exifData&gt;release\exifData.exe</pre></p>
+
+
+	<p>So, I'm not done.  However I am 100% confident of success.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2725">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2725#message-2725">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/4749">SAITEJA Tallam</a> <a title="07 Sep 2016 06:35" href="/projects/exiv2/activity?from=2016-09-07">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Sorry for the late reply!!</p>
+
+
+	<p>I have downloaded and installed only one version that is 0.25 so I am not sure how I can mess up with versions. I am really grateful to you for taking up this problem as yours and spending so much time on it in spite of your busy schedule. Thanks for your time. I will try working from my side and update you if I get anything working.</p>
+
+
+	<p>Thanks!!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2726">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2726#message-2726">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Sep 2016 07:16" href="/projects/exiv2/activity?from=2016-09-07">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm very surprised by all of this.  However, I'm also very confident that it will work.  I've gotta get on getting to feature complete v0.26.  Then I'll look again at your stuff.  Smile.  Be Happy.  Exiv2 is good stuff.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2727">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2727#message-2727">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/4749">SAITEJA Tallam</a> <a title="07 Sep 2016 07:47" href="/projects/exiv2/activity?from=2016-09-07">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Sure and truly amazing stuff :)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2728">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2728#message-2728">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Sep 2016 19:07" href="/projects/exiv2/activity?from=2016-09-07">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>It's working.  All I had to do was RTFM (which I wrote).  <a class="external" href="http://clanmills.com/exiv2/mingw.shtml">http://clanmills.com/exiv2/mingw.shtml</a></p>
+
+
+	<p>I enclose <strong>local.tar.gz</strong> and <strong>exifData.tar.gz</strong>.  Have a look at the commandLineTool project in exifData.  It has code from samples/exifprint.cpp.  Worked first time.  It's hard wired to dump c:\\temp\\Reagan.jpg (copied exiv2dir/test/data/Reagan.jpg)</p>
+
+
+	<p>You have to watch out for slippery stuff such as:</p>
+
+
+	<ol>
+	<li>Don't try to build exiv2 from DOS.  Use the 32bit MinGW bash shell.</li>
+		<li>Make sure you have the correct tool chain at the the start of your path: <em><strong><code>PATH="/C/Qt/Qt5.6.0/5.6/mingw49_32/bin:/C/Qt/Qt5.6.0/Tools/mingw492_32/bin:/c/MinGW/bin:/usr/bin:/usr/local/bin:."</code></strong></em></li>
+		<li>To link the samples: <em><strong><code>PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/lib/pkgconfig"</code></strong></em> </li>
+		<li>When building zlib: set <em><strong><code>INCLUDE_PATH, LIBRARY_PATH and BINARY_PATH</code></strong></em> to point to <em><strong><code>/c/MinGW/msys/1.0/local/include</code></strong></em> (or lib or bin)</li>
+		<li>When building zlib: build a shared zlib <em><strong><code>make -f win32/Makefile.gcc SHARED_MODE=1</code></em></strong></li>
+		<li>Use the trunk.  I fixed a couple of things today to enable the code to compile with Qt 5.6/mingw492_32</li>
+		<li>Use the build flag <em><strong><code>CXXFLAGS=-std=c++98</code></strong></em> <em>(QMAKE_CXXFLAGS =  -std=c++98 in .pro file)</em> to silence GCC complaining about C++11 deprecated classes (AutoPtr)</li>
+	</ol>
+
+
+	<p>////</p>
+
+
+	<p>It has been interesting to work on this.  I think it's taken about 12 hours in total.  I've easily doubled my knowledge and understanding of MinGW.  It's my least favourite build environment.  I've learned a lot of (boring) stuff while dealing with this.</p>
+
+
+	<p>Now I have to get on with getting Exiv2 to <em><strong>v0.26 feature complete</strong></em>.</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1055">local.tar.gz</a>    <span class="size">(9.69 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1055/local.tar.gz">local.tar.gz</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1056">exifData.tar.gz</a>    <span class="size">(258 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1056/exifData.tar.gz">exifData.tar.gz</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2744">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2744#message-2744">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Sep 2016 11:02" href="/projects/exiv2/activity?from=2016-09-20">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've put effort into MinGW/32/Qt and added a contrib/Qt/commandLineTool project and code.  I've tested it on recent builds and I am confident that it works as documented.  <a class="changeset" title="#1109 Work in Progress on MinGW/32 daily build." href="/projects/exiv2/repository/exiv2/revisions/4519">r4519</a></p>
+
+
+	<p>I've upgraded the buildserver to build/test/publish a daily mingw/32 build which is built with Qt5.6.0 tools (GCC 4.9.2).   <a class="external" href="http://exiv2.dyndns.org:8080/userContent/builds/">http://exiv2.dyndns.org:8080/userContent/builds/</a> <pre>54 -32- /home/rmills&gt; which gcc
+/c/Qt/Qt5.6.0/Tools/mingw492_32/bin/gcc.exe
+55 -32- /home/rmills&gt; gcc --version
+gcc.exe (i686-posix-dwarf-rev1, Built by MinGW-W64 project) 4.9.2
+Copyright (C) 2014 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+56 -32- /home/rmills&gt;</pre>The daily build includes:</p>
+
+
+	<ol>
+	<li>Documentation (ReadMe.txt and man pages)</li>
+		<li>Built binaries of libraries for exiv2, expat and zlib</li>
+		<li>Built binaries of DLLs for exiv2, expat and zlib</li>
+		<li>Include files for exiv2, expat and zlib</li>
+		<li>Built binary of exiv2.exe and all our sample programs</li>
+		<li>Our sample code</li>
+		<li>the Qt/commandLineTool project code</li>
+	</ol>
+
+
+	<p>I hope you find those useful and that they work as documented.   Feedback appreciated.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2745">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2745#message-2745">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/4749">SAITEJA Tallam</a> <a title="20 Sep 2016 11:39" href="/projects/exiv2/activity?from=2016-09-20">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hello Robin,</p>
+
+
+	<p>This will be really very useful. I have been successfully using Exiv2 through msys terminal (and it has been really useful in  geo-tagging thousands of images)  but I have not tasted success yet in using it with Qt. So I have tried checking (the libs from the link you sent and also the libs compiled on my system) if I have all the dependencies with dependencywalker and I get many errors. I am attaching the dependencywalker image for your review.</p>
+
+
+	<p>Thanks!!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2748">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2705?r=2748#message-2748">RE: Integrating exiv2 with qt</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Sep 2016 16:05" href="/projects/exiv2/activity?from=2016-09-20">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I had a walk-through all of this stuff on Skype with Sai.  We got it to work of course.  We discovered some 'gotchas' concerning Qt/MinGW.  I updated contrib/Qt appropriately.  <a class="changeset" title="#1109 MinGW/32 daily build.  Revisions following a walk-through with Sai Tallem on Skype." href="/projects/exiv2/repository/exiv2/revisions/4527">r4527</a></p>
+
+
+	<p>I'm going to remove Sai's attachments as they have no use for future visitors to this discussion.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-24/24)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1273: exiv2 0.25 fails to compile correctly on musl libc due to improper check of strerror_r return type - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="Gn7GQgBhZ0ZvavXY9yhf6o5iyLpVpTmluACbHDKRCf74M22tchurRjoO6tRI/1PZsfCcw6RGmB9FIAuUcajukQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1273: exiv2 0.25 fails to compile correctly on musl libc due to improper check of strerror_r return type" href="https://dev.exiv2.org/issues/1273.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1273</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>exiv2 0.25 fails to compile correctly on musl libc due to improper check of strerror_r return type</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4926">A. Wilcox</a> <a title="20 Jan 2017 23:12" href="/projects/exiv2/activity?from=2017-01-20">almost 5 years</a> ago.
+        Updated <a title="25 Jan 2017 19:22" href="/projects/exiv2/activity?from=2017-01-25">almost 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">20 Jan 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">6.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hello there,</p>
+
+
+	<p>While packaging exiv2 for our musl libc-based distribution, Adélie Linux, I noticed the exiv2 package failed to compile:</p>
+
+
+<pre>
+/usr/src/media-gfx/exiv2-0.25-r2/work/exiv2-0.25/src/futils.cpp: In function ‘std::__cxx11::string Exiv2::strError()’:
+/usr/src/media-gfx/exiv2-0.25-r2/work/exiv2-0.25/src/futils.cpp:340:25: error: invalid conversion from ‘int’ to ‘char*’ [-fpermissive]
+         buf = strerror_r(error, buf2, n);
+                         ^
+src/CMakeFiles/exiv2lib.dir/build.make:782: recipe for target 'src/CMakeFiles/exiv2lib.dir/futils.cpp.o' failed
+make[2]: *** [src/CMakeFiles/exiv2lib.dir/futils.cpp.o] Error 1
+</pre>
+
+	<p>This is because musl implements an XSI-conformant strerror_r<sup><a href="#fn1">1</a></sup>.  Changing the check from CHECK_C_SOURCE_COMPILES to CHECK_CXX_SOURCE_COMPILES - without changing any other part of the check - causes the check to fail correctly on musl (and allow compilation with int-type strerror_r).  I applied this to the source on a glibc test machine and the check passed correctly there, allowing compilation with char*-type strerror_r.  So this is a partial re-introduction of changeset #2041 but without the drastic change in the test.</p>
+
+
+	<p>[1]: <a class="external" href="http://git.musl-libc.org/cgit/musl/tree/src/string/strerror_r.c">http://git.musl-libc.org/cgit/musl/tree/src/string/strerror_r.c</a></p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1129">exiv2-0.25-check-return-type-properly.patch</a>    <span class="size">(518 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1129/exiv2-0.25-check-return-type-properly.patch">exiv2-0.25-check-return-type-properly.patch</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">A. Wilcox, 20 Jan 2017 23:12</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1130">exiv2-0.25-dont-overdefine-strerror_r.patch</a>    <span class="size">(497 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1130/exiv2-0.25-dont-overdefine-strerror_r.patch">exiv2-0.25-dont-overdefine-strerror_r.patch</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">A. Wilcox, 21 Jan 2017 00:13</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4699" href="/projects/exiv2/repository/exiv2/revisions/4699">Revision 4699</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4699/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Jan 2017 11:53" href="/projects/exiv2/activity?from=2017-01-21">almost 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 0.25 fails to compile correctly on musl libc due to improper check of strerror_r return type (Closed)" href="/issues/1273">#1273</a> Thanks to A Wilcox for reporting this and providing the patch.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4700" href="/projects/exiv2/repository/exiv2/revisions/4700">Revision 4700</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4700/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jan 2017 23:43" href="/projects/exiv2/activity?from=2017-01-24">almost 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 0.25 fails to compile correctly on musl libc due to improper check of strerror_r return type (Closed)" href="/issues/1273">#1273</a> Fix for linking on FreeBSD</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4701" href="/projects/exiv2/repository/exiv2/revisions/4701">Revision 4701</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4701/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Jan 2017 18:33" href="/projects/exiv2/activity?from=2017-01-25">almost 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 0.25 fails to compile correctly on musl libc due to improper check of strerror_r return type (Closed)" href="/issues/1273">#1273</a> Correction to <a class="changeset" title="#1273 Thanks to A Wilcox for reporting this and providing the patch." href="/projects/exiv2/repository/exiv2/revisions/4699">r4699</a></p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5808" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4926">A. Wilcox</a> <a title="20 Jan 2017 23:51" href="/projects/exiv2/activity?from=2017-01-20">almost 5 years</a> ago
+      <span id="journal-5808-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5808-notes" class="wiki"><p>I should note that additionally on some builders, but not others, I've just seen a similar yet not identical build failure:</p>
+
+
+<pre>
+/usr/src/media-gfx/exiv2-0.25-r2/work/exiv2-0.25/src/futils.cpp:54:56: error: ambiguating new declaration of ‘char* strerror_r(int, char*, size_t)’
+ extern char *strerror_r(int errnum, char *buf, size_t n);
+                                                        ^
+In file included from /usr/lib/gcc/powerpc-foxkit-linux-musl/5.4.0/include/g++-v5/cstring:42:0,
+                 from /usr/src/media-gfx/exiv2-0.25-r2/work/exiv2-0.25/src/futils.cpp:49:
+/usr/include/string.h:64:5: note: old declaration ‘int strerror_r(int, char*, size_t)’
+ int strerror_r (int, char *, size_t);
+     ^
+/usr/src/media-gfx/exiv2-0.25-r2/work/exiv2-0.25/src/futils.cpp: In function ‘std::__cxx11::string Exiv2::strError()’:
+/usr/src/media-gfx/exiv2-0.25-r2/work/exiv2-0.25/src/futils.cpp:340:25: error: invalid conversion from ‘int’ to ‘char*’ [-fpermissive]
+         buf = strerror_r(error, buf2, n);
+                         ^
+src/CMakeFiles/exiv2lib.dir/build.make:782: recipe for target 'src/CMakeFiles/exiv2lib.dir/futils.cpp.o' failed
+</pre>
+
+	<p>This appears to be because include/exiv2/config.h forcibly defines this for all Linux machines, due to some failure involving GCC 4.8.  This is definitely not correct.. Would you be amenable to adding an "&#38;&#38; defined(<i>GLIBC</i>)" to that check?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5809" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4926">A. Wilcox</a> <a title="21 Jan 2017 00:13" href="/projects/exiv2/activity?from=2017-01-21">almost 5 years</a> ago
+      <span id="journal-5809-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1130">exiv2-0.25-dont-overdefine-strerror_r.patch</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1130/exiv2-0.25-dont-overdefine-strerror_r.patch">exiv2-0.25-dont-overdefine-strerror_r.patch</a> added</li>
+    </ul>
+    <div id="journal-5809-notes" class="wiki"><p>I have confirmed that this patch in addition to the above attached solve all compilation errors for exiv2 against musl libc on x86_64, x86_32, and PowerPC.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5810" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Jan 2017 00:55" href="/projects/exiv2/activity?from=2017-01-21">almost 5 years</a> ago
+      <span id="journal-5810-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>80</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-5810-notes" class="wiki"><p>Thank you for reporting this and providing a patch.  I returned from vacation yesterday and will review/submit your patch on Tuesday.</p>
+
+
+	<p>It's been a few years since I've had to service the strerror_r hackery.  If you're confident that your fix is good on Adélie Linux, our buildserver will validate your patch on Fedora/Ubuntu/Cygwin/MinGW/Mac (Intel 64 and PPC 32) and MSVC (2005,8,10,12,13,15).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5811" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4926">A. Wilcox</a> <a title="21 Jan 2017 01:17" href="/projects/exiv2/activity?from=2017-01-21">almost 5 years</a> ago
+      <span id="journal-5811-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5811-notes" class="wiki"><p>I have already pushed the packages live to the alpha2 repos for Adélie; additionally, I have tested the patch on Galapagos Linux (a minimal fork of Gentoo based on glibc), and my personal Mac running OS X 10.11.3.  If there are any build failures on the other platforms, I will be happy to revise the patch.</p>
+
+
+	<p>As an aside, I notice the BSD family is curiously missing from your build farm.  Is there a particular reason?  I can toss this at my FreeBSD 10 SPARC box if you want.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5812" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Jan 2017 01:28" href="/projects/exiv2/activity?from=2017-01-21">almost 5 years</a> ago
+      <span id="journal-5812-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5812-notes" class="wiki"><p>Your patch seems fine to me.  It's 1am in England and I'm awake with jet-lag after a 28 hour flight home from New Zealand.  I don't want to start messing with code tonight.</p>
+
+
+	<p>Ah, that's an interesting offer to build on your Sparc.  You know how it is with open-source, everything grows in response to requests and contributions.  If I can access your Sparc with SSH, I could get our build server to run builds on your machine.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5813" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Jan 2017 14:58" href="/projects/exiv2/activity?from=2017-01-21">almost 5 years</a> ago
+      <span id="journal-5813-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5813-notes" class="wiki"><p>Fix submitted.  <a class="changeset" title="#1273 Thanks to A Wilcox for reporting this and providing the patch." href="/projects/exiv2/repository/exiv2/revisions/4699">r4699</a>. Thanks to A Wilcox for reporting this and providing the patch.</p>
+
+
+	<p>I've installed FreeBSD on a virtual machine on the build server (a Mac Mini).  I haven't succeed yet in building on FreeBSD for two reasons:<br />1) cmake compiles and fails to link "cannot find -ldl" <br />(I know why and I'll submit a fix for this)<br />2) make config; ./configure is generating errors<br />I haven't investigated yet.  However I will and submit a fix.</p>
+
+
+	<p>I would be useful to build on the big endian Sparc.  My 2004 PowerBook G4 is really old and I only power it up occasionally to build/test on Big Endian.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5814" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Jan 2017 19:22" href="/projects/exiv2/activity?from=2017-01-25">almost 5 years</a> ago
+      <span id="journal-5814-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>2.00 h</i> to <i>6.00 h</i></li>
+    </ul>
+    <div id="journal-5814-notes" class="wiki"><p>I've updated src/CMakeLists.txt to provide support for building exiv2 on FreeBSD.  However it requires -DEXIV2_ENABLE_NLS=OFF as gettext and libintl is not installed by default on FreeBSD.  Additionally, the autotools (./configure) build fails to generate valid makefiles.  Debugging this is complicated because I'm running FreeBSD on a virtual machine under Parallels on a Mac.  This environment does not appear to be able to install Parallels Tools and consequently Gnome is almost un-usable.  All-in-all, working with FreeBSD has been a misery.</p>
+
+
+	<p>As nobody else has requested support for FreeBSD, I don't intend to spend more time on this.  If A Wilcox wishes to work on this and provide patches, I will be happy to review, test and commit them.  When we have FreeBSD building effortlessly (both CMake and ./configure) I will seriously consider adding FreeBSD to the nightly build when development begins on v0.27.</p>
+
+
+	<p>I appreciate this matter being reported and patched by A Wilcox.  We are in the final stages before shipping v0.26 and the original issue concerning strerror_r has been resolved and therefore this issue is being closed.  If A Wilcox would like to contribute to the effort to support FreeBSD, please open a new issue with the title "Build Support for FreeBSD" and assign the target version as 0.27.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1273.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1273.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

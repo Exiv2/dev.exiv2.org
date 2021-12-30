@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #851: Please support std::wstring in exiv2 path access - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="gG16z7M5PWaGv2Fw1JoeVcnE/JfMh7rgN623XaR0q/5iINEgwUPxZtPbfnxrTRJm9lao7j1kG1rKjSfV501MkQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #851: Please support std::wstring in exiv2 path access" href="https://dev.exiv2.org/issues/851.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #851</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Please support std::wstring in exiv2 path access</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3622">Philipp Simmler</a> <a title="01 Oct 2012 00:10" href="/projects/exiv2/activity?from=2012-10-01">about 9 years</a> ago.
+        Updated <a title="22 Dec 2015 04:45" href="/projects/exiv2/activity?from=2015-12-22">almost 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">30 Sep 2012</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">10.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hi there,</p>
+
+
+	<p>I found a bug in exiv2, which does not allow to open Images when the filename of the image is using std::wstrings.</p>
+
+
+	<p>Following the MSVS2010 error i get when using wstrings as parameter in FileIO. ( I do get the same error in Exiv2::ImageFactory::open(...).)<br />error LNK2019: unresolved external symbol "public: __thiscall Exiv2::FileIo::FileIo(class std::basic_string&lt;unsigned short,struct std::char_traits&lt;unsigned short&gt;,class std::allocator&lt;unsigned short&gt; > const &#38;)"</p>
+
+
+	<p>What i do now is using QString conversions to produce a std::string from the std::wstring filename ("Exiv2::ImageFactory::open(QString::fromStdWString(m_Image->GetFileName()).toStdString())", which of course works for english filenames. As soon as I'm trying (and finally this is my goal) to load filenames with chinese, japanese or german umlauts i do not get any reasonable outcome.</p>
+
+
+	<p>I would be really happy if you find a way to solve this, I could not find one until now.</p>
+
+
+	<p>Thanks a lot in advance<br />donny</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4005" href="/projects/exiv2/repository/exiv2/revisions/4005">Revision 4005</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4005/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Nov 2015 19:14" href="/projects/exiv2/activity?from=2015-11-07">about 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Please support std::wstring in exiv2 path access (Closed)" href="/issues/851">#851</a> Changes to CMake option -DEXIV2_ENABLE_WIN_UNICODE={OFF|ON}</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2248" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="01 Oct 2012 01:21" href="/projects/exiv2/activity?from=2012-10-01">about 9 years</a> ago
+      <span id="journal-2248-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2248-notes" class="wiki"><p>Do you have <code>EXV_UNICODE_PATH</code> defined?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2250" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2012 21:51" href="/projects/exiv2/activity?from=2012-10-03">about 9 years</a> ago
+      <span id="journal-2250-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>build</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.24</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-2250-notes" class="wiki"><p>Thanks to Thomas for answering this one.</p>
+
+
+	<p>I'm going to mark this as resolved/100% complete.  However if Donny has further questions, the issue remains open and Donny (or anybody else for that matter) can add an update.  It'll be closed during bug-review prior to the 0.24 release.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2251" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="03 Oct 2012 23:13" href="/projects/exiv2/activity?from=2012-10-03">about 9 years</a> ago
+      <span id="journal-2251-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2251-notes" class="wiki"><p>Thomas, is this working for you with a recent revision of the code?</p>
+
+
+	<p>Both msvc/include/exv_msvc.h and msvc64/include/exv_msvc.h contain a line #define EXV_UNICODE_PATH so it seems to me the Unicode paths should work out of the box, unless we broke something recently (or the precompiler define was disabled manually).</p>
+
+
+	<p>-ahu.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2252" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="03 Oct 2012 23:20" href="/projects/exiv2/activity?from=2012-10-03">about 9 years</a> ago
+      <span id="journal-2252-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2252-notes" class="wiki"><p>Robin,</p>
+
+
+	<p>Just noticed that config/config.h.cmake does not mention the EXV_UNICODE_PATH define at all. So if the library is compiled using cmake, Unicode paths aren't enabled.</p>
+
+
+	<p>Could that be added to config/config.h.cmake in such a way that it automatically gets defined on Windows platforms (which support Unicode paths)?</p>
+
+
+	<p>-ahu.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2253" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2012 23:30" href="/projects/exiv2/activity?from=2012-10-03">about 9 years</a> ago
+      <span id="journal-2253-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Assigned</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>50</i></li>
+    </ul>
+    <div id="journal-2253-notes" class="wiki"><p>Good point.  I'll investigate.  I've reset this issue to 50% done/assigned and I'll take care of the CMake implications.  If Donny or Thomas wish to say anything about this, I'll be happy to help.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2451" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3794">Markus Diem</a> <a title="04 Apr 2013 01:11" href="/projects/exiv2/activity?from=2013-04-04">over 8 years</a> ago
+      <span id="journal-2451-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2451-notes" class="wiki"><p>we had the same issue. the problem is that we had to set <em>C/C++ > Language > Treat WChar_t As Built in Type</em> to No (/Zc:wchar_t-) in order to get functions such as QString::toStdWString(). in your default solution it is set to Yes (/Zc:wchar_t). So if it is set to No (/Zc:wchar_t-) in the default exiv2.sln this issue is solved. It would be nice if you could mention this somewhere in the API for other Qt users.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2452" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Apr 2013 09:42" href="/projects/exiv2/activity?from=2013-04-04">over 8 years</a> ago
+      <span id="journal-2452-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2452-notes" class="wiki"><p>Donny</p>
+
+
+	<p>Thanks for bringing this to my attention.  I had forgotten about this.  I'll investigate it after work this evening and update this bug report.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2571" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 15:51" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2571-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.24</i> to <i>0.25</i></li>
+    </ul>
+    <div id="journal-2571-notes" class="wiki"><p>Deferred to 0.25.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3686" class="journal has-notes has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 May 2015 08:22" href="/projects/exiv2/activity?from=2015-05-09">over 6 years</a> ago
+      <span id="journal-3686-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.25</i> to <i>0.26</i></li>
+    </ul>
+    <div id="journal-3686-notes" class="wiki"><p>Deferred to v0.26. Insufficient time to deal with this for v0.25.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3773" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 May 2015 08:45" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+      <span id="journal-3773-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> deleted (<del><i>Robin Mills</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4433" class="journal has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Nov 2015 18:08" href="/projects/exiv2/activity?from=2015-11-07">about 6 years</a> ago
+      <span id="journal-4433-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4434" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Nov 2015 18:09" href="/projects/exiv2/activity?from=2015-11-07">about 6 years</a> ago
+      <span id="journal-4434-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4434-notes" class="wiki"><p>There's been a forum query about this in relation to Qt.  I'm going to work on this.  <a class="external" href="http://dev.exiv2.org/boards/3/topics/2311">http://dev.exiv2.org/boards/3/topics/2311</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4456" class="journal has-notes has-details">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Nov 2015 23:14" href="/projects/exiv2/activity?from=2015-11-11">about 6 years</a> ago
+      <span id="journal-4456-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>10.00 h</i></li>
+    </ul>
+    <div id="journal-4456-notes" class="wiki"><p>I've done some work on this.  I'm going to mark this as Resolved/100% and intend no further work at this time.  I think the library builds and operates correctly.  If it didn't somebody using Qt would  have reported issues with this.  However, our sample applications have not been modified to use wmain on windows and thereby using unicode paths.</p>
+
+
+	<p>The way in which the EXV_UNICODE_PATH has been used surprised me.  Calls such as path() get built as wpath() and so on.  When I've dealt with unicode in the past, we've used UNICODE as the "core".  Ascii interfaces convert their arguments to UNICODE and call the "core" functions.  It would take considerable effort to rework a basicio to adopt this strategy and update all the sample applications.  There is unknown risk involved.  So, I ask myself the question "why bother when nobody has reported bugs in the UNICODE_PATH implementation?".</p>
+
+
+	<p>So, I've decided to do no further work on this matter.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4558" class="journal has-details">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Dec 2015 04:45" href="/projects/exiv2/activity?from=2015-12-22">almost 6 years</a> ago
+      <span id="journal-4558-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/851.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/851.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

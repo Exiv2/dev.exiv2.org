@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #617: Optimize TIFF writing - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="fnr4tMcQPL7m3EzHM5O5hmMKpkT98wKtCHz4FnDMWZ2cN1NbtWrwvrO4U8uMRLW1XJjyPQwQoxf1XGieM/W+8g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #617: Optimize TIFF writing" href="https://dev.exiv2.org/issues/617.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #617</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Optimize TIFF writing</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Mar 2009 00:07" href="/projects/exiv2/activity?from=2009-03-01">over 12 years</a> ago.
+        Updated <a title="30 Dec 2009 07:50" href="/projects/exiv2/activity?from=2009-12-30">almost 12 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/53">Andreas Huggel</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">tiff parser</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="30 Dec 2009" href="/versions/44">0.19</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">28 Feb 2009</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Writing to TIFF uses too much memory.</p>
+
+
+	<p>Reading<br /><pre>
+ahuggel@mowgli&gt; ls -la P1010003.TIF 
+-rw------- 1 ahuggel ahuggel 9451593 01-Mar-09 P1010003.TIF
+valgrind exiv2-0.18 P1010003.TIF 
+malloc/free: 2,121 allocs, 2,121 frees, 103,862 bytes allocated.
+</pre></p>
+
+
+	<p>Non-intrusive writing<br /><pre>
+valgrind exiv2-0.18 -M'set Exif.Image.Software Exiv2' P1010003.TIF
+malloc/free: 6,608 allocs, 6,608 frees, 10,086,737 bytes allocated.
+</pre></p>
+
+
+	<p>Intrusive writing<br /><pre>
+valgrind exiv2-0.18 -M'set Exif.Image.Software The Exiv2 utility' P1010003.TIF
+malloc/free: 5,940 allocs, 5,940 frees, 19,548,553 bytes allocated.
+</pre></p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/617" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="AdQfYzs/VqpOReVz1cuQhw2x6PQHcI0S4nGI6KvdJe3jmbSMSUWaqhsh+n9qHJy0MiO8jfaTLKgfURhg6OTCgg==" />
+  <table class="list issues odd-even"><tr id="relation-58" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="671" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/671">Bug #671</a>: Writing to read-only TIFF-like file fails</td><td class="status">Closed</td><td class="start_date">06 Jan 2010</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/617/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=617&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 1755" href="/projects/exiv2/repository/exiv2/revisions/1755">Revision 1755</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/1755/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Mar 2009 00:12" href="/projects/exiv2/activity?from=2009-03-01">over 12 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Optimize TIFF writing (Closed)" href="/issues/617">#617</a>: For TIFF images, use memory mapping for non-intrusive writing instead of reading image into memory.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 1918" href="/projects/exiv2/repository/exiv2/revisions/1918">Revision 1918</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/1918/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="07 Nov 2009 06:42" href="/projects/exiv2/activity?from=2009-11-07">about 12 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Optimize TIFF writing (Closed)" href="/issues/617">#617</a>: Changed TiffParser::encode to use an instance of BasicIo instead of a Blob for intrusive writing (API change).</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1182" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Mar 2009 00:24" href="/projects/exiv2/activity?from=2009-03-01">over 12 years</a> ago
+      <span id="journal-1182-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1182-notes" class="wiki"><p>With <a class="changeset" title="#617: For TIFF images, use memory mapping for non-intrusive writing instead of reading image into..." href="/projects/exiv2/repository/exiv2/revisions/1755">r1755</a> the image is no longer loaded into memory for non-intrusive writing. The amount of memory allocated is therefore reduced by about the size of the image (for both write modes, since non-intrusive writing is always attempted first):</p>
+
+
+	<p>Non-intrusive writing<br /><pre>
+valgrind ./exiv2 -M'set Exif.Image.Software Exiv2' P1010003.TIF
+malloc/free: 6,746 allocs, 6,746 frees, 650,106 bytes allocated.
+</pre></p>
+
+
+	<p>Intrusive writing<br /><pre>
+valgrind ./exiv2 -M'set Exif.Image.Software The Exiv2 utility' P1010003.TIF
+malloc/free: 6,102 allocs, 6,102 frees, 10,114,031 bytes allocated.
+</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-1183" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Mar 2009 01:18" href="/projects/exiv2/activity?from=2009-03-01">over 12 years</a> ago
+      <span id="journal-1183-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1183-notes" class="wiki"><p>The backdraw of the change in <a class="changeset" title="#617: For TIFF images, use memory mapping for non-intrusive writing instead of reading image into..." href="/projects/exiv2/repository/exiv2/revisions/1755">r1755</a> is that in case Exiv2 crashes somewhere in the non-intrusive writing logic, this is now likely to result in modified and possibly corrupted image.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1255" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 May 2009 00:35" href="/projects/exiv2/activity?from=2009-05-20">over 12 years</a> ago
+      <span id="journal-1255-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1255-notes" class="wiki"><p>The next step is to replace the use of a Blob in the intrusive writing methods with a BasicIo. This will require an API change in the *Parser::encode methods.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1259" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 May 2009 07:55" href="/projects/exiv2/activity?from=2009-05-20">over 12 years</a> ago
+      <span id="journal-1259-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>30</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1260" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 May 2009 07:56" href="/projects/exiv2/activity?from=2009-05-20">over 12 years</a> ago
+      <span id="journal-1260-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Andreas Huggel</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1370" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="07 Nov 2009 08:21" href="/projects/exiv2/activity?from=2009-11-07">about 12 years</a> ago
+      <span id="journal-1370-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1370-notes" class="wiki"><p><a class="changeset" title="#617: Changed TiffParser::encode to use an instance of BasicIo instead of a Blob for intrusive wr..." href="/projects/exiv2/repository/exiv2/revisions/1918">r1918</a> finally implements the second step: In intrusive writing, the image is no longer written to a Blob but directly to a BasicIo instance, i.e., straight to a file instead of a memory buffer. With this change, the complete image is never loaded into memory anymore.</p>
+
+
+	<p>Non-intrusive writing:</p>
+
+
+<pre>
+valgrind ./exiv2 -M'set Exif.Image.Software Exiv2' P1010003.TIF
+malloc/free: 6,322 allocs, 6,322 frees, 644,462 bytes allocated.
+</pre>
+
+	<p>Intrusive writing:</p>
+
+
+<pre>
+valgrind ./exiv2 -M'set Exif.Image.Software The Exiv2 utility' P1010003.TIF
+malloc/free: 5,627 allocs, 5,627 frees, 526,459 bytes allocated.
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-1371" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="07 Nov 2009 08:41" href="/projects/exiv2/activity?from=2009-11-07">about 12 years</a> ago
+      <span id="journal-1371-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1371-notes" class="wiki"><p>These changes also have an effect on performance when dealing with large TIFF images. For non-intrusive writing, the performance gain is huge, since the image is now modified in-place, without ever loading it. For intrusive writing, the time is now reasonably close to that of a simple copy operation.</p>
+
+
+	<p>The following tests were done with a 120MB TIFF image, <em>trunk</em> is roughly 0.18.2, <em>unstable</em> is <a class="changeset" title="#617: Changed TiffParser::encode to use an instance of BasicIo instead of a Blob for intrusive wr..." href="/projects/exiv2/repository/exiv2/revisions/1918">r1918</a>.</p>
+
+
+<pre>
+big.tif 126,172,596 bytes
+time cp big.tif big1.tif
+real    0m2.254s
+user    0m0.001s
+sys     0m0.205s
+</pre>
+
+	<p>Non-intrusive writing</p>
+
+
+<pre>
+exiv2 -M'set Exif.Photo.DateTimeOriginal Yesterday' big.tif
+
+      unstable            trunk
+real  0.023s              3.101s
+user  0.013s              0.117s
+sys   0.011s              0.888s
+mem   8,374,303 bytes     134,551,658 bytes
+</pre>
+
+	<p>Intrusive writing</p>
+
+
+<pre>
+exiv2 -M'set Exif.Photo.DateTimeOriginal Yesterday noon exactly now' big.tif
+
+      unstable            trunk
+real  2.654s              3.790s
+user  0.044s              0.802s
+sys   0.744s              0.995s
+mem   6,579,811 bytes     259,330,485 bytes
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-1372" class="journal has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="07 Nov 2009 08:42" href="/projects/exiv2/activity?from=2009-11-07">about 12 years</a> ago
+      <span id="journal-1372-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>Target version</strong> set to <i>0.19</i></li>
+       <li><strong>% Done</strong> changed from <i>30</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1448" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="30 Dec 2009 07:50" href="/projects/exiv2/activity?from=2009-12-30">almost 12 years</a> ago
+      <span id="journal-1448-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/617.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/617.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

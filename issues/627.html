@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #627: typeId methods not available, -fvisibility-inlines-hidden - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="FvbAsmGclEvaodNDyK5EkFyWb5/c6DxDegDfDTbs9jH0u2tdE+ZYS4/FzE93eUijYwQ75i0LnfmHIE+FddURXg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #627: typeId methods not available, -fvisibility-inlines-hidden" href="https://dev.exiv2.org/issues/627.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #627</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>typeId methods not available, -fvisibility-inlines-hidden</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/82">Rex Dieter</a> <a title="17 Apr 2009 13:08" href="/projects/exiv2/activity?from=2009-04-17">over 12 years</a> ago.
+        Updated <a title="30 Dec 2009 07:50" href="/projects/exiv2/activity?from=2009-12-30">almost 12 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="30 Dec 2009" href="/versions/44">0.19</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">17 Apr 2009</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>See also downstream report of pyexiv2 failures and nonexported/hidden ...::typeId methods due to exiv2's use of  -fvisibility-inlines-hidden.</p>
+
+
+	<p>Was this intentional or oversight?</p>
+
+
+	<p>If oversight, attaching a patch dropping the use of -fvisibility-inlines-hidden</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/90">exiv2-0.18.1-visibility.patch</a>    <span class="size">(1.34 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/90/exiv2-0.18.1-visibility.patch">exiv2-0.18.1-visibility.patch</a>  </td>
+  <td>patch to use only -fvisibility=hidden.  you&#39;re likely only interested in the configure.ac bits</td>
+  <td>
+      <span class="author">Rex Dieter, 17 Apr 2009 13:08</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/627" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="yg7uVeF+4KLjBuFaTDjjAlLW15JY+DBYLyS2CvPODJwoQ0W6kwQsorZi/lbz7+8xbUSD66kbkeLSBCaCsPfr8w==" />
+  <table class="list issues odd-even"><tr id="relation-42" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="523" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/523">Feature #523</a>: C++ symbol visibility support for gcc builds</td><td class="status">Closed</td><td class="start_date"></td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-43" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="629" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/629">Bug #629</a>: Virtual functions should not be inlined</td><td class="status">Closed</td><td class="start_date">30 Apr 2009</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/627/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=627&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1227" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="18 Apr 2009 14:58" href="/projects/exiv2/activity?from=2009-04-18">over 12 years</a> ago
+      <span id="journal-1227-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1227-notes" class="wiki"><blockquote>
+
+	<p>See also downstream report of pyexiv2 failures and nonexported/hidden ...::typeId methods due to exiv2's use of  -fvisibility-inlines-hidden.</p>
+
+
+</blockquote>
+
+	<p>Ok, seen this: <a class="external" href="https://bugzilla.redhat.com/show_bug.cgi?id=496050">https://bugzilla.redhat.com/show_bug.cgi?id=496050</a></p>
+
+
+<blockquote>
+
+	<p>Was this intentional or oversight?</p>
+
+
+</blockquote>
+
+	<p>Public methods are supposed to be usable by applications, whether inlined or not.<br />It seems the way that pyexiv2/python access the library is different from how a "normal" application accesses a shared library - there are tons of inlined functions and that compiler switch has been there since 0.18-pre1, and yet the problem has not been reported until now.<br />Put differently, isn't that function compiled into pyexiv2 itself where needed (since it's inlined), why does python look for it in the library?<br />Or could it possibly be a distribution specific issue? IIRC there is also a Debian version of the new pyexiv2 - but I've not heard of that not working yet. (Can't try right now.)</p>
+
+
+<blockquote>
+
+	<p>If oversight, attaching a patch dropping the use of -fvisibility-inlines-hidden</p>
+
+
+</blockquote>
+
+	<p>Thanks for the patch. I think there is still some investigation required to decide what to do with this.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1228" class="journal has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="19 Apr 2009 07:41" href="/projects/exiv2/activity?from=2009-04-19">over 12 years</a> ago
+      <span id="journal-1228-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> deleted (<del><i>0.18.1</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1230" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="28 Apr 2009 08:33" href="/projects/exiv2/activity?from=2009-04-28">over 12 years</a> ago
+      <span id="journal-1230-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1230-notes" class="wiki"><p>Rex, any new insights into this?</p>
+
+
+	<p>On my Debian testing system, with exiv2 0.18.1 and pyexiv2 0.1.3 compiled from source (and boost 1.37 from source, the rest from the distro), I can not reproduce this problem, pyexiv2 seems to work fine. Exiv2 was built with just ./configure; make; make install.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1231" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/82">Rex Dieter</a> <a title="28 Apr 2009 08:35" href="/projects/exiv2/activity?from=2009-04-28">over 12 years</a> ago
+      <span id="journal-1231-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1231-notes" class="wiki"><p>No news other than my ability to reproduce the problem on both Fedora 10 with gcc-4.3 and Fedora 11 with gcc-4.4.  Maybe a visibility bug with gcc?  I'll see if I can narrow this down to a smaller test-case.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1232" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/82">Rex Dieter</a> <a title="28 Apr 2009 08:40" href="/projects/exiv2/activity?from=2009-04-28">over 12 years</a> ago
+      <span id="journal-1232-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1232-notes" class="wiki"><p>Reading gcc.info docs on -fvisibility-inlines-hidden makes me thing that fedora's gcc here is doing per documented behavior:<br />     You may mark a method as having a visibility explicitly to negate<br />     the effect of the switch for that method.  For example, if you do<br />     want to compare pointers to a particular inline method, you might<br />     mark it as having default visibility.  Marking the enclosing class<br />     with explicit visibility will have no effect.</p>
+
+
+	<p>The last line sums up my take here, that if you want to use -fvisibility-inlines-hidden with inlined class items, you need to <strong>explictly</strong> mark them visible (which isn't done in exiv2 source, as far as I can tell).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1235" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="29 Apr 2009 08:21" href="/projects/exiv2/activity?from=2009-04-29">over 12 years</a> ago
+      <span id="journal-1235-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1235-notes" class="wiki"><blockquote>
+
+	<p>if you want to use -fvisibility-inlines-hidden with inlined class items, you need to explictly mark them visible</p>
+
+
+</blockquote>
+
+	<p>Only if I want to compare pointers to a particular inline method, as the documentation says. But that's not something I'm interested in and neither is pyexiv2 doing this.</p>
+
+
+	<p>This explanation from <a class="external" href="http://gcc.gnu.org/wiki/Visibility">http://gcc.gnu.org/wiki/Visibility</a> says it better:</p>
+
+
+	<p><em>"Lastly, there's one other new command line switch: -fvisibility-inlines-hidden. This causes all inlined class member functions to have hidden visibility, causing significant export symbol table size &#38; binary size reductions though not as much as using -fvisibility=hidden. However, -fvisibility-inlines-hidden can be used with no source alterations, <strong>unless you need to override it for inlines where address identity is important</strong> either for the function itself or any function local static data."</em></p>
+
+
+	<p>In order to find out why it works here but not on Fedora, here some info about the symbols I have in my libraries - 0.18 with and without visibility support: Exifdatum::typeId is present in both cases.</p>
+
+
+<pre>
+ahuggel@mowgli&gt; readelf -W -s libexiv2.so.5.2.0-noviz | grep -i exifdatum.*typeid
+   531: 00083a60    23 FUNC    WEAK   DEFAULT   11 _ZNK5Exiv29Exifdatum6typeIdEv
+  1862: 00083a60    23 FUNC    WEAK   DEFAULT   11 _ZNK5Exiv29Exifdatum6typeIdEv
+ahuggel@mowgli&gt; readelf -W -s libexiv2.so.5.2.0-viz | grep -i exifdatum.*typeid
+  1386: 00057ec0    23 FUNC    LOCAL  HIDDEN   11 _ZNK5Exiv29Exifdatum6typeIdEv
+</pre>
+
+	<p><a href="https://bugzilla.redhat.com/show_bug.cgi?id=496050#c2" class="external">Comments 2</a> and <a href="https://bugzilla.redhat.com/show_bug.cgi?id=496050#c3" class="external">3</a> in the downstream bugreport say that there is no such symbol, not even a hidden one, in the Exiv2 library from the RPM, but a hidden symbol is present if the library is compiled locally (on a Fedora system I presume), consistent with what I have here.</p>
+
+
+	<p>That would be a real difference to what I get here. Could that cause the issue? And why should the symbol be stripped from the RPM library?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1236" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/82">Rex Dieter</a> <a title="29 Apr 2009 08:40" href="/projects/exiv2/activity?from=2009-04-29">over 12 years</a> ago
+      <span id="journal-1236-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1236-notes" class="wiki"><p>Thanks for the clarification, and corrections for my botched interpretations.  With your hints, I'll do some more investigating.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1237" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/82">Rex Dieter</a> <a title="29 Apr 2009 09:12" href="/projects/exiv2/activity?from=2009-04-29">over 12 years</a> ago
+      <span id="journal-1237-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1237-notes" class="wiki"><p>Looks like fedora's pyexiv2 maintainer patched it to build with the distro optimization flags, -O2 in particular, and this makes pyexiv2 fail to have/find the symbol.  Building pyexiv2 with -O0 works.</p>
+
+
+	<p>I can confirm that our (unpatched) exiv2 builds do include the _ZNK5Exiv29Exifdatum6typeIdEv symbol you mentioned, so by all accounts, so far, this indeed looks to be not an issue here in exiv2, but elsewhere (in pyexiv2 or gcc).</p>
+
+
+	<p>Would be interesting if you could reproduce the problem (or not) building pyexiv2 with optimization > -O0</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1238" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/82">Rex Dieter</a> <a title="29 Apr 2009 09:23" href="/projects/exiv2/activity?from=2009-04-29">over 12 years</a> ago
+      <span id="journal-1238-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1238-notes" class="wiki"><p>OK, pardon the spam, but now I'm thoroughly confusing msyelf.  You mention in comment #6:<br />  1386: 00057ec0    23 FUNC    LOCAL  HIDDEN   11 _ZNK5Exiv29Exifdatum6typeIdEv<br />But shouldn't that symbol <strong>not</strong> be hidden, since it's part of a non-hidden/exported class?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1239" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="30 Apr 2009 08:30" href="/projects/exiv2/activity?from=2009-04-30">over 12 years</a> ago
+      <span id="journal-1239-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1239-notes" class="wiki"><p>Indeed, I can reproduce the problem with pyexiv2 built with -O2.</p>
+
+
+	<p>If I then make Exifdatum::typeId and Iptcdatum::typeId non-inlined members and keep the -fvisibility-inlines-hidden flag, pyexiv2 (-O2) works again. Note that these are virtual functions (implementing Metadatum::typeId).</p>
+
+
+	<p>Re comment #9: The symbol is hidden because of -fvisibility-inlines-hidden. (As you may notice, I'm trying to navigate around a discussion of what that flag is actually good for and why it does what we observe... ;)</p>
+
+
+	<p>Bottomline for me</p>
+
+
+	<ul>
+	<li>The use of -fvisibility-inlines-hidden in exiv2 is debatable as it doesn't make much of a difference (library size, number of symbols). On the other hand, I don't think it is the root cause of this problem. I don't plan to remove it.</li>
+		<li>The thing to change in exiv2 is that virtual functions should not be inlined. I'll open another issue for this. (I seem to remember obscure issues with such cases in the past.) But as no compiler actually complains about this, I don't see it as the root cause of this issue either. Maybe a gcc person could explain what is really happening here.</li>
+	</ul>
+
+
+	<p>With this, I'm closing this issue ("won't fix"), feel free to reopen it if you disagree.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1240" class="journal has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="30 Apr 2009 08:31" href="/projects/exiv2/activity?from=2009-04-30">over 12 years</a> ago
+      <span id="journal-1240-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1321" class="journal has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="25 Jun 2009 08:38" href="/projects/exiv2/activity?from=2009-06-25">over 12 years</a> ago
+      <span id="journal-1321-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1340" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/82">Rex Dieter</a> <a title="08 Aug 2009 10:26" href="/projects/exiv2/activity?from=2009-08-08">over 12 years</a> ago
+      <span id="journal-1340-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1340-notes" class="wiki"><p>Not sure how to re-open, but my own common sense tells me ignoring the issue isn't going to fix it.  I've just recently confirmed that 0.18.2 has the same problem.</p>
+
+
+	<p>Here's a recent comment in the downstream bug that may shed some additional light,<br /><a class="external" href="https://bugzilla.redhat.com/show_bug.cgi?id=496050#c26">https://bugzilla.redhat.com/show_bug.cgi?id=496050#c26</a><br />------------------------------------<br />Hmmm... some observations.</p>
+
+
+	<ul>
+	<li>Just tested exiv2-0.18.2-2.fc11 and it works around the problem.<br />  The import succeeds with it and fails with original 0.18.2-1.f11</li>
+	</ul>
+
+
+	<ul>
+	<li>I think that the different behavior with -O0 is related to the<br />  fact that g++ does <strong>NOT</strong> inline without optimization turned on.<br />  (look for -fno-default-inline in gcc info docs)</li>
+	</ul>
+
+
+	<ul>
+	<li>As a result, with <del>O0 we simply force g++ to compile a copy<br />  of the function into the object file (no inline) and therefore<br />  the -fvisibility-inlines-hidden does not affect it anymore.<br />  Problem "solved" ;</del>)</li>
+	</ul>
+
+
+	<ul>
+	<li>It looks like an upstream bug to me:<br />  - If Exifdatum::typeId() is an officially exported API, they should<br />    have marked it like their other methods with EXIV2API macro<br />  - This macro is expanded to EXV_EXPORT in the exv_conf.h header<br />  - The EXV_EXPORT sets the visibility attribute to "default" <br />    in the same header. This would make it visible again.</li>
+	</ul></div>
+    </div>
+  </div>
+  
+  <div id="change-1341" class="journal has-notes has-details">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="08 Aug 2009 23:30" href="/projects/exiv2/activity?from=2009-08-08">over 12 years</a> ago
+      <span id="journal-1341-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Closed</i> to <i>Feedback</i></li>
+    </ul>
+    <div id="journal-1341-notes" class="wiki"><blockquote>
+
+	<p>Not sure how to re-open</p>
+
+
+</blockquote>
+
+	<p>Setting status to "Feedback" now. Need additional explanations for the proposed fix.</p>
+
+
+<blockquote>
+
+	<p>but my own common sense tells me ignoring the issue isn't going to fix it.  I've just recently<br />confirmed that 0.18.2 has the same problem.</p>
+
+
+</blockquote>
+
+	<p>See <a href="http://dev.exiv2.org/issues/show/627#note-10" class="external">note 10</a> above. Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Virtual functions should not be inlined (Closed)" href="/issues/629">#629</a> was opened and resolved. But it touches the API so that change didn't make it into 0.18.2. It will be in 0.19.</p>
+
+
+<blockquote>
+
+	<p>Here's a recent comment in the downstream bug that may shed some additional light,<br /><a class="external" href="https://bugzilla.redhat.com/show_bug.cgi?id=496050#c26">https://bugzilla.redhat.com/show_bug.cgi?id=496050#c26</a></p>
+
+
+</blockquote>
+
+	<p>[...]</p>
+
+
+<blockquote>
+
+	<ul>
+	<li>It looks like an upstream bug to me:<br />- If Exifdatum::typeId() is an officially exported API, they should<br />have marked it like their other methods with EXIV2API macro</li>
+	</ul>
+
+
+</blockquote>
+
+	<p>By convention, the whole class is marked with EXIV2API, not individual methods. Why is there a need to mark the method itself in this case?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1342" class="journal has-notes">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/82">Rex Dieter</a> <a title="11 Aug 2009 12:25" href="/projects/exiv2/activity?from=2009-08-11">over 12 years</a> ago
+      <span id="journal-1342-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1342-notes" class="wiki"><p>OK, thanks for the clarification.</p>
+
+
+	<p>I'm happy with limping along with the current hackish workaround, until 0.19 lands.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1437" class="journal has-notes has-details">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="28 Dec 2009 20:41" href="/projects/exiv2/activity?from=2009-12-28">almost 12 years</a> ago
+      <span id="journal-1437-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Feedback</i> to <i>Resolved</i></li>
+       <li><strong>Target version</strong> set to <i>0.19</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-1437-notes" class="wiki"><p>Fixed in <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Virtual functions should not be inlined (Closed)" href="/issues/629">#629</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-1450" class="journal has-details">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="30 Dec 2009 07:50" href="/projects/exiv2/activity?from=2009-12-30">almost 12 years</a> ago
+      <span id="journal-1450-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/627.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/627.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

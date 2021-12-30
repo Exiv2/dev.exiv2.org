@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1228: Crash in Windows when reading metadata in parallel - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="bSKXoDXIMm77eKn6HxpglkoP9XniebBdpMxcooNPF9iPbzxPR7L+bq4ctvagzWyldZ2hABOaEedZ7MwqwHbwtw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1228: Crash in Windows when reading metadata in parallel" href="https://dev.exiv2.org/issues/1228.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1228</h2>
+
+<div class="issue tracker-1 status-2 priority-4 priority-default details">
+    <div class="next-prev-links contextual">
+      <a title="#1011" accesskey="p" href="/issues/1011">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;op%5Bstatus_id%5D=o&amp;page=2&amp;per_page=25&amp;set_filter=1&amp;sort=updated_on%3Adesc%2Cid%3Adesc&amp;v%5Bstatus_id%5D%5B%5D=">28 of 78</a>
+        </span> |
+      <a title="#1222" accesskey="n" href="/issues/1222">Next »</a>
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Crash in Windows when reading metadata in parallel</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4668">Taras Kushnir</a> <a title="22 Sep 2016 08:42" href="/projects/exiv2/activity?from=2016-09-22">about 5 years</a> ago.
+        Updated <a title="11 Oct 2016 10:34" href="/projects/exiv2/activity?from=2016-10-11">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Assigned</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">metadata</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Dec 2020" href="/versions/54">0.28</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">22 Sep 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I've encountered a crash while reading metadata from a bunch of .jpg images (13 items)<br />Windows 10 x64, exiv2 0.25</p>
+
+
+	<p>I use 1 thread per image for debugging purposes of my own code.<br />Crashed thread: #41 (full stacktrace of all threads is in the .txt attachment.</p>
+
+
+	<p>Would be great to know is it known/fixed.</p>
+
+
+	<p>Locals</p>
+
+
+<blockquote>
+
+	<p>childName   0x234e9a82380 "xmp:Rating"  char *<br />childOptions    0   unsigned long<br />isArrayItem false   bool<br />isTopLevel  true    bool<br />isValueNode false   bool<br />newChild    0xcccccccccccccccc  XMP_Node *<br />value   0x7ff8ed1b7625 ""   char *<br />xmlNode 0x234e9a82340   XML_Node *<br />xmpParent   0x234e97d3a90   XMP_Node *</p>
+
+
+</blockquote>
+
+	<ol>
+	<li>41  Id: 3b00.3e7c Suspend: 1 Teb: 00000091`afeef000 Unfrozen "QThread"</li>
+	</ol>
+
+
+<blockquote>
+
+	<p>Child-SP          RetAddr           Call Site<br />00000091`b2efc690 00007ff9`23e481c0 KERNELBASE!RaiseException+0x68<br />00000091`b2efc770 00007ff8`ed02b167 VCRUNTIME140D!_CxxThrowException(void * pExceptionObject = 0x00000091`b2efc8d0, struct <em>s</em>_ThrowInfo * pThrowInfo = 0x00007ff8`ed223f88)+0x130 [f:\dd\vctools\crt\vcruntime\src\eh\throw.cpp <code> 136]<br />00000091`b2efc820 00007ff8`ed029f3f libexiv2!AddChildNode(class XMP_Node * xmpParent = 0x000001db`ce4f1ce0, class XML_Node * xmlNode = 0x000001db`ce3d7f20, char * value = 0x00007ff8`ed1b7625 "", bool isTopLevel = true)+0x277 [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\src\parserdf.cpp </code> 405]<br />00000091`b2efc9c0 00007ff8`ed02983e libexiv2!RDF_LiteralPropertyElement(class XMP_Node * xmpParent = 0x000001db`ce46e640, class XML_Node * xmlNode = 0x000001db`ce3d7f20, bool isTopLevel = true)+0x5f [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\src\parserdf.cpp <code> 1015]<br />00000091`b2efcb10 00007ff8`ed0293f3 libexiv2!RDF_PropertyElement(class XMP_Node * xmpParent = 0x000001db`ce46e640, class XML_Node * xmlNode = 0x000001db`ce3d7f20, bool isTopLevel = true)+0x40e [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\src\parserdf.cpp </code> 915]<br />00000091`b2efcc30 00007ff8`ed028fcc libexiv2!RDF_PropertyElementList(class XMP_Node * xmpParent = 0x000001db`ce46e640, class XML_Node * xmlParent = 0x000001db`ce394770, bool isTopLevel = true)+0x113 [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\src\parserdf.cpp <code> 796]<br />00000091`b2efccd0 00007ff8`ed028eaf libexiv2!RDF_NodeElement(class XMP_Node * xmpParent = 0x000001db`ce46e640, class XML_Node * xmlNode = 0x000001db`ce394770, bool isTopLevel = true)+0xdc [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\src\parserdf.cpp </code> 707]<br />00000091`b2efcd30 00007ff8`ed028dc6 libexiv2!RDF_NodeElementList(class XMP_Node * xmpParent = 0x000001db`ce46e640, class XML_Node * xmlParent = 0x000001db`ce484460, bool isTopLevel = true)+0xcf [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\src\parserdf.cpp <code> 672]<br />00000091`b2efcdc0 00007ff8`ed028d43 libexiv2!RDF_RDF(class XMP_Node * xmpTree = 0x000001db`ce46e640, class XML_Node * xmlNode = 0x000001db`ce484460)+0x76 [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\src\parserdf.cpp </code> 651]<br />00000091`b2efce00 00007ff8`ed00314d libexiv2!ProcessRDF(class XMP_Node * xmpTree = 0x000001db`ce46e640, class XML_Node * rdfNode = 0x000001db`ce484460, unsigned long options = 0)+0x43 [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\src\parserdf.cpp <code> 629]<br />00000091`b2efce30 00007ff8`ecfcb755 libexiv2!XMPMeta::ParseFromBuffer(char * buffer = 0x000001db`ce6e8090 "<?xpacket begin='???", unsigned long xmpSize = 0x7ca, unsigned long options = 0)+0x6bd [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\src\xmpmeta-parse.cpp </code> 1256]<br />00000091`b2efd000 00007ff8`ecfbf320 libexiv2!WXMPMeta_ParseFromBuffer_1(struct <i>XMPMeta</i> * xmpRef = 0x000001db`ce46e630, char * buffer = 0x000001db`ce6e8090 "<?xpacket begin='???", unsigned long bufferSize = 0x7ca, unsigned long options = 0, struct WXMP_Result * wResult = 0x00000091`b2efd0d8)+0xb5 [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\src\wxmpmeta.cpp <code> 1274]<br />00000091`b2efd0a0 00007ff8`ecfb99e5 libexiv2!TXMPMeta&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; > >::ParseFromBuffer(char * buffer = 0x000001db`ce6e8090 "<?xpacket begin='???", unsigned long bufferSize = 0x7ca, unsigned long options = 0)+0x70 [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\include\client-glue\txmpmeta.incl_cpp </code> 903]<br />00000091`b2efd130 00007ff8`ecfb0f1d libexiv2!TXMPMeta&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; > >::TXMPMeta&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; > >(char * buffer = 0x000001db`ce6e8090 "<?xpacket begin='???", unsigned long xmpSize = 0x7ca)+0x65 [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\xmpsdk\include\client-glue\txmpmeta.incl_cpp <code> 169]<br />00000091`b2efd170 00007ff8`ecec8c12 libexiv2!Exiv2::XmpParser::decode(class Exiv2::XmpData * xmpData = 0x000001db`ce35e458, class std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; > * xmpPacket = 0x000001db`ce35e4a0)+0x16d [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\src\xmp.cpp </code> 492]<br />00000091`b2efdf60 00007ff7`e6985e8a libexiv2!Exiv2::JpegBase::readMetadata(void)+0x942 [c:\users\takushni\projects\other\xpiks-deps\exiv2-0.25\src\jpgimage.cpp @ 390]</p>
+
+
+</blockquote>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1069">full_stacktrace.txt</a>    <span class="size">(148 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1069/full_stacktrace.txt">full_stacktrace.txt</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Taras Kushnir, 22 Sep 2016 08:42</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1077">exiv2_bug_qt.zip</a>    <span class="size">(5.72 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1077/exiv2_bug_qt.zip">exiv2_bug_qt.zip</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Taras Kushnir, 11 Oct 2016 08:18</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1228" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="PV7TEx2tMc1KMwLNMxYP1W/12a17589gb0uRlwI1m/TfE3j8b9f9zR9XHcGMwQPmUGeN1IoEbtqSawEfQQx8mw==" />
+  <table class="list issues odd-even"><tr id="relation-244" class="issue hascontextmenu issue tracker-1 status-2 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="1227" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-2 priority-4 priority-default" href="/issues/1227">Bug #1227</a>:  File extension Issue</td><td class="status">Assigned</td><td class="start_date">18 Sep 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-246" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1207" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1207">Bug #1207</a>: digiKam maintenance tool to synchronize files metadata and database crash in Exiv2 (re-entrancy issue ?)</td><td class="status">Closed</td><td class="start_date">13 Aug 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-247" class="issue hascontextmenu issue tracker-1 status-2 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="1222" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-2 priority-4 priority-default" href="/issues/1222">Bug #1222</a>: Failed to rename file to</td><td class="status">Assigned</td><td class="start_date">06 Sep 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1228/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1228&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5613" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Sep 2016 09:13" href="/projects/exiv2/activity?from=2016-09-22">about 5 years</a> ago
+      <span id="journal-5613-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-5613-notes" class="wiki"><p>Good to hear from you, Taras.  I hope you are well.</p>
+
+
+	<p>I think this is a known issue.  XMPsdk is not totally thread safe.  You should explicitly call <em><strong><code>Exiv2::XmpParser::initialize()</code></strong></em> before spinning up threads.  In the investigation of <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: digiKam maintenance tool to synchronize files metadata and database crash in Exiv2 (re-entrancy i... (Closed)" href="/issues/1207">#1207</a>, the user (digiKam) thought that your rwlock was essential to get their multithreading to work.  I added a new sample app samples/mt-test.cpp which you may find useful for testing v0.25.</p>
+
+
+	<p>I'm in the end game of v0.26.  I am <em>feature complete</em> and investigating 2 remaining known bugs.  I believe your rwlock code is working fine on all platforms.</p>
+
+
+	<p>I hope calling  <em><strong><code>Exiv2::XmpParser::initialize()</code></strong></em> fixes this matter and I can close this issue.  If this issue requires more investigation, it will have to wait as I'm already working about 12 hours/day on the release.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5614" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4668">Taras Kushnir</a> <a title="22 Sep 2016 09:56" href="/projects/exiv2/activity?from=2016-09-22">about 5 years</a> ago
+      <span id="journal-5614-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5614-notes" class="wiki"><p>I'm calling Exiv2::XmpParser::initialize() in the beginning. Threads who are reading metadata (and using exiv2) are being spawned way more later. So it's not the case.</p>
+
+
+	<p>P.S. Yes, I'm following your marathon to 0.26 and looking forward to seeing it. Great job anyway!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5615" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Sep 2016 15:05" href="/projects/exiv2/activity?from=2016-09-22">about 5 years</a> ago
+      <span id="journal-5615-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>0.28</i></li>
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>0</i></li>
+       <li><strong>Estimated time</strong> deleted (<del><i>2.00 h</i></del>)</li>
+    </ul>
+    <div id="journal-5615-notes" class="wiki"><p>I'm going change the target to 0.27.  Multi-threading is a complex subject.  Can I encourage you to play with mt-test.cpp on trunk/v0.26 to see if you can reproduce your situation and trouble.</p>
+
+
+	<p>If you don't make progress, let's talk on Skype mid-October and we'll make progress together.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5621" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Sep 2016 08:20" href="/projects/exiv2/activity?from=2016-09-23">about 5 years</a> ago
+      <span id="journal-5621-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5621-notes" class="wiki"><p>Niels stepped into <a class="issue tracker-1 status-2 priority-4 priority-default" title="Bug: Failed to rename file to (Assigned)" href="/issues/1222">#1222</a> and <a class="issue tracker-1 status-2 priority-4 priority-default" title="Bug:  File extension Issue (Assigned)" href="/issues/1227">#1227</a>  For sure, there's something nasty happening and it's going to take some time to discover what's at the bottom of this.</p>
+
+
+	<p>When I investigated <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: digiKam maintenance tool to synchronize files metadata and database crash in Exiv2 (re-entrancy i... (Closed)" href="/issues/1207">#1207</a> for Gilles on MacOS-X, he asked me to do "a lot more threads than 3".  So I did.  I got messages from the OS that I've never seen before about "resource not available".  I subsequently learnt that MacOS-X has limits of about 256 open files per process.  Those limits can be changed by the user, however that is not a useful fix.  It's important that multi-threaded application control/limit the number of threads opening files.  I think we'll learn that Windows requires similar treatment.</p>
+
+
+	<p>The Windows platform is also challenged by invisible processes such as Virus Checkers, Dropbox and other agents who may be locking files.  <em><strong>We are not alone</strong></em>.  Something's going on.</p>
+
+
+	<p>I have no time at the moment to investigate this.  However I think mt-test.cpp could be a useful framework from which to discover the truth.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5622" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4668">Taras Kushnir</a> <a title="23 Sep 2016 08:23" href="/projects/exiv2/activity?from=2016-09-23">about 5 years</a> ago
+      <span id="journal-5622-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5622-notes" class="wiki"><p>Robin,<br />Next week I'll take a look at mt-test.cpp - I'll try to create you small reproducible crash with particular files and particular code so it will be easier for you to debug later.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5665" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4668">Taras Kushnir</a> <a title="11 Oct 2016 08:18" href="/projects/exiv2/activity?from=2016-10-11">about 5 years</a> ago
+      <span id="journal-5665-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1077">exiv2_bug_qt.zip</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1077/exiv2_bug_qt.zip">exiv2_bug_qt.zip</a> added</li>
+    </ul>
+    <div id="journal-5665-notes" class="wiki"><p>Hi Robin</p>
+
+
+	<p>Sorry for the delay. Actually I tried to repro the crash that next week as I promised, but I failed to repro using just plain C++. My try was here <a class="external" href="https://gist.github.com/Ribtoks/6bc894e20946073317a339ba17a06464">https://gist.github.com/Ribtoks/6bc894e20946073317a339ba17a06464</a></p>
+
+
+	<p>After that I tried to repro using same code in Qt and it is 100% reproducible. Unfortunately, to repro this you will need to have Qt framework installed. Currently I can't fix the issue by myself, because it will take too much time to understand all the relationships so maybe it will be easier for you.</p>
+
+
+	<p>So my setup:<br />Windows 10 x64<br />Qt 5.6.0 for Visual Studio 2015<br />exiv2 v0.25 (+ my fixes for threading)</p>
+
+
+	<p>Application I've created (in the attachment) takes directory with images as 1st argument and creates 1 thread per image which reads XMP metadata.<br />Exact images I've used are here <a class="external" href="https://drive.google.com/file/d/0B05eQJybUAszdVppU1JYcXlqRUE/view?usp=sharing">https://drive.google.com/file/d/0B05eQJybUAszdVppU1JYcXlqRUE/view?usp=sharing</a></p>
+
+
+	<p>Crash (as in description of this issue) is 100% reproducible in Qt Creator if you "Start Debugging" the application, when specifying input parameter via Project's -> Run tab as directory path to the images I've mentioned before.<br />(to make it work, you will need to fix include path to exiv2 sources in the .pro file)</p>
+
+
+	<p>If anything, just a bit patched exiv2 sources I've used are in here <a class="external" href="https://bitbucket.org/ribtoks/xpiks-deps/src">https://bitbucket.org/ribtoks/xpiks-deps/src</a> in exiv2-0.25 dir.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5667" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4668">Taras Kushnir</a> <a title="11 Oct 2016 08:21" href="/projects/exiv2/activity?from=2016-10-11">about 5 years</a> ago
+      <span id="journal-5667-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5667-notes" class="wiki"><p>Qt 5.6.0 can be found here <a class="external" href="http://download.qt.io/official_releases/qt/5.6/5.6.0/">http://download.qt.io/official_releases/qt/5.6/5.6.0/</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5668" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4668">Taras Kushnir</a> <a title="11 Oct 2016 08:22" href="/projects/exiv2/activity?from=2016-10-11">about 5 years</a> ago
+      <span id="journal-5668-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5668-notes" class="wiki"><p>I've used qt-opensource-windows-x86-msvc2015_64-5.6.0.exe but I think it will repro on any of 5.6.0</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5671" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Oct 2016 10:34" href="/projects/exiv2/activity?from=2016-10-11">about 5 years</a> ago
+      <span id="journal-5671-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5671-notes" class="wiki"><p>Taras</p>
+
+
+	<p>This will have to wait for v0.27.  I'm in the final push to get v0.26 finished.  In August/September I invested lots of effort into Qt/MinGW/32 with Qt 5.6.0 and now build/test/publish daily builds for that platform.  We have been publishing daily builds of VS2015 since December 2015.  I've run out of time, energy, and enthusiasm to dive into Qt/VS2015/Multi-threading at the moment.</p>
+
+
+	<p>If you are confident about your patch, I am willing to submit it to v0.26 <em><strong>provided:</strong></em></p>
+
+
+	<ol>
+	<li>You patch does not break our test suite.</li>
+		<li>You send a patch file which I can easily and review and submit to our repository.</li>
+	</ol>
+
+
+	<p>However, if I have to spend more than a couple of hours on this, I must <em><strong>and will</strong></em> defer.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1228.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1228.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

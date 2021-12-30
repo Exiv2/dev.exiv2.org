@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>0002-xmp-convert-metadata-store-from-std-vector-to-std-mu.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="IsgTpbI4vC5OzUzpJua7jIoK+aqvnz3gy0upAuS8yHTAhbhKwEJwLhupU+WZMbe/tZit0158nFo2azmKp4UvGw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/versions.html">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/623/0002-xmp-convert-metadata-store-from-std-vector-to-std-mu.patch">Download (6.66 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-4 status-1 priority-4 priority-default" title="Back metadata by map instead of vector" href="/issues/967">Patch #967</a> » 0002-xmp-convert-metadata-store-from-std-vector-to-std-mu.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/4173">Michael Pratt</a>, 05 Jul 2014 19:14</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/623/0002-xmp-convert-metadata-store-from-std-vector-to-std-mu.patch" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/properties.cpp
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">2300</th>
+  <th class="line-num">2300</th>
+  <td class="line-code ">
+    <pre>        return *this;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2301</th>
+  <th class="line-num">2301</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2302</th>
+  <th class="line-num">2302</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2303</th>
+  <td class="line-code diff_in">
+    <pre>    bool XmpKey::operator&lt;(const XmpKey&amp; b) const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2304</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2305</th>
+  <td class="line-code diff_in">
+    <pre>        if (this-&gt;groupName() != b.groupName()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2306</th>
+  <td class="line-code diff_in">
+    <pre>            return this-&gt;groupName() &lt; b.groupName();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2307</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2308</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2309</th>
+  <td class="line-code diff_in">
+    <pre>        return this-&gt;tagName() &lt; b.tagName();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2310</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2311</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2303</th>
+  <th class="line-num">2312</th>
+  <td class="line-code ">
+    <pre>    XmpKey::AutoPtr XmpKey::clone() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2304</th>
+  <th class="line-num">2313</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2305</th>
+  <th class="line-num">2314</th>
+  <td class="line-code ">
+    <pre>        return AutoPtr(clone_());</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/properties.hpp
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">265</th>
+  <th class="line-num">265</th>
+  <td class="line-code ">
+    <pre>        //@{</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">266</th>
+  <th class="line-num">266</th>
+  <td class="line-code ">
+    <pre>        //! Assignment operator.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">267</th>
+  <th class="line-num">267</th>
+  <td class="line-code ">
+    <pre>        XmpKey&amp; operator=(const XmpKey&amp; rhs);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">268</th>
+  <td class="line-code diff_in">
+    <pre>        //! Comparison operator.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">269</th>
+  <td class="line-code diff_in">
+    <pre>        bool operator&lt;(const XmpKey&amp; b) const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">268</th>
+  <th class="line-num">270</th>
+  <td class="line-code ">
+    <pre>        //@}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">269</th>
+  <th class="line-num">271</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">270</th>
+  <th class="line-num">272</th>
+  <td class="line-code ">
+    <pre>        //! @name Accessors</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/xmp.cpp
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">52</th>
+  <th class="line-num">52</th>
+  <td class="line-code ">
+    <pre>// *****************************************************************************</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">53</th>
+  <th class="line-num">53</th>
+  <td class="line-code ">
+    <pre>// local declarations</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">54</th>
+  <th class="line-num">54</th>
+  <td class="line-code ">
+    <pre>namespace {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">55</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    //! Unary predicate that matches an Xmpdatum by key</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">56</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    class FindXmpdatum {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">57</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    public:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">58</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        //! Constructor, initializes the object with key</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">59</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        FindXmpdatum(const Exiv2::XmpKey&amp; key)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">60</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            : key_(key.key()) {}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">61</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">62</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>          @brief Returns true if prefix and property of the argument</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">63</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                 Xmpdatum are equal to that of the object.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">64</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">65</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        bool operator()(const Exiv2::Xmpdatum&amp; xmpdatum) const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">66</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            { return key_ == xmpdatum.key(); }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">67</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">68</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    private:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">69</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        std::string key_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">70</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">71</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    }; // class FindXmpdatum</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">72</th>
+  <th class="line-num">55</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">73</th>
+  <th class="line-num">56</th>
+  <td class="line-code ">
+    <pre>#ifdef EXV_HAVE_XMP_TOOLKIT</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">74</th>
+  <th class="line-num">57</th>
+  <td class="line-code ">
+    <pre>    //! Convert XMP Toolkit struct option bit to Value::XmpStruct</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">181</th>
+  <th class="line-num">164</th>
+  <td class="line-code ">
+    <pre>        delete p_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">182</th>
+  <th class="line-num">165</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">183</th>
+  <th class="line-num">166</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">167</th>
+  <td class="line-code diff_in">
+    <pre>    const XmpKey&amp; Xmpdatum::xmpKey() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">168</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">169</th>
+  <td class="line-code diff_in">
+    <pre>        if (p_-&gt;key_.get() == 0) throw Error(8);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">170</th>
+  <td class="line-code diff_in">
+    <pre>        return *p_-&gt;key_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">171</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">172</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">184</th>
+  <th class="line-num">173</th>
+  <td class="line-code ">
+    <pre>    std::string Xmpdatum::key() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">185</th>
+  <th class="line-num">174</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">186</th>
+  <th class="line-num">175</th>
+  <td class="line-code ">
+    <pre>        return p_-&gt;key_.get() == 0 ? &quot;&quot; : p_-&gt;key_-&gt;key();</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">315</th>
+  <th class="line-num">304</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">316</th>
+  <th class="line-num">305</th>
+  <td class="line-code ">
+    <pre>    Xmpdatum&amp; XmpData::operator[](const std::string&amp; key)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">317</th>
+  <th class="line-num">306</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">318</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        XmpKey xmpKey(key);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">319</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        iterator pos = findKey(xmpKey);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">320</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (pos == end()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">321</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            add(Xmpdatum(xmpKey));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">322</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            pos = findKey(xmpKey);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">307</th>
+  <td class="line-code diff_in">
+    <pre>        XmpKey k = XmpKey(key);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">308</th>
+  <td class="line-code diff_in">
+    <pre>        XmpMetadata::iterator it = xmpMetadata_.find(k);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">309</th>
+  <td class="line-code diff_in">
+    <pre>        if (it != xmpMetadata_.end()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">310</th>
+  <td class="line-code diff_in">
+    <pre>            return it-&gt;second;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">323</th>
+  <th class="line-num">311</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">324</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return *pos;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">312</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">313</th>
+  <td class="line-code diff_in">
+    <pre>        add(Xmpdatum(k));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">314</th>
+  <td class="line-code diff_in">
+    <pre>        return (*this)[key];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">325</th>
+  <th class="line-num">315</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">326</th>
+  <th class="line-num">316</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">327</th>
+  <th class="line-num">317</th>
+  <td class="line-code ">
+    <pre>    int XmpData::add(const XmpKey&amp; key, const Value* value)</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">331</th>
+  <th class="line-num">321</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">332</th>
+  <th class="line-num">322</th>
+  <td class="line-code ">
+    <pre>    int XmpData::add(const Xmpdatum&amp; xmpDatum)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">333</th>
+  <th class="line-num">323</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">334</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        xmpMetadata_.<span>push_back(xmpDatum</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">324</th>
+  <td class="line-code diff_in">
+    <pre>        xmpMetadata_.<span>insert(std::make_pair(xmpDatum.xmpKey(), xmpDatum)</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">335</th>
+  <th class="line-num">325</th>
+  <td class="line-code ">
+    <pre>        return 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">336</th>
+  <th class="line-num">326</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">337</th>
+  <th class="line-num">327</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">338</th>
+  <th class="line-num">328</th>
+  <td class="line-code ">
+    <pre>    XmpData::const_iterator XmpData::findKey(const XmpKey&amp; key) const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">339</th>
+  <th class="line-num">329</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">340</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return std::find_if(xmpMetadata_.begin(), xmpMetadata_.end(),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">341</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                            FindXmpdatum(key));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">330</th>
+  <td class="line-code diff_in">
+    <pre>        return xmpMetadata_.find(key);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">342</th>
+  <th class="line-num">331</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">343</th>
+  <th class="line-num">332</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">344</th>
+  <th class="line-num">333</th>
+  <td class="line-code ">
+    <pre>    XmpData::iterator XmpData::findKey(const XmpKey&amp; key)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">345</th>
+  <th class="line-num">334</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">346</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return std::find_if(xmpMetadata_.begin(), xmpMetadata_.end(),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">347</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                            FindXmpdatum(key));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">335</th>
+  <td class="line-code diff_in">
+    <pre>        return xmpMetadata_.find(key);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">348</th>
+  <th class="line-num">336</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">349</th>
+  <th class="line-num">337</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">350</th>
+  <th class="line-num">338</th>
+  <td class="line-code ">
+    <pre>    void XmpData::clear()</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">354</th>
+  <th class="line-num">342</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">355</th>
+  <th class="line-num">343</th>
+  <td class="line-code ">
+    <pre>    void XmpData::sortByKey()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">356</th>
+  <th class="line-num">344</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">357</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        <span>std::sort(xmpMetadata_.begin(), xmpMetadata_.end(), cmpMetadataByKey);</span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">345</th>
+  <td class="line-code diff_in">
+    <pre>        <span>return;  // multimap is kept sorted by key</span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">358</th>
+  <th class="line-num">346</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">359</th>
+  <th class="line-num">347</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">360</th>
+  <th class="line-num">348</th>
+  <td class="line-code ">
+    <pre>    XmpData::const_iterator XmpData::begin() const</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">389</th>
+  <th class="line-num">377</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">390</th>
+  <th class="line-num">378</th>
+  <td class="line-code ">
+    <pre>    XmpData::iterator XmpData::erase(XmpData::iterator pos)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">391</th>
+  <th class="line-num">379</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">392</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return xmpMetadata_.erase(pos);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">380</th>
+  <td class="line-code diff_in">
+    <pre>        XmpData::iterator next = pos;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">381</th>
+  <td class="line-code diff_in">
+    <pre>        next++;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">382</th>
+  <td class="line-code diff_in">
+    <pre>        xmpMetadata_.erase(pos.it);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">383</th>
+  <td class="line-code diff_in">
+    <pre>        return next;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">393</th>
+  <th class="line-num">384</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">394</th>
+  <th class="line-num">385</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">395</th>
+  <th class="line-num">386</th>
+  <td class="line-code ">
+    <pre>    bool XmpParser::initialized_ = false;</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/xmp.hpp
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">132</th>
+  <th class="line-num">132</th>
+  <td class="line-code ">
+    <pre>                 contain multiple metadata with the same key.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">133</th>
+  <th class="line-num">133</th>
+  <td class="line-code ">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">134</th>
+  <th class="line-num">134</th>
+  <td class="line-code ">
+    <pre>        std::string key() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">135</th>
+  <td class="line-code diff_in">
+    <pre>        const XmpKey&amp; xmpKey() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">135</th>
+  <th class="line-num">136</th>
+  <td class="line-code ">
+    <pre>        const char* familyName() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">136</th>
+  <th class="line-num">137</th>
+  <td class="line-code ">
+    <pre>        //! Return the (preferred) schema namespace prefix.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">137</th>
+  <th class="line-num">138</th>
+  <td class="line-code ">
+    <pre>        std::string groupName() const;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">164</th>
+  <th class="line-num">165</th>
+  <td class="line-code ">
+    <pre>    }; // class Xmpdatum</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">165</th>
+  <th class="line-num">166</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">166</th>
+  <th class="line-num">167</th>
+  <td class="line-code ">
+    <pre>    //! Container type to hold all metadata</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">167</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    typedef std::<span>vector&lt;</span>Xmpdatum&gt; XmpMetadata;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">168</th>
+  <td class="line-code diff_in">
+    <pre>    typedef std::<span>multimap&lt;XmpKey, </span>Xmpdatum&gt; XmpMetadata;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">168</th>
+  <th class="line-num">169</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">169</th>
+  <th class="line-num">170</th>
+  <td class="line-code ">
+    <pre>    /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">170</th>
+  <th class="line-num">171</th>
+  <td class="line-code ">
+    <pre>      @brief A container for XMP data. This is a top-level class of</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">179</th>
+  <th class="line-num">180</th>
+  <td class="line-code ">
+    <pre>    class EXIV2API XmpData {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">180</th>
+  <th class="line-num">181</th>
+  <td class="line-code ">
+    <pre>    public:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">181</th>
+  <th class="line-num">182</th>
+  <td class="line-code ">
+    <pre>        //! XmpMetadata iterator type</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">182</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        typedef <span>XmpMetadata::iterator</span> iterator;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">183</th>
+  <td class="line-code diff_in">
+    <pre>        typedef <span>map_value_iterator&lt;XmpMetadata, XmpMetadata::iterator&gt;</span> iterator;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">183</th>
+  <th class="line-num">184</th>
+  <td class="line-code ">
+    <pre>        //! XmpMetadata const iterator type</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">184</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        typedef <span>XmpMetadata::const_iterator</span> const_iterator;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">185</th>
+  <td class="line-code diff_in">
+    <pre>        typedef <span>map_value_iterator&lt;XmpMetadata, XmpMetadata::const_iterator, const typename XmpMetadata::const_iterator::value_type::second_type&gt;</span> const_iterator;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">185</th>
+  <th class="line-num">186</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">186</th>
+  <th class="line-num">187</th>
+  <td class="line-code ">
+    <pre>        //! @name Manipulators</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">187</th>
+  <th class="line-num">188</th>
+  <td class="line-code ">
+    <pre>        //@{</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">215</th>
+  <th class="line-num">216</th>
+  <td class="line-code ">
+    <pre>        iterator erase(iterator pos);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">216</th>
+  <th class="line-num">217</th>
+  <td class="line-code ">
+    <pre>        //! Delete all Xmpdatum instances resulting in an empty container.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">217</th>
+  <th class="line-num">218</th>
+  <td class="line-code ">
+    <pre>        void clear();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">218</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        //! Sort metadata by key</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">219</th>
+  <td class="line-code diff_in">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">220</th>
+  <td class="line-code diff_in">
+    <pre>          @deprecated Xmp metadata is always kept sorted by key.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">221</th>
+  <td class="line-code diff_in">
+    <pre>                This method is a no-op.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">222</th>
+  <td class="line-code diff_in">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">219</th>
+  <th class="line-num">223</th>
+  <td class="line-code ">
+    <pre>        void sortByKey();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">220</th>
+  <th class="line-num">224</th>
+  <td class="line-code ">
+    <pre>        //! Begin of the metadata</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">221</th>
+  <th class="line-num">225</th>
+  <td class="line-code ">
+    <pre>        iterator begin();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">222</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>- </pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"><li class="previous page"><a href="/attachments/622/0001-types-Add-map_value_iterator.patch">« Previous</a></li><li class="page"><a href="/attachments/620/20140515-Yosemite-2233.jpg">1</a></li><li class="page"><a href="/attachments/621/20140515-Yosemite-2233_quadxmp.jpg">2</a></li><li class="page"><a href="/attachments/622/0001-types-Add-map_value_iterator.patch">3</a></li><li class="current"><span>4</span></li><li class="page"><a href="/attachments/624/0003-exif-convert-metadata-store-from-std-vector-to-std-m.patch">5</a></li><li class="page"><a href="/attachments/625/0004-iptc-convert-metadata-store-from-std-vector-to-std-m.patch">6</a></li><li class="page"><a href="/attachments/626/bench.cpp">7</a></li><li class="next page"><a href="/attachments/624/0003-exif-convert-metadata-store-from-std-vector-to-std-m.patch">Next »</a></li></ul><span><span class="items">(4-4/7)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

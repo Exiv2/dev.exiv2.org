@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Local build crashes in olympusmn.cpp - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="428hHg45UCyAxCP/Jkog61kwsYxZtHuBa6rWCeOSxG8BIorxfEOcLNWgPPOZnSzYZqLl9ahX2juWikaBoKsjAA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Local build crashes in olympusmn.cpp</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4198">Mike Erickson</a> <a title="14 Aug 2014 14:33" href="/projects/exiv2/activity?from=2014-08-14">over 7 years</a> ago</span></p>
+<div class="wiki">
+<p>I built a version of the exiv2 0.24 utility using the provided Visual Studio 2012 solution and converting it to a VS 2013 project.<br />It built successfully.</p>
+
+
+	<p>When I test the utility it runs successfully agains most files, but I get a crash in the C-runtime when reading certain Olympus ORF files.</p>
+
+
+	<p>I have hopefully remembered to attach a copy of the offending file.</p>
+
+
+	<p>The crash dialog says that a "Debug assertion failed." the assertion is in the &lt;vector&gt; header on line 1185.</p>
+
+
+	<p>The crash seems to occur when the utility is trying to print the value of the Exif.OlympusCs.FocusMode tag.</p>
+
+
+	<p>The pre-built executable that I download from the website can successfully parse this file.</p>
+
+
+	<p>In the debugger, the offending line of code is in olympusmn.cpp line 1444. It is hardcoded to pass an index of 1. Line 1441 tests if the count of values is less than 2:</p>
+	<pre><code>if (value.count() &lt; 2)</code></pre>
+
+
+	<p>But then line 1444 asks for the value at index 1:</p>
+	<pre><code>v = (uint16_t)value.toLong(1);</code></pre>
+
+
+	<p>which would be the second value, which seems to contradict the test preformed on line 1441.<br />This appears to me to be the cause of the out-of-range subscript.</p>
+
+
+	<p>If I change line 1441 to:</p>
+	<pre><code>if (value.count() &gt; 1) {</code></pre>
+
+
+	<p>and line 1454 to :</p>
+	<pre><code>} else if (value.count()){</code></pre>
+
+
+	<p>then my local build will successfully parse this file.</p>
+
+
+	<p>Why does my local build need this change but the pre-built one runs without it?</p>
+</div>
+<div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/657">20070705_10001_off.orf</a>    <span class="size">(9.27 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/657/20070705_10001_off.orf">20070705_10001_off.orf</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (3)</h3>
+  <div class="message reply" id="message-1802">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1801?r=1802#message-1802">RE: Local build crashes in olympusmn.cpp</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Aug 2014 15:47" href="/projects/exiv2/activity?from=2014-08-14">over 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mike</p>
+
+
+	<p>Welcome to the Exiv2 Forum.  All AlienSkin Engineers are Welcome.  Terence gave me a head's up that you'd found a puzzle and would report it.</p>
+
+
+	<p>Thanks for digging into this in some detail.  To answer your question "Why do you need a local change when the prebuilt one runs without it?", the answer is that the pre-built exiv2.exe is cross-compiled with GCC and you've built with MSVC.  So, although I believe both compilers use dinkumware libraries, they are very different builds.  You can see this using the depends32.exe or depends64.exe tools which are in the source bundle (and their source code).  The MSVC build shows:</p>
+
+
+<pre>
+C:\cygwin\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\ReleaseDLL&gt;depends64 exiv2.exe
+PSAPI.DLL
+ntdll.dll
+KERNEL32.dll
+zlib1.dll
+libexpat.dll
+exiv2.dll
+  Not found: MSVCR80.dll
+  Not found: MSVCP80.dll
+exiv2.exe
+  Not found: MSVCR80.dll
+  Not found: MSVCP80.dll
+</pre>
+
+	<p>The "prebuilt download":<br /><pre>
+ Directory of C:\temp
+01/12/2013  22:07         3,977,728 exiv2.exe
+C:\temp&gt;depends32 exiv2.exe
+PSAPI.DLL
+msvcrt.dll
+ntdll.dll
+KERNEL32.dll
+libexpat.dll
+exiv2.exe
+</pre><br />I think you can also discover those differences dependancies with Microsoft's dumpbin.exe utility.</p>
+
+
+	<p>I think however you've identified something odd in the code about the 2s and 1s.  It's 11:47pm here in England and I'm too tired to be bothered investigating this tonight.  I'll look tomorrow and review the changes you have suggested.  If I concur and the build passes our test suite, I'll open an issue and commit a change to trunk.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1803">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1801?r=1803#message-1803">RE: Local build crashes in olympusmn.cpp</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Aug 2014 04:26" href="/projects/exiv2/activity?from=2014-08-15">over 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mike</p>
+
+
+	<p>You are quite right.  The code is clearly a little muddled and your fix will work.  I've submitted <a class="changeset" title="Topic: 1801 http://dev.exiv2.org/boards/3/topics/1801.  Thanks to Mike Erickson of Alien Skin Sof..." href="/projects/exiv2/repository/exiv2/revisions/3289">r3289</a> to the trunk to deal with this.  My code isn't identical to your proposal, however it amounts to the same thing.</p>
+
+
+	<p>I've created Issue# 981 to deal with this.  <a class="external" href="http://dev.exiv2.org/issues/981">http://dev.exiv2.org/issues/981</a></p>
+
+
+	<p>I've marked the bug as "Resolved" and it will be reviewed and marked "Closed" during our release process for v0.25.</p>
+
+
+	<p>Thanks very much for your clear description of the issue, providing a test file and proposing a fix.  The cooperation between Team Exiv2 and Alien Skin has got off to a good start.  Thanks very much.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1804">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1801?r=1804#message-1804">RE: Local build crashes in olympusmn.cpp</a>
+    -
+    Added by <a class="user active" href="/users/4198">Mike Erickson</a> <a title="15 Aug 2014 06:19" href="/projects/exiv2/activity?from=2014-08-15">over 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your help, Robin. Looking forward to working with you.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-3/3)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

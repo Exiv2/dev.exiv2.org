@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Missing exv_conf.h - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="oW9x50vM40+5uP2IEdPLQqWypLzYE8vsWqIlZf6i7wVDItoIObYvT+zc4oSuBMdxmiDwxSnwalangrXtvZsIag==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Missing exv_conf.h</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/640">Holger Selover-Stephan</a> <a title="20 May 2010 21:02" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>I successfully compiled exiv2 v0.19 on Win7 64bit using MSVC9. Now I'd like to use it in a Qt application that I'm compiling with MinGW. This fails because exiv2's "types.hpp" includes "exv_conf.h" which I can't find anywhere. If I were to compile with VC it would include "exv_msvc.h" but that's also AWOL. Any ideas?</p>
+
+
+	<p>Thanks,</p>
+
+
+	<p>Holger</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (15)</h3>
+  <div class="message reply" id="message-512">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=512#message-512">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="20 May 2010 21:46" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Holger</p>
+
+
+	<p>I'm  rather surprised.  I built 0.19 with Cygwin/MingW/GCC in February and don't recall any difficulty with it.  The binaries that Andreas publishes are actually cross compiled from Windows on a Linux box and he asked me to build it on a 'real' Windows7 (64bit, Pro) machine and run the test harness.  As I recall, everything worked for me.</p>
+
+
+	<p>types.hpp is included in the src directory.</p>
+
+
+	<p>In the MSVC build, I copy a load of header files into msvc/include/exiv2/types.hpp</p>
+
+
+	<p>It isn't copied with Ming - the assumption is that after you build it, you'll install it:</p>
+
+
+	<p>$ make config ; ./configure ; make ; make install ; make tests</p>
+
+
+	<p>The make install copies the exiv2 headers to a 'standard' location (/usr/include/exiv2/types.hpp)  (or somewhere like that).  Having been installed, the usual build stuff should be able to find it.  The make tests will compile the test programs (exivprint, addmodell and friends).</p>
+
+
+	<p>I hope that helps.  Let me know if you're stuck.  Good Luck with Qt.  I really like that stuff and I'll be interested to hear of your success in bringing exiv2 and Qt together.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-513">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=513#message-513">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/640">Holger Selover-Stephan</a> <a title="20 May 2010 22:04" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your ultra fast response, Robin! exiv2 does compile just fine, and since there were good instructions to build it with VC, that's what I did. The problem is when using it. As soon as you include the header file "types.hpp" it wants either exv_msvc.h or exv_conf.h and neither one is on my system.</p>
+
+
+<pre>
+#ifdef _MSC_VER
+# include "exv_msvc.h" 
+#else
+# include "exv_conf.h" 
+#endif
+</pre>
+
+	<p>Are those headers generated somehow?</p>
+
+
+	<p>Thanks,</p>
+
+
+	<p>Holger</p></div>
+  
+  </div>
+  <div class="message reply" id="message-514">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=514#message-514">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="20 May 2010 22:09" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Holger</p>
+
+
+	<p>I've just realized that it's exv_conf.h that's missing and not types.hpp.  I think that file is manufactured by the ./configure script magic.  For sure, I have it on my Mac (but not on Windows).  Both my Mac and Windows copies of exiv2 were checked out from SVN and haven't be 'doctored' in any unusual way.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-515">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=515#message-515">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/640">Holger Selover-Stephan</a> <a title="20 May 2010 22:16" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>OK, that makes sense. And I just checked on the Mac, it's right there. But on Windows it renders the compilation with VC unusable, and that's what is documented in the distribution. Right? I've never run configure on Windows. Do you need cygwin for this?</p>
+
+
+	<p>Thanks,</p>
+
+
+	<p>Holger</p></div>
+  
+  </div>
+  <div class="message reply" id="message-516">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=516#message-516">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="20 May 2010 22:31" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Holger</p>
+
+
+	<p>The issue is with Qt.  As I understand things, Qt and MSVC are not good bed fellows.  Qt/Creator (their gorgeous IDE) uses QMake and GCC and all sorts of Magic.  My suspicion is that you should install Cygwin and build exiv2 in the "unix kind of way".  I think you'll have to use MSVC everywhere (for Qt and exiv2) or GCC everywhere (for Qt and exiv2) or you'll be in trouble.  I believe the C++ standard does not define the name mangling, so trying to link MSVC libraries with GCC code simply doesn't fly (and the other way about).</p>
+
+
+	<p>I can of course simply upload exv_conf.h from my GCC/Cygwin/Windows box - however I'm not sure that's enough as GCC will want to look for headers and libraries in /usr/include and /usr/lib and so on.  A trip to Cygwin site's probably the best medicine here.</p>
+
+
+	<p>Incidentally, if you are used to the Mac (and/or Linux), you'll probably find Cygwin's bash shell to be a very nice alternative to Windows/CMD.  I usually use Cygwin/bash from Console.exe to get a resizable/tabbed terminal on Windows.  I'm not a Microsoft basher - however CMD is not their finest tool.  DevStudio on the other hand is a wonderful product and my favorite C++/IDE on any platform.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-517">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=517#message-517">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/640">Holger Selover-Stephan</a> <a title="20 May 2010 22:31" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>I copied the header file (exv_conf.h) from the Mac to the Win7 box and now I'm getting linker errors. Not that I expected it to work, but here is what the linker says:</p>
+
+
+<pre>
+undefined reference to `_imp___ZN5Exiv212ImageFactory4openERKSs'
+undefined reference to `_imp___ZN5Exiv25ErrorD1Ev'
+undefined reference to _imp___ZTVN5Exiv28AnyErrorE
+</pre>
+
+	<p>...and a few more of these.</p>
+
+
+	<p>Oh, and yes, I'll let you know how the Qt project goes. It's a photo viewer that is burned onto CD by photo printing retail. I have to ask Andreas about a commercial license. First wanted to see if it works.</p>
+
+
+	<p>Thanks,</p>
+
+
+	<p>Holger</p></div>
+  
+  </div>
+  <div class="message reply" id="message-518">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=518#message-518">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/640">Holger Selover-Stephan</a> <a title="20 May 2010 22:37" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Oh, I hadn't seen your posting before submitting mine. OK. I'll try it with Cygwin on Windows. I've done a few other, larger Qt projects using MSVC as IDE/compiler and it worked nicely. The integration isn't that bad. But for this project I wanted to use Qt Creator and MinGW because the product should run on both platforms and I figured it was easier to use an IDE that I can run on both boxes.</p>
+
+
+	<p>As for the MSVC build of exiv2....I'd consider this as broken right now. Even if you don't use Qt, if you build exiv2 with MSVC those headers are missing but referenced.</p>
+
+
+	<p>Thanks again for your excellent help!</p>
+
+
+	<p>Holger</p></div>
+  
+  </div>
+  <div class="message reply" id="message-519">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=519#message-519">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="20 May 2010 22:37" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>I anticipated that.</p>
+
+
+	<p>Good luck with the photo viewer.  I'm 100% confident that you'll get this to work.  Of course we might have a little struggle to get everything sorted out - however that's the best part isn't it.  If it all worked effortlessly, the bosses would ship our jobs off to the 3rd World.  Oh, shit - they've already done that (their turn comes next).</p>
+
+
+	<p>I don't know anything about the commercial license - however I'm sure Andreas, his wife and two starving children will be happy to accept your money.  He's done a really great job on this library.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-520">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=520#message-520">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/640">Holger Selover-Stephan</a> <a title="20 May 2010 22:49" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, I'll send him an email soon. We may already have a commercial license, but our company was sold to another, and now I don't know. Doesn't Andreas live somewhere in Indochina? Food's cheap there, should let his kids starve. ;)</p>
+
+
+	<p>Holger</p></div>
+  
+  </div>
+  <div class="message reply" id="message-521">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=521#message-521">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 May 2010 23:13" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>As a workaround for now, compile both, your application and exiv2, with the same build system, then you should be ok. Apologies if I missed out a particular reason why you can't do that, I'm a bit in a rush. We'll talk about the need for food+drink later too :)</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-522">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=522#message-522">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="20 May 2010 23:17" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, he live in ... well I'll leave him to tell you as I don't know if he wants that to be public.  However his children are growing and can eat him out of house and home.</p>
+
+
+	<p>I'm surprised you consider the MSVC build to be broken.  I believe it builds fine.  However you can't mix the tool sets (GCC/MSVC) for reasons beyond this project's reach.  However if I've misunderstood, please explain your need.  I aim to please.</p>
+
+
+	<p>It's been fun this evening talking with you (I'm in California).  Come back and see us again soon.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-523">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=523#message-523">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/640">Holger Selover-Stephan</a> <a title="20 May 2010 23:29" href="/projects/exiv2/activity?from=2010-05-20">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks Andreas and Robin!</p>
+
+
+	<p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>I'm surprised you consider the MSVC build to be broken.  I believe it builds fine.</p>
+
+
+</blockquote>
+
+	<p>Yes, it builds fine but can't be used. Even if you build both exiv2 and your application with MSVC. In this case your application build will fail on the missing header "exv_msvc.h".</p>
+
+
+<blockquote>
+
+	<p>It's been fun this evening talking with you (I'm in California).  Come back and see us again soon.</p>
+
+
+</blockquote>
+
+	<p>I'm one state up: Oregon. Originally I'm from one country up from Andreas': Germany.</p>
+
+
+	<p>Now my Mac application build fails because libiconv insists on compiling 32bit on SL - too much fun. I wish exiv2 would link that statically.</p>
+
+
+	<p>Holger</p></div>
+  
+  </div>
+  <div class="message reply" id="message-524">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=524#message-524">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/640">Holger Selover-Stephan</a> <a title="21 May 2010 01:44" href="/projects/exiv2/activity?from=2010-05-21">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Well, now I gave libexif a try and was able extract the orientation tag - which is all I need at this point. Still, there is some code in libkexiv, which uses exiv2, that deals with non-standard orientation tags that Minolta uses. Not sure how easy it is to extract manufacturer specific tags with libexif. I'll have to decide between libexif and exiv2 and will fire off another thread asking about the build sizes.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-525">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=525#message-525">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/640">Holger Selover-Stephan</a> <a title="21 May 2010 01:44" href="/projects/exiv2/activity?from=2010-05-21">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Well, now I gave libexif a try and was able extract the orientation tag - which is all I need at this point. Still, there is some code in libkexiv, which uses exiv2, that deals with non-standard orientation tags that Minolta uses. Not sure how easy it is to extract manufacturer specific tags with libexif. I'll have to decide between libexif and exiv2 and will fire off another thread asking about the build sizes.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-529">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/511?r=529#message-529">RE: Missing exv_conf.h</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="21 May 2010 12:00" href="/projects/exiv2/activity?from=2010-05-21">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ah, you're in rainy Oregon - a beautiful state.</p>
+
+
+	<p>Building on Snow Leopard is a bitch.  He's so 64 bit oriented/determined.  However I have solved this.  We talked about the Mac build last year.<br /><a class="external" href="http://dev.exiv2.org/boards/3/topics/show/235">http://dev.exiv2.org/boards/3/topics/show/235</a></p>
+
+
+	<p>I know I built exiv2 universal ppc/i386/x86_64 in March for Phatch (an open source project).  I'll try to remember to update thread 235 with my latest ideas/thoughts about that.  If you're struggling with Snow Leopard build, please shout and I'll rescue you.  It does work, however there's some magic required that I can't remember offhand (I'm at work) at the moment).  Shoot me an email directly if you wish:  <a class="email" href="mailto:robin@clanmills.com">robin@clanmills.com</a></p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-15/15)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

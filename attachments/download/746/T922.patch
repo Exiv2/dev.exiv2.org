@@ -1,0 +1,88 @@
+Index: include/exiv2/basicio.hpp
+===================================================================
+--- include/exiv2/basicio.hpp	(revision 3652)
++++ include/exiv2/basicio.hpp	(working copy)
+@@ -179,7 +179,7 @@
+               Nonzero if failure;
+          */
+ #if defined(_MSC_VER)
+-        virtual int seek(uint64_t offset, Position pos) = 0;
++        virtual int seek(int64_t offset, Position pos) = 0;
+ #else
+         virtual int seek(long offset, Position pos) = 0;
+ #endif
+@@ -448,7 +448,7 @@
+                  Nonzero if failure;
+          */
+ #if defined(_MSC_VER)
+-        virtual int seek(uint64_t offset, Position pos);
++        virtual int seek(int64_t offset, Position pos);
+ #else
+         virtual int seek(long offset, Position pos);
+ #endif
+@@ -680,7 +680,7 @@
+                  Nonzero if failure;
+          */
+ #if defined(_MSC_VER)
+-        virtual int seek(uint64_t offset, Position pos);
++        virtual int seek(int64_t offset, Position pos);
+ #else
+         virtual int seek(long offset, Position pos);
+ #endif
+@@ -1026,7 +1026,7 @@
+                 Nonzero if failure;
+         */
+ #if defined(_MSC_VER)
+-       virtual int seek(uint64_t offset, Position pos);
++       virtual int seek(int64_t offset, Position pos);
+ #else
+        virtual int seek(long offset, Position pos);
+ #endif
+Index: src/basicio.cpp
+===================================================================
+--- src/basicio.cpp	(revision 3652)
++++ src/basicio.cpp	(working copy)
+@@ -933,7 +933,7 @@
+     }
+ 
+ #if defined(_MSC_VER)
+-    int FileIo::seek( uint64_t offset, Position pos )
++    int FileIo::seek( int64_t offset, Position pos )
+     {
+         assert(p_->fp_ != 0);
+ 
+@@ -1249,7 +1249,7 @@
+     }
+ 
+ #if defined(_MSC_VER)
+-    int MemIo::seek( uint64_t offset, Position pos )
++    int MemIo::seek( int64_t offset, Position pos )
+     {
+         uint64_t newIdx = 0;
+ 
+@@ -1853,7 +1853,7 @@
+     }
+ 
+ #if defined(_MSC_VER)
+-    int RemoteIo::seek( uint64_t offset, Position pos )
++    int RemoteIo::seek( int64_t offset, Position pos )
+     {
+         assert(p_->isMalloced_);
+         uint64_t newIdx = 0;
+Index: src/pngimage.cpp
+===================================================================
+--- src/pngimage.cpp	(revision 3652)
++++ src/pngimage.cpp	(working copy)
+@@ -157,7 +157,11 @@
+                 int       start = ::strlen(key);
+                 buff[start] = 0;
+                 if ( option == kpsXMP && ::strcmp((const char*)buff,key) == 0 ) {
+-                    io_->seek(-blen , BasicIo::cur);
++#if defined(_MSC_VER)
++                    io_->seek(-static_cast<int64_t>(blen) , BasicIo::cur);
++#else
++                    io_->seek(-static_cast<long>(blen) , BasicIo::cur);
++#endif
+                     dataOffset = dOff ;
+                     byte* xmp  = new byte[dataOffset+5];
+                     io_->read(xmp,dataOffset+4);

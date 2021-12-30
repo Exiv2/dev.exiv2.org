@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1033: webm with opus audio. Segmentation fault. - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="NWlb+seysHrTuRc58tKRV1OaNpqdrKqbeFvmgdSv0bfXJPAVtch8eobdCDVNBZ1kbAhi42xPCyGFe3YJl5Y22A==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1033: webm with opus audio. Segmentation fault." href="https://dev.exiv2.org/issues/1033%5D%5D.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1033</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>webm with opus audio. Segmentation fault.</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4346">Boris Bogar</a> <a title="16 Feb 2015 15:00" href="/projects/exiv2/activity?from=2015-02-16">almost 7 years</a> ago.
+        Updated <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/3290">Abhinav Badola</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">video</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">16 Feb 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I just found a webm video that cause a crash on digikam on my archlinux.<br />Parsing the file with the command line utility return a segmentation fault. Looks like the cause is the opus audio stream on the video. I tried to create another video with ffmpeg (command line below. Messy but working sorry) and I get the same result.</p>
+
+
+	<p>ffmpeg -i "~/imputvideo.mp4" -map 0:0 -map 0:1 -t 00:00:53.781 -threads 2 -aspect 16:9 -y -f webm -acodec libopus -ab 160k -ar 48000 -ac 2 -vcodec libvpx "~/output.webm"</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/721">vp8_opus.webm</a>    <span class="size">(1.61 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/721/vp8_opus.webm">vp8_opus.webm</a>  </td>
+  <td>Example video file causing the segmentation fault.</td>
+  <td>
+      <span class="author">Boris Bogar, 17 Feb 2015 16:52</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3607" href="/projects/exiv2/repository/exiv2/revisions/3607">Revision 3607</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3607/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Feb 2015 23:49" href="/projects/exiv2/activity?from=2015-02-17">almost 7 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: webm with opus audio. Segmentation fault. (Closed)" href="/issues/1033">#1033</a>.  Crash when opening .webm file.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3139" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Feb 2015 16:41" href="/projects/exiv2/activity?from=2015-02-17">almost 7 years</a> ago
+      <span id="journal-3139-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>video</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-3139-notes" class="wiki"><p>We shouldn't crash, however we do not support webm.  I'll have a look at this at the week-end and add something to prevent the segmentation fault.</p>
+
+
+	<p>My good friend Gilles (M DigiKam) Caulier has proposed added WebP | WebM support to the library as a project for GSoC 2015.<br /><a class="external" href="https://community.kde.org/GSoC/2015/Ideas#Project:_Add_WebP_and_WebM_support">https://community.kde.org/GSoC/2015/Ideas#Project:_Add_WebP_and_WebM_support</a></p>
+
+
+	<p>Thanks for the command-line.  I'm not a video guy.  I assume you're saying that I can generate a test file with that command.  I'll give that a shot.  If you have a test file (less than 10mb), please attach it to this issue and that'll save me some time.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3140" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4346">Boris Bogar</a> <a title="17 Feb 2015 16:52" href="/projects/exiv2/activity?from=2015-02-17">almost 7 years</a> ago
+      <span id="journal-3140-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/721">vp8_opus.webm</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/721/vp8_opus.webm">vp8_opus.webm</a> added</li>
+    </ul>
+    <div id="journal-3140-notes" class="wiki"><p>Here a little video. Thanks for the answer. I just posted here from what I read following some hold bug report digikam->libkexiv2->exiv2</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3141" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Feb 2015 19:40" href="/projects/exiv2/activity?from=2015-02-17">almost 7 years</a> ago
+      <span id="journal-3141-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3141-notes" class="wiki"><p>Thanks for posting the file.  Yup, I have reproduced your segmentation fault.  I'll have a crawl through this with the debugger at the weekend.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3142" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Feb 2015 23:56" href="/projects/exiv2/activity?from=2015-02-17">almost 7 years</a> ago
+      <span id="journal-3142-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3142-notes" class="wiki"><p>Fix submitted: <a class="changeset" title="#1033.  Crash when opening .webm file." href="/projects/exiv2/repository/exiv2/revisions/3607">r3607</a>.</p>
+
+
+	<p>I'm assigning this to Abhinav, who wrote this code, to review my fix.</p>
+
+
+	<p>Abhinav, can you also consider if this fault could occur in other locations in the video code.  If you run this command:<pre>546 rmills@rmillsmbp:~/gnu/exiv2/trunk $ grep find src/*video.cpp</pre>you'll see that function find is called in 63 locations.  It'd be good to know that the other 62 locations are safe when NULL is returned.  If you're happy, please mark this issue as "resolved".  If you don't have time to investigate this, please reassign this issue back to me.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3143" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Feb 2015 01:28" href="/projects/exiv2/activity?from=2015-02-18">almost 7 years</a> ago
+      <span id="journal-3143-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> changed from <i>Robin Mills</i> to <i>Abhinav Badola</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3145" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="18 Feb 2015 19:22" href="/projects/exiv2/activity?from=2015-02-18">almost 7 years</a> ago
+      <span id="journal-3145-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3145-notes" class="wiki"><p>Thank you Robin for submitting the fix.</p>
+
+
+	<p>I will review it, this coming weekend.</p>
+
+
+	<p>As such, Exiv2 should support <strong>webm</strong> type of files.<br />This is because the metadata container of <strong>WebM</strong> is same as that of <strong>Matroska</strong> class.</p>
+
+
+	<p>Since we do support Matroska via Exiv2, it should also, by default, support WebM.</p>
+
+
+	<p>I didn't have substantial samples of WebM to test upon, so this issue might not have been discovered earlier.</p>
+
+
+	<p>Thanks a lot, Boris, for reporting this issue. :)</p>
+
+
+	<p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Fix submitted: <a class="changeset" title="#1033.  Crash when opening .webm file." href="/projects/exiv2/repository/exiv2/revisions/3607">r3607</a>.</p>
+
+
+	<p>I'm assigning this to Abhinav, who wrote this code, to review my fix.</p>
+
+
+	<p>Abhinav, can you also consider if this fault could occur in other locations in the video code.  If you run this command:[...]you'll see that function find is called in 63 locations.  It'd be good to know that the other 62 locations are safe when NULL is returned.  If you're happy, please mark this issue as "resolved".  If you don't have time to investigate this, please reassign this issue back to me.</p>
+
+
+</blockquote></div>
+    </div>
+  </div>
+  
+  <div id="change-3146" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4346">Boris Bogar</a> <a title="19 Feb 2015 09:15" href="/projects/exiv2/activity?from=2015-02-19">almost 7 years</a> ago
+      <span id="journal-3146-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3146-notes" class="wiki"><p>I tried to compile the trunk and is working like a charm. Thanks you all for the work and for the quick fix.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3170" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="01 Mar 2015 20:43" href="/projects/exiv2/activity?from=2015-03-01">over 6 years</a> ago
+      <span id="journal-3170-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3170-notes" class="wiki"><p>Hi Robin and Boris,</p>
+
+
+	<p>I feel happy that the problem is solved for Boris.<br />It is not crashing, and that is great. :)</p>
+
+
+	<p>But I am surprised as to why exiv2 is not able to extract any video related metadata from the file.<br />I tried to look into the metadata of the file while debugging this problem and spent some time on it.</p>
+
+
+	<p>As of now, I have not been able to solve the problem properly. <br />So I am <strong>not</strong> putting this problem as resolved.</p>
+
+
+	<p>I will work on it soon, some time later.<br />If I feel that there is some specific case of code deficiency, which may need some proper implementation, then I will put the bug as resolved or as a feature request for future. <br />But I hope that by adding a small patch, it might get solved easily.<br />I will get back on this thread once I have more information on it.</p>
+
+
+	<p>Boris Bogar wrote:</p>
+
+
+<blockquote>
+
+	<p>I tried to compile the trunk and is working like a charm. Thanks you all for the work and for the quick fix.</p>
+
+
+</blockquote></div>
+    </div>
+  </div>
+  
+  <div id="change-3171" class="journal has-notes has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="01 Mar 2015 21:08" href="/projects/exiv2/activity?from=2015-03-01">over 6 years</a> ago
+      <span id="journal-3171-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-3171-notes" class="wiki"><p>Ah... It was an environment problem in my PC.<br />The file is working perfectly. :)</p>
+
+
+	<p>This case seems resolved.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3172" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Mar 2015 21:17" href="/projects/exiv2/activity?from=2015-03-01">over 6 years</a> ago
+      <span id="journal-3172-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3172-notes" class="wiki"><p>Thanks for looking at this, Abhinav.  You're right. There is metadata hiding in the file.  At least we don't crash and that's better, however not the solution.  I ran the file in exiftool: <pre>549 rmills@rmillsmbp:~/Downloads $ exiftool vp8_opus.webm 
+ExifTool Version Number         : 9.35
+File Name                       : vp8_opus.webm
+Directory                       : .
+File Size                       : 1646 kB
+File Modification Date/Time     : 2015:02:17 18:47:36+00:00
+File Access Date/Time           : 2015:02:18 19:28:54+00:00
+File Inode Change Date/Time     : 2015:02:17 18:47:36+00:00
+File Permissions                : rw-r--r--
+File Type                       : WEBM
+MIME Type                       : video/webm
+EBML Version                    : 1
+EBML Read Version               : 1
+Doc Type                        : webm
+Doc Type Version                : 4
+Doc Type Read Version           : 2
+Timecode Scale                  : 1 ms
+Muxing App                      : Lavf56.15.102
+Writing App                     : Lavf56.15.102
+Duration                        : 0:00:35
+Codec ID                        : V_VP8
+Video Frame Rate                : 24
+Image Width                     : 640
+Image Height                    : 360
+Display Width                   : 640
+Display Height                  : 360
+Track Number                    : 2
+Track Name                      : AC3 5.1 @ 640 Kbps
+Track Language                  : eng
+Video Codec ID                  : A_OPUS
+Track Type                      : Audio
+Audio Channels                  : 2
+Audio Sample Rate               : 48000
+Audio Bits Per Sample           : 32
+Image Size                      : 640x360
+550 rmills@rmillsmbp:~/Downloads $ </pre>Most of the metadata reported here is from the filesystem (date, permissions and stuff).  However the image size seems OK.</p>
+
+
+	<p>In the original report, Boris suspected the audio data was involved in the conspiracy!</p>
+
+
+	<p>On a totally different note.  I believe there was something wrong with the Digicam -> Exiv2 wrapper that allowed Exiv2 to throw and exception and crash Digicam.  I believe Gilles fixed that some time ago.  Boris, if your copy of Digicam is more than a year old, you might want to consider updating to a more recent edition that won't crash when Exiv2 throws an exception.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3173" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Mar 2015 21:21" href="/projects/exiv2/activity?from=2015-03-01">over 6 years</a> ago
+      <span id="journal-3173-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Assigned</i></li>
+    </ul>
+    <div id="journal-3173-notes" class="wiki"><p>Abhinav</p>
+
+
+	<p>Your update overlapped mine.  So you've got it "Resolved" and I'm wondering about why exiftool is reporting metadata.  We don't support webm and webp at the moment.  Gilles has proposed this for GSoC2015.  He'll mentor, and I'll be alternate mentor.  So this matter will be revisited.</p>
+
+
+	<p>However I'm moved it back to "assigned" so that you can answer the question "why does exiftool report metadata and exiv2 does not?"</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3174" class="journal has-notes has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Mar 2015 23:14" href="/projects/exiv2/activity?from=2015-03-01">over 6 years</a> ago
+      <span id="journal-3174-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-3174-notes" class="wiki"><p>I've just built the trunk on MacOS-X and, as Abhinav reported, everything seems to be fine.  I'm going to mark this "resolved".</p>
+
+
+	<p>This bug will be reviewed during the release process for v0.25 and closed at that time.  If anything arises on this before v0.25, it will be assigned once more.  After it is closed, a new issue report will be required if more investigation is required.</p>
+
+
+	<p>570 rmills@rmillsmbp:~/Downloads $ exiv2 -pa vp8_opus.webm <br />Xmp.video.FileName                           XmpText    13  vp8_opus.webm<br />Xmp.video.FileSize                           XmpText     6  1.6074<br />Xmp.video.MimeType                           XmpText    14  video/matroska<br />Xmp.video.EBMLVersion                        XmpText     1  1<br />Xmp.video.EBMLReadVersion                    XmpText     1  1<br />Xmp.video.DocType                            XmpText     4  webm<br />Xmp.video.DocTypeVersion                     XmpText     1  4<br />Xmp.video.DocTypeReadVersion                 XmpText     1  2<br />Xmp.video.TimecodeScale                      XmpText     5  0.001<br />Xmp.video.MuxingApp                          XmpText    13  Lavf56.15.102<br />Xmp.video.WritingApp                         XmpText    13  Lavf56.15.102<br />Xmp.video.Duration                           XmpText     5  35008<br />Xmp.video.TotalStream                        XmpText     1  2<br />Xmp.video.FrameRate                          XmpText     2  24<br />Xmp.video.Width                              XmpText     3  640<br />Xmp.video.Height                             XmpText     3  360<br />Xmp.video.TrackLacing                        XmpText     2  No<br />Xmp.video.TrackName                          XmpText    18  AC3 5.1 @ 640 Kbps<br />Xmp.video.TrackLang                          XmpText     3  eng<br />Xmp.video.Codec                              XmpText     6  A_OPUS<br />Xmp.video.AspectRatio                        XmpText     4  16:9<br />vp8_opus.webm: (No IPTC data found in the file)<br />571 rmills@rmillsmbp:~/Downloads $ exiv2 -vV -g svn -g time -g compiler -g platform<br />exiv2 0.24 001800 (64 bit build)<br />platform=apple<br />compiler=Clang<br />time=20:19:05<br />svn=3607<br />library=/usr/lib/system/libcompiler_rt.dylib<br />library=/usr/lib/system/libsystem_platform.dylib<br />have_gmtime_r=1<br />have_timegm=1<br />573 rmills@rmillsmbp:~/Downloads $ </pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3176" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4346">Boris Bogar</a> <a title="04 Mar 2015 12:18" href="/projects/exiv2/activity?from=2015-03-04">over 6 years</a> ago
+      <span id="journal-3176-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3176-notes" class="wiki"><p>I dig around the various report about the trouble between digikam and exiv2. I ended up being a bit 'confused in understanding if the version of digikam I used solve the problem mentioned in bug reports. But i'm running arch so the package should be up to date (4.7.0-1). Before I also tried to recompile the svn(git?) version of the package libkexiv2 but the problem persist so I come here.</p>
+
+
+	<p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>On a totally different note.  I believe there was something wrong with the Digicam -> Exiv2 wrapper that allowed Exiv2 to throw and exception and crash Digicam.  I believe Gilles fixed that some time ago.  Boris, if your copy of Digicam is more than a year old, you might want to consider updating to a more recent edition that won't crash when Exiv2 throws an exception.</p>
+
+
+</blockquote></div>
+    </div>
+  </div>
+  
+  <div id="change-3177" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="05 Mar 2015 14:03" href="/projects/exiv2/activity?from=2015-03-05">over 6 years</a> ago
+      <span id="journal-3177-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3177-notes" class="wiki"><p>My understanding of the Digikam <-> Exiv2 crash was something wrong with the exception handler in libkexiv2.  If Exiv2 threw an exception, it wasn't caught by libkexiv2 and ended up in DigiKam.  Digikam assumed that libkexiv2 would never throw.</p>
+
+
+	<p>If you've rebuild libkexiv2 and Exiv2 and you are still in trouble, I think you'll have to wait for a new release of DigiKam with everything fixed.  I don't participate in the DigiKam project - so I can't say when this will be resolved.</p>
+
+
+	<p>I've never liked exception handling.  It may be current practice, however it's a source of leaks and asynchronous flow.  It's a kind of goto and you neither know where you are going, nor how you got there.   I dislike the early return almost as much.  One day the world will understand that a zero/non-zero return code at the end of every function is a better model.  Every function should have one way in and one way out.   Nobody agrees with me.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3819" class="journal has-details">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3819-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1033%5D%5D.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1033%5D%5D.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

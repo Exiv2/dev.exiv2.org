@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Patch #786: thread safety of xmp toolkit - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="wAOPXo+5biczprNJxiPJlm39Noc7eIJbUI+j5oxVqCUiTiSx/cOiJ2bCrEV59MWlUm9i/sqbI+GtrzNuz2xPSg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Patch #786: thread safety of xmp toolkit" href="https://dev.exiv2.org/issues/786.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Patch #786</h2>
+
+<div class="issue tracker-4 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>thread safety of xmp toolkit</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/2615">Jens Mueller</a> <a title="10 Aug 2011 14:36" href="/projects/exiv2/activity?from=2011-08-10">over 10 years</a> ago.
+        Updated <a title="29 Apr 2016 22:39" href="/projects/exiv2/activity?from=2016-04-29">over 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">withdrawn</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">10 Aug 2011</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>According to Thread safety article on exiv2 wiki the Adobe XMP toolkit is described as thread safe. Reading the documentation on version 4.4.2 do not list this information (see XMPProgrammersGuide.pdf), but only version 5.1.2 does (XMPProgrammersGuide.pdf, section 1: "Multi-threading in the API" and XMP-Toolkit-SDK-Overview.pdf, changelog section).</p>
+
+
+	<p>Anyway, I updated exiv2 xmpsdk version to 5.1.2 based on 0.21.1 branch point. See branch xmpsdk_integration on <a class="external" href="https://github.com/jmue/exiv2/">https://github.com/jmue/exiv2/</a></p>
+
+
+Notes:
+	<ul>
+	<li>build and initial test succeded with cmake/linux and vs2010/msvc64</li>
+		<li>all previous changes made to xmpsdk 4.4.2 are applied to xmpsdk 5.1.2, besides:<br />- file hirarchy is adapted to layout of original toolkit<br />- half reverted patch "Allow migration of XMP namespaces. Simplified XMP-SDK RegisterNamespace()" -> Question: what is the benefit of that change? Changing function signature inside of xmp toolkit makes it even harder to build against external xmp toolkit (listed on future map)</li>
+	</ul>
+
+
+	<p>Branches in git repository:<br />0.21.1 : branchpoint<br />xmpsdk_upstream : tracks only upstream release versions of xmp toolkit (4.4.2 and 5.1.2)<br />xmpsdk_changes: changes made to version 4.4.2 of xmp toolkit<br />xmpsdk_integration : integration branch of xmp toolkit 5.1.2 and changes made to xmp toolkit 4.4.2</p>
+
+
+	<p>I'm open to suggestions. Regards, Jens</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/274">786-Makefile.patch</a>    <span class="size">(1.29 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/274/786-Makefile.patch">786-Makefile.patch</a>  </td>
+  <td>Added XMP_LibUtils.cpp to the list of source files and sorted them.</td>
+  <td>
+      <span class="author">Andreas Huggel, 16 Aug 2011 20:20</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/786" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="d3n/xCnEd56GFtnFL8cya+j+8lZznFXwgoe/Wxl0DeSVNFQrW767ntNyxsmQED5Y12ymL4J/9Ep/py/TWk3qiw==" />
+  <table class="list issues odd-even"><tr id="relation-85" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="742" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/742">Feature #742</a>: External XMPSDK and/or XMPSDK 2014.12</td><td class="status">Closed</td><td class="start_date">23 Nov 2010</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-86" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="751" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/751">Bug #751</a>: adobe xmp namespace</td><td class="status">Closed</td><td class="start_date">17 Jan 2011</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-140" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="941" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/941">Feature #941</a>: Upgrade xmpsdk source to Adobe&#39;s current version</td><td class="status">Closed</td><td class="start_date">27 Dec 2013</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/786/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=786&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1964" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="14 Aug 2011 21:33" href="/projects/exiv2/activity?from=2011-08-14">over 10 years</a> ago
+      <span id="journal-1964-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>xmp</i></li>
+    </ul>
+    <div id="journal-1964-notes" class="wiki"><p>Thanks for your work to upgrade XMP-SDK to the current version, Jens!</p>
+
+
+<blockquote>
+
+	<p>According to Thread safety article on exiv2 wiki the Adobe XMP toolkit is described as thread safe. Reading the documentation on version 4.4.2 do not list this information</p>
+
+
+</blockquote>
+
+	<p>I don't remember where I had read this, maybe it was in the documentation of the original XMP-SDK version. In any case, we have never had any multi-threading issues other than those related to the initialization of the library, that speaks for itself.</p>
+
+
+<blockquote>
+
+	<p>Anyway, I updated exiv2 xmpsdk version to 5.1.2 based on 0.21.1 branch point. See branch xmpsdk_integration on <a class="external" href="https://github.com/jmue/exiv2/">https://github.com/jmue/exiv2/</a></p>
+
+
+Notes:
+	<ul>
+	<li>build and initial test succeded with cmake/linux and vs2010/msvc64</li>
+		<li>all previous changes made to xmpsdk 4.4.2 are applied to xmpsdk 5.1.2, besides:<br />- file hirarchy is adapted to layout of original toolkit</li>
+	</ul>
+
+
+</blockquote>
+
+	<p>Using the original hierarchy makes upgrading a bit easier, I agree. Unfortunately, adapting the Makefile to this layout is not straightforward and may impact the rest of the build system because it probably requires changes in config/config.mk which is used by all Makefiles. For that reason, I prefer to keep the current directory hierarchy.</p>
+
+
+<blockquote>
+
+	<p>- half reverted patch "Allow migration of XMP namespaces. Simplified XMP-SDK RegisterNamespace()" -> Question: what is the benefit of that change? Changing function signature inside of xmp toolkit makes it even harder to build against external xmp toolkit (listed on future map)</p>
+
+
+</blockquote>
+
+	<p>This was done as a fix/workaround for hairy issues with the XMP-SDK, see this <a href="http://dev.exiv2.org/boards/3/topics/687" class="external">forum thread</a> and <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: adobe xmp namespace (Closed)" href="/issues/751">#751</a>. Maybe I got carried away and changed more than necessary when I experimented with these. The way forward is to upgrade XMP-SDK, make sure 'migration of namespaces' still works and check if the current XMP-SDK has done away with the global namespace registry.</p>
+
+
+<blockquote>
+
+	<p>Branches in git repository:</p>
+
+
+</blockquote>
+
+	<p>How can we work on this together? (e.g., Makefiles) I'll be happy to give you write access to the Exiv2 repository to make things easier for you. I prefer to check the patch (with the old directory hierarchy and a working Makefile) into SVN trunk and continue work there (git-svn works well as far as I can tell). Alternatively, you keep it in github and let me know how I can best support this. (I have cloned your git repo.)</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1965" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/2615">Jens Mueller</a> <a title="15 Aug 2011 11:47" href="/projects/exiv2/activity?from=2011-08-15">over 10 years</a> ago
+      <span id="journal-1965-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1965-notes" class="wiki"><p>I updated to master, moved the xmp toolkit files to their original exiv2 place and adapted the cmake files. Please checkout branch xmpsdk_next.</p>
+
+
+	<p>Jens</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1966" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 Aug 2011 20:20" href="/projects/exiv2/activity?from=2011-08-16">over 10 years</a> ago
+      <span id="journal-1966-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/274">786-Makefile.patch</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/274/786-Makefile.patch">786-Makefile.patch</a> added</li>
+    </ul>
+    <div id="journal-1966-notes" class="wiki"><p>Happy birthday, Jens! I've added the new source file to the Makefile (patch attached) and ran the tests. There are lots of 'XMP Toolkit error 8: Unimplemented method XMPMeta::DeleteNamespace' from the XMP related tests now. Haven't look into it in detail.</p>
+
+
+	<p>What username do you want to access the exiv2 SVN repository? jmue?</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1968" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="17 Aug 2011 23:04" href="/projects/exiv2/activity?from=2011-08-17">over 10 years</a> ago
+      <span id="journal-1968-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1968-notes" class="wiki"><blockquote>
+
+	<p>There are lots of 'XMP Toolkit error 8: Unimplemented method XMPMeta::DeleteNamespace' from the XMP related tests now.</p>
+
+
+</blockquote>
+
+	<p>The first XMP-SDK version that we used, version 4.1.1, didn't implement this function. It raised an exception instead. XMP-SDK version 4.4.0 provided an implementation and with <a class="changeset" title="Allow &quot;migration&quot; of XMP namespaces. Simplified XMP-SDK RegisterNamespace()." href="/projects/exiv2/repository/exiv2/revisions/2374">r2374</a> I (partially) updated Exiv2 to actually use it (in XmpParser::registerNs in xmp.cpp but apparently forgot about XmpParser::unregisterNs). In XMP-SDK version 5.1.2, the implementation disappeared again and was replaced with the earlier exception.</p>
+
+
+	<p>I suggest to use the implementation from version 4.4.0 and see what happens. If we remove the call from Exiv2, the issue about the 'migration of namespaces' will probably reappear (see the latest test case added to test/bugfixes-test.sh a few days ago).</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1969" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/2615">Jens Mueller</a> <a title="18 Aug 2011 10:28" href="/projects/exiv2/activity?from=2011-08-18">over 10 years</a> ago
+      <span id="journal-1969-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1969-notes" class="wiki"><p>I disagree here, I suggest to remove SXMPMeta::DeleteNamespace() call.</p>
+
+
+	<p>In short: This will fix Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: adobe xmp namespace (Closed)" href="/issues/751">#751</a> as this bug is the result of 'migration of namespaces'-patch and reintroduces forum topic 687 - but this is not a bug.</p>
+
+
+	<p>Long version:</p>
+
+
+	<p>Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: adobe xmp namespace (Closed)" href="/issues/751">#751</a> is caused by removing/reinserting namespaces for 'XmpParser::registerNs()' function. For the changed prefix 'xap' to xmp' this results in cyclic delete/register namespace calls which are not thread safe in xmpsdk 4.4.2. If we remove the SXMPMeta::DeleteNamespace() call we did not loose anything. Files using the old 'xap' prefix are correctly parsed and every save does use the new prefix 'xmp'.</p>
+
+
+	<p>Forum topic 687 complains about changed prefixes like 'whatevertag_1_'. This is caused only if the suggested prefix 'whatevertag' is already used by some other namespace. XMPProgrammersGuide.pdf, section "Working with namespaces" makes it clear: "It is very important to understand that prefixes are local and scoped in the XML. The prefix is only a means to look up the URI; the prefix itself is not considered in name comparison. Software MUST NEVER depend on the use of a specific prefix in stored XML." So the prefix does not matter, it is only a synonym for the namespace. If you want your humable good looking prefix in the xmp, you have to register the namespace before parsing files with a 'SXMPMeta::RegisterNamespace()' functioncall.</p>
+
+
+	<p>Regards, Jens</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1970" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="18 Aug 2011 18:52" href="/projects/exiv2/activity?from=2011-08-18">over 10 years</a> ago
+      <span id="journal-1970-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1970-notes" class="wiki"><p>The XMP specification is less restrictive than the XMP-SDK. Essentially all it says about prefixes is: "The namespace prefix used in written XML—and, as a consequence, in XMP—serves only as a key to look up the appropriate URI."</p>
+
+
+	<p>In Exiv2, the user should be in control of prefixes and I want to ensure that the prefix seen after reading an XMP property from a file is the same that was used when the property was written. Since prefixes are only "keys to look up URIs" and are written to the serialized XMP packet, that really shouldn't be an issue.</p>
+
+
+	<p>The root cause for the restrictions in the XMP-SDK is that it uses a global registry (or two) for prefixes and namespace URIs. Instead, it should use a registry that is local to the parsed object, so that if two images are parsed at the same time in two threads, their prefix/URI pairs remain independent.</p>
+
+
+	<p>When Adobe implemented the XMPMeta::DeleteNamespace method in version 4.4.0 they were aware that it doesn't solve the real issue as well as the proper solution, as a comment above the function was also added that says:</p>
+
+
+<pre>
+// *** We would be better off not having this. Instead, have local namespaces from parsing be
+// *** restricted to the object that introduced them.
+</pre>
+
+	<p>In version 5.1.2, it seems that instead of fixing the problem accordingly they removed the implementation of that function again and decided to simply describe the design restriction better. <br />At least the comment is still there.</p>
+
+
+	<p>So still, for Exiv2 to move forward, I suggest to use the old implementation of XMPMeta::DeleteNamespace to see if the tests pass with that. Then we'd have upgraded XMP-SDK to 5.1.2 and be ready to decide how to fix the remaining issues, which seem to be pretty much the same as before in this area.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1971" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/2615">Jens Mueller</a> <a title="19 Aug 2011 00:28" href="/projects/exiv2/activity?from=2011-08-19">over 10 years</a> ago
+      <span id="journal-1971-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1971-notes" class="wiki">Andreas, first let me note some facts/my understandings:
+	<ul>
+	<li>You made the 'migration of namespace'-patch to work arround forum topic 687 - I probably would have done well that time. </li>
+		<li>You introduced Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: adobe xmp namespace (Closed)" href="/issues/751">#751</a> with the changes of the 'migration of namespace'-patch</li>
+		<li>Adobe xmpsdk only has a global namespace registry - this could be a issue</li>
+		<li>Adobe decided to implement a SXMPMeta::DeleteNamespace() to the global registry in version 4.4, knowing that this would be a hack as the comment says</li>
+		<li>Adobe decided to remove the SXMPMeta::DeleteNamespace() function in version 5.1.2 again, because this hack introduces further bugs, at least:
+	<ul>
+	<li>You are able to redefine the xml, xmp and rdf prefixes, which is forbidden </li>
+		<li>You encounter theadings issues like Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: adobe xmp namespace (Closed)" href="/issues/751">#751</a></li>
+	</ul>
+	</li>
+		<li>In version 5.1.2 Adobe <strong>moved the global namespace registry to a private class without delete modifier</strong> to prevent you from patching with the implementation of version 4.4 - shure one can work also against that</li>
+		<li>Namespaces and prefixes in general are not new to the xmp-specification or xmpsdk, they are part of xml - <a class="external" href="http://www.w3.org/TR/2006/REC-xml-names-20060816/#NT-PrefixedName">http://www.w3.org/TR/2006/REC-xml-names-20060816/#NT-PrefixedName</a> says "Note that the prefix functions only as a placeholder for a namespace name. Applications SHOULD use the namespace name, not the prefix, in constructing names whose scope extends beyond the containing document." </li>
+		<li>It makes no sense to take control of the prefixes <em>in the xmp packet</em>, as these are only placeholders for the namespace and there are other standard conform applications whoose may use other prefixes in case of conflicts</li>
+	</ul>
+
+
+	<p>So you could work arround forum topic 687 by providing a delete namespace function, but you introduce further bugs with that. On the other hand you could revert the 'migration of namespace'-patch and fix Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: adobe xmp namespace (Closed)" href="/issues/751">#751</a> with that.</p>
+
+
+	<p>You are the maintainer of the exiv2-project and I do not force you about things to do. Is it your decision how to handle things like file hirarchy or making implementations. I do not want to be incooperative, I just want a working solution. Perhaps there is some plausible reason to do the first, but until that I'm not willing to spend my spare time on implementing NEW issues, support them and making work arrounds to them later.</p>
+
+
+	<p>Regards, Jens</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1972" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="19 Aug 2011 08:00" href="/projects/exiv2/activity?from=2011-08-19">over 10 years</a> ago
+      <span id="journal-1972-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1972-notes" class="wiki"><p>Jens, I'm away this weekend and will only be able to provide a proper reply on Tuesday.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1975" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 Aug 2011 04:24" href="/projects/exiv2/activity?from=2011-08-23">about 10 years</a> ago
+      <span id="journal-1975-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1975-notes" class="wiki"><blockquote>
+
+	<ul>
+	<li>You introduced Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: adobe xmp namespace (Closed)" href="/issues/751">#751</a> with the changes of the 'migration of namespace'-patch</li>
+	</ul>
+
+
+</blockquote>
+
+	<p>Possibly, I hadn't realized that this bug may be a side-effect of the patch.</p>
+
+
+<blockquote>
+
+	<ul>
+	<li>In version 5.1.2 Adobe <strong>moved the global namespace registry to a private class without delete modifier</strong> to prevent you from patching with the implementation of version 4.4 - shure one can work also against that</li>
+	</ul>
+
+
+</blockquote>
+
+	<p>That's good! It hopefully makes it easier to move the registry into the (T)XMPMeta class.</p>
+
+
+<blockquote>
+
+	<ul>
+	<li>It makes no sense to take control of the prefixes <em>in the xmp packet</em>, as these are only placeholders for the namespace and there are other standard conform applications whoose may use other prefixes in case of conflicts</li>
+	</ul>
+
+
+	<p>So you could work arround forum topic 687 by providing a delete namespace function, but you introduce further bugs with that. On the other hand you could revert the 'migration of namespace'-patch and fix Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: adobe xmp namespace (Closed)" href="/issues/751">#751</a> with that.</p>
+
+
+</blockquote>
+
+	<p>Take a step back from XMP-SDK to Exiv2. Exiv2 addresses XMP properties with a triplet of the form 'Xmp.Prefix.Property' in which the Prefix part is the preferred prefix of a namespace. In this context, the issues described in forum topic 687 are clearly Exiv2 bugs: From an Exiv2 user standpoint it cannot be that I set a property 'Xmp.Prefix.Property' and next time I read the metadata, I get 'Xmp.Prefix_1_.Property' (and all the other strange behaviour discussed in the thread). The infamous patch fixes this bug, but issue <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: adobe xmp namespace (Closed)" href="/issues/751">#751</a> is still open and may even have been introduced in the process.</p>
+
+
+	<p>Now the way forward is to eventually fix that issue too. My suggestion was to first establish the same baseline that we had prior to the upgrade to 5.1.2, so that we can test the upgrade itself. Maybe another path is preferable, that's fine with me, as long as the end result is that at least the forum issue and preferably also bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: adobe xmp namespace (Closed)" href="/issues/751">#751</a> are fixed.</p>
+
+
+<blockquote>
+
+	<p>Perhaps there is some plausible reason to do the first, but until that I'm not willing to spend my spare time on implementing NEW issues, support them and making work arrounds to them later.</p>
+
+
+</blockquote>
+
+	<p>We cannot simply re-introduce the previous behavior and say it is not a bug (anymore), even though we found out in the meantime that the use of prefixes in the XMP-SDK conflicts with the way Exiv2 wants to use them.</p>
+
+
+	<p>I still believe that the way Exiv2 wants to use XMP prefixes does not violate the XMP or underlying XML standards. It just conflicts with the XMP-SDK design. As far as I can see, if we have a local prefix/namespace registry in XMP-SDK as well as Exiv2, all related problems are solved (although this will require API changes in Exiv2).</p>
+
+
+	<p>In my opinion, this is a superior solution, not a workaround. It resolves thread-safety issues in this area naturally, it allows the XMP-SDK to support both register and delete namespace operations and give users stronger guarantees with regards to prefixes.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1978" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/2615">Jens Mueller</a> <a title="24 Aug 2011 08:51" href="/projects/exiv2/activity?from=2011-08-24">about 10 years</a> ago
+      <span id="journal-1978-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1978-notes" class="wiki"><p>Andreas,</p>
+
+
+	<p>please keep in mind that, whenever you want to be able to build against external xmpsdk, you can not do any functional changes or depend on Adobes own hacks. You can fix warnings, compile errors or perhaps implement some optimization. But you'll always get in trouble if you make functional changes, be that on building on external xmpsdk or be that on simple update of sdk version.</p>
+
+
+	<ul>
+	<li>Now let's talk about the prefix <strong>in the xmp packet</strong>:<br />Remember, the prefix is only a object local placeholder for the namespace. You also introduced another bug to the described use case in the forum topic. Previously there was registered property (<a class="external" href="http://ns.adobe.com/imageapp/1.0/):uuid">http://ns.adobe.com/imageapp/1.0/):uuid</a>. After the given command <br /><em>exiv2 -M "reg imageapp <a class="external" href="http://ns.imagapp.pro/imageapp/v1/">http://ns.imagapp.pro/imageapp/v1/</a>" -M "set Xmp.imageapp.uuid ab75b096-83d3-11df-91a5-000c2953179a" 001.jpg</em><br />in the forum thread you insert a new property (<a class="external" href="http://ns.imagapp.pro/imageapp/v1/):uuid">http://ns.imagapp.pro/imageapp/v1/):uuid</a>. Here is the mistake: You removed the first property by this in favor of setting the second one. Both properties are independend of each other, they are in a different namespace. And you can not solve this, as two different namespaces can not share the same prefix. So again, you can not force a prefix in the xmp-packet!</li>
+	</ul>
+
+
+	<ul>
+	<li>For exiv2 library you have some option to think about:<br />As the whole exiv2 bundle uses two namespace registries, one in exiv2 library itself and one in xmpsdk, you can allow namespace overrides in the exiv2 library part. You can do a implementation that something like this will work (only meta syntax):<br /><em>exiv2 -M "reg imageapp <a class="external" href="http://ns.imagapp.pro/imageapp/v1/">http://ns.imagapp.pro/imageapp/v1/</a>" -M "set Xmp.imageapp.uuid ab75b096-83d3-11df-91a5-000c2953179a" 001.jpg</em><br /><em>exiv2 -M "reg imageapp <a class="external" href="http://ns.imagapp.pro/imageapp/v1/">http://ns.imagapp.pro/imageapp/v1/</a>" -M "get Xmp.imageapp.uuid" 001.jpg</em><br />But again, you can not force the prefix in the xmp packet. In the above sample you need to reregister the namespace again before a second usage (which looks synchronous to the first command).<br />As a second part, you can also think about some xmpsdk modification (in the included sdk version) to make the prefix in the xmp packet more friendly to the suggested one by using a object local registry - but you can not depend on that.</li>
+	</ul>
+
+
+	<p>Hope this makes things clearer.</p>
+
+
+	<p>Regards, Jens</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1980" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="24 Aug 2011 23:29" href="/projects/exiv2/activity?from=2011-08-24">about 10 years</a> ago
+      <span id="journal-1980-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1980-notes" class="wiki"><p>I've <a href="http://forums.adobe.com/thread/895201" class="external">posted in the Adobe XMP SDK forum</a> to get the viewpoint of the XMP-SDK developers on this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4096" class="journal has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Aug 2015 16:20" href="/projects/exiv2/activity?from=2015-08-23">about 6 years</a> ago
+      <span id="journal-4096-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> set to <i>53</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4866" class="journal has-notes has-details">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Mar 2016 14:33" href="/projects/exiv2/activity?from=2016-03-28">over 5 years</a> ago
+      <span id="journal-4866-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+    </ul>
+    <div id="journal-4866-notes" class="wiki"><p>I hope to update our XMPsdk support in v0.27 to use the latest XMPsdk as an external library. <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Upgrade xmpsdk source to Adobe&#39;s current version (Closed)" href="/issues/941">#941</a></p>
+
+
+	<p>This issue has been in the database for 4 years and nobody else has requested progress with this matter.  So, unless you engage to persuade me to keep this matter alive, it will be closed on April 30 as “no longer needed/wanted.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4993" class="journal has-details">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="29 Apr 2016 22:39" href="/projects/exiv2/activity?from=2016-04-29">over 5 years</a> ago
+      <span id="journal-4993-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>xmp</i> to <i>withdrawn</i></li>
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>Target version</strong> changed from <i>53</i> to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/786.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/786.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

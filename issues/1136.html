@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1136: exiv2 -ps (default) output does not respect the -g (--grep) option - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="bF3WtHuCA5gC5xbcW0cZ9h3ze+Q0WM/FDx/E4tSwix6OEH1bCfjPmFeDCdDkkBXFImEvncW7bn/yP1Rql4lscQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1136: exiv2 -ps (default) output does not respect the -g (--grep) option" href="https://dev.exiv2.org/issues/1136.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1136</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>exiv2 -ps (default) output does not respect the -g (--grep) option</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Nov 2015 15:37" href="/projects/exiv2/activity?from=2015-11-13">about 6 years</a> ago.
+        Updated <a title="22 Dec 2015 04:46" href="/projects/exiv2/activity?from=2015-12-22">almost 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">documentation</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">13 Nov 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>The -g (--grep) option is applied to the keys of most  output reports (such as -pa).  However, it isn't applied when using the -pa (default) option.</p>
+
+
+	<p>The reason is because the -ps report is a summary and doesn't report in the Family.Key.Subkey data format.  Example of -ps (the default)<pre>1047 rmills@rmillsmbp:~/gnu/exiv2/0.24 $ exiv2 -ps ~/Downloads/YIMGP2303.DNG 
+File name       : /Users/rmills/Downloads/YIMGP2303.DNG
+File size       : 89857541 Bytes
+MIME type       : image/tiff
+Image size      : 8384 x 6208
+Camera make     : RICOH IMAGING COMPANY, LTD.  
+Camera model    : PENTAX 645Z        
+Image timestamp : 2014:08:29 01:55:20
+Image number    : </pre>Example of -pa output<pre>1052 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pa -g Lens  ~/Downloads/YIMGP2303.DNG 
+Exif.PentaxDng.LensType                      Byte        4  smc PENTAX-FA 645 Macro 120mm F4
+Exif.PentaxDng.LensInfo                      Undefined 128  0 139 160 90 0 7 3 192 0 0 0 0 0 0 0 0 31 180 43 56 0 116 5 79 131 193 138 120 164 129 63 5 255 255 255 7 3 116 4 111 0 186 9 116 4 109 0 27 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 207 160 2 96 7 235 234 0 4 255 64 60 250 2 3 138 236 104 132 8 146 68 170 98 146 131 128 3 58 80 112 17 206 231 15 180 182 164 144 71 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+1053 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I have examined the code in actions.cpp printSummary().  I think we should leave this alone as it is only intended to report a summary.  If the user wished to filter this, he should use the system pipe grep.</p>
+
+
+	<p>I will add a sentence to the exiv2 man page to clarify this.</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1136" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="sWliluJRt1easDM7VYPWH2rgVSiBIqtQ8uoOWAAlGBdTJMl5kCt7V8/ULDfqVNosVXIBUXDBCuoPyp7QQxz/eA==" />
+  <table class="list issues odd-even"><tr id="relation-188" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1135" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1135">Bug #1135</a>: Read Makernotes</td><td class="status">Closed</td><td class="start_date">12 Nov 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1136/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1136&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4017" href="/projects/exiv2/repository/exiv2/revisions/4017">Revision 4017</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4017/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Nov 2015 15:50" href="/projects/exiv2/activity?from=2015-11-13">about 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 -ps (default) output does not respect the -g (--grep) option (Closed)" href="/issues/1136">#1136</a>.  Fix submitted.  -g does not apply to -ps report.  Clarification to man page that -g is only applied to keys.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4020" href="/projects/exiv2/repository/exiv2/revisions/4020">Revision 4020</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4020/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Nov 2015 18:45" href="/projects/exiv2/activity?from=2015-11-15">about 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 -ps (default) output does not respect the -g (--grep) option (Closed)" href="/issues/1136">#1136</a>.  Fix submitted - see issue report for explanation.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4491" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Nov 2015 15:51" href="/projects/exiv2/activity?from=2015-11-13">about 6 years</a> ago
+      <span id="journal-4491-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-4491-notes" class="wiki"><p>Fix submitted: <a class="changeset" title="#1136.  Fix submitted.  -g does not apply to -ps report.  Clarification to man page that -g is on..." href="/projects/exiv2/repository/exiv2/revisions/4017">r4017</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4499" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Nov 2015 18:46" href="/projects/exiv2/activity?from=2015-11-15">about 6 years</a> ago
+      <span id="journal-4499-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-4499-notes" class="wiki"><p><a class="changeset" title="#1136.  Fix submitted - see issue report for explanation." href="/projects/exiv2/repository/exiv2/revisions/4020">r4020</a>  There is something else wrong here.  This command appears to generating the <pre>549 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -g a http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg
+Exif.Image.Make                              Ascii      18  NIKON CORPORATION
+Exif.Image.Model                             Ascii      12  NIKON D5300
+...</pre>Is producing the output you would expect from the command <pre>exiv2 -pa --grep a http://...</pre>I think this is very confusing.  We are changing the output report based on the use of parameter --grep and this behaviour has not been documented.  I've changed the code appropriately and it passes the test suite.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4559" class="journal has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Dec 2015 04:46" href="/projects/exiv2/activity?from=2015-12-22">almost 6 years</a> ago
+      <span id="journal-4559-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1136.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1136.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

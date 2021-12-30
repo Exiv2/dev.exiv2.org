@@ -1,0 +1,62 @@
+Index: src/actions.cpp
+===================================================================
+--- src/actions.cpp	(Revision 3565)
++++ src/actions.cpp	(Arbeitskopie)
+@@ -513,7 +513,8 @@
+ 
+     int Print::printMetadata(const Exiv2::Image* image)
+     {
+-        int rc = 0;
++        bool bFoundSomeMetadata = false;
++        bool bTagFilterGiven = !Params::instance().keys_.empty();  // were tag filters given with -g?
+         if (Params::instance().printTags_ & Exiv2::mdExif) {
+             const Exiv2::ExifData& exifData = image->exifData();
+             for (Exiv2::ExifData::const_iterator md = exifData.begin();
+@@ -521,11 +522,12 @@
+                 printMetadatum(*md, image);
+             }
+             if (exifData.empty()) {
+-                if (Params::instance().verbose_) {
++                if( !bTagFilterGiven) {
+                     std::cerr << path_ << ": " << _("No Exif data found in the file\n");
+                 }
+-                rc = -3;
+-            }
++            } else {
++                bFoundSomeMetadata = true;
++            }            
+         }
+         if (Params::instance().printTags_ & Exiv2::mdIptc) {
+             const Exiv2::IptcData& iptcData = image->iptcData();
+@@ -534,10 +536,11 @@
+                 printMetadatum(*md, image);
+             }
+             if (iptcData.empty()) {
+-                if (Params::instance().verbose_) {
++                if( !bTagFilterGiven) {
+                     std::cerr << path_ << ": " << _("No IPTC data found in the file\n");
+                 }
+-                rc = -3;
++            } else {
++                bFoundSomeMetadata = true;
+             }
+         }
+         if (Params::instance().printTags_ & Exiv2::mdXmp) {
+@@ -547,13 +550,14 @@
+                 printMetadatum(*md, image);
+             }
+             if (xmpData.empty()) {
+-                if (Params::instance().verbose_) {
++                if( !bTagFilterGiven) {
+                     std::cerr << path_ << ": " << _("No XMP data found in the file\n");
+                 }
+-                rc = -3;
++            } else {
++                bFoundSomeMetadata = true;
+             }
+         }
+-        return rc;
++        return bFoundSomeMetadata ? 0 : -3;
+     } // Print::printMetadata
+ 
+     bool Print::grepTag(const std::string& key)

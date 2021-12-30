@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>using XML elements instead of attributes when writing XMP tags - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="DZBt7E4CjQzRqc++veZ91TLCzH8rSh3HS5RVNhaQ0b/v3cYDPHhBDITN0LICMXHmDVCYBtqpvH22tMW+Vak20A==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>using XML elements instead of attributes when writing XMP tags</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4699">Linxiao Geng</a> <a title="23 Jun 2016 01:32" href="/projects/exiv2/activity?from=2016-06-23">over 5 years</a> ago</span></p>
+<div class="wiki">
+<p>I was trying to write some customized XMP tags into a JPG file and noticed that, with the following code:</p>
+
+
+<pre>
+        Exiv2::XmpData xmpData;
+        Exiv2::XmpProperties::registerNs("http://ns.exampledomainn.com/Camera/1.0/","Camera");
+        xmpData["Xmp.Camera.GPSXYAccuracy"]="2.0001";
+        xmpData["Xmp.Camera.GPSZAccuracy"]="2.0001";
+
+        Exiv2::XmpTextValue s;
+        s.read("2.0");
+        xmpData.add(Exiv2::XmpKey("Xmp.Camera.GPSXYAccuracy"), &#38;s);
+        xmpData.add(Exiv2::XmpKey("Xmp.Camera.GPSZAccuracy"), &#38;s);
+
+        image-&gt;setXmpData(xmpData);
+        image-&gt;writeMetadata();
+
+</pre>
+
+	<p>I got XMP written in the JPG like this:<br /><pre>
+&lt;rdf:Description rdf:about="" xmlns:Camera="http://ns.exampledomainn.com/" Camera:GPSXYAccuracy="2.0001" Camera:GPSZAccuracy="2.0001" /&gt;
+&lt;/rdf:RDF&gt;
+</pre></p>
+
+
+	<p>But what I wanted to achieve is:</p>
+
+
+<pre>
+&lt;rdf:Description rdf:about="" xmlns:Camera="http://ns.exampledomainn.com/"&gt;
+        &lt;Camera:GPSXYAccuracy&gt;"2.0001"&lt;/Camera:GPSXYAccuracy&gt;
+        &lt;Camera:GPSZAccuracy&gt;"2.0001"&lt;/Camera:GPSZAccuracy&gt;
+&lt;/rdf:RDF&gt;
+</pre>
+
+	<p>That is, instead of using XML attributes, using XML elements for my tags.</p>
+
+
+	<p>I googled the web and didn't find anything, maybe someone here can help me out? Thanks!</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (4)</h3>
+  <div class="message reply" id="message-2599">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2598?r=2599#message-2599">RE: using XML elements instead of attributes when writing XMP tags</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Jun 2016 11:24" href="/projects/exiv2/activity?from=2016-06-23">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Alan's our XMP expert.  I've been able to change the behaviour from an attribute to a tag using XMPseq:<pre>693 rmills@rmillsmbp:~/gnu/exiv2/trunk $ curl -O --silent http://clanmills.com/Stonehenge.jpg
+694 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M"reg Camera http://clanmills.com/Camera/1.0/" \
+    -M"add Xmp.Camera.Accuracy XmpSeq 2.001" Stonehenge.jpg
+695 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pX Stonehenge.jpg | xmllint --pretty 1 - 
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      xmlns:Camera="http://clanmills.com/Camera/1.0/" 
+      rdf:about="" xmp:Rating="0" xmp:ModifyDate="2015-07-16T20:25:28+01:00"&gt;
+      &lt;dc:description&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="x-default"&gt;Classic View&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:description&gt;
+      &lt;Camera:Accuracy&gt;
+        &lt;rdf:Seq&gt;
+          &lt;rdf:li&gt;2.001&lt;/rdf:li&gt;
+        &lt;/rdf:Seq&gt;
+      &lt;/Camera:Accuracy&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+696 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>Of course it's gratuitously embellished with embedded tags: <em><strong><code>&lt;rdf:Seq&gt;&lt;rdf:li&gt;</code></strong></em> and encoded within <em><strong><code>&lt;rdf:Description&gt;</code></strong></em></p>
+
+
+	<p>An alternative approach is to extract the XMP to a sidecar with <pre>exiv2 -pX Stonehenge.jpg &gt; Stonehenge.xmp</pre>Edit the sidecar with an external application and replace the XMP with <pre>exiv2 -iX Stonehenge.jpg</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2602">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2598?r=2602#message-2602">RE: using XML elements instead of attributes when writing XMP tags</a>
+    -
+    Added by <a class="user active" href="/users/4699">Linxiao Geng</a> <a title="24 Jun 2016 02:33" href="/projects/exiv2/activity?from=2016-06-24">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin, thanks for responding! That looks promising. However, for performance considerations, I'm looking for achieving this through C++ code instead of command line. Any idea?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2603">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2598?r=2603#message-2603">RE: using XML elements instead of attributes when writing XMP tags</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jun 2016 08:55" href="/projects/exiv2/activity?from=2016-06-24">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Two answers:</p>
+
+
+	<p>1) The exiv2 command-line app is a thin wrapper over the API.  So, your C++ probably becomes something like: <em><strong>warning, not compiled or tested in any way</strong></em>:<pre>        Exiv2::XmpData xmpData;
+        Exiv2::XmpProperties::registerNs("http://ns.exampledomainn.com/Camera/1.0/","Camera");
+
+        XmpArrayValue  s(xmpSeq);
+        s.read("2.0");
+        xmpData.add(Exiv2::XmpKey("Xmp.Camera.GPSXYAccuracy"), &#38;s);
+        xmpData.add(Exiv2::XmpKey("Xmp.Camera.GPSZAccuracy"), &#38;s);
+
+        image-&gt;setXmpData(xmpData);
+        image-&gt;writeMetadata();</pre></p>
+
+
+	<p>2) You can read and write streams using the API.  exiv2 -pR uses the API <em><strong><code>image-&gt;printStructure(....);</code></strong></em></p>
+
+
+	<p>I can't remember off-hand how -iX is implemented - you'll have to read the code.  I implemented -pR.  I don't know who wrote -iX.   However I recommend that you discover a solution with the exiv2 application and then convert it into C++.  The debugger will be your best friend to discover the APIs being used.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2611">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2598?r=2611#message-2611">RE: using XML elements instead of attributes when writing XMP tags</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Jun 2016 07:48" href="/projects/exiv2/activity?from=2016-06-25">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've discovered something else about this.  I've used the type XmpAlt to add Camera.Accuracy.<pre>$ curl --silent -O http://clanmills.com/Stonehenge.jpg
+$ exiv2 -M"reg Camera http://clanmills.com/Camera/1.0/" \ 
+-M"set Xmp.Camera.Accuracy XmpAlt   9.11" Stonehenge.jpg
+$ exiv2 -pX Stonehenge.jpg | xmllint --pretty 1 -
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" 
+   xmlns:dc="http://purl.org/dc/elements/1.1/" 
+   xmlns:Camera="http://clanmills.com/Camera/1.0/" 
+   rdf:about="" xmp:Rating="0" xmp:ModifyDate="2015-07-16T20:25:28+01:00"&gt;
+      &lt;dc:description&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="x-default"&gt;Classic View&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:description&gt;
+      &lt;Camera:Accuracy&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li&gt;9.11&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/Camera:Accuracy&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;$ </pre>The tag <em><strong><code>&lt;Camera::Accuracy&gt;</code></strong></em> is beautiful enclosed by tags <em><strong><code>&lt;rdf:Alt&gt;&lt;rdf:li&gt;</code></strong></em>  This seems to perfectly match the pattern of XMP/xml in the original image which was written by Google's Picasa application.</p>
+
+
+	<p>I'm not an expert in metadata and know very little about XMP.  However I'm wondering if your target code is valid XMP:<pre>&lt;rdf:Description rdf:about="" xmlns:Camera="http://ns.exampledomainn.com/"&gt;
+        &lt;Camera:GPSXYAccuracy&gt;"2.0001"&lt;/Camera:GPSXYAccuracy&gt;
+        &lt;Camera:GPSZAccuracy&gt;"2.0001"&lt;/Camera:GPSZAccuracy&gt;
+&lt;/rdf:RDF&gt;</pre>For certain this isn't valid XML, however I thing that's just a typo and the closing tag should be &lt;/rdf:Description&gt;.</p>
+
+
+	<p>I'd like to reiterate my recommendation that you use the exiv2 application to obtain the result you desire and then figure out the C++ API to generate that from your code.</p>
+
+
+	<p>I've also investigated the behaviour of the test application xmpparser-test.  It uses a side car which does use XMP/xml similar to your pattern.  <pre>600 rmills@rmillsmbp:~/gnu/exiv2/trunk $ xmllint --pretty 1 test/data/xmpsdk.xmp
+&lt;?xml version="1.0"?&gt;
+&lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+  &lt;rdf:Description xmlns:ns1="ns:test1/" xmlns:ns2="ns:test2/" rdf:about=""&gt;
+    &lt;ns1:SimpleProp1&gt;Simple1 value&lt;/ns1:SimpleProp1&gt;
+    &lt;ns1:SimpleProp2 xml:lang="x-default"&gt;Simple2 value&lt;/ns1:SimpleProp2&gt;
+    &lt;ns1:ArrayProp1&gt;
+      &lt;rdf:Bag&gt;
+        &lt;rdf:li&gt;Item1.1 value&lt;/rdf:li&gt;
+        &lt;rdf:li&gt;Item1.2 value&lt;/rdf:li&gt;
+      &lt;/rdf:Bag&gt;
+    &lt;/ns1:ArrayProp1&gt;
+    &lt;ns1:ArrayProp2&gt;
+      &lt;rdf:Alt&gt;
+        &lt;rdf:li xml:lang="x-one"&gt;Item2.1 value&lt;/rdf:li&gt;
+        &lt;rdf:li xml:lang="x-two"&gt;Item2.2 value&lt;/rdf:li&gt;
+      &lt;/rdf:Alt&gt;
+    &lt;/ns1:ArrayProp2&gt;
+    &lt;ns1:StructProp rdf:parseType="Resource"&gt;
+      &lt;ns2:Field1&gt;Field1 value&lt;/ns2:Field1&gt;
+      &lt;ns2:Field2&gt;Field2 value&lt;/ns2:Field2&gt;
+    &lt;/ns1:StructProp&gt;
+    &lt;ns1:QualProp1 rdf:parseType="Resource"&gt;
+      &lt;rdf:value&gt;Prop value&lt;/rdf:value&gt;
+      &lt;ns2:Qual&gt;Qual value&lt;/ns2:Qual&gt;
+    &lt;/ns1:QualProp1&gt;
+    &lt;ns1:QualProp2 rdf:parseType="Resource"&gt;
+      &lt;rdf:value xml:lang="x-default"&gt;Prop value&lt;/rdf:value&gt;
+      &lt;ns2:Qual&gt;Qual value&lt;/ns2:Qual&gt;
+    &lt;/ns1:QualProp2&gt;
+    &lt;ns1:NestedStructProp rdf:parseType="Resource"&gt;
+      &lt;ns2:Outer rdf:parseType="Resource"&gt;
+        &lt;ns2:Middle rdf:parseType="Resource"&gt;
+          &lt;ns2:Inner rdf:parseType="Resource"&gt;
+            &lt;ns2:Field1&gt;Field1 value&lt;/ns2:Field1&gt;
+            &lt;ns2:Field2&gt;Field2 value&lt;/ns2:Field2&gt;
+          &lt;/ns2:Inner&gt;
+        &lt;/ns2:Middle&gt;
+      &lt;/ns2:Outer&gt;
+    &lt;/ns1:NestedStructProp&gt;
+  &lt;/rdf:Description&gt;
+&lt;/rdf:RDF&gt;
+601 rmills@rmillsmbp:~/gnu/exiv2/trunk $</pre>The test application bin/xmpparser-test reads test/data/xmpsdk.xmp into memory then write the XMP as the sidecar test/data/xmpsdk.xmp-new.<pre>602 rmills@rmillsmbp:~/gnu/exiv2/trunk $ bin/xmpparser-test test/data/xmpsdk.xmp
+-----&gt; Decoding XMP data read from test/data/xmpsdk.xmp &lt;-----
+Xmp.ns1.SimpleProp1                          XmpText    13  Simple1 value
+Xmp.ns1.SimpleProp2                          XmpText    13  Simple2 value
+Xmp.ns1.SimpleProp2/?xml:lang                XmpText     9  x-default
+Xmp.ns1.ArrayProp1                           XmpBag      2  Item1.1 value, Item1.2 value
+Xmp.ns1.ArrayProp2                           LangAlt     2  lang="x-two" Item2.2 value, lang="x-one" Item2.1 value
+Xmp.ns1.StructProp                           XmpText     0  type="Struct" 
+Xmp.ns1.StructProp/ns2:Field1                XmpText    12  Field1 value
+Xmp.ns1.StructProp/ns2:Field2                XmpText    12  Field2 value
+Xmp.ns1.QualProp1                            XmpText    10  Prop value
+Xmp.ns1.QualProp1/?ns2:Qual                  XmpText    10  Qual value
+Xmp.ns1.QualProp2                            XmpText    10  Prop value
+Xmp.ns1.QualProp2/?xml:lang                  XmpText     9  x-default
+Xmp.ns1.QualProp2/?ns2:Qual                  XmpText    10  Qual value
+Xmp.ns1.NestedStructProp                     XmpText     0  type="Struct" 
+Xmp.ns1.NestedStructProp/ns2:Outer           XmpText     0  type="Struct" 
+Xmp.ns1.NestedStructProp/ns2:Outer/ns2:Middle XmpText     0  type="Struct" 
+Xmp.ns1.NestedStructProp/ns2:Outer/ns2:Middle/ns2:Inner XmpText     0  type="Struct" 
+Xmp.ns1.NestedStructProp/ns2:Outer/ns2:Middle/ns2:Inner/ns2:Field1 XmpText    12  Field1 value
+Xmp.ns1.NestedStructProp/ns2:Outer/ns2:Middle/ns2:Inner/ns2:Field2 XmpText    12  Field2 value
+-----&gt; Encoding XMP data to write to test/data/xmpsdk.xmp-new &lt;-----
+603 rmills@rmillsmbp:~/gnu/exiv2/trunk $ ls -alt test/data/xmpsdk.xml-new
+ls: test/data/xmpsdk.xml-new: No such file or directory
+604 rmills@rmillsmbp:~/gnu/exiv2/trunk $ ls -alt test/data/xmpsdk.xmp-new
+-rw-r--r--+ 1 rmills  staff  3474 25 Jun 08:08 test/data/xmpsdk.xmp-new
+605 rmills@rmillsmbp:~/gnu/exiv2/trunk $ xmllint --pretty 1 test/data/xmpsdk.xmp-new 
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:ns1="ns:test1/" xmlns:ns2="ns:test2/" rdf:about="" ns1:SimpleProp1="Simple1 value"&gt;
+      &lt;ns1:SimpleProp2 xml:lang="x-default"&gt;Simple2 value&lt;/ns1:SimpleProp2&gt;
+      &lt;ns1:ArrayProp1&gt;
+        &lt;rdf:Bag&gt;
+          &lt;rdf:li&gt;Item1.1 value&lt;/rdf:li&gt;
+          &lt;rdf:li&gt;Item1.2 value&lt;/rdf:li&gt;
+        &lt;/rdf:Bag&gt;
+      &lt;/ns1:ArrayProp1&gt;
+      &lt;ns1:ArrayProp2&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="x-two"&gt;Item2.2 value&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="x-one"&gt;Item2.1 value&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/ns1:ArrayProp2&gt;
+      &lt;ns1:StructProp ns2:Field1="Field1 value" ns2:Field2="Field2 value"/&gt;
+      &lt;ns1:QualProp1 rdf:parseType="Resource"&gt;
+        &lt;rdf:value&gt;Prop value&lt;/rdf:value&gt;
+        &lt;ns2:Qual&gt;Qual value&lt;/ns2:Qual&gt;
+      &lt;/ns1:QualProp1&gt;
+      &lt;ns1:QualProp2 xml:lang="x-default" rdf:parseType="Resource"&gt;
+        &lt;rdf:value&gt;Prop value&lt;/rdf:value&gt;
+        &lt;ns2:Qual&gt;Qual value&lt;/ns2:Qual&gt;
+      &lt;/ns1:QualProp2&gt;
+      &lt;ns1:NestedStructProp rdf:parseType="Resource"&gt;
+        &lt;ns2:Outer rdf:parseType="Resource"&gt;
+          &lt;ns2:Middle rdf:parseType="Resource"&gt;
+            &lt;ns2:Inner ns2:Field1="Field1 value" ns2:Field2="Field2 value"/&gt;
+          &lt;/ns2:Middle&gt;
+        &lt;/ns2:Outer&gt;
+      &lt;/ns1:NestedStructProp&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+606 rmills@rmillsmbp:~/gnu/exiv2/trunk $</pre>As you can see <em><strong><code>ns1:SimpleProp1</code></strong></em> is now an attribute and this matches your original report.</p>
+
+
+	<p>As you can also see, <em><strong><code>ns1:SimpleProp2</code></strong></em> is written as a tag.  The key difference between SimpleProp1 and SimpleProp2 is <em><strong><code>xml:lang="x-default"</code></strong></em>.  I haven't yet discovered how to use the exiv2 application to generate that pattern of XML in Stonehenge.jpg.  I've run out of time at present for further investigation.  Here's my current best shot.  XmpAlt and LangAlt seem to behave identically.<pre>$ curl --silent -O http://clanmills.com/Stonehenge.jpg
+$ exiv2 -M"reg Camera http://clanmills.com/Camera/1.0/" -M"set Xmp.Camera.Accuracy XmpAlt lang=x-default 9.11" Stonehenge.jpg
+$ exiv2 -pX Stonehenge.jpg | xmllint --pretty 1 -
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description
+      xmlns:xmp="http://ns.adobe.com/xap/1.0/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      xmlns:Camera="http://clanmills.com/Camera/1.0/" 
+      rdf:about="" xmp:Rating="0" xmp:ModifyDate="2015-07-16T20:25:28+01:00"&gt;
+      &lt;dc:description&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="x-default"&gt;Classic View&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:description&gt;
+      &lt;Camera:Accuracy&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li&gt;lang=x-default 9.11&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/Camera:Accuracy&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+$</pre></p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-4/4)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

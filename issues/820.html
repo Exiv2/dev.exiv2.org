@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #820: Samsung NX100 JPG exports have broken EXIF - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="eNf9R0+SKUqao6VmzGGDd4fzM7oou0mRMjVzu2y8H76amlaoPejlSs/Humpzto9EuGFnw9lY6CvPFeMzL4X40Q==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #820: Samsung NX100 JPG exports have broken EXIF" href="https://dev.exiv2.org/issues/820.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #820</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Samsung NX100 JPG exports have broken EXIF</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3420">Pascal de Bruijn</a> <a title="24 Apr 2012 14:11" href="/projects/exiv2/activity?from=2012-04-24">over 9 years</a> ago.
+        Updated <a title="24 Jul 2013 15:30" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/53">Andreas Huggel</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">exif</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Jul 2013" href="/versions/50">0.24</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">24 Apr 2012</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>When I load a Samsung NX100 SRW file into Darktable (1.0.x) and have it exported to JPG, exiv2 can't read back the EXIF information, while exiftool can.</p>
+
+
+	<p>$ exiv2 PMJ_20111126_0772.SRW<br />File name       : PMJ_20111126_0772.SRW<br />File size       : 27446848 Bytes<br />MIME type       : image/x-samsung-srw<br />Image size      : 4704 x 3124<br />Camera make     : SAMSUNG        <br />Camera model    : NX100          <br />Image timestamp : 2011:11:26 17:01:15<br />...and-it-goes-on...<br />$</p>
+
+
+	<p>$ exiv2 PMJ_20111126_0772_01.jpg<br />File name       : PMJ_20111126_0772_01.jpg<br />File size       : 4786263 Bytes<br />MIME type       : image/jpeg<br />Image size      : 3072 x 2045<br />PMJ_20111126_0772_01.jpg: No Exif data found in the file<br />$</p>
+
+
+	<p>$ exiftool PMJ_20111126_0772_01.jpg<br />ExifTool Version Number         : 8.60<br />File Name                       : PMJ_20111126_0772_01.jpg<br />Directory                       : .<br />File Size                       : 4.6 MB<br />File Modification Date/Time     : 2012:04:24 22:53:56+02:00<br />File Permissions                : rw-rw-r--<br />File Type                       : JPEG<br />...and-it-goes-on...<br />$</p>
+
+
+	<p>When I start Darktable from a terminal, I do see these warnings while exporting an image:<br />Warning: Exif tag Exif.Photo.MakerNote not encoded<br />Warning: Exif tag Exif.Samsung2.0x0060 not encoded<br />Warning: Exif tag Exif.Samsung2.0x0080 not encoded<br />Warning: Exif tag Exif.Samsung2.0x00a0 not encoded<br />Warning: Exif tag Exif.Samsung2.0x00c0 not encoded</p>
+
+
+	<p>When I do the same thing for CR2 files from my Canon EOS 400D, I don't see those warnings, and the EXIF data in the JPG files is just fine too (it can be read back by exiv2 with no issues).</p>
+
+
+	<p>Sample Samsung NX100 SRW:<br /><a class="external" href="http://files.pcode.nl/temp/samsung_nx100_samples/PMJ_20111126_0772.SRW">http://files.pcode.nl/temp/samsung_nx100_samples/PMJ_20111126_0772.SRW</a></p>
+
+
+	<p>Sample JPG exported from Darktable based on the above SRW:<br /><a class="external" href="http://files.pcode.nl/temp/samsung_nx100_samples/PMJ_20111126_0772_01.jpg">http://files.pcode.nl/temp/samsung_nx100_samples/PMJ_20111126_0772_01.jpg</a></p>
+
+
+	<p>Let me know if you need anything else.</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2743" href="/projects/exiv2/repository/exiv2/revisions/2743">Revision 2743</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2743/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 May 2012 08:00" href="/projects/exiv2/activity?from=2012-05-16">over 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Samsung NX100 JPG exports have broken EXIF (Closed)" href="/issues/820">#820</a>: Added SamsungPreview to the list of previews to potentially remove when encoding Exif metadata for JPEG.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2744" href="/projects/exiv2/repository/exiv2/revisions/2744">Revision 2744</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2744/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 May 2012 08:01" href="/projects/exiv2/activity?from=2012-05-16">over 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Recognize Pentax MakerNote in DNGPrivateData (Closed)" href="/issues/819">#819</a>: Added the PentaxDng Preview image to the tags potentially stripped when encoding the Exif metadata for JPEG (related to <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Samsung NX100 JPG exports have broken EXIF (Closed)" href="/issues/820">#820</a>).</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2109" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3420">Pascal de Bruijn</a> <a title="24 Apr 2012 14:13" href="/projects/exiv2/activity?from=2012-04-24">over 9 years</a> ago
+      <span id="journal-2109-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2109-notes" class="wiki"><p>Sorry, I forgot to mention that I tested this using Exiv2 0.22 with changeset <a class="changeset" title="Updated Nikon Lens lookup table to v4.3.424.01 of Robert Rottmerhusen&#39;s fmountlens list." href="/projects/exiv2/repository/exiv2/revisions/2621">r2621</a>, <a class="changeset" title="Added Canon EF-S 18-55mm f/3.5-5.6 III lens. (Jon Charnas)" href="/projects/exiv2/repository/exiv2/revisions/2632">r2632</a>, <a class="changeset" title="#792: Applied patch with new Canon lens (Andreas Ferber), updated Canon lens table with new ones ..." href="/projects/exiv2/repository/exiv2/revisions/2638">r2638</a>, <a class="changeset" title="Updated Samsung lenses to all the lenses known by ExifTool. (Pascal de Bruijn)" href="/projects/exiv2/repository/exiv2/revisions/2642">r2642</a> and <a class="changeset" title="Added SamsungPictureWizard group with a decoding table for the Mode tag from Pascal de Bruijn." href="/projects/exiv2/repository/exiv2/revisions/2643">r2643</a> applied.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2158" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3420">Pascal de Bruijn</a> <a title="12 May 2012 06:35" href="/projects/exiv2/activity?from=2012-05-12">over 9 years</a> ago
+      <span id="journal-2158-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2158-notes" class="wiki"><p>I justed tested this with Exiv 0.23 and the above issues is still present.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2159" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 May 2012 00:54" href="/projects/exiv2/activity?from=2012-05-16">over 9 years</a> ago
+      <span id="journal-2159-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2159-notes" class="wiki"><p>Pascal,</p>
+
+
+	<p>Sorry for only getting to this issue now. The attached JPEG image does not contain Exif metadata. It only has XMP properties and an ICC profile. Exiftool shows the information from the ICC profile, Exiv2 doesn't, that may be the difference you observed.</p>
+
+
+	<p>Next question is why not, I guess. While I'm not familiar with Darktable, the Exiv2 warnings you quoted by themselves do not explain that. But the error that you get when manually attempting a similar operation (with the attached files renamed to bug820.SRW and bug820.jpg) probably does:</p>
+
+
+<pre>
+$ exiv2 -v insert -S.SRW bug820.jpg 
+File 1/1: bug820.jpg
+Writing Exif data from ./bug820.SRW to bug820.jpg
+Warning: Exif tag Exif.Photo.MakerNote not encoded
+Warning: Exif tag Exif.Samsung2.0x0060 not encoded
+Warning: Exif tag Exif.Samsung2.0x0080 not encoded
+Warning: Exif tag Exif.Samsung2.0x00a0 not encoded
+Warning: Exif tag Exif.Samsung2.0x00c0 not encoded
+bug820.jpg: Could not write metadata to file: Size of Exif JPEG segment is larger than 65535 bytes
+</pre>
+
+	<p>The last line in the Exiv2 output means that even after removing a number of Exif tags, the resulting binary block is still too large to fit in a JPEG Exif segment and Exiv2 gives up. (More details about this are here: <a class="external" href="http://www.exiv2.org/doc/classExiv2_1_1ExifParser.html#296a8f2aa49297103667cc882450d1c2">http://www.exiv2.org/doc/classExiv2_1_1ExifParser.html#296a8f2aa49297103667cc882450d1c2</a>)</p>
+
+
+	<p>I suspect Darktable also receives this 'Size of Exif JPEG segment is larger than 65535 bytes' exception but ignores it.<br />As far as Exiv2 is concerned, I'll check if there is anything we can can strip from this SRW image so that the remaining Exif block fits into the JPEG segment. You can check with the Darktable team if my suspicion is correct and if so, suggest that they show the error rather than suppress it.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2160" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 May 2012 08:04" href="/projects/exiv2/activity?from=2012-05-16">over 9 years</a> ago
+      <span id="journal-2160-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>exif</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+       <li><strong>Assignee</strong> set to <i>Andreas Huggel</i></li>
+       <li><strong>Target version</strong> set to <i>0.24</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-2160-notes" class="wiki"><p>With <a class="changeset" title="#820: Added SamsungPreview to the list of previews to potentially remove when encoding Exif metad..." href="/projects/exiv2/repository/exiv2/revisions/2743">r2743</a> the above operation succeeds. Exiv2 now removes the large SamsungPreview from the makernote and with that it is able to encode the Exif data for JPEG.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2161" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3420">Pascal de Bruijn</a> <a title="16 May 2012 14:32" href="/projects/exiv2/activity?from=2012-05-16">over 9 years</a> ago
+      <span id="journal-2161-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2161-notes" class="wiki"><p>I just applied <a class="changeset" title="#820: Added SamsungPreview to the list of previews to potentially remove when encoding Exif metad..." href="/projects/exiv2/repository/exiv2/revisions/2743">r2743</a> and <a class="changeset" title="#819: Added the PentaxDng Preview image to the tags potentially stripped when encoding the Exif m..." href="/projects/exiv2/repository/exiv2/revisions/2744">r2744</a> to my Exiv2 0.23 package builds for Ubuntu, and retested the above. I'm happy to report that everything works as expected now.</p>
+
+
+	<p>Thank you for your assistance.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2162" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 May 2012 17:25" href="/projects/exiv2/activity?from=2012-05-16">over 9 years</a> ago
+      <span id="journal-2162-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2162-notes" class="wiki"><p>Thanks for re-testing.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2554" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 15:30" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2554-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-2554-notes" class="wiki"><p>Fixed in 0.24.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/820.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/820.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

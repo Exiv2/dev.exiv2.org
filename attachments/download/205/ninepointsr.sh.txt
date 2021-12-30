@@ -1,0 +1,44 @@
+#!/bin/bash
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+
+while read 'line';
+do
+file=$line
+q=$(basename "$file")
+#9-point check:
+	cate=$(exiv2 -g Iptc.Application2.Category -Pv $file)
+	if [[ "$cate" == "" ]]; then cate2=" Category Tag";fi
+	cred=$(exiv2 -g Iptc.Application2.Credit -Pv $file)
+	if [[ "$cred" == "" ]]; then cred2=" Credit Tag";fi
+	sour=$(exiv2 -g Iptc.Application2.Source -Pv $file)
+	if [[ "$sour" == "" ]]; then sour2=" Source Tag";fi
+	writ=$(exiv2 -g Iptc.Application2.Writer -Pv $file)
+	if [[ "$writ" == "" ]]; then writ2=" Writer Tag";fi
+	trans=$(exiv2 -g Iptc.Application2.TransmissionReference -Pv $file)
+	if [[ "$trans" == "" ]]; then trans2=" Transmission Reference Tag";fi
+	fixid=$(exiv2 -g Iptc.Application2.FixtureId -Pv $file)
+	if [[ "$fixid" == "" ]]; then fixid2=" Event/Fixture Identifier Tag";fi
+	objnm=$(exiv2 -g Iptc.Application2.ObjectName -Pv $file)
+	if [[ "$objnm" == "" ]]; then objnm2=" Object Name Tag";fi
+	locn=$(exiv2 -g Iptc.Application2.SubLocation -Pv $file)
+	if [[ "$locn" == "" ]]; then locn2=" Location Tag";fi
+	iptc=$(echo $cate2$cred2$sour2$writ2$trans2$fixid2$objnm2$locn2)
+echo -e "Evaluating File #$x \ $q."
+iptc=$(echo $cate2$cred2$sour2$writ2$trans2$fixid2$objnm2$locn2)
+case "$iptc" in 
+ "" ) echo -e "$file">>hasfields.txt
+ ;;
+ * ) echo -e "$file:$iptc">>fieldsmissing.txt 
+ y=$[y+1]
+ ;;
+esac
+cate2=;cred2=;sour2=;writ2=;trans2=;fixid2=;objnm2=;locn2=;iptc=
+x=$[x+1]
+done<list.txt
+if [[ "$y" -gt "0" ]]; then
+	echo -ne "\n$x JPEG files evaluated,\nwith $y missing some or all of their required IPTC tag data.\nFile-by-file is in fieldsmissing.txt.\n"
+else 
+	echo -ne "\n$x JPEG files evaluated, none missing any required IPTC tag data.\nNo new information was written to fieldsmissing.txt.\n"
+fi
+IFS=$SAVEIFS

@@ -1,0 +1,401 @@
+Index: makernote.cpp
+===================================================================
+--- makernote.cpp	(revision 2066)
++++ makernote.cpp	(working copy)
+@@ -70,7 +70,12 @@
+         { "-",              Group::sony1mn,   0,              newSony1Mn2     },
+         { "-",              Group::sony2mn,   0,              newSony2Mn2     },
+         { "-",              Group::olymp1mn,  0,              newOlympusMn2   },
+-        { "-",              Group::olymp2mn,  0,              newOlympus2Mn2  }
++        { "-",              Group::olymp2mn,  0,              newOlympus2Mn2  },
++
++		// -----------------------------
++		// computechnic (marius)
++        // Seitz Phototechnik
++		{ "SEITZ",			Group::seitzmn,   newSeitzMn,	  newSeitzMn2  }
+     };
+ 
+     bool TiffMnRegistry::operator==(const std::string& key) const
+@@ -358,6 +363,44 @@
+         return size_;
+     } // FujiMnHeader::write
+ 
++
++	// -----------------------------
++	// computechnic (marius)
++    // Seitz Phototechnik
++    const byte SeitzPhototechnikMnHeader::signature_[] = {
++        'S', 'E', 'I', 'T', 'Z', 0x0c, 0x00, 0x00, 0x00
++    };
++    const uint32_t SeitzPhototechnikMnHeader::size_ = 9;
++
++    SeitzPhototechnikMnHeader::SeitzPhototechnikMnHeader()
++    {
++        read(signature_, size_, invalidByteOrder);
++    }
++
++    bool SeitzPhototechnikMnHeader::read(const byte* pData,
++                            uint32_t size,
++                            ByteOrder /*byteOrder*/)
++    {
++        assert (pData != 0);
++
++        if (size < size_) return false;
++
++        header_.alloc(size_);
++        std::memcpy(header_.pData_, pData, header_.size_);
++        if (   static_cast<uint32_t>(header_.size_) < size_
++            || 0 != memcmp(header_.pData_, signature_, 10)) {
++            return false;
++        }
++        return true;
++    } // SeitzPhototechnikMnHeader::read
++
++    uint32_t SeitzPhototechnikMnHeader::write(Blob&     blob,
++                                 ByteOrder /*byteOrder*/) const
++    {
++        append(blob, signature_, size_);
++        return size_;
++    } // SeitzPhototechnikMnHeader::write
++
+     const byte Nikon2MnHeader::signature_[] = {
+         'N', 'i', 'k', 'o', 'n', '\0', 0x01, 0x00
+     };
+@@ -624,6 +667,26 @@
+         return new TiffIfdMakernote(tag, group, mnGroup, new FujiMnHeader);
+     }
+ 
++	// -----------------------------
++	// computechnic (marius)
++    // Seitz Phototechnik
++    TiffComponent* newSeitzMn(uint16_t    tag,
++                             uint16_t    group,
++                             uint16_t    mnGroup,
++                             const byte* pData,
++                             uint32_t    size,
++                             ByteOrder   byteOrder)
++    {
++        return newSeitzMn2(tag, group, mnGroup);
++    }
++
++    TiffComponent* newSeitzMn2(uint16_t tag,
++                              uint16_t group,
++                              uint16_t mnGroup)
++    {
++		return new TiffIfdMakernote(tag, group, mnGroup, new SeitzPhototechnikMnHeader);
++    }
++
+     TiffComponent* newNikonMn(uint16_t    tag,
+                               uint16_t    group,
+                               uint16_t    /*mnGroup*/,
+Index: makernote_int.hpp
+===================================================================
+--- makernote_int.hpp	(revision 2066)
++++ makernote_int.hpp	(working copy)
+@@ -86,6 +86,12 @@
+         const uint16_t olympfe8  = 296; //!< Olympus FE 8 tags
+         const uint16_t olympfe9  = 297; //!< Olympus FE 9 tags
+         const uint16_t olympri   = 298; //!< Olympus raw info tags
++
++		// -----------------------------
++		// computechnic (marius)
++        // Seitz Phototechnik
++		const uint16_t seitzmn   = 299; //!< Seitz Phototechnik raw info tags
++
+     }
+ 
+ // *****************************************************************************
+@@ -448,6 +454,41 @@
+ 
+     }; // class FujiMnHeader
+ 
++	// -----------------------------
++	// computechnic (marius)
++    // Seitz Phototechnik
++    //! Header of a Seitz Phototechnik Makernote
++    class SeitzPhototechnikMnHeader : public MnHeader {
++    public:
++        //! @name Creators
++        //@{
++        //! Default constructor
++        SeitzPhototechnikMnHeader();
++        //! Virtual destructor.
++        virtual ~SeitzPhototechnikMnHeader() {}
++        //@}
++        //! @name Manipulators
++        //@{
++        virtual bool read(const byte* pData,
++                          uint32_t    size,
++                          ByteOrder   byteOrder);
++        //@}
++        //! @name Accessors
++        //@{
++        virtual uint32_t  size()      const { return header_.size_; }
++        virtual uint32_t  write(Blob& blob, ByteOrder byteOrder) const;
++        virtual uint32_t  ifdOffset() const { return size_; }
++        virtual uint32_t  baseOffset(uint32_t mnOffset) const { return mnOffset; }
++        //@}
++
++    private:
++        DataBuf header_;                //!< Data buffer for the makernote header
++        static const byte signature_[]; //!< Fujifilm makernote header signature
++        static const uint32_t size_;    //!< Size of the signature
++        uint32_t start_;                //!< Start of the mn IFD rel. to mn start
++
++    }; // class SeitzPhototechnikMnHeader
++
+     //! Header of a Nikon 2 Makernote
+     class Nikon2MnHeader : public MnHeader {
+     public:
+@@ -684,6 +725,23 @@
+                               uint16_t group,
+                               uint16_t mnGroup);
+ 
++	// -----------------------------
++	// computechnic (marius)
++    // Seitz Phototechnik
++
++    //! Function to create a Seitz Phototechnik makernote
++    TiffComponent* newSeitzMn(uint16_t    tag,
++                             uint16_t    group,
++                             uint16_t    mnGroup,
++                             const byte* pData,
++                             uint32_t    size,
++                             ByteOrder   byteOrder);
++
++    //! Function to create a Seitz Phototechnik makernote
++    TiffComponent* newSeitzMn2(uint16_t tag,
++                              uint16_t group,
++                              uint16_t mnGroup);
++
+     /*!
+       @brief Function to create a Nikon makernote. This will create the
+              appropriate Nikon 1, 2 or 3 makernote, based on the arguments.
+Index: mn.hpp
+===================================================================
+--- mn.hpp	(revision 2066)
++++ mn.hpp	(working copy)
+@@ -39,6 +39,11 @@
+ #include "olympusmn.hpp"
+ #include "panasonicmn.hpp"
+ #include "pentaxmn.hpp"
++
++// -----------------------------
++// computechnic (marius)
++// Seitz Phototechnik
++#include "seitzphototechnikmn.hpp"
+ #include "sigmamn.hpp"
+ #include "sonymn.hpp"
+ 
+Index: seitzphototechnikmn.cpp
+===================================================================
+--- seitzphototechnikmn.cpp	(revision 0)
++++ seitzphototechnikmn.cpp	(revision 0)
+@@ -0,0 +1,71 @@
++// ***************************************************************** -*- C++ -*-
++/*
++ * Copyright (C) 2004-2008 Andreas Huggel <ahuggel@gmx.net>
++ *
++ * This program is part of the Exiv2 distribution.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version 2
++ * of the License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, 5th Floor, Boston, MA 02110-1301 USA.
++ */
++/*
++  @file    seitzphototechnikmn.hpp
++  @brief   Seitz Phototechnik MakerNote implemented
++
++  @author  Marius Mueller
++
++  @date    13-Feb-09, mm: created
++ */
++// *****************************************************************************
++#include "rcsid.hpp"
++EXIV2_RCSID("@(#) $Id: seitzphototechnikmn.cpp 1512 2008-06-21 10:28:17Z ahuggel $")
++
++// *****************************************************************************
++// included header files
++#include "types.hpp"
++#include "seitzphototechnikmn.hpp"
++#include "value.hpp"
++#include "i18n.h"                // NLS support.
++
++// + standard includes
++#include <string>
++#include <sstream>
++#include <iomanip>
++#include <cassert>
++#include <cstring>
++
++// *****************************************************************************
++// class member definitions
++namespace Exiv2 {
++
++    // Seitz Roundshot MakerNote Tag Info
++    const TagInfo SeitzPhototechnikMakerNote::tagInfo_[] = {
++        TagInfo(0x0000, "Version", N_("Version"),
++                N_("Seitz Phototechnik Makernote version"),
++                seitzIfdID, makerTags, undefined, printValue),
++        TagInfo(0x1000, "OwnerName", N_("OwnerName"),
++                N_("Owner Name"),
++                seitzIfdID, makerTags, asciiString, printValue),
++
++        // End of list marker
++        TagInfo(0xffff, "(UnknownSeitzRoundshotMakerNoteTag)", "(UnknownSeitzRoundshotMakerNoteTag)",
++                N_("Unknown SeitzRoundshotMakerNote tag"),
++                seitzIfdID, makerTags, invalidTypeId, printValue)
++    };
++
++    const TagInfo* SeitzPhototechnikMakerNote::tagList()
++    {
++        return tagInfo_;
++    }
++
++}                                       // namespace Exiv2
+
+Property changes on: seitzphototechnikmn.cpp
+___________________________________________________________________
+Added: svn:needs-lock
+   + *
+
+Index: seitzphototechnikmn.hpp
+===================================================================
+--- seitzphototechnikmn.hpp	(revision 0)
++++ seitzphototechnikmn.hpp	(revision 0)
+@@ -0,0 +1,58 @@
++// ***************************************************************** -*- C++ -*-
++/*
++ * Copyright (C) 2004-2008 Andreas Huggel <ahuggel@gmx.net>
++ *
++ * This program is part of the Exiv2 distribution.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version 2
++ * of the License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, 5th Floor, Boston, MA 02110-1301 USA.
++ */
++/*!
++  @file    seitzphototechnikmn.hpp
++  @brief   Seitz Phototechnik MakerNote implemented
++
++  @author  Marius Mueller
++
++  @date    13-Feb-09, mm: created
++ */
++#ifndef SEITZPHOTOTECHNIKMN_HPP_
++#define SEITZPHOTOTECHNIKMN_HPP_
++
++// *****************************************************************************
++// included header files
++#include "tags.hpp"
++#include "types.hpp"
++
++// *****************************************************************************
++// namespace extensions
++namespace Exiv2 {
++
++// *****************************************************************************
++// class definitions
++
++    //! MakerNote for Seitz Phototechnik cameras
++    class EXIV2API SeitzPhototechnikMakerNote {
++    public:
++        //! Return read-only list of built-in Seitz Phototechnik tags
++        static const TagInfo* tagList();
++
++    private:
++        //! Tag information
++        static const TagInfo tagInfo_[];
++
++    }; // class SeitzPhototechnikMakerNote
++
++}                                       // namespace Exiv2
++
++#endif                                  // #ifndef SEITZPHOTOTECHNIKMN_HPP_
+Index: tags.cpp
+===================================================================
+--- tags.cpp	(revision 2066)
++++ tags.cpp	(working copy)
+@@ -133,6 +133,11 @@
+         { olympusRiIfdId,    "Makernote", "OlympusRi",    OlympusMakerNote::tagListRi    },
+         { panasonicIfdId,    "Makernote", "Panasonic",    PanasonicMakerNote::tagList    },
+         { pentaxIfdId,       "Makernote", "Pentax",       PentaxMakerNote::tagList       },
++		
++		// -----------------------------
++		// computechnic (marius)
++		// Seitz Phototechnik
++		{ seitzIfdID ,       "Makernote", "Seitz",		  SeitzPhototechnikMakerNote::tagList  },
+         { sigmaIfdId,        "Makernote", "Sigma",        SigmaMakerNote::tagList        },
+         { sonyIfdId,         "Makernote", "Sony",         SonyMakerNote::tagList         },
+         { lastIfdId,         "(Last IFD info)", "(Last IFD item)", 0 }
+Index: tiffcomposite.cpp
+===================================================================
+--- tiffcomposite.cpp	(revision 2066)
++++ tiffcomposite.cpp	(working copy)
+@@ -120,7 +120,12 @@
+         { 295, "OlympusFe7"   },
+         { 296, "OlympusFe8"   },
+         { 297, "OlympusFe9"   },
+-        { 298, "OlympusRi"    }
++        { 298, "OlympusRi"    },
++		
++		// -----------------------------
++		// computechnic (marius)
++        // Seitz Phototechnik
++		{ 299, "Seitz"  }
+     };
+ 
+     bool TiffGroupInfo::operator==(const uint16_t& group) const
+Index: tiffimage.cpp
+===================================================================
+--- tiffimage.cpp	(revision 2066)
++++ tiffimage.cpp	(working copy)
+@@ -510,6 +510,12 @@
+         {  Tag::all, Group::minocs7,   Group::minocs7,   0x0004,    Group::minoltamn, newTiffArrayElement<ttUnsignedShort, bigEndian> },
+         {  Tag::all, Group::minocs5,   Group::minocs5,   0x0114,    Group::minoltamn, newTiffArrayElement<ttUnsignedShort, bigEndian> },
+ 
++		// -----------------------------
++		// computechnic (marius)
++        // Seitz Phototechnik makernote
++		{ Tag::next, Group::seitzmn,   Group::ignr,      0x927c,    Group::exif,      newTiffDirectory },
++		{ Tag::all, Group::seitzmn,    Group::seitzmn,   0x927c,    Group::exif,      newTiffEntry },
++
+         // Tags which are not de/encoded
+         { Tag::next, Group::ignr,      Group::ignr,      Tag::none, Group::none,      newTiffDirectory },
+         {  Tag::all, Group::ignr,      Group::ignr,      Tag::none, Group::none,      newTiffEntry }
+Index: types.hpp
+===================================================================
+--- types.hpp	(revision 2066)
++++ types.hpp	(working copy)
+@@ -149,7 +149,10 @@
+                  olympusFe1IfdId, olympusFe2IfdId, olympusFe3IfdId, olympusFe4IfdId,
+                  olympusFe5IfdId, olympusFe6IfdId, olympusFe7IfdId, olympusFe8IfdId,
+                  olympusFe9IfdId, olympusRiIfdId,
+-                 panasonicIfdId, pentaxIfdId, sigmaIfdId, sonyIfdId,
++				// -----------------------------
++				// computechnic (marius)
++				// Seitz Phototechnik
++                 panasonicIfdId, pentaxIfdId, seitzIfdID, sigmaIfdId, sonyIfdId,
+                  lastIfdId };
+ 
+     //! Container for binary data

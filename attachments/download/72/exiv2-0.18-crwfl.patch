@@ -1,0 +1,71 @@
+diff -ur exiv2-0.18/src/actions.cpp exiv2-0.18-crwfl/src/actions.cpp
+--- exiv2-0.18/src/actions.cpp	2008-12-07 22:32:02.000000000 -0700
++++ exiv2-0.18-crwfl/src/actions.cpp	2009-01-05 11:53:02.000000000 -0700
+@@ -348,6 +348,9 @@
+                           << md->print(&exifData) << ")";
+             }
+         }
++        else {
++            printTag(exifData, "Exif.Canon.FocalLength");
++        }
+         std::cout << std::endl;
+ 
+         // Subject distance
+diff -ur exiv2-0.18/src/canonmn.cpp exiv2-0.18-crwfl/src/canonmn.cpp
+--- exiv2-0.18/src/canonmn.cpp	2008-11-05 08:23:49.000000000 -0700
++++ exiv2-0.18-crwfl/src/canonmn.cpp	2009-01-05 11:31:50.000000000 -0700
+@@ -165,7 +165,7 @@
+     const TagInfo CanonMakerNote::tagInfo_[] = {
+         TagInfo(0x0000, "0x0000", "0x0000", N_("Unknown"), canonIfdId, makerTags, unsignedShort, printValue),
+         TagInfo(0x0001, "CameraSettings", N_("Camera Settings"), N_("Various camera settings"), canonIfdId, makerTags, unsignedShort, printValue),
+-        TagInfo(0x0002, "0x0002", "0x0002", N_("Unknown"), canonIfdId, makerTags, unsignedShort, printValue),
++        TagInfo(0x0002, "FocalLength", N_("Focal Length"), N_("Focal length"), canonIfdId, makerTags, unsignedShort, printFocalLength),
+         TagInfo(0x0003, "0x0003", "0x0003", N_("Unknown"), canonIfdId, makerTags, unsignedShort, printValue),
+         TagInfo(0x0004, "ShotInfo", N_("Shot Info"), N_("Shot information"), canonIfdId, makerTags, unsignedShort, printValue),
+         TagInfo(0x0005, "Panorama", N_("Panorama"), N_("Panorama"), canonIfdId, makerTags, unsignedShort, printValue),
+@@ -875,6 +875,33 @@
+         return tagInfoPi_;
+     }
+ 
++    std::ostream& CanonMakerNote::printFocalLength(std::ostream& os,
++                                                   const Value& value,
++                                                   const ExifData* metadata)
++    {
++        if (   value.count() < 4
++            || value.typeId() != unsignedShort) {
++            return os << "(" << value << ")";
++        }
++
++        ExifKey key("Exif.CanonCs.Lens");
++        ExifData::const_iterator pos = metadata->findKey(key);
++        if (   pos != metadata->end()
++            && pos->value().count() >= 3
++            && pos->value().typeId() == unsignedShort) {
++            float fu = pos->value().toFloat(2);
++            if (fu != 0.0) {
++                float fl = value.toFloat(1) / fu;
++                std::ostringstream oss;
++                oss.copyfmt(os);
++                os << std::fixed << std::setprecision(1);
++                os << fl << " mm";
++                os.copyfmt(oss);
++                return os;
++            }
++        }
++    }
++
+     std::ostream& CanonMakerNote::print0x0008(std::ostream& os,
+                                               const Value& value,
+                                               const ExifData*)
+diff -ur exiv2-0.18/src/canonmn.hpp exiv2-0.18-crwfl/src/canonmn.hpp
+--- exiv2-0.18/src/canonmn.hpp	2008-10-19 03:40:35.000000000 -0600
++++ exiv2-0.18-crwfl/src/canonmn.hpp	2009-01-05 10:55:43.000000000 -0700
+@@ -72,6 +72,8 @@
+ 
+         //! @name Print functions for Canon %MakerNote tags
+         //@{
++        //! Print the focal lenght
++        static std::ostream& printFocalLength(std::ostream& os, const Value& value, const ExifData*);
+         //! Print the image number
+         static std::ostream& print0x0008(std::ostream& os, const Value& value, const ExifData*);
+         //! Print the serial number of the camera

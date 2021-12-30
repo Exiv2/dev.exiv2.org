@@ -1,0 +1,217 @@
+Index: basicio.hpp
+===================================================================
+--- basicio.hpp	(revision 1357)
++++ basicio.hpp	(working copy)
+@@ -467,7 +467,7 @@
+         // DATA
+         std::string path_;
+         std::string openMode_;
+-        FILE *fp_;
++	std::FILE *fp_;
+         OpMode opMode_;
+ 
+         byte* pMappedArea_;
+Index: exif.hpp
+===================================================================
+--- exif.hpp	(revision 1357)
++++ exif.hpp	(working copy)
+@@ -168,13 +168,13 @@
+         //@{
+         //! Return the key of the %Exifdatum.
+         std::string key() const
+-            { return key_.get() == 0 ? "" : key_->key(); }
++            { return key_.get() == 0 ? std::string("") : key_->key(); }
+         std::string groupName() const
+-            { return key_.get() == 0 ? "" : key_->groupName(); }
++            { return key_.get() == 0 ? std::string("") : key_->groupName(); }
+         std::string tagName() const
+-            { return key_.get() == 0 ? "" : key_->tagName(); }
++            { return key_.get() == 0 ? std::string("") : key_->tagName(); }
+         std::string tagLabel() const
+-            { return key_.get() == 0 ? "" : key_->tagLabel(); }
++            { return key_.get() == 0 ? std::string("") : key_->tagLabel(); }
+         uint16_t tag() const
+             { return key_.get() == 0 ? 0xffff : key_->tag(); }
+         //! Return the IFD id
+@@ -185,7 +185,7 @@
+             { return key_.get() == 0 ? "" : key_->ifdName(); }
+         //! Return the related image item (deprecated)
+         std::string ifdItem() const
+-            { return key_.get() == 0 ? "" : key_->ifdItem(); }
++            { return key_.get() == 0 ? std::string("") : key_->ifdItem(); }
+         //! Return the index (unique id of this key within the original IFD)
+         int idx() const
+             { return key_.get() == 0 ? 0 : key_->idx(); }
+@@ -219,9 +219,9 @@
+             { return value_.get() == 0 ? 0 : value_->size(); }
+         //! Return the value as a string.
+         std::string toString() const
+-            { return value_.get() == 0 ? "" : value_->toString(); }
++            { return value_.get() == 0 ? std::string("") : value_->toString(); }
+         std::string toString(long n) const
+-            { return value_.get() == 0 ? "" : value_->toString(n); }
++            { return value_.get() == 0 ? std::string("") : value_->toString(n); }
+         long toLong(long n =0) const
+             { return value_.get() == 0 ? -1 : value_->toLong(n); }
+         float toFloat(long n =0) const
+Index: iptc.hpp
+===================================================================
+--- iptc.hpp	(revision 1357)
++++ iptc.hpp	(working copy)
+@@ -117,13 +117,13 @@
+                  is not necessarily unique, i.e., an IptcData object may contain
+                  multiple metadata with the same key.
+          */
+-        std::string key() const { return key_.get() == 0 ? "" : key_->key(); }
++        std::string key() const { return key_.get() == 0 ? std::string("") : key_->key(); }
+         /*!
+            @brief Return the name of the record
+            @return record name
+          */
+         std::string recordName() const
+-            { return key_.get() == 0 ? "" : key_->recordName(); }
++            { return key_.get() == 0 ? std::string("") : key_->recordName(); }
+         /*!
+            @brief Return the record id
+            @return record id
+@@ -135,9 +135,9 @@
+            @return tag name
+          */
+         std::string tagName() const
+-            { return key_.get() == 0 ? "" : key_->tagName(); }
++            { return key_.get() == 0 ? std::string("") : key_->tagName(); }
+         std::string tagLabel() const
+-            { return key_.get() == 0 ? "" : key_->tagLabel(); }
++            { return key_.get() == 0 ? std::string("") : key_->tagLabel(); }
+         //! Return the tag (aka dataset) number
+         uint16_t tag() const
+             { return key_.get() == 0 ? 0 : key_->tag(); }
+@@ -148,9 +148,9 @@
+         long count() const { return value_.get() == 0 ? 0 : value_->count(); }
+         long size() const { return value_.get() == 0 ? 0 : value_->size(); }
+         std::string toString() const
+-            { return value_.get() == 0 ? "" : value_->toString(); }
++            { return value_.get() == 0 ? std::string("") : value_->toString(); }
+         std::string toString(long n) const
+-            { return value_.get() == 0 ? "" : value_->toString(n); }
++            { return value_.get() == 0 ? std::string("") : value_->toString(n); }
+         long toLong(long n =0) const
+             { return value_.get() == 0 ? -1 : value_->toLong(n); }
+         float toFloat(long n =0) const
+Index: types.hpp
+===================================================================
+--- types.hpp	(revision 1357)
++++ types.hpp	(working copy)
+@@ -52,7 +48,7 @@
+ #endif
+ 
+ // MSVC doesn't provide C99 types, but it has MS specific variants
+-#ifdef _MSC_VER
++#ifdef WIN32
+ typedef unsigned __int8  uint8_t;
+ typedef unsigned __int16 uint16_t;
+ typedef unsigned __int32 uint32_t;
+@@ -69,7 +65,9 @@
+ 
+ // *****************************************************************************
+ // forward declarations
++#if 0
+ struct tm;
++#endif
+ 
+ // *****************************************************************************
+ // namespace extensions
+Index: value.hpp
+===================================================================
+--- value.hpp	(revision 1357)
++++ value.hpp	(working copy)
+@@ -1306,37 +1306,37 @@
+     template<typename T> T getValue(const byte* buf, ByteOrder byteOrder);
+     // Specialization for a 2 byte unsigned short value.
+     template<>
+-    inline uint16_t getValue(const byte* buf, ByteOrder byteOrder)
++    inline uint16_t getValue<uint16_t>(const byte* buf, ByteOrder byteOrder)
+     {
+         return getUShort(buf, byteOrder);
+     }
+     // Specialization for a 4 byte unsigned long value.
+     template<>
+-    inline uint32_t getValue(const byte* buf, ByteOrder byteOrder)
++    inline uint32_t getValue<uint32_t>(const byte* buf, ByteOrder byteOrder)
+     {
+         return getULong(buf, byteOrder);
+     }
+     // Specialization for an 8 byte unsigned rational value.
+     template<>
+-    inline URational getValue(const byte* buf, ByteOrder byteOrder)
++    inline URational getValue<URational>(const byte* buf, ByteOrder byteOrder)
+     {
+         return getURational(buf, byteOrder);
+     }
+     // Specialization for a 2 byte signed short value.
+     template<>
+-    inline int16_t getValue(const byte* buf, ByteOrder byteOrder)
++    inline int16_t getValue<int16_t>(const byte* buf, ByteOrder byteOrder)
+     {
+         return getShort(buf, byteOrder);
+     }
+     // Specialization for a 4 byte signed long value.
+     template<>
+-    inline int32_t getValue(const byte* buf, ByteOrder byteOrder)
++    inline int32_t getValue<int32_t>(const byte* buf, ByteOrder byteOrder)
+     {
+         return getLong(buf, byteOrder);
+     }
+     // Specialization for an 8 byte signed rational value.
+     template<>
+-    inline Rational getValue(const byte* buf, ByteOrder byteOrder)
++    inline Rational getValue<Rational>(const byte* buf, ByteOrder byteOrder)
+     {
+         return getRational(buf, byteOrder);
+     }
+Index: xmp.cpp
+===================================================================
+--- xmp.cpp	(revision 1357)
++++ xmp.cpp	(working copy)
+@@ -161,22 +161,22 @@
+ 
+     std::string Xmpdatum::key() const
+     {
+-        return p_->key_.get() == 0 ? "" : p_->key_->key(); 
++        return p_->key_.get() == 0 ? std::string("") : p_->key_->key(); 
+     }
+ 
+     std::string Xmpdatum::groupName() const
+     {
+-        return p_->key_.get() == 0 ? "" : p_->key_->groupName();
++        return p_->key_.get() == 0 ? std::string("") : p_->key_->groupName();
+     }
+ 
+     std::string Xmpdatum::tagName() const
+     {
+-        return p_->key_.get() == 0 ? "" : p_->key_->tagName();
++        return p_->key_.get() == 0 ? std::string("") : p_->key_->tagName();
+     }
+ 
+     std::string Xmpdatum::tagLabel() const
+     {
+-        return p_->key_.get() == 0 ? "" : p_->key_->tagLabel();
++        return p_->key_.get() == 0 ? std::string("") : p_->key_->tagLabel();
+     }
+ 
+     uint16_t Xmpdatum::tag() const
+@@ -206,12 +206,12 @@
+ 
+     std::string Xmpdatum::toString() const
+     {
+-        return p_->value_.get() == 0 ? "" : p_->value_->toString();
++        return p_->value_.get() == 0 ? std::string("") : p_->value_->toString();
+     }
+ 
+     std::string Xmpdatum::toString(long n) const
+     {
+-        return p_->value_.get() == 0 ? "" : p_->value_->toString(n);
++        return p_->value_.get() == 0 ? std::string("") : p_->value_->toString(n);
+     }
+ 
+     long Xmpdatum::toLong(long n) const

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Problems with timestamps in XMP files - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="exPSFHfJ2KnAmTWCXKn1YcAVfbE4rV1C9YKr8WOWxQ6ZXnn7BbMUqZX9Ko7jfvlS/4cpyMlO/PgIojt5IK8iYQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Problems with timestamps in XMP files</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4190">Jim Easterbrook</a> <a title="11 Sep 2017 10:17" href="/projects/exiv2/activity?from=2017-09-11">about 4 years</a> ago</span></p>
+<div class="wiki">
+<p>I'm having problems modifying timestamps (e.g. Xmp.xmp.CreateDate) in XMP files. I discovered the problem in a program I'm writing, but I've managed to reproduce it with the eviv2 command line tool. I'm using a recent download of exiv2-0.26-trunk.tar.gz, compiled with video support.</p>
+
+
+	<p><code>jim@brains:~$ exiv2 -V<br />exiv2 0.26 001a00 (64 bit build)<br />Copyright (C) 2004-2017 Andreas Huggel.</code></p>
+
+
+	<p>Here's my simple test file (the xpacket begin and end lines seem to get removed by the forum's formatting software, rest assured thaey are there in my actual file):</p>
+
+
+	<p><code>jim@brains:~$ cat test.xmp <br /><?xpacket begin="" id="W5M0MpCehiHzreSzNTczkc9d"?><br />&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;<br /> &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;<br />  &lt;rdf:Description rdf:about="" <br />    xmlns:xmp="http://ns.adobe.com/xap/1.0/" <br />    xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/" <br />   xmp:CreateDate="2017-06-07T13:24:34+02:00"/><br /> &lt;/rdf:RDF&gt;<br />&lt;/x:xmpmeta&gt;<br /><?xpacket end="w"?></code></p>
+
+
+	<p>Now I try to change the value of Xmp.xmp.CreateDate.</p>
+
+
+	<p><code>jim@brains:~$ exiv2 -v -M"set Xmp.xmp.CreateDate XmpText 2017-06-07T12:00:00+01:00" test.xmp <br />File 1/1: test.xmp<br />Set Xmp.xmp.CreateDate "2017-06-07T12:00:00+01:00" (XmpText)<br />jim@brains:~$ cat test.xmp <br /><?xpacket begin="" id="W5M0MpCehiHzreSzNTczkc9d"?><br />&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;<br /> &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;<br />  &lt;rdf:Description rdf:about="" <br />    xmlns:xmp="http://ns.adobe.com/xap/1.0/" <br />   xmp:CreateDate="2017-06-07T13:24:34+02:00"/><br /> &lt;/rdf:RDF&gt;<br />&lt;/x:xmpmeta&gt;<br /><?xpacket end="w"?></code></p>
+
+
+	<p>As you can see, exiv2 didn't report any error but it hasn't changed the file contents.</p>
+
+
+	<p>I guess this might be related to <a class="external" href="http://dev.exiv2.org/issues/1112">http://dev.exiv2.org/issues/1112</a>, but that's two years old and was fixed ages ago.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (7)</h3>
+  <div class="message reply" id="message-2974">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2973?r=2974#message-2974">RE: Problems with timestamps in XMP files</a>
+    -
+    Added by <a class="user active" href="/users/4190">Jim Easterbrook</a> <a title="11 Sep 2017 10:24" href="/projects/exiv2/activity?from=2017-09-11">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Obviously it has changed the file contents - it removed the redundant <code>xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/"</code> line. But it didn't update the Xmp.xmp.CreateDate value.</p>
+
+
+	<p>I've found I need to delete both Xmp.xmp.CreateDate and Exif.Photo.DateTimeDigitized before setting Xmp.xmp.CreateDate to achieve the desired result:</p>
+
+
+	<p><code>jim@brains:~$ exiv2 -v -M"del Xmp.xmp.CreateDate" -M"del Exif.Photo.DateTimeDigitized" -M"set Xmp.xmp.CreateDate XmpText 2017-06-07T12:00:00+01:00" test.xmp <br />File 1/1: test.xmp<br />Del Xmp.xmp.CreateDate<br />Del Exif.Photo.DateTimeDigitized<br />Set Xmp.xmp.CreateDate "2017-06-07T12:00:00+01:00" (XmpText)<br />jim@brains:~$ cat test.xmp <br /><?xpacket begin="" id="W5M0MpCehiHzreSzNTczkc9d"?><br />&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;<br /> &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;<br />  &lt;rdf:Description rdf:about="" <br />    xmlns:xmp="http://ns.adobe.com/xap/1.0/" <br />   xmp:CreateDate="2017-06-07T13:24:34+02:00"/><br /> &lt;/rdf:RDF&gt;<br />&lt;/x:xmpmeta&gt;<br /><?xpacket end="w"?></code></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2975">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2973?r=2975#message-2975">RE: Problems with timestamps in XMP files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Sep 2017 10:32" href="/projects/exiv2/activity?from=2017-09-11">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jim</p>
+
+
+	<p>What a curious matter.  Exiv2 delegates almost everything concerning XMP to the Adobe XMPsdk which is embedded in libexiv2.  At the moment, I'm working hard to enable different versions of Adobe's library to be used by exiv2.  I'll build and try the 2013, 2014, 2016 versions and get back to you.</p>
+
+
+	<p>I'm planning to release Exiv2 v0.26.1 to include support for Adobe XMPsdk, Visual Studio 2017, C++11 and bug fixes.  I hope to achieve RC1 this month and GM in December.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2976">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2973?r=2976#message-2976">RE: Problems with timestamps in XMP files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Sep 2017 15:06" href="/projects/exiv2/activity?from=2017-09-11">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jim</p>
+
+
+	<p>I've reproduced your issue with the 2016 version of Adobe XMPsdk.</p>
+
+
+	<p><em><strong>1) Removing the photoshop namespace</strong></em></p>
+
+
+	<p>I've hardly ever looked into the Adobe code, however I believe the XMP/xml from the file is stored by Adobe in an RDF model in memory.  When we rewrite the metadata, the model is serialised into XMP/xml which Exiv2 stores in the file.  As you are not using the photoshop namespace, XMPsdk has correctly omitted it from the rewritten XMP/xml file.</p>
+
+
+	<p><em><strong>2) Not modifying xmp:CreateData</strong></em></p>
+
+
+	<p>I suspect the Exiv2 convertor functions are causing this behaviour.   Exiv2 reads the XMP from file and passes it to Adobe/XMPsdk.  The "convertor" functions "invented" <em>Exif.Photo.DateTimeDigitized</em>.  Before we ask Adobe to serialise the XMP, the "convertor" functions push that value back into the XMP and overwrite your modified data with the original value!  When you explicitly delete Exif.Photo.DataTimeDigitized, the modified value of xmp.CreateDate is correctly serialised to output.</p>
+
+
+	<p>I didn't write Exiv2 and don't know the origin of the "convertor" functions, however I wish they could be uninvented as they have caused trouble such as <a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Lens Detection with Teleconverter - Sigma 150-500mm f/5-6.3 APO DG OS HSM again (Closed)" href="/issues/1122">#1122</a>.  I'd prefer Exiv2 to be <em><strong>"deterministic"</strong></em> and confine activity to solid data.  The convertors have unintended side-effects such as this.</p>
+
+
+	<p>I have opened an Issue <a class="issue tracker-1 status-2 priority-4 priority-default" title="Bug: Exif.Photo.DateTimeDigitized overwrites XMP.xmp.createData (Assigned)" href="/issues/1313">#1313</a> to track this matter.  As you have a work-around, I don't feel urgency about fixing this.  I don't want to break from my work on Exiv2 v0.26.1 to attend to this.  If you feel this has higher priority, please update <a class="issue tracker-1 status-2 priority-4 priority-default" title="Bug: Exif.Photo.DateTimeDigitized overwrites XMP.xmp.createData (Assigned)" href="/issues/1313">#1313</a>.  Future discussion about this should continue on <a class="issue tracker-1 status-2 priority-4 priority-default" title="Bug: Exif.Photo.DateTimeDigitized overwrites XMP.xmp.createData (Assigned)" href="/issues/1313">#1313</a>.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2977">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2973?r=2977#message-2977">RE: Problems with timestamps in XMP files</a>
+    -
+    Added by <a class="user active" href="/users/4190">Jim Easterbrook</a> <a title="11 Sep 2017 15:19" href="/projects/exiv2/activity?from=2017-09-11">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin,</p>
+
+
+	<p>I agree your number 1 is not a problem, it's desirable and expected behaviour. Sorry if my message suggested otherwise.</p>
+
+
+	<p>I agree with you about the convertor functions. In my opinion, MWG compliance is "program" logic, not "library" logic. One may wish to use libgexiv2 in a program written to interface to an old, non-MWG compliant, program (or data files).</p>
+
+
+	<p>I've found a workaround in my application program, so there is no urgency. Thanks for looking into this.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2978">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2973?r=2978#message-2978">RE: Problems with timestamps in XMP files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Sep 2017 17:03" href="/projects/exiv2/activity?from=2017-09-11">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>libgexiv2?  I thought that was a wrapper to connect KDE and Gnome products to libexiv2.  How does this fix the issue when the convertors are run by the library?</p>
+
+
+	<p>Your comment about the file being rewritten sounded like "well, I know you have rewritten my file".  So I documented the reason.  You and I have agreement that removing the namespace is not an issue.  My focus was totally on the date which is the title you gave to this topic.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2979">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2973?r=2979#message-2979">RE: Problems with timestamps in XMP files</a>
+    -
+    Added by <a class="user active" href="/users/4190">Jim Easterbrook</a> <a title="11 Sep 2017 17:23" href="/projects/exiv2/activity?from=2017-09-11">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>My Python application is using the libgexiv2 wrapper around libexiv2. The exiv2 command line tool uses the same library (confirmed by ldd). (In my comment I actually meant to write libexiv2 where I wrote libgexiv2 - I think the point stands though.)</p>
+
+
+	<p>As I understand it the convertors are part of the library. My program can read invented tags such as Exif.Photo.DateTimeDigitized from a pure XMP file.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2980">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2973?r=2980#message-2980">RE: Problems with timestamps in XMP files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Sep 2017 17:38" href="/projects/exiv2/activity?from=2017-09-11">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ah, right.  I understand.  I thought you were implying that libgexiv2 has special magic to deal with this.</p>
+
+
+	<p>The fix I figured out for <a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Lens Detection with Teleconverter - Sigma 150-500mm f/5-6.3 APO DG OS HSM again (Closed)" href="/issues/1122">#1122</a> involved inspecting and messing with metadata values.  I wish this were not so. Exiv2 should have no knowledge of the meaning of metadata.  It should be an engine to read/write/modify metadata.  I'm glad you have a way to deal with this in your application.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-7/7)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

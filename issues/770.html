@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #770: Exif.CanonFi.FileNumber value is always (0) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="pc645QSx15YivVpQnwWUT/M/V2fR9WuQITk7DJM08NBHgxMKdssblnfZRVwg0ph8zK0DHiAWyircGauE0A0Xvw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #770: Exif.CanonFi.FileNumber value is always (0)" href="https://dev.exiv2.org/issues/770.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #770</h2>
+
+<div class="issue tracker-1 status-1 priority-4 priority-default details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Exif.CanonFi.FileNumber value is always (0)</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/168">Damon Lynch</a> <a title="18 May 2011 18:03" href="/projects/exiv2/activity?from=2011-05-18">over 10 years</a> ago.
+        Updated <a title="21 Nov 2016 08:30" href="/projects/exiv2/activity?from=2016-11-21">almost 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">New</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">makernote</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Dec 2020" href="/versions/54">0.28</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">18 May 2011</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-10"><tr><td style="width: 10%;" class="closed" title="10%"></td><td style="width: 90%;" class="todo"></td></tr></table><p class="percent">10%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">10.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Exif.CanonFi.FileNumber is documented as a valid Canon File Info Tag, but exiv2 0.21.1 returns (0) when extracting this tag. On the same file, exiftool will return the correct metadata. I have tested this on a Canon 5D Mk II RAW file in which I know the correct value, so I can confirm the bug. Testing a Canon 1Ds Mk III RAW files also results in a value of 0 for File Number, but I cannot confirm if exiftool's output in this in this case or not because I did not create the file.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1110">20161009-100-3999.JPG</a>    <span class="size">(1.89 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1110/20161009-100-3999.JPG">20161009-100-3999.JPG</a>  </td>
+  <td>JPG with Exif.CanonFi.FileNumber (broken with Exiv2)</td>
+  <td>
+      <span class="author">Ari Exi, 21 Nov 2016 07:02</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1111">20161016-1128.CR2</a>    <span class="size">(13.3 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1111/20161016-1128.CR2">20161016-1128.CR2</a>  </td>
+  <td>CR2 with Exif.Canon.FileNumber (works well)</td>
+  <td>
+      <span class="author">Ari Exi, 21 Nov 2016 07:03</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/770" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="vAJltbWR3mxE9/on0xNuOUTs7Hx7jzQi+B2OzQzIRxZeT85ax+sSbBGT5StsxGIKe364BYpslZgFPR5FT/GgeQ==" />
+  <table class="list issues odd-even"><tr id="relation-219" class="issue hascontextmenu issue tracker-2 status-2 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="992" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-2 priority-4 priority-default" href="/issues/992">Feature #992</a>: Better raw file support and test</td><td class="status">Assigned</td><td class="start_date">18 Sep 2014</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/770/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=770&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4093" class="journal has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Aug 2015 16:19" href="/projects/exiv2/activity?from=2015-08-23">about 6 years</a> ago
+      <span id="journal-4093-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> set to <i>53</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4204" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="07 Sep 2015 00:27" href="/projects/exiv2/activity?from=2015-09-07">about 6 years</a> ago
+      <span id="journal-4204-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>makernote</i></li>
+       <li><strong>Target version</strong> changed from <i>53</i> to <i>0.26</i></li>
+    </ul>
+    <div id="journal-4204-notes" class="wiki"><p>Confirmed that issue remains with exiv2 0.25 using the sample from:</p>
+	<pre><code><a class="external" href="http://www.rawsamples.ch/raws/canon/5dm2/RAW_CANON_5DMARK2_PREPROD.CR2">http://www.rawsamples.ch/raws/canon/5dm2/RAW_CANON_5DMARK2_PREPROD.CR2</a></code></pre></div>
+    </div>
+  </div>
+  
+  <div id="change-4922" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Apr 2016 17:31" href="/projects/exiv2/activity?from=2016-04-04">over 5 years</a> ago
+      <span id="journal-4922-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-4922-notes" class="wiki"><p>I think this has already been resolved.  I couldn't reproduce this with RAW_CANON_5DMARK2_PREPROD.CR2, however it seems to be fixed with the file MG.CR2 which was supplied by a user to investigate <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Read XMP values from CR2 raw file when stored in XMLPacket (Closed)" href="/issues/1081">#1081</a></p>
+
+
+	<p>Here's the evidence:<pre>540 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiftool -all MG.CR2 | grep 123
+File Number                     : 123-3694
+541 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pa --grep FileNumber MG.CR2
+Exif.CanonFi.FileNumber                      Long        1  123-3694
+542 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -vVg svn
+exiv2 0.25 001900 (64 bit build)
+svn=4268
+543 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4923" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/168">Damon Lynch</a> <a title="06 Apr 2016 07:05" href="/projects/exiv2/activity?from=2016-04-06">over 5 years</a> ago
+      <span id="journal-4923-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4923-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>I think this has already been resolved.  I couldn't reproduce this with RAW_CANON_5DMARK2_PREPROD.CR2, however it seems to be fixed with the file MG.CR2 which was supplied by a user to investigate <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Read XMP values from CR2 raw file when stored in XMLPacket (Closed)" href="/issues/1081">#1081</a></p>
+
+
+	<p>Here's the evidence:[...]</p>
+
+
+</blockquote>
+
+	<p>Unfortunately I don't think been fully resolved, at least with version 0.25 001900 (64 bit build) on a file from a Canon EOS-1D X:</p>
+
+
+	<p>$ exiftool 20160403-2031-1-iso400-f5.0-85mm-250.cr2 |grep Number<br />ExifTool Version Number         : 10.10<br />F Number                        : 5.0<br />Shot Number In Continuous Burst : 0<br />Bracket Shot Number             : 0<br />Internal Serial Number          : X067442<br />Serial Number                   : 092015000200<br />Lens Serial Number              : 0000013ebd<br />File Number                     : 100-1337</p>
+
+
+	<p>$ exiv2 -pt 20160403-2031-1-iso400-f5.0-85mm-250.cr2 |grep 1337<br />$ exiv2 -pt 20160403-2031-1-iso400-f5.0-85mm-250.cr2 |grep Number<br />Exif.Photo.FNumber                           Rational    1  F5<br />Exif.CanonFi.FileNumber                      Long        1  (0)<br />Exif.CanonFi.BracketShotNumber               SShort      1  0<br />Exif.Canon.InternalSerialNumber              Ascii      16  X067442<br />Exif.Photo.BodySerialNumber                  Ascii      13  092015000200<br />Exif.Photo.LensSerialNumber                  Ascii      11  0000013ebd</p>
+
+
+	<p>The same behaviour is exhibited on the file RAW_CANON_EOS_1DX.CR2 also found at <a class="external" href="http://www.rawsamples.ch">www.rawsamples.ch</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4924" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Apr 2016 08:39" href="/projects/exiv2/activity?from=2016-04-06">over 5 years</a> ago
+      <span id="journal-4924-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-4924-notes" class="wiki"><p>Please submit a patch and update to the test harness.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4925" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/168">Damon Lynch</a> <a title="06 Apr 2016 09:08" href="/projects/exiv2/activity?from=2016-04-06">over 5 years</a> ago
+      <span id="journal-4925-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4925-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Please submit a patch and update to the test harness.</p>
+
+
+</blockquote>
+
+	<p>I'm sorry, I don't understand your request. Nor do I understand why the bug is "closed" when the bug appears to still be present (although of course I'm not using the exiv2 from trunk).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4926" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Apr 2016 09:17" href="/projects/exiv2/activity?from=2016-04-06">over 5 years</a> ago
+      <span id="journal-4926-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4926-notes" class="wiki"><p>I am not going to do anything about this.  I intend to walk off this project.  I have put a huge effort into Exiv2.  People like you never say "Please" or "Thank You".  I am totally pissed with the whole thing.  You do understand that I am an unpaid volunteer?  This is not a business, I don't earn a penny for the thousands of hours I put Exiv2.</p>
+
+
+	<p>I didn't write Exiv2. I don't care if this bug continues to exist of not.  I have had enough.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4927" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/168">Damon Lynch</a> <a title="06 Apr 2016 09:34" href="/projects/exiv2/activity?from=2016-04-06">over 5 years</a> ago
+      <span id="journal-4927-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4927-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>I am not going to do anything about this.  I intend to walk off this project.  I have put a huge effort into Exiv2.  People like you never say "Please" or "Thank You".  I am totally pissed with the whole thing.  You do understand that I am an unpaid volunteer?  This is not a business, I don't earn a penny for the thousands of hours I put Exiv2.</p>
+
+
+	<p>I didn't write Exiv2. I don't care if this bug continues to exist of not.  I have had enough.</p>
+
+
+</blockquote>
+
+	<p>I'm truly sorry that you feel this way. Thank you for your efforts through the years!</p>
+
+
+	<p>FWIW I maintain my own FOSS project which relies on exiv2. Without a tool like exiv2 my project could not exist. Likewise for me it is not a business and is something I do on a voluntary basis. I also have to deal with large numbers of bug reports and feature requests. I also need to file bugs with projects like exiv2 if there is any hope for them to be fixed. Sometimes the project acknowledges the bug (like in this case) or sometimes the bug report is completely ignored and consequently the bug can linger for years.</p>
+
+
+	<p>As an application developer, in the eyes of all but the most sophisticated users, my project bears the blame for all bugs even though the actual bug might be in a library that my applications calls.</p>
+
+
+	<p>Users almost never contribute code, nor do I expect them to.</p>
+
+
+	<p>Such is life when working with FOSS code. The joy of coding comes with the pain of hard work.</p>
+
+
+	<p>Again, thank you for your contributions Robin! Good luck to you, whatever you choose to do next.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4928" class="journal has-notes has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Apr 2016 09:53" href="/projects/exiv2/activity?from=2016-04-06">over 5 years</a> ago
+      <span id="journal-4928-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Closed</i> to <i>New</i></li>
+       <li><strong>Assignee</strong> deleted (<del><i>Robin Mills</i></del>)</li>
+    </ul>
+    <div id="journal-4928-notes" class="wiki"><p>Thanks.  I'm having a very bad day for reasons that have nothing to do with software.  I've had enough.  If Exiv2 dies, so be it.  Good Luck with your project.</p>
+
+
+	<p>I will reopen this bug report.  Maybe somebody will service this issue.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4929" class="journal has-notes has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Apr 2016 05:33" href="/projects/exiv2/activity?from=2016-04-09">over 5 years</a> ago
+      <span id="journal-4929-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>1.0</i></li>
+    </ul>
+    <div id="journal-4929-notes" class="wiki"><p>Damon</p>
+
+
+	<p>I've found the file RAW_CANON_EOS_1DX.CR2 on <a class="external" href="http://www.rawsamples.ch">www.rawsamples.ch</a> and you are correct, the issue seems to be there on the trunk:<pre>625 rmills@rmillsmbp:~/Downloads $ exiftool -all RAW_CANON_EOS_1DX.CR2  | grep -i number
+ExifTool Version Number         : 10.13
+F Number                        : 5.6
+Shot Number In Continuous Burst : 0
+Flash Guide Number              : 0
+Bracket Shot Number             : 0
+Internal Serial Number          : X037087
+Serial Number                   : 062011000450
+Lens Serial Number              : 0000000000
+File Number                     : 100-0035
+626 rmills@rmillsmbp:~/Downloads $ exiv2 -pa --grep number/i RAW_CANON_EOS_1DX.CR2 
+Exif.Photo.FNumber                           Rational    1  F5.6
+Exif.CanonFi.FileNumber                      Long        1  (0)
+Exif.CanonFi.BracketShotNumber               SShort      1  0
+Exif.Canon.InternalSerialNumber              Ascii      16  X037087
+Exif.Photo.BodySerialNumber                  Ascii      13  062011000450
+Exif.Photo.LensSerialNumber                  Ascii      11  0000000000
+627 rmills@rmillsmbp:~/Downloads $ </pre>I don't know how exiftool is able to recover 100-0035</p>
+
+
+	<p>We have an outstanding issue <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Better raw file support and test (Assigned)" href="/issues/992">#992</a> to work on raw image support.  The target for <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Better raw file support and test (Assigned)" href="/issues/992">#992</a> is v1.0.  A user once stated that "v1.0" means "it'll never get dealt with".  It does not mean that.  It means it is not scheduled for attention.  We have 35 issues in target v1.0 and most will take weeks or months.</p>
+
+
+	<p>I apologise for "blowing up" on Wednesday.  The trigger was neither you nor Exiv2.  On Wednesday afternoon, I received 3 emails saying "Thanks for working on Exiv2".  What a pleasant and motivating surprise.  I suspect you triggered that encouragement.  Thank You for doing that.</p>
+
+
+	<p>I have set the target for this issue to v1.0 and hope that one day Exiv2 will have an engineer available to work on that part of the code.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4930" class="journal has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Apr 2016 05:37" href="/projects/exiv2/activity?from=2016-04-09">over 5 years</a> ago
+      <span id="journal-4930-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>10</i></li>
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>10.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5769" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4846">Ari Exi</a> <a title="20 Nov 2016 22:09" href="/projects/exiv2/activity?from=2016-11-20">almost 5 years</a> ago
+      <span id="journal-5769-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5769-notes" class="wiki"><p>Issue also currently affects</p>
+
+
+	<p>Canon Rebel / T3<br />Exif.Canon.ImageType                         Ascii      16  Canon EOS 1100D<br />Exif.Canon.ModelID                           Long        1  EOS Rebel T3 / 1100D</p>
+
+
+	<p>exiftool 20161008-155525-Rach-2997.JPG |grep File<br />File Number                     : 100-2997</p>
+
+
+	<p>exiv2 -pt 20161008-155525-Rach-2997.JPG |grep File<br />Exif.CanonFi.FileNumber                      Long        1  (0)</p>
+
+
+	<p>From exiftool,</p>
+
+
+....<br />#------------------------------------------------------------------------------
+	<ol>
+	<li>File:         CanonRaw.pm
+#</li>
+		<li>Description:  Read Canon RAW (CRW) meta information<br />....</li>
+	</ol>
+
+
+	<ol>
+	<li>Canon raw file tag table</li>
+		<li>Note: Tag ID's have upper 2 bits set to zero, since these 2 bits</li>
+		<li>just specify the location of the information<br />%Image::ExifTool::CanonRaw::Main = (<br />    GROUPS => { 0 => 'MakerNotes', 2 => 'Camera' },<br />    PROCESS_PROC => \&#38;ProcessCanonRaw,<br />    WRITE_PROC => \&#38;WriteCanonRaw,<br />    CHECK_PROC => \&#38;CheckCanonRaw,<br />    WRITABLE => 1,<br />    0x0000 => { Name => 'NullRecord', Writable => 'undef' }, #3<br />    0x0001 => { #3<br />        Name => 'FreeBytes',<br />        Format => 'undef',<br />        Binary => 1,<br />    },<br />    0x0032 => { Name => 'CanonColorInfo1', Writable => 0 },	<p>0x1817 => {<br />        Name => 'FileNumber',<br />        Writable => 'int32u',<br />        Groups => { 2 => 'Image' },<br />        PrintConv => '$_=$val;s/(\d+)(\d{4})/$1-$2/;$_',<br />        PrintConvInv => '$_=$val;s/-//;$_',<br />    },</p></li>
+	</ol></div>
+    </div>
+  </div>
+  
+  <div id="change-5770" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Nov 2016 00:33" href="/projects/exiv2/activity?from=2016-11-21">almost 5 years</a> ago
+      <span id="journal-5770-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5770-notes" class="wiki"><p>Thank You, Ari for the update.  Can you attach your test file, please?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5771" class="journal has-notes has-details">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4846">Ari Exi</a> <a title="21 Nov 2016 07:03" href="/projects/exiv2/activity?from=2016-11-21">almost 5 years</a> ago
+      <span id="journal-5771-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1110">20161009-100-3999.JPG</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1110/20161009-100-3999.JPG">20161009-100-3999.JPG</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/1111">20161016-1128.CR2</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1111/20161016-1128.CR2">20161016-1128.CR2</a> added</li>
+    </ul>
+    <div id="journal-5771-notes" class="wiki"><p>I attach two files for comparison, from two different Canons, one JPG from a Canon Rebel T3 (EOS1100D) (recent) JPG, and a CR2 from an S100 (3-4 years old).</p>
+
+
+	<p>I realized that it was the JPG giving probems.</p>
+
+
+	<p>The JPG has an exif tag: "Exif.CanonFi.FileNumber" that gives problems with Exiv2 but works OK with exiftool:</p>
+
+
+	<p>exiftool 20161009-100-3999.JPG |grep "File Num" <br />File Number                     : 100-3999</p>
+
+
+	<p>exiv2 20161009-100-3999.JPG -pt |grep File<br />Exif.CanonFi.FileNumber                      Long        1  (0)</p>
+
+
+	<p>All images from this camera give the same "0" File Number value with Exiv2 (and are OK for exiftool)<br />Note the "Fi" in the tag name.</p>
+
+
+	<p>Here's the same issue reported for images from Canon 400D, A85: <a class="external" href="https://bugs.launchpad.net/rapid/+bug/754531">https://bugs.launchpad.net/rapid/+bug/754531</a><br />I can also see the problem here from a digikam error report, Canon 50D image: <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=257904">https://bugs.kde.org/show_bug.cgi?id=257904</a></p>
+
+
+	<p>In contrast the CR2 from the S100 works in both Exiv2 and exiftool:</p>
+
+
+	<p>exiftool 20161016-1128.CR2 |grep "File Num" <br />File Number                     : 103-1128</p>
+
+
+	<p>exiv2 -pt 20161016-1128.CR2 |grep FileN<br />Exif.Canon.FileNumber                        Long        1  103-1128</p>
+
+
+	<p>So the non-"Fi" tag works well, but the "Fi" one doesn't.</p>
+
+
+	<p>Looking again at exiftool code, this time at "canon.pm", I see model-dependent code to handle file-number.</p>
+
+
+	<p>.................</p>
+
+
+	<p>#------------------------------------------------------------------------------</p>
+
+
+	<p>this seems to be the "CanonFi" part in canon.pm</p>
+
+
+	<p>....<br />    0x93 => {<br />        Name => 'CanonFileInfo', # (ShootInfoEx)<br />        SubDirectory => {<br />            Validate => 'Image::ExifTool::Canon::Validate($dirData,$subdirStart,$size)',<br />            TagTable => 'Image::ExifTool::Canon::FileInfo',<br />        },<br />......</p>
+
+
+	<ol>
+	<li>File number information (MakerNotes tag 0x93)<br />%Image::ExifTool::Canon::FileInfo = (<br />    %binaryDataAttrs,<br />    FORMAT => 'int16s',<br />    FIRST_ENTRY => 1,<br />    GROUPS => { 0 => 'MakerNotes', 2 => 'Image' },<br />    DATAMEMBER => [ 20 ],<br />    1 => [
+        { #5<br />            Name => 'FileNumber',<br />            Condition => '$$self{Model} =~ /\b(20D|350D|REBEL XT|Kiss Digital N)\b/',<br />            Format => 'int32u',
+            # Thanks to Juha Eskelinen for figuring this out:
+            # [this is an odd bit mapping -- it looks like the file number exists as
+            # a 16-bit integer containing the high bits, followed by an 8-bit integer
+            # with the low bits.  But it is more convenient to have this in a single
+            # word, so some bit manipulations are necessary... - PH]
+            # The bit pattern of the 32-bit word is:
+            #   31....24 23....16 15.....8 7......0
+            #   00000000 ffffffff DDDDDDDD ddFFFFFF
+            #     0 = zero bits (not part of the file number?)
+            #     f/F = low/high bits of file number
+            #     d/D = low/high bits of directory number
+            # The directory and file number are then converted into decimal
+            # and separated by a '-' to give the file number used in the 20D<br />            ValueConv => '(($val&#38;0xffc0)>>6)*10000+(($val>>16)&#38;0xff)+(($val&#38;0x3f)<&lt;8)',<br />            ValueConvInv => q{<br />                my $d = int($val/10000);<br />                my $f = $val - $d * 10000;<br />                return (($d<&lt;6) &#38; 0xffc0) + (($f &#38; 0xff)<&lt;16) + (($f&gt;>8) &#38; 0x3f);<br />            },<br />            PrintConv => '$_=$val,s/(\d+)(\d{4})/$1-$2/,$_',<br />            PrintConvInv => '$val=~s/-//g;$val',<br />        },
+        { #16<br />            Name => 'FileNumber',<br />            Condition => '$$self{Model} =~ /\b(30D|400D|REBEL XTi|Kiss Digital X|K236)\b/',<br />            Format => 'int32u',<br />            Notes => q{<br />                the location of the upper 4 bits of the directory number is a mystery for<br />                the EOS 30D, so the reported directory number will be incorrect for original<br />                images with a directory number of 164 or greater<br />            },
+            # Thanks to Emil Sit for figuring this out:
+            # [more insane bit maniplations like the 20D/350D above, but this time we
+            # appear to have lost the upper 4 bits of the directory number (this was
+            # verified through tests with directory numbers 100, 222, 801 and 999) - PH]
+            # The bit pattern for the 30D is: (see 20D notes above for more information)
+            #   31....24 23....16 15.....8 7......0
+            #   00000000 ffff0000 ddddddFF FFFFFFFF
+            # [NOTE: the 4 high order directory bits don't appear in this record, but
+            # I have chosen to write them into bits 16-19 since these 4 zero bits look
+            # very suspicious, and are a convenient place to store this information - PH]<br />            ValueConv  => q{<br />                my $d = ($val &#38; 0xffc00) >> 10;
+                # we know there are missing bits if directory number is < 100<br />                $d <ins>= 0x40 while $d < 100;  # (repair the damage as best we can)<br />                return $d*10000 + (($val&#38;0x3ff)<&lt;4) + (($val&gt;>20)&#38;0x0f);<br />            },<br />            ValueConvInv => q{<br />                my $d = int($val/10000);<br />                my $f = $val - $d * 10000;<br />                return ($d << 10) + (($f>>4)&#38;0x3ff) + (($f&#38;0x0f)<&lt;20);<br />            },<br />            PrintConv => '$_=$val,s/(\d</ins>)(\d{4})/$1-$2/,$_',<br />            PrintConvInv => '$val=~s/-//g;$val',<br />        },</li>
+	</ol></div>
+    </div>
+  </div>
+  
+  <div id="change-5772" class="journal has-notes has-details">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Nov 2016 08:30" href="/projects/exiv2/activity?from=2016-11-21">almost 5 years</a> ago
+      <span id="journal-5772-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>1.0</i> to <i>0.28</i></li>
+    </ul>
+    <div id="journal-5772-notes" class="wiki"><p>Thanks very much for the test files.  I confirm your findings:<pre>$ exiv2 -pa --grep file/i http://dev.exiv2.org/attachments/download/1110/20161009-100-3999.JPG
+Exif.CanonFi.FileNumber                      Long        1  (0)
+$ exiv2 -pa --grep file/i http://dev.exiv2.org/attachments/download/1111/20161016-1128.CR2
+Exif.Canon.FileNumber                        Long        1  103-1128
+Exif.Photo.FileSource                        Undefined   1  Digital still camera
+$ </pre>Congratulations on reading the exiftool's hiroglyphic perl.</p>
+
+
+	<p>The CR2 and JPG seem to have a different makernote: <pre>$ exiv2 -pa --grep makernote/i --binary http://dev.exiv2.org/attachments/download/1111/20161016-1128.CR2 &gt; cr2.bin
+$ exiv2 -pa --grep makernote/i --binary http://dev.exiv2.org/attachments/download/1110/20161009-100-3999.JPG &gt; jpg.bin 
+$ ls -alt *.bin
+-rw-r--r--+ 1 rmills staff 16054 Nov 21 08:12 jpg.bin
+-rw-r--r--+ 1 rmills staff 19812 Nov 21 08:12 cr2.bin
+$ </pre>This issue has been in the code for a long time.  Exiv2 is currently at "Release Candidate 1" for v0.26.  I've assigned this for attention in Exiv2 v0.27 which I hope will get underway early in 2017.  The project has had the good fortune to recruit 4 new engineers and I hope that at least one will become an expert in the code to encode/decode MakerNote.</p>
+
+
+	<p>I also hope that in Exiv2 v0.27 the team will be able to extend our image test coverage.  For example, I've downloaded all the RAW images from <a class="external" href="https://www.rawsamples.ch/index.php/en/">https://www.rawsamples.ch/index.php/en/</a> and all of exiftool's test files (7000 of them).  My thoughts are to extend the buildserver test code to monitor/compare exiftool and Exiv2 output on our daily build.</p>
+
+
+	<p>Thank you for updating this issue and providing additional test files.  I hope this will be fixed in v0.27.  Additionally I hope to extend our image test coverage in during the v0.27 project.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/770.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/770.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

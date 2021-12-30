@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #776: Some tests depend on system settings (locale, path, etc) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="3Aoe5LssbcohiFfPC0fbzIx9CMUy1GgRI/xrEjrmkwY+R7ULyVahynTsSMO0kNf/s+9cvMM3yave3Puaed90aQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #776: Some tests depend on system settings (locale, path, etc)" href="https://dev.exiv2.org/issues/776.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #776</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Some tests depend on system settings (locale, path, etc)</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="18 Jun 2011 08:47" href="/projects/exiv2/activity?from=2011-06-18">over 10 years</a> ago.
+        Updated <a title="18 Sep 2011 05:27" href="/projects/exiv2/activity?from=2011-09-18">about 10 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">testing</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="18 Sep 2011" href="/versions/47">0.22</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">18 Jun 2011</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>The following test drivers fail if another system locale is set:</p>
+
+
+	<ul>
+	<li>bugfixes-test.sh</li>
+		<li>conversions.sh</li>
+		<li>exiv2-test.sh</li>
+		<li>modify-test.sh</li>
+		<li>xmpparser-test.sh</li>
+	</ul>
+
+
+	<p>This is because the messages are translated, and because the ordering of files is changed due to a different collation.</p>
+
+
+	<p>In addition, the following error occurs:</p>
+
+
+<pre>
+Running exiv2-test.sh ...
+Files ./tmp/exiv2-test.out and ./data/exiv2-test.out differ
+5,6c5,6
+&lt; /home/.../exiv2-trunk/src/exiv2
+&lt; exiv2 0.21.1 (32 bit build)
+---
+&gt; /usr/local/bin/exiv2
+&gt; exiv2 0.21.1
+</pre>
+
+	<p>It seems that the exiv2-test.sh driver expects the exiv2 binary not to be used from the source tree, and expects the system not to be 32-bit.</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2481" href="/projects/exiv2/repository/exiv2/revisions/2481">Revision 2481</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2481/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="18 Jun 2011 08:49" href="/projects/exiv2/activity?from=2011-06-18">over 10 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Some tests depend on system settings (locale, path, etc) (Closed)" href="/issues/776">#776</a>: ensure that the test drivers are not confused by the locale settings</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2495" href="/projects/exiv2/repository/exiv2/revisions/2495">Revision 2495</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2495/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="20 Jun 2011 06:35" href="/projects/exiv2/activity?from=2011-06-20">over 10 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Some tests depend on system settings (locale, path, etc) (Closed)" href="/issues/776">#776</a>: Adjust the exiv2-test.sh driver to respect the " (__ bit build)" suffix of the first line of "exiv2 -V"</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2506" href="/projects/exiv2/repository/exiv2/revisions/2506">Revision 2506</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2506/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="23 Jun 2011 04:12" href="/projects/exiv2/activity?from=2011-06-23">over 10 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Some tests depend on system settings (locale, path, etc) (Closed)" href="/issues/776">#776</a>: Unified the mechanism by which the test drivers look for binaries (exiv2, samples, etc.), added support for EXIV2_BINDIR, removed the call to "which exiv2"</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1910" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="18 Jun 2011 08:52" href="/projects/exiv2/activity?from=2011-06-18">over 10 years</a> ago
+      <span id="journal-1910-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1910-notes" class="wiki"><p>I just fixed the locale issue (<a class="changeset" title="#776: ensure that the test drivers are not confused by the locale settings" href="/projects/exiv2/repository/exiv2/revisions/2481">r2481</a>), but I'm not sure how to fix the remaining issue with the exiv2-test.sh driver.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1914" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="20 Jun 2011 06:51" href="/projects/exiv2/activity?from=2011-06-20">over 10 years</a> ago
+      <span id="journal-1914-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <i>use_always_local_exiv2_binary_in_tests.patch</i> added</li>
+    </ul>
+    <div id="journal-1914-notes" class="wiki"><p>Okay, so I also fixed the "(32/64 bit build)" issue via sed. (<a class="changeset" title="#776: Adjust the exiv2-test.sh driver to respect the &quot; (__ bit build)&quot; suffix of the first line o..." href="/projects/exiv2/repository/exiv2/revisions/2495">r2495</a>)</p>
+
+
+	<p>The remaining issue is the "/usr/local/bin/exiv2" stuff. I think there is a deeper issue here. Some test drivers are using the local exiv2 binary ("../../src/exiv2"), while other drivers are using the system-wide installed exiv2 binary ("which exiv2").</p>
+
+
+	<p>I'm not sure which of those is the intended way, but I personally think that it is inconventient to always have to run "make install" before running the test suite. So I propose to use always the local exiv2 binary. If we do that, there is no need to call "which exiv2" anymore, which solves the "/usr/local/bin/exiv2" issue. See the attached patch. Should I commit it?</p>
+
+
+	<p>As a side issue: This wouldn't fix the whole issue, as some tests depend on binaries in ../samples which need "make install" before they can be built. This is because their Makefile uses pkg-config. So maybe we should fix that, too?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1915" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 Jun 2011 09:23" href="/projects/exiv2/activity?from=2011-06-20">over 10 years</a> ago
+      <span id="journal-1915-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1915-notes" class="wiki"><p>This is a bit a hairy issue.</p>
+
+
+	<ul>
+	<li>The library must be installed to build the samples. This means the samples are like an external project and serves as a test to ensure that the installed library and headers can actually be used to build binaries. I think this is an important test and it shouldn't be dropped.</li>
+		<li>When compiling with MSVC on Windows, all binaries end up in some other directory (msvc\bin\&lt;release&gt;\) and the test scripts can't be used as they are currently even though with MinGW for example, they would actually run.</li>
+	</ul>
+
+
+	<p>So ideally it should be able to easily switch the location where exiv2 and test drivers are expected. The default location should remain the exiv2 install path and samples/ and it should be possible to use a different location (like msvc\bin\&lt;release&gt;\) for all.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1916" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="20 Jun 2011 15:16" href="/projects/exiv2/activity?from=2011-06-20">over 10 years</a> ago
+      <span id="journal-1916-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1916-notes" class="wiki"><p>I'm not sure if I understand you correctly here.</p>
+
+
+	<p>Under Windows, the test suite can only run when MinGW/MSYS is installed. However, if Exiv2 is built with MinGW/MSYS, the exiv2.exe would be created in src/exiv2.exe, not in msvc/bin/&lt;release&gt;/. Also, the samples couldn't be built at all, unless MSYS provides enough support for "make install" and pkg-config. In every case, the test suite would either run without change, or would not run at all.</p>
+
+
+	<p>Also note that giving a correct path to exiv2 binary and samples is tricky, because those have to be relative to test/tmp/, i.e. not relative to test/. However, this can be solved by requesting absolute paths. And this issue already exists with VALGRIND, too, so it is probably a non-issue.</p>
+
+
+	<p>Nevertheless, it should be possible to introduce some variable like EXIV2_BINDIR that could be set to /absolute/path/to/exiv2/msvc/bin/&lt;release&gt;/ or similar. If it is set, exiv2 and samples are taken from there. Otherwise, they are taken from src/ and samples/. Is that the solution you were thinking of?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1918" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 Jun 2011 17:31" href="/projects/exiv2/activity?from=2011-06-20">over 10 years</a> ago
+      <span id="journal-1918-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1918-notes" class="wiki"><blockquote>
+
+	<p>I'm not sure if I understand you correctly here</p>
+
+
+</blockquote>
+
+	<p>Agreed, compiling and testing with MinGW/MSYS works like on Linux, i.e., the test scripts can (generally) be used.</p>
+
+
+	<p>However, when compiling with MSVC, the test scripts cannot be used. Of course the scripts won't run at all without MinGW/MSYS but besides that they expect the compiled binaries in the wrong locations. If MinGW/MSYS is available it is possible, e.g., to copy the MSVC-compiled binaries into the folders expected by the test scripts and then run them.</p>
+
+
+<blockquote>
+
+	<p>Nevertheless, it should be possible to introduce some variable like EXIV2_BINDIR that could be set to /absolute/path/to/exiv2/msvc/bin/&lt;release&gt;/ or similar. If it is set, exiv2 and samples are taken from there. Otherwise, they are taken from src/ and samples/. Is that the solution you were thinking of?</p>
+
+
+</blockquote>
+
+	<p>Yes, that sounds like a possible solution.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1920" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="23 Jun 2011 04:26" href="/projects/exiv2/activity?from=2011-06-23">over 10 years</a> ago
+      <span id="journal-1920-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Feedback</i></li>
+    </ul>
+    <div id="journal-1920-notes" class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote><blockquote>
+
+	<p>Nevertheless, it should be possible to introduce some variable like EXIV2_BINDIR that could be set to /absolute/path/to/exiv2/msvc/bin/&lt;release&gt;/ or similar. If it is set, exiv2 and samples are taken from there. Otherwise, they are taken from src/ and samples/. Is that the solution you were thinking of?</p>
+
+
+</blockquote>
+
+	<p>Yes, that sounds like a possible solution.</p>
+
+
+</blockquote>
+
+	<p>Okay, so I implemented this. I had to touch all test drivers for that purpose. I removed some variables such as "$binpath" which had different meanings in various test drivers.</p>
+
+
+	<p>Please review. (<a class="changeset" title="#776: Unified the mechanism by which the test drivers look for binaries (exiv2, samples, etc.), a..." href="/projects/exiv2/repository/exiv2/revisions/2506">r2506</a>)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1921" class="journal has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="23 Jun 2011 04:26" href="/projects/exiv2/activity?from=2011-06-23">over 10 years</a> ago
+      <span id="journal-1921-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> deleted (<del><i>use_always_local_exiv2_binary_in_tests.patch</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1922" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="24 Jun 2011 00:01" href="/projects/exiv2/activity?from=2011-06-24">over 10 years</a> ago
+      <span id="journal-1922-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1922-notes" class="wiki"><p>One more notice:</p>
+
+
+	<p>EXIV2_BINDIR is not required to be an absolute path. It may also be a relative path, in which it is meant to be relative to the test/tmp/ directory, such as: ../../msvc/bin/&lt;release&gt;/</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1984" class="journal has-notes has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="29 Aug 2011 04:46" href="/projects/exiv2/activity?from=2011-08-29">about 10 years</a> ago
+      <span id="journal-1984-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Feedback</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-1984-notes" class="wiki"><p>I just confirmed that the test suite runs well under Debian and Mac OS X.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1985" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="29 Aug 2011 04:47" href="/projects/exiv2/activity?from=2011-08-29">about 10 years</a> ago
+      <span id="journal-1985-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2005" class="journal has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="18 Sep 2011 05:27" href="/projects/exiv2/activity?from=2011-09-18">about 10 years</a> ago
+      <span id="journal-2005-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/776.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/776.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

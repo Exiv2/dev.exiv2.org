@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #1039: Wrong ApertureValue written - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="UwdGuQco44BSgp+TH1oupjA28V71w4zeSKrDrNwEygexSu1WdVIvgAfmgJ+gjSKVD6SlJwQgLWS1ilMknz0taA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #1039: Wrong ApertureValue written" href="https://dev.exiv2.org/issues/1039.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #1039</h2>
+
+<div class="issue tracker-2 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Wrong ApertureValue written</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4373">Torsten Flammiger</a> <a title="09 Mar 2015 20:40" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago.
+        Updated <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">samples</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">09 Mar 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hello</p>
+
+
+	<p>I expect that programs like exiftool or Irfanview show the correct values after I tagged them<br />with exiv2 library. For instance, I tag a jpg file with f/5.6 like so:</p>
+
+
+	<p>// works, shows F5.6<br />exifData["Exif.Image.FNumber"] = Exiv2::Rational(56, 10);</p>
+
+
+	<p>// but this does not work: shows F6.7 (rounded, the real value is 6.96)<br />// applies also to MaxApertureValue<br />exifData["Exif.Image.ApertureValue"] = Exiv2::Rational(56, 10);<br />exifData["Exif.Image.MaxApertureValue"] = Exiv2::Rational(56, 10);</p>
+
+
+	<p>Is there a special reason for this behavior? The value is multiplied by a half stop I think.<br />I'm on x64 Windows 8.1 and compiled both the library version 0.24 and my Shell extension with VS2012 as 64bit binary.</p>
+
+
+	<p>Torsten</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3621" href="/projects/exiv2/repository/exiv2/revisions/3621">Revision 3621</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3621/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Mar 2015 10:55" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Wrong ApertureValue written (Closed)" href="/issues/1039">#1039</a>.  Thank You, Torsten for raising this matter.  Thank You, Phil for your help with this.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3622" href="/projects/exiv2/repository/exiv2/revisions/3622">Revision 3622</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3622/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Mar 2015 16:03" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Wrong ApertureValue written (Closed)" href="/issues/1039">#1039</a> Fixed typos in <a class="changeset" title="#1039.  Thank You, Torsten for raising this matter.  Thank You, Phil for your help with this." href="/projects/exiv2/repository/exiv2/revisions/3621">r3621</a></p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3623" href="/projects/exiv2/repository/exiv2/revisions/3623">Revision 3623</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3623/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Mar 2015 16:13" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Wrong ApertureValue written (Closed)" href="/issues/1039">#1039</a> Fixed another typo in <a class="changeset" title="#1039.  Thank You, Torsten for raising this matter.  Thank You, Phil for your help with this." href="/projects/exiv2/repository/exiv2/revisions/3621">r3621</a></p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3187" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Mar 2015 21:08" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago
+      <span id="journal-3187-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>metadata</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-3187-notes" class="wiki"><p>Torsten</p>
+
+
+	<p>Three things come instantly to mind about this:</p>
+
+
+	<ol>
+	<li>I had a discussion about Rational values with Mikayel last week.  <a class="external" href="http://dev.exiv2.org/boards/3/topics/1898">http://dev.exiv2.org/boards/3/topics/1898</a></li>
+		<li>You'll see that I offered Exiv2::floatToRationalCast(float); for setting a rational value</li>
+		<li>Are you sure this isn't a presentation matter and the string '6.7' is a mis-representation of the stored data.</li>
+	</ol>
+
+
+	<p>To illustrate this, I've listed the FNumber in an image using the v (value) and t (translated) value:<pre>506 rmills@rmillsmbp:~ $ exiv2 -pv -g FNumber ~/R.jpg
+0x829d Photo        FNumber                     Rational    1  35/10
+507 rmills@rmillsmbp:~ $ exiv2 -pt -g FNumber ~/R.jpg
+Exif.Photo.FNumber                           Rational    1  F3.5
+508 rmills@rmillsmbp:~ $</pre>And to illustrate the point, I've tried to set the FNumber to 6.96<pre>515 rmills@rmillsmbp:~ $ exiv2 -M"set Exif.Photo.FNumber 696/100" ~/R.jpg
+516 rmills@rmillsmbp:~ $ exiv2 -pv -g FNumber ~/R.jpg
+0x829d Photo        FNumber                     Rational    1  696/100
+517 rmills@rmillsmbp:~ $ exiv2 -pt -g FNumber ~/R.jpg
+Exif.Photo.FNumber                           Rational    1  F7</pre>I looks to me as though it's being format as printf's "%f.1" (floating point with one decimal place).</p>
+
+
+	<p>If I try to set 694 (694/100), the "translated" value is 6.9<pre>526 rmills@rmillsmbp:~ $ exiv2 -M"set Exif.Photo.FNumber Rational 694/100" ~/R.jpg
+527 rmills@rmillsmbp:~ $ exiv2 -pv -g FNumber ~/R.jpg
+0x829d Photo        FNumber                     Rational    1  694/100
+528 rmills@rmillsmbp:~ $ exiv2 -pt -g FNumber ~/R.jpg
+Exif.Photo.FNumber                           Rational    1  F6.9
+529 rmills@rmillsmbp:~ $ </pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3188" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4373">Torsten Flammiger</a> <a title="09 Mar 2015 21:30" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago
+      <span id="journal-3188-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3188-notes" class="wiki"><p>Hmm, I played a little bit with the exif2 executable v0.24 I just downloaded to avoid errors I might have done myself in handling the library. And all I can say is that the values for ApertureValue and MaxApertureValue I write into the file with exiv2.exe are not the same I read from the jpeg file. However, the value stays the same if I use FNumber.</p>
+
+
+exiv2 -M"set Exif.Image.FNumber 28/10" 20150309-DSC04368.jpg<br />exiv2 -pt -g FNumber 20150309-DSC04368.jpg
+	<ol>
+	<li>Exif.Image.FNumber  SRational  1  F2.8</li>
+	</ol>
+
+
+	<p>but:</p>
+
+
+	<p>exiv2 -M"set Exif.Image.MaxApertureValue 28/10" 20150309-DSC04368.jpg<br />exiv2 -pt -g MaxApertureValue 20150309-DSC04368.jpg<br />Exif.Image.MaxApertureValue  SRational  1  F2.6</p>
+
+
+	<p>I can't imagine that this has something to do with rounding errors through printf's "%f.1"</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3189" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Mar 2015 21:43" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago
+      <span id="journal-3189-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3189-notes" class="wiki"><p>You're right.  Gosh, that can't be presentation. (BTW, we don't use printf).<pre>535 rmills@rmillsmbp:~ $ exiv2 -M"set Exif.Image.MaxApertureValue 28/10" -M"set Exif.Image.FNumber 28/10" ~/R.jpg
+536 rmills@rmillsmbp:~ $ exiv2 -pt -g Image.MaxApertureValue -g Image.FNumber ~/R.jpg
+Exif.Image.FNumber                           Rational    1  F2.8
+Exif.Image.MaxApertureValue                  Rational    1  F2.6
+537 rmills@rmillsmbp:~ $ exiv2 -pv -g Image.MaxApertureValue -g Image.FNumber ~/R.jpg
+0x829d Image        FNumber                     Rational    1  28/10
+0x9205 Image        MaxApertureValue            Rational    1  28/10
+538 rmills@rmillsmbp:~ $ </pre></p>
+
+
+	<p>One of us will have to walk the code in Visual Studio's debugger and find out what's cooking here.  <em>Can I ask you</em> to do that and save me a task?</p>
+
+
+	<p>I'm going to add Niels to the watcher's list for this issue.  Niels is our makernote engineer and might know about this.   Niels is a busy school teacher, so don't expect him to jump on this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3190" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4373">Torsten Flammiger</a> <a title="09 Mar 2015 22:00" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago
+      <span id="journal-3190-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3190-notes" class="wiki"><p>Unfortunately I am unable to build the exe by myself. There is a problem with zlib in my build<br />and the executable relies on zlib to support png files (if I understand that correctly).<br />I will try to fix this later, but not today. It's too late now in Germany ;)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3191" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Mar 2015 22:20" href="/projects/exiv2/activity?from=2015-03-09">over 6 years</a> ago
+      <span id="journal-3191-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3191-notes" class="wiki"><p>Well it's getting late in England and I've been working for about 12 hours on Exiv2 and another open-source project.  I'll debug this tomorrow.</p>
+
+
+	<p>I've started with an image with no-meta data.<pre>543 rmills@rmillsmbp:~ $ exiv2 -pa ~/X.jpg
+/Users/rmills/X.jpg: (No XMP data found in the file
+48 rmills@rmillsmbp:~ $ exiv2 -M"set Exif.Image.MaxApertureValue 28/10" -M"set Exif.Image.FNumber 28/10" ~/X.jpg
+549 rmills@rmillsmbp:~ $ exiv2 -pv ~/X.jpg
+0x829d Image        FNumber                     Rational    1  28/10
+0x9205 Image        MaxApertureValue            Rational    1  28/10
+550 rmills@rmillsmbp:~ $ exiv2 -pt ~/X.jpg
+Exif.Image.FNumber                           Rational    1  F2.8
+Exif.Image.MaxApertureValue                  Rational    1  F2.6</pre>I only need to step through the last command to find out why the values presented by the -pt option are different.</p>
+
+
+	<p>If I don't get back to you in a couple of days, "ping me" as I might forget.  I had a new grandson born last week and lots of other stuff happening at the moment.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3192" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Mar 2015 10:21" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+      <span id="journal-3192-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3192-notes" class="wiki"><p>I've found the reason for MaxApertureValue being displayed as F2.6 for Rational 28/10.  The value 2.8 is filtered by this function in tags.cpp<pre>    float fnumber(float apertureValue)
+    {
+        return static_cast&lt;float&gt;(std::exp(std::log(2.0) * apertureValue / 2));
+    }</pre>which is called by the function to print that tag:<pre>    std::ostream&#38; print0x9202(std::ostream&#38; os, const Value&#38; value, const ExifData*)
+    {
+        std::ios::fmtflags f( os.flags() );
+        if (   value.count() == 0
+            || value.toRational().second == 0) {
+            return os &lt;&lt; "(" &lt;&lt; value &lt;&lt; ")";
+        }
+        std::ostringstream oss;
+        oss.copyfmt(os);
+        os &lt;&lt; "F" &lt;&lt; std::setprecision(2) &lt;&lt; fnumber(value.toFloat());
+        os.copyfmt(oss);
+        os.flags(f);
+        return os;
+    }</pre>Why do we do this?  I don't know because I'm not a photographer.  I've checked the Exif Specification and it doesn't say anything special about MaxApertureValue.  <a class="external" href="http://www.kodak.com/global/plugins/acrobat/en/service/digCam/exifStandard2.pdf">http://www.kodak.com/global/plugins/acrobat/en/service/digCam/exifStandard2.pdf</a></p>
+
+
+	<p>I've looked one of my photographs from my Nikon 5300:<pre>524 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pv -g MaxApertureValue ~/Pictures/2015/WinterTrip/Austin/DSC_5850.jpg 
+0x9205 Photo        MaxApertureValue            Rational    1  43/10
+525 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pt -g MaxApertureValue ~/Pictures/2015/WinterTrip/Austin/DSC_5850.jpg 
+Exif.Photo.MaxApertureValue                  Rational    1  F4.4
+526 rmills@rmillsmbp:~/gnu/exiv2/trunk $  </pre>You can see the value F4.4 when the data seems to indicate F4.3.</p>
+
+
+	<p>The function float fnumber(float apertureValue) is called in 3 files: cannon.cpp, crwimage.cpp and tags.cpp.  So there must be a relationship between the stored data and the presentation value.</p>
+
+
+	<p>I'm going to add Phil and Andreas to the watchers of this issue as they may be able to explain this.  And I have two suggestions for you:</p>
+
+
+	<ol>
+	<li>Replicate this behaviour with ExifTool and ask on their Forum.</li>
+		<li>Start Googling and discover more about Aperture/FNumbers</li>
+	</ol>
+
+
+	<p>I'm not going to mark this "Resolved" at the moment, however I don't believe I can do anything else about this.</p>
+
+
+	<p>Here's a graph of the non-linear function:<br /><img src="http://clanmills.com/exiv2/fnumber.png" alt="" /></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3193" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Mar 2015 10:39" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+      <span id="journal-3193-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3193-notes" class="wiki"><p>Final thought about this.  I've run my image on ExifTool and exiv2.  The results are the same:<pre>533 rmills@rmillsmbp:~/clanmills $ ExifTool ~/Pictures/2015/WinterTrip/Austin/DSC_5850.jpg  | grep -i aperture
+Max Aperture Value              : 4.4
+AF Aperture                     : 4.6
+Max Aperture At Min Focal       : 3.6
+Max Aperture At Max Focal       : 6.3
+Effective Max Aperture          : 4.5
+Aperture                        : 4.5
+534 rmills@rmillsmbp:~/clanmills $ exiv2 -pt ~/Pictures/2015/WinterTrip/Austin/DSC_5850.jpg  | grep -i aperture
+Exif.Photo.MaxApertureValue                  Rational    1  F4.4
+Exif.NikonLd3.AFAperture                     Byte        1  F4.6
+Exif.NikonLd3.MaxApertureAtMinFocal          Byte        1  F3.6
+Exif.NikonLd3.MaxApertureAtMaxFocal          Byte        1  F6.3
+Exif.NikonLd3.EffectiveMaxAperture           Byte        1  F4.5
+535 rmills@rmillsmbp:~/clanmills $ $ exiv2 -pv ~/Pictures/2015/WinterTrip/Austin/DSC_5850.jpg  | grep -i aperture
+0x9205 Photo        MaxApertureValue            Rational    1  43/10
+0x0005 NikonLd3     AFAperture                  Byte        1  53
+0x0010 NikonLd3     MaxApertureAtMinFocal       Byte        1  44
+0x0011 NikonLd3     MaxApertureAtMaxFocal       Byte        1  64
+0x0013 NikonLd3     EffectiveMaxAperture        Byte        1  52
+536 rmills@rmillsmbp:~/clanmills $ </pre>So there is method in the madness!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3194" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="10 Mar 2015 11:03" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+      <span id="journal-3194-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3194-notes" class="wiki"><p>The "ApertureValue" tags are stored as APEX values but converted to F-stops for display.  There are two reasons for doing this:  1) F-stops are much more familiar than APEX values, and 2) This facilitates copying between aperture tags stored in different representations.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3195" class="journal has-notes has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Mar 2015 11:06" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+      <span id="journal-3195-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-3195-notes" class="wiki"><p>Thank You, Phil.  I knew you'd know!  Thank you for taking the time to explain this.</p>
+
+
+	<p>Torsten:<br />I'm going to mark this "Resolved".</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3196" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4373">Torsten Flammiger</a> <a title="10 Mar 2015 17:39" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+      <span id="journal-3196-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3196-notes" class="wiki"><p>Thanks very much for taking the time and look into it.<br />Although I was not very satisfied with your answers ;) you pointed me in the right direction.</p>
+
+
+	<p>So, instead of tossing the real FNumber into the EXIV2::Rational(x, y) to tag the<br />image with ApertureValue and MaxApertureValue I now do something like this:</p>
+
+
+<pre>
+...
+double d = std::floor( ((std::log(F-STOP-VALUE) / std::log(2)) * 2) + 0.5);
+int numerator = static_cast&lt;int&gt;(d) * 10;
+exifData["Exif.Image.ApertureValue"] = Exiv2::Rational(numerator, 10);
+...
+</pre>
+
+	<p>That way all works flawlessly (well, I ignore those little rounding errors...)<br />I tested this against exiv2 (yes, build now with the executable), exiftool and Irfanview.</p>
+
+
+	<p>Torsten</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3197" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="10 Mar 2015 17:58" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+      <span id="journal-3197-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3197-notes" class="wiki"><p>I wouldn't be satisfied either if I had to do the APEX conversion manually.  One might think that Exiv2 should do this automatically (to make reading and writing symmetrical).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3198" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Mar 2015 19:05" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+      <span id="journal-3198-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3198-notes" class="wiki"><p>I'm not sure how to turn your dissatisfaction into action to make you happy!</p>
+
+
+	<p>If I were to modify exiv2 to parse Ffloat -> Rational(numerator,10) using your function, would that help?<pre>622 rmills@rmillsmbp:/Applications $ exiv2 -pa -g Photo.MaxApertureValue ~/R.jpg
+Exif.Photo.MaxApertureValue                  Rational    1  F3.5
+623 rmills@rmillsmbp:/Applications $ exiv2 -M"set Exif.Photo.MaxApertureValue F4.3" ~/R.jpg
+Warning: Exif.Photo.MaxApertureValue: Failed to read Rational value "F4.3" 
+624 rmills@rmillsmbp:/Applications $ exiv2 -pa -g Photo.MaxApertureValue ~/R.jpg
+Exif.Photo.MaxApertureValue                  Rational    1  F3.5
+625 rmills@rmillsmbp:/Applications $</pre>This is intended for keys such as MaxApertureValue, however it'll work on any key that accepts Rational.</p>
+
+
+	<p>Is that the fix that you would like to see implemented?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3199" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4373">Torsten Flammiger</a> <a title="10 Mar 2015 19:21" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+      <span id="journal-3199-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3199-notes" class="wiki"><p>Hmm, I am absolutely happy with my solution ;-) So there is no need to fix something I<br />was probably the only one who has a problem with. I shared my <em>solution</em> so it migth be<br />helpful for somebody else.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3200" class="journal has-notes has-details">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Mar 2015 23:27" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+      <span id="journal-3200-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Assigned</i></li>
+    </ul>
+    <div id="journal-3200-notes" class="wiki"><p>I'm pleased that you're happy with your solution.  And thank you for sharing for others to learn from your knowledge.</p>
+
+
+	<p>I used your code to modify the Rational parser in types.cpp.  The code <em>if ( is.peek ) ... } else</em> is new and parses the token Fnumber<pre>    std::istream&#38; operator&gt;&gt;(std::istream&#38; is, URational&#38; r)
+    {
+        uint32_t nominator;
+        uint32_t denominator;
+        // http://dev.exiv2.org/boards/3/topics/1912?r=1915
+        if ( is.peek() == 'F' ) {
+            char   F;
+            double f;
+            double d = 1000;
+            is &gt;&gt; F &gt;&gt; f ;
+            double    n = std::floor( 0.5 + d * 2.0 * std::log(f) / std::log(2.0) );
+            nominator   = static_cast&lt;int&gt;(n) ;
+            denominator = static_cast&lt;int&gt;(d);
+        //  std::cout &lt;&lt; "f = " &lt;&lt; f &lt;&lt; " n = " &lt;&lt; n &lt;&lt; " =&gt; " &lt;&lt; nominator &lt;&lt; "/" &lt;&lt; denominator &lt;&lt; std::endl;
+        } else { 
+            char c('\0');
+            is &gt;&gt; nominator &gt;&gt; c &gt;&gt; denominator;
+            if (c != '/') is.setstate(std::ios::failbit);
+        }
+        if ( is ) r = std::make_pair(nominator, denominator);
+        return is;
+    }</pre></p>
+
+
+	<p>I've chosen to use the denominator of 1000 instead of your 10 as it seems to convince exiv2 to report the same Fx.y in the function number(float).  I think we need to add an + 0.05 to that function to get input == output.  I'll look at that tomorrow.  Here's some output.<pre>exiv2 "-Mset Exif.Photo.MaxApertureValue F22" y:\X.jpg &#38;&#38; ^
+exiv2 -pv -g Photo.MaxApertureValue           y:\X.jpg &#38;&#38; ^
+exiv2 -pa -g Photo.MaxApertureValue           y:\X.jpg
+0x9205 Photo        MaxApertureValue            Rational    1  8919/1000
+Exif.Photo.MaxApertureValue                  Rational    1  F22
+
+exiv2 "-Mset Exif.Photo.MaxApertureValue F4.3" y:\X.jpg &#38;&#38; ^
+exiv2 -pv -g Photo.MaxApertureValue            y:\X.jpg &#38;&#38; ^
+exiv2 -pa -g Photo.MaxApertureValue            y:\X.jpg
+0x9205 Photo        MaxApertureValue            Rational    1  4209/1000
+Exif.Photo.MaxApertureValue                  Rational    1  F4.3
+
+exiv2 "-Mset Exif.Photo.MaxApertureValue F2.6" y:\X.jpg &#38;&#38; ^
+exiv2 -pv -g Photo.MaxApertureValue            y:\X.jpg &#38;&#38; ^
+exiv2 -pa -g Photo.MaxApertureValue            y:\X.jpg
+0x9205 Photo        MaxApertureValue            Rational    1  2757/1000
+Exif.Photo.MaxApertureValue                  Rational    1  F2.6</pre></p>
+
+
+	<p>I'm going to set the status of this issue to "Assigned" as I intend additional work.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3201" class="journal has-notes">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="10 Mar 2015 23:50" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+      <span id="journal-3201-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3201-notes" class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Your solution sounds good, but the implementation in types.cpp level worries me because it sounds too general.  I am not familiar with the Exiv2 code, but you should be sure that the APEX conversion applies only to the ApertureValue tags.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3202" class="journal has-notes">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Mar 2015 00:11" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago
+      <span id="journal-3202-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3202-notes" class="wiki"><p>Thanks, Phil.  You are right.  It is general and I'm extending the syntax of Rational to be either n/m or Fnumber.  I'll document this in the man page and explain about the APEX values.  Anyone using the Fnumber syntax for anything other than aperture does so at their own peril.  The current Exiv2 will report an error for Fnumber, so no existing scripts will be broken by this change.</p>
+
+
+	<p>I could of course add a flag in the code to say which keys accept the Fnumber syntax, however I don't believe we need this.  If I clearly document Fnumber, this should be sufficient.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3204" class="journal has-notes">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="11 Mar 2015 11:05" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago
+      <span id="journal-3204-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3204-notes" class="wiki"><p>Sounds good to me.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3205" class="journal has-notes">
+    <div id="note-18">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-18" class="journal-link">#18</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Mar 2015 11:18" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago
+      <span id="journal-3205-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3205-notes" class="wiki"><p>Fix submitted.  <a class="changeset" title="#1039.  Thank You, Torsten for raising this matter.  Thank You, Phil for your help with this." href="/projects/exiv2/repository/exiv2/revisions/3621">r3621</a> and <a class="changeset" title="#1039 Fixed typos in r3621" href="/projects/exiv2/repository/exiv2/revisions/3622">r3622</a>  Thank You to Torsten for reporting this issue.  Thank You to Phil for his explanation and encouragement.</p>
+
+
+	<p>I think it's OK to provide the Fnumber syntax for general use because man page already says:</p>
+
+
+<blockquote>
+
+	<p>It is possible to write tags with types and values different from those<br />specified in the standards, duplicate Exif tags, undefined tags, or incomplete metadata.<br />While <strong>exiv2</strong> is able to read all metadata that it can write, other programs may have difficulties<br />with images that contain non standard-conforming metadata.</p>
+
+
+</blockquote>
+
+	<p>The submitted code avoids struggles with the denominator as follows:<pre>
+    std::istream&#38; operator&gt;&gt;(std::istream&#38; is, Rational&#38; r)
+    {
+        // http://dev.exiv2.org/boards/3/topics/1912?r=1915
+        if ( std::tolower(is.peek()) == 'f' ) {
+            char  F;
+            float f;
+            is &gt;&gt; F &gt;&gt; f ;
+            f  = 2.0f * std::log(f) / std::log(2.0f) ;
+            r  = Exiv2::floatToRationalCast(f);
+        } else {
+            int32_t nominator;
+            int32_t denominator;
+            char c('\0');
+            is &gt;&gt; nominator &gt;&gt; c &gt;&gt; denominator;
+            if (c != '/') is.setstate(std::ios::failbit);
+            if (is) r = std::make_pair(nominator, denominator);
+        }
+        return is;
+    }
+</pre>This works well over the range of Fnumbers available on my Nikon5300 with Sigma18-250 Lens.<pre>755 rmills@rmillsmbp:~/gnu/exiv2/trunk $ for f in 2.6 5.6 7.1 13 22; do \
+  exiv2 "-Mset Exif.Photo.MaxApertureValue F$f" ~/X.jpg  \
+  exiv2 -pv -g Photo.MaxApertureValue ~/X.jpg \
+  exiv2 -pa -g Photo.MaxApertureValue ~/X.jpg \
+done
+0x9205 Photo        MaxApertureValue            Rational    1  2757023/1000000
+Exif.Photo.MaxApertureValue                  Rational    1  F2.6
+0x9205 Photo        MaxApertureValue            Rational    1  2485427/500000
+Exif.Photo.MaxApertureValue                  Rational    1  F5.6
+0x9205 Photo        MaxApertureValue            Rational    1  2827819/500000
+Exif.Photo.MaxApertureValue                  Rational    1  F7.1
+0x9205 Photo        MaxApertureValue            Rational    1  92511/12500
+Exif.Photo.MaxApertureValue                  Rational    1  F13
+0x9205 Photo        MaxApertureValue            Rational    1  557429/62500
+Exif.Photo.MaxApertureValue                  Rational    1  F22
+756 rmills@rmillsmbp:~/gnu/exiv2/trunk $ 
+</pre></p>
+
+
+	<p>I've updated the man page as follows:</p>
+
+
+	<p>The format for <strong>Rational</strong> (and <em><strong>SRational</strong></em>) is one of:</p>
+
+
+	<ul>
+	<li>integer</li>
+		<li>integer-numerator/integer-denominator</li>
+		<li>Number</li>
+		<li>fnumber</li>
+	</ul>
+
+
+	<p>Examples:</p>
+
+
+	<p>$ exiv2 "-Mset Exif.Photo.MaxApertureValue 557429/62500" X.jpg<br />$ exiv2 "-Mset Exif.Photo.MaxApertureValue F5.6" X.jpg</p>
+
+
+	<p>The format Fnumber is for the convenience of setting aperture values. The aperture value stored in Exif is an <strong>APEX</strong> value which can be evaluated by the expression::</p>
+
+
+	<ul>
+	<li>apex-value = log(Fnumber) * 2.0  / log(2.0)</li>
+		<li>Fnumber = exp(apex-value * log(2.0) / 2)</li>
+	</ul>
+
+
+	<p>The Fnumber syntax is valid for any <strong>Rational</strong>, even when the key is not an Aperture.</p>
+
+
+	<p>More information about <strong>APEX</strong> is available from: <a class="external" href="http://en.wikipedia.org/wiki/APEX_system">http://en.wikipedia.org/wiki/APEX_system</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3206" class="journal has-details">
+    <div id="note-19">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-19" class="journal-link">#19</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Mar 2015 19:00" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago
+      <span id="journal-3206-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Tracker</strong> changed from <i>Support</i> to <i>Feature</i></li>
+       <li><strong>Category</strong> changed from <i>metadata</i> to <i>samples</i></li>
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3603" class="journal has-details">
+    <div id="note-20">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-20" class="journal-link">#20</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 16:12" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3603-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3822" class="journal has-details">
+    <div id="note-21">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-21" class="journal-link">#21</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3822-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1039.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1039.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

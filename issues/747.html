@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #747: Direct FILE* access from FileIo interface - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="J1dDHE7no8rIcjB4eTkTMCJWmEEiYLcEm2RjFE2QEb3FGujzPJ1vyp0WL3TG7h8DHcTMONODFr5mRPOcDqn20g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #747: Direct FILE* access from FileIo interface" href="https://dev.exiv2.org/issues/747.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #747</h2>
+
+<div class="issue tracker-2 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Direct FILE* access from FileIo interface</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/1714">Adam Hooper</a> <a title="10 Dec 2010 11:44" href="/projects/exiv2/activity?from=2010-12-10">almost 11 years</a> ago.
+        Updated <a title="22 Aug 2015 16:13" href="/projects/exiv2/activity?from=2015-08-22">about 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">basicio</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">10 Dec 2010</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I'm writing an object-oriented dcraw replacement and I want to handle metadata with Exiv2.</p>
+
+
+	<p>I don't want to use Exiv2 for File IO: it's too slow. I also don't want to open the same file twice (once to read metadata with Exiv2, once to read the RAW image data).</p>
+
+
+	<p>I think there should be a derivative of Exiv2::FileIo which would operate on an std::filebuf. That way, I'd be able to open an image file with my program, construct an Exiv2::FileBufIo() out of it, and when I'm done using Exiv2 to read its metadata, go on and use the std::filebuf for the rest of my work. (This implies the destructor wouldn't close the buffer.)</p>
+
+
+	<p>(Why std::filebuf and not FILE*? Well, because I'm selfish: that's what I'm using for file IO in the rest of my program.)</p>
+
+
+	<p>I suppose I could implement this in my own program, but I feel Exiv2 should have it.</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/747" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="7ATGGE3n1Qy9QQJ1cwDEjuhCJXNBjvdeoFvKTPTX5SsOSW33P50ZDOglHXnM18i919BxCrBtVuRde1rEt+4CRA==" />
+  <table class="list issues odd-even"><tr id="relation-260" class="issue hascontextmenu issue tracker-4 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1272" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-4 status-5 priority-4 priority-default closed" href="/issues/1272">Patch #1272</a>: Possible issue with temp files being left behind.</td><td class="status">Closed</td><td class="start_date">19 Jan 2017</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/747/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=747&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1832" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/133">Robin Mills</a> <a title="19 Dec 2010 13:45" href="/projects/exiv2/activity?from=2010-12-19">almost 11 years</a> ago
+      <span id="journal-1832-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1832-notes" class="wiki"><p>This sounds very reasonable to me.  Have you thought about implementing this and donating the code to exiv2?  I'm surprised by your claim about Exiv2 File IO being too slow.  Can you elaborate?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1833" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1714">Adam Hooper</a> <a title="19 Dec 2010 15:20" href="/projects/exiv2/activity?from=2010-12-19">almost 11 years</a> ago
+      <span id="journal-1833-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1833-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>This sounds very reasonable to me.  Have you thought about implementing this and donating the code to exiv2?  I'm surprised by your claim about Exiv2 File IO being too slow.  Can you elaborate?</p>
+
+
+</blockquote>
+
+	<p>1. Yes, I may implement and donate this.</p>
+
+
+	<p>2. Exiv2 file IO isn't too slow for reading metadata, but I assume it's too slow for reading RAW files. RAW decoders generally need to access a byte at a time, so the common case (i.e., "the next byte is already buffered") needs to be as quick as possible: branch, increment and fetch. Both std::filebuf's sgetc() and FILE*'s getc_unlocked() (_getc_nolock() on Windows) are usually inlined; Exiv2 uses a virtual method call. A buffer could be added on top of Exiv2's IO, but that would be inelegant.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1834" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="19 Dec 2010 17:14" href="/projects/exiv2/activity?from=2010-12-19">almost 11 years</a> ago
+      <span id="journal-1834-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1834-notes" class="wiki"><p>Exiv2 is optimized to not read image data at all, not to read it fast. I just wonder whether there is a real gain in not closing the file and re-opening it, as opposed to using Exiv2's existing functions to read the metadata and your own for the image data. Suggest you do some prototyping to determine the performance difference and if it's worth your time before any change.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1835" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1714">Adam Hooper</a> <a title="19 Dec 2010 17:26" href="/projects/exiv2/activity?from=2010-12-19">almost 11 years</a> ago
+      <span id="journal-1835-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1835-notes" class="wiki"><p>This isn't about performance to me: it's about style.</p>
+
+
+	<p>I find it unwieldy to open the same file twice: that would make two different exceptions to catch in two different places. The second error would be unintuitive: if the file is deleted or the system runs out of file pointers while the program is running, it doesn't make sense that an error should be thrown after the file has already been opened successfully.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1836" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Dec 2010 21:10" href="/projects/exiv2/activity?from=2010-12-19">almost 11 years</a> ago
+      <span id="journal-1836-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1836-notes" class="wiki"><p>That's interesting.  I'm working on a contract with one of the commercial licensee's of exiv2.  I've been asked to replace their exif processing with exiv2.  At the moment, they open a FILE* to read everything in the source image.  Maybe I should consider creating a FileIO object using FILE* and submit that code to exiv2 (as required by the license).</p>
+
+
+	<p>So if Adam does std::filebuf, I'll do FILE* and everybody gets something. Is everybody happy with this proposal?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1837" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1714">Adam Hooper</a> <a title="19 Dec 2010 21:18" href="/projects/exiv2/activity?from=2010-12-19">almost 11 years</a> ago
+      <span id="journal-1837-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1837-notes" class="wiki"><p>Heh, works for me. Actually I'm considering dropping filebuf for my project in favour of FILE*: C (and Python and Vala and C# and ...) use FILE*, not filebuf.</p>
+
+
+	<p>(Incidentally, I've released a very-early version of my project. It's called "refinery" and it's at <a class="external" href="http://adamh.github.com/refinery">http://adamh.github.com/refinery</a>. It has near-zero camera support right now and it's missing C bindings, but it has the fastest AHD interpolation I've seen.)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1838" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="19 Dec 2010 22:25" href="/projects/exiv2/activity?from=2010-12-19">almost 11 years</a> ago
+      <span id="journal-1838-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1838-notes" class="wiki"><blockquote>
+
+	<p>Maybe I should consider creating a FileIO object using FILE*</p>
+
+
+</blockquote>
+
+	<p>Robin, what do you have in mind?</p>
+
+
+	<p>Exiv2::BasicIo is an interface for simple binary IO that was designed to have semantics and names similar to those of C style FILE* operations. Internally it already uses a FILE*, which can't be supplied nor accessed from the outside.</p>
+
+
+	<p>Sharing this FILE* with the outside world has the risk that the state of the FileIo object gets corrupted. (See how FileIo uses the pointer.) I (still) don't see what benefits it has.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1839" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1714">Adam Hooper</a> <a title="19 Dec 2010 22:48" href="/projects/exiv2/activity?from=2010-12-19">almost 11 years</a> ago
+      <span id="journal-1839-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1839-notes" class="wiki"><p>Maybe I can list a few more advantages. Allowing an interface for passing in a FILE* would:</p>
+
+
+	<ul>
+	<li>(as mentioned before) avoid a bizarre error case</li>
+		<li>avoid the need to negotiate, lock, cache, etc. a network file twice (over NFS, for instance, this is dog-slow and error-prone; SSH/HTTP/FTP connections with FUSE cause a performance hit too)</li>
+		<li>allow handling files outside of the filesystem, for instance tempfiles created by tmpfile() (which are often unlinked as soon as they're created)</li>
+		<li>(this would take extra work ... just brainstorming here) allow the user to manipulate the FILE* before passing it in, say, by fast-forwarding to the part of a larger file where the Exif data begins.</li>
+	</ul></div>
+    </div>
+  </div>
+  
+  <div id="change-1840" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="19 Dec 2010 23:36" href="/projects/exiv2/activity?from=2010-12-19">almost 11 years</a> ago
+      <span id="journal-1840-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1840-notes" class="wiki"><p>Achieving all of this is not just a matter of adding a constructor to the existing class FileIo. Take a quick look at its implementation. E.g., FileIo happily closes and re-opens the file, possibly several times during the object's lifetime (needed to make the file open mode transparent to the user). It seeks to the beginning of the file. And it generally is one of the hairier parts of the Exiv2 code, having been tweaked for all sorts of weird issues on various platforms over the years. That also means it is difficult to regression-test.</p>
+
+
+	<p>In view of all this, I think it's advisable to implement a new BasicIo-derived class with the desired behavior from scratch rather than modifying the existing class FileIo.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1841" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Dec 2010 14:27" href="/projects/exiv2/activity?from=2010-12-20">almost 11 years</a> ago
+      <span id="journal-1841-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1841-notes" class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote><blockquote>
+
+	<p>Maybe I should consider creating a FileIO object using FILE*</p>
+
+
+</blockquote>
+
+	<p>Robin, what do you have in mind?</p>
+
+
+	<p>Sharing this FILE* with the outside world has the risk that the state of the FileIo object gets corrupted. (See how FileIo uses the pointer.) I (still) don't see what benefits it has.</p>
+
+
+</blockquote>
+
+	<p>Well, if you don't see any benefit then I'm going to do nothing about this.  However I'll keep this is mind as I move forward with my project.  If a clear need arises, I'll implement this.  I've been easily able to integrate exiv2 into my client's product.  They open a FILE* and exiv2 opens another.  However this hasn't caused any difficulty.</p>
+
+
+	<p>Bottom line: I'm not going to do anything about this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4011" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Aug 2015 19:12" href="/projects/exiv2/activity?from=2015-08-21">about 6 years</a> ago
+      <span id="journal-4011-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Closed</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    <div id="journal-4011-notes" class="wiki"><p>I'm going to close this issue.  I don't believe anything needs to be done.</p>
+
+
+	<p>As a point of information, Exiv2 v0.25 provides remote I/O using curl/libssh and openssl.  It doesn't use Fuse.  If the user mounts a remote file using Fuse, exiv2 would see this has an object in the file system and use FileIo.  So fuse would be used and curl would be ignored.</p>
+
+
+	<p>As curl/libssh/openssl impose considerable build and library overhead, exiv2 has a default http protocol implementation which allows the user to read metadata from webservers.  The implementation uses ByteRange to minimise network block reads of typically 1024 bytes.  All versions of exiv2 v0.25 (whether the are linked to curl or not) can successfully execute requests such as this:<pre>$ exiv2 -pv -g ExposureMode -g ExposureTime http://dev.exiv2.org/attachments/download/574/IMG_4810.JPG
+0x829a Photo        ExposureTime                Rational    1  605/10
+0xa402 Photo        ExposureMode                Short       1  1
+$</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4044" class="journal has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Aug 2015 16:13" href="/projects/exiv2/activity?from=2015-08-22">about 6 years</a> ago
+      <span id="journal-4044-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/747.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/747.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

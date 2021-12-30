@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug-report: libexiv2 should hide XMP-SDK symbols - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="eIWvIyqsHXYILzhw/AFmB9h8lV3fz2DsKCy9RUGQZOSayATMWNbRdl1LJ3xD1mo05+7BJC4swVbVDC3NAqmDiw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Bug-report: libexiv2 should hide XMP-SDK symbols</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/146">Anonymous Poster</a> <a title="10 Jul 2015 10:54" href="/projects/exiv2/activity?from=2015-07-10">over 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Sorry for posting here - I seem to be unable to open an issue report with this account or at least cannot find a link to do so. Hence, I post this here.</p>
+
+
+	<p>Tested under Linux with Exiv2 v0.24 and v0.25 using cmake and automake.</p>
+
+
+	<p>When building exiv2's shared/static library, it exports all symbols of the source, including the ones of the included XMP-SDK. This is unnecessary and can lead to problems when building other projects that use the XMP-SDK and exiv2. (I just spent hours debugging until realising that my code was linking to libexiv2's (older) version of the XMP-SDK and not the one in my own code...)</p>
+
+
+	<p>While a mistake like mine can be avoided by correctly ordering the libraries in the linker-command, it is an unnecessary source for hard-to-find bugs. Exiv2 should hide all symbols that are not part of its public API both under automake and cmake.</p>
+
+
+	<p>Thanks.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (15)</h3>
+  <div class="message reply" id="message-2139">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2139#message-2139">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="10 Jul 2015 14:50" href="/projects/exiv2/activity?from=2015-07-10">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>That's bad. I'll check over the weekend.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2141">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2141#message-2141">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="12 Jul 2015 09:18" href="/projects/exiv2/activity?from=2015-07-12">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Nope, I can't reproduce that. Phew!!</p>
+
+
+	<p>Compiled 0.25 with ./configure; make; make install and all looks and works as it should:</p>
+
+
+	<p>1. The ./configure summary output includes the line <code>Use symbol visibility support.. YES</code><br />2. Compilation commands (make output) start with <code>libtool: compile:  g++ -O2 -fvisibility=hidden -fvisibility-inlines-hidden</code><br />3. <code>nm -C /usr/local/lib/libexiv2.so.14.0.0</code> shows XMP-SDK symbols as local (lowercase t), not external (T)<br />4. I can write a program that (re-)defines an XMP-SDK symbol (XMP_Node) and it compiles, links with libexiv2.so and runs fine</p>
+
+
+	<p>Where in the above points do you see differences on your system?</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2142">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2142#message-2142">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/146">Anonymous Poster</a> <a title="12 Jul 2015 14:56" href="/projects/exiv2/activity?from=2015-07-12">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hmm, strange. I just checked and indeed nm shows the symbols as defined locally only. When I use cmake instead of automake, they are shown as exported globally however.</p>
+
+
+	<p>I was sure I had the same issue with automake as well earlier. However, I did switch a couple of times between cmake/automake - maybe I mixed-up the installed version and the problem is indeed only with cmake.</p>
+
+
+	<p>Will test some more and try to reproduce. Apologies for creating work should I indeed have mixed-up the different versions.</p>
+
+
+	<p>When using cmake that's definitely a problem though (although I understand that cmake is still experimental for exiv2).</p>
+
+
+	<p>Thanks for verifying so quickly!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2146">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2146#message-2146">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="13 Jul 2015 09:56" href="/projects/exiv2/activity?from=2015-07-13">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, it's still a bug, even if it only happens when building with cmake.</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2147">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2147#message-2147">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="13 Jul 2015 10:40" href="/projects/exiv2/activity?from=2015-07-13">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas,</p>
+
+
+	<p>With cmake there are rules to make public or private API at linking time through target_link_libraries() call.</p>
+
+
+	<p>This is an exemple taken from libkexiv2 :</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/kde/kdegraphics/libs/libkexiv2/repository/revisions/frameworks/entry/src/CMakeLists.txt#L64">https://projects.kde.org/projects/kde/kdegraphics/libs/libkexiv2/repository/revisions/frameworks/entry/src/CMakeLists.txt#L64</a></p>
+
+
+	<p>Here you can see that we make Exiv2 API hidden from client application. The goal is to open only libkexiv2 API. Exiv2 API will be never visible from client application.</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2158">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2158#message-2158">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="24 Jul 2015 08:48" href="/projects/exiv2/activity?from=2015-07-24">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas,</p>
+
+
+	<p>In digiKam ported to Qt5, i moved DNGConverter code from a kipi plugins to digiKAm core.</p>
+
+
+	<p>On some computer (not mine), developers has serious crash at startup. As DNGConverter use Adobe XMP sdk implementation, the loader mix both SDK between Exiv2 and digiKAm core. This crash application violently :</p>
+
+
+	<p>(gdb) bt<br />#0  0x00007ffff78dad39 in WXMPMeta_RegisterNamespace_1 (namespaceURI=0x7fffe5a60d48 "http://www.digikam.org/ns/1.0/", suggestedPrefix=0x7fffe5a54144 "digiKam", <br />    registeredPrefix=0x7fffffffd740, prefixSize=0x7fffe834cb20 &lt;main_arena&gt;, wResult=0x3)<br />    at /home/tootis/projects/dk/core/libs/3rdparty/dngwriter/extra/xmp_sdk/XMPCore/WXMPMeta.cpp:222<br />#1  0x00007fffe59d3994 in TXMPMeta&lt;std::string&gt;::RegisterNamespace(char const*, char const*) () from /usr/lib/libexiv2.so.13<br />#2  0x00007fffe59ce2f6 in Exiv2::XmpParser::initialize(void (<strong>)(void</strong>, bool), void*) () from /usr/lib/libexiv2.so.13<br />#3  0x00007ffff5caaa6f in KExiv2Iface::KExiv2::initializeExiv2 () at /home/tootis/projects/dk/extra/libkexiv2/src/kexiv2.cpp:80<br />#4  0x0000000000406bf1 in main (argc=1, argv=0x7fffffffe1f8) at /home/tootis/projects/dk/core/app/main/main.cpp:101</p>
+
+
+	<p>We have tried a lots of changes to fix the problem, as to use different Exiv2 version including 0.25, The way to compile Exiv2 (cmake or automake), the way to hide Exiv2 symbols from client application. Nothing work.</p>
+
+
+	<p>XMP sdk from Exiv2 still always visible.</p>
+
+
+	<p>It's also the case on my computer which do not crash, because by chance, the linker work better and pass to loader the most relevant XMP sdk symbols to use.<br />The Exiv2 XMP sdk symbols still visible with nm.</p>
+
+
+	<p>The ultimate solution that we found is to patch XMP sdk used in DNGConverter from digiKam core. We have used a dedicated C++ namespace. There is 2 commits relevant :</p>
+
+
+	<p><a class="external" href="http://commits.kde.org/digikam/6d1c465f3224a6016f595fa820cce3873d2bcb86">http://commits.kde.org/digikam/6d1c465f3224a6016f595fa820cce3873d2bcb86</a></p>
+
+
+	<p><a class="external" href="http://commits.kde.org/digikam/e85634ac5d056e2e6ec9cfc82be198257011d667">http://commits.kde.org/digikam/e85634ac5d056e2e6ec9cfc82be198257011d667</a></p>
+
+
+	<p>I recommend to do the same in EXIV2 code about Adobe XMP SDK implementation.</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2162">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2162#message-2162">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="27 Jul 2015 05:52" href="/projects/exiv2/activity?from=2015-07-27">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Gilles,</p>
+
+
+	<p>I can't reproduce this with exiv2 0.25 compiled with ./configure; make; make install, as I said above.<br />Exiv2 has been using the "C++ symbol visibility support for gcc builds" for a long time (<a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: C++ symbol visibility support for gcc builds (Closed)" href="/issues/523">#523</a>). What you describe means that this feature is not working (anymore). If that's true, then that is a serious problem and it should be fixed properly.</p>
+
+
+	<p>Can you provide the steps to reproduce the issue? Or at least the nm -C output from such a faulty exiv2 library? Please make sure you're using exiv2 0.25 compiled with ./configure; make; make install. Not the one compiled with cmake.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2164">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2164#message-2164">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/4479">Mohamed Anwer</a> <a title="27 Jul 2015 13:53" href="/projects/exiv2/activity?from=2015-07-27">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi all,</p>
+
+
+	<p>The problem is reproducible on my machine if I use CMake configuration</p>
+
+
+	<p>Mohamed</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2258">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2258#message-2258">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="03 Oct 2015 11:03" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>The crash problem is now fully reproducible using current implementation of Exiv2 from svn trunk. Exiv2 is compiled with Cmake. The option to use lib XMP as static shared lib tuned on or off do not fix the problem.</p>
+
+
+	<p>1/ A first stage, as i already reported previously, Exiv2 must be compiled with external symbols as private (xmp, curl, ssh, expat, etc...).</p>
+
+
+	<p>2/ But as Andreas said, the export symbols with cmake is also broken and must be fixed.</p>
+
+
+	<p>The patch attached fix 1/</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/845">private_symbol.patch</a>    <span class="size">(4.02 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/845/private_symbol.patch">private_symbol.patch</a>  </td>
+  <td>cmake patch to link external symbols as private</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2259">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2259#message-2259">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 11:52" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks, Gilles.  I've submitted this <a class="changeset" title="http://dev.exiv2.org/boards/3/topics/2137?r=2259  Thanks to Gilles for the patch." href="/projects/exiv2/repository/exiv2/revisions/3973">r3973</a></p>
+
+
+	<p>I built and run the test suite as follows:<pre>680 rmills@rmillsmbp:~/gnu/exiv2/trunk $ rm -rf ../build ; mkdir ../build ; cd ../build
+681 rmills@rmillsmbp:~/gnu/exiv2/build $ cmake ../trunk -DEXIV2_ENABLE_WEBREADY=ON -DEXIV2_ENABLE_CURL=ON -DEXIV2_ENABLE_SSH=ON
+-- Found CURL: /usr/lib/libcurl.dylib (found version "7.31.0") 
+-- Found SSH: /usr/local/lib/libssh.dylib  
+-- Program msgfmt found (/usr/local/bin/msgfmt)
+-- None:              
+-- Debug:             -g
+-- Release:           -O3 -DNDEBUG
+-- RelWithDebInfo:    -O2 -g -DNDEBUG
+-- MinSizeRel:        -Os -DNDEBUG
+-- ------------------------------------------------------------------
+-- exiv2 0.25 configure results        &lt;http://www.exiv2.org&gt;
+-- Building PNG support:               YES
+-- Building shared library:            YES
+-- XMP metadata support:               YES
+-- Building static libxmp:             YES
+-- Native language support:            YES
+-- Conversion of Windows XP tags:      YES
+-- Nikon lens database:                YES
+-- Commercial build:                   NO
+-- Build the unit tests:               YES
+-- Building translations files:        NO
+-- Building video support:             NO
+-- Building webready support:          YES
+-- USE Libcurl for HttpIo:             YES
+-- USE Libssh for SshIo:               YES
+-- ------------------------------------------------------------------
+-- SVN version:  3972
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/rmills/gnu/exiv2/build
+682 rmills@rmillsmbp:~/gnu/exiv2/build $ make ; sudo make install ; make tests</pre>There are warnings as follows:<pre>Running bugfixes-test.sh ...
+426 440 443 444 445 447 452 460 479 480 495 498 501 528 540 554 662 666 683 711 726 751 769 784 799 800 812 831 (836 skipped) 841 876 884 922 935 937 937a 1026 1040 1043 1044 1053 1054 1058 1062 1112 1114 1122 
+Files /Users/rmills/gnu/exiv2/trunk/test/tmp/bugfixes-test.out-stripped and /Users/rmills/gnu/exiv2/trunk/test/data/bugfixes-test.out differ
+229,238c229,233
+&lt; Exif.Image.XPTitle                           Byte       40  Warning: Charset conversion required but no character mapping functionality available.
+&lt; 84 0 105 0 116 0 101 0 108 0 32 0 117 0 110 0 100 0 32 0 228 0 104 0 110 0 108 0 105 0 99 0 104 0 101 0 115 0 0 0
+&lt; Exif.Image.XPComment                         Byte       46  Warning: Charset conversion required but no character mapping functionality available.
+&lt; 65 0 110 0 100 0 32 0 97 0 32 0 115 0 116 0 97 0 110 0 100 0 97 0 114 0 100 0 32 0 99 0 111 0 109 0 109 0 101 0 110 0 116 0 0 0
+&lt; Exif.Image.XPAuthor                          Byte       44  Warning: Charset conversion required but no character mapping functionality available.
+&lt; 35 4 58 4 64 4 48 4 87 4 61 4 65 4 76 4 58 4 48 4 32 0 40 0 82 0 117 0 115 0 115 0 105 0 97 0 110 0 63 0 41 0 0 0
+&lt; Exif.Image.XPKeywords                        Byte       30  Warning: Charset conversion required but no character mapping functionality available.
+&lt; 226 5 209 5 232 5 217 5 234 5 32 0 40 0 72 0 101 0 98 0 114 0 101 0 119 0 41 0 0 0
+&lt; Exif.Image.XPSubject                         Byte       32  Warning: Charset conversion required but no character mapping functionality available.
+&lt; 36 12 70 12 50 12 65 12 23 12 65 12 32 0 40 0 84 0 101 0 108 0 117 0 103 0 117 0 41 0 0 0
+---
+&gt; Exif.Image.XPTitle                           Byte       40  Titel und ähnliches
+&gt; Exif.Image.XPComment                         Byte       46  And a standard comment
+&gt; Exif.Image.XPAuthor                          Byte       44  Українська (Russian?)
+&gt; Exif.Image.XPKeywords                        Byte       30  עברית (Hebrew)
+&gt; Exif.Image.XPSubject                         Byte       32  తెలుగు (Telugu)
+775d769
+&lt; Warning: Charset conversion required but no character mapping functionality available.
+780,781c774,776
+&lt;   0000  55 4e 49 43 4f 44 45 00 41 20 55 6e 69 63 6f 64  UNICODE.A Unicod
+&lt;   0010  65 20 63 6f 6d 6d 65 6e 74                       e comment
+---
+&gt;   0000  55 4e 49 43 4f 44 45 00 41 00 20 00 55 00 6e 00  UNICODE.A. .U.n.
+&gt;   0010  69 00 63 00 6f 00 64 00 65 00 20 00 63 00 6f 00  i.c.o.d.e. .c.o.
+&gt;   0020  6d 00 6d 00 65 00 6e 00 74 00                    m.m.e.n.t.
+783,784d777
+&lt; Warning: Charset conversion required but no character mapping functionality available.
+&lt; Warning: Charset conversion required but no character mapping functionality available.
+789c782
+&lt;   0000  55 4e 49 43 4f 44 45 00                          UNICODE.
+---
+&gt;   0000  55 4e 49 43 4f 44 45 00 c4 01                    UNICODE...
+791,792d783
+&lt; Warning: Charset conversion required but no character mapping functionality available.
+&lt; Warning: Charset conversion required but no character mapping functionality available.
+797c788
+&lt;   0000  55 4e 49 43 4f 44 45 00 41 43                    UNICODE.AC
+---
+&gt;   0000  55 4e 49 43 4f 44 45 00 41 00 c4 01 43 00        UNICODE.A...C.
+799d789
+&lt; Warning: Charset conversion required but no character mapping functionality available.
+804,805c794,795
+&lt;   0000  55 4e 49 43 4f 44 45 00 57 69 74 68 0a 4e 65 77  UNICODE.With.New
+&lt;   0010  6c 69 6e 65                                      line
+---
+&gt;   0000  55 4e 49 43 4f 44 45 00 57 00 69 00 74 00 68 00  UNICODE.W.i.t.h.
+&gt;   0010  0a 00 4e 00 65 00 77 00 6c 00 69 00 6e 00 65 00  ..N.e.w.l.i.n.e.
+807d796
+&lt; Warning: Charset conversion required but no character mapping functionality available.
+812c801,802
+&lt;   0000  55 4e 49 43 4f 44 45 00 57 69 74 68 09 54 61 62  UNICODE.With.Tab
+---
+&gt;   0000  55 4e 49 43 4f 44 45 00 57 00 69 00 74 00 68 00  UNICODE.W.i.t.h.
+&gt;   0010  09 00 54 00 61 00 62 00                          ..T.a.b.
+814d803
+&lt; Warning: Charset conversion required but no character mapping functionality available.
+819c808,809
+&lt;   0000  55 4e 49 43 4f 44 45 00 5c 75 67 67 67 67        UNICODE.\ugggg
+---
+&gt;   0000  55 4e 49 43 4f 44 45 00 5c 00 75 00 67 00 67 00  UNICODE.\.u.g.g.
+&gt;   0010  67 00 67 00                                      g.g.
+result = 1</pre></p>
+
+
+	<p>I will not provide support for CMake, so I'm not going to investigate this.  I'll check with the build server that the code is correctly built and passes the test suite when build with ./configure on *ix systems and Visual Studio on Windows.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2260">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2260#message-2260">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="03 Oct 2015 11:59" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>This want mean that cmake support will be removed in the future ?</p>
+
+
+	<p>At least, just one build framework must be used to make library. It's a waste a time to support both framework at the same time, and this increase maintenance complexity. If automake/autoconf do the job, it's enough.</p>
+
+
+	<p>And i don't talk about all VC++ project files...</p>
+
+
+	<p>Just my 10cts...</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2261">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2261#message-2261">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="03 Oct 2015 12:19" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas,</p>
+
+
+	<p>On my computer Exiv2 from svn trunk is compiled with CMake.</p>
+
+
+	<p>The XMP symbols use (t) not (T) nm properties :</p>
+
+
+	<p>[gilles@localhost exiv2]$ nm -C /usr/lib/libexiv2.so |grep xmp<br />00000000002a94ce t <em>GLOBAL</em>_sub_I_xmp.cpp<br />00000000002b1e2c t <em>GLOBAL</em>_sub_I_xmpsidecar.cpp<br />00000000002a8a6f t (anonymous namespace)::xmpArrayType(unsigned long const&#38;)<br />00000000002a8a90 t (anonymous namespace)::xmpArrayOptionBits(Exiv2::XmpValue::XmpArrayType)<br />00000000002a89d2 t (anonymous namespace)::xmpArrayOptionBits(Exiv2::XmpValue::XmpStruct)<br />00000000002a8aef t (anonymous namespace)::xmpFormatOptionBits(Exiv2::XmpParser::XmpFormatFlags)<br />00000000002a89a6 t (anonymous namespace)::xmpStruct(unsigned long const&#38;)<br />000000000061ae00 b (anonymous namespace)::xmpHeaders<br />000000000061ae40 b (anonymous namespace)::xmpTrailers<br />000000000061ae80 b (anonymous namespace)::xmpTrailerEnd<br />00000000005ec3c0 D Exiv2::xmpAuxInfo<br />00000000005ea9c0 D Exiv2::xmpCrsInfo<br />00000000005f2500 D Exiv2::xmpDwCInfo<br />00000000005ea640 D Exiv2::xmpPdfInfo<br />00000000005e9380 D Exiv2::xmpXmpInfo<br />00000000005eb4c0 D Exiv2::xmpExifInfo<br />00000000005ec440 D Exiv2::xmpIptcInfo<br />00000000005e9280 D Exiv2::xmpKipiInfo<br />00000000005ecc40 D Exiv2::xmpPlusInfo<br />00000000005eb080 D Exiv2::xmpTiffInfo<br />00000000005f1c00 D Exiv2::xmpAudioInfo<br />00000000005ee640 D Exiv2::xmpGPanoInfo<br />00000000005ffac0 d Exiv2::xmpPrintInfo<br />00000000005eea00 D Exiv2::xmpVideoInfo<br />00000000005e9940 D Exiv2::xmpXmpBJInfo<br />00000000005e9ac0 D Exiv2::xmpXmpDMInfo<br />00000000005e9680 D Exiv2::xmpXmpMMInfo<br />00000000005f4440 D Exiv2::xmpAcdseeInfo<br />00000000005ec140 D Exiv2::xmpExifEXInfo<br />00000000005e99c0 D Exiv2::xmpXmpTPgInfo<br />00000000005f2340 D Exiv2::xmpDctermsInfo<br />00000000005e9140 D Exiv2::xmpDigikamInfo<br />00000000005ec6c0 D Exiv2::xmpIptcExtInfo<br />00000000005edf80 D Exiv2::xmpMediaProInfo<br />00000000005ea400 D Exiv2::xmpMicrosoftInfo<br />00000000005ea700 D Exiv2::xmpPhotoshopInfo<br />00000000005e9580 D Exiv2::xmpXmpRightsInfo<br />00000000005ee540 D Exiv2::xmpMWGKeywordInfo<br />00000000005ee380 D Exiv2::xmpMWGRegionsInfo<br />00000000005ee180 D Exiv2::xmpMicrosoftPhotoInfo<br />00000000005ee080 D Exiv2::xmpExpressionMediaInfo<br />00000000005ee280 D Exiv2::xmpMicrosoftPhotoRegionInfo<br />00000000005ee200 D Exiv2::xmpMicrosoftPhotoRegionInfoInfo<br />00000000001ea984 T Exiv2::Image::xmpData()<br />00000000001ea996 T Exiv2::Image::xmpPacket()<br />000000000030be30 R Exiv2::JpegBase::xmpId_<br />0000000000298a26 T Exiv2::XmpValue::xmpArrayType(Exiv2::TypeId)<br />000000000030b8c8 r Exiv2::ImageType::xmp<br />0000000000363ccc r Exiv2::ImageType::xmp<br />00000000005e8ec0 D Exiv2::xmpDcInfo<br />00000000005ea5c0 D Exiv2::xmpLrInfo<br />00000000005ff500 D Exiv2::xmpNsInfo<br />0000000000630f00 B Exiv2::XmpParser::xmpLockFct_<br />00000000001eadbe T Exiv2::Image::xmpData() const<br />00000000001eadfe T Exiv2::Image::xmpPacket() const<br />0000000000298a14 T Exiv2::XmpValue::xmpArrayType() const<br />0000000000298a6e T Exiv2::XmpValue::xmpStruct() const</p>
+
+
+	<p>... and digiKam still crash at startup :</p>
+
+
+	<p>Program received signal SIGSEGV, Segmentation fault.<br />0x00007ffff78b984b in DngXmpSdk::WXMPMeta_RegisterNamespace_1 (namespaceURI=0x7fffe63ba6d8 "http://ns.adobe.com/lightroom/1.0/", suggestedPrefix=0x7fffe63ba6ce "lr", registeredPrefix=0x7fffffffcf70, prefixSize=0x7fffe63ba6ce, wResult=0xffffffff)<br />    at /home/gilles/Devel/5.x/core/libs/3rdparty/dngwriter/extra/xmp_sdk/XMPCore/WXMPMeta.cpp:224<br />224                    XMP_ENTER_WRAPPER ( "WXMPMeta_RegisterNamespace_1" )<br />(gdb) bt<br />#0  0x00007ffff78b984b in DngXmpSdk::WXMPMeta_RegisterNamespace_1(DngXmpSdk::XMP_StringPtr, DngXmpSdk::XMP_StringPtr, DngXmpSdk::XMP_StringPtr*, DngXmpSdk::XMP_StringLen*, DngXmpSdk::WXMP_Result*) (namespaceURI=0x7fffe63ba6d8 "http://ns.adobe.com/lightroom/1.0/", suggestedPrefix=0x7fffe63ba6ce "lr", registeredPrefix=0x7fffffffcf70, prefixSize=0x7fffe63ba6ce, wResult=0xffffffff) at /home/gilles/Devel/5.x/core/libs/3rdparty/dngwriter/extra/xmp_sdk/XMPCore/WXMPMeta.cpp:224<br />#1  0x00007fffe6300a9a in TXMPMeta&lt;std::string&gt;::RegisterNamespace(char const*, char const*) () at /lib/libexiv2.so.14<br />#2  0x00007fffe62fccac in Exiv2::XmpParser::initialize(void (<strong>)(void</strong>, bool), void*) () at /lib/libexiv2.so.14<br />#3  0x00007ffff4eacc9f in KExiv2Iface::KExiv2::initializeExiv2() () at /home/gilles/Devel/5.x/extra/libkexiv2/src/kexiv2.cpp:80<br />#4  0x0000000000406b98 in main(int, char**) (argc=1, argv=0x7fffffffda68) at /home/gilles/Devel/5.x/core/app/main/main.cpp:99<br />(gdb)</p>
+
+
+	<p>[gilles@localhost build]$ ldd /usr/bin/digikam |grep exiv2<br />                   libexiv2.so.14 => /lib/libexiv2.so.14 (0x00007fc1f40c4000)</p>
+
+
+	<p>Note that 3 XMP sdk entries have (b) nm properties.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2262">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2262#message-2262">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 12:21" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>The Exiv2 project will continue to have CMake support.  However, I personally will not spend any more time on this matter.  I've put a lot of time into this and, thanks to you, it works well on *nix systems.  It's an unspeakable mess with Visual Studio.  In addition, I have been unable to build openssl or curl with CMake using Visual Studio and my conclusion is that CMake/Visual Studio is not viable.  If Daniel, or anybody else for that matter, wants to support CMake (with/without Visual Studio) that's totally OK with me.  However I don't intend to waste any more time with CMake.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2263">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2263#message-2263">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 12:26" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I think it would be better to open an Issue to track this matter.  Two reasons:</p>
+
+
+	<p>1) Redmine/SVN integration logs changes into the issue report.<br />2) We compile the release notes from Issues and not forum topics.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2264">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2137?r=2264#message-2264">RE: Bug-report: libexiv2 should hide XMP-SDK symbols</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 13:02" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p><a class="external" href="http://dev.exiv2.org/issues/1123">http://dev.exiv2.org/issues/1123</a></p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-15/15)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

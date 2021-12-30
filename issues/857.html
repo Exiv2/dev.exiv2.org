@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #857: CMake compilation issue on MacOS-X 4.5.1/Mountain Lion - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="xyR2FUQ1mfY5wH/RQJEfKXdUDG/N6ulDJbDTFPA/Iaglad36Nk9V9mykYN3/RhMaSMZYFjwJSPnYkEOcswbGxw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #857: CMake compilation issue on MacOS-X 4.5.1/Mountain Lion" href="https://dev.exiv2.org/issues/857.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #857</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>CMake compilation issue on MacOS-X 4.5.1/Mountain Lion</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Oct 2012 11:30" href="/projects/exiv2/activity?from=2012-10-07">about 9 years</a> ago.
+        Updated <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">07 Oct 2012</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>There's a strange compilation warning with CMake/Makefiles on Mountain Lion.  exiv2 built this way passes the test suite.  So the issue is ugly and benign.<br /><pre>
+162 rmills@clanmills:~/gnu/exiv2/testbuild $ xcodebuild -version
+Xcode 4.5.1
+Build version 4G1004
+163 rmills@clanmills:~/gnu/exiv2/testbuild $ sw_vers
+ProductName:    Mac OS X
+ProductVersion:    10.8.2
+BuildVersion:    12C60
+164 rmills@clanmills:~/gnu/exiv2/testbuild $ 
+</pre></p>
+
+
+	<p>To reproduce:<br /><pre>
+$ cd &lt;exiv2&gt;
+$ mkdir build ; cd build; cmake .. ; make
+
+... rattle'n'roll
+
+[  1%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/ExpatAdapter.cpp.o
+[  2%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/MD5.cpp.o
+/Users/rmills/gnu/exiv2/testbuild/xmpsdk/src/MD5.cpp:133:24: warning: 'memset' call operates on objects of type 'struct MD5_CTX' while
+      the size is based on a different type 'struct MD5_CTX *' [-Wsizeof-pointer-memaccess]
+        memset(ctx, 0, sizeof(ctx));    /* In case it's sensitive */
+               ~~~            ^~~
+/Users/rmills/gnu/exiv2/testbuild/xmpsdk/src/MD5.cpp:133:24: note: did you mean to dereference the argument to 'sizeof'
+      (and multiply it by the number of elements)?
+        memset(ctx, 0, sizeof(ctx));    /* In case it's sensitive */
+                              ^~~
+1 warning generated.
+</pre></p>
+
+
+	<p>Oddly this doesn't appear with the autotools build.  $ make config ; ./configure ; make</p>
+
+
+	<p>There must be something different about the compilation options/search path generated by CMake.  The command $ make VERBOSE=1 will echo the commands being executed by CMake builds.</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/857" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="Wdv8nVggIMtPuRmKExJxfyBvyhssrRHK03IVkqj6Qki7lldyKlrsyxrdBoasxX1MH/2eYt1OsHAuUoUa68OlJw==" />
+  <table class="list issues odd-even"><tr id="relation-93" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="859" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/859">Bug #859</a>: Compilation warning using Clang</td><td class="status">Closed</td><td class="start_date">11 Oct 2012</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-99" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="920" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/920">Bug #920</a>: Cross compiling for Android on OSX is keep using &#39;/usr/bin/gcc&#39;</td><td class="status">Closed</td><td class="start_date">22 Sep 2013</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-185" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1131" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1131">Bug #1131</a>: Please explain the RCSID macro at the start of every .cpp file.</td><td class="status">Closed</td><td class="start_date">25 Oct 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/857/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=857&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2904" href="/projects/exiv2/repository/exiv2/revisions/2904">Revision 2904</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2904/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Oct 2012 22:50" href="/projects/exiv2/activity?from=2012-10-13">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Fix: Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: CMake compilation issue on MacOS-X 4.5.1/Mountain Lion (Closed)" href="/issues/857">#857</a>.  Get CMake to compile with g++ instead of c++ (clang) compiler to eliminate warnings.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2906" href="/projects/exiv2/repository/exiv2/revisions/2906">Revision 2906</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2906/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Oct 2012 14:22" href="/projects/exiv2/activity?from=2012-10-14">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Fix: Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Compilation warning using Clang (Closed)" href="/issues/859">#859</a> (and <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: CMake compilation issue on MacOS-X 4.5.1/Mountain Lion (Closed)" href="/issues/857">#857</a>).  Redefine EXIV2_RCSID macro for clang as empty (to eliminate warnings).</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2270" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Oct 2012 23:08" href="/projects/exiv2/activity?from=2012-10-13">about 9 years</a> ago
+      <span id="journal-2270-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>90</i></li>
+    </ul>
+    <div id="journal-2270-notes" class="wiki"><p>Fix submitted: SV#2904.</p>
+
+
+	<p>I couldn't find compiler flags to eliminate the compiler warnings on the CMake build.</p>
+
+
+	<p>However, I discovered that the ./configure build uses /usr/bin/g++ and was happy.  CMake uses /usr/bin/c++ and gives warnings.  Here are the paths in the file system to the compilers.<br />528 rmills@rmills-imac:~/gnu/exiv2/exiv2.master $ which g++ ; which c++<br />/usr/bin/g++<br />/usr/bin/c++<br />529 rmills@rmills-imac:~/gnu/exiv2/exiv2.master $ ls -alt $(pathname $(which g++))<br />-rwxr-xr-x  1 root  wheel  117168 Oct 12 22:35 /usr/llvm-gcc-4.2/bin/llvm-g++-4.2<br />530 rmills@rmills-imac:~/gnu/exiv2/exiv2.master $ ls -alt $(pathname $(which c++))<br />-rwxr-xr-x  1 root  wheel  21622640 Oct 12 22:35 /usr/bin/clang<br />531 rmills@rmills-imac:~/gnu/exiv2/exiv2.master $</p>
+
+
+	<p>I modified CMakeLists.txt (in the project's root) to get CMake to use g++.  I've successfully built and run the test suite.</p>
+
+
+	<p>Presumably there are important differences between clang and llvm-g++.  If the user wishes to compile with clang, CMakeLists.txt can be modified and the resulting executables will pass the test suite. TAKE CARE: make CC=/usr/bin/c++ does not change the compiler for a CMake generated Makefile.  To change the compiler, it is necessary to change CMakeLists.txt and regenerate the Makefile.  CMake uses the compiler to generate the Makefile and "bakes" the compiler path into the Makefile.</p>
+
+
+	<p>I feel confident about marking this issue as resolved (until someone says otherwise!).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2279" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Oct 2012 04:26" href="/projects/exiv2/activity?from=2012-10-15">about 9 years</a> ago
+      <span id="journal-2279-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2279-notes" class="wiki"><p><a class="changeset" title="Fix: Bug #857.  Get CMake to compile with g++ instead of c++ (clang) compiler to eliminate warnings." href="/projects/exiv2/repository/exiv2/revisions/2904">r2904</a>: I'd rather have the warning than change the default compiler just because we don't understand the warning. Sooner or later someone will tell us what's really wrong.</p>
+
+
+	<p>On the other hand, this compiler generates refreshingly verbose and clever warnings: Try change the sizeof(ctx) to sizeof(*ctx) and I'm confident it will go away. The compiler found a bug. The intention of this code is to clear memory the size of struct MD5_CTX, not the size of a pointer to that struct, which is what it's currently doing.</p>
+
+
+	<p>-ahu.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2280" class="journal has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Oct 2012 04:26" href="/projects/exiv2/activity?from=2012-10-15">about 9 years</a> ago
+      <span id="journal-2280-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Feedback</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2281" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Oct 2012 04:29" href="/projects/exiv2/activity?from=2012-10-15">about 9 years</a> ago
+      <span id="journal-2281-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2281-notes" class="wiki"><p>What warnings you get with the original EXIV2_RCSID macro?</p>
+
+
+	<p>-ahu.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2282" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Oct 2012 08:58" href="/projects/exiv2/activity?from=2012-10-15">about 9 years</a> ago
+      <span id="journal-2282-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2282-notes" class="wiki"><p>libtool: compile:  /usr/bin/c++ -O2 -fvisibility=hidden -fvisibility-inlines-hidden -Wall -Wcast-align -Wpointer-arith -Wformat-security -Wmissing-format-attribute -Woverloaded-virtual -W -MMD -I. -I/usr/local/include -DEXV_LOCALEDIR=\"/usr/local/share/locale\" -I../xmpsdk/include -c -DEXV_BUILDING_LIB=1 asfvideo.cpp  -fno-common -DPIC -o .libs/asfvideo.o<br />asfvideo.cpp:30:1: warning: variable 'rcsId' is uninitialized when used within its own initialization [-Wuninitialized]<br />EXIV2_RCSID("@(#) $Id$")<br />^<sub>~~</sub>~~~~~~~~~~~~~~~~~~~<br />./rcsid_int.hpp:59:38: note: expanded from macro 'EXIV2_RCSID'<br />        const char* rcsId = getRcsId(rcsId); \<br />                    ~<sub>~~</sub>            ^<sub>~~</sub></p></div>
+    </div>
+  </div>
+  
+  <div id="change-2395" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Jan 2013 21:51" href="/projects/exiv2/activity?from=2013-01-23">almost 9 years</a> ago
+      <span id="journal-2395-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Feedback</i> to <i>Assigned</i></li>
+    </ul>
+    <div id="journal-2395-notes" class="wiki"><p>I'm moving this back to "Assigned" and I'll investigate again - hopefully before 0.24.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2580" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 15:58" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2580-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.24</i> to <i>0.25</i></li>
+    </ul>
+    <div id="journal-2580-notes" class="wiki"><p>Deferred to 0.25.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2931" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Oct 2014 20:00" href="/projects/exiv2/activity?from=2014-10-07">about 7 years</a> ago
+      <span id="journal-2931-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-2931-notes" class="wiki"><p>I'm going to mark this as "resolved" as we are build without these warning using cmake and ./configure on the current mac platform (10.9.5/Xcode6).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3672" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 16:39" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3672-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>90</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3913" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3913-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/857.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/857.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

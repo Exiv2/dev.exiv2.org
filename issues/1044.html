@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Patch #1044: Parse TIFF PageNumber - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="64iz2UXQMOZWp1fPi0CU8hIDAeoo69FmthxxZXPFbj4JxRg2N6r85gPDSMM0l5jBLZFVk9kIcNxLPOHtMPyJUQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Patch #1044: Parse TIFF PageNumber" href="https://dev.exiv2.org/issues/1044.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Patch #1044</h2>
+
+<div class="issue tracker-4 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Parse TIFF PageNumber</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 13:50" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago.
+        Updated <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">tiff parser</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">24 Mar 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p><a class="external" href="http://dev.exiv2.org/boards/3/topics/1929">http://dev.exiv2.org/boards/3/topics/1929</a></p>
+
+
+	<p>Thomas, can you please review this, discuss it with Mario and give me your assessment.  And of course if you have a patch, please attach it to this issue.  As Mario has been kind enough to provide a test file, we should also consider updating the test suite to take advantage of that file.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/739">T1044.patch</a>    <span class="size">(1.42 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/739/T1044.patch">T1044.patch</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Thomas Beutlich, 24 Mar 2015 20:09</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3632" href="/projects/exiv2/repository/exiv2/revisions/3632">Revision 3632</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3632/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 20:31" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Parse TIFF PageNumber (Closed)" href="/issues/1044">#1044</a>.  Thank you Mario for reporting this an providing a patch.  Thank You for Thomas for validating this fix.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3640" href="/projects/exiv2/repository/exiv2/revisions/3640">Revision 3640</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3640/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Mar 2015 20:10" href="/projects/exiv2/activity?from=2015-03-25">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Parse TIFF PageNumber (Closed)" href="/issues/1044">#1044</a>.  Test: regression detector.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3274" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="24 Mar 2015 20:09" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+      <span id="journal-3274-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/739">T1044.patch</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/739/T1044.patch">T1044.patch</a> added</li>
+    </ul>
+    <div id="journal-3274-notes" class="wiki"><p>Yes, patch works as expected. I could not apply the provided Exif.Image.PageNumber.patch but needed to manually patch it. New patch T1044.patch should hopefully work.</p>
+
+
+	<p>Thank you, Mario and Robin!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3275" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4386">Mario Emmenlauer</a> <a title="24 Mar 2015 20:21" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+      <span id="journal-3275-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3275-notes" class="wiki"><p>Thanks for the great (and very fast) work, Thomas and Robin! Two thumbs up!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3276" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 20:32" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+      <span id="journal-3276-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3276-notes" class="wiki"><p>Submitted <a class="changeset" title="#1044.  Thank you Mario for reporting this an providing a patch.  Thank You for Thomas for valida..." href="/projects/exiv2/repository/exiv2/revisions/3632">r3632</a>.  Thank You, Mario for reporting this and providing the patch.  Thank You, Thomas for validating the patch.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3278" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="24 Mar 2015 22:09" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+      <span id="journal-3278-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> changed from <i>Thomas Beutlich</i> to <i>Robin Mills</i></li>
+    </ul>
+    <div id="journal-3278-notes" class="wiki"><p>Back to Robin for the optional test case. I have no idea how to do it since I do not run the test suite.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3288" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 22:52" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago
+      <span id="journal-3288-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3288-notes" class="wiki"><p>Mario</p>
+
+
+	<p>Is there any reason why we cannot copy your test file into our test suite (for example copyright).  If you're OK with this, I'll add your file to the test suite tomorrow as a regression detector.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3292" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4386">Mario Emmenlauer</a> <a title="25 Mar 2015 08:02" href="/projects/exiv2/activity?from=2015-03-25">over 6 years</a> ago
+      <span id="journal-3292-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3292-notes" class="wiki"><p>Dear Robin and all, yes I agree, please use the file I sent in your test collection and anywhere else in development where you see fit! No copyright restrictions apply (as long as the predominant use is to aid in your development).<br />Thanks again and all the best!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3300" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Mar 2015 20:12" href="/projects/exiv2/activity?from=2015-03-25">over 6 years</a> ago
+      <span id="journal-3300-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-3300-notes" class="wiki"><p>Thanks Mario.  Test suite updated: <a class="changeset" title="#1044.  Test: regression detector." href="/projects/exiv2/repository/exiv2/revisions/3640">r3640</a>.  Good teamwork.  Thanks Everybody.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3614" class="journal has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 16:16" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3614-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3825" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3825-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1044.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1044.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

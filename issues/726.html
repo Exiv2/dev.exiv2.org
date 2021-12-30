@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #726: Add support for Samsung&#39;s .SRW raw format - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="yJnqN6BUzmVPtNbGjTUe6coATgon/9vA6th7Ti+dnBsq1EHY0i4CZRrQycoy4hLa9ZIac9YcenoX+OvGbKR7dA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #726: Add support for Samsung&#39;s .SRW raw format" href="https://dev.exiv2.org/issues/726.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #726</h2>
+
+<div class="issue tracker-2 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Add support for Samsung&#39;s .SRW raw format</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/1206">Oleg Yermakov</a> <a title="16 Sep 2010 14:02" href="/projects/exiv2/activity?from=2010-09-16">about 11 years</a> ago.
+        Updated <a title="22 Nov 2010 18:31" href="/projects/exiv2/activity?from=2010-11-22">almost 11 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/53">Andreas Huggel</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">image format</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="01 Dec 2010" href="/versions/46">0.21</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">16 Sep 2010</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Samsung had recently made the worst thing I could expect from them — they invented the new .SRW raw file format for their new NX series cameras.</p>
+
+
+	<p>The problem is: nothing supports it currently, except for Samsung's branded raw processor for Windows® (Silkypix or something like that) and Adobe's Lightroom &#38; DNG converter.<br />Proof &#38; examples: <a class="external" href="http://www.photographyblog.com/reviews/samsung_nx10_review/sample_images/">http://www.photographyblog.com/reviews/samsung_nx10_review/sample_images/</a></p>
+
+
+	<p>They say (at <a class="external" href="http://metadatamadness.blogspot.com/2010/03/stupid-samsung-srw.html">http://metadatamadness.blogspot.com/2010/03/stupid-samsung-srw.html</a> , for example), that SRW is just TIFF with no additional markers and but with lot of proprietary stuff inside.</p>
+
+
+	<p>Samsung's NX series is gaining popularity, so it could be an important and requested feature.</p>
+
+
+	<p>An «Rapid photo downloader» software developer pointed me that you're to add support for SRW first before he could add it to his program too. <a class="external" href="https://bugs.launchpad.net/rapid/+bug/640722">https://bugs.launchpad.net/rapid/+bug/640722</a></p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2353" href="/projects/exiv2/repository/exiv2/revisions/2353">Revision 2353</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2353/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Sep 2010 08:45" href="/projects/exiv2/activity?from=2010-09-21">about 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Add support for Samsung&#39;s .SRW raw format (Closed)" href="/issues/726">#726</a>: Added support for thumbnail found in sub-IFD of IFD1 of Samsung .SRW files.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2357" href="/projects/exiv2/repository/exiv2/revisions/2357">Revision 2357</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2357/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="28 Sep 2010 10:05" href="/projects/exiv2/activity?from=2010-09-28">about 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Add support for Samsung&#39;s .SRW raw format (Closed)" href="/issues/726">#726</a>: Added support for Samsung2 makernote. (Pretty-print and easy-access functions not done yet.)</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2358" href="/projects/exiv2/repository/exiv2/revisions/2358">Revision 2358</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2358/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="29 Sep 2010 09:33" href="/projects/exiv2/activity?from=2010-09-29">about 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Add support for Samsung&#39;s .SRW raw format (Closed)" href="/issues/726">#726</a>: Added pretty-print and easy-access functions for the Samsung2 makernote.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2359" href="/projects/exiv2/repository/exiv2/revisions/2359">Revision 2359</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2359/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Oct 2010 04:07" href="/projects/exiv2/activity?from=2010-10-01">about 11 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Add support for Samsung&#39;s .SRW raw format (Closed)" href="/issues/726">#726</a>: Tweak to make it select the correct primary image.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1730" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="17 Sep 2010 01:37" href="/projects/exiv2/activity?from=2010-09-17">about 11 years</a> ago
+      <span id="journal-1730-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1730-notes" class="wiki"><p>If these files are really just like TIFF files then exiv2 should work just fine.</p>
+
+
+	<p>Can you try with the exiv2 command line tool whether you can read and maybe even write to these files?</p>
+
+
+	<p>Exiv2 doesn't support Samsung makernotes yet, so writing will probably corrupt the makernote and chances are the resulting image can't be displayed anymore.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1733" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1206">Oleg Yermakov</a> <a title="20 Sep 2010 10:19" href="/projects/exiv2/activity?from=2010-09-20">about 11 years</a> ago
+      <span id="journal-1733-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1733-notes" class="wiki"><a name="reading-tags"></a>
+<h2 >reading tags:<a href="#reading-tags" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+$ exiv2 print SAM_6972-test.srw  
+File name       : SAM_6972-test.srw
+File size       : 28138208 Bytes
+MIME type       : image/tiff
+Image size      : 0 x 0
+Camera make     : SAMSUNG        
+Camera model    : NX10           
+Image timestamp : 2010:09:09 00:14:46
+Image number    : 
+Exposure time   : 1/8 s
+Aperture        : F2
+Exposure bias   : 0 EV
+Flash           : No flash
+Flash bias      : 
+Focal length    : 30.0 mm
+Subject distance: 
+ISO speed       : 800
+Exposure mode   : Aperture priority
+Metering mode   : Multi-segment
+Macro mode      : 
+Image quality   : 
+Exif Resolution : 
+White balance   : Auto
+Thumbnail       : None
+Copyright       : 
+Exif comment    : 
+</pre>
+
+	<p>$ exiv2 print SAM_6972-test.srw -ph >print-ph.txt → <a class="external" href="http://pastebin.com/1F6YDFZK">http://pastebin.com/1F6YDFZK</a></p>
+
+
+	<a name="reading-preview"></a>
+<h2 >reading preview:<a href="#reading-preview" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+$ exiv2 print SAM_6972-test.srw -pp
+Preview 1: image/jpeg, 4592x3056 pixels, 5994834 bytes
+</pre><br />Extracted SAM_6972-test-preview1.jpg is sane JPEG image, although preview for the .SRW itself doesn't show anywhere
+
+	<a name="extracting-tags"></a>
+<h2 >extracting tags:<a href="#extracting-tags" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+$ exiv2 extract SAM_6972-test.srw  
+./SAM_6972-test.exv: Could not write metadata to file: Size of Exif JPEG segment is larger than 65535 bytes
+</pre><br />The resulting SAM_6972-test.exv is only 9 bytes long and contains just the EXIF header:<br /><pre>
+&lt;FF&gt;^AExiv2&lt;FF&gt;&lt;D9&gt;
+</pre>
+
+	<a name="Editing"></a>
+<h2 >Editing:<a href="#Editing" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+$ exiv2 -M"set Exif.Photo.UserComment charset=Ascii New Exif comment" SAM_6972-test.srw 
+$ exiv2 print SAM_6972-test.srw | grep comment
+Exif comment    : New Exif comment
+</pre>
+
+	<p>---<br />So, the empty «image size» field is only serious problem I see. But it <strong>is</strong> populated in EXIF as you can see in the <strong>print -ph</strong> output.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1734" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1206">Oleg Yermakov</a> <a title="20 Sep 2010 10:28" href="/projects/exiv2/activity?from=2010-09-20">about 11 years</a> ago
+      <span id="journal-1734-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1734-notes" class="wiki"><p>Ooops, bad news: Adobe DNG converter no longer thinks it's still SRW after I added a comment to the image.</p>
+
+
+	<p>Maybe it's bacause size of the file changed from 28138208 to 28130514 bytes.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1735" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 Sep 2010 18:59" href="/projects/exiv2/activity?from=2010-09-20">about 11 years</a> ago
+      <span id="journal-1735-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1735-notes" class="wiki"><p>Thanks for testing. Chances are this can be made to work without too much effort. I'll give it a try, but that will be earliest over the weekend.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1750" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="28 Sep 2010 10:08" href="/projects/exiv2/activity?from=2010-09-28">about 11 years</a> ago
+      <span id="journal-1750-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1750-notes" class="wiki"><p>I've added support for the Samsung makernote. Can you run your tests again with the current revision from SVN (<a class="changeset" title="#726: Added support for Samsung2 makernote. (Pretty-print and easy-access functions not done yet.)" href="/projects/exiv2/repository/exiv2/revisions/2357">r2357</a>)?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1754" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="08 Oct 2010 22:54" href="/projects/exiv2/activity?from=2010-10-08">about 11 years</a> ago
+      <span id="journal-1754-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>image format</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+       <li><strong>Assignee</strong> set to <i>Andreas Huggel</i></li>
+       <li><strong>Target version</strong> set to <i>0.21</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-1754-notes" class="wiki"><p>Considered done. Needs some real-world feedback now.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1755" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="09 Oct 2010 00:41" href="/projects/exiv2/activity?from=2010-10-09">about 11 years</a> ago
+      <span id="journal-1755-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1755-notes" class="wiki"><p>Andreas,</p>
+
+
+	<p>For digiKam, i need to know if SRW file are supported as Read Only or as Read/Write.</p>
+
+
+	<p>Gilles Caulier</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1756" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="09 Oct 2010 08:53" href="/projects/exiv2/activity?from=2010-10-09">about 11 years</a> ago
+      <span id="journal-1756-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1756-notes" class="wiki"><p>Read/Write</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1805" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="22 Nov 2010 18:31" href="/projects/exiv2/activity?from=2010-11-22">almost 11 years</a> ago
+      <span id="journal-1805-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/726.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/726.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

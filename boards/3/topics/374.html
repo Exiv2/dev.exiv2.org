@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>&quot;Pulling out&quot; the value of one IPTC tag? - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="vJqP/mHX2/X/yldfG8XEBWBKr6IADTNEcONxjCcXtMde1yQRE60X9aquSFOkEsg2X9j72/Hukv6Nw+EEZC5TqA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>&quot;Pulling out&quot; the value of one IPTC tag?</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="04 Feb 2010 05:50" href="/projects/exiv2/activity?from=2010-02-04">almost 12 years</a> ago</span></p>
+<div class="wiki">
+<p>Let's say I just wanted to know the Fixture Identification or the Country Name of a-certain-file.jpg. With exiv2 on the command line, there's no Print command that will give me the value of just one key or tag. Can this be helped along with a mini-app compiled from a cpp file, or is there just no way to "pull out" the value of a single, particular key or tag?</p>
+
+
+	<p>S.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (22)</h3>
+  <div class="message reply" id="message-375">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=375#message-375">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="04 Feb 2010 07:46" href="/projects/exiv2/activity?from=2010-02-04">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Steve</p>
+
+
+	<p>I always pipe the output from exiv2 through grep to do that (or egrep if necessary).  On Windows I have Cygwin installed and that provides good emulation of the unix command-line tools.</p>
+
+
+	<p>exiv2 -pt foo.jpg | grep GPS</p>
+
+
+	<p>I'll leave Andreas to speak up for himself, however I'm not sure I see a great benefit in making the command-line more complex when the grep tool is so readily available on all platforms.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-376">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=376#message-376">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="04 Feb 2010 20:32" href="/projects/exiv2/activity?from=2010-02-04">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>exiv2 -pt foo.jpg | grep GPS</p>
+
+
+</blockquote>
+
+	<p>That was the original thinking exactly. But this is UNIX philosophy and several users have asked for this feature in the meantime, so that I now consider adding it rather than embarking on a mission to spread UNIX philosophy among exiv2 users. It's probably quicker.</p>
+
+
+	<p>Besides, Robin, interesting to hear you're using Cygwin. Have you ever compiled exiv2 under Cygwin? I'd be interested to hear if that works. Personally, I'm using MSYS/MinGW here for the same thing - to get a usable command line interface and access to UNIX powertools also on Windows.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-382">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=382#message-382">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="05 Feb 2010 20:08" href="/projects/exiv2/activity?from=2010-02-05">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>Besides, Robin, interesting to hear you're using Cygwin. Have you ever compiled exiv2 under Cygwin? I'd be interested to hear if that works. Personally, I'm using MSYS/MinGW here for the same thing - to get a usable command line interface and access to UNIX powertools also on Windows.</p>
+
+
+	<p>Andreas</p>
+
+
+</blockquote>
+
+	<p>Andreas,</p>
+
+
+	<p>Robin's not the only one. I also use Cygwin. Exiv2 0.19 was a smooth compile, too. In fact, I had more trouble with the install I did from source in Ubuntu Gnome 9.04 than I did with Cygwin. I tried compiling a modification of the exiv2comment.cpp sample file (that I'd successfully compiled with Cygwin's gcc a week or so ago) and, on first running the binary, the shell told me it couldn't find a certain ".so" file. So I went to the Ubuntu Forums and found out I could soft-symlink an .so file in /usr/lib with the name the exiv2 was "looking for." I did so, then ran the binary again with no further issues or complaints.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-383">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=383#message-383">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="05 Feb 2010 20:18" href="/projects/exiv2/activity?from=2010-02-05">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Steve</p>
+
+
+	<p>I always pipe the output from exiv2 through grep to do that (or egrep if necessary).  On Windows I have Cygwin installed and that provides good emulation of the unix command-line tools.</p>
+
+
+	<p>exiv2 -pt foo.jpg | grep GPS</p>
+
+
+	<p>I'll leave Andreas to speak up for himself, however I'm not sure I see a great benefit in making the command-line more complex when the grep tool is so readily available on all platforms.</p>
+
+
+	<p>Robin</p>
+
+
+</blockquote>
+
+	<p>Robin,</p>
+
+
+	<p>I happened across your reply at the worst possible time, so I haven't been able to try your suggestion. How bad was it? As it happens, I'd been knocking my head against a problem with a bash script that, coincidentally or no, involved <strong>grep</strong> directly. Seems I couldn't get it to parse the tag value of a JPEG file's FixtureId. It kept giving me just the tag name. I was using <em>-PInv</em> for the option(s), but it wasn't until I applied a sed string to a pipe that I got the return I wanted. Then it wouldn't pass the cropped string with that value to the variable I was using to echo, until I prefixed the command string (a piped exiv2, grep and sed combination at the end-up) with a *$*.</p>
+
+
+	<p>The script (see attached) is specifically for changing FixtureId values in files that support IPTC. I think it's just about ready for prime-time, as they say, so I'll let you give it a go at your convenience.</p>
+
+
+	<p>S.</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/143">fife.sh</a>    <span class="size">(1.76 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/143/fife.sh">fife.sh</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-384">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=384#message-384">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="05 Feb 2010 23:18" href="/projects/exiv2/activity?from=2010-02-05">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for posting that, Steve.  I ran it on my Mac, and it worked.  I found your discussion about this on LinuxQuestions:  <a class="external" href="http://www.linuxquestions.org/questions/linux-newbie-8/bash-script-command-line-same-commands-different-returns-need-help.-786992/">http://www.linuxquestions.org/questions/linux-newbie-8/bash-script-command-line-same-commands-different-returns-need-help.-786992/</a></p>
+
+
+	<p>I'm a little puzzled because I'm not sure what FixtureId is.  Is it an IPTC field?  Can you upload a suitable test file for your script?</p>
+
+
+	<p>If you'd like a comment about the script, I'd suggest you make it a command-line tool (and don't ask him to read from the keyboard).  I'd suggest one script can be used to read or write with the following syntax:</p>
+
+
+	<p>fixtureid [pathname [new fixtureid]]<br />so:<br />fixtureid  - reports syntax and quits<br />fixtureid pathname - reports the current value of FixtureId<br />fixtureid pathname 'a new value for the fixture id' - updates FixtureId</p>
+
+
+	<p>(however it's totally OK if you prefer not to follow my suggestion).</p>
+
+
+	<p>To answer Andreas question about building under MingW, I've never bothered to build with mingw on windows, because I thought you'd totally taken care of all of that.  However it seems that Steve's been able to build this without mishap.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-385">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=385#message-385">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="06 Feb 2010 08:53" href="/projects/exiv2/activity?from=2010-02-06">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Thanks for posting that, Steve.  I ran it on my Mac, and it worked.  I found your discussion about this on LinuxQuestions:  <a class="external" href="http://www.linuxquestions.org/questions/linux-newbie-8/bash-script-command-line-same-commands-different-returns-need-help.-786992/">http://www.linuxquestions.org/questions/linux-newbie-8/bash-script-command-line-same-commands-different-returns-need-help.-786992/</a></p>
+
+
+	<p>I'm a little puzzled because I'm not sure what FixtureId is.  Is it an IPTC field?  Can you upload a suitable test file for your script?</p>
+
+
+	<p>If you'd like a comment about the script, I'd suggest you make it a command-line tool (and don't ask him to read from the keyboard).  I'd suggest one script can be used to read or write with the following syntax:</p>
+
+
+	<p>fixtureid [pathname [new fixtureid]]<br />so:<br />fixtureid  - reports syntax and quits<br />fixtureid pathname - reports the current value of FixtureId<br />fixtureid pathname 'a new value for the fixture id' - updates FixtureId</p>
+
+
+	<p>(however it's totally OK if you prefer not to follow my suggestion).</p>
+
+
+	<p>To answer Andreas question about building under MingW, I've never bothered to build with mingw on windows, because I thought you'd totally taken care of all of that.  However it seems that Steve's been able to build this without mishap.</p>
+
+
+	<p>Robin</p>
+
+
+</blockquote>
+
+	<p>Robin,</p>
+
+
+	<p>FixtureId is an IPTC field. It corresponds to "Event" in iView Media Pro, and to "JobId" in XnView. I've got a PDF file that lists a few applications and what they "label" the standard and extended IPTC v.4.0 metadata tags, so if you name an application that allows one to view IPTC fields I could probably look it up in this file and tell you what it's called. Of course, not being in journalism, I use it in a somewhat different way than how it was intended.</p>
+
+
+	<p>Coincidentally, I <em>did</em> manage to compile this script using shc, a generic script compiler. It was a smooth compile, once I puzzled out the name that Cygwin's gcc was giving to shc on compiling <strong>it</strong>. I needed to rename it from the basic, super-generic a.exe to shc.exe, after which I moved it into my PATH of course. So far I've run it on only one file, just to test out a "Yes-Yes-Yes-and-here's-a-string-to-write" sequence, and it works as well as the original shell script did when I uploaded it for you to try.</p>
+
+
+	<p>No keyboard input? That was part of the challenge I gave myself in writing the script in the first place. I asked myself the question, <em>How many prompts does it take to do a job?</em> and proceeded to answer it in the script. Saying as my own last Mac died of power-supply failure in 2008, and since then I haven't done much scripting at all, in BASH or anything else, it was good to get a feel for things as I knew them before I became a "refugee." (I even named the C: drive on this Windows box "Resurgam," Latin for "I will rise again." I <em>have</em>, after a fashion.)</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-386">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=386#message-386">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="07 Feb 2010 05:17" href="/projects/exiv2/activity?from=2010-02-07">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Steve</p>
+
+
+	<p>I always pipe the output from exiv2 through grep to do that (or egrep if necessary).  On Windows I have Cygwin installed and that provides good emulation of the unix command-line tools.</p>
+
+
+	<p>exiv2 -pt foo.jpg | grep GPS</p>
+
+
+	<p>I'll leave Andreas to speak up for himself, however I'm not sure I see a great benefit in making the command-line more complex when the grep tool is so readily available on all platforms.</p>
+
+
+	<p>Robin</p>
+
+
+</blockquote>
+
+	<p>Robin,</p>
+
+
+	<p>Just saw a flaw in that thinking with regard to grep. Let's say I have a folder with a good lot of jpegs whose names follow the pattern "image001.jpg", "image002.jpg", etc., all the way up to, for argument's sake "image199.jpg." I happen to know, having just used MS Expression Media on the lot a few days ago, that  they all have my good friend the "FixtureId" field with at least some data in it. Just for the pure fun (?!) of it, I try to get exiv2 to give me the file names, field names and data in those tags, and print them out to a plain text file. So I issue the command:</p>
+	<pre><code><code>echo -ne $(`exiv2 -PInt image*.jpg | grep FixtureID`) > image-events.txt</code></code></pre>
+
+
+	<p>or something like it, and the result? An empty plain text file.</p>
+
+
+	<p>Now I'm sure I could write a short bash script, setting variables and values and passing them on to such things as awk and sed, which would probably work, but why should I (or anyone) have to take the time to do that when "for the same money" Andreas could write a tag "parser" or "picker" into exiv2 itself and we could all stick to the command line without resort to vim, nano, TextWrangler or Crimson Editor.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-388">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=388#message-388">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="07 Feb 2010 06:07" href="/projects/exiv2/activity?from=2010-02-07">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Steve,</p>
+
+
+<blockquote>
+
+	<p>exiv2 -PInt image*.jpg | grep FixtureID</p>
+
+
+</blockquote>
+
+	<p>Isn't there a typo here - it's Id not ID, isn't it?</p>
+
+
+	<p>But in any case, you're right, it's not a big deal to add the required functionality to the utility. I've added it this afternoon in-between playing with the kids. So please <a href="http://www.exiv2.org/download.html#devel" class="external">check out the latest source code from the repository</a> and test the new -g option and let me know if it does what you need. It lets you do things like this (the updated manpage will follow later):</p>
+
+
+<pre>
+$ exiv2 -g Iptc.Application2.Program digikam-example-d90.jpg
+Iptc.Application2.Program                    String      7  digiKam
+$ exiv2 -Pv -g Iptc.Application2.Program digikam-example-d90.jpg
+digiKam
+</pre>
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-390">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=390#message-390">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="07 Feb 2010 08:59" href="/projects/exiv2/activity?from=2010-02-07">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Steve</p>
+
+
+	<p>Well, I think Andreas is offering to add something like that.  My contribution was only to say that restrict the keys being listed with grep.</p>
+
+
+	<p>I suspect there a very simple alternative command (using find or xargs or for) to meet your needs, however we've really wandered into the land of unix shell scripting.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-391">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=391#message-391">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="08 Feb 2010 01:14" href="/projects/exiv2/activity?from=2010-02-08">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>Steve,</p>
+
+
+<blockquote>
+
+	<p>exiv2 -PInt image*.jpg | grep FixtureID</p>
+
+
+</blockquote>
+
+	<p>Isn't there a typo here - it's Id not ID, isn't it?</p>
+
+
+</blockquote>
+
+	<p>Andreas:<br />Saw that later. Too bad the "forum-ware" part of Redmine doesn't allow for coming back and editing "goofs and gaffes." Then again, if it did, it probably would be a lot more lagged (a la phpBB) in terms of how fast we got our email copies on subscribed, or "watched" as they're called here, threads.</p>
+
+
+	<p>Anyway, it was only after looking at the fife.sh script I attached for Robin two or three times that I recognized there <em>was</em> a typo in the command I referred to in my post above.</p>
+
+
+<blockquote>
+
+	<p>But in any case, you're right, it's not a big deal to add the required functionality to the utility. I've added it this afternoon >in-between playing with the kids. So please check out the latest source code from the repository and test the new -g option and let >me know if it does what you need.</p>
+
+
+</blockquote>
+
+	<p>To Robin:</p>
+
+
+<blockquote>
+
+	<p>I suspect there a very simple alternative command (using find or xargs or for) to meet your needs, however we've really wandered into the land of unix shell scripting.</p>
+
+
+</blockquote>
+
+	<p>And on that score, I've come up with an idea for another script that looks for <em>any</em> tags with data in a given file and gives the user the option of viewing the data in them by name. Though as I think about it more, it might work better as a python script or even done up in Perl, neither of which code do I have much more knowledge than that they are very popular and useful in these instances. The only code/coding/scripting I actually know is an odd smattering of command-line BASIC, HTML/CSS, and a little AppleScript. Plus I can <strong>sometimes</strong> tell whether when and why a Photoshop batch action isn't working the way I want it by looking at it in a text editor.</p>
+
+
+	<p>But now with the patch for the -g option, none or very little of the above might be necessary.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-392">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=392#message-392">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="08 Feb 2010 02:02" href="/projects/exiv2/activity?from=2010-02-08">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>Steve,</p>
+
+
+	<p>But in any case, you're right, it's not a big deal to add the required functionality to the utility. I've added it this afternoon in-between playing with the kids. So please <a href="http://www.exiv2.org/download.html#devel" class="external">check out the latest source code from the repository</a> and test the new -g option and let me know if it does what you need. It lets you do things like this (the updated manpage will follow later):</p>
+
+
+	<p>[...]</p>
+
+
+	<p>Andreas</p>
+
+
+</blockquote>
+
+	<p>I have to confess, I don't know how to "check out the source code." I <em>downloaded</em> the new source code and tried a command similar to the one shown here...<br /><a class="external" href="http://dev.exiv2.org/boards/3/topics/show/271#message-272">http://dev.exiv2.org/boards/3/topics/show/271#message-272</a><br />...using first "actions.cpp" and then "exiv2.cpp" in place of the "exivprint.cpp" mentioned in that threadand all I got was a long string of errors. Evidently I'm using the wrong command. I'm sure the <del>lexiv2 option still obtains, but I'm not sure of where to put it in a command such as "./configure," "make," etc. There seems only to be a passing reference to it in one other thread on this forum. I'd Google it, but my luck in that direction has, as has been proven by my track record here -</del> all four threads I've started have been on topics and looking for specifics that I couldn't find via Google -- that would, likely as not, just lead me back here.</p>
+
+
+	<p>BTW: I also discovered there is no "html" folder in the "doc" subfolder of the tarball for exiv2-0.19. There's an "index.html" that tries to redirect to the eponymous file <em>inside</em> that folder, but as it doesn't exist all one gets is a "Page not found" error. That was the first place I went, right after discovering that the command (with which I'd successfully made my one tweak of a sample code page into an executable) failed.</p>
+
+
+	<p>Hope you can help on the first part -- and soon; I'm anxious to try out the new option, "-g".</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-393">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=393#message-393">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="08 Feb 2010 02:30" href="/projects/exiv2/activity?from=2010-02-08">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote><blockquote>
+
+	<p>But in any case, you're right, it's not a big deal to add the required functionality to the utility. I've added it this afternoon in-between playing with the kids. So please <a href="http://www.exiv2.org/download.html#devel" class="external">check out the latest source code from the repository</a> and test the new -g option and let me know if it does what you need. It lets you do things like this (the updated manpage will follow later):</p>
+
+
+</blockquote>
+
+	<p>I have to confess, I don't know how to "check out the source code."</p>
+
+
+</blockquote>
+
+	<p>Just follow the link above, it's explained there.</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-394">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=394#message-394">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="08 Feb 2010 03:22" href="/projects/exiv2/activity?from=2010-02-08">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for pointing that out, Andreas.</p>
+
+
+	<p>It took me awhile, saying as I had to add autoconf to Cygwin. When I first installed it, the shell still wouldn't see it so I repeated the same steps as I did on my Ubuntu box for the "ornery" .so file. Having had the Cygwin setup program give me both of the recent builds of gcc automake did raise the question, briefly, of which one to soft symlink. I tried the older-by-number first. It didn't have the -o option, so I trashed that one's soft symlink and made a new one for the newer-by-number version. That worked. After the usual Unix three-step dance (./configure, make, make install), I tested for the -g option, and found it was available. Again, thanks for adding it.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-401">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=401#message-401">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="15 Feb 2010 00:28" href="/projects/exiv2/activity?from=2010-02-15">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas,</p>
+
+
+	<p>Have you added the details for "-g" option usage to the man page yet? And how does that work? Do you put up a "master" page with changes to the site concurrent with updating the man.x file that goes out in the tarball, and have the folks who run manpage sites update at their leisure? Or do you make the change, publish the manpage in the repository here,and <em>then</em> inform the larger or more popular manpage sites (linux.die.net comes to mind -- it's the one I use quite often) that a revision has been made, giving them a choice between HTTP and TeX of which format to 'grab'?</p>
+
+
+	<p>In any event, the -Pv and -g in tandem are perfect for a shell script I've started working on. One of my GUI image viewers doesn't have IPTC FixtureId under any name in the list of fields it's able to read and display either in its Image Info summary window or its slideshow. So I've had to resort to copying the data from that field to Iptc.Application2.ObjectName, which this app <strong>does</strong> "see."</p>
+
+
+	<p>Of course, to do it on batches of files, I want to use exiv2, as there isn't yet -- and probably will never be -- such a narrowly-focussed field-to-field copying or cloning feature in any of my GUI apps, MSXM2 included. I recall back towards the start of this decade watching the slow deterioration, as I see it, of any given application of this class able to read in files (whole lists of files and tag data) generated by another application, and annotate according to file name and field. So I know I'll find no help for this in that corner. Even XML and XMP are too "slippery," as Adobe and Apple are frequently making changes to both to suit their more or less proprietary purposes. So I'm back to the command line, and all <em>its</em> quirks and foibles.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-403">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=403#message-403">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Feb 2010 03:23" href="/projects/exiv2/activity?from=2010-02-15">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>Have you added the details for "-g" option usage to the man page yet?</p>
+
+
+</blockquote>
+
+	<p>Yes, just now. See <a class="changeset" title="Documented recent utility changes." href="/projects/exiv2/repository/exiv2/revisions/2028">r2028</a>.</p>
+
+
+<blockquote>
+
+	<p>And how does that work? Do you put up a "master" page with changes to the site concurrent with updating the man.x file that goes out in the tarball, and have the folks who run manpage sites update at their leisure? Or do you make the change, publish the manpage in the repository here,and <em>then</em> inform the larger or more popular manpage sites (linux.die.net comes to mind -- it's the one I use quite often) that a revision has been made, giving them a choice between HTTP and TeX of which format to 'grab'?</p>
+
+
+</blockquote>
+
+	<p>For now the changes have been checked-in just like changes to the source code. With every release, the man page is included in the distribution. It's not on the exiv2 website and people publishing it on theirs have their own ways to detect changes and convert it into a format suitable for them.</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-414">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=414#message-414">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="19 Feb 2010 16:20" href="/projects/exiv2/activity?from=2010-02-19">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote><blockquote>
+
+	<p>Have you added the details for "-g" option usage to the man page yet?</p>
+
+
+</blockquote>
+
+	<p>Yes, just now. See <a class="changeset" title="Documented recent utility changes." href="/projects/exiv2/repository/exiv2/revisions/2028">r2028</a>.</p>
+
+
+<blockquote>
+
+	<p>And how does that work? Do you put up a "master" page with changes to the site concurrent with updating the man.x file that goes out in the tarball, and have the folks who run manpage sites update at their leisure? Or do you make the change, publish the manpage in the repository here,and <em>then</em> inform the larger or more popular manpage sites (linux.die.net comes to mind -- it's the one I use quite often) that a revision has been made, giving them a choice between HTTP and TeX of which format to 'grab'?</p>
+
+
+</blockquote>
+
+	<p>For now the changes have been checked-in just like changes to the source code. With every release, the man page is included in the distribution. It's not on the exiv2 website and people publishing it on theirs have their own ways to detect changes and convert it into a format suitable for them.</p>
+
+
+	<p>-ahu.</p>
+
+
+</blockquote>
+
+	<p>Andreas,</p>
+
+
+	<p>It appears that linux.die.net, freedom.dicea.unifi.it, and digipedia.pl are the only three man page sites "serving up" a man2html version of exiv2. I just did a 12-page Google search with "man exiv2" as my search string, and those were the only three to come up; all else were technical reviews, links back to the Wiki and Issues pages here, and some RPM and DEB index lists.</p>
+
+
+	<p>And since word-of-mouth (or word-of-keyboard) promotion is the traditional route of open-source software promulgation, you may want to read  <br />this post  [<a class="external" href="http://tinyurl.com/yghyb43">http://tinyurl.com/yghyb43</a>] where I make mention of the recent cvs revision for the -g option. I hope I didn't overstate your receptiveness to new ideas.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-440">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=440#message-440">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="02 Mar 2010 13:21" href="/projects/exiv2/activity?from=2010-03-02">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>Steve,</p>
+
+
+<blockquote>
+
+	<p>exiv2 -PInt image*.jpg | grep FixtureID</p>
+
+
+</blockquote>
+
+	<p>Isn't there a typo here - it's Id not ID, isn't it?</p>
+
+
+	<p>So please <a href="http://www.exiv2.org/download.html#devel" class="external">check out the latest source code from the repository</a> and test the new -g option and let me know if it does what you need. It lets you do things like this (the updated manpage will follow later):</p>
+
+
+</blockquote>
+
+	<p>Andreas,</p>
+
+
+	<p>I took another look at the <em>g</em> option, and while I think it's great as a shortcut to return the value of a particular tag, it may be that it returns a little too much information. Lately, I've been polishing off a script to add three- and four-letter extensions to files by their actual filetype. Linux may not need them, but those other two, Mac OS X and especially Windows, seem to rely on them quite a bit. In so doing I re-acquainted myself with the <strong>-b</strong> (brief: no filename) option of the <em>file</em> command in bash. I think that was more what I had in mind.</p>
+
+
+	<p>It would certainly make it easier to copy one tag value to another field or tag, such as IPTC caption to JPEG comment or EXIF User comment to IPTC caption. The typical line returned by -g &lt;tagname&gt; <em>file.jpg</em> now still needs a bit of trimming to get just the "meat" of the tag copied. By this I mean: set to a variable that can be written back to the same file somewhere else in the metadata.</p>
+
+
+	<p>I just took a look at the updated manpage. I'm wondering if there's already something there, and because I've not yet used the <del>n option mentioned --lines 137-42 of the manpage, first in context with -g then on its own as an option -</del> I'm not seeing it. The -n wouldn't necessarily apply to anything IPTC, as it's a means of decoding by charset in the EXIF 'block.' Or am I not seeing that quite right, either?</p>
+
+
+	<p>Hope you can help with this.</p>
+
+
+	<p>S.<br />P.S.: In the other script, <em>file -b</em> turned out to be a blind alley, but <em>file -R &lt;comma&gt;</em>, <em>cut -d &lt;comma&gt;</em> (with alternate fields isolated), all inside a <em>for-do-done</em> loop worked like a charm.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-441">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=441#message-441">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="02 Mar 2010 14:13" href="/projects/exiv2/activity?from=2010-03-02">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas,</p>
+
+
+	<p>I think I have it figured out. If I do, and this tests well with the same or similar results with other users' files, there should be no need to tweak the <em>g</em> option.</p>
+
+
+	<p>The "meat" of any data returned by -g &lt;tagname&gt; <em>file.jpg</em> consistently starts with the fourth field, using a single space as delimiter. So setting variables such as <br /><pre>
+caPshun=$(exiv2 -g Iptc.Application2.Caption exb0000-34-70806.jpg)
+sendme=$(echo $caPshun | cut -d" " -f4-)
+</pre></p>
+
+
+	<p>and then adding<br /><pre>
+exiv2 -c  "$sendme" exb0000-34-70806.jpg
+</pre><br />effectively copies the IPTC Caption to the JPEG Comment header.</p>
+
+
+	<p>I also tried it with FixtureId-to-ObjectName, using similarly Little-Rascals/Our Gang-themed variables btw, and it worked just as well.</p>
+
+
+	<p>Now to make it more broadly-applicable, I intend to write a bash script that searches out Field A (let's say "Iptc.Application2.Caption" for example), and checks Field B (either Exif.Image.UserComment or a plain old ordinary -c JPEG comment header) for a value before copying the first to the second by way of one or two variables.</p>
+
+
+	<p>And I have the strong feeling this is only the beginning.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-442">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=442#message-442">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="02 Mar 2010 18:10" href="/projects/exiv2/activity?from=2010-03-02">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Steve,</p>
+
+
+	<p>Copying of values from one field to another is an interesting use case; please keep us posted.</p>
+
+
+	<p>As for the script itself, remember that the -g option can be combined with the -P option, and that can be used to filter specific fields. As long as you process the files one by one, that should simplify your code further, you should be able to do without the 'cut' command.</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-446">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=446#message-446">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="03 Mar 2010 08:07" href="/projects/exiv2/activity?from=2010-03-03">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>As for the script itself, remember that the -g option can be combined with the -P option, and that can be used to filter specific fields. As long as you process the files one by one, that should simplify your code further, you should be able to do without the 'cut' command.</p>
+
+
+	<p>-ahu.</p>
+
+
+</blockquote>
+
+	<p>Andreas,</p>
+
+
+	<p>I just tried that. I took a peek at the man page before proceeding, and saw that -Pv returns "plain Exif tag values." I have to say I was pleasantly surprised when my first guess at the 'proper order' of option tags, <em>exiv2 -g &lt;tagname&gt; -Pv (file)</em> worked without errors. And -Pv is an "older" function, so to speak. It was probably even in the version I tried when I emailed you back in May 2009 to ask (complain?) about "IPTC tag values running over themselves."</p>
+
+
+	<p>So now it remains to puzzle out precisely how to replace those <em>cut</em> commands in my script with the -Pv option. Shouldn't take much doing at all. It's all too true that <em>cut</em> in one shell or distribution can be a little more particular about its delimiters than the one in Cygwin or Ubuntu GNOME.</p>
+
+
+	<p>BTW: on the way to writing the script (which so far only takes FixtureId values and copies them to empty ObjectName tag spaces), I wrote another quickie bash script that does something very simple. So simple you'd think the original authors of iView Media Pro would have made it part of their application. In IVMP/MSXM, there is no cut-and-dry way to find out if a file has <strong>any</strong> annotation tags. But by employing the -pa option in exiv2, I wrote a script that runs through every file in a directory and returns "This one is," "This one isn't" kind of messages.</p>
+
+
+	<p>Thanks again for pointing me in a new (and simpler) direction.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-456">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=456#message-456">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="06 Mar 2010 13:51" href="/projects/exiv2/activity?from=2010-03-06">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>Steve,</p>
+
+
+	<p>Copying of values from one field to another is an interesting use case; please keep us posted.</p>
+
+
+</blockquote>
+
+	<p>Andreas,</p>
+
+
+	<p>I "caved in" and SVN'ed the latest build. As I was installing it, I looked back at the "make" stage from time to time, and at one point in the process, I noticed a file pair being worked on: "metacopy.cpp" and "metacopy.hpp". Just a minute  ago, I looked at the former in a text editor. It occurs to me that what I'm doing with these scripts is analogous to what metacopy.cpp does, except instead of copying the same tag between two files, I'm re-assigning and/or adding the same data to the same file.</p>
+
+
+	<p>At first I thought metacopy might be useful to what I was doing with these scripts, and it still may be. Where I get caught up is in how to tweak it to point it to a different field in the same file, test it for data, then add the raw string read from Tag A into Tag B, properly classed and formatted. For the time being, I'll stick with my scripting method.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-460">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/374?r=460#message-460">RE: &quot;Pulling out&quot; the value of one IPTC tag?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="09 Mar 2010 08:38" href="/projects/exiv2/activity?from=2010-03-09">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas,</p>
+
+
+	<p>Maybe without knowing it I've chanced upon a variation of "metacopy" that's worth coding and compiling, at a user's prerogative, for copying values from one field to another. It would certainly take the need to know shell scripting out of the business. Perhaps one could call it "metaclone.cpp" (or "metaditto.cpp") instead of trying to add letters and punctuation to the existing metacopy.cpp.</p>
+
+
+	<p>I've had some time to consider this since my last post to this thread. Some time yesterday it occurred to me that the more functions that can be compiled at the user end of things into small (tiny?) executables, the easier it may be for some who are used to having otherwise quite complex tasks performed for them at a stroke, so to speak, on the command line. Consider how much work grepping, awking and trimming was saved when "rename" was added to the BASH (and other) shells. The code page examples point to ways to do this for a number of functions or sequences of functions and commands already. This idea just takes it one step further, plus it "lends" the speed of C++ to what otherwise might turn out to be a lagging, plodding process on some machines.</p>
+
+
+	<p>And if it should prove that "metaditto.cpp" might get in the way of something, or several somethings, in the compile-and-install process, then it might just be practical to leave it "out of the loop," so to speak; include it in the tarball but leave it in the /src subfolder ignored and unused until pointed out as another "example" on the website.</p>
+
+
+	<p>Hope these notions sound practical and worthwhile.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-22/22)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

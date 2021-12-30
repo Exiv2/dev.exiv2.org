@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #992: Better raw file support and test - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="GnF6/AHiPpa1sQ0oET+4k/6ooOpI8O5le4t/8atvh0H4PNETc5jyluDVEiSu6LSgwTr0k7kTT9+Gq+956FZgLg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #992: Better raw file support and test" href="https://dev.exiv2.org/issues/992.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #992</h2>
+
+<div class="issue tracker-2 status-2 priority-4 priority-default details">
+    <div class="next-prev-links contextual">
+      <a title="#1246" accesskey="p" href="/issues/1246">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;f%5B%5D=author_id&amp;op%5Bauthor_id%5D=%3D&amp;op%5Bstatus_id%5D=%2A&amp;page=2&amp;per_page=25&amp;set_filter=1&amp;sort=updated_on%3Adesc%2Cid%3Adesc&amp;v%5Bauthor_id%5D%5B%5D=119&amp;v%5Bstatus_id%5D%5B%5D=">35 of 115</a>
+        </span> |
+      <a title="#1168" accesskey="n" href="/issues/1168">Next »</a>
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Better raw file support and test</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2014 05:36" href="/projects/exiv2/activity?from=2014-09-18">about 7 years</a> ago.
+        Updated <a title="19 Oct 2016 11:51" href="/projects/exiv2/activity?from=2016-10-19">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Assigned</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">testing</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Dec 2020" href="/versions/54">0.28</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">18 Sep 2014</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>See topic: 1817</p>
+
+
+	<p>New lens identifications by using Lensfun's RAW database.  <a class="external" href="http://dev.exiv2.org/boards/3/topics/1817">http://dev.exiv2.org/boards/3/topics/1817</a></p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/992" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="o7Jb0V9RriIr4Asv8rrQ03y0SGCc4448phAJxckwvMJB//A+LStiIn6EFCNNbdzgQyYcGW0AL4ZbMJlNiglbrQ==" />
+  <table class="list issues odd-even"><tr id="relation-117" class="issue hascontextmenu issue tracker-1 status-2 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="867" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-2 priority-4 priority-default" href="/issues/867">Bug #867</a>: Lens not detected on Olympus E-1</td><td class="status">Assigned</td><td class="start_date">10 Nov 2012</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-131" class="issue hascontextmenu issue tracker-3 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="995" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-3 status-5 priority-4 priority-default closed" href="/issues/995">Support #995</a>: Writing Exif to TIFF-like Hasselblad RAW *.3fr </td><td class="status">Closed</td><td class="start_date">04 Nov 2014</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-155" class="issue hascontextmenu issue tracker-2 status-1 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="1076" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-1 priority-4 priority-default" href="/issues/1076">Feature #1076</a>: Detect raw image size in Fuji RAF</td><td class="status">New</td><td class="start_date">10 May 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-157" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1081" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1081">Bug #1081</a>: Read XMP values from CR2 raw file when stored in XMLPacket</td><td class="status">Closed</td><td class="start_date">15 May 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-218" class="issue hascontextmenu issue tracker-2 status-1 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="1176" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-1 priority-4 priority-default" href="/issues/1176">Feature #1176</a>: Validate HUGE file support</td><td class="status">New</td><td class="start_date">31 Mar 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-219" class="issue hascontextmenu issue tracker-1 status-1 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="770" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-1 priority-4 priority-default" href="/issues/770">Bug #770</a>: Exif.CanonFi.FileNumber value is always (0)</td><td class="status">New</td><td class="start_date">18 May 2011</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-10"><tr><td style="width: 10%;" class="closed" title="10%"></td><td style="width: 90%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-220" class="issue hascontextmenu issue tracker-4 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1179" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-4 status-5 priority-4 priority-default closed" href="/issues/1179">Patch #1179</a>: Update Fujifilm Filmmode tag</td><td class="status">Closed</td><td class="start_date">17 Apr 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-224" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1182" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1182">Bug #1182</a>: Exiv2 is unable to update any Exif.SubImageN.xxx tag such as Exif.SubImage1.DefaultScale in a DNG</td><td class="status">Closed</td><td class="start_date">02 May 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-225" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="668" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/668">Feature #668</a>: &quot;TIFF-safe&quot; setExifData variant</td><td class="status">Closed</td><td class="start_date">03 Jan 2010</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-226" class="issue hascontextmenu issue tracker-2 status-1 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="1048" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-1 priority-4 priority-default" href="/issues/1048">Feature #1048</a>: Add support for webm video format.</td><td class="status">New</td><td class="start_date">27 Mar 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-230" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1189" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1189">Bug #1189</a>: Updating time changes Makernote</td><td class="status">Closed</td><td class="start_date">29 May 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-233" class="issue hascontextmenu issue tracker-4 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1197" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-4 status-5 priority-4 priority-default closed" href="/issues/1197">Patch #1197</a>: Add support for Sigma 150-500 on Canon with 1.4X TC</td><td class="status">Closed</td><td class="start_date">19 Jul 2016</td><td class="due_date">09 Aug 2016</td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-254" class="issue hascontextmenu issue tracker-2 status-2 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="1245" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-2 priority-4 priority-default" href="/issues/1245">Feature #1245</a>: Better I/O implementation when EXV_HAVE_MMAP is not set</td><td class="status">Assigned</td><td class="start_date">17 Oct 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/992/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=992&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2934" class="journal has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Oct 2014 20:53" href="/projects/exiv2/activity?from=2014-10-07">about 7 years</a> ago
+      <span id="journal-2934-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Tracker</strong> changed from <i>Bug</i> to <i>Feature</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3130" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="29 Jan 2015 00:23" href="/projects/exiv2/activity?from=2015-01-29">almost 7 years</a> ago
+      <span id="journal-3130-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3130-notes" class="wiki"><p>Forum discussion 1873: <a class="external" href="http://dev.exiv2.org/boards/3/topics/1873">http://dev.exiv2.org/boards/3/topics/1873</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3489" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2015 12:26" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+      <span id="journal-3489-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3489-notes" class="wiki"><p>I've linked this report to <a class="issue tracker-3 status-5 priority-4 priority-default closed" title="Support: Writing Exif to TIFF-like Hasselblad RAW *.3fr  (Closed)" href="/issues/995">#995</a> Writing Exif to TIFF-like Hasselblad RAW *.3fr</p>
+
+
+	<p>I've also discovered this site which has sample images for many raw formats:  <a class="external" href="http://www.rawsamples.ch/index.php/en/">http://www.rawsamples.ch/index.php/en/</a></p>
+
+
+	<p>Thanks to Tuan's webready code, we will be able to read the metadata from those files without copying them locally.<pre>1268 rmills@rmillsmbp:~/Downloads $ exiv2 -pS RAW_NIKON_D5300.NEF 
+STRUCTURE OF TIFF FILE: RAW_NIKON_D5300.NEF
+ address |    tag                      |      type |    count |   offset | value
+      10 | 0x00fe NewSubfileType       |      LONG |        1 |        1 | 1
+      22 | 0x0100 ImageWidth           |      LONG |        1 |      160 | 160
+      34 | 0x0101 ImageLength          |      LONG |        1 |      120 | 120
+      46 | 0x0102 BitsPerSample        |     SHORT |        3 |      328 | 
+      58 | 0x0103 Compression          |     SHORT |        1 |        1 | 1
+      70 | 0x0106 PhotometricInterpret |     SHORT |        1 |        2 | 2
+      82 | 0x010f Make                 |     ASCII |       18 |      336 | NIKON CORPORATION.
+      94 | 0x0110 Model                |     ASCII |       12 |      356 | NIKON D5300.
+     106 | 0x0111 StripOffsets         |      LONG |        1 |   168448 | 37376
+     118 | 0x0112 Orientation          |     SHORT |        1 |        1 | 1
+     130 | 0x0115 SamplesPerPixel      |     SHORT |        1 |        3 | 3
+     142 | 0x0116 RowsPerStrip         |      LONG |        1 |      120 | 120
+     154 | 0x0117 StripByteCounts      |      LONG |        1 |    57600 | 57600
+     166 | 0x011a XResolution          |  RATIONAL |        1 |      368 | 
+     178 | 0x011b YResolution          |  RATIONAL |        1 |      376 | 
+     190 | 0x011c PlanarConfiguration  |     SHORT |        1 |        1 | 1
+     202 | 0x0128 ResolutionUnit       |     SHORT |        1 |        2 | 2
+     214 | 0x0131 Software             |     ASCII |       10 |      384 | Ver.1.00 .
+     226 | 0x0132 DateTime             |     ASCII |       20 |      396 | 2014:04:02 11:39:52.
+     238 | 0x014a SubIFDs              |      LONG |        3 |      416 | 
+     250 | 0x0214 ReferenceBlackWhite  |  RATIONAL |        6 |      428 | 
+     262 | 0x02bc XMLPacket            |      BYTE |     2048 |      476 | &lt;?xpacket begin="..." id="W5M0Mp ...
+     274 | 0x8769 ExifTag              |      LONG |        1 |     2544 | 2544
+     286 | 0x8825 GPSTag               |      LONG |        1 |   167936 | 36864
+     298 | 0x9003 DateTimeOriginal     |     ASCII |       20 |     2524 | 2014:04:02 11:39:52.
+     310 | 0x9216 TIFFEPStandardID     |      BYTE |        4 |        1 | I*..
+1269 rmills@rmillsmbp:~/Downloads $ exiv2 -pS http://www.rawsamples.ch/raws/nikon/RAW_NIKON_D5300.NEF
+STRUCTURE OF TIFF FILE: http://www.rawsamples.ch/raws/nikon/RAW_NIKON_D5300.NEF
+ address |    tag                      |      type |    count |   offset | value
+      10 | 0x00fe NewSubfileType       |      LONG |        1 |        1 | 1
+      22 | 0x0100 ImageWidth           |      LONG |        1 |      160 | 160
+      34 | 0x0101 ImageLength          |      LONG |        1 |      120 | 120
+      46 | 0x0102 BitsPerSample        |     SHORT |        3 |      328 | 
+      58 | 0x0103 Compression          |     SHORT |        1 |        1 | 1
+      70 | 0x0106 PhotometricInterpret |     SHORT |        1 |        2 | 2
+      82 | 0x010f Make                 |     ASCII |       18 |      336 | NIKON CORPORATION.
+      94 | 0x0110 Model                |     ASCII |       12 |      356 | NIKON D5300.
+     106 | 0x0111 StripOffsets         |      LONG |        1 |   168448 | 37376
+     118 | 0x0112 Orientation          |     SHORT |        1 |        1 | 1
+     130 | 0x0115 SamplesPerPixel      |     SHORT |        1 |        3 | 3
+     142 | 0x0116 RowsPerStrip         |      LONG |        1 |      120 | 120
+     154 | 0x0117 StripByteCounts      |      LONG |        1 |    57600 | 57600
+     166 | 0x011a XResolution          |  RATIONAL |        1 |      368 | 
+     178 | 0x011b YResolution          |  RATIONAL |        1 |      376 | 
+     190 | 0x011c PlanarConfiguration  |     SHORT |        1 |        1 | 1
+     202 | 0x0128 ResolutionUnit       |     SHORT |        1 |        2 | 2
+     214 | 0x0131 Software             |     ASCII |       10 |      384 | Ver.1.00 .
+     226 | 0x0132 DateTime             |     ASCII |       20 |      396 | 2014:04:02 11:39:52.
+     238 | 0x014a SubIFDs              |      LONG |        3 |      416 | 
+     250 | 0x0214 ReferenceBlackWhite  |  RATIONAL |        6 |      428 | 
+     262 | 0x02bc XMLPacket            |      BYTE |     2048 |      476 | &lt;?xpacket begin="..." id="W5M0Mp ...
+     274 | 0x8769 ExifTag              |      LONG |        1 |     2544 | 2544
+     286 | 0x8825 GPSTag               |      LONG |        1 |   167936 | 36864
+     298 | 0x9003 DateTimeOriginal     |     ASCII |       20 |     2524 | 2014:04:02 11:39:52.
+     310 | 0x9216 TIFFEPStandardID     |      BYTE |        4 |        1 | I*..
+1270 rmills@rmillsmbp:~/Downloads $ </pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3757" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 May 2015 08:39" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+      <span id="journal-3757-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> deleted (<del><i>Robin Mills</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5053" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2016 19:16" href="/projects/exiv2/activity?from=2016-05-08">over 5 years</a> ago
+      <span id="journal-5053-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5053-notes" class="wiki"><p>I think this should be considered for GSoC 2017 for the following reasons:</p>
+
+
+	<p>1 The project is essentially "time-bounded".  We can make a list of file formats to be considered.  They are implemented and tested one-at-a-time.  Everything achieved is useful.  What can't be done in the time, doesn't defeat the project.<br />2 The level of supervision/mentoring is quite low.<br />3 It has no library, build or platform dependences<br />4 Development can proceed on Linux.  The buildserver provides multi-platform build support.</p>
+
+
+	<p>There are a couple of issues relating to SubIFDs <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 is unable to update any Exif.SubImageN.xxx tag such as Exif.SubImage1.DefaultScale in a DNG (Closed)" href="/issues/1182">#1182</a> and <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: &quot;TIFF-safe&quot; setExifData variant (Closed)" href="/issues/668">#668</a> and these should be carefully considered in this project.  Perhaps we need options in exiv2 which we can switch on/off at will.  One could be "allow editing of SubImage IFDs".</p>
+
+
+	<p>We should consider adding webp and webm support <a class="issue tracker-2 status-1 priority-4 priority-default" title="Feature: Add support for webm video format. (New)" href="/issues/1048">#1048</a></p>
+
+
+	<p>The video code should be reviewed and brought into a better state.  <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Video Code Umbrella (Closed)" href="/issues/1068">#1068</a>.  However that's out of scope for <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Better raw file support and test (Assigned)" href="/issues/992">#992</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5152" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Jun 2016 06:47" href="/projects/exiv2/activity?from=2016-06-13">over 5 years</a> ago
+      <span id="journal-5152-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> changed from <i>1.0</i> to <i>0.28</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5695" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Oct 2016 11:51" href="/projects/exiv2/activity?from=2016-10-19">about 5 years</a> ago
+      <span id="journal-5695-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5695-notes" class="wiki"><p>I have downloaded the 5Gbyte zip of the raw files available from: <a class="external" href="https://www.rawsamples.ch/index.php/en/all-files-as-7z-archive">https://www.rawsamples.ch/index.php/en/all-files-as-7z-archive</a>  They are now available on the buildserver at testfiles/raw and on the web at:  <a class="external" href="http://exiv2.dyndns.org:8080/userContent/testfiles/raw/">http://exiv2.dyndns.org:8080/userContent/testfiles/raw/</a></p>
+
+
+	<p>I am very happy to report that exiv2 can successfully read every file.  A total of 322 files.<pre>~/Jenkins/testfiles/raw $ for i in $(find . -type f); do exiv2 -pa --verbose --grep DateTimeDigitized $i 2&gt;/dev/null ; done  | grep File | wc
+    322     966   13689
+~/Jenkins/testfiles/raw $ (for i in $(find . -type f); do echo $i; done) | wc
+    322     322   10469
+~/Jenkins/testfiles/raw $ </pre></p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/992.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/992.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

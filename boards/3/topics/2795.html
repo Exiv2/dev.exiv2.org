@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Opening an OpenCV cv::Mat image using open(buff,length) on the fly. - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="TlBXl4wkU2ouslLj2e/jabnSQPsleScWfNcXBDvqNo2sHfx4/l6fanvWTe9mOO9ahkAUgtSahqyB94eMeNPR4g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Opening an OpenCV cv::Mat image using open(buff,length) on the fly.</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4895">Yogesh Khedar</a> <a title="08 Jan 2017 20:15" href="/projects/exiv2/activity?from=2017-01-08">almost 5 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi, <br />   I need to open a cv::Mat image into Exiv2 using the Exiv2::ImageFactory::open(buf, length) function but it throws an error that Image is of unknown type. I am attaching the test file. This file was adapted from one of the message thread on this forum. I am not able to find it again :(. I have following question:</p>
+
+
+	<p>1. How does Exiv2 checks for the image type? If I figure this out then probably I can convert the cv::Mat image in the relevant format.</p>
+
+
+	<p>Would really appreciate any help.</p>
+
+
+	<p>Regards,<br />khedar</p>
+</div>
+<div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1121">geotag.cpp</a>    <span class="size">(1.42 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1121/geotag.cpp">geotag.cpp</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (5)</h3>
+  <div class="message reply" id="message-2796">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2795?r=2796#message-2796">RE: Opening an OpenCV cv::Mat image using open(buff,length) on the fly.</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Jan 2017 22:17" href="/projects/exiv2/activity?from=2017-01-08">almost 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Exiv2 supports about 15 common image formats such as TIFF, JPEG and PNG.  I don't know cv::Mat.  You may be able to convert to a supported format.<pre>519 rmills@rmillsmbp:~/gnu/exiv2/trunk $ wc src/*image.cpp
+   159    580   5169 src/bmpimage.cpp
+   303    904   9797 src/cr2image.cpp
+  1435   4740  50557 src/crwimage.cpp
+  1192   5373  56884 src/epsimage.cpp
+   141    462   4282 src/gifimage.cpp
+  1054   3580  36550 src/image.cpp
+   938   3200  39759 src/jp2image.cpp
+  1349   5739  58025 src/jpgimage.cpp
+   183    594   5686 src/mrwimage.cpp
+   285    813   8890 src/orfimage.cpp
+   349   1133  11531 src/pgfimage.cpp
+   736   2793  30608 src/pngimage.cpp
+   712   3095  31737 src/psdimage.cpp
+   160    533   5169 src/rafimage.cpp
+   282    792   9169 src/rw2image.cpp
+   176    626   5986 src/tgaimage.cpp
+  2316  10223 106761 src/tiffimage.cpp
+   805   2787  30822 src/webpimage.cpp
+ 12575  47967 507382 total
+520 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>You can add new image format handler by deriving a new class (such as MatImage) from class Image.  You need to implement functions such as open(), readMetadata() and writeMetadata().  Without knowing anything about cv::Mat, I don't know how much effort is involved.  Last August, Ben and I cooperated to add webp support.  It was about 4 weeks work (each) to add 1000 lines of C++ code, plus test files and test suite updates.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2797">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2795?r=2797#message-2797">RE: Opening an OpenCV cv::Mat image using open(buff,length) on the fly.</a>
+    -
+    Added by <a class="user active" href="/users/4895">Yogesh Khedar</a> <a title="09 Jan 2017 09:59" href="/projects/exiv2/activity?from=2017-01-09">almost 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks Robin for your suggestion. Writing a format handler for cv::Mat seems a daunting task. For now I solved the problem by first converting the cv::Mat into a jpeg buffer using OpenCV's imencode(....) function. Then used this buffer to open Exiv2 image on the fly. Attached is the modified code for reference.<br />I still one problem left though. While writing the buffer to a new file I tried two ways, both are able to write the new file but only one writes the ExifTags.<br />Method 1 works but I need to open and close the same file twice. I want to avoid that.</p>
+
+
+	<p><code>// 1. Writing to disk<br />    // Create a new file for writing.<br />    FILE * file1 = ::fopen("mm2.jpg", "w");<br />    ::fclose(file1);<br />    // Now open using FileIo for writing.<br />    Exiv2::FileIo file("mm2.jpg");<br />    file.open();<br />    file.write(image->io());</code></p>
+
+
+	<p>So i tried method 2. But it does not write ExifTags</p>
+
+
+	<p><code>// 2. Writing to disk<br />    // This works but does not write metatags.<br />    // FILE * file = ::fopen("mm.jpg", "w"); <br />    //::fwrite(&#38;cvbuff[0], image->io().size(), 1, file); <br />    //::fclose(file); </code></p>
+
+
+	<p>is it related to resizing of buffer before writing, which FileIo might be doing. Will explore it further but any suggestions will be helpful.</p>
+
+
+	<p>Thanks,<br />khedar</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1122">geotag2.cpp</a>    <span class="size">(1.34 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1122/geotag2.cpp">geotag2.cpp</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2798">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2795?r=2798#message-2798">RE: Opening an OpenCV cv::Mat image using open(buff,length) on the fly.</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Jan 2017 19:32" href="/projects/exiv2/activity?from=2017-01-09">almost 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I hadn't heard of OpenCV until yesterday.  Gosh, it's massive.  I'm not too sure what Computer Vision is all about, however it looks as though an OpenCV "image" is more like PDF which is a container for geometric and other entities.  It's nothing like JPEG, TIFF and the like which are bitmaps.  Metadata in most of the image formats that Exiv2 supports are actually TIFF files embedded in the bitmap header.  Supporting OpenCV from Exiv2 looks like a massive, and possibly impossible task.  Converting to JPEG and embedding the metadata seems a better strategy.</p>
+
+
+	<p>I'm not too certain what <em><strong><code>image</code></strong></em> represents in your code.  Perhaps you should call:<pre>image-&gt;writeMetadata();</pre>before ::write();::close().</p>
+
+
+	<p>I'm on vacation at the moment (in beautiful New Zealand) and about to have breakfast.  I'll try to find time to look at your code this evening.  In general you shouldn't need to use ::fmumble calls as the BasicIo classes are designed to hide those while supporting remoteIo such as HTTP.  I suspect a little simplification and you'll achieve your desired result.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2799">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2795?r=2799#message-2799">RE: Opening an OpenCV cv::Mat image using open(buff,length) on the fly.</a>
+    -
+    Added by <a class="user active" href="/users/4895">Yogesh Khedar</a> <a title="09 Jan 2017 22:05" href="/projects/exiv2/activity?from=2017-01-09">almost 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>"image" is an instance of Exiv2::Image class and I am calling the <code>image->writeMetadata();</code> before the code snippets in my previous post.  I was worried about the additional overhead of creating the file and then opening it again with BasicIo and that is the reason I wanted Method 2 to work but it seems the overhead is negligible. I checked the CPU and Memory usage of the process and they were well below 2% which seems to be pretty reasonable. And I don't think I will be using my camera at fps settings higher than the current one.</p>
+
+
+	<p>Enjoy your vacations :)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2800">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2795?r=2800#message-2800">RE: Opening an OpenCV cv::Mat image using open(buff,length) on the fly.</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Jan 2017 08:22" href="/projects/exiv2/activity?from=2017-01-10">almost 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ah right.  I've looked at the attached code and understand what you're doing.  I'm sure the code <em><strong><code>::fopen/::close()</code></strong></em> code will execute almost instantly.  I think the API <em><code>Exiv2::ImageFactory::createIo(path)</code></em> can replace<pre>    // 1. Writing to disk
+    // Create a new file for writing.
+    FILE * file1 = ::fopen("mm2.jpg", "w");
+    ::fclose(file1);
+    Exiv2::FileIo file("mm2.jpg");
+    file.open();</pre></p>
+
+
+	<p>I think your method <em><strong><code>2. Writing to disk</code></strong></em> doesn't work because you're writing the raw bytes from cvbuff to file.  Is there any metadata in cvbuff?  Who knows, it's raw data from CVOpen.  image->io().size() is an integer.  You need to write the image <em>body</em> that contains the metadata.  And that's what you're doing with your method <em><strong><code>1. Writing to disk</code></strong></em>.</p>
+
+
+	<p>Combining all of this, can you try the following: <pre>    std::string path="mm.jpg";
+
+    FILE* file = ::fopen(path);
+    ::fwrite(&#38;cvbuff[0], 1,cvbuff.size(),file);
+    ::fclose(file);
+
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(path);
+    image-&gt;readMetata();
+    Exiv2::ExifData &#38;exifData = image-&gt;exifData();
+    exifData["Exif.Image.Model"] = "A long model name to make the Exif metadata grow";
+    image-&gt;writeMetadata();
+    image-&gt;close();</pre>I'm sure this isn't the best fix for this - however I'm confident you'll correct it and reveal your perfect solution.</p>
+
+
+	<p>For sure, you can avoid opening the file with ::fopen etc and use MemIo object instead.  The difference in performance (as you have observed) is probably negligible.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-5/5)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

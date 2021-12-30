@@ -1,0 +1,110 @@
+Index: src/actions.cpp
+===================================================================
+--- src/actions.cpp	(Revision 3550)
++++ src/actions.cpp	(Arbeitskopie)
+@@ -558,13 +558,17 @@
+ 
+     bool Print::grepTag(const std::string& key)
+     {
+-        bool result=Params::instance().keys_.empty();
+-        if (!result) 
+-            for (Params::Keys::const_iterator k = Params::instance().keys_.begin();
+-                !result && k != Params::instance().keys_.end(); ++k) {
+-                    result = key.find(*k) != std::string::npos;
++        if( Params::instance().keys_.empty())
++          return true;
++          
++        for( Params::Keys::const_iterator k = Params::instance().keys_.begin();
++			 k != Params::instance().keys_.end(); ++k)
++        {
++		    if( 0 == regexec( &(*k), key.c_str(), 0, NULL, REG_NOTBOL | REG_NOTEOL))
++		        return true;	   
++			// result = key.find(*k) != std::string::npos;
+         }
+-        return result ;
++        return false;
+     }
+ 
+     void Print::printMetadatum(const Exiv2::Metadatum& md, const Exiv2::Image* pImage)
+Index: src/exiv2.cpp
+===================================================================
+--- src/exiv2.cpp	(Revision 3550)
++++ src/exiv2.cpp	(Arbeitskopie)
+@@ -47,6 +47,7 @@
+ #include <cstring>
+ #include <cassert>
+ #include <cctype>
++#include <regex.h>
+ 
+ #if defined(__MINGW32__) || defined(__MINGW64__)
+ # ifndef  __MINGW__
+@@ -352,7 +353,7 @@
+     case 'u': unknown_ = false; break;
+     case 'f': force_ = true; fileExistsPolicy_ = overwritePolicy; break;
+     case 'F': force_ = true; fileExistsPolicy_ = renamePolicy; break;
+-    case 'g': keys_.push_back(optarg); printMode_ = pmList; break;
++    case 'g': rc = evalKey(optarg); printMode_ = pmList; break;
+     case 'n': charset_ = optarg; break;
+     case 'r': rc = evalRename(opt, optarg); break;
+     case 't': rc = evalRename(opt, optarg); break;
+@@ -410,6 +411,31 @@
+     return rc;
+ } // Params::setLogLevel
+ 
++int Params::evalKey( const std::string& optarg)
++{
++	// try to compile a reg-exp from the input argument and store it in the vector
++	const size_t i = keys_.size();
++	keys_.resize(i + 1);
++	regex_t *pRegex = &keys_[i];
++	int errcode = regcomp( pRegex, optarg.c_str(), REG_NOSUB);
++	if( 0 == errcode)
++	   return 0; // no error
++	   
++	// there was an error compiling the regexp
++    size_t length = regerror (errcode, pRegex, NULL, 0);
++    char *buffer = new char[ length];
++    regerror (errcode, pRegex, buffer, length);
++    std::cerr << progname()
++              << ": " << _("Option") << " -g: "
++              << _("Invalid regexp") << " \"" << optarg << "\": " << buffer << "\n";
++
++    // free the memory and drop the regexp
++    delete[] buffer;
++    regfree( pRegex);
++    keys_.resize(i);
++    return 1;
++} // Params::evalKey
++
+ int Params::evalRename(int opt, const std::string& optarg)
+ {
+     int rc = 0;
+Index: src/exiv2app.hpp
+===================================================================
+--- src/exiv2app.hpp	(Revision 3550)
++++ src/exiv2app.hpp	(Arbeitskopie)
+@@ -39,6 +39,7 @@
+ #include <vector>
+ #include <set>
+ #include <iostream>
++#include <regex.h>
+ 
+ // *****************************************************************************
+ // class definitions
+@@ -125,7 +126,7 @@
+     //! Container for preview image numbers
+     typedef std::set<int> PreviewNumbers;
+     //! Container for keys
+-    typedef std::vector<std::string> Keys;
++    typedef std::vector<regex_t> Keys;
+ 
+     /*!
+       @brief Controls all access to the global Params instance.
+@@ -261,6 +262,7 @@
+     //! @name Helpers
+     //@{
+     int setLogLevel(const std::string& optarg);
++    int evalKey( const std::string& optarg);
+     int evalRename(int opt, const std::string& optarg);
+     int evalAdjust(const std::string& optarg);
+     int evalYodAdjust(const Yod& yod, const std::string& optarg);

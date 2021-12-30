@@ -1,0 +1,15 @@
+Index: xmpsdk/CMakeLists.txt
+===================================================================
+--- xmpsdk/CMakeLists.txt	(révision 3959)
++++ xmpsdk/CMakeLists.txt	(copie de travail)
+@@ -25,7 +25,9 @@
+     GET_TARGET_PROPERTY( XMPLIB xmp LOCATION )
+     TARGET_LINK_LIBRARIES(xmp ${EXPAT_LIBRARIES})
+     # SET( XMPLIB ${XMPLIB} PARENT_SCOPE )
+-    # INSTALL(TARGETS xmp ${INSTALL_TARGET_STANDARD_ARGS} )
++    IF( NOT EXIV2_ENABLE_SHARED )
++        INSTALL(TARGETS xmp ${INSTALL_TARGET_STANDARD_ARGS} )
++    ENDIF()
+ ENDIF()
+ 
+ # That's all Folks!

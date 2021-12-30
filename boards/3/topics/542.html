@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>crash with 0.19 - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="QcF9nr8ZbwRsxhKuwfTit6uP3b1MvcQ8s7DwUaTPSlijjNZxzWOjBDmiDaJ+I+6ElB2JxL1eZYZOkGDZ5/atNw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>crash with 0.19</h2>
+
+<div class="message">
+<p><span class="author">Added by Anonymous <a title="26 May 2010 08:39" href="/projects/exiv2/activity?from=2010-05-26">over 11 years</a> ago</span></p>
+<div class="wiki">
+<p>gThumb git master is crashing on me after upgrading to Fedora 13 (which has exiv2 0.19).</p>
+
+
+	<p>Has anything changed in the API that should make this crash:</p>
+
+
+	<p>static void<br />exiv2_read_metadata (Exiv2::Image::AutoPtr  image,<br />                     GFileInfo             *info)
+{<br />        image->readMetadata();</p>
+	<pre><code>Exiv2::ExifData &#38;exifData = image-&gt;exifData();<br />        if (! exifData.empty()) {<br />                Exiv2::ExifData::const_iterator end = exifData.end();<br />                for (Exiv2::ExifData::const_iterator md = exifData.begin(); md != end; ++md) {<br />                        stringstream value;<br />                        value &lt;&lt; *md;</code></pre>
+
+
+	<p>This gives:</p>
+
+
+	<p>Program received signal SIGSEGV, Segmentation fault.<br />[Switching to Thread 0x7fffe7221710 (LWP 303)]<br />0x0000000000000035 in ?? ()<br />(gdb) thread apply all bt<br />...<br />Thread 12 (Thread 0x7fffe7221710 (LWP 303)):<br />#0  0x0000000000000035 in ?? ()<br />#1  0x00007fffedea2ca7 in operator<< (image=..., info=0x7fffe002d8c0) at /usr/include/exiv2/metadatum.hpp:305<br />#2  exiv2_read_metadata (image=..., info=0x7fffe002d8c0) at exiv2-utils.cpp:368<br />#3  0x00007fffedea4459 in exiv2_read_metadata_from_file (file=&lt;value optimized out&gt;, info=0x7fffe002d8c0, error=0x0)<br />    at exiv2-utils.cpp:465<br />...</p>
+
+
+	<p>?</p>
+
+
+	<p>- Mike</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (2)</h3>
+  <div class="message reply" id="message-543">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/542?r=543#message-543">RE: crash with 0.19</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="27 May 2010 02:31" href="/projects/exiv2/activity?from=2010-05-27">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>There was no API change in this area, this shouldn't crash.<br />I can think of these two possible causes if it does:</p>
+
+
+	<ul>
+	<li>a specific image causes exiv2 to fall over</li>
+		<li>gthumb was compiled and linked with a different version of exiv2, e.g., SVN trunk, which is not binary compatible with 0.19. Re-compiling would definitely be required.</li>
+	</ul>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-544">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/542?r=544#message-544">RE: crash with 0.19</a>
+    -
+    Added by Anonymous <a title="27 May 2010 05:04" href="/projects/exiv2/activity?from=2010-05-27">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Gah, sorry for the noise. I had some left-over library bits from compiling exiv2 trunk. Manually cleaning /usr fixed that.</p>
+
+
+	<p>- Mike</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-2/2)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

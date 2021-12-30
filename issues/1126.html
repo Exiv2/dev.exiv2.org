@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1126: Extracting Exif from PNG in Exiv2-0.25 - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="QuaVP+Zsl/jiyo/azGmCnkdEIrm5y+A60YvT2h38kJmgqz7QlBZb+LeukNZzvo6teNZ2wEgoQYAsq0NSXsV39g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1126: Extracting Exif from PNG in Exiv2-0.25" href="https://dev.exiv2.org/issues/1126.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1126</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Extracting Exif from PNG in Exiv2-0.25</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="08 Oct 2015 12:58" href="/projects/exiv2/activity?from=2015-10-08">about 6 years</a> ago.
+        Updated <a title="06 Dec 2015 21:09" href="/projects/exiv2/activity?from=2015-12-06">almost 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">metadata</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">08 Oct 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I can't import PNG metadata using 0.25 version of Exiv2. The reason I think it's a bug (pardon me if I am wrong) is that the same code worked with 0.24 version.</p>
+
+
+	<p>Thanks,<br />Mikayel</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/846">bug.jpg</a>    <span class="size">(35.3 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/846/bug.jpg">bug.jpg</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Mikayel Egibyan, 08 Oct 2015 12:58</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/847">1796916_10155735224985483_5543419639968711499_o.png</a>    <span class="size">(108 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/847/1796916_10155735224985483_5543419639968711499_o.png">1796916_10155735224985483_5543419639968711499_o.png</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Mikayel Egibyan, 08 Oct 2015 16:18</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1126" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="Gut1UdSp7qO6yOV1Rwww2v6lo6mUkUx7L9LKT8rB2B34pt6+ptMio++s+nn42zzpwTf30GVy7cHS8lrHifg/cg==" />
+  <table class="list issues odd-even"><tr id="relation-183" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1074" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/1074">Feature #1074</a>: ICC Profile in APP2 segment.</td><td class="status">Closed</td><td class="start_date">07 May 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1126/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1126&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4501" href="/projects/exiv2/repository/exiv2/revisions/4501">Revision 4501</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4501/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Sep 2016 05:33" href="/projects/exiv2/activity?from=2016-09-16">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Extracting Exif from PNG in Exiv2-0.25 (Closed)" href="/issues/1126">#1126</a> Fixes submitted for msvc2003</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4348" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Oct 2015 15:19" href="/projects/exiv2/activity?from=2015-10-08">about 6 years</a> ago
+      <span id="journal-4348-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Priority</strong> changed from <i>Urgent</i> to <i>Normal</i></li>
+    </ul>
+    <div id="journal-4348-notes" class="wiki"><p>Mikayel</p>
+
+
+	<p>Do you have a test PNG image?</p>
+
+
+	<p>I am very surprised by your report because I can't think of any changes to pngimage.cpp for v0.25 that could have caused this.</p>
+
+
+	<p>Are you sure that you have libz linked to your code?  You need libz for PNG support.  Run this command: <pre>514 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 --verbose --version --grep libz
+exiv2 0.25 001900 (64 bit build)
+library=/usr/local/lib/libz.1.dylib
+library=/usr/lib/libz.1.dylib
+have_libz=0
+515 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I ran this the Mac, the output will be a little different on Windows or Linux.  However you can see libz shared object/dll in memory.</p>
+
+
+	<p>Windows:<pre>C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\win32\releasedll&gt;exiv2 --verbose --version --grep zlib --grep libz
+exiv2 0.25 001900 (32 bit build)
+library=C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\win32\releasedll\zlib1.dll
+have_libz=1
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\win32\releasedll&gt;</pre></p>
+
+
+	<p>Linux: <pre>1004 rmills@rmillsmm-kubuntu:~/gnu/exiv2/trunk $ exiv2 --verbose --version --grep libz --grep zlib --grep lib
+exiv2 0.25 001900 (64 bit build)
+library=/usr/local/lib/libz.so.1
+have_libz=1
+1005 rmills@rmillsmm-kubuntu:~/gnu/exiv2/trunk $ </pre>You will always report have_libz= either 0 or 1.  However you'll only report the library=path-to-library when your building exiv2 to use DLLs or shared objects.  If you statically link, the DLL/shared object will not be loaded at run-time.  However, you will have LIBZ and therefore PNG support.</p>
+
+
+	<p>Incidentally, I see --verbose --version is incorrectly reporting have_libz=0.  I've logged that as <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 --verbose --version --grep libz incorrectly reports have_libz=0 (Closed)" href="/issues/1127">#1127</a> fixed it <a class="changeset" title="#1127  exiv2 --verbose --version --grep libz incorrectly reports have_libz=0" href="/projects/exiv2/repository/exiv2/revisions/3978">r3978</a> and <a class="changeset" title="#1128 Fix HAVE_LIBZ on Visual Studio" href="/projects/exiv2/repository/exiv2/revisions/3980">r3980</a>.  It's reporting correctly now, as you can see on the Windows and Linux output which was built after I submitted <a class="changeset" title="#1127  exiv2 --verbose --version --grep libz incorrectly reports have_libz=0" href="/projects/exiv2/repository/exiv2/revisions/3978">r3978</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4349" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="08 Oct 2015 16:17" href="/projects/exiv2/activity?from=2015-10-08">about 6 years</a> ago
+      <span id="journal-4349-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4349-notes" class="wiki"><p>I have zlib1.dll and zlib1.lib but I don't know what libz is?</p>
+
+
+	<p>Mikayel</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4350" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="08 Oct 2015 16:18" href="/projects/exiv2/activity?from=2015-10-08">about 6 years</a> ago
+      <span id="journal-4350-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/847">1796916_10155735224985483_5543419639968711499_o.png</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/847/1796916_10155735224985483_5543419639968711499_o.png">1796916_10155735224985483_5543419639968711499_o.png</a> added</li>
+    </ul>
+    <div id="journal-4350-notes" class="wiki"><p>Please find attached an example of PNG image.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4351" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="08 Oct 2015 16:34" href="/projects/exiv2/activity?from=2015-10-08">about 6 years</a> ago
+      <span id="journal-4351-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4351-notes" class="wiki"><p>Online Exif extractors find data in the image (e.g. <a class="external" href="http://exifdata.com/exif.php">http://exifdata.com/exif.php</a>)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4352" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="08 Oct 2015 16:43" href="/projects/exiv2/activity?from=2015-10-08">about 6 years</a> ago
+      <span id="journal-4352-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>exif</i> to <i>metadata</i></li>
+    </ul>
+    <div id="journal-4352-notes" class="wiki"><p>The test file appears to include only IPTC and ICC metadata, not EXIF.</p>
+
+
+	<p>exiv2 can read the IPTC metadata but not the ICC (Colour Profile) metadata.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4353" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Oct 2015 17:19" href="/projects/exiv2/activity?from=2015-10-08">about 6 years</a> ago
+      <span id="journal-4353-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4353-notes" class="wiki"><p>zlib1.dll on Windows is the same thing as libz.so.1 on Linux and libz.1.dylib on Mac.  Very inconsistent names.  However that's how it is.</p>
+
+
+	<p>exiftool is reporting lots of metadata - however I don't believe it is Exif data (I discuss this later).  exiv2 v0.22, v0.24 and trunk (v0.25) says "No Exif data found in the file".</p>
+
+
+	<p>I'm not sure there is a case to answer here, Mikayel.  You'll have to find more solid evidence that we've changed something.</p>
+
+
+	<p>Exiv2 v0.22<pre>571 rmills@rmillsmbp:~/gnu/exiv2/0.22 $ exiv2 -V ; exiv2 ../0.24/1796916_10155735224985483_5543419639968711499_o.png 
+exiv2 0.22 001600 (64 bit build)
+Copyright (C) 2004-2011 Andreas Huggel.
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free
+Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA 02110-1301 USA
+File name       : ../0.24/1796916_10155735224985483_5543419639968711499_o.png
+File size       : 110831 Bytes
+MIME type       : image/png
+Image size      : 91 x 720
+../0.24/1796916_10155735224985483_5543419639968711499_o.png: No Exif data found in the file
+</pre>Exiv2 v0.24<pre>
+572 rmills@rmillsmbp:~/gnu/exiv2/0.22 $ cd ../0.24
+573 rmills@rmillsmbp:~/gnu/exiv2/0.24 $ sudo make install &gt;/dev/null
+574 rmills@rmillsmbp:~/gnu/exiv2/0.24 $ exiv2 -V ; exiv2 ../0.24/1796916_10155735224985483_5543419639968711499_o.png 
+exiv2 0.24 001800 (64 bit build)
+Copyright (C) 2004-2013 Andreas Huggel.
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free
+Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA 02110-1301 USA
+File name       : ../0.24/1796916_10155735224985483_5543419639968711499_o.png
+File size       : 110831 Bytes
+MIME type       : image/png
+Image size      : 91 x 720
+../0.24/1796916_10155735224985483_5543419639968711499_o.png: No Exif data found in the file
+</pre>Trunk (v0.25)<pre>575 rmills@rmillsmbp:~/gnu/exiv2/0.24 $ cd ../trunk/
+576 rmills@rmillsmbp:~/gnu/exiv2/trunk $ sudo make install &gt;/dev/null
+577 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -V ; exiv2 ../0.24/1796916_10155735224985483_5543419639968711499_o.png 
+exiv2 0.25 001900 (64 bit build)
+Copyright (C) 2004-2015 Andreas Huggel.
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free
+Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA 02110-1301 USA
+File name       : ../0.24/1796916_10155735224985483_5543419639968711499_o.png
+File size       : 110831 Bytes
+MIME type       : image/png
+Image size      : 91 x 720
+../0.24/1796916_10155735224985483_5543419639968711499_o.png: No Exif data found in the file
+578 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I think exiftool is mostly report ICC profile data.</p>
+
+
+	<p>exiftool:  <pre>578 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiftool ../0.24/1796916_10155735224985483_5543419639968711499_o.png 
+ExifTool Version Number         : 10.02
+File Name                       : 1796916_10155735224985483_5543419639968711499_o.png
+Directory                       : ../0.24
+File Size                       : 108 kB
+File Modification Date/Time     : 2015:10:08 17:35:55+01:00
+File Access Date/Time           : 2015:10:08 17:49:13+01:00
+File Inode Change Date/Time     : 2015:10:08 17:43:36+01:00
+File Permissions                : rw-r--r--
+File Type                       : PNG
+File Type Extension             : png
+MIME Type                       : image/png
+Image Width                     : 91
+Image Height                    : 720
+Bit Depth                       : 8
+Color Type                      : RGB
+Compression                     : Deflate/Inflate
+Filter                          : Adaptive
+Interlace                       : Noninterlaced
+Original Transmission Reference : mM-aKMqieBxJiF2_i2Q5
+Profile Name                    : icm
+Profile CMM Type                : lcms
+Profile Version                 : 2.1.0
+Profile Class                   : Display Device Profile
+Color Space Data                : RGB
+Profile Connection Space        : XYZ
+Profile Date Time               : 2012:01:25 03:41:57
+Profile File Signature          : acsp
+Primary Platform                : Apple Computer Inc.
+CMM Flags                       : Not Embedded, Independent
+Device Manufacturer             : 
+Device Model                    : 
+Device Attributes               : Reflective, Glossy, Positive, Color
+Rendering Intent                : Perceptual
+Connection Space Illuminant     : 0.9642 1 0.82491
+Profile Creator                 : lcms
+Profile ID                      : 0
+Profile Description             : c2
+Profile Copyright               : FB
+Media White Point               : 0.9642 1 0.82491
+Media Black Point               : 0.01205 0.0125 0.01031
+Red Matrix Column               : 0.43607 0.22249 0.01392
+Green Matrix Column             : 0.38515 0.71687 0.09708
+Blue Matrix Column              : 0.14307 0.06061 0.7141
+Red Tone Reproduction Curve     : (Binary data 64 bytes, use -b option to extract)
+Green Tone Reproduction Curve   : (Binary data 64 bytes, use -b option to extract)
+Blue Tone Reproduction Curve    : (Binary data 64 bytes, use -b option to extract)
+Image Size                      : 91x720
+Megapixels                      : 0.066
+579 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>Dumping the structure of the PNG shows:<pre>581 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pS ../0.24/1796916_10155735224985483_5543419639968711499_o.png 
+STRUCTURE OF PNG FILE: ../0.24/1796916_10155735224985483_5543419639968711499_o.png
+ address | index | chunk_type |  length | data
+       8 |     0 |       IHDR |      13 | 
+      33 |     1 |       zTXt |     100 | Raw profile type iptc..x.=....0.
+     145 |     2 |       iCCP |     276 | icm..(.c``..I.-f.``..+).rwR...R`
+     433 |     3 |       IDAT |    8192 | x^..w.^Gy7.....^.7.vWZu...{..;.c
+    8637 |     4 |       IDAT |    8192 | ...gF........O ./.7...B\.m..,;..
+   16841 |     5 |       IDAT |    8192 | ..........hoY@.L..4.[....Q.%&gt;.&#38;
+   25045 |     6 |       IDAT |    8192 | ."..a.(.....l.=...K.N.z....AB.P
+   33249 |     7 |       IDAT |    8192 | ......\r&#38;.O.S........D.V...+..;.
+   41453 |     8 |       IDAT |    8192 | ..&lt;'Y,%.......Wi.....iRJ.|..A{.&gt;
+   49657 |     9 |       IDAT |    8192 | O.&lt;..|......v..].a[s.{|([]....rY
+   57861 |    10 |       IDAT |    8192 | .,...........o^'....}...Z@.!)%W.
+   66065 |    11 |       IDAT |    8192 | p$Ja...k..{.Z$.lnnfB.....;....;j
+   74269 |    12 |       IDAT |    8192 | ....)..........._yJP.......[".$
+   82473 |    13 |       IDAT |    8192 | ........7.^\...=w.....h..P@.e...
+   90677 |    14 |       IDAT |    8192 | .,...."S8.........s.....H..T..`
+   98881 |    15 |       IDAT |    8192 | ....o...^.....+.Ri........D).&lt;..
+  107085 |    16 |       IDAT |    3722 | .i.&lt;`.......3m...,=......,!.Y;c
+  110819 |    17 |       IEND |       0 | 
+582 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>As you can see there's an IPTC 'profile'.  I think the ICM data may be a colour profile.  One of the projects for v0.26 is to extract/replace ICC profiles. <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: ICC Profile in APP2 segment. (Closed)" href="/issues/1074">#1074</a>  At the moment, I've done this for JPG and haven't found a suitable test file for PNG.  Thanks for this file, this will be very useful.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4354" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Oct 2015 18:00" href="/projects/exiv2/activity?from=2015-10-09">about 6 years</a> ago
+      <span id="journal-4354-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-4354-notes" class="wiki"><p>I'm going to mark this 100% resolved.   Mikayel, if you find reproducible evidence, please add it to this issue report and it will be investigated.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4531" class="journal has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Dec 2015 21:09" href="/projects/exiv2/activity?from=2015-12-06">almost 6 years</a> ago
+      <span id="journal-4531-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1126.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1126.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

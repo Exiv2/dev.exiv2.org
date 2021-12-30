@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1139: LibExiv2 0.25 crashes with digiKam version 4.14.0 - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="8zOutIuCCp0USCOTJXgdGN+okG2dJwFf09GDoglyLNkRfgVb+fjGnUEsPJ+arxEr4DrEFGzEoOUu8RMqSkvLtg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1139: LibExiv2 0.25 crashes with digiKam version 4.14.0" href="https://dev.exiv2.org/issues/1139.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1139</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>LibExiv2 0.25 crashes with digiKam version 4.14.0</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4585">valerie venet</a> <a title="18 Dec 2015 07:15" href="/projects/exiv2/activity?from=2015-12-18">almost 6 years</a> ago.
+        Updated <a title="18 Dec 2015 12:48" href="/projects/exiv2/activity?from=2015-12-18">almost 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">video</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">18 Dec 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hi,</p>
+
+
+	<p>I've posted the following bug to this forum: <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=356704">https://bugs.kde.org/show_bug.cgi?id=356704</a></p>
+
+
+	<p>The guy said "If problem still here with 0.25, report the problem to Exiv2 team"</p>
+
+
+	<p>Here are the logs :</p>
+
+
+	<p>digiKam version 4.14.0<br />Composant graphique Marble: 0.21.80 (0.22 Beta 1)<br />Dématriçage parallélisé: Inconnu<br />Exiv2 peut écrire dans un fichier JP2: Oui<br />Exiv2 peut écrire dans un fichier JPEG: Oui<br />Exiv2 peut écrire dans un fichier PGF: Oui<br />Exiv2 peut écrire dans un fichier PNG: Oui<br />Exiv2 peut écrire dans un fichier TIFF: Oui<br />Exiv2 prend en charge les métadonnées XMP: Oui<br />LibCImg: 130<br />LibEigen: 3.2.7<br /><strong>LibExiv2: 0.25</strong><br />LibJPEG: 80<br />LibJasper: 1.900.1<br />LibKDE: 4.14.14<br />LibKExiv2: 2.4.0<br />LibKGeoMap: 3.1.0<br />LibKdcraw: 2.4.2<br />LibLCMS: 2070<br />LibLensFun: 0.3.1-0<br />LibPGF: 6.14.12<br />LibPNG: 1.6.19<br />LibQt: 4.8.7<br />LibRaw: 0.17.0<br />LibTIFF: LIBTIFF, Version 4.0.6 Copyright (c) 1988-1996 Sam Leffler Copyright (c) 1991-1996 Silicon Graphics, Inc.<br />Prise en charge de LibLqr: oui<br />Prise en charge du codec RawSpeed: Inconnu<br />Prise en charge du pack Demosaic GPL2: Inconnu<br />Prise en charge du pack Demosaic GPL3: Inconnu<br />cœurs de processeur: 8<br />LibGphoto2: 2.5.8<br />LibKface: 3.5.0<br />LibKipi: 2.2.0<br />LibOpenCV: 2.4.12.2<br />Modules externes KIPI: 4.14.0<br />Moteur de base de données: QSQLITE<br />Prise en charge de Baloo: Oui<br />Prise en charge de SQLite2: non<br />Prise en charge des KDEPIMlibs: non</p>
+
+
+<hr />
+
+
+	<p>Application: digiKam (digikam), signal: Aborted<br />Using host libthread_db library "/usr/lib/libthread_db.so.1".<br />[Current thread is 1 (Thread 0x7fabbec0ea40 (LWP 3788))]</p>
+
+
+	<p>Thread 4 (Thread 0x7fab99663700 (LWP 3789)):<br />#0  0x00007fabb79ab18d in poll () from /usr/lib/libc.so.6<br />#1  0x00007faba0370cbc in ?? () from /usr/lib/libusb-1.0.so.0<br />#2  0x00007fabb58f94a4 in start_thread () from /usr/lib/libpthread.so.0<br />#3  0x00007fabb79b413d in clone () from /usr/lib/libc.so.6</p>
+
+
+	<p>Thread 3 (Thread 0x7fab92fc5700 (LWP 3790)):<br />[KCrash Handler]<br />#6  0x00007fabb78fe5f8 in raise () from /usr/lib/libc.so.6<br />#7  0x00007fabb78ffa7a in abort () from /usr/lib/libc.so.6<br />#8  0x00007fabb793d05a in __libc_message () from /usr/lib/libc.so.6<br />#9  0x00007fabb79429a6 in malloc_printerr () from /usr/lib/libc.so.6<br />#10 0x00007fabb794318e in _int_free () from /usr/lib/libc.so.6<br />#11 0x00007fabb6f0f7d1 in Exiv2::RiffVideo::infoTagsHandler() () from /usr/lib/libexiv2.so.14<br />#12 0x00007fabb6f149a5 in Exiv2::RiffVideo::decodeBlock() () from /usr/lib/libexiv2.so.14<br />#13 0x00007fabb6f145c8 in Exiv2::RiffVideo::tagDecoder(Exiv2::DataBuf&#38;, unsigned long) () from /usr/lib/libexiv2.so.14<br />#14 0x00007fabb6f149a5 in Exiv2::RiffVideo::decodeBlock() () from /usr/lib/libexiv2.so.14<br />#15 0x00007fabb6f14dd8 in Exiv2::RiffVideo::readMetadata() () from /usr/lib/libexiv2.so.14<br />#16 0x00007fabbe3eee45 in KExiv2Iface::KExiv2::load(QString const&#38;) const () from /usr/lib/libkexiv2.so.11<br />#17 0x00007fabbca28286 in Digikam::DMetadata::load(QString const&#38;) const () from /usr/lib/libdigikamcore.so.4.14.0<br />#18 0x00007fabbd011bc7 in Digikam::ImageScanner::loadFromDisk() () from /usr/lib/libdigikamdatabase.so.4.14.0<br />#19 0x00007fabbd011e00 in Digikam::ImageScanner::newFile(int) () from /usr/lib/libdigikamdatabase.so.4.14.0<br />#20 0x00007fabbcfa1d6b in Digikam::CollectionScanner::scanNewFile(QFileInfo const&#38;, int) () from /usr/lib/libdigikamdatabase.so.4.14.0<br />#21 0x00007fabbcfa6807 in Digikam::CollectionScanner::scanAlbum(Digikam::CollectionLocation const&#38;, QString const&#38;) () from /usr/lib/libdigikamdatabase.so.4.14.0<br />#22 0x00007fabbcfa66f8 in Digikam::CollectionScanner::scanAlbum(Digikam::CollectionLocation const&#38;, QString const&#38;) () from /usr/lib/libdigikamdatabase.so.4.14.0<br />#23 0x00007fabbcfa72c3 in Digikam::CollectionScanner::scanAlbumRoot(Digikam::CollectionLocation const&#38;) () from /usr/lib/libdigikamdatabase.so.4.14.0<br />#24 0x00007fabbcfa836b in Digikam::CollectionScanner::completeScan() () from /usr/lib/libdigikamdatabase.so.4.14.0<br />#25 0x00000000007206df in Digikam::ScanController::run() ()<br />#26 0x00007fabb851914c in ?? () from /usr/lib/libQtCore.so.4<br />#27 0x00007fabb58f94a4 in start_thread () from /usr/lib/libpthread.so.0<br />#28 0x00007fabb79b413d in clone () from /usr/lib/libc.so.6</p>
+
+
+	<p>Thread 2 (Thread 0x7fab927c4700 (LWP 3791)):<br />#0  0x00007fabb0c45614 in g_mutex_unlock () from /usr/lib/libglib-2.0.so.0<br />#1  0x00007fabb0c00fb1 in ?? () from /usr/lib/libglib-2.0.so.0<br />#2  0x00007fabb0c010cc in g_main_context_iteration () from /usr/lib/libglib-2.0.so.0<br />#3  0x00007fabb8659856 in QEventDispatcherGlib::processEvents(QFlags&lt;QEventLoop::ProcessEventsFlag&gt;) () from /usr/lib/libQtCore.so.4<br />#4  0x00007fabb8627dc1 in QEventLoop::processEvents(QFlags&lt;QEventLoop::ProcessEventsFlag&gt;) () from /usr/lib/libQtCore.so.4<br />#5  0x00007fabb8628135 in QEventLoop::exec(QFlags&lt;QEventLoop::ProcessEventsFlag&gt;) () from /usr/lib/libQtCore.so.4<br />#6  0x00007fabb8516859 in QThread::exec() () from /usr/lib/libQtCore.so.4<br />#7  0x00007fabb8607f13 in ?? () from /usr/lib/libQtCore.so.4<br />#8  0x00007fabb851914c in ?? () from /usr/lib/libQtCore.so.4<br />#9  0x00007fabb58f94a4 in start_thread () from /usr/lib/libpthread.so.0<br />#10 0x00007fabb79b413d in clone () from /usr/lib/libc.so.6</p>
+
+
+	<p>Thread 1 (Thread 0x7fabbec0ea40 (LWP 3788)):<br />#0  0x00007fabb58ff07f in pthread_cond_wait@@GLIBC_2.3.2 () from /usr/lib/libpthread.so.0<br />#1  0x00007fabb85196b6 in QWaitCondition::wait(QMutex*, unsigned long) () from /usr/lib/libQtCore.so.4<br />#2  0x00007fabb8518cde in QThread::wait(unsigned long) () from /usr/lib/libQtCore.so.4<br />#3  0x000000000071e1bb in Digikam::ScanController::~ScanController() ()<br />#4  0x000000000071e387 in ?? ()<br />#5  0x00007fabb7900f88 in __run_exit_handlers () from /usr/lib/libc.so.6<br />#6  0x00007fabb7900fd5 in exit () from /usr/lib/libc.so.6<br />#7  0x00007fabb90fa468 in ?? () from /usr/lib/libQtGui.so.4<br />#8  0x00007fabba05b1f0 in KApplication::xioErrhandler(_XDisplay*) () from /usr/lib/libkdeui.so.5<br />#9  0x00007fabb435891e in _XIOError () from /usr/lib/libX11.so.6<br />#10 0x00007fabb435625d in _XEventsQueued () from /usr/lib/libX11.so.6<br />#11 0x00007fabb4347b10 in XEventsQueued () from /usr/lib/libX11.so.6<br />#12 0x00007fabb9133e3c in ?? () from /usr/lib/libQtGui.so.4<br />#13 0x00007fabb0c009f1 in g_main_context_check () from /usr/lib/libglib-2.0.so.0<br />#14 0x00007fabb0c00f60 in ?? () from /usr/lib/libglib-2.0.so.0<br />#15 0x00007fabb0c010cc in g_main_context_iteration () from /usr/lib/libglib-2.0.so.0<br />#16 0x00007fabb8659834 in QEventDispatcherGlib::processEvents(QFlags&lt;QEventLoop::ProcessEventsFlag&gt;) () from /usr/lib/libQtCore.so.4<br />#17 0x00007fabb91343f6 in ?? () from /usr/lib/libQtGui.so.4<br />#18 0x00007fabb8627dc1 in QEventLoop::processEvents(QFlags&lt;QEventLoop::ProcessEventsFlag&gt;) () from /usr/lib/libQtCore.so.4<br />#19 0x00007fabb8628135 in QEventLoop::exec(QFlags&lt;QEventLoop::ProcessEventsFlag&gt;) () from /usr/lib/libQtCore.so.4<br />#20 0x000000000071bd21 in Digikam::ScanController::completeCollectionScanCore(bool, bool) ()<br />#21 0x000000000064eeef in Digikam::NewItemsFinder::slotStart() ()<br />#22 0x00007fabb86433b1 in QObject::event(QEvent*) () from /usr/lib/libQtCore.so.4<br />#23 0x00007fabb908b39c in QApplicationPrivate::notify_helper(QObject*, QEvent*) () from /usr/lib/libQtGui.so.4<br />#24 0x00007fabb90921f6 in QApplication::notify(QObject*, QEvent*) () from /usr/lib/libQtGui.so.4<br />#25 0x00007fabba05c8aa in KApplication::notify(QObject*, QEvent*) () from /usr/lib/libkdeui.so.5<br />#26 0x00007fabb862954d in QCoreApplication::notifyInternal(QObject*, QEvent*) () from /usr/lib/libQtCore.so.4<br />#27 0x00007fabb862c9d6 in QCoreApplicationPrivate::sendPostedEvents(QObject*, int, QThreadData*) () from /usr/lib/libQtCore.so.4<br />#28 0x00007fabb86596e3 in ?? () from /usr/lib/libQtCore.so.4<br />#29 0x00007fabb0c00dc7 in g_main_context_dispatch () from /usr/lib/libglib-2.0.so.0<br />#30 0x00007fabb0c01020 in ?? () from /usr/lib/libglib-2.0.so.0<br />#31 0x00007fabb0c010cc in g_main_context_iteration () from /usr/lib/libglib-2.0.so.0<br />#32 0x00007fabb8659834 in QEventDispatcherGlib::processEvents(QFlags&lt;QEventLoop::ProcessEventsFlag&gt;) () from /usr/lib/libQtCore.so.4<br />#33 0x00007fabb91343f6 in ?? () from /usr/lib/libQtGui.so.4<br />#34 0x00007fabb8627dc1 in QEventLoop::processEvents(QFlags&lt;QEventLoop::ProcessEventsFlag&gt;) () from /usr/lib/libQtCore.so.4<br />#35 0x00007fabb8628135 in QEventLoop::exec(QFlags&lt;QEventLoop::ProcessEventsFlag&gt;) () from /usr/lib/libQtCore.so.4<br />#36 0x00007fabb862dad9 in QCoreApplication::exec() () from /usr/lib/libQtCore.so.4<br />#37 0x00000000005b1c54 in main ()</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/865">libexiv2.so.14.0.0</a>    <span class="size">(2.97 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/865/libexiv2.so.14.0.0">libexiv2.so.14.0.0</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 18 Dec 2015 11:51</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4543" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Dec 2015 11:51" href="/projects/exiv2/activity?from=2015-12-18">almost 6 years</a> ago
+      <span id="journal-4543-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/865">libexiv2.so.14.0.0</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/865/libexiv2.so.14.0.0">libexiv2.so.14.0.0</a> added</li>
+       <li><strong>Category</strong> set to <i>video</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-4543-notes" class="wiki"><p>You are crashing in RiffVideo which should not be compiled into v0.25.  I attach my linux build of v0.25 which does not have that code compiled into it.</p>
+
+
+	<p>To discover where on your system to put this file, please run this command <em><strong>(it might run for several minutes)</strong></em>:<pre>$ sudo find / -name libexiv2.so.14.0.0 2&gt;/dev/null</pre></p>
+
+
+	<p>I don't know why DigiKam would want to inspect the metadata of a video file on start up.  So replacing the library with a version without video code may lead to a different event.  Anyway, please try my version of the library.</p>
+
+
+	<p>If you are still crashing, can you think about the puzzle of why DigiKam wants to read the metadata from a video file.  Does DigiKam always start up in your ~/Pictures directory which contains a video file?  Try logging on as a different user (preferably a brand new user) and starting DigiKam.</p>
+
+
+	<p>Robin Mills<br /><img src="http://www.exiv2.org/Exiv2Logo.png" alt="" /></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4544" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="18 Dec 2015 12:03" href="/projects/exiv2/activity?from=2015-12-18">almost 6 years</a> ago
+      <span id="journal-4544-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4544-notes" class="wiki"><blockquote>
+
+	<p>I don't know why DigiKam would want to inspect the metadata of a video file on >start up.</p>
+
+
+</blockquote>
+
+	<p>==> To register files lead metadata in digiKam database, in goal to speed-up searches, sorts, etc...</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4545" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Dec 2015 12:09" href="/projects/exiv2/activity?from=2015-12-18">almost 6 years</a> ago
+      <span id="journal-4545-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4545-notes" class="wiki"><p>I've just installed DigiKam 4.12.0 on kubuntu ($ sudo apt-get install digikam) and ran it.  Yup it's searching in ~/Pictures.  It's using /usr/local/lib/libexiv2.so.14.0.0<pre>rmills@rmillsmbp-k1504:~/gnu/exiv2/exiv2-0.25$ lsof | grep libexiv2
+digikam   18258                 rmills  mem       REG                8,1  3137376    3019447 /usr/local/lib/libexiv2.so.14.0.0
+digikam   18258 18259           rmills  mem       REG                8,1  3137376    3019447 /usr/local/lib/libexiv2.so.14.0.0
+Digikam:: 18258 18321           rmills  mem       REG                8,1  3137376    3019447 /usr/local/lib/libexiv2.so.14.0.0
+QInotifyF 18258 18322           rmills  mem       REG                8,1  3137376    3019447 /usr/local/lib/libexiv2.so.14.0.0
+QThread   18258 18331           rmills  mem       REG                8,1  3137376    3019447 /usr/local/lib/libexiv2.so.14.0.0
+QProcessM 18258 18334           rmills  mem       REG                8,1  3137376    3019447 /usr/local/lib/libexiv2.so.14.0.0
+baloo_fil 18356                 rmills  mem       REG                8,1  3137376    3019447 /usr/local/lib/libexiv2.so.14.0.0
+QXcbEvent 18356 18357           rmills  mem       REG                8,1  3137376    3019447 /usr/local/lib/libexiv2.so.14.0.0
+rmills@rmillsmbp-k1504:~/gnu/exiv2/exiv2-0.25$ </pre>Good to hear from you Gilles.  I hope you and your family are well.  I've been working hard on CMake/Visual Studio with Daniel for v0.26.  I'm hoping our CMake support will be perfect in the spring.  Daniel's dealing with nmake files.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4546" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4585">valerie venet</a> <a title="18 Dec 2015 12:30" href="/projects/exiv2/activity?from=2015-12-18">almost 6 years</a> ago
+      <span id="journal-4546-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4546-notes" class="wiki"><p>I have replaced my libexiv2.so.14.0.0 with yours. Thanks! It now works perfectly!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4547" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Dec 2015 12:48" href="/projects/exiv2/activity?from=2015-12-18">almost 6 years</a> ago
+      <span id="journal-4547-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-4547-notes" class="wiki"><p>Good News.  Thanks for letting me know.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1139.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1139.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

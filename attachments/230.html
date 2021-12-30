@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>bug752-exiv2-0.20.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="RicLsJU2JUqAuvfxKxK1E8nAGl+D8eIWh3eWPMWra22kaqBf50zpStXe6P2Uxbkg9lJOJnISQ6x6Vwa0hpKMAg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/230/bug752-exiv2-0.20.patch">Download (6.16 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Crash when writing Exif.Image.Software" href="/issues/752">Bug #752</a> » bug752-exiv2-0.20.patch
+</h2>
+
+<div class="attachments">
+<p>Patch for 0.20 (binary compatible) - 
+   <span class="author"><a class="user active" href="/users/53">Andreas Huggel</a>, 31 Jan 2011 19:32</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/230" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      trunk/src/tiffcomposite_int.hpp	(revision 2435)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">1403</th>
+  <th class="line-num">1403</th>
+  <td class="line-code ">
+    <pre>        void iniOrigDataBuf();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1404</th>
+  <th class="line-num">1404</th>
+  <td class="line-code ">
+    <pre>        //! Update the original data buffer and its size, return true if successful.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1405</th>
+  <th class="line-num">1405</th>
+  <td class="line-code ">
+    <pre>        bool updOrigDataBuf(const byte* pData, uint32_t size);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1406</th>
+  <td class="line-code diff_in">
+    <pre>        //! Set a flag to indicate if the array was decoded</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1407</th>
+  <td class="line-code diff_in">
+    <pre>        void setDecoded(bool decoded) { decoded_ = decoded; }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1406</th>
+  <th class="line-num">1408</th>
+  <td class="line-code ">
+    <pre>        //@}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1407</th>
+  <th class="line-num">1409</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1408</th>
+  <th class="line-num">1410</th>
+  <td class="line-code ">
+    <pre>        //! @name Accessors</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1413</th>
+  <th class="line-num">1415</th>
+  <td class="line-code ">
+    <pre>        const ArrayDef* def() const { return arrayDef_; }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1414</th>
+  <th class="line-num">1416</th>
+  <td class="line-code ">
+    <pre>        //! Return the number of elements in the definition</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1415</th>
+  <th class="line-num">1417</th>
+  <td class="line-code ">
+    <pre>        int defSize() const { return defSize_; }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1418</th>
+  <td class="line-code diff_in">
+    <pre>        //! Return the flag which indicates if the array was decoded</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1419</th>
+  <td class="line-code diff_in">
+    <pre>        bool decoded() const { return decoded_; }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1416</th>
+  <th class="line-num">1420</th>
+  <td class="line-code ">
+    <pre>        //@}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1417</th>
+  <th class="line-num">1421</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1418</th>
+  <th class="line-num">1422</th>
+  <td class="line-code ">
+    <pre>    protected:</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1481</th>
+  <th class="line-num">1485</th>
+  <td class="line-code ">
+    <pre>        byte* origData_;            //!&lt; Pointer to the original data buffer (unencrypted)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1482</th>
+  <th class="line-num">1486</th>
+  <td class="line-code ">
+    <pre>        uint32_t origSize_;         //!&lt; Size of the original data buffer</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1483</th>
+  <th class="line-num">1487</th>
+  <td class="line-code ">
+    <pre>        TiffComponent* pRoot_;      //!&lt; Pointer to the root component of the TIFF tree. (Only used for intrusive writing.)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1488</th>
+  <td class="line-code diff_in">
+    <pre>        bool decoded_;              //!&lt; Flag to indicate if the array was decoded</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1484</th>
+  <th class="line-num">1489</th>
+  <td class="line-code ">
+    <pre>    }; // class TiffBinaryArray</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1485</th>
+  <th class="line-num">1490</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1486</th>
+  <th class="line-num">1491</th>
+  <td class="line-code ">
+    <pre>    /*!</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      trunk/src/tiffcomposite.cpp	(revision 2435)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">143</th>
+  <th class="line-num">143</th>
+  <td class="line-code ">
+    <pre>          setSize_(0),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">144</th>
+  <th class="line-num">144</th>
+  <td class="line-code ">
+    <pre>          origData_(0),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">145</th>
+  <th class="line-num">145</th>
+  <td class="line-code ">
+    <pre>          origSize_(0),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">146</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>          pRoot_(0)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">146</th>
+  <td class="line-code diff_in">
+    <pre>          pRoot_(0),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">147</th>
+  <td class="line-code diff_in">
+    <pre>          decoded_(false)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">147</th>
+  <th class="line-num">148</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">148</th>
+  <th class="line-num">149</th>
+  <td class="line-code ">
+    <pre>        assert(arrayCfg != 0);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">149</th>
+  <th class="line-num">150</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">162</th>
+  <th class="line-num">163</th>
+  <td class="line-code ">
+    <pre>          setSize_(setSize),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">163</th>
+  <th class="line-num">164</th>
+  <td class="line-code ">
+    <pre>          origData_(0),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">164</th>
+  <th class="line-num">165</th>
+  <td class="line-code ">
+    <pre>          origSize_(0),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">165</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>          pRoot_(0)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">166</th>
+  <td class="line-code diff_in">
+    <pre>          pRoot_(0),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">167</th>
+  <td class="line-code diff_in">
+    <pre>          decoded_(false)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">166</th>
+  <th class="line-num">168</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">167</th>
+  <th class="line-num">169</th>
+  <td class="line-code ">
+    <pre>        // We&#39;ll figure out the correct cfg later</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">168</th>
+  <th class="line-num">170</th>
+  <td class="line-code ">
+    <pre>        assert(cfgSelFct != 0);</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">282</th>
+  <th class="line-num">284</th>
+  <td class="line-code ">
+    <pre>          setSize_(rhs.setSize_),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">283</th>
+  <th class="line-num">285</th>
+  <td class="line-code ">
+    <pre>          origData_(rhs.origData_),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">284</th>
+  <th class="line-num">286</th>
+  <td class="line-code ">
+    <pre>          origSize_(rhs.origSize_),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">285</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>          pRoot_(rhs.pRoot_)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">287</th>
+  <td class="line-code diff_in">
+    <pre>          pRoot_(rhs.pRoot_),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">288</th>
+  <td class="line-code diff_in">
+    <pre>          decoded_(false)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">286</th>
+  <th class="line-num">289</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">287</th>
+  <th class="line-num">290</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">288</th>
+  <th class="line-num">291</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">841</th>
+  <th class="line-num">844</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">842</th>
+  <th class="line-num">845</th>
+  <td class="line-code ">
+    <pre>        TiffComponent* tc = tiffComponent.release();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">843</th>
+  <th class="line-num">846</th>
+  <td class="line-code ">
+    <pre>        elements_.push_back(tc);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">847</th>
+  <td class="line-code diff_in">
+    <pre>        setDecoded(true);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">844</th>
+  <th class="line-num">848</th>
+  <td class="line-code ">
+    <pre>        return tc;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">845</th>
+  <th class="line-num">849</th>
+  <td class="line-code ">
+    <pre>    } // TiffBinaryArray::doAddChild</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">846</th>
+  <th class="line-num">850</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1036</th>
+  <th class="line-num">1040</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1037</th>
+  <th class="line-num">1041</th>
+  <td class="line-code ">
+    <pre>    uint32_t TiffBinaryArray::doCount() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1038</th>
+  <th class="line-num">1042</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1039</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (cfg() == 0<span></span>) return TiffEntryBase::doCount();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1043</th>
+  <td class="line-code diff_in">
+    <pre>        if (cfg() == 0<span> || !decoded()</span>) return TiffEntryBase::doCount();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1040</th>
+  <th class="line-num">1044</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1041</th>
+  <th class="line-num">1045</th>
+  <td class="line-code ">
+    <pre>        if (elements_.empty()) return 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1042</th>
+  <th class="line-num">1046</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1366</th>
+  <th class="line-num">1370</th>
+  <td class="line-code ">
+    <pre>                                      uint32_t  dataIdx,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1367</th>
+  <th class="line-num">1371</th>
+  <td class="line-code ">
+    <pre>                                      uint32_t&amp; imageIdx)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1368</th>
+  <th class="line-num">1372</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1369</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (cfg() == 0<span></span>) return TiffEntryBase::doWrite(ioWrapper,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1370</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                                                      <span></span>byteOrder,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1371</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                                                      <span></span>offset,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1372</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                                                      <span></span>valueIdx,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1373</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                                                      <span></span>dataIdx,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1374</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                                                      <span></span>imageIdx);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1373</th>
+  <td class="line-code diff_in">
+    <pre>        if (cfg() == 0<span> || !decoded()</span>) return TiffEntryBase::doWrite(ioWrapper,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1374</th>
+  <td class="line-code diff_in">
+    <pre>                                                      <span>              </span>byteOrder,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1375</th>
+  <td class="line-code diff_in">
+    <pre>                                                      <span>              </span>offset,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1376</th>
+  <td class="line-code diff_in">
+    <pre>                                                      <span>              </span>valueIdx,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1377</th>
+  <td class="line-code diff_in">
+    <pre>                                                      <span>              </span>dataIdx,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1378</th>
+  <td class="line-code diff_in">
+    <pre>                                                      <span>              </span>imageIdx);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1375</th>
+  <th class="line-num">1379</th>
+  <td class="line-code ">
+    <pre>        if (cfg()-&gt;byteOrder_ != invalidByteOrder) byteOrder = cfg()-&gt;byteOrder_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1376</th>
+  <th class="line-num">1380</th>
+  <td class="line-code ">
+    <pre>        // Tags must be sorted in ascending order</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1377</th>
+  <th class="line-num">1381</th>
+  <td class="line-code ">
+    <pre>        std::sort(elements_.begin(), elements_.end(), cmpTagLt);</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1681</th>
+  <th class="line-num">1685</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1682</th>
+  <th class="line-num">1686</th>
+  <td class="line-code ">
+    <pre>    uint32_t TiffBinaryArray::doSize() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1683</th>
+  <th class="line-num">1687</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1684</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (cfg() == 0<span></span>) return TiffEntryBase::doSize();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1688</th>
+  <td class="line-code diff_in">
+    <pre>        if (cfg() == 0<span> || !decoded()</span>) return TiffEntryBase::doSize();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1685</th>
+  <th class="line-num">1689</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1686</th>
+  <th class="line-num">1690</th>
+  <td class="line-code ">
+    <pre>        if (elements_.empty()) return 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1687</th>
+  <th class="line-num">1691</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      trunk/src/tiffvisitor.cpp	(revision 2435)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">496</th>
+  <th class="line-num">496</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">497</th>
+  <th class="line-num">497</th>
+  <td class="line-code ">
+    <pre>    void TiffDecoder::visitBinaryArray(TiffBinaryArray* object)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">498</th>
+  <th class="line-num">498</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">499</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (object-&gt;cfg() == 0<span></span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">499</th>
+  <td class="line-code diff_in">
+    <pre>        if (object-&gt;cfg() == 0<span> || !object-&gt;decoded()</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">500</th>
+  <th class="line-num">500</th>
+  <td class="line-code ">
+    <pre>            decodeTiffEntry(object);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">501</th>
+  <th class="line-num">501</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">502</th>
+  <th class="line-num">502</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">765</th>
+  <th class="line-num">765</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">766</th>
+  <th class="line-num">766</th>
+  <td class="line-code ">
+    <pre>    } // TiffEncoder::visitIfdMakernoteEnd</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">767</th>
+  <th class="line-num">767</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">768</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    void TiffEncoder::visitBinaryArray(TiffBinaryArray* <span>/*object*/</span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">768</th>
+  <td class="line-code diff_in">
+    <pre>    void TiffEncoder::visitBinaryArray(TiffBinaryArray* <span>object</span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">769</th>
+  <th class="line-num">769</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">770</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        // Nothing to do</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">770</th>
+  <td class="line-code diff_in">
+    <pre>        if (object-&gt;cfg() == 0 || !object-&gt;decoded()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">771</th>
+  <td class="line-code diff_in">
+    <pre>            encodeTiffComponent(object);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">772</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">771</th>
+  <th class="line-num">773</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">772</th>
+  <th class="line-num">774</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">773</th>
+  <th class="line-num">775</th>
+  <td class="line-code ">
+    <pre>    void TiffEncoder::visitBinaryArrayEnd(TiffBinaryArray* object)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">774</th>
+  <th class="line-num">776</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">775</th>
+  <th class="line-num">777</th>
+  <td class="line-code ">
+    <pre>        assert(object != 0);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">776</th>
+  <th class="line-num">778</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">779</th>
+  <td class="line-code diff_in">
+    <pre>        if (object-&gt;cfg() == 0 || !object-&gt;decoded()) return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">777</th>
+  <th class="line-num">780</th>
+  <td class="line-code ">
+    <pre>        int32_t size = object-&gt;TiffEntryBase::doSize();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">778</th>
+  <th class="line-num">781</th>
+  <td class="line-code ">
+    <pre>        if (size == 0) return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">779</th>
+  <th class="line-num">782</th>
+  <td class="line-code ">
+    <pre>        if (!object-&gt;initialize(pRoot_)) return;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1550</th>
+  <th class="line-num">1553</th>
+  <td class="line-code ">
+    <pre>            return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1551</th>
+  <th class="line-num">1554</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1552</th>
+  <th class="line-num">1555</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1556</th>
+  <td class="line-code diff_in">
+    <pre>        // Check duplicates</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1557</th>
+  <td class="line-code diff_in">
+    <pre>        TiffFinder finder(object-&gt;tag(), object-&gt;group());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1558</th>
+  <td class="line-code diff_in">
+    <pre>        pRoot_-&gt;accept(finder);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1559</th>
+  <td class="line-code diff_in">
+    <pre>        TiffEntryBase* te = dynamic_cast&lt;TiffEntryBase*&gt;(finder.result());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1560</th>
+  <td class="line-code diff_in">
+    <pre>        if (te &amp;&amp; te-&gt;idx() != object-&gt;idx()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1561</th>
+  <td class="line-code diff_in">
+    <pre>#ifndef SUPPRESS_WARNINGS</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1562</th>
+  <td class="line-code diff_in">
+    <pre>            std::cerr &lt;&lt; &quot;Not decoding duplicate binary array tag 0x&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1563</th>
+  <td class="line-code diff_in">
+    <pre>                      &lt;&lt; std::setw(4) &lt;&lt; std::setfill(&#39;0&#39;) &lt;&lt; std::hex</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1564</th>
+  <td class="line-code diff_in">
+    <pre>                      &lt;&lt; object-&gt;tag() &lt;&lt; std::dec &lt;&lt; &quot;, group &quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1565</th>
+  <td class="line-code diff_in">
+    <pre>                      &lt;&lt; tiffGroupName(object-&gt;group()) &lt;&lt; &quot;, idx &quot; &lt;&lt; object-&gt;idx()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1566</th>
+  <td class="line-code diff_in">
+    <pre>                      &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1567</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1568</th>
+  <td class="line-code diff_in">
+    <pre>            object-&gt;setDecoded(false);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1569</th>
+  <td class="line-code diff_in">
+    <pre>            return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1570</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1571</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1553</th>
+  <th class="line-num">1572</th>
+  <td class="line-code ">
+    <pre>        if (object-&gt;TiffEntryBase::doSize() == 0) return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1554</th>
+  <th class="line-num">1573</th>
+  <td class="line-code ">
+    <pre>        if (!object-&gt;initialize(pRoot_)) return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1555</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1556</th>
+  <th class="line-num">1574</th>
+  <td class="line-code ">
+    <pre>        const ArrayCfg* cfg = object-&gt;cfg();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1575</th>
+  <td class="line-code diff_in">
+    <pre>        if (cfg == 0) return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1557</th>
+  <th class="line-num">1576</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1558</th>
+  <th class="line-num">1577</th>
+  <td class="line-code ">
+    <pre>        const CryptFct cryptFct = cfg-&gt;cryptFct_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1559</th>
+  <th class="line-num">1578</th>
+  <td class="line-code ">
+    <pre>        if (cryptFct != 0) {</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"><li class="previous page"><a href="/attachments/227/img_1330.jpg">« Previous</a></li><li class="page"><a href="/attachments/227/img_1330.jpg">1</a></li><li class="current"><span>2</span></li><li class="next"><span>Next »</span></li></ul><span><span class="items">(2-2/2)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

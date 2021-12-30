@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Writing GPano XMP metadata - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="qEuOzsKtV/F53qpeHkharhy9pG/qnT4eVf7sJzCOL+lKBiUhsNeb8Sy6tVKhn1adIy/wFht+n6So3nyvc7fIhg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Writing GPano XMP metadata</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/6129">Emanuel Jöbstl</a> <a title="25 Jun 2017 19:18" href="/projects/exiv2/activity?from=2017-06-25">over 4 years</a> ago</span></p>
+<div class="wiki">
+<p>Hello all,</p>
+
+
+	<p>I'm trying to add <a href="http://www.exiv2.org/tags-xmp-GPano.html" class="external">GPano XMP metadata</a> to an image. I use the following code:</p>
+
+
+<pre>
+    Exiv2::XmpProperties::registerNs("http://ns.google.com/photos/1.0/panorama/", "GPano");
+    Exiv2::XmpData xmpData;
+
+    xmpData["Xmp.GPano.UsePanoramaViewer"] = boolean_t(true);
+    xmpData["Xmp.GPano.ProjectionType"] = "equirectangular";
+    xmpData["Xmp.GPano.FullPanoWidthPixels"] = uint32_t(width);
+    xmpData["Xmp.GPano.FullPanoHeightPixels"] = uint32_t(width / 2);
+    xmpData["Xmp.GPano.CroppedAreaLeftPixels"] = uint32_t(0);
+    xmpData["Xmp.GPano.CroppedAreaTopPixels"] = uint32_t((width - height) / 2);
+    xmpData["Xmp.GPano.CroppedAreaImageWidthPixels"] = uint32_t((width - height) / 2);
+    xmpData["Xmp.GPano.CroppedAreaImageHeightPixels"] = uint32_t((width - height) / 2);
+
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(strPath);
+    assert(image.get() != 0);
+    image-&gt;setXmpData(xmpData);
+    image-&gt;writeMetadata();
+</pre>
+
+	<p>However, the resulting image does not contain any xmp data at all. No exception is thrown. The path is also correct, for example writing Exif.Image.Model works.</p>
+
+
+	<p>What am I missing here?</p>
+
+
+	<p>Emanuel</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (3)</h3>
+  <div class="message reply" id="message-2850">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2849?r=2850#message-2850">RE: Writing GPano XMP metadata</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Jun 2017 19:41" href="/projects/exiv2/activity?from=2017-06-25">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>The code looks "almost" correct to me.  You don't need to register GPano as it's already known to exiv2:<pre>510 rmills@rmillsmbp:~ $ exiv2 -vV | grep -i pano
+xmlns=GPano:http://ns.google.com/photos/1.0/panorama/
+511 rmills@rmillsmbp:~ $ </pre>So you can set it directly:<pre>511 rmills@rmillsmbp:~ $ cp Stonehenge.jpg  S.jpg
+512 rmills@rmillsmbp:~ $ exiv2 -px S.jpg 
+Xmp.xmp.Rating                               XmpText     1  0
+Xmp.xmp.ModifyDate                           XmpText    25  2015-07-16T20:25:28+01:00
+Xmp.dc.description                           LangAlt     1  lang="x-default" Classic View
+513 rmills@rmillsmbp:~ $ exiv2 -M'set Xmp.GPano.ProjectionType myProjectionType' S.jpg 
+514 rmills@rmillsmbp:~ $ exiv2 -px S.jpg 
+Xmp.xmp.Rating                               XmpText     1  0
+Xmp.xmp.ModifyDate                           XmpText    25  2015-07-16T20:25:28+01:00
+Xmp.GPano.ProjectionType                     XmpText    16  myProjectionType
+Xmp.dc.description                           LangAlt     1  lang="x-default" Classic View
+515 rmills@rmillsmbp:~ $ </pre>I don't believe that setting the NS would cause your code to fail to write.  JPGImage::writeMetadata uses the XMPsdk to serialise the XMP as XML and it's written to the image.  Try debugging this.  If you get stuck, let me know and I'll investigate more throughly.</p>
+
+
+	<p>I also encourage you to use the exiv2 command-line program before working with the API.  If you can obtain the result you want, you can debug to discover exactly how the result is obtained.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2851">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2849?r=2851#message-2851">RE: Writing GPano XMP metadata</a>
+    -
+    Added by <a class="user active" href="/users/6129">Emanuel Jöbstl</a> <a title="26 Jun 2017 08:38" href="/projects/exiv2/activity?from=2017-06-26">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your fast reply!</p>
+
+
+	<p>I switched to Apple's ImageIO for now (I was working on an iOS). I will pick up this task on a later point, where I will need to write extended XMP.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2852">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2849?r=2852#message-2852">RE: Writing GPano XMP metadata</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Jun 2017 12:09" href="/projects/exiv2/activity?from=2017-06-26">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Well good luck with that.  A few years ago, I compared the speed of Exiv2 with Apple Objective-C/NSImage.  Exiv2 is about 100x faster because we don't build a frame buffer.  We only read the metadata.  However, unless you're working on hundreds of images, the performance difference is probably of little concern in an iOS application. The convenience of calling Apple's image code is probably more interesting to you than performance.  I have no idea about your application and if you have to build a frame buffer, you may need to read the whole image anyway.  However Exiv2 can efficiently load thumbnails and metadata which might enable your application to start up more quickly and save bandwidth when accessing remote images.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-3/3)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

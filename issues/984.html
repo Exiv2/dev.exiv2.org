@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Patch #984: Fix &#39;failed to rename file&#39; problem caused by virus scanner in windows - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="fpuyovRmoJCfNR8XnoXs855RHPDCnal1p1XJGRp5cASc1hlNhhxskMpRABshUuDAocNIiTN+CM9adVmRWUCXaw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Patch #984: Fix &#39;failed to rename file&#39; problem caused by virus scanner in windows" href="https://dev.exiv2.org/issues/984.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Patch #984</h2>
+
+<div class="issue tracker-4 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Fix &#39;failed to rename file&#39; problem caused by virus scanner in windows</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/812">Axel Waggershauser</a> <a title="27 Aug 2014 08:06" href="/projects/exiv2/activity?from=2014-08-27">about 7 years</a> ago.
+        Updated <a title="21 Jun 2015 16:41" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">basicio</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">27 Aug 2014</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>exiv2 fails regularly under windows to update a target file when that file is simultaneously checked by a virus scanner or indexer. The problem happens when an other process opens the target file with FILE_SHARE_DELETE. The 'replace the original with the temp file'-part inside FileIo::transfer() fails because the remove() of the original does not actually remove the file if that is opened with FILE_SHARE_DELETE and hence the subsequent rename() fails.</p>
+
+
+	<p>There is some more background to the problem here: <a class="external" href="http://stackoverflow.com/a/11023068">http://stackoverflow.com/a/11023068</a>.</p>
+
+
+	<p>The solution is to use the special purpose Win32 API function ReplaceFile(). The attached patch does that.</p>
+
+
+	<p>Attached is also a small sample program that does what a virus scanner typically does and helps see the problem: call the helper program with a jpg filename and try to modify the same file with exiv2.</p>
+
+
+	<p>Might also be related to <a class="external" href="http://dev.exiv2.org/boards/3/topics/502">http://dev.exiv2.org/boards/3/topics/502</a> and <a class="external" href="http://dev.exiv2.org/boards/3/topics/880">http://dev.exiv2.org/boards/3/topics/880</a>.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/667">ReplaceFile.patch</a>    <span class="size">(2.6 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/667/ReplaceFile.patch">ReplaceFile.patch</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Axel Waggershauser, 27 Aug 2014 08:06</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/668">main.c</a>    <span class="size">(471 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/668/main.c">main.c</a>  </td>
+  <td>sample code to demonstrate the problem</td>
+  <td>
+      <span class="author">Axel Waggershauser, 27 Aug 2014 08:06</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/670">ReplaceFile_2.patch</a>    <span class="size">(4.49 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/670/ReplaceFile_2.patch">ReplaceFile_2.patch</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Thomas Beutlich, 04 Sep 2014 05:01</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/671">ReplaceFile_3.patch</a>    <span class="size">(1.3 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/671/ReplaceFile_3.patch">ReplaceFile_3.patch</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Thomas Beutlich, 04 Sep 2014 05:33</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/984" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="6Rs3QQZ/0bzKFPhDoJyA6iSvLz7H3neT1Fr6YmRCxEgLVpyudAUdvJ9w508fS4zZGz17RzY91ikpemrqJ3sjJw==" />
+  <table class="list issues odd-even"><tr id="relation-114" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="979" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/979">Bug #979</a>: Temporary File Rename Issue on Windows/MSVC</td><td class="status">Closed</td><td class="start_date">12 Aug 2014</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/984/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=984&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3345" href="/projects/exiv2/repository/exiv2/revisions/3345">Revision 3345</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3345/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Sep 2014 10:57" href="/projects/exiv2/activity?from=2014-09-01">about 7 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Issue: <a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Fix &#39;failed to rename file&#39; problem caused by virus scanner in windows (Closed)" href="/issues/984">#984</a>. Thank You, Axel for reporting this,  the patch, and the test code.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3349" href="/projects/exiv2/repository/exiv2/revisions/3349">Revision 3349</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3349/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Sep 2014 05:20" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Issue: <a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Fix &#39;failed to rename file&#39; problem caused by virus scanner in windows (Closed)" href="/issues/984">#984</a>.  Thank You, Thomas for the patch.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2851" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Aug 2014 13:00" href="/projects/exiv2/activity?from=2014-08-27">about 7 years</a> ago
+      <span id="journal-2851-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-2851-notes" class="wiki"><p>Thanks very much for reporting this.  Very interesting problem and solution.  Thanks for the effort you have put into this and thank you for posting a solution and patch.</p>
+
+
+	<p>I'll have a look at this and if it passes our test suite, I'll submit the code.  I particularly appreciate your main.c code to recreate the system conflict which triggers this issue.  Several of our sample programs are used in our test suite.  This issue creates a new situation when we need an external program that doesn't use the exiv2 library.  I will think about build your main.c and calling it from the test suite.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2864" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Sep 2014 11:05" href="/projects/exiv2/activity?from=2014-09-01">about 7 years</a> ago
+      <span id="journal-2864-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2864-notes" class="wiki"><p>Thanks Axel for reporting this, the patch and the test code.  Submitted r:3345</p>
+
+
+	<p>Two comments:<br />1) I had to modify the patch to deal with older versions of MSVC (example 2005) which does not provide the symbol REPLACEFILE_IGNORE_MERGE_ERRORS<br />2) I have added your test code to msvc2005/tools/issue984</p>
+
+
+	<p>I hope, but don't promise, to add main.c as a prebuilt binary issue984.exe.  When this is done, I'll call it from bugfixes-test.sh on Windows.  I will defer marking this bug as "resolved" until I do this work.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2865" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/812">Axel Waggershauser</a> <a title="01 Sep 2014 11:44" href="/projects/exiv2/activity?from=2014-09-01">about 7 years</a> ago
+      <span id="journal-2865-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2865-notes" class="wiki"><blockquote>
+
+	<p>Two comments:<br />1) I had to modify the patch to deal with older versions of MSVC (example 2005) which does not provide the symbol</p>
+
+
+</blockquote>
+
+	<p>I don't think this parameter is really necessary for the patch to have it's intended effect. I just read through the documentation and thought this should not hurt. But as long as the next published binary release is compiled with a newer version, I don't mind this exclusion of MSVC 2005.</p>
+
+
+<blockquote>
+
+	<p>2) I have added your test code to msvc2005/tools/issue984</p>
+
+
+</blockquote>
+
+	<p>You would very likely want to tune the sleep(10) call in an automated test setting. Maybe use something more appropriate than a sleep.</p>
+
+
+	<p>Thanks for applying the patch.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2870" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Sep 2014 13:57" href="/projects/exiv2/activity?from=2014-09-01">about 7 years</a> ago
+      <span id="journal-2870-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2870-notes" class="wiki"><p>Axel</p>
+
+
+	<p>We support MSVC 2003/5/8/10/12 and intend to support  2013 for v0.25.  So, although it's not necessary to change your patch for more recent versions of Visual Studio, I don't want to break support for earlier compilers without a compelling reason.</p>
+
+
+	<p>I've renamed main.c as issue984.cpp, built it with MSVC2005 and submitted issue984.exe.  <a class="changeset" title="renamed main.c -&gt; issue984.cpp and built it with MSVC2005" href="/projects/exiv2/repository/exiv2/revisions/3348">r3348</a>.</p>
+
+
+	<p>For sure, the interaction of issue984.exe with Exiv2 is an interesting puzzle.  It will be fun to play with that and add something to our test harness.  However, it's not essential to do this, so regrettably, I can't spend more time on this at the moment.  I hope we'll be "code complete" for v0.25 by the end of September and to return to this in October.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2880" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="04 Sep 2014 05:01" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago
+      <span id="journal-2880-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/670">ReplaceFile_2.patch</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/670/ReplaceFile_2.patch">ReplaceFile_2.patch</a> added</li>
+    </ul>
+    <div id="journal-2880-notes" class="wiki">I see two new problems with ReplaceFile.
+	<ol>
+	<li>ReplaceFile is only available on WinXP or newer. See access of function GetFileInformationByHandle in the same file for a general solution.</li>
+		<li>If the original file (lpReplacedFileName) is no longer available than ReplaceFile returns 0 with last error code set to ERROR_FILE_NOT_FOUND. This currently raises an exception<br /><pre>
+C:\test\DSC00583.JPG3320: Failed to rename file to C:\test\DSC00583.JPG: No error (errno = 0)
+</pre> but was handled by a simple rename in the old implementation.<br />The attached patch fixes both issues.</li>
+	</ol></div>
+    </div>
+  </div>
+  
+  <div id="change-2881" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Sep 2014 05:22" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago
+      <span id="journal-2881-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2881-notes" class="wiki"><p>Thanks Thomas.  That's very interesting.  Thank you for dealing with that.  I'm submitted your patch. <a class="changeset" title="Issue: #984.  Thank You, Thomas for the patch." href="/projects/exiv2/repository/exiv2/revisions/3349">r3349</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2882" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="04 Sep 2014 05:25" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago
+      <span id="journal-2882-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2882-notes" class="wiki"><ul>
+	<li>Not sure if \msvc2005\tools\issue984\ is the right place for such test/debugging problems.</li>
+		<li>There is a little typo in issue984.cpp: ac*c*ess</li>
+		<li>Instead of having the exe file in the svn I would rather see the vc(x)proj file.</li>
+	</ul></div>
+    </div>
+  </div>
+  
+  <div id="change-2883" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="04 Sep 2014 05:33" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago
+      <span id="journal-2883-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/671">ReplaceFile_3.patch</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/671/ReplaceFile_3.patch">ReplaceFile_3.patch</a> added</li>
+    </ul>
+    <div id="journal-2883-notes" class="wiki"><p>Please call <code>FreeLibrary(hKernel);</code> before exceptions are raised. ANSI case is OK, but Unicode case is not. See attached patch.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2884" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/812">Axel Waggershauser</a> <a title="04 Sep 2014 05:39" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago
+      <span id="journal-2884-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2884-notes" class="wiki"><p>Hi Thomas, thanks for double checking my patch.</p>
+
+
+	<p>I knew that ReplaceFile was introduced at some point in time (after Windows 1.0 ;)) but did not know the project was still targeting older versions than XP.</p>
+
+
+	<p>As for the unexpected removal of the original file: is there any way for that to happen, except for an external process removing the file right while exiv2 is working on it? And if that process is e.g. the explorer, because the user wanted that file to be gone, wouldn't it be better then to have exiv2 not make that file reappear when it has just been deliberately deleted? (For my use case, I don't mind your patch at all, just asking...)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2885" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Sep 2014 05:42" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago
+      <span id="journal-2885-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2885-notes" class="wiki"><p>Thomas.  You are quite right.  My error.  I should not have changed your code.  I apologise.  I've restored it to the state in ReplaceFile_2.patch. <a class="changeset" title="Issue: 984.  Thanks, Thomas.  I should not have modified your code.  You were correct.  My apolog..." href="/projects/exiv2/repository/exiv2/revisions/3350">r3350</a>.</p>
+
+
+	<p>Very good team work here, guys.  That's what open source is all about.  Thank You Thomas and Axel.  Good Stuff.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2886" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="04 Sep 2014 05:45" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago
+      <span id="journal-2886-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2886-notes" class="wiki"><p>Hi Axel,</p>
+
+
+	<p>actually I am not sure what the minimum OS requirement for exiv2 is but I could remember the GetFileInformationByHandle patch. So it is now there for sake of consistency.</p>
+
+
+	<p>It could also be the AV tool that deleted the original file while exiv2 is working on it. Not sure if the rename then still is preferable but at least you do not want to see that silly exception message.</p>
+
+
+	<p>Regards,<br />Thomas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2888" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Sep 2014 05:55" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago
+      <span id="journal-2888-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2888-notes" class="wiki"><p>Thomas</p>
+
+
+	<p>I put the test code into tools/issue984 because I put the depends32/64 code there a few years ago.  I'm not sure I want to put external programs such as issue984.cpp into the build and with only a single file to compile and link, a vcproj file isn't really needed when it can be build with > nmake issue984.exe  And it's probably time to retire depends32/64 as I no longer use it in the test suite.</p>
+
+
+	<p>I'm really impressed with your attention to detail.  If you'd like to contribute to Exiv2, I'd be delighted to welcome you to the team.  You're welcome to email me directly to discuss this off-line <a class="email" href="mailto:robin@clanmills.com">robin@clanmills.com</a></p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2889" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="04 Sep 2014 06:12" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago
+      <span id="journal-2889-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2889-notes" class="wiki"><p>Robin,</p>
+
+
+	<p>I built issue984.cpp in VS to have it in debugger with break point before <code>CloseHandle()</code>. That is the reason why I did not need the exe file but the VS project file. Never mind.</p>
+
+
+	<p>Not sure if I can contribute that much at all. I have this little [[<a class="external" href="http://www.totalcmd.net/plugring/iptcwdx.html">http://www.totalcmd.net/plugring/iptcwdx.html</a> TC content plugin]] running for some years and basically that's it.</p>
+
+
+	<p>Regards,<br />Thomas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2890" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Sep 2014 07:20" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago
+      <span id="journal-2890-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2890-notes" class="wiki"><p>Thomas</p>
+
+
+	<p>I am quite certain that you could make a very valuable contribution to Exiv2 with your MSVC skills.  I am the only member of the team who deals with this and I have rather a lot of work at the moment for the v0.25 release.  It's a good thing that I am retired, because I probably spend 20-30 hours every week working on the project.  Here's the plan:  <a class="external" href="http://dev.exiv2.org/boards/3/topics/1765">http://dev.exiv2.org/boards/3/topics/1765</a></p>
+
+
+	<p>Specifically, about issue984.exe, you'll see it does a Sleep(10);  I'd like to replace that with executing system("exiv2 ...."), or execvp.  The program arguments would be<br />issue984.exe file exiv2 bla bla.  And of course we have to update the test harness to use this stuff.  In all honesty, I doubt if I will find the time to deal with this.</p>
+
+
+	<p>For the v0.25 release, I am currently integrating the GSoC2013 code to trunk and implementing a Jenkins build server which builds/tests when code is submitted.  This will be a big time saver when it's complete.  Jenkins currently builds with MSVC 2005/Mac/Linux/Cygwin.  Nehal is working on MinGW.  And between us we have 2008/10/12/13 to add.  <a class="external" href="http://exiv2.dyndns.org:8080">http://exiv2.dyndns.org:8080</a></p>
+
+
+	<p>So there's lots to be done and another Windows Engineer would be a very welcome addition to the team.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2941" class="journal has-notes has-details">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Oct 2014 07:06" href="/projects/exiv2/activity?from=2014-10-14">about 7 years</a> ago
+      <span id="journal-2941-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-2941-notes" class="wiki"><p>I'm going to mark this as resolved.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3658" class="journal has-details">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 16:30" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3658-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3884" class="journal has-details">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:41" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3884-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/984.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/984.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

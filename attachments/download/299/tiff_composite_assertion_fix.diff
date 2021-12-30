@@ -1,0 +1,17 @@
+Index: src/tiffcomposite.cpp
+===================================================================
+--- src/tiffcomposite.cpp	(revision 2634)
++++ src/tiffcomposite.cpp	(working copy)
+@@ -1046,7 +1046,11 @@
+ 
+         TypeId typeId = toTypeId(tiffType(), tag(), group());
+         long typeSize = TypeInfo::typeSize(typeId);
+-        assert(typeSize != 0);
++
++	// If this isn't valid, force it to a safe value, since
++	// some (possibly) malformed JPEGs can cause this to be 0
++        if (typeSize < 1) typeSize = 1;
++
+         return static_cast<uint32_t>(static_cast<double>(size()) / typeSize + 0.5);
+     }
+ 

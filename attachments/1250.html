@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>exiv2_wrapper.c - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="a/xwreIjhW3wd/eko6GaCHT0jGRxe8bVEOYtL5CP37SJsdtCkFlJbaUT6KgcdpY7S2bYHYCYZ2/txr2n07Y42w==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/1250/exiv2_wrapper.c">Download (1.96 KB)</a></div>
+
+<h2>
+  <a href="/boards/3/topics/3197">Newbie writing a C wrapper for Exiv2</a> » exiv2_wrapper.c
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/7342">Clive McCarthy</a>, 23 Oct 2018 23:52</span></p>
+</div>
+<div class="filecontent-container">
+  
+  &nbsp;
+  <div class="autoscroll">
+<table class="filecontent syntaxhl">
+<tbody>
+  <tr id="L1">
+    <th class="line-num">
+      <a href="#L1">1</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="cp">#include &lt;exiv2/exiv2.hpp&gt;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L2">
+    <th class="line-num">
+      <a href="#L2">2</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="cp">#include &lt;iostream&gt;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L3">
+    <th class="line-num">
+      <a href="#L3">3</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="cp">#include &lt;iomanip&gt;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L4">
+    <th class="line-num">
+      <a href="#L4">4</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="cp">#include &lt;cassert&gt;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L5">
+    <th class="line-num">
+      <a href="#L5">5</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="cp">#define EXIF_ORIENTATION_TAG	274</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L6">
+    <th class="line-num">
+      <a href="#L6">6</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="cp">#define EXIF_CAMERA_MODEL_TAG	272</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L7">
+    <th class="line-num">
+      <a href="#L7">7</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="cp">#define EXIF_DATETIME_TAG		306</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L8">
+    <th class="line-num">
+      <a href="#L8">8</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="k">extern</span> <span class="s">"C"</span> <span class="c1">// start</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L9">
+    <th class="line-num">
+      <a href="#L9">9</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="p">{</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L10">
+    <th class="line-num">
+      <a href="#L10">10</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="cp">#include "common_header.h"</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L11">
+    <th class="line-num">
+      <a href="#L11">11</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="cp">#include "lip_image_processing.h"</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L12">
+    <th class="line-num">
+      <a href="#L12">12</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="cp">#include "lip_image_processing_internal.h"</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L13">
+    <th class="line-num">
+      <a href="#L13">13</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="p">}</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L14">
+    <th class="line-num">
+      <a href="#L14">14</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="kt">void</span> <span class="n">exiv2</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">jpg_filename</span><span class="p">,</span> <span class="n">IMAGE</span> <span class="o">*</span><span class="n">jpg_image</span><span class="p">)</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L15">
+    <th class="line-num">
+      <a href="#L15">15</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="p">{</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L16">
+    <th class="line-num">
+      <a href="#L16">16</a>
+    </th>
+    <td class="line-code">
+      <pre>	<span class="n">Exiv2</span><span class="o">::</span><span class="n">ExifData</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">exif_data_ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L17">
+    <th class="line-num">
+      <a href="#L17">17</a>
+    </th>
+    <td class="line-code">
+      <pre>	<span class="n">Exiv2</span><span class="o">::</span><span class="n">Image</span><span class="o">::</span><span class="n">AutoPtr</span> <span class="n">image</span><span class="p">;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L18">
+    <th class="line-num">
+      <a href="#L18">18</a>
+    </th>
+    <td class="line-code">
+      <pre>	
+</pre>
+    </td>
+  </tr>
+  <tr id="L19">
+    <th class="line-num">
+      <a href="#L19">19</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="n">image</span> <span class="o">=</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">ImageFactory</span><span class="o">::</span><span class="n">open</span><span class="p">(</span><span class="n">jpg_filename</span><span class="p">);</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L20">
+    <th class="line-num">
+      <a href="#L20">20</a>
+    </th>
+    <td class="line-code">
+      <pre>
+</pre>
+    </td>
+  </tr>
+  <tr id="L21">
+    <th class="line-num">
+      <a href="#L21">21</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">image</span><span class="p">.</span><span class="n">get</span><span class="p">())</span> 
+</pre>
+    </td>
+  </tr>
+  <tr id="L22">
+    <th class="line-num">
+      <a href="#L22">22</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="p">{</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L23">
+    <th class="line-num">
+      <a href="#L23">23</a>
+    </th>
+    <td class="line-code">
+      <pre>		<span class="n">image_lib_program_error</span><span class="p">(</span><span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">,</span> <span class="n">__FUNC__</span><span class="p">,</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L24">
+    <th class="line-num">
+      <a href="#L24">24</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="s">"can't read &lt;%s&gt;"</span><span class="p">,</span> <span class="n">jpg_filename</span><span class="p">);</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L25">
+    <th class="line-num">
+      <a href="#L25">25</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="p">}</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L26">
+    <th class="line-num">
+      <a href="#L26">26</a>
+    </th>
+    <td class="line-code">
+      <pre>	
+</pre>
+    </td>
+  </tr>
+  <tr id="L27">
+    <th class="line-num">
+      <a href="#L27">27</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="n">image</span><span class="o">-&gt;</span><span class="n">readMetadata</span><span class="p">();</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L28">
+    <th class="line-num">
+      <a href="#L28">28</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="n">Exiv2</span><span class="o">::</span><span class="n">ExifData</span> <span class="o">&amp;</span><span class="n">exifData</span> <span class="o">=</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">exifData</span><span class="p">();</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L29">
+    <th class="line-num">
+      <a href="#L29">29</a>
+    </th>
+    <td class="line-code">
+      <pre>
+</pre>
+    </td>
+  </tr>
+  <tr id="L30">
+    <th class="line-num">
+      <a href="#L30">30</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="k">if</span><span class="p">(</span><span class="n">exifData</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> 
+</pre>
+    </td>
+  </tr>
+  <tr id="L31">
+    <th class="line-num">
+      <a href="#L31">31</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="p">{</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L32">
+    <th class="line-num">
+      <a href="#L32">32</a>
+    </th>
+    <td class="line-code">
+      <pre>		<span class="n">image_lib_program_warning</span><span class="p">(</span><span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">,</span> <span class="n">__FUNC__</span><span class="p">,</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L33">
+    <th class="line-num">
+      <a href="#L33">33</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="s">"exifData is empty &lt;%s&gt;"</span><span class="p">,</span> <span class="n">jpg_filename</span><span class="p">);</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L34">
+    <th class="line-num">
+      <a href="#L34">34</a>
+    </th>
+    <td class="line-code">
+      <pre>		<span class="k">return</span><span class="p">;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L35">
+    <th class="line-num">
+      <a href="#L35">35</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="p">}</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L36">
+    <th class="line-num">
+      <a href="#L36">36</a>
+    </th>
+    <td class="line-code">
+      <pre>
+</pre>
+    </td>
+  </tr>
+  <tr id="L37">
+    <th class="line-num">
+      <a href="#L37">37</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="n">end</span> <span class="o">=</span> <span class="n">exifData</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L38">
+    <th class="line-num">
+      <a href="#L38">38</a>
+    </th>
+    <td class="line-code">
+      <pre>
+</pre>
+    </td>
+  </tr>
+  <tr id="L39">
+    <th class="line-num">
+      <a href="#L39">39</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="k">for</span><span class="p">(</span><span class="n">exif_data_ptr</span> <span class="o">=</span> <span class="n">exifData</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">exif_data_ptr</span> <span class="o">!=</span> <span class="n">end</span><span class="p">;</span> <span class="n">exif_data_ptr</span><span class="o">++</span><span class="p">)</span> 
+</pre>
+    </td>
+  </tr>
+  <tr id="L40">
+    <th class="line-num">
+      <a href="#L40">40</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="p">{</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L41">
+    <th class="line-num">
+      <a href="#L41">41</a>
+    </th>
+    <td class="line-code">
+      <pre>		<span class="k">switch</span><span class="p">(</span><span class="n">exif_data_ptr</span><span class="o">-&gt;</span><span class="n">tag</span><span class="p">())</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L42">
+    <th class="line-num">
+      <a href="#L42">42</a>
+    </th>
+    <td class="line-code">
+      <pre>		<span class="p">{</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L43">
+    <th class="line-num">
+      <a href="#L43">43</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">case</span> <span class="n">EXIF_CAMERA_MODEL_TAG</span><span class="p">:</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L44">
+    <th class="line-num">
+      <a href="#L44">44</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">case</span> <span class="n">EXIF_ORIENTATION_TAG</span><span class="p">:</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L45">
+    <th class="line-num">
+      <a href="#L45">45</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">case</span> <span class="n">EXIF_DATETIME_TAG</span><span class="p">:</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L46">
+    <th class="line-num">
+      <a href="#L46">46</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="n">std</span><span class="o">::</span><span class="n">cout</span> 
+</pre>
+    </td>
+  </tr>
+  <tr id="L47">
+    <th class="line-num">
+      <a href="#L47">47</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">44</span><span class="p">)</span> 
+</pre>
+    </td>
+  </tr>
+  <tr id="L48">
+    <th class="line-num">
+      <a href="#L48">48</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="sc">' '</span><span class="p">)</span> 
+</pre>
+    </td>
+  </tr>
+  <tr id="L49">
+    <th class="line-num">
+      <a href="#L49">49</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">left</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L50">
+    <th class="line-num">
+      <a href="#L50">50</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="o">&lt;&lt;</span> <span class="n">exif_data_ptr</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">()</span> 
+</pre>
+    </td>
+  </tr>
+  <tr id="L51">
+    <th class="line-num">
+      <a href="#L51">51</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="o">&lt;&lt;</span> <span class="s">" "</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L52">
+    <th class="line-num">
+      <a href="#L52">52</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">dec</span> 
+</pre>
+    </td>
+  </tr>
+  <tr id="L53">
+    <th class="line-num">
+      <a href="#L53">53</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="o">&lt;&lt;</span> <span class="n">exif_data_ptr</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">()</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L54">
+    <th class="line-num">
+      <a href="#L54">54</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L55">
+    <th class="line-num">
+      <a href="#L55">55</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">break</span><span class="p">;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L56">
+    <th class="line-num">
+      <a href="#L56">56</a>
+    </th>
+    <td class="line-code">
+      <pre>			
+</pre>
+    </td>
+  </tr>
+  <tr id="L57">
+    <th class="line-num">
+      <a href="#L57">57</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">default</span><span class="o">:</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L58">
+    <th class="line-num">
+      <a href="#L58">58</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">break</span><span class="p">;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L59">
+    <th class="line-num">
+      <a href="#L59">59</a>
+    </th>
+    <td class="line-code">
+      <pre>		<span class="p">}</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L60">
+    <th class="line-num">
+      <a href="#L60">60</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="p">}</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L61">
+    <th class="line-num">
+      <a href="#L61">61</a>
+    </th>
+    <td class="line-code">
+      <pre>
+</pre>
+    </td>
+  </tr>
+  <tr id="L62">
+    <th class="line-num">
+      <a href="#L62">62</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="k">for</span><span class="p">(</span><span class="n">exif_data_ptr</span> <span class="o">=</span> <span class="n">exifData</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">exif_data_ptr</span> <span class="o">!=</span> <span class="n">end</span><span class="p">;</span> <span class="n">exif_data_ptr</span><span class="o">++</span><span class="p">)</span> 
+</pre>
+    </td>
+  </tr>
+  <tr id="L63">
+    <th class="line-num">
+      <a href="#L63">63</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="p">{</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L64">
+    <th class="line-num">
+      <a href="#L64">64</a>
+    </th>
+    <td class="line-code">
+      <pre>		<span class="k">switch</span><span class="p">(</span><span class="n">exif_data_ptr</span><span class="o">-&gt;</span><span class="n">tag</span><span class="p">())</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L65">
+    <th class="line-num">
+      <a href="#L65">65</a>
+    </th>
+    <td class="line-code">
+      <pre>		<span class="p">{</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L66">
+    <th class="line-num">
+      <a href="#L66">66</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">case</span> <span class="n">EXIF_CAMERA_MODEL_TAG</span><span class="p">:</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L67">
+    <th class="line-num">
+      <a href="#L67">67</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="c1">// !!! the following line is wrong !!!</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L68">
+    <th class="line-num">
+      <a href="#L68">68</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="c1">//strncpy(jpg_image-&gt;CameraModel, (char *)(exif_data_ptr-&gt;value()), CAMERA_MODEL_STRING_LENGTH);</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L69">
+    <th class="line-num">
+      <a href="#L69">69</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">break</span><span class="p">;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L70">
+    <th class="line-num">
+      <a href="#L70">70</a>
+    </th>
+    <td class="line-code">
+      <pre>			
+</pre>
+    </td>
+  </tr>
+  <tr id="L71">
+    <th class="line-num">
+      <a href="#L71">71</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">case</span> <span class="n">EXIF_ORIENTATION_TAG</span><span class="p">:</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L72">
+    <th class="line-num">
+      <a href="#L72">72</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="c1">// !!! the following line is wrong !!!</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L73">
+    <th class="line-num">
+      <a href="#L73">73</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="c1">//jpg_image-&gt;orientation = (int)(exif_data_ptr-&gt;value());</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L74">
+    <th class="line-num">
+      <a href="#L74">74</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">break</span><span class="p">;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L75">
+    <th class="line-num">
+      <a href="#L75">75</a>
+    </th>
+    <td class="line-code">
+      <pre>			
+</pre>
+    </td>
+  </tr>
+  <tr id="L76">
+    <th class="line-num">
+      <a href="#L76">76</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">case</span> <span class="n">EXIF_DATETIME_TAG</span><span class="p">:</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L77">
+    <th class="line-num">
+      <a href="#L77">77</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="c1">// !!! the following line is wrong !!!</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L78">
+    <th class="line-num">
+      <a href="#L78">78</a>
+    </th>
+    <td class="line-code">
+      <pre>				<span class="c1">//strncpy(jpg_image-&gt;DateTime, (char *)(exif_data_ptr-&gt;value()), DATETIME_STRING_LENGTH);</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L79">
+    <th class="line-num">
+      <a href="#L79">79</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">break</span><span class="p">;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L80">
+    <th class="line-num">
+      <a href="#L80">80</a>
+    </th>
+    <td class="line-code">
+      <pre>			
+</pre>
+    </td>
+  </tr>
+  <tr id="L81">
+    <th class="line-num">
+      <a href="#L81">81</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">default</span><span class="o">:</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L82">
+    <th class="line-num">
+      <a href="#L82">82</a>
+    </th>
+    <td class="line-code">
+      <pre>			<span class="k">break</span><span class="p">;</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L83">
+    <th class="line-num">
+      <a href="#L83">83</a>
+    </th>
+    <td class="line-code">
+      <pre>		<span class="p">}</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L84">
+    <th class="line-num">
+      <a href="#L84">84</a>
+    </th>
+    <td class="line-code">
+      <pre>    <span class="p">}</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L85">
+    <th class="line-num">
+      <a href="#L85">85</a>
+    </th>
+    <td class="line-code">
+      <pre><span class="p">}</span>
+</pre>
+    </td>
+  </tr>
+  <tr id="L86">
+    <th class="line-num">
+      <a href="#L86">86</a>
+    </th>
+    <td class="line-code">
+      <pre>
+</pre>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"></ul><span><span class="items">(1-1/1)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

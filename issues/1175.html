@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1175: Exiv2 corrupts files larger than 2GB with Exif IFD at the end of the file - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="XxscC8TIy76bHXnMNgNDfQ1muc9QzrV51GYdYwXuve29VrfktrIHvs55ZsCJ1E9OMvTttqEtFMMpRo3rRtdagg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1175: Exiv2 corrupts files larger than 2GB with Exif IFD at the end of the file" href="https://dev.exiv2.org/issues/1175.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1175</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Exiv2 corrupts files larger than 2GB with Exif IFD at the end of the file</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4185">LaserSoft Imaging</a> <a title="31 Mar 2016 13:58" href="/projects/exiv2/activity?from=2016-03-31">over 5 years</a> ago.
+        Updated <a title="24 Apr 2017 17:08" href="/projects/exiv2/activity?from=2017-04-24">over 4 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">tiff parser</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">31 Mar 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">3.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Consider the following snippet which just reads meta data from file, modifies XMP meta data and writes everything back<br /><pre>
+Exiv2::Image::AutoPtr image(Exiv2::ImageFactory::open(filePath));
+
+image-&gt;readMetadata();
+Exiv2::ExifData exiv2ExivData = image-&gt;exifData();
+Exiv2::XmpData xmpData = image-&gt;xmpData();
+Exiv2::IptcData exiv2IptcData = image-&gt;iptcData();
+
+image-&gt;writeMetadata();
+image-&gt;setExifData(exiv2ExivData);
+image-&gt;setIptcData(exiv2IptcData);
+for(std::map&lt;std::string, std::string&gt;::const_iterator iter(tags.constBegin()); iter != tags.constEnd(); ++iter)
+{
+       xmpData[iter.key()] = iter.value();
+}
+image-&gt;setXmpData(xmpData);
+
+image-&gt;writeMetadata();
+</pre></p>
+
+
+	<p>If this is run on a file that is larger than 2GB and has its Exif IFD at the end of the file, the saved file is corrupt and is not loadable in image viewers.</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4269" href="/projects/exiv2/repository/exiv2/revisions/4269">Revision 4269</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4269/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Mar 2016 14:27" href="/projects/exiv2/activity?from=2016-03-31">over 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 corrupts files larger than 2GB with Exif IFD at the end of the file (Closed)" href="/issues/1175">#1175</a>.  Thank You, LaserSoft, for reporting this and providing the patch.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4755" href="/projects/exiv2/repository/exiv2/revisions/4755">Revision 4755</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4755/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Apr 2017 15:36" href="/projects/exiv2/activity?from=2017-04-19">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 corrupts files larger than 2GB with Exif IFD at the end of the file (Closed)" href="/issues/1175">#1175</a>.  Thanks to LaserSoft for reporting this and providing a patch.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4756" href="/projects/exiv2/repository/exiv2/revisions/4756">Revision 4756</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4756/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Apr 2017 17:03" href="/projects/exiv2/activity?from=2017-04-19">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 corrupts files larger than 2GB with Exif IFD at the end of the file (Closed)" href="/issues/1175">#1175</a> I'm going to accept the recommendation to change BasicIo::size() to return size_t.  This passes the test suite.  The only "ripple" outside of basicio is to iotest.cpp.  This change enables several casts to be removed.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4759" href="/projects/exiv2/repository/exiv2/revisions/4759">Revision 4759</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4759/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 10:58" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 corrupts files larger than 2GB with Exif IFD at the end of the file (Closed)" href="/issues/1175">#1175</a> Correction to <a class="changeset" title="#1175 I&#39;m going to accept the recommendation to change BasicIo::size() to return size_t.  This pa..." href="/projects/exiv2/repository/exiv2/revisions/4756">r4756</a> Another three casts required to build with Visual Studio (size_t code ripple)</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4760" href="/projects/exiv2/repository/exiv2/revisions/4760">Revision 4760</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4760/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 11:00" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 corrupts files larger than 2GB with Exif IFD at the end of the file (Closed)" href="/issues/1175">#1175</a> Correction to <a class="changeset" title="#1109  Work-in-progress.  First cut of categorize.py to replace categorize.sh.  This which will i..." href="/projects/exiv2/repository/exiv2/revisions/4597">r4597</a> Additional file (which, in error, I didn't to commit)</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4765" href="/projects/exiv2/repository/exiv2/revisions/4765">Revision 4765</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4765/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Apr 2017 20:08" href="/projects/exiv2/activity?from=2017-04-23">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 corrupts files larger than 2GB with Exif IFD at the end of the file (Closed)" href="/issues/1175">#1175</a> more cast ripples on GCC5/Linux</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4911" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4185">LaserSoft Imaging</a> <a title="31 Mar 2016 13:59" href="/projects/exiv2/activity?from=2016-03-31">over 5 years</a> ago
+      <span id="journal-4911-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4911-notes" class="wiki"><p>Similar issue seems to be <a class="issue tracker-3 status-5 priority-4 priority-default closed" title="Support: Writing Exif to TIFF-like Hasselblad RAW *.3fr  (Closed)" href="/issues/995">#995</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4912" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Mar 2016 14:06" href="/projects/exiv2/activity?from=2016-03-31">over 5 years</a> ago
+      <span id="journal-4912-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> set to <i>1.0</i></li>
+    </ul>
+    <div id="journal-4912-notes" class="wiki"><p>I'm not surprised to hear about this.  Although we support a 64bit build, I have my doubts about our ability to handle HUGE files (which require 64 bit offsets).  Regrettably, nothing can be done about this at the moment as I have lots to finish for v0.26.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4913" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4185">LaserSoft Imaging</a> <a title="31 Mar 2016 14:10" href="/projects/exiv2/activity?from=2016-03-31">over 5 years</a> ago
+      <span id="journal-4913-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4913-notes" class="wiki"><p>The fix is proposed in the following forum topic: <a class="external" href="http://dev.exiv2.org/boards/3/topics/2528">http://dev.exiv2.org/boards/3/topics/2528</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4914" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Mar 2016 14:33" href="/projects/exiv2/activity?from=2016-03-31">over 5 years</a> ago
+      <span id="journal-4914-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> changed from <i>1.0</i> to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>80</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-4914-notes" class="wiki"><p>Thanks, George.  Thanks for reporting this and providing the patch.  Submitted.  <a class="changeset" title="#1175.  Thank You, LaserSoft, for reporting this and providing the patch." href="/projects/exiv2/repository/exiv2/revisions/4269">r4269</a>.</p>
+
+
+	<p>I didn't notice the Forum topic with the patch.  Can I ask you to build the trunk and verify that this has been fixed.</p>
+
+
+	<p>I have opened an Issue for HUGE file support <a class="issue tracker-2 status-1 priority-4 priority-default" title="Feature: Validate HUGE file support (New)" href="/issues/1176">#1176</a>.  In this case, we've dodged the 31/32 bit bullet.  We won't be so lucky when we work on files > 4GB.  I'm sure that will take a considerable effort to acquire all the test files, then test and fix all the code.  It'll be tedious, however it will be increasingly important, especially for video support.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4949" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Apr 2016 05:14" href="/projects/exiv2/activity?from=2016-04-24">over 5 years</a> ago
+      <span id="journal-4949-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>80</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5939" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4185">LaserSoft Imaging</a> <a title="19 Apr 2017 15:03" href="/projects/exiv2/activity?from=2017-04-19">over 4 years</a> ago
+      <span id="journal-5939-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5939-notes" class="wiki"><p>Our software is still suffering from this issue. Now we might have a (partial) solution for issue <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 corrupts files larger than 2GB with Exif IFD at the end of the file (Closed)" href="/issues/1175">#1175</a>.<br />By debugging readMetadata we found out that the <em>size()</em>-method return "-1" for large files (>2GB). Applied to <em>mappedLength</em> this value has been transformed into something very large since <em>mappedLength</em> is of unsigned type. So we implemented two changes in the Exiv2-sources:</p>
+
+
+	<p>1. Within Methode <em>FileIo::Impl::stat(StructStat&#38; buf)</em> we make use of 64 bit WinAPI methods like this:<br /><pre>
+#ifdef EXV_UNICODE_PATH
+        if (wpMode_ == wpUnicode) {
+#ifdef _WIN64
+            struct _stat64 st;
+            ret = ::_wstati64(wpath_.c_str(), &#38;st);
+
+            if (0 == ret) {
+                buf.st_size = st.st_size;
+                buf.st_mode = st.st_mode;
+                buf.st_nlink = st.st_nlink;
+            }
+#else
+            struct _stat st;
+            ret = ::_wstat(wpath_.c_str(), &#38;st);
+
+            if (0 == ret) {
+                buf.st_size = st.st_size;
+                buf.st_mode = st.st_mode;
+                buf.st_nlink = st.st_nlink;
+            }
+#endif
+</pre><br />It turned out, that for file sizes >2GB _<em>stat</em> and _<em>wstat</em> have are not capable of returning sufficient file information. Thus on 64 bit compilations we switched to *64-methods.</p>
+
+
+	<p>2. For all the <em>size()</em> methods we changed the return value from from <em class="wiki-class-signed"> long</em> to <em>size_t</em> since this type is capable of storing correct sizes.</p>
+
+
+	<p>With these two changes applied the Exiv2-library is able to store IPTC data in files larger than 2GB. We will deploy our software with this fix. Please consider checking the solution and also include it into your next version.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5940" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Apr 2017 15:46" href="/projects/exiv2/activity?from=2017-04-19">over 4 years</a> ago
+      <span id="journal-5940-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-5940-notes" class="wiki"><p>Thank you for the patch which I have submitted as <a class="changeset" title="#1175.  Thanks to LaserSoft for reporting this and providing a patch." href="/projects/exiv2/repository/exiv2/revisions/4755">r4755</a>.  It will be included in Exiv2 v0.26 which I hope will be released in the next few days.</p>
+
+
+	<p>The top-ranked item for v0.27 in <a class="external" href="http://dev.exiv2.org/projectns/exiv2/news">http://dev.exiv2.org/projectns/exiv2/news</a> is <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Better raw file support and test (Assigned)" href="/issues/992">#992</a> - Better raw file support and test.  Although the exiv2 code compiles and executes in 64 bit, the handling of HUGE files (>2GB) hasn't had the test and stressing it deserves.  I'm sure there are numerous place where 64 bit values have been converted to 32 and back to 64 bit.  This will go un-noticed for many files, however this must be fixed for HUGE files.</p>
+
+
+	<p>I'm not sure if/when this matter will get attention.  Open source relies on volunteers.  Regrettably, nobody has volunteered to work in this area.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5941" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4185">LaserSoft Imaging</a> <a title="19 Apr 2017 15:55" href="/projects/exiv2/activity?from=2017-04-19">over 4 years</a> ago
+      <span id="journal-5941-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5941-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Thank you for the patch which I have submitted as <a class="changeset" title="#1175.  Thanks to LaserSoft for reporting this and providing a patch." href="/projects/exiv2/repository/exiv2/revisions/4755">r4755</a>.  It will be included in Exiv2 v0.26 which I hope will be released in the next few days.</p>
+
+
+</blockquote>
+
+	<p>Thanks for the quick reaction. Just reviewed the mentioned revision <a class="changeset" title="#1175.  Thanks to LaserSoft for reporting this and providing a patch." href="/projects/exiv2/repository/exiv2/revisions/4755">r4755</a>: Please also consider the scond part of the suggested fix (changing <em>size()</em> return values to <em>size_t</em>). Since <em>long</em> is signed, file sizes might exceed it and change to negative values.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5942" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Apr 2017 16:16" href="/projects/exiv2/activity?from=2017-04-19">over 4 years</a> ago
+      <span id="journal-5942-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5942-notes" class="wiki"><p>Christoph</p>
+
+
+	<p>Thanks for drawing my attention to your second point.  I'm happy to change size() to return size_t provided it doesn't cause a ripple of change in the code.  This is another example of the work that is required to certify our handling of HUGE files.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5943" class="journal has-notes has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Apr 2017 17:21" href="/projects/exiv2/activity?from=2017-04-19">over 4 years</a> ago
+      <span id="journal-5943-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>2.00 h</i> to <i>3.00 h</i></li>
+    </ul>
+    <div id="journal-5943-notes" class="wiki"><p><a class="changeset" title="#1175 I&#39;m going to accept the recommendation to change BasicIo::size() to return size_t.  This pa..." href="/projects/exiv2/repository/exiv2/revisions/4756">r4756</a>  changes BasicIo::size() to return size_t.  The test suite runs successfully without change.</p>
+
+
+	<p>This change contains the "code ripple" to basicio.{cpp|hpp} and iotest.cpp.  It enables several casts to be removed from the code.  It adds one cast in a comparison of size() and tell().  Because tell() returns a long which can be -1, this new/additional cast is unavoidable.</p>
+
+
+	<p>I am rather nervous about this change as it could be the final change for Exiv2 v0.26.  The evidence of lack of ripple and removal of casts gives me the courage to commit this.</p>
+
+
+	<p>Christoph:<br />Please run your own test suite with <a class="changeset" title="#1175.  Thanks to LaserSoft for reporting this and providing a patch." href="/projects/exiv2/repository/exiv2/revisions/4755">r4755</a> and <a class="changeset" title="#1175 I&#39;m going to accept the recommendation to change BasicIo::size() to return size_t.  This pa..." href="/projects/exiv2/repository/exiv2/revisions/4756">r4756</a> compiled into your product.  If anything arises, I will revert <a class="changeset" title="#1175.  Thanks to LaserSoft for reporting this and providing a patch." href="/projects/exiv2/repository/exiv2/revisions/4755">r4755</a> and <a class="changeset" title="#1175 I&#39;m going to accept the recommendation to change BasicIo::size() to return size_t.  This pa..." href="/projects/exiv2/repository/exiv2/revisions/4756">r4756</a> and reconsider/defer this matter for v0.27.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5970" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4185">LaserSoft Imaging</a> <a title="24 Apr 2017 15:37" href="/projects/exiv2/activity?from=2017-04-24">over 4 years</a> ago
+      <span id="journal-5970-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5970-notes" class="wiki"><p>I'm afraid this issue is not yet solved... :(</p>
+
+
+	<p>I have to say that we first implemented the fix on an older state of exiv2 sources. In order to also test the other changes from your revision we updated the sources via subversion and applied the fix for this ticket.</p>
+
+
+	<p>Now we run into another error when handling large files when attempting to open these with <em>Exiv2::ImageFactory::open</em>:<br /><pre>Exiv2 Error 11: The file contains data of an unknown image type</pre></p>
+
+
+	<p>We also tested the new sources without the fix and still this error appears. So at least the error has not been introduced by revision <a class="changeset" title="#1175.  Thanks to LaserSoft for reporting this and providing a patch." href="/projects/exiv2/repository/exiv2/revisions/4755">r4755</a> or <a class="changeset" title="#1175 I&#39;m going to accept the recommendation to change BasicIo::size() to return size_t.  This pa..." href="/projects/exiv2/repository/exiv2/revisions/4756">r4756</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5972" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Apr 2017 17:08" href="/projects/exiv2/activity?from=2017-04-24">over 4 years</a> ago
+      <span id="journal-5972-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5972-notes" class="wiki"><p>I'm not sure what to say about this.  I think you are saying that HUGE file support in Exiv2 is broken.  There may be times when you will be lucky and be successful when operating on a HUGE file.  However, there are really a collection of different issues involved.</p>
+
+
+	<p>1) basicio.cpp and http.cpp require thorough inspection and remedial work to be certain they work on HUGE files<br />2) the exiv2 code that reads files (such as tiffimage.cpp) should be thoroughly tested on HUGE files<br />3) we have an outstanding request to support BigTIFF (the 64 bit variant of Tiff) <a class="issue tracker-2 status-1 priority-4 priority-default" title="Feature: Support Big Tiff Image Format (New)" href="/issues/1186">#1186</a></p>
+
+
+	<p>I'm wondering how/if I will have time to work on this.  I am a 66 year old volunteer.  Here's the "TODO" list for v0.27 <a class="external" href="http://dev.exiv2.org/news/3">http://dev.exiv2.org/news/3</a> and is perhaps 2 or 3 years of work.</p>
+
+
+	<p>I attended a conference in Rio on Saturday to appeal to the Linux Community for help.  <a class="external" href="https://www.youtube.com/watch?v=3Fv57Lbhmqg">https://www.youtube.com/watch?v=3Fv57Lbhmqg</a></p>
+
+
+	<p>If you'd like to be involved with fixing our HUGE file support, I will mentor and help you.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1175.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1175.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

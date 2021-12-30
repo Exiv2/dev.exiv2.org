@@ -1,0 +1,212 @@
+Files exiv2Ori/src/.libs/convert.o and exiv2/src/.libs/convert.o differ
+Files exiv2Ori/src/.libs/libexiv2.a and exiv2/src/.libs/libexiv2.a differ
+diff -ur exiv2Ori/src/convert.cpp exiv2/src/convert.cpp
+--- exiv2Ori/src/convert.cpp	2012-03-22 15:19:35 +0000
++++ exiv2/src/convert.cpp	2013-05-20 07:35:27 +0000
+@@ -70,10 +70,8 @@
+ // *****************************************************************************
+ // local declarations
+ namespace {
+-#if defined WIN32 && !defined __CYGWIN__
+     // Convert string charset with Windows functions.
+-    bool convertStringCharsetWindows(std::string& str, const char* from, const char* to);
+-#endif
++    bool convertStringCharsetUni(std::string& str, const char* from, const char* to);
+ #if defined EXV_HAVE_ICONV
+     // Convert string charset with iconv.
+     bool convertStringCharsetIconv(std::string& str, const char* from, const char* to);
+@@ -1334,12 +1332,8 @@
+         bool ret = false;
+ #if defined EXV_HAVE_ICONV
+         ret = convertStringCharsetIconv(str, from, to);
+-#elif defined WIN32 && !defined __CYGWIN__
+-        ret = convertStringCharsetWindows(str, from, to);
+ #else
+-# ifndef SUPPRESS_WARNINGS
+-        EXV_WARNING << "Charset conversion required but no character mapping functionality available.\n";
+-# endif
++        ret = convertStringCharsetUni(str, from, to);
+ #endif
+         return ret;
+     }
+@@ -1350,8 +1344,7 @@
+ namespace {
+ 
+     using namespace Exiv2;
+-
+-#if defined WIN32 && !defined __CYGWIN__
++	
+     bool swapBytes(std::string& str)
+     {
+         // Naive byte-swapping, I'm sure this can be done more efficiently
+@@ -1369,74 +1362,58 @@
+         return true;
+     }
+ 
+-    bool mb2wc(UINT cp, std::string& str)
+-    {
+-        if (str.empty()) return true;
+-        int len = MultiByteToWideChar(cp, 0, str.c_str(), (int)str.size(), 0, 0);
+-        if (len == 0) {
+-#ifdef DEBUG
+-            EXV_DEBUG << "mb2wc: Failed to determine required size of output buffer.\n";
+-#endif
+-            return false;
+-        }
+-        std::vector<std::string::value_type> out;
+-        out.resize(len * 2);
+-        int ret = MultiByteToWideChar(cp, 0, str.c_str(), (int)str.size(), (LPWSTR)&out[0], len * 2);
+-        if (ret == 0) {
+-#ifdef DEBUG
+-            EXV_DEBUG << "mb2wc: Failed to convert the input string to a wide character string.\n";
+-#endif
+-            return false;
+-        }
+-        str.assign(out.begin(), out.end());
+-        return true;
+-    }
+-
+-    bool wc2mb(UINT cp, std::string& str)
++    bool utf8ToUcs2le(std::string& str)
+     {
+-        if (str.empty()) return true;
+-        if (str.size() & 1) {
+-#ifdef DEBUG
+-            EXV_DEBUG << "wc2mb: Size " << str.size() << " of input string is not even.\n";
+-#endif
+-            return false;
+-        }
+-        int len = WideCharToMultiByte(cp, 0, (LPCWSTR)str.data(), (int)str.size() / 2, 0, 0, 0, 0);
+-        if (len == 0) {
+-#ifdef DEBUG
+-            EXV_DEBUG << "wc2mb: Failed to determine required size of output buffer.\n";
+-#endif
+-            return false;
+-        }
+-        std::vector<std::string::value_type> out;
+-        out.resize(len);
+-        int ret = WideCharToMultiByte(cp, 0, (LPCWSTR)str.data(), (int)str.size() / 2, (LPSTR)&out[0], len, 0, 0);
+-        if (ret == 0) {
+-#ifdef DEBUG
+-            EXV_DEBUG << "wc2mb: Failed to convert the input string to a multi byte string.\n";
+-#endif
+-            return false;
+-        }
+-        str.assign(out.begin(), out.end());
+-        return true;
++		try {
++			std::string _str;
++			for (unsigned int i = 0; i < str.size();) {	
++				int val = 0;
++				if ((unsigned char)str[i] < 0x80) val = str[i], ++i;
++				else if ((str[i] & 0xE0) == 0xE0) {
++					if (str.at(i + 1) == 0 || str.at(i + 2) == 0) return false;
++					i += 3;
++					val = (str.at(i) & 0x0F)<<12 | (str.at(i + 1) & 0x3F)<<6  | (str.at(i + 2) & 0x3F);
++				}
++				else if ((str[i] & 0xC0) == 0xC0) {
++					if (str.at(i + 1) == 0) return false;
++					i += 2;
++					val = (str.at(i) & 0x1F)<<6 | (str.at(i + 1) & 0x3F);
++				}
++				_str += (unsigned char)(val & 0xff), _str += (unsigned char)(val >> 8);				
++			}
++			str = _str;
++		}
++		catch (...) {
++			return false;
++		}
++		return true;
++    }
++
++	bool ucs2leToUtf8(std::string& str)
++    {
++		std::string _str;
++		for (unsigned int i = 0; i < str.size(); i += 2) {
++			unsigned short c = (unsigned char)str[i] + (((unsigned short)str[i + 1]) << 8);
++			if (c<0x80) _str+=c;
++			else if (c<0x800) _str+=192+c/64, _str+=128+c%64;
++			else if (c-0xd800u<0x800) return false;
++			else _str+=224+c/4096, _str+=128+c/64%64, _str+=128+c%64;
++		}
++		str = _str;
++		return true;
+     }
+ 
+     bool utf8ToUcs2be(std::string& str)
+     {
+-        bool ret = mb2wc(CP_UTF8, str);
++        bool ret = utf8ToUcs2le(str);
+         if (ret) ret = swapBytes(str);
+         return ret;
+     }
+ 
+-    bool utf8ToUcs2le(std::string& str)
+-    {
+-        return mb2wc(CP_UTF8, str);
+-    }
+-
+     bool ucs2beToUtf8(std::string& str)
+     {
+         bool ret = swapBytes(str);
+-        if (ret) ret = wc2mb(CP_UTF8, str);
++        if (ret) ret = ucs2leToUtf8(str);
+         return ret;
+     }
+ 
+@@ -1445,11 +1422,6 @@
+         return swapBytes(str);
+     }
+ 
+-    bool ucs2leToUtf8(std::string& str)
+-    {
+-        return wc2mb(CP_UTF8, str);
+-    }
+-
+     bool ucs2leToUcs2be(std::string& str)
+     {
+         return swapBytes(str);
+@@ -1457,9 +1429,14 @@
+ 
+     bool iso88591ToUtf8(std::string& str)
+     {
+-        bool ret = mb2wc(28591, str);
+-        if (ret) ret = wc2mb(CP_UTF8, str);
+-        return ret;
++		std::string mcstr;
++		mcstr.reserve(str.size() * 2);
++        for (unsigned int i = 0; i < str.size(); ++i) {
++			mcstr += str[i];
++			mcstr += '\0';
++        }
++		str = mcstr;
++        return ucs2leToUtf8(str);
+     }
+ 
+     bool asciiToUtf8(std::string& /*str*/)
+@@ -1490,7 +1467,7 @@
+         // Update the convertStringCharset() documentation if you add more here!
+     };
+ 
+-    bool convertStringCharsetWindows(std::string& str, const char* from, const char* to)
++    bool convertStringCharsetUni(std::string& str, const char* from, const char* to)
+     {
+         bool ret = false;
+         const ConvFctList* p = find(convFctList, std::make_pair(from, to));
+@@ -1498,14 +1475,13 @@
+         if (p) ret = p->convFct_(tmpstr);
+ #ifndef SUPPRESS_WARNINGS
+         else {
+-            EXV_WARNING << "No Windows function to map character string from " << from << " to " << to << " available.\n";
++            EXV_WARNING << "No function to map character string from " << from << " to " << to << " available.\n";
+         }
+ #endif
+         if (ret) str = tmpstr;
+         return ret;
+     }
+ 
+-#endif // defined WIN32 && !defined __CYGWIN__
+ #if defined EXV_HAVE_ICONV
+     bool convertStringCharsetIconv(std::string& str, const char* from, const char* to)
+     {
+Files exiv2Ori/src/convert.o and exiv2/src/convert.o differ

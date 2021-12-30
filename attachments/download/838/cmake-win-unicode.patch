@@ -1,0 +1,42 @@
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(révision 3957)
++++ CMakeLists.txt	(copie de travail)
+@@ -55,6 +55,7 @@
+ OPTION( EXIV2_ENABLE_WEBREADY      "Build webready support into library"                   OFF )
+ OPTION( EXIV2_ENABLE_CURL          "USE Libcurl for HttpIo"                                ON  )
+ OPTION( EXIV2_ENABLE_SSH           "USE Libssh for SshIo"                                  ON  )
++OPTION( EXIV2_ENABLE_WIN_UNICODE   "Use Unicode paths (wstring) on Windows"                OFF )
+ 
+ IF( MINGW OR UNIX )
+     IF ( CMAKE_CXX_COMPILER STREQUAL "g++" OR CMAKE_C_COMPILER STREQUAL "gcc" )
+@@ -69,6 +70,13 @@
+     ENDIF()
+ ENDIF( MINGW OR UNIX )
+ 
++# Force unicode support on windows
++IF (WIN32)
++    IF( EXIV2_ENABLE_WIN_UNICODE )
++        ADD_DEFINITIONS( -DEXV_UNICODE_PATH )
++    ENDIF()
++ENDIF()
++
+ INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/src/ ${CMAKE_SOURCE_DIR}/include/  ${CMAKE_SOURCE_DIR}/include/exiv2/)
+ 
+ if( MSVC )
+Index: config/config.h.in
+===================================================================
+--- config/config.h.in	(révision 3957)
++++ config/config.h.in	(copie de travail)
+@@ -225,11 +225,6 @@
+ #define SEPARATOR_CHR '/'
+ #endif
+ 
+-/* Windows unicode path support */
+-#if defined WIN32 && !defined __CYGWIN__ && !defined __MINGW__
+-# define EXV_UNICODE_PATH
+-#endif
+-
+ /* Symbol visibility support */
+ #ifdef WIN32
+ # define EXV_IMPORT __declspec(dllimport)

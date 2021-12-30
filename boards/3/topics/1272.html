@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>problems using Exiv2.dll in VS2010 project - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="PYCfClfEdMKzPR/P/9h9Q4Mo3PBSkoZSgBP06yQqye3fzTTlJb64wuZZAMNAD3FwvLqIiaNxJ+h9M2RjZxMugg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>problems using Exiv2.dll in VS2010 project</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/3661">Jay T</a> <a title="05 Oct 2012 14:51" href="/projects/exiv2/activity?from=2012-10-05">about 9 years</a> ago</span></p>
+<div class="wiki">
+<p>Hello everyone,</p>
+
+
+	<p>I've been fighting with this for the past few days and I'm making no progress. It's likely I've overlooked something obvious and I'm hoping someone here can show me the error of my ways.</p>
+
+
+	<p>I built the ReleaseDLL (also tried DebugDLL) of rev.2890 without any problems but if I try to use the resulting DLLs in my project I get an access violation error.</p>
+
+
+	<p>I can do things like create a container but as soon as I try reading / writing data I get the access violation error. Even though I'm using catch(Exiv2::AnyError &#38;e) no exception is caught and the program crashes.</p>
+
+
+	<p>I really appreciate any help.</p>
+
+
+	<p>Thanks!<br />jt</p>
+
+
+	<p>code:<br /><pre>
+try {
+    Exiv2::ExifData exifData;
+
+    /*
+    exifData["Exif.Image.NewSubfileType"] = uint32_t(0); // always primary image
+    // above also causes access violation
+    */
+    cout &lt;&lt; "ex - " &lt;&lt; 1 &lt;&lt; endl;
+    exifData.begin();
+    cout &lt;&lt; "ex - " &lt;&lt; 2 &lt;&lt; endl;
+
+    Exiv2::Value::AutoPtr v = Exiv2::Value::create(Exiv2::unsignedLong);
+    cout &lt;&lt; "ex - " &lt;&lt; 3 &lt;&lt; endl;
+    v-&gt;read(0);
+    cout &lt;&lt; "ex - " &lt;&lt; 4 &lt;&lt; endl;
+
+    Exiv2::ExifKey key("Exif.Image.NewSubfileType");
+    cout &lt;&lt; "ex - " &lt;&lt; 5 &lt;&lt; endl;
+
+    exifData.add(key, v.get());
+    cout &lt;&lt; "ex - " &lt;&lt; 6 &lt;&lt; endl;
+} catch(Exiv2::AnyError &#38;e) {
+    cout &lt;&lt; "exif exception - " &lt;&lt; e.what() &lt;&lt; endl;
+}
+</pre></p>
+
+
+	<p>output:<br /><pre>
+ex - 1
+ex - 2
+ex - 3
+Traceback (most recent call last):
+  File "lib_test.py", line 138, in &lt;module&gt;
+
+  File "lib_test.py", line 123, in main
+    #print ctypes.sizeof(ret)
+WindowsError: exception: access violation reading 0x00000000
+</pre></p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (3)</h3>
+  <div class="message reply" id="message-1273">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1272?r=1273#message-1273">RE: problems using Exiv2.dll in VS2010 project</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="05 Oct 2012 15:05" href="/projects/exiv2/activity?from=2012-10-05">about 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jay</p>
+
+
+	<p>I'm not sure what this code means.  However you don't have a pointer v "exception: access violation reading 0x00000000".</p>
+
+
+	<p>There are about 20 sample applications.  Perhaps you can clone one of them for your purposes.  I believe they work correctly on all configurations {{staticDLL}|{64|32}|{Debug|Release}} on DevStudio 2010 (and 2003/5/8/12).</p>
+
+
+	<p>If you don't solve this with the samples, can you zip up your project and sent it to me and I'll look at it over the weekend (<a class="email" href="mailto:robin@clanmills.com">robin@clanmills.com</a>).  I also puzzled by the trace back to lib_test.py.  Please put a ReadMe.txt into the zip to explain what you're trying to do.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1274">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1272?r=1274#message-1274">RE: problems using Exiv2.dll in VS2010 project</a>
+    -
+    Added by <a class="user active" href="/users/3661">Jay T</a> <a title="10 Oct 2012 22:08" href="/projects/exiv2/activity?from=2012-10-10">about 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the reply Robin and the offer. I did find my problem though.</p>
+
+
+	<p>From the code snippet <code>v->read(0);</code> is causing the crash and if I change it to <code>v->read("0");</code> everything works fine.</p>
+
+
+	<p>The trace back to lib_test.py is because I'm using python as the front end to a c++ library using Exiv2 and libraw.</p>
+
+
+	<p>Thanks again! jt</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1275">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1272?r=1275#message-1275">RE: problems using Exiv2.dll in VS2010 project</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Oct 2012 22:35" href="/projects/exiv2/activity?from=2012-10-11">about 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm glad you have this fixed.</p>
+
+
+	<p>It's possible to set break points and debug into dll's with DevStudio.  I can think of several ways:</p>
+
+
+	<p>1) If you use Debug/Start Debugging (F5), it will prompt you for an executable to run - and you'll want to say "python bla bla...".<br />2) You can also set the debug properties of a project to declare the executable to launch for debugging (python of course)<br />3) You can start a process (python bla bla) and then use Debug/Attach to running process.<br />- with this method, you'll want to the program to pause so that you can attach.  A simple read with cin [in C++] or raw_input() [in python] will do the trick.<br />4) You can put DebugBreak() into the C++ code.  You'll be prompted when DebubBreak() is executed.</p>
+
+
+	<p>You'll have to ensure that the debug dll is loaded by python and the .pdb symbol tables are available to the debugger.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-3/3)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

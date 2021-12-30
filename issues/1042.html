@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1042: Exiv2 nulls file on CIFS share when modifying Exif.Photo.UserComment - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="z8O9TMTQvik/dxSb9nhp1Fbc8a1+go4SJmaZ8zLmJ5ctjhajtqpyKWoTC5dJr2XnaU6l1I9hL6jbRgl7cd/A+A==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1042: Exiv2 nulls file on CIFS share when modifying Exif.Photo.UserComment" href="https://dev.exiv2.org/issues/1042.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1042</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Exiv2 nulls file on CIFS share when modifying Exif.Photo.UserComment</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4378">Calvin Browne</a> <a title="15 Mar 2015 18:51" href="/projects/exiv2/activity?from=2015-03-15">over 6 years</a> ago.
+        Updated <a title="22 Aug 2015 16:15" href="/projects/exiv2/activity?from=2015-08-22">about 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">testing</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">15 Mar 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hi Guys,</p>
+
+
+	<p>After running into this via shotwell, I set up a test CIFS directory of around 4000 jpg files.<br />exiv2 -V<br />exiv2 0.23 001700 (64 bit build)</p>
+
+
+	<p>on Ubuntu 14.04.2 LTS (client &#38; server).</p>
+
+
+	<p>doing a</p>
+
+
+	<p>for i in `ls`; do exiv2 -v -M"set Exif.Photo.UserComment charset=Ascii New Exif comment3" $i; done</p>
+
+
+	<p>will randomly, but reliably leave me with an empty file.<br />The exiv2 command hangs and needs to be killed, and the file restored from backup ;-)</p>
+
+
+	<p>Let me know what information I can give to help debug.....</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/734">exiv2-32bits.zip</a>    <span class="size">(1.98 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/734/exiv2-32bits.zip">exiv2-32bits.zip</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 18 Mar 2015 18:05</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1042" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="AY6t2d5bWnE94qXMSb/lVk92X+qnBa5aLTDBKJKreKbjwwY2rCGWcWiGusD2aOllcOQLk1bmD+DQEFGg0ZKfyQ==" />
+  <table class="list issues odd-even"><tr id="relation-119" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1043" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1043">Bug #1043</a>: pyexiv2 fails on cifs shares on an Ubuntu client</td><td class="status">Closed</td><td class="start_date">19 Mar 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1042/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1042&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3627" href="/projects/exiv2/repository/exiv2/revisions/3627">Revision 3627</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3627/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Mar 2015 16:35" href="/projects/exiv2/activity?from=2015-03-21">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 nulls file on CIFS share when modifying Exif.Photo.UserComment (Closed)" href="/issues/1042">#1042</a> and <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: pyexiv2 fails on cifs shares on an Ubuntu client (Closed)" href="/issues/1043">#1043</a>.  Don't use a MemIo object for small temporary files.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3630" href="/projects/exiv2/repository/exiv2/revisions/3630">Revision 3630</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3630/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 00:27" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: pyexiv2 fails on cifs shares on an Ubuntu client (Closed)" href="/issues/1043">#1043</a> and <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 nulls file on CIFS share when modifying Exif.Photo.UserComment (Closed)" href="/issues/1042">#1042</a>.  Thanks to Thomas for showing that <a class="changeset" title="#1042 and #1043.  Don&#39;t use a MemIo object for small temporary files." href="/projects/exiv2/repository/exiv2/revisions/3627">r3627</a> reintroduced <a class="issue tracker-1 status-5 priority-5 priority-high3 closed" title="Bug: Exiv2 destroys hard links (Closed)" href="/issues/812">#812</a>.  Thanks to Thoralf for suggesting msync MemIo fix.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3631" href="/projects/exiv2/repository/exiv2/revisions/3631">Revision 3631</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3631/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 10:36" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 nulls file on CIFS share when modifying Exif.Photo.UserComment (Closed)" href="/issues/1042">#1042</a> <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: pyexiv2 fails on cifs shares on an Ubuntu client (Closed)" href="/issues/1043">#1043</a> <a class="issue tracker-1 status-5 priority-5 priority-high3 closed" title="Bug: Exiv2 destroys hard links (Closed)" href="/issues/812">#812</a>  Added test regression detectors</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3635" href="/projects/exiv2/repository/exiv2/revisions/3635">Revision 3635</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3635/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Mar 2015 22:25" href="/projects/exiv2/activity?from=2015-03-24">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: pyexiv2 fails on cifs shares on an Ubuntu client (Closed)" href="/issues/1043">#1043</a> <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 nulls file on CIFS share when modifying Exif.Photo.UserComment (Closed)" href="/issues/1042">#1042</a> <a class="issue tracker-1 status-5 priority-5 priority-high3 closed" title="Bug: Exiv2 destroys hard links (Closed)" href="/issues/812">#812</a>.  Thank You to Thomas for this "polishing" patch.  Thank you to everybody who has worked on this issue.  Adding all the comments on the three issues together comes to about 60 items by at least 6 contributors.  And it involves platform issues, networking, Linux and Windows APIs.  One of the most complex issues to arise in Exiv2.  Well done everybody.  And we've dealt with this quickly.  Only 9 days since Calvin first reported <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 nulls file on CIFS share when modifying Exif.Photo.UserComment (Closed)" href="/issues/1042">#1042</a>.</p>
+
+
+	<p>I use the term "complex" to mean many threads of technology.  "complex" != "complicated".  "complicated" = "difficult to understand".  We try to avoid "complicated".</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3214" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Mar 2015 21:09" href="/projects/exiv2/activity?from=2015-03-15">over 6 years</a> ago
+      <span id="journal-3214-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>testing</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-3214-notes" class="wiki"><p>Thanks for reporting this, Calvin.  Destroying your file isn't good.  I'll have a look at this in the next few days.</p>
+
+
+	<p>Two thoughts come to mind:</p>
+
+
+	<ol>
+	<li>Have you tried this on v0.24, or (even better) on our trunk?</li>
+		<li>File is mounted with CIFS. There was an issue with Windows/Virus checker locking files. <a class="external" href="http://dev.exiv2.org/issues/984">http://dev.exiv2.org/issues/984</a>  I see you've said you're using Ubuntu server.  Is there any possibility that another process is locking any of those files?  For example, is shotwell or DigiKam busy indexing/thumbnailing files while you're updating all this metadata?</li>
+	</ol>
+
+
+	<p>Random faults are always hard to diagnose.  However I will try to reproduce this with Ubunutu <-> Ubunutu</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3218" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Mar 2015 00:05" href="/projects/exiv2/activity?from=2015-03-16">over 6 years</a> ago
+      <span id="journal-3218-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3218-notes" class="wiki"><p>Good News:  I've set this up on a Mac Mini between Ubuntu 14.04 (client Virtual Maching on Mac) and Windows7 (server Virtual Machine on Mac).  3822 jpgs (all small files from my web site) - 358mb total.  So an average of about 100k/file.  No errors, no hangs using your command-line.</p>
+
+
+	<p>Tomorrow, I'll test:</p>
+
+
+	<ol>
+	<li>Ubunutu (Virtual Machine on Mac) <-> Ubuntu (Real machine) on Laptop. </li>
+		<li>Larger files</li>
+	</ol></div>
+    </div>
+  </div>
+  
+  <div id="change-3219" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4378">Calvin Browne</a> <a title="16 Mar 2015 05:23" href="/projects/exiv2/activity?from=2015-03-16">over 6 years</a> ago
+      <span id="journal-3219-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3219-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Thanks for reporting this, Calvin.  Destroying your file isn't good.  I'll have a look at this in the next few days.</p>
+
+
+	<p>Two thoughts come to mind:</p>
+
+
+	<ol>
+	<li>Have you tried this on v0.24, or (even better) on our trunk?</li>
+		<li>File is mounted with CIFS. There was an issue with Windows/Virus checker locking files. <a class="external" href="http://dev.exiv2.org/issues/984">http://dev.exiv2.org/issues/984</a>  I see you've said you're using Ubuntu server.  Is there any possibility that another process is locking any of those files?  For example, is shotwell or DigiKam busy indexing/thumbnailing files while you're updating all this metadata?</li>
+	</ol>
+
+
+</blockquote>
+
+	<p>So - initially it manifested itself via shotwell, and I suspected some kind of locking issue.<br />Which is why I went to the above.<br />The only possible other thing interacting with the files would be plex, but that's periodic, read only and direct on the server, and doesn't fit the behaviour.</p>
+
+
+	<p>Just to be clear, it's Ubuntu 14.04.2 LTS on both the CIFS client &#38; server.</p>
+
+
+	<p>I'll see about getting 0.24 going and test that.</p>
+
+
+<blockquote>
+
+	<p>Random faults are always hard to diagnose.  However I will try to reproduce this with Ubunutu <-> Ubunutu</p>
+
+
+</blockquote>
+
+	<p>Ok - it happens every time (ie before the end of the 4000 files). Which one it picks is random. It's been the first one, it's been the nth (where n is &lt;4000), but it's been every time.</p>
+
+
+	<p>Thanks for the effort so far.</p>
+
+
+<blockquote>
+
+	<p>Robin</p>
+
+
+</blockquote></div>
+    </div>
+  </div>
+  
+  <div id="change-3220" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4378">Calvin Browne</a> <a title="16 Mar 2015 05:43" href="/projects/exiv2/activity?from=2015-03-16">over 6 years</a> ago
+      <span id="journal-3220-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3220-notes" class="wiki"><p>~/exiv2-0.24/bin/exiv2 -V<br />exiv2 0.24 001800 (64 bit build)</p>
+
+
+	<p>for i in `ls`; do ~/exiv2-0.24/bin/exiv2 -v -M"set Exif.Photo.UserComment charset=Ascii New Exif comment4" $i; done<br />File 1/1: 1393827856454.jpg<br />Set Exif.Photo.UserComment "charset=Ascii New Exif comment4" (Comment)<br />File 1/1: 1393837729884.jpg<br />Set Exif.Photo.UserComment "charset=Ascii New Exif comment4" (Comment)</p>
+
+
+	<p>(hanging:</p>
+
+
+	<p>ls <del>l 1393837729884.jpg<br />-rw-r--r-</del> 1 calvin 500 0 Mar 16 07:39 1393837729884.jpg<br />)</p>
+
+
+	<p>hmmmm.... now where do i find the trunk...... lemme look.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3221" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4378">Calvin Browne</a> <a title="16 Mar 2015 05:51" href="/projects/exiv2/activity?from=2015-03-16">over 6 years</a> ago
+      <span id="journal-3221-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3221-notes" class="wiki"><p>Calvin Browne wrote:<br />&lt;SNIP&gt;</p>
+
+
+<blockquote>
+
+	<p>)</p>
+
+
+	<p>hmmmm.... now where do i find the trunk...... lemme look.</p>
+
+
+</blockquote>
+
+	<p>oh dear - no ./configure file with......</p>
+
+
+	<p>svn checkout svn://dev.exiv2.org/svn/trunk</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3222" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4378">Calvin Browne</a> <a title="16 Mar 2015 05:59" href="/projects/exiv2/activity?from=2015-03-16">over 6 years</a> ago
+      <span id="journal-3222-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3222-notes" class="wiki"><p>Calvin Browne wrote:</p>
+
+
+<blockquote>
+
+	<p>Calvin Browne wrote:<br />&lt;SNIP&gt;</p>
+
+
+<blockquote>
+
+	<p>)</p>
+
+
+	<p>hmmmm.... now where do i find the trunk...... lemme look.</p>
+
+
+</blockquote>
+
+	<p>oh dear - no ./configure file with......</p>
+
+
+	<p>svn checkout svn://dev.exiv2.org/svn/trunk</p>
+
+
+</blockquote>
+
+	<p>of course - reading the README helps ;-)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3223" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4378">Calvin Browne</a> <a title="16 Mar 2015 06:11" href="/projects/exiv2/activity?from=2015-03-16">over 6 years</a> ago
+      <span id="journal-3223-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3223-notes" class="wiki"><p>~/exiv2-trunk/trunk/bin/exiv2 -Vexiv2 0.24 001800 (64 bit build)<br />Copyright (C) 2004-2013 Andreas Huggel.</p>
+
+
+	<p>About 50 lines.......</p>
+
+
+	<p>File 1/1: 20150131_192840.jpg<br />Set Exif.Photo.UserComment "charset=Ascii New Exif comment5" (Comment)</p>
+
+
+	<p>(hanging<br />ls <del>l 20150131_192840.jpg<br />-rw------</del> 1 calvin 500 0 Mar 16 08:09 20150131_192840.jpg )</p>
+
+
+	<p>:(</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3225" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Mar 2015 07:44" href="/projects/exiv2/activity?from=2015-03-16">over 6 years</a> ago
+      <span id="journal-3225-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3225-notes" class="wiki"><p>Calvin</p>
+
+
+	<p>There is almost no useful information in your last 4 or 5 reports.  To be clear, I said I would set up and test Ubunutu <-> Ubuntu today and also investigate with larger files.</p>
+
+
+	<p>Can I infer that you have built the trunk and are using that now?  And ls of hanging/empty file does not tell me anything new.  Is this the first file, or after 500 files.  Is it always the same file.</p>
+
+
+	<p>Please help me to help you.  I'm going to have my breakfast (it's 7:42am in England) and perform the tests I said I would try.  I'll report when I've done that.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3226" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4378">Calvin Browne</a> <a title="16 Mar 2015 08:05" href="/projects/exiv2/activity?from=2015-03-16">over 6 years</a> ago
+      <span id="journal-3226-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3226-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Calvin</p>
+
+
+	<p>There is almost no useful information in your last 4 or 5 reports.  To be clear, I said I would set up and test Ubunutu <-> Ubuntu today and also investigate with larger files.</p>
+
+
+	<p>Can I infer that you have built the trunk and are using that now?  And ls of hanging/empty file does not tell me anything new.  Is this the first file, or after 500 files.  Is it always the same file.</p>
+
+
+	<p>Please help me to help you.  I'm going to have my breakfast (it's 7:42am in England) and perform the tests I said I would try.  I'll report when I've done that.</p>
+
+
+</blockquote>
+
+	<p>Apologies for not being very articulate.</p>
+
+
+	<p>Yup - I first tried the 2.4 tarball, and then the svn trunk.</p>
+
+
+	<p>The file truncation can happen on the first file, or the n-th file. It seems random.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3227" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Mar 2015 09:19" href="/projects/exiv2/activity?from=2015-03-16">over 6 years</a> ago
+      <span id="journal-3227-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3227-notes" class="wiki"><p>I've reproduced this using the following setup.  Client is a Linux VM running on the MacMini.  Server is a laptop.  Both are connected to the router by ethernet cable.<pre>client: Linux rmillsmm-kubuntu 3.13.0-37-generic #64-Ubuntu SMP Mon Sep 22 21:28:38 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+server: Linux rmills-ubuntu 3.13.0-30-generic #54-Ubuntu SMP Mon Jun 9 22:45:01 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux</pre></p>
+
+
+	<p>As before, I've copied some images from my website to a test directory.  8000 images for a total size of 600mb.  Average about 100k/image.</p>
+
+
+	<p>As you've said, it hangs (for me on the third file) and ^C breaks - level the file with length zero.  Not Good!<pre>1043 rmills@rmillsmm-kubuntu:~/smb4k/RMILLS-UBUNTU/rmills-ubuntu/home/rmills/temp/exiv2test $ for i in `ls`; do exiv2 -v -M"set Exif.Photo.UserComment charset=Ascii New Exif comment3" $i; done
+File 1/1: 0001_2_3.jpg
+Set Exif.Photo.UserComment "charset=Ascii New Exif comment3" (Comment)
+File 1/1: 0001.jpg
+Set Exif.Photo.UserComment "charset=Ascii New Exif comment3" (Comment)
+File 1/1: 0011_2_3.jpg
+Set Exif.Photo.UserComment "charset=Ascii New Exif comment3" (Comment)
+^C
+1044 rmills@rmillsmm-kubuntu:~/smb4k/RMILLS-UBUNTU/rmills-ubuntu/home/rmills/temp/exiv2test $</pre><br />Here are the restored files:<pre>1063 rmills@rmillsmm-kubuntu:~/smb4k/RMILLS-UBUNTU/rmills-ubuntu/home/rmills/temp/exiv2test $ ls -alt 001*.jpg 0001*.jpg
+-rwxrwxr-x 1 rmills rmills 68998 Mar 16 08:08 0001_2_3.jpg
+-rwxrwxr-x 1 rmills rmills 75647 Mar 16 08:08 0001.jpg
+-rwxrwxr-x 1 rmills rmills 77930 Mar 16 08:08 0011_2_3.jpg
+-rwxrwxr-x 1 rmills rmills 82040 Mar 16 08:08 0011.jpg
+-rwxrwxr-x 1 rmills rmills 28702 Mar 16 08:04 001.jpg
+1064 rmills@rmillsmm-kubuntu:~/smb4k/RMILLS-UBUNTU/rmills-ubuntu/home/rmills/temp/exiv2test $</pre>There's nothing oddly different about "the breaker" 0011_2_3.jpg.  It's much the same size as the 2 files which worked.</p>
+
+
+	<p>Here's what I'm thinking:</p>
+
+
+	<ol>
+	<li>Is this peculiar to Ubuntu <-> Ubuntu CIFS, or can it impact any/every network</li>
+		<li>Is it Memory Mapping?</li>
+	</ol>
+
+
+	<p>Concerning the first, I will try Ubuntu <-> Windows (smb/cifs) and Ubuntu <-> Ubuntu (NFS) and Ubuntu <-> Mac (Parallels magic and smb/cifs).</p>
+
+
+	<p>The second point is that we use Memory Mapping to perform I/O when it is available.  When MM is not available, we use the "C" standard I/O fopen,ftell,fseek etc.  Perhaps MM or the "switch to fopen" mechanism is not working correctly over CIFS.  I'll build exiv2 and to always ignore MM and see what happens.</p>
+
+
+	<p>Please be patient and give me time to investigate this.  I'm an unpaid volunteer and have other things in my life.  I thank you for bringing this to my attention and assure you that I will work on this and report my findings.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3228" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4378">Calvin Browne</a> <a title="16 Mar 2015 09:43" href="/projects/exiv2/activity?from=2015-03-16">over 6 years</a> ago
+      <span id="journal-3228-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3228-notes" class="wiki"><p>Glad you were able to reproduce - shout if there's something you want me to try - and I completely understand how this works, so no time pressure from my side ;-)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3229" class="journal has-notes has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Mar 2015 15:58" href="/projects/exiv2/activity?from=2015-03-16">over 6 years</a> ago
+      <span id="journal-3229-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.25</i> to <i>0.26</i></li>
+    </ul>
+    <div id="journal-3229-notes" class="wiki"><p>Calvin</p>
+
+
+	<p>Thanks for understanding.  I've tested  the following:</p>
+
+
+	<ol>
+	<li>Linux <-> Linux with Memory Mapping Disabled.  Hang.  As earlier.</li>
+		<li>Linux <-> Windows.  Given up.  Can't get any smbclient on Ubuntu to accept my password for the Windows Laptop<br />(I've tried smb4u, konqueror, dolphin and command-line)</li>
+		<li>Mac <-> Linux works</li>
+		<li>Mac <-> Windows works</li>
+		<li>Native - no networking.  Mac/Linux/Windows works</li>
+	</ol>
+
+
+	<p>These things take time.  It's not like this is a simple code error.  It's going to take some digging to find this.  My suspect is the SMB client connection in Linux and perhaps we're failing to test some status somewhere.  So - the data isn't ready - however we have ignored the error and charge on over the cliff.</p>
+
+
+	<p>I'm going to push this one to v0.26.  I am rather busy at the moment and I suspect this issue has been round for a while.  What's new here is your discovery.</p>
+
+
+	<p>If you have cycles to spend on this, perhaps you could try more combinations of client and server.  I'm more suspicious of the client.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3231" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4378">Calvin Browne</a> <a title="18 Mar 2015 05:23" href="/projects/exiv2/activity?from=2015-03-18">over 6 years</a> ago
+      <span id="journal-3231-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3231-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Calvin</p>
+
+
+	<p>Thanks for understanding.  I've tested  the following:</p>
+
+
+	<ol>
+	<li>Linux <-> Linux with Memory Mapping Disabled.  Hang.  As earlier.</li>
+		<li>Linux <-> Windows.  Given up.  Can't get any smbclient on Ubuntu to accept my password for the Windows Laptop<br />(I've tried smb4u, konqueror, dolphin and command-line)</li>
+	</ol>
+
+
+</blockquote>
+
+	<p>Ok - so I resurrected my old windows xp laptop, shared a directory, mounted it under my linux client ( sudo mount -o uid=1000,gid=500 //192.168.2.145/test /media/test/ -t cifs ), copied a couple of hundred pics across and ran the command, and it hung and nulled the 29th file, and again about the 100th one.</p>
+
+
+	<p>Is there a windows binary for exiv2 that I should try this the other way round?<br />I'm going to try nfs and see what happens there...</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3232" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Mar 2015 10:51" href="/projects/exiv2/activity?from=2015-03-18">over 6 years</a> ago
+      <span id="journal-3232-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3232-notes" class="wiki"><p>Thank you for making the effort to test and report your result.  Much appreciated.  Together we can find and fix this matter.</p>
+
+
+	<p>I've build v0.23, v0.24 (both from the tar-ball on exiv2.org) and trunk this morning as MSVC 32bit static builds.  No DLLs needed.  I've zipped and posted them to: <a class="external" href="http://clanmills.com/files/exiv2-32bit.zip">http://clanmills.com/files/exiv2-32bit.zip</a>  The trunk is the most interesting build.  If that fails, it's unlikely that v0.24 and v0.23 will be OK.</p>
+
+
+	<p>I've provided those builds, so there's no need to run the command exiv2 -vV (verbose version) which reveals much more build information than plain exiv2 -V.</p>
+
+
+	<p>I did some googling into Ubuntu 14.04/Samba client connection.  Lots of unhappy users - however this could be a coincidence.  We keep digging for a while yet!</p>
+
+
+	<p>Thanks for working on this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3233" class="journal has-notes">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4378">Calvin Browne</a> <a title="18 Mar 2015 17:43" href="/projects/exiv2/activity?from=2015-03-18">over 6 years</a> ago
+      <span id="journal-3233-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3233-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p><a class="external" href="http://clanmills.com/files/exiv2-32bit.zip">http://clanmills.com/files/exiv2-32bit.zip</a>  The trunk is the most interesting build.  If that fails, it's unlikely that v0.24 and v0.23 will be OK.</p>
+
+
+</blockquote>
+
+	<p>Redirect loop :(</p>
+
+
+	<p>--Calvin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3234" class="journal has-notes has-details">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Mar 2015 18:05" href="/projects/exiv2/activity?from=2015-03-18">over 6 years</a> ago
+      <span id="journal-3234-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/734">exiv2-32bits.zip</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/734/exiv2-32bits.zip">exiv2-32bits.zip</a> added</li>
+    </ul>
+    <div id="journal-3234-notes" class="wiki"><p>How odd.  It has indeed be removed from the server.  I've restored it.  And I've attached a copy.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3235" class="journal has-notes">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4378">Calvin Browne</a> <a title="18 Mar 2015 18:54" href="/projects/exiv2/activity?from=2015-03-18">over 6 years</a> ago
+      <span id="journal-3235-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3235-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>How odd.  It has indeed be removed from the server.  I've restored it.  And I've attached a copy.</p>
+
+
+</blockquote>
+
+	<p>gotit - will test in the morning...<br />will also finish the nfs test...</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3236" class="journal has-notes">
+    <div id="note-18">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-18" class="journal-link">#18</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4381">thoralf schulze</a> <a title="19 Mar 2015 10:13" href="/projects/exiv2/activity?from=2015-03-19">over 6 years</a> ago
+      <span id="journal-3236-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3236-notes" class="wiki"><p>hi,</p>
+
+
+	<p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<ol>
+	<li>Is it Memory Mapping?</li>
+	</ol>
+
+
+</blockquote>
+
+	<p>probably related: <a class="external" href="http://dev.exiv2.org/issues/1043">http://dev.exiv2.org/issues/1043</a></p>
+
+
+	<p>according to man mount.cifs, cache=none aka directio "precludes mmaping files on this mount […] Note too that no matter what caching model is used, the client will always use the pagecache to handle mmap'ed files. Writes to mmap'ed files are only guaranteed to be flushed to the server when msync() is called, or on close()." that might be relevant :-)</p>
+
+
+	<p>with kind regards,<br />t.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3243" class="journal has-notes has-details">
+    <div id="note-19">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-19" class="journal-link">#19</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Mar 2015 16:40" href="/projects/exiv2/activity?from=2015-03-21">over 6 years</a> ago
+      <span id="journal-3243-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-3243-notes" class="wiki"><p>I'm going to mark this "Resolved".   Further discussion of this issue will continue on <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: pyexiv2 fails on cifs shares on an Ubuntu client (Closed)" href="/issues/1043">#1043</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3985" class="journal has-notes has-details">
+    <div id="note-20">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-20" class="journal-link">#20</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Aug 2015 10:41" href="/projects/exiv2/activity?from=2015-08-21">over 6 years</a> ago
+      <span id="journal-3985-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-3985-notes" class="wiki"><p>This issue should have been closed in v0.25 and not left open for v0.26 (my error).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4048" class="journal has-details">
+    <div id="note-21">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-21" class="journal-link">#21</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Aug 2015 16:15" href="/projects/exiv2/activity?from=2015-08-22">about 6 years</a> ago
+      <span id="journal-4048-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1042.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1042.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

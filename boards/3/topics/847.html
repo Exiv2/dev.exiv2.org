@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>compiling exiv-0.21 on Solaris 10 with Sun Studio 12 - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="sbL13GwJMhr5+nVawQCysM02YLYx7WvsCHJuJNfCJ0JT/14zHnP+GqyealZ+176D8qQ0z8AOylb1Uv6slPvALQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>compiling exiv-0.21 on Solaris 10 with Sun Studio 12</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/2167">Ben Taylor</a> <a title="16 Mar 2011 14:54" href="/projects/exiv2/activity?from=2011-03-16">over 10 years</a> ago</span></p>
+<div class="wiki">
+<p>Ran this error by a couple of folks who know C++ better than I do, they<br />didn't have an idea either.   Thoughts?</p>
+
+
+	<p>pkgbuild:  /opt/SUNWspro/bin/CC -I/opt/kde4/include/stdcxx/ansi -I/opt/kde4/include/stdcxx/tr1 -I/opt/kde4/include/stdcxx -library=no%Cstd -library=Crun -features=anachronisms,except,rtti,export,extensions,nestedaccess,tmplife,tmplrefstatic -instances=global -template=geninlinefuncs -s -xdebugformat=dwarf -xlang=c99 -xalias_level=compatible -xustr=ascii_utf16_ushort -Qoption ccfe -features=gcc -Qoption ccfe -features=zla -Qoption ccfe ++boolflag:sunwcch=false -mt -xF=%none -xbuiltin=%all -xinline=%auto -xprefetch=auto -xprefetch_auto_type=indirect_array_access -xprefetch_level=3 -xalias_level=compatible -KPIC -DPIC -xipo=0 -xO3 -xregs=no%frameptr -xjobs=2 -xrestrict=%all -xthreadvar=%all -z combreloc -z redlocsym -z nodefaultlib -z ignore -z now -z rescan -z absexec -xldscope=symbolic -xlibmil -s -xtarget=pentium4 -m32 -xarch=sse2 -xchip=pentium4 -xcache=8/64/4:256/128/8 -lc -lm -ldl -lpthread -lposix4 -lrt -mt -Y P,/opt/kde4/lib -i -L/opt/kde4/lib -R/opt/kde4/lib -L/usr/lib -R/usr/lib -Bdynamic -lstdcxx4 -lCrun -lc -lm -library=no%Cstd -xldscope=hidden -I. -D_REENTRANT -DNDEBUG -D__EXTENSIONS__ -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_POSIX_PTHREAD_SEMANTICS -DSOLARIS -DSOLARIS10 -DNO_DEBUG -D_UNICODE -DUNICODE -D_RWSTD_REENTRANT -D_XOPEN_SOURCE=500 -D_XPG5 -I/opt/kde4/include/stdcxx/ansi -I/opt/kde4/include/stdcxx/tr1 -I/opt/kde4/include/stdcxx -I/opt/kde4/include -DEXV_LOCALEDIR=\"/opt/kde4/share/locale\" -I../xmpsdk/include -c -DEXV_BUILDING_LIB=1 canonmn.cpp  -KPIC -DPIC -o .libs/canonmn.o<br />pkgbuild: "canonmn.cpp", line 1301: Error: Could not find a match for Exiv2::Internal::printTag&lt;Exiv2::Internal::N, Exiv2::Internal::array&gt;(std::ostream, const Exiv2::Value, const Exiv2::ExifData*) needed in static Exiv2::Internal::CanonMakerNote::printCsLensType(std::ostream &#38;, const Exiv2::Value&#38;, const Exiv2::ExifData*).<br />pkgbuild: "canonmn.cpp", line 1393: Error: Could not find a match for Exiv2::Internal::printTagBitmask&lt;Exiv2::Internal::N, Exiv2::Internal::array&gt;(std::ostream, const Exiv2::Value, const Exiv2::ExifData*) needed in static Exiv2::Internal::CanonMakerNote::printSi0x000e(std::ostream &#38;, const Exiv2::Value&#38;, const Exiv2::ExifData*).</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (3)</h3>
+  <div class="message reply" id="message-848">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/847?r=848#message-848">RE: compiling exiv-0.21 on Solaris 10 with Sun Studio 12</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 Mar 2011 18:28" href="/projects/exiv2/activity?from=2011-03-16">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>It seems the Sun compiler doesn't like the template magic hidden behind the EXV_PRINT_* macros in this context, but I don't see why either. To confirm this, you could try to remove remove them here and you'll probably hit a similar problem elsewhere then.</p>
+
+
+	<p>A support channel for this compiler may be more helpful here, pls let us know if you find a solution.</p>
+
+
+<pre>
+        if (!lif) {
+            return EXV_PRINT_TAG(canonCsLensType)(os, value, metadata);
+        }
+</pre>
+
+<pre>
+        else {
+            EXV_PRINT_TAG_BITMASK(canonSiAFPointUsed)(os, value, pExifData);
+        }
+</pre></div>
+  
+  </div>
+  <div class="message reply" id="message-853">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/847?r=853#message-853">RE: compiling exiv-0.21 on Solaris 10 with Sun Studio 12</a>
+    -
+    Added by <a class="user active" href="/users/2167">Ben Taylor</a> <a title="17 Mar 2011 07:56" href="/projects/exiv2/activity?from=2011-03-17">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>looking back through our repository, we had exiv2-0.14 working with the<br />SunStudio12 compiler.  The patches were done by Stefan Teleman of Sun<br />(and now Oracle) but no longer participates in the KDE4 Solaris project.  <br />I think he had found the problem with the templates, and worked around it</p>
+
+
+	<p>The list of patches he created against 0.14 is at:<br /><a class="external" href="http://solaris.bionicmutton.org/hg/kde4-specs-460/file/26c2cab27bbe/specs/patches/exiv2/0.14">http://solaris.bionicmutton.org/hg/kde4-specs-460/file/26c2cab27bbe/specs/patches/exiv2/0.14</a></p>
+
+
+	<p>I will likely attempt a port forward of those patches for the project,<br />as I don't expect quick action from Oracle to fix any template problems.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-854">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/847?r=854#message-854">RE: compiling exiv-0.21 on Solaris 10 with Sun Studio 12</a>
+    -
+    Added by <a class="user active" href="/users/2167">Ben Taylor</a> <a title="17 Mar 2011 09:00" href="/projects/exiv2/activity?from=2011-03-17">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Upgrading to Sun Studio 12.1 works, so clearly this is a compiler issue.</p>
+
+
+	<p>Thanks</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-3/3)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

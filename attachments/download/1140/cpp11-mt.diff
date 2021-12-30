@@ -1,0 +1,184 @@
+diff -urwEB exiv2-0.26-svn.org/Makefile exiv2-0.26-svn-1/Makefile
+--- exiv2-0.26-svn.org/Makefile	2017-01-10 15:04:35.000000000 -0500
++++ exiv2-0.26-svn-1/Makefile	2017-01-13 12:42:37.000000000 -0500
+@@ -90,7 +90,8 @@
+ bugfixes-test.sh   crw-test.sh     curliotest.sh       eps-preview-test.sh    eps-test.sh       exifdata-test.sh \
+ exiv2-test.sh      httpiotest.sh   icc-test.sh         imagetest.sh           iotest.sh         iptctest.sh      \
+ modify-test.sh     path-test.sh    preview-test.sh     sshiotest.sh           stringto-test.sh  tiff-test.sh     \
+-video-test.sh      write-test.sh   write-video-test.sh write2-test.sh         xmpparser-test.sh webp-test.sh:
++video-test.sh      write-test.sh   write-video-test.sh write2-test.sh         xmpparser-test.sh webp-test.sh     \
++mt-test.sh:
+ 	cd test && ./$@
+ 
+ # convenience targets for running selected test scripts
+diff -urwEB exiv2-0.26-svn.org/include/exiv2/image.hpp exiv2-0.26-svn-1/include/exiv2/image.hpp
+--- exiv2-0.26-svn.org/include/exiv2/image.hpp	2017-01-10 15:05:45.000000000 -0500
++++ exiv2-0.26-svn-1/include/exiv2/image.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -36,6 +36,9 @@
+ // + standard includes
+ #include <string>
+ #include <vector>
++#ifdef EXV_USING_CPP_ELEVEN
++#include <mutex>
++#endif
+ 
+ // *****************************************************************************
+ // namespace extensions
+@@ -476,6 +483,10 @@
+ 
+         int imageType() const { return imageType_; }
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++        static std::mutex mutex_;
++#endif
++
+     protected:
+         // DATA
+         BasicIo::AutoPtr  io_;                //!< Image data IO pointer
+diff -urwEB exiv2-0.26-svn.org/include/exiv2/properties.hpp exiv2-0.26-svn-1/include/exiv2/properties.hpp
+--- exiv2-0.26-svn.org/include/exiv2/properties.hpp	2017-01-10 15:05:45.000000000 -0500
++++ exiv2-0.26-svn-1/include/exiv2/properties.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -45,6 +45,9 @@
+ #include <string>
+ #include <iosfwd>
+ #include <memory>
++#ifdef EXV_USING_CPP_ELEVEN
++#include <mutex>
++#endif
+ 
+ // *****************************************************************************
+ // namespace extensions
+@@ -238,6 +241,9 @@
+           @brief Get all registered namespaces (for both Exiv2 and XMPsdk)
+          */
+         static void registeredNamespaces(Exiv2::Dictionary& nsDict);
++#ifdef EXV_USING_CPP_ELEVEN
++        static std::mutex mutex_;
++#endif
+ 
+     }; // class XmpProperties
+ 
+diff -urwEB exiv2-0.26-svn.org/samples/CMakeLists.txt exiv2-0.26-svn-1/samples/CMakeLists.txt
+--- exiv2-0.26-svn.org/samples/CMakeLists.txt	2017-01-10 15:04:15.000000000 -0500
++++ exiv2-0.26-svn-1/samples/CMakeLists.txt	2017-01-13 13:03:43.000000000 -0500
+@@ -82,6 +82,15 @@
+ TARGET_LINK_LIBRARIES( geotag    ${PRIVATE_VAR} exiv2lib Threads::Threads ${EXPAT_LIBRARIES} ${ZLIB_LIBRARIES})
+ INSTALL( TARGETS       geotag    ${INSTALL_TARGET_STANDARD_ARGS} )
+ 
++IF ( ${EXIV2_CPP_STANDARD} LESS 98 AND ${EXIV2_CPP_STANDARD} GREATER 10  )
++    SET( MULTITHREAD_SRC   mt-test.cpp )
++    ADD_EXECUTABLE(        mt-test   ${MULTITHREAD_SRC} )
++    SET_PROPERTY(   TARGET mt-test   PROPERTY CXX_STANDARD 11)
++    SET_TARGET_PROPERTIES( mt-test   PROPERTIES OUTPUT_NAME mt-test )
++    TARGET_LINK_LIBRARIES( mt-test   ${PRIVATE_VAR} exiv2lib Threads::Threads ${EXPAT_LIBRARIES} ${ZLIB_LIBRARIES})
++    INSTALL( TARGETS       mt-test   ${INSTALL_TARGET_STANDARD_ARGS} )
++ENDIF()
++
+ # ******************************************************************************
+ # Man page
+ INSTALL( FILES exiv2samples.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1 )
+diff -urwEB exiv2-0.26-svn.org/samples/Makefile exiv2-0.26-svn-1/samples/Makefile
+--- exiv2-0.26-svn.org/samples/Makefile	2017-01-10 15:04:15.000000000 -0500
++++ exiv2-0.26-svn-1/samples/Makefile	2017-01-13 12:42:37.000000000 -0500
+@@ -70,6 +70,7 @@
+          key-test.cpp         \
+          largeiptc-test.cpp   \
+          mmap-test.cpp        \
++         mt-test.cpp          \
+          prevtest.cpp         \
+          remotetest.cpp       \
+          stringto-test.cpp    \
+diff -urwEB exiv2-0.26-svn.org/samples/mt-test.cpp exiv2-0.26-svn-1/samples/mt-test.cpp
+--- exiv2-0.26-svn.org/samples/mt-test.cpp	2017-01-10 15:04:15.000000000 -0500
++++ exiv2-0.26-svn-1/samples/mt-test.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -17,6 +17,8 @@
+ 
+ // WARNING:             auto_ptr is not supported in C++11 implemented by gcc 4.9/C++11 and later
+ 
++// Addendum:            Builds with gcc v6.2.0 with c++11 works on Linux and with MinGW64.
++
+ #include <exiv2/exiv2.hpp>
+ #include <iostream>
+ #include <iomanip>
+diff -urwEB exiv2-0.26-svn.org/src/image.cpp exiv2-0.26-svn-1/src/image.cpp
+--- exiv2-0.26-svn.org/src/image.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/image.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -72,6 +72,9 @@
+ #include <cstring>
+ #include <cassert>
+ #include <iostream>
++#ifdef EXV_USING_CPP_ELEVEN
++#include <mutex>
++#endif
+ 
+ #include <sys/types.h>
+ #include <sys/stat.h>
+@@ -281,8 +288,14 @@
+         static std::map<int,std::string> tags;
+         static bool init  = true;
+         static char buffer[80];
++#ifdef EXV_USING_CPP_ELEVEN
++        static std::mutex tagNameInitMutex;
++#endif
+ 
+         if ( init ) {
++#ifdef EXV_USING_CPP_ELEVEN
++            std::lock_guard<std::mutex> guard(tagNameInitMutex);
++#endif
+             int idx;
+             const TagInfo* ti ;
+             for (ti = Internal::  mnTagList(), idx = 0; ti[idx].tag_ != 0xffff; ++idx) tags[ti[idx].tag_] = ti[idx].name_;
+@@ -293,8 +306,13 @@
+             for (ti = Internal:: mpfTagList(), idx = 0; ti[idx].tag_ != 0xffff; ++idx) tags[ti[idx].tag_] = ti[idx].name_;
+             for (ti = Internal::Nikon1MakerNote::tagList(), idx = 0
+                                                       ; ti[idx].tag_ != 0xffff; ++idx) tags[ti[idx].tag_] = ti[idx].name_;
++#ifdef EXV_USING_CPP_ELEVEN
++            init = false;
++#endif
+         }
++#ifndef EXV_USING_CPP_ELEVEN
+         init = false;
++#endif
+ 
+         try {
+             result = tags[tag].c_str();
+diff -urwEB exiv2-0.26-svn.org/src/properties.cpp exiv2-0.26-svn-1/src/properties.cpp
+--- exiv2-0.26-svn.org/src/properties.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/properties.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -47,6 +47,9 @@
+ #include <cstring>
+ #include <cstdlib>
+ #include <cctype>
++#ifdef EXV_USING_CPP_ELEVEN
++#include <mutex>
++#endif
+ 
+ // *****************************************************************************
+ namespace {
+@@ -2488,10 +2491,16 @@
+     }
+ 
+     XmpProperties::NsRegistry XmpProperties::nsRegistry_;
++#ifdef EXV_USING_CPP_ELEVEN
++    std::mutex XmpProperties::mutex_;
++#endif
+     Internal::RWLock XmpProperties::rwLock_;
+ 
+     const XmpNsInfo* XmpProperties::lookupNsRegistry(const XmpNsInfo::Prefix& prefix)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        std::lock_guard<std::mutex> guard(mutex_);
++#endif
+         Internal::ScopedReadLock srl(rwLock_);
+         return lookupNsRegistryUnsafe(prefix);
+     }
+@@ -2515,6 +2524,9 @@
+             && ns2.substr(ns2.size() - 1, 1) != "#") ns2 += "/";
+         // Check if there is already a registered namespace with this prefix
+         const XmpNsInfo* xnp = lookupNsRegistryUnsafe(XmpNsInfo::Prefix(prefix));
++#ifdef EXV_USING_CPP_ELEVEN
++        std::lock_guard<std::mutex> guard(mutex_);
++#endif
+         if (xnp) {
+ #ifndef SUPPRESS_WARNINGS
+             if (strcmp(xnp->ns_, ns2.c_str()) != 0) {

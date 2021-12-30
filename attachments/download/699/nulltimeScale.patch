@@ -1,0 +1,15 @@
+diff -r 5ab6010bb105 src/quicktimevideo.cpp
+--- a/src/quicktimevideo.cpp	Sat Jan 03 10:18:36 2015 +0000
++++ b/src/quicktimevideo.cpp	Sun Jan 04 11:08:25 2015 +0100
+@@ -1515,9 +1515,9 @@
+                 break;
+             case TrackDuration:
+                 if(currentStream_ == Video)
+-                    xmpData_["Xmp.video.TrackDuration"] = returnBufValue(buf)/timeScale_;
++                    xmpData_["Xmp.video.TrackDuration"] = timeScale_ ? returnBufValue(buf)/timeScale_ : 0;
+                 else if(currentStream_ == Audio)
+-                    xmpData_["Xmp.audio.TrackDuration"] = returnBufValue(buf)/timeScale_;
++                    xmpData_["Xmp.audio.TrackDuration"] = timeScale_ ? returnBufValue(buf)/timeScale_ : 0;
+                 break;
+             case TrackLayer:
+                 if(currentStream_ == Video)

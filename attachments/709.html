@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>0917_returnvaluesanderror.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="HNTucWqRoRHD36SSMXFcemEtXkwXWrwBu+uuwqwAOYz+mUWeGOttEZa7u56OplBJXr8KNea5HbtGyz5K7zne4w==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/709/0917_returnvaluesanderror.patch">Download (2.24 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Modify exiv2/actions.cpp return -3/253 when no metadata h..." href="/issues/917">Feature #917</a> » 0917_returnvaluesanderror.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/4313">Thomas Schmidt</a>, 13 Jan 2015 23:05</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/709" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/actions.cpp	(Arbeitskopie)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">513</th>
+  <th class="line-num">513</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">514</th>
+  <th class="line-num">514</th>
+  <td class="line-code ">
+    <pre>    int Print::printMetadata(const Exiv2::Image* image)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">515</th>
+  <th class="line-num">515</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">516</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        int rc = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">516</th>
+  <td class="line-code diff_in">
+    <pre>        bool bFoundSomeMetadata = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">517</th>
+  <td class="line-code diff_in">
+    <pre>        bool bTagFilterGiven = !Params::instance().keys_.empty();  // were tag filters given with -g?</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">517</th>
+  <th class="line-num">518</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printTags_ &amp; Exiv2::mdExif) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">518</th>
+  <th class="line-num">519</th>
+  <td class="line-code ">
+    <pre>            const Exiv2::ExifData&amp; exifData = image-&gt;exifData();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">519</th>
+  <th class="line-num">520</th>
+  <td class="line-code ">
+    <pre>            for (Exiv2::ExifData::const_iterator md = exifData.begin();</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">521</th>
+  <th class="line-num">522</th>
+  <td class="line-code ">
+    <pre>                printMetadatum(*md, image);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">522</th>
+  <th class="line-num">523</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">523</th>
+  <th class="line-num">524</th>
+  <td class="line-code ">
+    <pre>            if (exifData.empty()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">524</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                if<span> (Params::instance().verbose_</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">525</th>
+  <td class="line-code diff_in">
+    <pre>                if<span>( !bTagFilterGiven</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">525</th>
+  <th class="line-num">526</th>
+  <td class="line-code ">
+    <pre>                    std::cerr &lt;&lt; path_ &lt;&lt; &quot;: &quot; &lt;&lt; _(&quot;No Exif data found in the file\n&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">526</th>
+  <th class="line-num">527</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">527</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                rc = -3;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">528</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">528</th>
+  <td class="line-code diff_in">
+    <pre>            } else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">529</th>
+  <td class="line-code diff_in">
+    <pre>                bFoundSomeMetadata = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">530</th>
+  <td class="line-code diff_in">
+    <pre>            }            </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">529</th>
+  <th class="line-num">531</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">530</th>
+  <th class="line-num">532</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printTags_ &amp; Exiv2::mdIptc) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">531</th>
+  <th class="line-num">533</th>
+  <td class="line-code ">
+    <pre>            const Exiv2::IptcData&amp; iptcData = image-&gt;iptcData();</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">534</th>
+  <th class="line-num">536</th>
+  <td class="line-code ">
+    <pre>                printMetadatum(*md, image);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">535</th>
+  <th class="line-num">537</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">536</th>
+  <th class="line-num">538</th>
+  <td class="line-code ">
+    <pre>            if (iptcData.empty()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">537</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                if<span> (Params::instance().verbose_</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">539</th>
+  <td class="line-code diff_in">
+    <pre>                if<span>( !bTagFilterGiven</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">538</th>
+  <th class="line-num">540</th>
+  <td class="line-code ">
+    <pre>                    std::cerr &lt;&lt; path_ &lt;&lt; &quot;: &quot; &lt;&lt; _(&quot;No IPTC data found in the file\n&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">539</th>
+  <th class="line-num">541</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">540</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                rc = -3;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">542</th>
+  <td class="line-code diff_in">
+    <pre>            } else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">543</th>
+  <td class="line-code diff_in">
+    <pre>                bFoundSomeMetadata = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">541</th>
+  <th class="line-num">544</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">542</th>
+  <th class="line-num">545</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">543</th>
+  <th class="line-num">546</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printTags_ &amp; Exiv2::mdXmp) {</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">547</th>
+  <th class="line-num">550</th>
+  <td class="line-code ">
+    <pre>                printMetadatum(*md, image);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">548</th>
+  <th class="line-num">551</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">549</th>
+  <th class="line-num">552</th>
+  <td class="line-code ">
+    <pre>            if (xmpData.empty()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">550</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                if<span> (Params::instance().verbose_</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">553</th>
+  <td class="line-code diff_in">
+    <pre>                if<span>( !bTagFilterGiven</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">551</th>
+  <th class="line-num">554</th>
+  <td class="line-code ">
+    <pre>                    std::cerr &lt;&lt; path_ &lt;&lt; &quot;: &quot; &lt;&lt; _(&quot;No XMP data found in the file\n&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">552</th>
+  <th class="line-num">555</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">553</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                rc = -3;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">556</th>
+  <td class="line-code diff_in">
+    <pre>            } else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">557</th>
+  <td class="line-code diff_in">
+    <pre>                bFoundSomeMetadata = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">554</th>
+  <th class="line-num">558</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">555</th>
+  <th class="line-num">559</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">556</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return <span>rc</span>;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">560</th>
+  <td class="line-code diff_in">
+    <pre>        return <span>bFoundSomeMetadata ? 0 : -3</span>;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">557</th>
+  <th class="line-num">561</th>
+  <td class="line-code ">
+    <pre>    } // Print::printMetadata</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">558</th>
+  <th class="line-num">562</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">559</th>
+  <th class="line-num">563</th>
+  <td class="line-code ">
+    <pre>    bool Print::grepTag(const std::string&amp; key)</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"><li class="previous page"><a href="/attachments/708/0917_supportregexp.patch">« Previous</a></li><li class="page"><a href="/attachments/708/0917_supportregexp.patch">1</a></li><li class="current"><span>2</span></li><li class="next"><span>Next »</span></li></ul><span><span class="items">(2-2/2)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

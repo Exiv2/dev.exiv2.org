@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Why?  Trying to write jpeg in memory and save to file does NOT work.   - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="WPzYLMMQT6DEjSHAhx5KXaOXuw3YYvTRzKF+iR3bIrK6sXPDsWqDoJHpPsw4yUZunAXvdCmBVWsxge4BXuLF3Q==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Why?  Trying to write jpeg in memory and save to file does NOT work.  </h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4263">Rich Cook</a> <a title="17 Nov 2014 18:54" href="/projects/exiv2/activity?from=2014-11-17">about 7 years</a> ago</span></p>
+<div class="wiki">
+<p>I'm trying to do the following: <br />1. Create a memory buffer with valid jpg image.  <br />2.  Add Exif data to the jpg image in memory<br />3.  Write the jpg to file on disk.</p>
+
+
+	<p>Instead I find I have to do this: <br />1. Create a memory buffer with valid jpg image.  <br />2.  Write the jpg to file on disk<br />3.  Open the jpg file using Exiv2 library factory call<br />4.  Add Exif data to the Exiv2 object<br />5.  Save jpg to disk again</p>
+
+
+	<p>In other words, for the following code, if I set inMemory = false, it works fine, but if I set inMemory = true, I get a file with no exif data.  Can someone explain why?  I prefer to do this all in memory as it seems more elegant, although hey, it works the other way.</p>
+
+
+	<p>Thanks!  </p>
+	<pre><code>bool inMemory = false; <br />  if (inMemory) {<br />    // create an exiv2 image in memory using the jpeg buffer<br />    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(buffer, buffersize);<br />    image-&gt;setExifData(exifData); <br />    image-&gt;writeMetadata(); <br />    buffersize = image-&gt;io().size(); <br />    cout &lt;&lt; str(boost::format("image class has io size of <span>1</span>\n")%buffersize);<br />    // ---------------------------------------------------------<br />    // Write the buffer, now containing Exif metadata, to disk<br />    FILE * file = fopen(imgname.c_str(), "w"); <br />    fwrite(buffer, buffersize, 1, file); <br />    fclose(file); <br />  } else {<br />  // "out of core"  <br />    FILE * file = fopen(imgname.c_str(), "w"); <br />    fwrite(buffer, buffersize, 1, file); <br />    fclose(file); <br />    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(imgname);<br />    image-&gt;setExifData(exifData); <br />    image-&gt;writeMetadata(); <br />  }</code></pre>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (8)</h3>
+  <div class="message reply" id="message-1861">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1860?r=1861#message-1861">RE: Why?  Trying to write jpeg in memory and save to file does NOT work.  </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Nov 2014 22:48" href="/projects/exiv2/activity?from=2014-11-19">about 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Rich</p>
+
+
+	<p>Writing out the file and reading again is the "safe/conservative" approach.</p>
+
+
+	<p>Exiv2 uses memory mapping when available.  I suspect Exiv2::ImageFactory::open(buffer,buffersize) has failed to execute something that is called by Exiv2::ImageFactory::open(imgname).  It may be as simple as image->get().  As you have the code to hand, may I ask you could step the library in the debugger and determine the difference.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1862">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1860?r=1862#message-1862">RE: Why?  Trying to write jpeg in memory and save to file does NOT work.  </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Nov 2014 01:09" href="/projects/exiv2/activity?from=2014-11-20">about 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Rich</p>
+
+
+	<p>I've done some more work on this.  I think it's not possible to read an image from memory and write it to disk!  Here's my code (modified a little from yours)<br /><pre>
+// ***************************************************************** -*- C++ -*-
+// exifprint.cpp, $Rev: 3090 $
+// Sample program to print the Exif metadata of an image
+
+#include &lt;exiv2/exiv2.hpp&gt;
+
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;iomanip&gt;
+#include &lt;cassert&gt;
+
+#include &lt;stdio.h&gt;
+
+int main(int argc, char* const argv[])
+try {
+
+    if (argc != 4) {
+        std::cout &lt;&lt; "Usage: " &lt;&lt; argv[0] &lt;&lt; " from_path to_path mm_path\n";
+        return 1;
+    }
+
+    // metaData container to be written to image at path
+    const std::string from_path(argv[1]);
+    const std::string to_path  (argv[2]);
+    const std::string mm_path  (argv[3]);
+    Exiv2::ExifData exifData  ;
+
+    // On what file are we working?
+    std::ifstream  file(from_path, std::ios::binary | std::ios::ate);
+    if ( ! file ) {
+        std::cout &lt;&lt; "from_path: " &lt;&lt; from_path &lt;&lt; " does not exist!\n" ;
+        return 2;
+    }
+
+    // What's the length?
+    long buffersize = file.tellg();
+    file.close();
+
+    // copy the file into a buffer
+    void*   buffer = ::malloc(buffersize);
+    FILE*   f      = ::fopen(from_path.c_str(),"rb");
+    ::fread(buffer,buffersize,1,f);
+    :: fclose(f);
+
+    {
+        // Get the meta data and copy it to exifData
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(from_path);
+        assert(image.get() != 0);
+        image-&gt;readMetadata();
+        image-&gt;readMetadata();
+
+        Exiv2::ExifData &#38;data = image-&gt;exifData();
+        for ( Exiv2::ExifData::const_iterator i = data.begin(); i != data.end() ; ++i ) {
+            // std::cout &lt;&lt; i-&gt;key() &lt;&lt; " -&gt; " &lt;&lt; i-&gt;value().toString() &lt;&lt; std::endl;
+            exifData[i-&gt;key()] = i-&gt;value();
+        }
+        exifData["Exif.Image.Software"]="Robin's Wee Test Program" ;
+    }
+
+    bool inMemory = false ;
+    if ( ! inMemory ) {
+        // "out of core"  
+        FILE * f = ::fopen(to_path.c_str(), "w"); 
+        ::fwrite(buffer, buffersize, 1, f); 
+        ::fclose(f); 
+
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(to_path);
+        image-&gt;setExifData(exifData); 
+        image-&gt;writeMetadata(); 
+    }
+
+    inMemory = true ;
+    if ( inMemory ) {
+        // create an exiv2 image in memory using the jpeg buffer
+        Exiv2::Image::AutoPtr i = Exiv2::ImageFactory::open((const Exiv2::byte*)buffer, buffersize);
+        i-&gt;setExifData(exifData); 
+        i-&gt;writeMetadata(); 
+        buffersize = i-&gt;io().size(); 
+        std::cout &lt;&lt; "image class has io size of " &lt;&lt; buffersize &lt;&lt; "\n";
+        // ---------------------------------------------------------
+        // Write the buffer, now containing Exif metadata, to disk
+        FILE * file = ::fopen(mm_path.c_str(), "w"); 
+        ::fwrite(buffer, buffersize, 1, file); 
+        ::fclose(file); 
+    }
+}
+
+//catch (std::exception&#38; e) {
+//catch (Exiv2::AnyError&#38; e) {
+catch (Exiv2::Error&#38; e) {
+    std::cout &lt;&lt; "Caught Exiv2 exception '" &lt;&lt; e.what() &lt;&lt; "'\n";
+    return -1;
+}
+
+</pre></p>
+
+
+	<p>I put the code into samples/exifprint and here's the result:</p>
+
+
+<pre>
+681 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ make exifprint ; ../bin/exifprint test.jpg to.jpg mm.jpg ; exiv2 -g Software -pa *.jpg
+g++ -O2 -fvisibility=hidden -fvisibility-inlines-hidden -Wall -Wcast-align -Wpointer-arith -Wformat-security -Wmissing-format-attribute -Woverloaded-virtual -W -MMD `pkg-config exiv2 --cflags` -c -o exifprint.o exifprint.cpp
+mkdir -pv ../bin 2&gt;&#38;1 &gt; /dev/null
+../libtool --mode=link g++ `pkg-config exiv2 --libs` -rpath /usr/local/lib -L/usr/local/lib  -o ../bin/exifprint exifprint.o
+libtool: link: g++ -o ../bin/exifprint exifprint.o -Wl,-bind_at_load  -L/usr/local/lib /usr/local/lib/libexiv2.dylib -L/Users/rmills/gnu/exiv2/trunk/xmpsdk/src /usr/local/lib/libintl.dylib -lc -liconv -lz /usr/local/lib/libexpat.dylib -ldl
+image class has io size of 2223932
+mm.jpg                Exif.Image.Software                          Ascii       7  Picasa
+test.jpg              Exif.Image.Software                          Ascii       7  Picasa
+to.jpg                Exif.Image.Software                          Ascii      25  Robin's Wee Test Program
+682 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ ls -alt *.jpg
+-rw-r--r--+ 1 rmills  staff  2223932 20 Nov 01:02 mm.jpg
+-rw-r--r--+ 1 rmills  staff  2223932 20 Nov 01:02 to.jpg
+-rwx------@ 1 rmills  staff  2226521 20 Nov 00:46 test.jpg
+683 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ 
+</pre><br />I think we've copied the buffer and modified it correctly.  However the library buffer != buffer and I'm not sure there's a way to tell the image_ptr "write to this file" (transfer might do the trick).
+
+	<p>I'll have another look at this tomorrow and update this topic.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1863">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1860?r=1863#message-1863">RE: Why?  Trying to write jpeg in memory and save to file does NOT work.  </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Nov 2014 07:58" href="/projects/exiv2/activity?from=2014-11-20">about 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've found the fix.  The <strong><em>if ( inMemory )</em></strong> block should read:</p>
+
+
+<pre>
+    inMemory = true ;
+    if ( inMemory ) {
+        // create an exiv2 image in memory using the jpeg buffer
+        Exiv2::Image::AutoPtr i = Exiv2::ImageFactory::open((const Exiv2::byte*)buffer, buffersize);
+        i-&gt;setExifData(exifData); 
+        i-&gt;writeMetadata(); 
+
+        // copy the library buffer to buff
+        buffersize = i-&gt;io().size(); 
+        std::cout &lt;&lt; "image class has io size of " &lt;&lt; buffersize &lt;&lt; "\n";
+        i-&gt;io().seek(0,Exiv2::BasicIo::beg);
+        Exiv2::DataBuf buff = i-&gt;io().read(buffersize);
+
+        // ---------------------------------------------------------
+        // Write the buff to disk
+        FILE * file = ::fopen(mm_path.c_str(), "w"); 
+        ::fwrite(buff.pData_, buffersize, 1, file); 
+        ::fclose(file); 
+    }
+</pre>
+
+	<p>The reason is because the library cannot use your memory buffer to do its work if the modified metadata exceeds the buffer you provided.  So, you have to create a new Exiv2::DataBuf containing a copy of the library's metadata buffer.  Then you can write that buffer copy to disk.</p>
+
+
+<pre>
+709 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ make exifprint ; ../bin/exifprint test.jpg to.jpg mm.jpg ; ls -alt *.jpg ; exiv2 -g Software *.jpg
+mkdir -pv ../bin 2&gt;&#38;1 &gt; /dev/null
+../libtool --mode=link g++ `pkg-config exiv2 --libs` -rpath /usr/local/lib -L/usr/local/lib  -o ../bin/exifprint exifprint.o
+libtool: link: g++ -o ../bin/exifprint exifprint.o -Wl,-bind_at_load  -L/usr/local/lib /usr/local/lib/libexiv2.dylib -L/Users/rmills/gnu/exiv2/trunk/xmpsdk/src /usr/local/lib/libintl.dylib -lc -liconv -lz /usr/local/lib/libexpat.dylib -ldl
+image class has io size of 2223932
+-rw-r--r--+ 1 rmills  staff  2223932 20 Nov 07:52 mm.jpg
+-rw-r--r--+ 1 rmills  staff  2223932 20 Nov 07:52 to.jpg
+-rwx------@ 1 rmills  staff  2226521 20 Nov 00:46 test.jpg
+mm.jpg                Exif.Image.Software                          Ascii      25  Robin's Wee Test Program
+test.jpg              Exif.Image.Software                          Ascii       7  Picasa
+to.jpg                Exif.Image.Software                          Ascii      25  Robin's Wee Test Program
+710 rmills@rmillsmbp:~/gnu/exiv2/trunk/samples $ 
+</pre>
+
+	<p>If you're happy with this solution, I'd like to delete Topic#1858.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1864">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1860?r=1864#message-1864">RE: Why?  Trying to write jpeg in memory and save to file does NOT work.  </a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 Nov 2014 12:09" href="/projects/exiv2/activity?from=2014-11-20">about 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>You can also write it back to a file using Exiv2 functionality, without the need to fallback on cstdio:</p>
+
+
+<pre>
+    Exiv2::DataBuf buf = Exiv2::readFile("image.jpg");
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(buf.pData_, buf.size_);
+    image-&gt;readMetadata();
+    Exiv2::ExifData &#38;exifData = image-&gt;exifData();
+    exifData["Exif.Image.Model"] = "A long model name to make the Exif metadata grow";
+    image-&gt;writeMetadata();
+    Exiv2::FileIo file("image.jpg");
+    file.open();
+    file.write(image-&gt;io());
+</pre>
+
+	<p>Attached is the complete sample program.</p>
+
+
+	<p>Andreas</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/686">memio.cpp</a>    <span class="size">(907 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/686/memio.cpp">memio.cpp</a>  </td>
+  <td>Manipulating metadata on an in-memory image</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-1865">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1860?r=1865#message-1865">RE: Why?  Trying to write jpeg in memory and save to file does NOT work.  </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Nov 2014 13:24" href="/projects/exiv2/activity?from=2014-11-20">about 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Good stuff, Andreas.  Your solution is much better than mine.  I'm going to delete Topic#1858 as erroneous (although Rich was well intended).</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1866">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1860?r=1866#message-1866">RE: Why?  Trying to write jpeg in memory and save to file does NOT work.  </a>
+    -
+    Added by <a class="user active" href="/users/4286">Alexander Lyubushin</a> <a title="08 Dec 2014 18:11" href="/projects/exiv2/activity?from=2014-12-08">almost 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Dear Andreas</p>
+
+
+	<p>The solution discussed above does not resolve the problem of composition of edited images. For example, I have MPO file to be edited. The MPO file consists of 2 images, each of them have Exif-data. Suppose I want to crop images or edit histograms or edit red eyes. I convert edited bitmaps into jpeg parts and those parts are started with JFIF info. But I would like to keep Exif info before each of future 2 parts of MPO files. I also need to modify slightly Exif with changed sizes and something else. After that I have to compose the whole edited MPO file and save it on hard drive.</p>
+
+
+	<p>I did not find any acceptable sample how to use Exiv2 library for my task.</p>
+
+
+	<p>It will be nice if the list of samples will be extended by appropriate sample for the problem described.</p>
+
+
+	<p>Alex</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2285">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1860?r=2285#message-2285">RE: Why?  Trying to write jpeg in memory and save to file does NOT work.  </a>
+    -
+    Added by <a class="user active" href="/users/4507">evan pan</a> <a title="20 Oct 2015 07:45" href="/projects/exiv2/activity?from=2015-10-20">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi, Andreas.  <br />As for myself, I have seldom tried to write jpeg in memory and save to file . I wonder have you ever worked it out? Do I need another 3rd party manual toolkit? When it comes JPG conversion (see: <a class="external" href="http://www.pqscan.com/convert-pdf/to-jpg-csharp.html">http://www.pqscan.com/convert-pdf/to-jpg-csharp.html</a> ) process, I have another question, I wonder have you ever tried to convert pdf to jpg files (see: <a class="external" href="http://www.pqscan.com/convert-pdf/to-jpg.html">http://www.pqscan.com/convert-pdf/to-jpg.html</a> ) before? As for myself, I am testing the related PDF to JPGG converting, PDF to BMP converting , and PDF to PNG converting programs these days. Do you have experience about it? Any suggestion will be appreciated. Thanks in advance.</p>
+
+
+	<p>Best regards,  <br />Pan</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2286">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1860?r=2286#message-2286">RE: Why?  Trying to write jpeg in memory and save to file does NOT work.  </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Oct 2015 09:35" href="/projects/exiv2/activity?from=2015-10-20">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I was the lead engineer at Adobe on the PDFscanSDK which converts scanned images into PDF.  I believe you want to do the opposite which is simpler.  There are numerous toolkits for doing this.  Converting file formats (and rendering) are outside the domain of Exiv2 and you will have to search elsewhere for something to meet your needs.</p>
+
+
+	<p>Ghost Script can generate tiff from the command-line.  <a class="external" href="http://ghostscript.com">http://ghostscript.com</a>   If you're working in C# (or any of the .Net languages), there are toolkits which are probably better integrated with Windows.  PDFlib and Foxit provide impressive PDF libraries and tools: <a class="external" href="http://www.pdflib.com">http://www.pdflib.com</a> <a class="external" href="https://www.foxitsoftware.com/products/sdk/pdf-sdk/">https://www.foxitsoftware.com/products/sdk/pdf-sdk/</a></p>
+
+
+	<p>It hope to add PDF support to samples/exiv2json.cpp for v0.26 and thinking about using libpodofo to parse the PDF file.  podofo is a PDF parse/create library and does not support rendering.  So it's unable to create a JPG (or any other bitmap format) from a PDF.  There is no plan to make PDF a fully supported file format in libexiv2.  I consider this to be a fun (low priority) project for wet winter evenings.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-8/8)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

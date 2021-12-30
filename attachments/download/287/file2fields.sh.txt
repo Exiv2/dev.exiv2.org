@@ -1,0 +1,40 @@
+#!/bin/bash
+friendlyhello () {
+	echo -e "\nFiles for use with this script" 
+	echo "must have the file name to be annotated"
+	echo -e "in the first line.\n"
+	echo "Annotations must be in the sequence"
+	echo -e "\"CATEGORY-CREDIT-SOURCE-WRITER-\nTRANSMISSION REFERENCE-FIXTURE IDENTIFIER-\nOBJECT NAME-SUBLOCATION\""
+	echo "(each on its own line)"
+	echo "or else they'll come out wrong."
+	echo
+}
+loadfile () {
+	echo "What file will I be using?"
+	read thefile
+	echo -e "Thanks.\n"
+}
+
+friendlyhello
+loadfile
+mapfile -t metadata <$thefile
+
+file=$(echo ${metadata[0]})
+echo -e "Writing \033[1;31m${metadata[1]}\033[0m as \033[1mCategory\033[0m to $file"
+exiv2 -kM"set Iptc.Application2.Category ${metadata[1]}" $file
+echo -e "Writing \033[1;31m${metadata[2]}\033[0m as \033[1mCredit\033[0m to $file"
+exiv2 -kM"set Iptc.Application2.Credit ${metadata[2]}" $file
+echo -e "Writing \033[1;31m${metadata[3]}\033[0m as \033[1mSource\033[0m to $file"
+exiv2 -kM"set Iptc.Application2.Source ${metadata[3]}" $file
+echo -e "Writing \033[1;31m${metadata[4]}\033[0m as \033[1mWriter\033[0m to $file"
+exiv2 -kM"set Iptc.Application2.Writer ${metadata[4]}" $file
+echo -e "Writing \033[1;31m${metadata[5]}\033[0m as \033[1mTransmission Reference\033[0m to $file"
+exiv2 -kM"set Iptc.Application2.TransmissionReference ${metadata[5]}" $file
+echo -e "Writing \033[1;31m${metadata[6]}\033[0m as \033[1mFixture Identifier\033[0m to $file"
+exiv2 -kM"set Iptc.Application2.FixtureId ${metadata[6]}" $file
+echo -e "Writing \033[1;31m${metadata[7]}\033[0m as \033[1mObject Name\033[0m to $file"
+exiv2 -kM"set Iptc.Application2.ObjectName ${metadata[7]}" $file
+echo -e "Writing \033[1;31m${metadata[8]}\033[0m as \033[1mSub-Location\033[0m to $file"
+exiv2 -kM"set Iptc.Application2.SubLocation ${metadata[8]}" $file
+
+

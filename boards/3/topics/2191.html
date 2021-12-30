@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>XmpParser::registerNs calls unimplemented method SXMPMeta::DeleteNamespace - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="fox3aq5V2jyyI6Jfc3BHHZ5OMnOu3BOP90kMY+X/Z8+cwdyF3C8WPOdHvVPMp0suodxmCl8/sjUKaZzrpsaAoA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>XmpParser::registerNs calls unimplemented method SXMPMeta::DeleteNamespace</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/146">Anonymous Poster</a> <a title="17 Aug 2015 13:07" href="/projects/exiv2/activity?from=2015-08-17">over 6 years</a> ago</span></p>
+<div class="wiki">
+<p>There is an SXMPMeta::DeleteNamespace call in XmpParser::registerNs (xmp.cpp). That method just throws an exception. I believe it's an error in exiv2 and the fix seems to be simply commenting out that line. In fact, there's a second mention of DeleteNamespace in xmp.cpp where this call is commented out with a proper comment.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (1)</h3>
+  <div class="message reply" id="message-2201">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2191?r=2201#message-2201">RE: XmpParser::registerNs calls unimplemented method SXMPMeta::DeleteNamespace</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Aug 2015 09:42" href="/projects/exiv2/activity?from=2015-08-21">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm not convinced there is a problem here.  May I ask you to provide a test case when you raise an issue in the code.  It makes it so much easier to be "on the same page" as you.  You could very well be raising a real issue here, however I'm spending <em>(unproductive)</em> time scratching my head wondering "What is he banging on about?".  Help us to help you.</p>
+
+
+	<p>I've modified xmp.cpp as follows:<pre>    void XmpParser::registerNs(const std::string&#38; ns,
+                               const std::string&#38; prefix)
+    {
+        try {
+            initialize();
+            AutoLock autoLock(xmpLockFct_, pLockData_);
+            std::cout &lt;&lt; "about to call SXMPMeta::DeleteNamespace"  &lt;&lt; std::endl;
+            SXMPMeta::DeleteNamespace(ns.c_str());
+            SXMPMeta::RegisterNamespace(ns.c_str(), prefix.c_str());
+        }
+        catch (const XMP_Error&#38; e) {
+            throw Error(40, e.GetID(), e.GetErrMsg());
+        }
+    } // XmpParser::registerNs</pre>And XMPMeta.cpp as follows:<pre>#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cassert&gt;
+#include &lt;string&gt;
+/* class-static */ void
+XMPMeta::DeleteNamespace ( XMP_StringPtr namespaceURI )
+{
+    std::cout &lt;&lt; "In XMPMeta::DeleteNamespace"  &lt;&lt; std::endl;
+    XMP_StringMapPos uriPos = sNamespaceURIToPrefixMap-&gt;find ( namespaceURI );
+    if ( uriPos == sNamespaceURIToPrefixMap-&gt;end() ) return;
+
+    XMP_StringMapPos prefixPos = sNamespacePrefixToURIMap-&gt;find ( uriPos-&gt;second );
+    XMP_Assert ( prefixPos != sNamespacePrefixToURIMap-&gt;end() );
+
+    sNamespaceURIToPrefixMap-&gt;erase ( uriPos );
+    sNamespacePrefixToURIMap-&gt;erase ( prefixPos );
+
+}    // DeleteNamespace
+</pre>And ran this test: <pre>733 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M"reg cm http://clanmills.com" ~/Downloads/Stonehenge.jpg
+about to call SXMPMeta::DeleteNamespace
+In XMPMeta::DeleteNamespace
+734 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I don't know anything about the following commented off code in xmp.cpp.  It seems to me that the comment (and the commenting off) is incorrect.  However I never modify code without a solid test case, so I'm going to leave it.<pre>    void XmpParser::unregisterNs(const std::string&#38; /*ns*/)
+    {
+#ifdef EXV_HAVE_XMP_TOOLKIT
+        try {
+// Throws XMP Toolkit error 8: Unimplemented method XMPMeta::DeleteNamespace
+//          SXMPMeta::DeleteNamespace(ns.c_str());
+        }
+        catch (const XMP_Error&#38; e) {
+            throw Error(40, e.GetID(), e.GetErrMsg());
+        }
+#endif
+    } // XmpParser::unregisterNs</pre></p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-1/1)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

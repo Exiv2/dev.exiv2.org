@@ -1,0 +1,2273 @@
+diff -urwEB exiv2-0.26-svn.org/CMakeLists.txt exiv2-0.26-svn-1/CMakeLists.txt
+--- exiv2-0.26-svn.org/CMakeLists.txt	2017-01-10 15:04:35.000000000 -0500
++++ exiv2-0.26-svn-1/CMakeLists.txt	2017-01-13 12:44:58.000000000 -0500
+@@ -38,6 +38,10 @@
+ SET( GENERIC_LIB_SOVERSION  "14" )
+ 
+ # options and their default values
++OPTION( EXIV2_CPP_STANDARD           "Set the C++ Standard to compile with"                 11  )
++OPTION( EXIV2_CPP_STANDARD_REQUIRED  "Set C++ Standard to required"                         ON  )
++OPTION( EXIV2_CPP_EXTENSION          "Set C++ Extensions to required"                       OFF )
++OPTION( EXIV2_ENABLE_VERBOSITY       "Enable verbosity"                                     OFF )
+ OPTION( EXIV2_ENABLE_SHARED        "Build exiv2 as a shared library (dll)"                 ON  )
+ OPTION( EXIV2_ENABLE_XMP           "Build with XMP metadata support"                       ON  )
+ OPTION( EXIV2_ENABLE_LIBXMP        "Build a static convenience Library for XMP"            ON  )
+@@ -60,6 +64,11 @@
+ 
+ ENDIF()
+ 
++SET ( CMAKE_VERBOSE_MAKEFILE ${EXIV2_ENABLE_VERBOSITY} )
++IF ( NOT ${EXIV2_CPP_STANDARD} )
++    SET ( EXIV2_CPP_STANDARD 11 )
++ENDIF ()
++
+ # set include path for FindXXX.cmake files
+ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/config/")
+ 
+@@ -86,14 +95,16 @@
+ 
+     message(STATUS Compiler: ${COMPILER} " Major:" ${GCC_MAJOR} " Minor:" ${GCC_MINOR})
+ 
+-    IF ( CYGWIN OR ( ${GCC_MAJOR} GREATER 5 ))
+-        ADD_DEFINITIONS( -std=gnu++98 ) # to support snprintf
+-    ELSE()
+-        ADD_DEFINITIONS( -std=c++98 )
+-    ENDIF()
+-
+ ENDIF( MINGW OR UNIX )
+ 
++set( CMAKE_CXX_STANDARD ${EXIV2_CPP_STANDARD} )
++set( CMAKE_CXX_STANDARD_REQUIRED ${EXIV2_CPP_STANDARD_REQUIRED} )
++set( CMAKE_CXX_EXTENSIONS ${EXIV2_CPP_EXTENSION} )
++
++IF ( ${EXIV2_CPP_STANDARD} LESS 98 AND ${EXIV2_CPP_STANDARD} GREATER 10  )
++    ADD_DEFINITIONS( -DEXV_USING_CPP_ELEVEN=1  )
++ENDIF()
++
+ IF( EXIV2_ENABLE_COMMERCIAL )
+     SET (EXIV2_ENABLE_LENSDATA OFF)
+     SET (EXIV2_ENABLE_NLS OFF)
+diff -urwEB exiv2-0.26-svn.org/Makefile exiv2-0.26-svn-1/Makefile
+--- exiv2-0.26-svn.org/Makefile	2017-01-10 15:04:35.000000000 -0500
++++ exiv2-0.26-svn-1/Makefile	2017-01-13 12:42:37.000000000 -0500
+@@ -90,7 +90,8 @@
+ bugfixes-test.sh   crw-test.sh     curliotest.sh       eps-preview-test.sh    eps-test.sh       exifdata-test.sh \
+ exiv2-test.sh      httpiotest.sh   icc-test.sh         imagetest.sh           iotest.sh         iptctest.sh      \
+ modify-test.sh     path-test.sh    preview-test.sh     sshiotest.sh           stringto-test.sh  tiff-test.sh     \
+-video-test.sh      write-test.sh   write-video-test.sh write2-test.sh         xmpparser-test.sh webp-test.sh:
++video-test.sh      write-test.sh   write-video-test.sh write2-test.sh         xmpparser-test.sh webp-test.sh     \
++mt-test.sh:
+ 	cd test && ./$@
+ 
+ # convenience targets for running selected test scripts
+diff -urwEB exiv2-0.26-svn.org/config/CMakeChecks.txt exiv2-0.26-svn-1/config/CMakeChecks.txt
+--- exiv2-0.26-svn.org/config/CMakeChecks.txt	2017-01-10 15:04:16.000000000 -0500
++++ exiv2-0.26-svn-1/config/CMakeChecks.txt	2017-01-13 12:42:37.000000000 -0500
+@@ -319,6 +319,10 @@
+ 
+ MESSAGE( STATUS "------------------------------------------------------------------" )
+ MESSAGE( STATUS "${PACKAGE_STRING} configure results        <${PACKAGE_URL}>"        )
++MESSAGE( STATUS "C++ standard                        ${EXIV2_CPP_STANDARD}"          )
++OptionOutput( "C++ standard required               " EXIV2_CPP_STANDARD_REQUIRED     )
++OptionOutput( "C++ extensions required             " EXIV2_CPP_EXTENSION             )
++OptionOutput( "Enabled compilation verbosity       " EXIV2_ENABLE_VERBOSITY          )
+ OptionOutput( "Building PNG support:               " EXIV2_ENABLE_PNG AND ZLIB_FOUND )
+ OptionOutput( "Building shared library:            " EXIV2_ENABLE_SHARED             )
+ OptionOutput( "XMP metadata support:               " EXIV2_ENABLE_XMP                )
+diff -urwEB exiv2-0.26-svn.org/include/exiv2/basicio.hpp exiv2-0.26-svn-1/include/exiv2/basicio.hpp
+--- exiv2-0.26-svn.org/include/exiv2/basicio.hpp	2017-01-10 15:05:45.000000000 -0500
++++ exiv2-0.26-svn-1/include/exiv2/basicio.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -67,8 +67,11 @@
+     class EXIV2API BasicIo {
+     public:
+         //! BasicIo auto_ptr type
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<BasicIo> AutoPtr;
++#else
+         typedef std::auto_ptr<BasicIo> AutoPtr;
+-
++#endif
+         //! Seek starting positions
+         enum Position { beg, cur, end };
+ 
+diff -urwEB exiv2-0.26-svn.org/include/exiv2/datasets.hpp exiv2-0.26-svn-1/include/exiv2/datasets.hpp
+--- exiv2-0.26-svn.org/include/exiv2/datasets.hpp	2017-01-10 15:05:45.000000000 -0500
++++ exiv2-0.26-svn-1/include/exiv2/datasets.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -280,7 +280,11 @@
+     class EXIV2API IptcKey : public Key {
+     public:
+         //! Shortcut for an %IptcKey auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<IptcKey> AutoPtr;
++#else
+         typedef std::auto_ptr<IptcKey> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+diff -urwEB exiv2-0.26-svn.org/include/exiv2/image.hpp exiv2-0.26-svn-1/include/exiv2/image.hpp
+--- exiv2-0.26-svn.org/include/exiv2/image.hpp	2017-01-10 15:05:45.000000000 -0500
++++ exiv2-0.26-svn-1/include/exiv2/image.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -36,6 +36,9 @@
+ // + standard includes
+ #include <string>
+ #include <vector>
++#ifdef EXV_USING_CPP_ELEVEN
++#include <mutex>
++#endif
+ 
+ // *****************************************************************************
+ // namespace extensions
+@@ -82,7 +85,11 @@
+     class EXIV2API Image {
+     public:
+         //! Image auto_ptr type
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Image> AutoPtr;
++#else
+         typedef std::auto_ptr<Image> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -476,6 +483,10 @@
+ 
+         int imageType() const { return imageType_; }
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++        static std::mutex mutex_;
++#endif
++
+     protected:
+         // DATA
+         BasicIo::AutoPtr  io_;                //!< Image data IO pointer
+diff -urwEB exiv2-0.26-svn.org/include/exiv2/metadatum.hpp exiv2-0.26-svn-1/include/exiv2/metadatum.hpp
+--- exiv2-0.26-svn.org/include/exiv2/metadatum.hpp	2017-01-10 15:05:45.000000000 -0500
++++ exiv2-0.26-svn-1/include/exiv2/metadatum.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -60,7 +60,11 @@
+     class EXIV2API Key {
+     public:
+         //! Shortcut for a %Key auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Key> AutoPtr;
++#else
+         typedef std::auto_ptr<Key> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+diff -urwEB exiv2-0.26-svn.org/include/exiv2/properties.hpp exiv2-0.26-svn-1/include/exiv2/properties.hpp
+--- exiv2-0.26-svn.org/include/exiv2/properties.hpp	2017-01-10 15:05:45.000000000 -0500
++++ exiv2-0.26-svn-1/include/exiv2/properties.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -45,6 +45,9 @@
+ #include <string>
+ #include <iosfwd>
+ #include <memory>
++#ifdef EXV_USING_CPP_ELEVEN
++#include <mutex>
++#endif
+ 
+ // *****************************************************************************
+ // namespace extensions
+@@ -238,6 +241,9 @@
+           @brief Get all registered namespaces (for both Exiv2 and XMPsdk)
+          */
+         static void registeredNamespaces(Exiv2::Dictionary& nsDict);
++#ifdef EXV_USING_CPP_ELEVEN
++        static std::mutex mutex_;
++#endif
+ 
+     }; // class XmpProperties
+ 
+@@ -247,7 +253,11 @@
+     class EXIV2API XmpKey : public Key {
+     public:
+         //! Shortcut for an %XmpKey auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<XmpKey> AutoPtr;
++#else
+         typedef std::auto_ptr<XmpKey> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+diff -urwEB exiv2-0.26-svn.org/include/exiv2/tags.hpp exiv2-0.26-svn-1/include/exiv2/tags.hpp
+--- exiv2-0.26-svn.org/include/exiv2/tags.hpp	2017-01-10 15:05:45.000000000 -0500
++++ exiv2-0.26-svn-1/include/exiv2/tags.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -150,7 +150,11 @@
+     class EXIV2API ExifKey : public Key {
+     public:
+         //! Shortcut for an %ExifKey auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<ExifKey> AutoPtr;
++#else
+         typedef std::auto_ptr<ExifKey> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+diff -urwEB exiv2-0.26-svn.org/include/exiv2/value.hpp exiv2-0.26-svn-1/include/exiv2/value.hpp
+--- exiv2-0.26-svn.org/include/exiv2/value.hpp	2017-01-10 15:05:45.000000000 -0500
++++ exiv2-0.26-svn-1/include/exiv2/value.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -63,7 +63,11 @@
+     class EXIV2API Value {
+     public:
+         //! Shortcut for a %Value auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Value> AutoPtr;
++#else
+         typedef std::auto_ptr<Value> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -265,7 +269,11 @@
+     class EXIV2API DataValue : public Value {
+     public:
+         //! Shortcut for a %DataValue auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<DataValue> AutoPtr;
++#else
+         typedef std::auto_ptr<DataValue> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -352,7 +360,11 @@
+     class EXIV2API StringValueBase : public Value {
+     public:
+         //! Shortcut for a %StringValueBase auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<StringValueBase> AutoPtr;
++#else
+         typedef std::auto_ptr<StringValueBase> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -434,7 +446,11 @@
+     class EXIV2API StringValue : public StringValueBase {
+     public:
+         //! Shortcut for a %StringValue auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<StringValue> AutoPtr;
++#else
+         typedef std::auto_ptr<StringValue> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -466,7 +482,11 @@
+     class EXIV2API AsciiValue : public StringValueBase {
+     public:
+         //! Shortcut for a %AsciiValue auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<AsciiValue> AutoPtr;
++#else
+         typedef std::auto_ptr<AsciiValue> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -553,7 +573,11 @@
+         }; // class CharsetInfo
+ 
+         //! Shortcut for a %CommentValue auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<CommentValue> AutoPtr;
++#else
+         typedef std::auto_ptr<CommentValue> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -640,7 +664,11 @@
+     class EXIV2API XmpValue : public Value {
+     public:
+         //! Shortcut for a %XmpValue auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<XmpValue> AutoPtr;
++#else
+         typedef std::auto_ptr<XmpValue> AutoPtr;
++#endif
+ 
+         //! XMP array types.
+         enum XmpArrayType { xaNone, xaAlt, xaBag, xaSeq };
+@@ -731,7 +759,11 @@
+     class EXIV2API XmpTextValue : public XmpValue {
+     public:
+         //! Shortcut for a %XmpTextValue auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<XmpTextValue> AutoPtr;
++#else
+         typedef std::auto_ptr<XmpTextValue> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -813,7 +845,11 @@
+     class EXIV2API XmpArrayValue : public XmpValue {
+     public:
+         //! Shortcut for a %XmpArrayValue auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<XmpArrayValue> AutoPtr;
++#else
+         typedef std::auto_ptr<XmpArrayValue> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -909,7 +945,11 @@
+     class EXIV2API LangAltValue : public XmpValue {
+     public:
+         //! Shortcut for a %LangAltValue auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<LangAltValue> AutoPtr;
++#else
+         typedef std::auto_ptr<LangAltValue> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -997,7 +1037,11 @@
+     class EXIV2API DateValue : public Value {
+     public:
+         //! Shortcut for a %DateValue auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<DateValue> AutoPtr;
++#else
+         typedef std::auto_ptr<DateValue> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -1098,7 +1142,11 @@
+     class EXIV2API TimeValue : public Value {
+     public:
+         //! Shortcut for a %TimeValue auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<TimeValue> AutoPtr;
++#else
+         typedef std::auto_ptr<TimeValue> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -1254,7 +1302,11 @@
+     class ValueType : public Value {
+     public:
+         //! Shortcut for a %ValueType\<T\> auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<ValueType<T> > AutoPtr;
++#else
+         typedef std::auto_ptr<ValueType<T> > AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+diff -urwEB exiv2-0.26-svn.org/samples/CMakeLists.txt exiv2-0.26-svn-1/samples/CMakeLists.txt
+--- exiv2-0.26-svn.org/samples/CMakeLists.txt	2017-01-10 15:04:15.000000000 -0500
++++ exiv2-0.26-svn-1/samples/CMakeLists.txt	2017-01-13 13:03:43.000000000 -0500
+@@ -82,6 +82,15 @@
+ TARGET_LINK_LIBRARIES( geotag    ${PRIVATE_VAR} exiv2lib Threads::Threads ${EXPAT_LIBRARIES} ${ZLIB_LIBRARIES})
+ INSTALL( TARGETS       geotag    ${INSTALL_TARGET_STANDARD_ARGS} )
+ 
++IF ( ${EXIV2_CPP_STANDARD} LESS 98 AND ${EXIV2_CPP_STANDARD} GREATER 10  )
++    SET( MULTITHREAD_SRC   mt-test.cpp )
++    ADD_EXECUTABLE(        mt-test   ${MULTITHREAD_SRC} )
++    SET_PROPERTY(   TARGET mt-test   PROPERTY CXX_STANDARD 11)
++    SET_TARGET_PROPERTIES( mt-test   PROPERTIES OUTPUT_NAME mt-test )
++    TARGET_LINK_LIBRARIES( mt-test   ${PRIVATE_VAR} exiv2lib Threads::Threads ${EXPAT_LIBRARIES} ${ZLIB_LIBRARIES})
++    INSTALL( TARGETS       mt-test   ${INSTALL_TARGET_STANDARD_ARGS} )
++ENDIF()
++
+ # ******************************************************************************
+ # Man page
+ INSTALL( FILES exiv2samples.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1 )
+diff -urwEB exiv2-0.26-svn.org/samples/Makefile exiv2-0.26-svn-1/samples/Makefile
+--- exiv2-0.26-svn.org/samples/Makefile	2017-01-10 15:04:15.000000000 -0500
++++ exiv2-0.26-svn-1/samples/Makefile	2017-01-13 12:42:37.000000000 -0500
+@@ -70,6 +70,7 @@
+          key-test.cpp         \
+          largeiptc-test.cpp   \
+          mmap-test.cpp        \
++         mt-test.cpp          \
+          prevtest.cpp         \
+          remotetest.cpp       \
+          stringto-test.cpp    \
+diff -urwEB exiv2-0.26-svn.org/samples/metacopy.cpp exiv2-0.26-svn-1/samples/metacopy.cpp
+--- exiv2-0.26-svn.org/samples/metacopy.cpp	2017-01-10 15:04:15.000000000 -0500
++++ exiv2-0.26-svn-1/samples/metacopy.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -58,7 +58,11 @@
+     Exiv2::BasicIo::AutoPtr memIo(new Exiv2::MemIo);
+     memIo->transfer(*fileIo);
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    Exiv2::Image::AutoPtr readImg = Exiv2::ImageFactory::open(std::move(memIo));
++#else
+     Exiv2::Image::AutoPtr readImg = Exiv2::ImageFactory::open(memIo);
++#endif
+     assert(readImg.get() != 0);
+     readImg->readMetadata();
+ 
+diff -urwEB exiv2-0.26-svn.org/samples/mt-test.cpp exiv2-0.26-svn-1/samples/mt-test.cpp
+--- exiv2-0.26-svn.org/samples/mt-test.cpp	2017-01-10 15:04:15.000000000 -0500
++++ exiv2-0.26-svn-1/samples/mt-test.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -17,6 +17,8 @@
+ 
+ // WARNING:             auto_ptr is not supported in C++11 implemented by gcc 4.9/C++11 and later
+ 
++// Addendum:            Builds with gcc v6.2.0 with c++11 works on Linux and with MinGW64.
++
+ #include <exiv2/exiv2.hpp>
+ #include <iostream>
+ #include <iomanip>
+diff -urwEB exiv2-0.26-svn.org/src/actions.cpp exiv2-0.26-svn-1/src/actions.cpp
+--- exiv2-0.26-svn.org/src/actions.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/actions.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -228,7 +228,11 @@
+             Task* t = i->second;
+             return t->clone();
+         }
++#ifdef EXV_USING_CPP_ELEVEN
++        return Task::AutoPtr(nullptr);
++#else
+         return Task::AutoPtr(0);
++#endif
+     } // TaskFactory::create
+ 
+     Print::~Print()
+@@ -284,7 +288,7 @@
+                       << _("Failed to open the file\n");
+             return -1;
+         }
+-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(path_);
++        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(std::move(path_));
+         assert(image.get() != 0);
+         image->readMetadata();
+         Exiv2::ExifData& exifData = image->exifData();
+@@ -2063,7 +2067,11 @@
+         if ( bStdin )  Params::instance().getStdin(stdIn);
+         Exiv2::BasicIo::AutoPtr ioStdin = Exiv2::BasicIo::AutoPtr(new Exiv2::MemIo(stdIn.pData_,stdIn.size_));
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++        Exiv2::Image::AutoPtr sourceImage = bStdin ? Exiv2::ImageFactory::open(std::move(ioStdin)) : Exiv2::ImageFactory::open(std::move(source));
++#else
+         Exiv2::Image::AutoPtr sourceImage = bStdin ? Exiv2::ImageFactory::open(ioStdin) : Exiv2::ImageFactory::open(source);
++#endif
+         assert(sourceImage.get() != 0);
+         sourceImage->readMetadata();
+ 
+diff -urwEB exiv2-0.26-svn.org/src/actions.hpp exiv2-0.26-svn-1/src/actions.hpp
+--- exiv2-0.26-svn.org/src/actions.hpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/actions.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -75,7 +75,11 @@
+     class Task {
+     public:
+         //! Shortcut for an auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Task> AutoPtr;
++#else
+         typedef std::auto_ptr<Task> AutoPtr;
++#endif
+         //! Virtual destructor.
+         virtual ~Task();
+         //! Virtual copy construction.
+@@ -159,7 +163,11 @@
+     public:
+         virtual ~Print();
+         virtual int run(const std::string& path);
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Print> AutoPtr;
++#else
+         typedef std::auto_ptr<Print> AutoPtr;
++#endif
+         AutoPtr clone() const;
+ 
+         //! Print the Jpeg comment
+@@ -216,7 +224,11 @@
+     public:
+         virtual ~Rename();
+         virtual int run(const std::string& path);
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Rename> AutoPtr;
++#else
+         typedef std::auto_ptr<Rename> AutoPtr;
++#endif
+         AutoPtr clone() const;
+ 
+     private:
+@@ -228,7 +240,11 @@
+     public:
+         virtual ~Adjust();
+         virtual int run(const std::string& path);
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Adjust> AutoPtr;
++#else
+         typedef std::auto_ptr<Adjust> AutoPtr;
++#endif
+         AutoPtr clone() const;
+ 
+     private:
+@@ -251,7 +267,11 @@
+     public:
+         virtual ~Erase();
+         virtual int run(const std::string& path);
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Erase> AutoPtr;
++#else
+         typedef std::auto_ptr<Erase> AutoPtr;
++#endif
+         AutoPtr clone() const;
+ 
+         /*!
+@@ -297,7 +317,11 @@
+     public:
+         virtual ~Extract();
+         virtual int run(const std::string& path);
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Extract> AutoPtr;
++#else
+         typedef std::auto_ptr<Extract> AutoPtr;
++#endif
+         AutoPtr clone() const;
+ 
+         /*!
+@@ -336,7 +360,11 @@
+     public:
+         virtual ~Insert();
+         virtual int run(const std::string& path);
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Insert> AutoPtr;
++#else
+         typedef std::auto_ptr<Insert> AutoPtr;
++#endif
+         AutoPtr clone() const;
+ 
+         /*!
+@@ -377,7 +405,11 @@
+     public:
+         virtual ~Modify();
+         virtual int run(const std::string& path);
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Modify> AutoPtr;
++#else
+         typedef std::auto_ptr<Modify> AutoPtr;
++#endif
+         AutoPtr clone() const;
+         Modify() {}
+         //! Apply modification commands to the \em pImage, return 0 if successful.
+@@ -410,7 +442,11 @@
+     public:
+         virtual ~FixIso();
+         virtual int run(const std::string& path);
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<FixIso> AutoPtr;
++#else
+         typedef std::auto_ptr<FixIso> AutoPtr;
++#endif
+         AutoPtr clone() const;
+ 
+     private:
+@@ -428,7 +464,11 @@
+     public:
+         virtual ~FixCom();
+         virtual int run(const std::string& path);
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<FixCom> AutoPtr;
++#else
+         typedef std::auto_ptr<FixCom> AutoPtr;
++#endif
+         AutoPtr clone() const;
+ 
+     private:
+diff -urwEB exiv2-0.26-svn.org/src/asfvideo.cpp exiv2-0.26-svn-1/src/asfvideo.cpp
+--- exiv2-0.26-svn.org/src/asfvideo.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/asfvideo.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -296,10 +296,17 @@
+ 
+     using namespace Exiv2::Internal;
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    AsfVideo::AsfVideo(BasicIo::AutoPtr io)
++        : Image(ImageType::asf, mdNone, std::move(io))
++    {
++    } // AsfVideo::AsfVideo
++#else
+     AsfVideo::AsfVideo(BasicIo::AutoPtr io)
+         : Image(ImageType::asf, mdNone, io)
+     {
+     } // AsfVideo::AsfVideo
++#endif
+ 
+     std::string AsfVideo::mimeType() const
+     {
+@@ -792,7 +799,11 @@
+ 
+     Image::AutoPtr newAsfInstance(BasicIo::AutoPtr io, bool /*create*/)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new AsfVideo(std::move(io)));
++#else
+         Image::AutoPtr image(new AsfVideo(io));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/src/basicio.cpp exiv2-0.26-svn-1/src/basicio.cpp
+--- exiv2-0.26-svn.org/src/basicio.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/basicio.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -583,17 +583,29 @@
+         // buffer, which is a workaround to ensure that the links don't get broken.
+         if (ret != 0 || (buf.st_size > 1048576 && nlink == 1)) {
+             pid_t pid = ::getpid();
++#ifdef EXV_USING_CPP_ELEVEN
++            std::unique_ptr<FileIo> fileIo;
++#else
+             std::auto_ptr<FileIo> fileIo;
++#endif
+ #ifdef EXV_UNICODE_PATH
+             if (p_->wpMode_ == Impl::wpUnicode) {
+                 std::wstring tmpname = wpath() + s2ws(toString(pid));
++#ifdef EXV_USING_CPP_ELEVEN
++                fileIo = std::unique_ptr<FileIo>(new FileIo(tmpname));
++#else
+                 fileIo = std::auto_ptr<FileIo>(new FileIo(tmpname));
++#endif
+             }
+             else
+ #endif
+             {
+                 std::string tmpname = path() + toString(pid);
++#ifdef EXV_USING_CPP_ELEVEN
++                fileIo = std::unique_ptr<FileIo>(new FileIo(tmpname));
++#else
+                 fileIo = std::auto_ptr<FileIo>(new FileIo(tmpname));
++#endif
+             }
+             if (fileIo->open("w+b") != 0) {
+ #ifdef EXV_UNICODE_PATH
+@@ -607,7 +619,11 @@
+                 }
+             }
+             fileIo->p_->copyXattrFrom(*this);
++#ifdef EXV_USING_CPP_ELEVEN
++            basicIo = std::move(fileIo);
++#else
+             basicIo = fileIo;
++#endif
+         }
+         else {
+             basicIo.reset(new MemIo);
+diff -urwEB exiv2-0.26-svn.org/src/bmpimage.cpp exiv2-0.26-svn-1/src/bmpimage.cpp
+--- exiv2-0.26-svn.org/src/bmpimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/bmpimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -46,10 +46,17 @@
+ // class member definitions
+ namespace Exiv2 {
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    BmpImage::BmpImage(BasicIo::AutoPtr io)
++        : Image(ImageType::bmp, mdNone, std::move(io))
++    {
++    } // BmpImage::BmpImage
++#else
+     BmpImage::BmpImage(BasicIo::AutoPtr io)
+         : Image(ImageType::bmp, mdNone, io)
+     {
+     } // BmpImage::BmpImage
++#endif
+ 
+     std::string BmpImage::mimeType() const
+     {
+@@ -131,7 +138,11 @@
+     // free functions
+     Image::AutoPtr newBmpInstance(BasicIo::AutoPtr io, bool /*create*/)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new BmpImage(std::move(io)));
++#else
+         Image::AutoPtr image(new BmpImage(io));
++#endif
+         if (!image->good())
+         {
+             image.reset();
+diff -urwEB exiv2-0.26-svn.org/src/cr2image.cpp exiv2-0.26-svn-1/src/cr2image.cpp
+--- exiv2-0.26-svn.org/src/cr2image.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/cr2image.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -51,8 +51,13 @@
+ 
+     using namespace Internal;
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    Cr2Image::Cr2Image(BasicIo::AutoPtr io, bool /*create*/)
++        : Image(ImageType::cr2, mdExif | mdIptc | mdXmp, std::move(io))
++#else
+     Cr2Image::Cr2Image(BasicIo::AutoPtr io, bool /*create*/)
+         : Image(ImageType::cr2, mdExif | mdIptc | mdXmp, io)
++#endif
+     {
+     } // Cr2Image::Cr2Image
+ 
+@@ -188,7 +193,11 @@
+                      ed.end());
+         }
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++        std::unique_ptr<TiffHeaderBase> header(new Cr2Header(byteOrder));
++#else
+         std::auto_ptr<TiffHeaderBase> header(new Cr2Header(byteOrder));
++#endif
+         OffsetWriter offsetWriter;
+         offsetWriter.setOrigin(OffsetWriter::cr2RawIfdOffset, Cr2Header::offset2addr(), byteOrder);
+         return TiffParserWorker::encode(io,
+@@ -207,7 +216,11 @@
+     // free functions
+     Image::AutoPtr newCr2Instance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new Cr2Image(std::move(io), create));
++#else
+         Image::AutoPtr image(new Cr2Image(io, create));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/src/crwimage.cpp exiv2-0.26-svn-1/src/crwimage.cpp
+--- exiv2-0.26-svn.org/src/crwimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/crwimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -82,8 +82,13 @@
+ 
+     using namespace Internal;
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    CrwImage::CrwImage(BasicIo::AutoPtr io, bool /*create*/)
++        : Image(ImageType::crw, mdExif | mdComment, std::move(io))
++#else
+     CrwImage::CrwImage(BasicIo::AutoPtr io, bool /*create*/)
+         : Image(ImageType::crw, mdExif | mdComment, io)
++#endif
+     {
+     } // CrwImage::CrwImage
+ 
+@@ -222,7 +227,11 @@
+     // free functions
+     Image::AutoPtr newCrwInstance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new CrwImage(std::move(io), create));
++#else
+         Image::AutoPtr image(new CrwImage(io, create));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+@@ -360,7 +369,11 @@
+ 
+     void CiffComponent::add(AutoPtr component)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        doAdd(std::move(component));
++#else
+         doAdd(component);
++#endif
+     }
+ 
+     void CiffEntry::doAdd(AutoPtr /*component*/)
+@@ -476,7 +489,11 @@
+             }
+             m->setDir(this->tag());
+             m->read(pData, size, o, byteOrder);
++#ifdef EXV_USING_CPP_ELEVEN
++            add(std::move(m));
++#else
+             add(m);
++#endif
+             o += 10;
+         }
+     }  // CiffDirectory::readDirectory
+@@ -848,7 +865,11 @@
+                 // Directory doesn't exist yet, add it
+                 m_ = AutoPtr(new CiffDirectory(csd.crwDir_, csd.parent_));
+                 cc_ = m_.get();
++#ifdef EXV_USING_CPP_ELEVEN
++                add(std::move(m_));
++#else
+                 add(m_);
++#endif
+             }
+             // Recursive call to next lower level directory
+             cc_ = cc_->add(crwDirs, crwTagId);
+@@ -865,7 +886,11 @@
+                 // Tag doesn't exist yet, add it
+                 m_ = AutoPtr(new CiffEntry(crwTagId, tag()));
+                 cc_ = m_.get();
++#ifdef EXV_USING_CPP_ELEVEN
++                add(std::move(m_));
++#else
+                 add(m_);
++#endif
+             }
+         }
+         return cc_;
+diff -urwEB exiv2-0.26-svn.org/src/crwimage_int.hpp exiv2-0.26-svn-1/src/crwimage_int.hpp
+--- exiv2-0.26-svn.org/src/crwimage_int.hpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/crwimage_int.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -96,7 +96,11 @@
+     class CiffComponent {
+     public:
+         //! CiffComponent auto_ptr type
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<CiffComponent> AutoPtr;
++#else
+         typedef std::auto_ptr<CiffComponent> AutoPtr;
++#endif
+         //! Container type to hold all metadata
+         typedef std::vector<CiffComponent*> Components;
+ 
+@@ -440,7 +444,11 @@
+     class CiffHeader {
+     public:
+         //! CiffHeader auto_ptr type
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<CiffHeader> AutoPtr;
++#else
+         typedef std::auto_ptr<CiffHeader> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+diff -urwEB exiv2-0.26-svn.org/src/epsimage.cpp exiv2-0.26-svn-1/src/epsimage.cpp
+--- exiv2-0.26-svn.org/src/epsimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/epsimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -1079,8 +1079,13 @@
+ namespace Exiv2
+ {
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    EpsImage::EpsImage(BasicIo::AutoPtr io, bool create)
++            : Image(ImageType::eps, mdXmp, std::move(io))
++#else
+     EpsImage::EpsImage(BasicIo::AutoPtr io, bool create)
+             : Image(ImageType::eps, mdXmp, io)
++#endif
+     {
+         //LogMsg::setLevel(LogMsg::debug);
+         if (create) {
+@@ -1157,7 +1162,11 @@
+     // free functions
+     Image::AutoPtr newEpsInstance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new EpsImage(std::move(io), create));
++#else
+         Image::AutoPtr image(new EpsImage(io, create));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/src/exif.cpp exiv2-0.26-svn-1/src/exif.cpp
+--- exiv2-0.26-svn.org/src/exif.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/exif.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -85,7 +85,11 @@
+     class Thumbnail {
+     public:
+         //! Shortcut for a %Thumbnail auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Thumbnail> AutoPtr;
++#else
+         typedef std::auto_ptr<Thumbnail> AutoPtr;
++#endif
+ 
+         //! @name Creators
+         //@{
+@@ -128,7 +132,11 @@
+     class TiffThumbnail : public Thumbnail {
+     public:
+         //! Shortcut for a %TiffThumbnail auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<TiffThumbnail> AutoPtr;
++#else
+         typedef std::auto_ptr<TiffThumbnail> AutoPtr;
++#endif
+ 
+         //! @name Manipulators
+         //@{
+@@ -152,7 +160,11 @@
+     class JpegThumbnail : public Thumbnail {
+     public:
+         //! Shortcut for a %JpegThumbnail auto pointer.
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<JpegThumbnail> AutoPtr;
++#else
+         typedef std::auto_ptr<JpegThumbnail> AutoPtr;
++#endif
+ 
+         //! @name Manipulators
+         //@{
+@@ -197,10 +209,19 @@
+     template<typename T>
+     Exiv2::Exifdatum& setValue(Exiv2::Exifdatum& exifDatum, const T& value)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        std::unique_ptr<Exiv2::ValueType<T> > v
++            = std::unique_ptr<Exiv2::ValueType<T> >(new Exiv2::ValueType<T>);
++#else
+         std::auto_ptr<Exiv2::ValueType<T> > v
+             = std::auto_ptr<Exiv2::ValueType<T> >(new Exiv2::ValueType<T>);
++#endif
+         v->value_.push_back(value);
++#ifdef EXV_USING_CPP_ELEVEN
++        exifDatum.value_ = std::move(v);
++#else
+         exifDatum.value_ = v;
++#endif
+         return exifDatum;
+     }
+ 
+@@ -414,7 +435,11 @@
+ 
+     Value::AutoPtr Exifdatum::getValue() const
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        return value_.get() == 0 ? Value::AutoPtr(nullptr) : value_->clone();
++#else
+         return value_.get() == 0 ? Value::AutoPtr(0) : value_->clone();
++#endif
+     }
+ 
+     long Exifdatum::sizeDataArea() const
+@@ -706,7 +731,11 @@
+ 
+         // Encode and check if the result fits into a JPEG Exif APP1 segment
+         MemIo mio1;
++#ifdef EXV_USING_CPP_ELEVEN
++        std::unique_ptr<TiffHeaderBase> header(new TiffHeader(byteOrder, 0x00000008, false));
++#else
+         std::auto_ptr<TiffHeaderBase> header(new TiffHeader(byteOrder, 0x00000008, false));
++#endif
+         WriteMethod wm = TiffParserWorker::encode(mio1,
+                                                   pData,
+                                                   size,
+diff -urwEB exiv2-0.26-svn.org/src/gifimage.cpp exiv2-0.26-svn-1/src/gifimage.cpp
+--- exiv2-0.26-svn.org/src/gifimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/gifimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -47,8 +47,13 @@
+ // class member definitions
+ namespace Exiv2 {
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    GifImage::GifImage(BasicIo::AutoPtr io)
++        : Image(ImageType::gif, mdNone, std::move(io))
++#else
+     GifImage::GifImage(BasicIo::AutoPtr io)
+         : Image(ImageType::gif, mdNone, io)
++#endif
+     {
+     } // GifImage::GifImage
+ 
+@@ -111,7 +116,11 @@
+     // free functions
+     Image::AutoPtr newGifInstance(BasicIo::AutoPtr io, bool /*create*/)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new GifImage(std::move(io)));
++#else
+         Image::AutoPtr image(new GifImage(io));
++#endif
+         if (!image->good())
+         {
+             image.reset();
+diff -urwEB exiv2-0.26-svn.org/src/image.cpp exiv2-0.26-svn-1/src/image.cpp
+--- exiv2-0.26-svn.org/src/image.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/image.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -72,6 +72,9 @@
+ #include <cstring>
+ #include <cassert>
+ #include <iostream>
++#ifdef EXV_USING_CPP_ELEVEN
++#include <mutex>
++#endif
+ 
+ #include <sys/types.h>
+ #include <sys/stat.h>
+@@ -152,7 +155,11 @@
+     Image::Image(int              imageType,
+                  uint16_t         supportedMetadata,
+                  BasicIo::AutoPtr io)
++#ifdef EXV_USING_CPP_ELEVEN
++        : io_(std::move(io)),
++#else
+         : io_(io),
++#endif
+           pixelWidth_(0),
+           pixelHeight_(0),
+           imageType_(imageType),
+@@ -281,8 +288,14 @@
+         static std::map<int,std::string> tags;
+         static bool init  = true;
+         static char buffer[80];
++#ifdef EXV_USING_CPP_ELEVEN
++        static std::mutex tagNameInitMutex;
++#endif
+ 
+         if ( init ) {
++#ifdef EXV_USING_CPP_ELEVEN
++            std::lock_guard<std::mutex> guard(tagNameInitMutex);
++#endif
+             int idx;
+             const TagInfo* ti ;
+             for (ti = Internal::  mnTagList(), idx = 0; ti[idx].tag_ != 0xffff; ++idx) tags[ti[idx].tag_] = ti[idx].name_;
+@@ -293,8 +306,13 @@
+             for (ti = Internal:: mpfTagList(), idx = 0; ti[idx].tag_ != 0xffff; ++idx) tags[ti[idx].tag_] = ti[idx].name_;
+             for (ti = Internal::Nikon1MakerNote::tagList(), idx = 0
+                                                       ; ti[idx].tag_ != 0xffff; ++idx) tags[ti[idx].tag_] = ti[idx].name_;
++#ifdef EXV_USING_CPP_ELEVEN
++            init = false;
++#endif
+         }
++#ifndef EXV_USING_CPP_ELEVEN
+         init = false;
++#endif
+ 
+         try {
+             result = tags[tag].c_str();
+@@ -847,7 +865,11 @@
+     Image::AutoPtr ImageFactory::open(const byte* data, long size)
+     {
+         BasicIo::AutoPtr io(new MemIo(data, size));
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image = open(std::move(io)); // may throw
++#else
+         Image::AutoPtr image = open(io); // may throw
++#endif
+         if (image.get() == 0) throw Error(12);
+         return image;
+     }
+@@ -859,7 +881,11 @@
+         }
+         for (unsigned int i = 0; registry[i].imageType_ != ImageType::none; ++i) {
+             if (registry[i].isThisType_(*io, false)) {
++#ifdef EXV_USING_CPP_ELEVEN
++                return registry[i].newInstance_(std::move(io), false);
++#else
+                 return registry[i].newInstance_(io, false);
++#endif
+             }
+         }
+         return Image::AutoPtr();
+@@ -868,14 +894,23 @@
+     Image::AutoPtr ImageFactory::create(int type,
+                                         const std::string& path)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        std::unique_ptr<FileIo> fileIo(new FileIo(path));
++#else
+         std::auto_ptr<FileIo> fileIo(new FileIo(path));
++#endif
+         // Create or overwrite the file, then close it
+         if (fileIo->open("w+b") != 0) {
+             throw Error(10, path, "w+b", strError());
+         }
+         fileIo->close();
++#ifdef EXV_USING_CPP_ELEVEN
++        BasicIo::AutoPtr io(std::move(fileIo));
++        Image::AutoPtr image = create(type, std::move(io));
++#else
+         BasicIo::AutoPtr io(fileIo);
+         Image::AutoPtr image = create(type, io);
++#endif
+         if (image.get() == 0) throw Error(13, type);
+         return image;
+     }
+@@ -884,7 +919,11 @@
+     Image::AutoPtr ImageFactory::create(int type,
+                                         const std::wstring& wpath)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        std::unique_ptr<FileIo> fileIo(new FileIo(wpath));
++#else
+         std::auto_ptr<FileIo> fileIo(new FileIo(wpath));
++#endif
+         // Create or overwrite the file, then close it
+         if (fileIo->open("w+b") != 0) {
+             throw WError(10, wpath, "w+b", strError().c_str());
+@@ -900,7 +939,11 @@
+     Image::AutoPtr ImageFactory::create(int type)
+     {
+         BasicIo::AutoPtr io(new MemIo);
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image = create(type, std::move(io));
++#else
+         Image::AutoPtr image = create(type, io);
++#endif
+         if (image.get() == 0) throw Error(13, type);
+         return image;
+     }
+@@ -911,7 +954,11 @@
+         // BasicIo instance does not need to be open
+         const Registry* r = find(registry, type);
+         if (0 != r) {
++#ifdef EXV_USING_CPP_ELEVEN
++            return r->newInstance_(std::move(io), true);
++#else
+             return r->newInstance_(io, true);
++#endif
+         }
+         return Image::AutoPtr();
+     } // ImageFactory::create
+diff -urwEB exiv2-0.26-svn.org/src/iptc.cpp exiv2-0.26-svn-1/src/iptc.cpp
+--- exiv2-0.26-svn.org/src/iptc.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/iptc.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -210,7 +210,11 @@
+ 
+     Value::AutoPtr Iptcdatum::getValue() const
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        return value_.get() == 0 ? Value::AutoPtr(nullptr) : value_->clone();
++#else
+         return value_.get() == 0 ? Value::AutoPtr(0) : value_->clone();
++#endif
+     }
+ 
+     const Value& Iptcdatum::value() const
+@@ -237,7 +241,11 @@
+     {
+         UShortValue::AutoPtr v(new UShortValue);
+         v->value_.push_back(value);
++#ifdef EXV_USING_CPP_ELEVEN
++        value_ = std::move(v);
++#else
+         value_ = v;
++#endif
+         return *this;
+     }
+ 
+diff -urwEB exiv2-0.26-svn.org/src/jp2image.cpp exiv2-0.26-svn-1/src/jp2image.cpp
+--- exiv2-0.26-svn.org/src/jp2image.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/jp2image.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -141,8 +141,13 @@
+ namespace Exiv2
+ {
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    Jp2Image::Jp2Image(BasicIo::AutoPtr io, bool create)
++            : Image(ImageType::jp2, mdExif | mdIptc | mdXmp, std::move(io))
++#else
+     Jp2Image::Jp2Image(BasicIo::AutoPtr io, bool create)
+             : Image(ImageType::jp2, mdExif | mdIptc | mdXmp, io)
++#endif
+     {
+         if (create)
+         {
+@@ -911,7 +916,11 @@
+     // free functions
+     Image::AutoPtr newJp2Instance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new Jp2Image(std::move(io), create));
++#else
+         Image::AutoPtr image(new Jp2Image(io, create));
++#endif
+         if (!image->good())
+         {
+             image.reset();
+diff -urwEB exiv2-0.26-svn.org/src/jpgimage.cpp exiv2-0.26-svn-1/src/jpgimage.cpp
+--- exiv2-0.26-svn.org/src/jpgimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/jpgimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -302,9 +302,15 @@
+ 
+     } // Photoshop::setIptcIrb
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    JpegBase::JpegBase(int type, BasicIo::AutoPtr io, bool create,
++                       const byte initData[], long dataSize)
++        : Image(type, mdExif | mdIptc | mdXmp | mdComment, std::move(io))
++#else
+     JpegBase::JpegBase(int type, BasicIo::AutoPtr io, bool create,
+                        const byte initData[], long dataSize)
+         : Image(type, mdExif | mdIptc | mdXmp | mdComment, io)
++#endif
+     {
+         if (create) {
+             initImage(initData, dataSize);
+@@ -1244,8 +1250,13 @@
+         0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,0xDA,0x00,0x0C,0x03,0x01,0x00,0x02,
+         0x11,0x03,0x11,0x00,0x3F,0x00,0xA0,0x00,0x0F,0xFF,0xD9 };
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    JpegImage::JpegImage(BasicIo::AutoPtr io, bool create)
++        : JpegBase(ImageType::jpeg, std::move(io), create, blank_, sizeof(blank_))
++#else
+     JpegImage::JpegImage(BasicIo::AutoPtr io, bool create)
+         : JpegBase(ImageType::jpeg, io, create, blank_, sizeof(blank_))
++#endif
+     {
+     }
+ 
+@@ -1272,7 +1283,11 @@
+ 
+     Image::AutoPtr newJpegInstance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new JpegImage(std::move(io), create));
++#else
+         Image::AutoPtr image(new JpegImage(io, create));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+@@ -1296,8 +1311,13 @@
+     const char ExvImage::exiv2Id_[] = "Exiv2";
+     const byte ExvImage::blank_[] = { 0xff,0x01,'E','x','i','v','2',0xff,0xd9 };
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    ExvImage::ExvImage(BasicIo::AutoPtr io, bool create)
++        : JpegBase(ImageType::exv, std::move(io), create, blank_, sizeof(blank_))
++#else
+     ExvImage::ExvImage(BasicIo::AutoPtr io, bool create)
+         : JpegBase(ImageType::exv, io, create, blank_, sizeof(blank_))
++#endif
+     {
+     }
+ 
+@@ -1326,7 +1346,11 @@
+     Image::AutoPtr newExvInstance(BasicIo::AutoPtr io, bool create)
+     {
+         Image::AutoPtr image;
++#ifdef EXV_USING_CPP_ELEVEN
++        image = Image::AutoPtr(new ExvImage(std::move(io), create));
++#else
+         image = Image::AutoPtr(new ExvImage(io, create));
++#endif
+         if (!image->good()) image.reset();
+         return image;
+     }
+diff -urwEB exiv2-0.26-svn.org/src/matroskavideo.cpp exiv2-0.26-svn-1/src/matroskavideo.cpp
+--- exiv2-0.26-svn.org/src/matroskavideo.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/matroskavideo.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -482,8 +482,13 @@
+ 
+     using namespace Exiv2::Internal;
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    MatroskaVideo::MatroskaVideo(BasicIo::AutoPtr io)
++        : Image(ImageType::mkv, mdNone, std::move(io))
++#else
+     MatroskaVideo::MatroskaVideo(BasicIo::AutoPtr io)
+         : Image(ImageType::mkv, mdNone, io)
++#endif
+     {
+     } // MatroskaVideo::MatroskaVideo
+ 
+@@ -743,7 +748,11 @@
+ 
+     Image::AutoPtr newMkvInstance(BasicIo::AutoPtr io, bool /*create*/)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new MatroskaVideo(std::move(io)));
++#else
+         Image::AutoPtr image(new MatroskaVideo(io));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/src/mrwimage.cpp exiv2-0.26-svn-1/src/mrwimage.cpp
+--- exiv2-0.26-svn.org/src/mrwimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/mrwimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -49,8 +49,13 @@
+ // class member definitions
+ namespace Exiv2 {
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    MrwImage::MrwImage(BasicIo::AutoPtr io, bool /*create*/)
++        : Image(ImageType::mrw, mdExif | mdIptc | mdXmp, std::move(io))
++#else
+     MrwImage::MrwImage(BasicIo::AutoPtr io, bool /*create*/)
+         : Image(ImageType::mrw, mdExif | mdIptc | mdXmp, io)
++#endif
+     {
+     } // MrwImage::MrwImage
+ 
+@@ -158,7 +163,11 @@
+     // free functions
+     Image::AutoPtr newMrwInstance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new MrwImage(std::move(io), create));
++#else
+         Image::AutoPtr image(new MrwImage(io, create));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/src/orfimage.cpp exiv2-0.26-svn-1/src/orfimage.cpp
+--- exiv2-0.26-svn.org/src/orfimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/orfimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -54,8 +54,13 @@
+ 
+     using namespace Internal;
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    OrfImage::OrfImage(BasicIo::AutoPtr io, bool create)
++        : TiffImage(/*ImageType::orf, mdExif | mdIptc | mdXmp,*/ std::move(io),create)
++#else
+     OrfImage::OrfImage(BasicIo::AutoPtr io, bool create)
+         : TiffImage(/*ImageType::orf, mdExif | mdIptc | mdXmp,*/ io,create)
++#endif
+     {
+     	setTypeSupported(ImageType::orf, mdExif | mdIptc | mdXmp);
+     } // OrfImage::OrfImage
+@@ -185,7 +190,11 @@
+                      ed.end());
+         }
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++        std::unique_ptr<TiffHeaderBase> header(new OrfHeader(byteOrder));
++#else
+         std::auto_ptr<TiffHeaderBase> header(new OrfHeader(byteOrder));
++#endif
+         return TiffParserWorker::encode(io,
+                                         pData,
+                                         size,
+@@ -202,7 +211,11 @@
+     // free functions
+     Image::AutoPtr newOrfInstance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new OrfImage(std::move(io), create));
++#else
+         Image::AutoPtr image(new OrfImage(io, create));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/src/pgfimage.cpp exiv2-0.26-svn-1/src/pgfimage.cpp
+--- exiv2-0.26-svn.org/src/pgfimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/pgfimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -86,9 +86,15 @@
+         return result;
+     }
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    PgfImage::PgfImage(BasicIo::AutoPtr io, bool create)
++            : Image(ImageType::pgf, mdExif | mdIptc| mdXmp | mdComment, std::move(io))
++            , bSwap_(isBigEndianPlatform())
++#else
+     PgfImage::PgfImage(BasicIo::AutoPtr io, bool create)
+             : Image(ImageType::pgf, mdExif | mdIptc| mdXmp | mdComment, io)
+             , bSwap_(isBigEndianPlatform())
++#endif
+     {
+         if (create)
+         {
+@@ -321,7 +327,11 @@
+     // free functions
+     Image::AutoPtr newPgfInstance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new PgfImage(std::move(io), create));
++#else
+         Image::AutoPtr image(new PgfImage(io, create));
++#endif
+         if (!image->good())
+         {
+             image.reset();
+diff -urwEB exiv2-0.26-svn.org/src/pngimage.cpp exiv2-0.26-svn-1/src/pngimage.cpp
+--- exiv2-0.26-svn.org/src/pngimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/pngimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -69,8 +69,13 @@
+ 
+     using namespace Internal;
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    PngImage::PngImage(BasicIo::AutoPtr io, bool create)
++            : Image(ImageType::png, mdExif | mdIptc | mdXmp | mdComment, std::move(io))
++#else
+     PngImage::PngImage(BasicIo::AutoPtr io, bool create)
+             : Image(ImageType::png, mdExif | mdIptc | mdXmp | mdComment, io)
++#endif
+     {
+         if (create)
+         {
+@@ -707,7 +712,11 @@
+     // free functions
+     Image::AutoPtr newPngInstance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new PngImage(std::move(io), create));
++#else
+         Image::AutoPtr image(new PngImage(io, create));
++#endif
+         if (!image->good())
+         {
+             image.reset();
+diff -urwEB exiv2-0.26-svn.org/src/preview.cpp exiv2-0.26-svn-1/src/preview.cpp
+--- exiv2-0.26-svn.org/src/preview.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/preview.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -95,7 +95,11 @@
+         virtual ~Loader() {}
+ 
+         //! Loader auto pointer
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<Loader> AutoPtr;
++#else
+         typedef std::auto_ptr<Loader> AutoPtr;
++#endif
+ 
+         //! Create a Loader subclass for requested id
+         static AutoPtr create(PreviewId id, const Image &image);
+diff -urwEB exiv2-0.26-svn.org/src/properties.cpp exiv2-0.26-svn-1/src/properties.cpp
+--- exiv2-0.26-svn.org/src/properties.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/properties.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -47,6 +47,9 @@
+ #include <cstring>
+ #include <cstdlib>
+ #include <cctype>
++#ifdef EXV_USING_CPP_ELEVEN
++#include <mutex>
++#endif
+ 
+ // *****************************************************************************
+ namespace {
+@@ -2488,10 +2491,16 @@
+     }
+ 
+     XmpProperties::NsRegistry XmpProperties::nsRegistry_;
++#ifdef EXV_USING_CPP_ELEVEN
++    std::mutex XmpProperties::mutex_;
++#endif
+     Internal::RWLock XmpProperties::rwLock_;
+ 
+     const XmpNsInfo* XmpProperties::lookupNsRegistry(const XmpNsInfo::Prefix& prefix)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        std::lock_guard<std::mutex> guard(mutex_);
++#endif
+         Internal::ScopedReadLock srl(rwLock_);
+         return lookupNsRegistryUnsafe(prefix);
+     }
+@@ -2515,6 +2524,9 @@
+             && ns2.substr(ns2.size() - 1, 1) != "#") ns2 += "/";
+         // Check if there is already a registered namespace with this prefix
+         const XmpNsInfo* xnp = lookupNsRegistryUnsafe(XmpNsInfo::Prefix(prefix));
++#ifdef EXV_USING_CPP_ELEVEN
++        std::lock_guard<std::mutex> guard(mutex_);
++#endif
+         if (xnp) {
+ #ifndef SUPPRESS_WARNINGS
+             if (strcmp(xnp->ns_, ns2.c_str()) != 0) {
+diff -urwEB exiv2-0.26-svn.org/src/psdimage.cpp exiv2-0.26-svn-1/src/psdimage.cpp
+--- exiv2-0.26-svn.org/src/psdimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/psdimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -125,8 +125,13 @@
+ // class member definitions
+ namespace Exiv2 {
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    PsdImage::PsdImage(BasicIo::AutoPtr io)
++        : Image(ImageType::psd, mdExif | mdIptc | mdXmp, std::move(io))
++#else
+     PsdImage::PsdImage(BasicIo::AutoPtr io)
+         : Image(ImageType::psd, mdExif | mdIptc | mdXmp, io)
++#endif
+     {
+     } // PsdImage::PsdImage
+ 
+@@ -683,7 +688,11 @@
+     // free functions
+     Image::AutoPtr newPsdInstance(BasicIo::AutoPtr io, bool /*create*/)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new PsdImage(std::move(io)));
++#else
+         Image::AutoPtr image(new PsdImage(io));
++#endif
+         if (!image->good())
+         {
+             image.reset();
+diff -urwEB exiv2-0.26-svn.org/src/quicktimevideo.cpp exiv2-0.26-svn-1/src/quicktimevideo.cpp
+--- exiv2-0.26-svn.org/src/quicktimevideo.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/quicktimevideo.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -611,9 +611,15 @@
+ 
+     using namespace Exiv2::Internal;
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    QuickTimeVideo::QuickTimeVideo(BasicIo::AutoPtr io)
++            : Image(ImageType::qtime, mdNone, std::move(io))
++            , timeScale_(1)
++#else
+     QuickTimeVideo::QuickTimeVideo(BasicIo::AutoPtr io)
+             : Image(ImageType::qtime, mdNone, io)
+             , timeScale_(1)
++#endif
+     {
+     } // QuickTimeVideo::QuickTimeVideo
+ 
+@@ -1632,7 +1638,11 @@
+ 
+ 
+     Image::AutoPtr newQTimeInstance(BasicIo::AutoPtr io, bool /*create*/) {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new QuickTimeVideo(std::move(io)));
++#else
+         Image::AutoPtr image(new QuickTimeVideo(io));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/src/rafimage.cpp exiv2-0.26-svn-1/src/rafimage.cpp
+--- exiv2-0.26-svn.org/src/rafimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/rafimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -49,8 +49,13 @@
+ // class member definitions
+ namespace Exiv2 {
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    RafImage::RafImage(BasicIo::AutoPtr io, bool /*create*/)
++        : Image(ImageType::raf, mdExif | mdIptc | mdXmp, std::move(io))
++#else
+     RafImage::RafImage(BasicIo::AutoPtr io, bool /*create*/)
+         : Image(ImageType::raf, mdExif | mdIptc | mdXmp, io)
++#endif
+     {
+     } // RafImage::RafImage
+ 
+@@ -135,7 +140,11 @@
+     // free functions
+     Image::AutoPtr newRafInstance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new RafImage(std::move(io), create));
++#else
+         Image::AutoPtr image(new RafImage(io, create));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/src/riffvideo.cpp exiv2-0.26-svn-1/src/riffvideo.cpp
+--- exiv2-0.26-svn.org/src/riffvideo.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/riffvideo.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -506,8 +506,13 @@
+ namespace Exiv2 {
+     using namespace Exiv2::Internal;
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    RiffVideo::RiffVideo(BasicIo::AutoPtr io)
++            : Image(ImageType::riff, mdNone, std::move(io))
++#else
+     RiffVideo::RiffVideo(BasicIo::AutoPtr io)
+             : Image(ImageType::riff, mdNone, io)
++#endif
+     {
+     } // RiffVideo::RiffVideo
+ 
+@@ -1228,7 +1233,11 @@
+ 
+     Image::AutoPtr newRiffInstance(BasicIo::AutoPtr io, bool /*create*/)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new RiffVideo(std::move(io)));
++#else
+         Image::AutoPtr image(new RiffVideo(io));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/src/rw2image.cpp exiv2-0.26-svn-1/src/rw2image.cpp
+--- exiv2-0.26-svn.org/src/rw2image.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/rw2image.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -52,8 +52,13 @@
+ 
+     using namespace Internal;
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    Rw2Image::Rw2Image(BasicIo::AutoPtr io)
++        : Image(ImageType::rw2, mdExif | mdIptc | mdXmp, std::move(io))
++#else
+     Rw2Image::Rw2Image(BasicIo::AutoPtr io)
+         : Image(ImageType::rw2, mdExif | mdIptc | mdXmp, io)
++#endif
+     {
+     } // Rw2Image::Rw2Image
+ 
+@@ -236,7 +241,11 @@
+     // free functions
+     Image::AutoPtr newRw2Instance(BasicIo::AutoPtr io, bool /*create*/)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new Rw2Image(std::move(io)));
++#else
+         Image::AutoPtr image(new Rw2Image(io));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/src/tgaimage.cpp exiv2-0.26-svn-1/src/tgaimage.cpp
+--- exiv2-0.26-svn.org/src/tgaimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/tgaimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -46,8 +46,13 @@
+ // class member definitions
+ namespace Exiv2 {
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    TgaImage::TgaImage(BasicIo::AutoPtr io)
++        : Image(ImageType::tga, mdNone, std::move(io))
++#else
+     TgaImage::TgaImage(BasicIo::AutoPtr io)
+         : Image(ImageType::tga, mdNone, io)
++#endif
+     {
+     } // TgaImage::TgaImage
+ 
+@@ -132,7 +137,11 @@
+     // free functions
+     Image::AutoPtr newTgaInstance(BasicIo::AutoPtr io, bool /*create*/)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new TgaImage(std::move(io)));
++#else
+         Image::AutoPtr image(new TgaImage(io));
++#endif
+         if (!image->good())
+         {
+             image.reset();
+diff -urwEB exiv2-0.26-svn.org/src/tiffcomposite.cpp exiv2-0.26-svn-1/src/tiffcomposite.cpp
+--- exiv2-0.26-svn.org/src/tiffcomposite.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/tiffcomposite.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -387,7 +387,11 @@
+         memset(pData_, 0x0, size_);
+         size_ = value->copy(pData_, byteOrder);
+         assert(size_ == newSize);
++#ifdef EXV_USING_CPP_ELEVEN
++        setValue(std::move(value));
++#else
+         setValue(value);
++#endif
+     } // TiffEntryBase::updateValue
+ 
+     void TiffEntryBase::setValue(Value::AutoPtr value)
+@@ -626,7 +630,11 @@
+         tp->setData(const_cast<byte*>(pData() + idx), sz);
+         tp->setElDef(def);
+         tp->setElByteOrder(cfg()->byteOrder_);
++#ifdef EXV_USING_CPP_ELEVEN
++        addChild(std::move(tc));
++#else
+         addChild(tc);
++#endif
+         return sz;
+     } // TiffBinaryArray::addElement
+ 
+@@ -635,7 +643,11 @@
+                                           TiffComponent* const pRoot,
+                                           TiffComponent::AutoPtr object)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        return doAddPath(tag, tiffPath, pRoot, std::move(object));
++#else
+         return doAddPath(tag, tiffPath, pRoot, object);
++#endif
+     } // TiffComponent::addPath
+ 
+     TiffComponent* TiffComponent::doAddPath(uint16_t  /*tag*/,
+@@ -677,7 +689,11 @@
+         if (tc == 0) {
+             TiffComponent::AutoPtr atc;
+             if (tiffPath.size() == 1 && object.get() != 0) {
++#ifdef EXV_USING_CPP_ELEVEN
++                atc = std::move(object);
++#else
+                 atc = object;
++#endif
+             }
+             else {
+                 atc = TiffCreator::create(tpi.extendedTag(), tpi.group());
+@@ -689,13 +705,25 @@
+             if (tiffPath.size() == 1 && dynamic_cast<TiffSubIfd*>(atc.get()) != 0) return 0;
+ 
+             if (tpi.extendedTag() == Tag::next) {
++#ifdef EXV_USING_CPP_ELEVEN
++                tc = this->addNext(std::move(atc));
++#else
+                 tc = this->addNext(atc);
++#endif
+             }
+             else {
++#ifdef EXV_USING_CPP_ELEVEN
++                tc = this->addChild(std::move(atc));
++#else
+                 tc = this->addChild(atc);
++#endif
+             }
+         }
++#ifdef EXV_USING_CPP_ELEVEN
++        return tc->addPath(tag, tiffPath, pRoot, std::move(object));
++#else
+         return tc->addPath(tag, tiffPath, pRoot, object);
++#endif
+     } // TiffDirectory::doAddPath
+ 
+     TiffComponent* TiffSubIfd::doAddPath(uint16_t tag,
+@@ -722,15 +750,27 @@
+         }
+         if (tc == 0) {
+             if (tiffPath.size() == 1 && object.get() != 0) {
++#ifdef EXV_USING_CPP_ELEVEN
++                tc = addChild(std::move(object));
++#else
+                 tc = addChild(object);
++#endif
+             }
+             else {
+                 TiffComponent::AutoPtr atc(new TiffDirectory(tpi1.tag(), tpi2.group()));
++#ifdef EXV_USING_CPP_ELEVEN
++                tc = addChild(std::move(atc));
++#else
+                 tc = addChild(atc);
++#endif
+             }
+             setCount(static_cast<uint32_t>(ifds_.size()));
+         }
++#ifdef EXV_USING_CPP_ELEVEN
++        return tc->addPath(tag, tiffPath, pRoot, std::move(object));
++#else
+         return tc->addPath(tag, tiffPath, pRoot, object);
++#endif
+     } // TiffSubIfd::doAddPath
+ 
+     TiffComponent* TiffMnEntry::doAddPath(uint16_t tag,
+@@ -752,7 +792,11 @@
+             mn_ = TiffMnCreator::create(tpi1.tag(), tpi1.group(), mnGroup_);
+             assert(mn_);
+         }
++#ifdef EXV_USING_CPP_ELEVEN
++        return mn_->addPath(tag, tiffPath, pRoot, std::move(object));
++#else
+         return mn_->addPath(tag, tiffPath, pRoot, object);
++#endif
+     } // TiffMnEntry::doAddPath
+ 
+     TiffComponent* TiffIfdMakernote::doAddPath(uint16_t tag,
+@@ -760,7 +804,11 @@
+                                                TiffComponent* const pRoot,
+                                                TiffComponent::AutoPtr object)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        return ifd_.addPath(tag, tiffPath, pRoot, std::move(object));
++#else
+         return ifd_.addPath(tag, tiffPath, pRoot, object);
++#endif
+     }
+ 
+     TiffComponent* TiffBinaryArray::doAddPath(uint16_t tag,
+@@ -792,22 +840,38 @@
+         if (tc == 0) {
+             TiffComponent::AutoPtr atc;
+             if (tiffPath.size() == 1 && object.get() != 0) {
++#ifdef EXV_USING_CPP_ELEVEN
++                atc = std::move(object);
++#else
+                 atc = object;
++#endif
+             }
+             else {
+                 atc = TiffCreator::create(tpi.extendedTag(), tpi.group());
+             }
+             assert(atc.get() != 0);
+             assert(tpi.extendedTag() != Tag::next);
++#ifdef EXV_USING_CPP_ELEVEN
++            tc = addChild(std::move(atc));
++#else
+             tc = addChild(atc);
++#endif
+             setCount(static_cast<uint32_t>(elements_.size()));
+         }
++#ifdef EXV_USING_CPP_ELEVEN
++        return tc->addPath(tag, tiffPath, pRoot, std::move(object));
++#else
+         return tc->addPath(tag, tiffPath, pRoot, object);
++#endif
+     } // TiffBinaryArray::doAddPath
+ 
+     TiffComponent* TiffComponent::addChild(TiffComponent::AutoPtr tiffComponent)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        return doAddChild(std::move(tiffComponent));
++#else
+         return doAddChild(tiffComponent);
++#endif
+     } // TiffComponent::addChild
+ 
+     TiffComponent* TiffComponent::doAddChild(AutoPtr /*tiffComponent*/)
+@@ -834,14 +898,22 @@
+     {
+         TiffComponent* tc = 0;
+         if (mn_) {
++#ifdef EXV_USING_CPP_ELEVEN
++            tc =  mn_->addChild(std::move(tiffComponent));
++#else
+             tc =  mn_->addChild(tiffComponent);
++#endif
+         }
+         return tc;
+     } // TiffMnEntry::doAddChild
+ 
+     TiffComponent* TiffIfdMakernote::doAddChild(TiffComponent::AutoPtr tiffComponent)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        return ifd_.addChild(std::move(tiffComponent));
++#else
+         return ifd_.addChild(tiffComponent);
++#endif
+     }
+ 
+     TiffComponent* TiffBinaryArray::doAddChild(TiffComponent::AutoPtr tiffComponent)
+@@ -854,7 +926,11 @@
+ 
+     TiffComponent* TiffComponent::addNext(TiffComponent::AutoPtr tiffComponent)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        return doAddNext(std::move(tiffComponent));
++#else
+         return doAddNext(tiffComponent);
++#endif
+     } // TiffComponent::addNext
+ 
+     TiffComponent* TiffComponent::doAddNext(AutoPtr /*tiffComponent*/)
+@@ -876,14 +952,22 @@
+     {
+         TiffComponent* tc = 0;
+         if (mn_) {
++#ifdef EXV_USING_CPP_ELEVEN
++            tc = mn_->addNext(std::move(tiffComponent));
++#else
+             tc = mn_->addNext(tiffComponent);
++#endif
+         }
+         return tc;
+     } // TiffMnEntry::doAddNext
+ 
+     TiffComponent* TiffIfdMakernote::doAddNext(TiffComponent::AutoPtr tiffComponent)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        return ifd_.addNext(std::move(tiffComponent));
++#else
+         return ifd_.addNext(tiffComponent);
++#endif
+     }
+ 
+     void TiffComponent::accept(TiffVisitor& visitor)
+diff -urwEB exiv2-0.26-svn.org/src/tiffcomposite_int.hpp exiv2-0.26-svn-1/src/tiffcomposite_int.hpp
+--- exiv2-0.26-svn.org/src/tiffcomposite_int.hpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/tiffcomposite_int.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -176,7 +176,11 @@
+     class TiffComponent {
+     public:
+         //! TiffComponent auto_ptr type
++#ifdef EXV_USING_CPP_ELEVEN
++        typedef std::unique_ptr<TiffComponent> AutoPtr;
++#else
+         typedef std::auto_ptr<TiffComponent> AutoPtr;
++#endif
+         //! Container type to hold all metadata
+         typedef std::vector<TiffComponent*> Components;
+ 
+@@ -202,10 +206,17 @@
+ 
+           @return A pointer to the newly added TIFF entry.
+          */
++#ifdef EXV_USING_CPP_ELEVEN
++        TiffComponent* addPath(uint16_t tag,
++                               TiffPath& tiffPath,
++                               TiffComponent* const pRoot,
++                               AutoPtr object = AutoPtr(nullptr));
++#else
+         TiffComponent* addPath(uint16_t tag,
+                                TiffPath& tiffPath,
+                                TiffComponent* const pRoot,
+                                AutoPtr object =AutoPtr(0));
++#endif
+         /*!
+           @brief Add a child to the component. Default is to do nothing.
+           @param tiffComponent Auto pointer to the component to add.
+diff -urwEB exiv2-0.26-svn.org/src/tifffwd_int.hpp exiv2-0.26-svn-1/src/tifffwd_int.hpp
+--- exiv2-0.26-svn.org/src/tifffwd_int.hpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/tifffwd_int.hpp	2017-01-13 12:42:37.000000000 -0500
+@@ -107,7 +107,11 @@
+              Use TiffComponent::AutoPtr, it is not used in this declaration only
+              to reduce dependencies.
+      */
++#ifdef EXV_USING_CPP_ELEVEN
++    typedef std::unique_ptr<TiffComponent> (*NewTiffCompFct)(uint16_t tag, IfdId group);
++#else
+     typedef std::auto_ptr<TiffComponent> (*NewTiffCompFct)(uint16_t tag, IfdId group);
++#endif
+ 
+     //! Stack to hold a path from the TIFF root element to a TIFF entry
+     typedef std::stack<TiffPathItem> TiffPath;
+diff -urwEB exiv2-0.26-svn.org/src/tiffimage.cpp exiv2-0.26-svn-1/src/tiffimage.cpp
+--- exiv2-0.26-svn.org/src/tiffimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/tiffimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -75,9 +75,15 @@
+ 
+     using namespace Internal;
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    TiffImage::TiffImage(BasicIo::AutoPtr io, bool /*create*/)
++        : Image(ImageType::tiff, mdExif | mdIptc | mdXmp, std::move(io)),
++          pixelWidth_(0), pixelHeight_(0)
++#else
+     TiffImage::TiffImage(BasicIo::AutoPtr io, bool /*create*/)
+         : Image(ImageType::tiff, mdExif | mdIptc | mdXmp, io),
+           pixelWidth_(0), pixelHeight_(0)
++#endif
+     {
+     } // TiffImage::TiffImage
+ 
+@@ -293,7 +299,11 @@
+                      ed.end());
+         }
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++        std::unique_ptr<TiffHeaderBase> header(new TiffHeader(byteOrder));
++#else
+         std::auto_ptr<TiffHeaderBase> header(new TiffHeader(byteOrder));
++#endif
+         return TiffParserWorker::encode(io,
+                                         pData,
+                                         size,
+@@ -310,7 +320,11 @@
+     // free functions
+     Image::AutoPtr newTiffInstance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new TiffImage(std::move(io), create));
++#else
+         Image::AutoPtr image(new TiffImage(io, create));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+@@ -1841,7 +1855,11 @@
+     TiffComponent::AutoPtr TiffCreator::create(uint32_t extendedTag,
+                                                IfdId    group)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        TiffComponent::AutoPtr tc(nullptr);
++#else
+         TiffComponent::AutoPtr tc(0);
++#endif
+         uint16_t tag = static_cast<uint16_t>(extendedTag & 0xffff);
+         const TiffGroupStruct* ts = find(tiffGroupStruct_,
+                                          TiffGroupStruct::Key(extendedTag, group));
+@@ -1892,9 +1910,17 @@
+     )
+     {
+         // Create standard TIFF header if necessary
++#ifdef EXV_USING_CPP_ELEVEN
++        std::unique_ptr<TiffHeaderBase> ph;
++#else
+         std::auto_ptr<TiffHeaderBase> ph;
++#endif
+         if (!pHeader) {
++#ifdef EXV_USING_CPP_ELEVEN
++            ph = std::unique_ptr<TiffHeaderBase>(new TiffHeader);
++#else
+             ph = std::auto_ptr<TiffHeaderBase>(new TiffHeader);
++#endif
+             pHeader = ph.get();
+         }
+         TiffComponent::AutoPtr rootDir = parse(pData, size, root, pHeader);
+@@ -1999,7 +2025,11 @@
+               TiffHeaderBase*    pHeader
+     )
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        if (pData == 0 || size == 0) return TiffComponent::AutoPtr(nullptr);
++#else
+         if (pData == 0 || size == 0) return TiffComponent::AutoPtr(0);
++#endif
+         if (!pHeader->read(pData, size) || pHeader->offset() >= size) {
+             throw Error(3, "TIFF");
+         }
+diff -urwEB exiv2-0.26-svn.org/src/tiffimage_int.hpp exiv2-0.26-svn-1/src/tiffimage_int.hpp
+--- exiv2-0.26-svn.org/src/tiffimage_int.hpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/tiffimage_int.hpp	2017-01-13 13:13:35.000000000 -0500
+@@ -258,8 +258,13 @@
+                  component creation function. If the pointer that is returned
+                  is 0, then the TIFF entry should be ignored.
+         */
++#ifdef EXV_USING_CPP_ELEVEN
++        static std::unique_ptr<TiffComponent> create(uint32_t extendedTag,
++                                                   IfdId    group);
++#else
+         static std::auto_ptr<TiffComponent> create(uint32_t extendedTag,
+                                                    IfdId    group);
++#endif
+         /*!
+           @brief Get the path, i.e., a list of extended tag and group pairs, from
+                  the \em root TIFF element to the TIFF entry \em extendedTag and
+@@ -351,12 +356,21 @@
+                            composite structure. If \em pData is 0 or \em size
+                            is 0, the return value is a 0 pointer.
+          */
++#ifdef EXV_USING_CPP_ELEVEN
++        static std::unique_ptr<TiffComponent> parse(
++            const byte*              pData,
++                  uint32_t           size,
++                  uint32_t           root,
++                  TiffHeaderBase*    pHeader
++        );
++#else
+         static std::auto_ptr<TiffComponent> parse(
+             const byte*              pData,
+                   uint32_t           size,
+                   uint32_t           root,
+                   TiffHeaderBase*    pHeader
+         );
++#endif
+         /*!
+           @brief Find primary groups in the source tree provided and populate
+                  the list of primary groups.
+diff -urwEB exiv2-0.26-svn.org/src/tiffvisitor.cpp exiv2-0.26-svn-1/src/tiffvisitor.cpp
+--- exiv2-0.26-svn.org/src/tiffvisitor.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/tiffvisitor.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -219,7 +219,11 @@
+             // Assumption is that the corresponding TIFF entry doesn't exist
+             TiffPath tiffPath;
+             TiffCreator::getPath(tiffPath, object->tag(), object->group(), root_);
++#ifdef EXV_USING_CPP_ELEVEN
++            pRoot_->addPath(object->tag(), tiffPath, pRoot_, std::move(clone));
++#else
+             pRoot_->addPath(object->tag(), tiffPath, pRoot_, clone);
++#endif
+ #ifdef DEBUG
+             ExifKey key(object->tag(), groupName(object->group()));
+             std::cerr << "Copied " << key << "\n";
+@@ -1298,7 +1302,11 @@
+             // the TIFF structure table
+             assert(tc.get());
+             tc->setStart(p);
++#ifdef EXV_USING_CPP_ELEVEN
++            object->addChild(std::move(tc));
++#else
+             object->addChild(tc);
++#endif
+             p += 12;
+         }
+ 
+@@ -1310,7 +1318,11 @@
+ #endif
+                 return;
+             }
++#ifdef EXV_USING_CPP_ELEVEN
++            TiffComponent::AutoPtr tc(nullptr);
++#else
+             TiffComponent::AutoPtr tc(0);
++#endif
+             uint32_t next = getLong(p, byteOrder());
+             if (next) {
+                 tc = TiffCreator::create(Tag::next, object->group());
+@@ -1330,7 +1342,11 @@
+                     return;
+                 }
+                 tc->setStart(pData_ + baseOffset() + next);
++#ifdef EXV_USING_CPP_ELEVEN
++                object->addNext(std::move(tc));
++#else
+                 object->addNext(tc);
++#endif
+             }
+         } // object->hasNext()
+ 
+@@ -1372,7 +1388,11 @@
+                 TiffComponent::AutoPtr td(new TiffDirectory(object->tag(),
+                                                             static_cast<IfdId>(object->newGroup_ + i)));
+                 td->setStart(pData_ + baseOffset() + offset);
++#ifdef EXV_USING_CPP_ELEVEN
++                object->addChild(std::move(td));
++#else
+                 object->addChild(td);
++#endif
+             }
+         }
+ #ifndef SUPPRESS_WARNINGS
+@@ -1549,7 +1569,11 @@
+         	::free(buffer);
+         }
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++        object->setValue(std::move(v));
++#else
+         object->setValue(v);
++#endif
+         object->setData(pData, size);
+         object->setOffset(offset);
+         object->setIdx(nextIdx(object->group()));
+@@ -1648,7 +1672,11 @@
+         assert(v.get());
+         v->read(pData, size, bo);
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++        object->setValue(std::move(v));
++#else
+         object->setValue(v);
++#endif
+         object->setOffset(0);
+         object->setIdx(nextIdx(object->group()));
+ 
+diff -urwEB exiv2-0.26-svn.org/src/webpimage.cpp exiv2-0.26-svn-1/src/webpimage.cpp
+--- exiv2-0.26-svn.org/src/webpimage.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/webpimage.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -65,8 +65,13 @@
+ namespace Exiv2 {
+     using namespace Exiv2::Internal;
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    WebPImage::WebPImage(BasicIo::AutoPtr io)
++    : Image(ImageType::webp, mdNone, std::move(io))
++#else
+     WebPImage::WebPImage(BasicIo::AutoPtr io)
+     : Image(ImageType::webp, mdNone, io)
++#endif
+     {
+     } // WebPImage::WebPImage
+ 
+@@ -686,7 +691,11 @@
+ 
+     Image::AutoPtr newWebPInstance(BasicIo::AutoPtr io, bool /*create*/)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new WebPImage(std::move(io)));
++#else
+         Image::AutoPtr image(new WebPImage(io));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/src/xmp.cpp exiv2-0.26-svn-1/src/xmp.cpp
+--- exiv2-0.26-svn.org/src/xmp.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/xmp.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -261,7 +261,11 @@
+ 
+     Value::AutoPtr Xmpdatum::getValue() const
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        return p_->value_.get() == 0 ? Value::AutoPtr(nullptr) : p_->value_->clone();
++#else
+         return p_->value_.get() == 0 ? Value::AutoPtr(0) : p_->value_->clone();
++#endif
+     }
+ 
+     const Value& Xmpdatum::value() const
+diff -urwEB exiv2-0.26-svn.org/src/xmpsidecar.cpp exiv2-0.26-svn-1/src/xmpsidecar.cpp
+--- exiv2-0.26-svn.org/src/xmpsidecar.cpp	2017-01-10 15:04:12.000000000 -0500
++++ exiv2-0.26-svn-1/src/xmpsidecar.cpp	2017-01-13 12:42:37.000000000 -0500
+@@ -56,8 +56,13 @@
+ namespace Exiv2 {
+ 
+ 
++#ifdef EXV_USING_CPP_ELEVEN
++    XmpSidecar::XmpSidecar(BasicIo::AutoPtr io, bool create)
++        : Image(ImageType::xmp, mdXmp, std::move(io))
++#else
+     XmpSidecar::XmpSidecar(BasicIo::AutoPtr io, bool create)
+         : Image(ImageType::xmp, mdXmp, io)
++#endif
+     {
+         if (create) {
+             if (io_->open() == 0) {
+@@ -175,7 +180,11 @@
+     // free functions
+     Image::AutoPtr newXmpInstance(BasicIo::AutoPtr io, bool create)
+     {
++#ifdef EXV_USING_CPP_ELEVEN
++        Image::AutoPtr image(new XmpSidecar(std::move(io), create));
++#else
+         Image::AutoPtr image(new XmpSidecar(io, create));
++#endif
+         if (!image->good()) {
+             image.reset();
+         }
+diff -urwEB exiv2-0.26-svn.org/test/Makefile exiv2-0.26-svn-1/test/Makefile
+--- exiv2-0.26-svn.org/test/Makefile	2017-01-10 15:05:45.000000000 -0500
++++ exiv2-0.26-svn-1/test/Makefile	2017-01-13 12:42:37.000000000 -0500
+@@ -74,6 +74,7 @@
+          iptctest.sh          \
+          iso65k-test.sh       \
+          modify-test.sh       \
++         mt-test.sh           \
+          path-test.sh         \
+          preview-test.sh      \
+          stdin-test.sh        \
+diff -urwEBN exiv2-0.26-svn.org/test/mt-test.sh exiv2-0.26-svn-1/test/mt-test.sh
+--- exiv2-0.26-svn.org/test/mt-test.sh	1969-12-31 19:00:00.000000000 -0500
++++ exiv2-0.26-svn-1/test/mt-test.sh	2017-01-11 13:39:16.000000000 -0500
+@@ -0,0 +1,65 @@
++#! /usr/bin/env bash
++
++# Test multithreading
++
++source ./functions.source
++
++(   cd "$testdir"
++
++    failed=0
++    result="80"
++    images=" ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff \
++             ReaganLargeTiff.tiff "
++
++    if [ $(existsTest mt-test) == 1 ] ; then
++        # Generate results
++        runTest mt-test $images > mt-test.txt
++
++        # Test results
++        data_array=($(cat mt-test.txt | { while read a b c d e f; do echo $f; done }))
++        total=${#data_array[@]}
++
++        if [ $total -lt 20 ]; then
++            echo "ERROR: Multi-thread invalid count "
++            failed=1
++        fi
++
++        if [ $failed -eq 0 ]; then
++            for i in ${data_array[@]};
++            do 
++                if [ "${i[0]}" != "$result" ]; then
++                    echo "ERROR: Multi-thread invalid result "
++                    failed=1
++                fi
++            done
++        fi
++
++        if [ $failed -eq 0 ]; then
++            echo "all testcases passed."
++        fi
++    else
++        echo "$0: mt-test executable not found. Skipping multithreading tests."
++    fi
++)
++
++# That's all folks
++##
++

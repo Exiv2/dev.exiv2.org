@@ -1,0 +1,117 @@
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(revision 3364)
++++ CMakeLists.txt	(working copy)
+@@ -154,6 +154,17 @@
+     ADD_DEFINITIONS( -DEXV_HAVE_STDINT_H )
+ ENDIF( ${EXV_HAVE_STDINT_H} )
+ 
++FIND_PACKAGE(Subversion QUIET)
++SET(SVN_REVISION "0")
++IF(SUBVERSION_FOUND)
++    IF(EXISTS "${CMAKE_SOURCE_DIR}/.svn")
++        Subversion_WC_INFO(${PROJECT_SOURCE_DIR} svnExiv2)
++        SET(SVN_REVISION "${svnExiv2_WC_REVISION}")
++    ENDIF()
++ENDIF()
++MESSAGE(STATUS  "SVN version:  ${SVN_REVISION}")
++
++
+ ADD_SUBDIRECTORY( xmpsdk )
+ ADD_SUBDIRECTORY( src )
+ 
+@@ -165,23 +176,6 @@
+     ADD_SUBDIRECTORY( po )
+ ENDIF( EXIV2_ENABLE_BUILD_PO )
+ 
+-IF( NOT MSVC )
+-  # Issue #722: out of source builds compiled against standard include files such as /usr/local/lib/include/exiv2
+-  # do not use CREATE_SYMLINK or CMAKE_CAN_SYMLINK as they don't work on CYGWIN
+-  EXECUTE_PROCESS( WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}           COMMAND ln -sf ${CMAKE_CURRENT_SOURCE_DIR}/src exiv2)
+-  
+-  IF( EXIV2_ENABLE_BUILD_SAMPLES )
+-    EXECUTE_PROCESS( WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/samples COMMAND ln -sf ${CMAKE_CURRENT_SOURCE_DIR}/src exiv2)
+-  ENDIF( EXIV2_ENABLE_BUILD_SAMPLES )
+-
+-  IF( EXIV2_ENABLE_BUILD_PO )
+-    EXECUTE_PROCESS( WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/po      COMMAND ln -sf ${CMAKE_CURRENT_SOURCE_DIR}/src exiv2)
+-  ENDIF( EXIV2_ENABLE_BUILD_PO )
+-  
+-  MESSAGE(STATUS         "generating ${CMAKE_CURRENT_SOURCE_DIR}/src/svn_version.h")
+-  EXECUTE_PROCESS( WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src       COMMAND ./svn_version.sh)
+-ENDIF()
+-
+ ##
+ # tests
+ ADD_CUSTOM_TARGET(tests COMMAND make test  "EXIV2_BINDIR=${CMAKE_BINARY_DIR}/bin"  WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/test/" )
+Index: src/CMakeLists.txt
+===================================================================
+--- src/CMakeLists.txt	(revision 3364)
++++ src/CMakeLists.txt	(working copy)
+@@ -148,12 +148,19 @@
+     ENDIF( ZLIB_FOUND )
+ ENDIF( EXIV2_ENABLE_PNG )
+ 
+-IF( NOT MSVC )
+-    SET( LIBEXIV2_HDR     ${LIBEXIV2_HDR}
+-                          svn_version.h
+-    )
++CONFIGURE_FILE( ${CMAKE_CURRENT_SOURCE_DIR}/svn_version.h.in
++                ${CMAKE_CURRENT_BINARY_DIR}/svn_version.h @ONLY)
++
++INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
++
++IF( MSVC ) # to support the old VS solution builds
++    ADD_DEFINITIONS("-DCMAKE_BUILD_SVN")
+ ENDIF()
+ 
++SET( LIBEXIV2_HDR     ${LIBEXIV2_HDR}
++                      svn_version.h
++)
++
+ ##
+ # add xmp source if xmp is requested and xmp library not built
+ IF( EXIV2_ENABLE_XMP )
+Index: src/svn_version.h.in
+===================================================================
+--- src/svn_version.h.in	(revision 0)
++++ src/svn_version.h.in	(revision 0)
+@@ -0,0 +1 @@
++#define SVN_VERSION @SVN_REVISION@
+\ No newline at end of file
+Index: src/svn_version.sh
+===================================================================
+--- src/svn_version.sh	(revision 3364)
++++ src/svn_version.sh	(working copy)
+@@ -1,18 +0,0 @@
+-#!/bin/bash
+-
+-## 
+-# update svn_version.h when the revision has changed
+-svn_version=$(svn info .. 2>/dev/null | grep ^Revision | cut -f 2 -d' ')
+-if [ -z "$svn_version" ]; then svn_version=0 ; fi
+-if [ -e svn_version.h ]; then
+-	old=$(cut -f 3 -d' ' svn_version.h)
+-	if [ "$old" != "$svn_version" ]; then
+-		rm -rf svn_version.h
+-	fi
+-fi
+-if [ ! -e svn_version.h ]; then
+-	echo "#define SVN_VERSION $svn_version" > svn_version.h
+-fi
+-
+-# That's all Folks!
+-##
+Index: src/version.hpp
+===================================================================
+--- src/version.hpp	(revision 3364)
++++ src/version.hpp	(working copy)
+@@ -38,7 +38,7 @@
+ #include <string>
+ 
+ // svn version has not been implemented yet for DevStudio
+-#if     defined(_MSC_VER)
++#if     defined(_MSC_VER) && !defined(CMAKE_BUILD_SVN)
+ #define SVN_VERSION 0
+ #else
+ #include "svn_version.h"

@@ -1,0 +1,134 @@
+Index: canonmn.cpp
+===================================================================
+--- canonmn.cpp	(revision 3022)
++++ canonmn.cpp	(working copy)
+@@ -60,7 +60,7 @@
+     };
+ 
+     //! Special treatment pretty-print function for non-unique lens ids.
+-    std::ostream& printCsLensByFocalLength(std::ostream& os,
++    std::ostream& printCsLensByFocalLengthAndMaxAperture(std::ostream& os,
+                                            const Value& value,
+                                            const ExifData* metadata);
+ 
+@@ -576,7 +576,7 @@
+         { 154, "Canon EF 20mm f/2.8 USM"                                    },
+         { 155, "Canon EF 85mm f/1.8 USM"                                    },
+         { 156, "Canon EF 28-105mm f/3.5-4.5 USM or Tamron Lens"             }, // 0
+-        { 156, "Tamron SP AF 70-300mm F4-5.6 Di VC USD"                     }, // 1
++        { 156, "Tamron SP AF 70-300mm f/4-5.6 Di VC USD"                     }, // 1
+         { 160, "Canon EF 20-35mm f/3.5-4.5 USM or Tamron or Tokina Lens"    }, // 0
+         { 160, "Tamron AF 19-35mm f/3.5-4.5"                                }, // 1
+         { 160, "Tokina AT-X 124 AF 12-24mm f/4 DX"                          }, // 2
+@@ -709,30 +709,30 @@
+     //! List of lens ids which require special treatment with the medicine
+     const LensIdFct lensIdFct[] = {
+         {   4, 0                        }, // no known medicine
+-        {   6, printCsLensByFocalLength },
+-        {   8, printCsLensByFocalLength },
+-        {   9, printCsLensByFocalLength },
+-        {  10, printCsLensByFocalLength }, // works partly
+-        {  22, printCsLensByFocalLength },
+-        {  26, printCsLensByFocalLength }, // works partly
+-        {  28, printCsLensByFocalLength },
+-        {  31, printCsLensByFocalLength },
+-        {  32, printCsLensByFocalLength },
+-        {  33, printCsLensByFocalLength }, // not tested
+-        {  37, printCsLensByFocalLength },
+-        {  42, printCsLensByFocalLength },
+-        { 131, printCsLensByFocalLength },
+-        { 137, printCsLensByFocalLength }, // not tested
+-        { 150, printCsLensByFocalLength },
+-        { 152, printCsLensByFocalLength },
+-        { 153, printCsLensByFocalLength },
+-        { 156, printCsLensByFocalLength },
+-        { 160, printCsLensByFocalLength },
+-        { 161, printCsLensByFocalLength },
+-        { 169, printCsLensByFocalLength },
+-        { 173, printCsLensByFocalLength }, // works partly
+-        { 174, printCsLensByFocalLength }, // not tested
+-        { 183, printCsLensByFocalLength }  // not tested
++        {   6, printCsLensByFocalLengthAndMaxAperture },
++        {   8, printCsLensByFocalLengthAndMaxAperture },
++        {   9, printCsLensByFocalLengthAndMaxAperture },
++        {  10, printCsLensByFocalLengthAndMaxAperture }, // works partly
++        {  22, printCsLensByFocalLengthAndMaxAperture },
++        {  26, printCsLensByFocalLengthAndMaxAperture }, // works partly
++        {  28, printCsLensByFocalLengthAndMaxAperture },
++        {  31, printCsLensByFocalLengthAndMaxAperture },
++        {  32, printCsLensByFocalLengthAndMaxAperture },
++        {  33, printCsLensByFocalLengthAndMaxAperture }, // not tested
++        {  37, printCsLensByFocalLengthAndMaxAperture },
++        {  42, printCsLensByFocalLengthAndMaxAperture },
++        { 131, printCsLensByFocalLengthAndMaxAperture },
++        { 137, printCsLensByFocalLengthAndMaxAperture }, // not tested
++        { 150, printCsLensByFocalLengthAndMaxAperture },
++        { 152, printCsLensByFocalLengthAndMaxAperture },
++        { 153, printCsLensByFocalLengthAndMaxAperture },
++        { 156, printCsLensByFocalLengthAndMaxAperture },
++        { 160, printCsLensByFocalLengthAndMaxAperture },
++        { 161, printCsLensByFocalLengthAndMaxAperture },
++        { 169, printCsLensByFocalLengthAndMaxAperture },
++        { 173, printCsLensByFocalLengthAndMaxAperture }, // works partly
++        { 174, printCsLensByFocalLengthAndMaxAperture }, // not tested
++        { 183, printCsLensByFocalLengthAndMaxAperture }  // not tested
+     };
+ 
+     //! FlashActivity, tag 0x001c
+@@ -1298,25 +1298,27 @@
+     }
+ 
+     //! Helper structure
+-    struct LensTypeAndFocalLength {
++    struct LensTypeAndFocalLengthAndMaxAperture {
+         long        lensType_;                  //!< Lens type
+         std::string focalLength_;               //!< Focal length
++        std::string maxAperture_;               //!< Aperture
+     };
+ 
+     //! Compare tag details with a lens entry
+-    bool operator==(const TagDetails& td, const LensTypeAndFocalLength& ltfl) {
++    bool operator==(const TagDetails& td, const LensTypeAndFocalLengthAndMaxAperture& ltfl) {
+         return (   td.val_ == ltfl.lensType_
+-                && std::string(td.label_).find(ltfl.focalLength_) != std::string::npos);
++                && std::string(td.label_).find(ltfl.focalLength_) != std::string::npos
++                && std::string(td.label_).find(ltfl.maxAperture_) != std::string::npos);
+     }
+ 
+-    std::ostream& printCsLensByFocalLength(std::ostream& os,
++    std::ostream& printCsLensByFocalLengthAndMaxAperture(std::ostream& os,
+                                            const Value& value,
+                                            const ExifData* metadata)
+     {
+         if (   !metadata || value.typeId() != unsignedShort
+             || value.count() == 0) return os << value;
+ 
+-        LensTypeAndFocalLength ltfl;
++        LensTypeAndFocalLengthAndMaxAperture ltfl;
+         ltfl.lensType_ = value.toLong();
+ 
+         ExifKey key("Exif.CanonCs.Lens");
+@@ -1340,6 +1342,23 @@
+         }
+         if (ltfl.focalLength_.empty()) return os << value;
+ 
++        ExifKey key2("Exif.CanonCs.MaxAperture");
++        pos = metadata->findKey(key2);
++        if (   pos != metadata->end()
++            && pos->value().count() == 1
++            && pos->value().typeId() == unsignedShort) {
++
++            long val = static_cast<int16_t>(pos->value().toLong(0));
++            if (val > 0)
++            {
++                std::ostringstream oss;
++                oss << std::setprecision(2);
++                oss << fnumber(canonEv(val));
++                ltfl.maxAperture_ = oss.str();
++            }
++        }
++        if (ltfl.maxAperture_.empty()) return os << value;
++
+         const TagDetails* td = find(canonCsLensType, ltfl);
+         if (!td) return os << value;
+         return os << td->label_;

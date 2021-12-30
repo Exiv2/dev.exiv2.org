@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>How to read XmpBag / XmpSeq / hierarchical structured XmpData the easy way - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="0e5fLylpzE3VYb9w24HyQgkXCUw4PA/sCwWnSxLZdfszo/TAWxMATYAFoHxkVv5xNoVdNcnfrlb2JTfDUeCSlA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>How to read XmpBag / XmpSeq / hierarchical structured XmpData the easy way</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="28 Jan 2015 07:13" href="/projects/exiv2/activity?from=2015-01-28">almost 7 years</a> ago</span></p>
+<div class="wiki">
+<p>... without manually walking through the (numbered) elements of a complex metadata object by trial and error?</p>
+
+
+	<p>How can I iterate (complex) elements of an XmpBag or XmpSeq via exiv2?I want to read following hierarchical structured data with C++. These are my first steps with C++, so excuse if I just did not understand API. However, I am wondering that all elements I get via my current iterator below are of type XmpText. I expected to either find the bag as type, but "Bag" is just contained in the value of elements. Maybe the type is not correctly set when reading metadata? Or why is done this way and how can I optimally iterate through the data like: for element in Bag, do ...</p>
+
+
+	<p>XMP data<br /><pre>
+   &lt;MP:RegionInfo rdf:parseType="Resource"&gt;
+    &lt;MPRI:Regions&gt;
+     &lt;rdf:Bag&gt;
+      &lt;rdf:li
+       MPReg:Rectangle="0.661608, 0.244310, 0.130501, 0.261002" 
+       MPReg:PersonDisplayName="Baby Tux"/&gt;
+      &lt;rdf:li
+       MPReg:Rectangle="0.205615, 0.226100, 0.130501, 0.261002" 
+       MPReg:PersonDisplayName="Baby Gnu"/&gt;
+     &lt;/rdf:Bag&gt;
+    &lt;/MPRI:Regions&gt;
+   &lt;/MP:RegionInfo&gt;
+</pre><br />simple iteration<br /><pre>
+ for (Exiv2::XmpData::iterator iterator = xmpData.begin(); iterator != xmpData.end(); iterator++) {
+  std::cout &lt;&lt; iterator-&gt;key() &lt;&lt; " -- " &lt;&lt; iterator-&gt;tagLabel() &lt;&lt; " -- " &lt;&lt; iterator-&gt;value() &lt;&lt; " (" &lt;&lt; iterator-&gt;typeName() &lt;&lt; " -- " &lt;&lt; iterator-&gt;count() &lt;&lt; ")" &lt;&lt; std::endl;
+ } 
+</pre><br />outut<br /><pre>
+Xmp.MP.RegionInfo -- RegionInfo -- type="Struct" (XmpText -- 0)
+Xmp.MP.RegionInfo/MPRI:Regions -- Regions -- type="Bag" (XmpText -- 0)
+Xmp.MP.RegionInfo/MPRI:Regions[1] -- RegionInfo/MPRI:Regions[1] -- type="Struct" (XmpText -- 0)
+Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:Rectangle -- Rectangle -- 0.661608, 0.244310, 0.130501, 0.261002 (XmpText -- 38)
+Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:PersonDisplayName -- PersonDisplayName -- Baby Tux (XmpText -- 8)
+Xmp.MP.RegionInfo/MPRI:Regions[2] -- RegionInfo/MPRI:Regions[2] -- type="Struct" (XmpText -- 0)
+Xmp.MP.RegionInfo/MPRI:Regions[2]/MPReg:Rectangle -- Rectangle -- 0.205615, 0.226100, 0.130501, 0.261002 (XmpText -- 38)
+Xmp.MP.RegionInfo/MPRI:Regions[2]/MPReg:PersonDisplayName -- PersonDisplayName -- Baby Gnu (XmpText -- 8)
+</pre></p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (5)</h3>
+  <div class="message reply" id="message-1872">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1871?r=1872#message-1872">Example image</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="28 Jan 2015 07:25" href="/projects/exiv2/activity?from=2015-01-28">almost 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>The example image above is <a href="https://raw.githubusercontent.com/bhenne/PhotoPrivateMetadataViewer/master/sample_images/BabyGnuTux-BigWLPG.jpg" class="external">BabyGnuTux-BigWLPG.jpg</a></p></div>
+  
+  </div>
+  <div class="message reply" id="message-1875">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1871?r=1875#message-1875">RE: How to read XmpBag / XmpSeq / hierarchical structured XmpData the easy way</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Jan 2015 15:35" href="/projects/exiv2/activity?from=2015-01-28">almost 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Benjamin</p>
+
+
+	<p>I'm the build/test engineer for Exiv2.  Although I have been contributing to Exiv2 for almost 7 years, I didn't write Exiv2 and I am not an expert on either metadata nor the Exiv2 APIs.</p>
+
+
+	<p>I understand however that Exiv2 iterator API is effectively a "linear-list" model and very effective for the dictionaries of key/values used in the Exif 2.x standards.  From the output you have shown, I think you can build a recursive STL data structure using our API and the result will be similar to a DOM.</p>
+
+
+	<p>For highly structured data, it may be better to extract the XMP payload and process it with a DOM/XML parser.  Here is a forum discussion about locating the metadata in an image:  <a class="external" href="http://dev.exiv2.org/boards/3/topics/1608?r=1624#message-1624">http://dev.exiv2.org/boards/3/topics/1608?r=1624#message-1624</a></p>
+
+
+	<p>Another team member may be able to provide more insight into this - however this reply, regrettably, reaches the limits of my knowledge on this topic.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1959">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1871?r=1959#message-1959">RE: How to read XmpBag / XmpSeq / hierarchical structured XmpData the easy way</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Mar 2015 16:47" href="/projects/exiv2/activity?from=2015-03-25">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Benjamin</p>
+
+
+	<p>Mikeyel has asked a question which I think it the same as yours.  And I couldn't answer his question either.  Perhaps you and Mikayel can cooperate to find a solution.  <a class="external" href="http://dev.exiv2.org/boards/3/topics/1951">http://dev.exiv2.org/boards/3/topics/1951</a></p>
+
+
+	<p>I'm willing to help you both.  However, I honestly don't know what's being discussed here.</p>
+
+
+	<p>Alan Pater asked recently about converting ACDC Category Tags into Adobe Lightroom Hierarchy Tags.  I was able to give him a little Perl script to perform the transformation outside of Exiv2.  <a class="external" href="http://dev.exiv2.org/boards/3/topics/1912">http://dev.exiv2.org/boards/3/topics/1912</a></p>
+
+
+	<p>I think that topic is a little away from your question - however perhaps it's a helpful suggestion.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1964">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1871?r=1964#message-1964">RE: How to read XmpBag / XmpSeq / hierarchical structured XmpData the easy way</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Mar 2015 13:15" href="/projects/exiv2/activity?from=2015-03-28">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I have added a new option to exiv2(.exe) -pX to extract the XMP block from an image.  With this option, you can easily extract the xml and process it with xmllint, perl, python, xslt or any external tool.  <a class="changeset" title="#922.  Added options -pS and -pX to exiv2(.exe).   Still to deal with -dI" href="/projects/exiv2/repository/exiv2/revisions/3650">r3650</a> <pre>515 rmills@rmillsmbp:~/clanmills $ exiv2 -pX ~/Downloads/BabyGnuTux-BigWLPG.jpg  | xmllint --pretty 1 --noblanks -
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.0-c060 61.134777, 2010/02/12-17:32:00        "&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#" rdf:about="" xmp:CreatorTool="Adobe Photoshop CS5 Windows" xmp:CreateDate="2012-01-04T20:32:52+01:00" xmp:ModifyDate="2012-01-04T20:34:45+01:00" xmp:MetadataDate="2012-01-04T20:34:45+01:00" dc:format="image/jpeg" photoshop:ColorMode="3" photoshop:ICCProfile="sRGB IEC61966-2.1" xmpMM:InstanceID="xmp.iid:4E9C1E280B37E111A568FF94F417581A" xmpMM:DocumentID="xmp.did:4D9C1E280B37E111A568FF94F417581A" xmpMM:OriginalDocumentID="xmp.did:4D9C1E280B37E111A568FF94F417581A"&gt;
+      &lt;xmpMM:History&gt;
+        &lt;rdf:Seq&gt;
+          &lt;rdf:li stEvt:action="created" stEvt:instanceID="xmp.iid:4D9C1E280B37E111A568FF94F417581A" stEvt:when="2012-01-04T20:32:52+01:00" stEvt:softwareAgent="Adobe Photoshop CS5 Windows"/&gt;
+          &lt;rdf:li stEvt:action="converted" stEvt:parameters="from image/png to image/jpeg"/&gt;
+          &lt;rdf:li stEvt:action="saved" stEvt:instanceID="xmp.iid:4E9C1E280B37E111A568FF94F417581A" stEvt:when="2012-01-04T20:34:45+01:00" stEvt:softwareAgent="Adobe Photoshop CS5 Windows" stEvt:changed="/"/&gt;
+        &lt;/rdf:Seq&gt;
+      &lt;/xmpMM:History&gt;
+    &lt;/rdf:Description&gt;
+    &lt;rdf:Description xmlns:MP="http://ns.microsoft.com/photo/1.2/"&gt;
+      &lt;MP:RegionInfo&gt;
+        &lt;rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+          &lt;MPRI:Regions xmlns:MPRI="http://ns.microsoft.com/photo/1.2/t/RegionInfo#"&gt;
+            &lt;rdf:Bag xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+              &lt;rdf:li&gt;
+                &lt;rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+                  &lt;MPReg:Rectangle xmlns:MPReg="http://ns.microsoft.com/photo/1.2/t/Region#"&gt;0.661608, 0.244310, 0.130501, 0.261002&lt;/MPReg:Rectangle&gt;
+                  &lt;MPReg:PersonDisplayName xmlns:MPReg="http://ns.microsoft.com/photo/1.2/t/Region#"&gt;Baby Tux&lt;/MPReg:PersonDisplayName&gt;
+                &lt;/rdf:Description&gt;
+              &lt;/rdf:li&gt;
+              &lt;rdf:li&gt;
+                &lt;rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+                  &lt;MPReg:Rectangle xmlns:MPReg="http://ns.microsoft.com/photo/1.2/t/Region#"&gt;0.205615, 0.226100, 0.130501, 0.261002&lt;/MPReg:Rectangle&gt;
+                  &lt;MPReg:PersonDisplayName xmlns:MPReg="http://ns.microsoft.com/photo/1.2/t/Region#"&gt;Baby Gnu&lt;/MPReg:PersonDisplayName&gt;
+                &lt;/rdf:Description&gt;
+              &lt;/rdf:li&gt;
+            &lt;/rdf:Bag&gt;
+          &lt;/MPRI:Regions&gt;
+        &lt;/rdf:Description&gt;
+      &lt;/MP:RegionInfo&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end='w'?&gt;
+516 rmills@rmillsmbp:~/clanmills $ </pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-1995">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1871?r=1995#message-1995">RE: How to read XmpBag / XmpSeq / hierarchical structured XmpData the easy way</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Apr 2015 09:22" href="/projects/exiv2/activity?from=2015-04-10">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Benjamin</p>
+
+
+	<p>I have overhauled exiv2json.cpp to build a deeply recursive data structure using Jzon.  You can walk the elements in C++ using the Jzon code built into libexiv2, or you can serialize and read it with your favourite JSON parser.  <a class="changeset" title="Added write support for TiffArrayEntry and TiffArrayElement, part 2." href="/projects/exiv2/repository/exiv2/revisions/1054">r1054</a>.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-5/5)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

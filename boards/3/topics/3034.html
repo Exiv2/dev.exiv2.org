@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Slow embed times - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="P3pXSNAcbyII20ExLY2APoY5700bMLlU2v0NfUaePUHdN/ynomajIl2/Xj2SWowNuau7NOrTGO4n3Z31BafaLg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Slow embed times</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4409">Scott Renton</a> <a title="09 Jan 2018 12:26" href="/projects/exiv2/activity?from=2018-01-09">almost 4 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi folks</p>
+
+
+	<p>I just wondered, does exiv2 open and close a file each time it embeds an item of data, or does it keep it open?</p>
+
+
+	<p>I am running the following in a .bat file, and it takes about 3 minutes. The 2 files in question are about 200Mb each, so obviously if it's opening and closing with each line, that's a huge amount of IO, but if it's only doing it once, we just have to take the hit. I couldn't find anything in the manual about that. If there's any other optimisation I could add to it, great. It may not need all the logging either.</p>
+
+
+	<p>Cheers<br />Scott</p>
+
+
+	<p>cd /D T: > "T:\diu\Worksheets\error\connection.txt" 2>&#38;1<br />cd "T:\diu\Worksheets\exiv2" >> "T:\diu\Worksheets\error\connection.txt" 2>>&#38;1<br />echo "directory is: "%cd% >> "T:\diu\Worksheets\error\connection.txt" 2>>&#38;1<br />exiv2 -M "set  Iptc.Application2.Headline String 5000005" "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" > "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Iptc.Application2.Copyright String Digital Image: Copyright The University of Edinburgh. Original: Copyright The University of Edinburgh. Free use." "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" >> "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.dc.creator XmpSeq Digital Imaging Unit" "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" >> "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Iptc.Application2.Caption String Collection: CRC Gallimaufry; Persons: Christie; Event: ; Place: ; Category: ; Description: " "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" >> "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Iptc.Application2.ObjectName String Title: Frankly Miserable Screenshot 6; Author: Fredericks, Frankie; Page No: p.15; Shelfmark: V.1235; Date: 1948" "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" >> "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiAdrCity XmpText Edinburgh" "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" >> "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiAdrPcode XmpText EH8 9LJ" "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" >> "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiAdrExtadr XmpText  Centre for Research Collections, The University of Edinburgh, George Square" "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" >> "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiAdrCtry XmpText UK" "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" >> "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiTelWork XmpText 0131 650 8379" "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" >> "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiEmailWork XmpText is-crc@ed.ac.uk" "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" >> "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiUrlWork XmpText <a class="external" href="http://www.lib.ed.ac.uk/resources/collections/crc/index.html">http://www.lib.ed.ac.uk/resources/collections/crc/index.html</a>" "T:\diu\Crops\5000000-5000999\Process\5000005m.tif" >> "T:\diu\Worksheets\error\5000005.txt" 2>>&#38;1<br />exiv2 -M "set  Iptc.Application2.Headline String 5000006" "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" > "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1<br />exiv2 -M "set  Iptc.Application2.Copyright String Digital Image: Copyright The University of Edinburgh. Original: Copyright The University of Edinburgh. Free use." "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" >> "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.dc.creator XmpSeq Digital Imaging Unit" "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" >> "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1<br />exiv2 -M "set  Iptc.Application2.Caption String Collection: CRC Gallimaufry; Persons: Christie; Event: ; Place: ; Category: ; Description: " "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" >> "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1<br />exiv2 -M "set  Iptc.Application2.ObjectName String Title: Frankly Miserable Screenshot 7; Author: Fredericks, Frankie; Page No: p.16; Shelfmark: V.1236; Date: 1949" "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" >> "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiAdrCity XmpText Edinburgh" "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" >> "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiAdrPcode XmpText EH8 9LJ" "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" >> "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiAdrExtadr XmpText  Centre for Research Collections, The University of Edinburgh, George Square" "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" >> "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiAdrCtry XmpText UK" "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" >> "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiTelWork XmpText 0131 650 8379" "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" >> "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiEmailWork XmpText is-crc@ed.ac.uk" "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" >> "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1<br />exiv2 -M "set  Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiUrlWork XmpText <a class="external" href="http://www.lib.ed.ac.uk/resources/collections/crc/index.html">http://www.lib.ed.ac.uk/resources/collections/crc/index.html</a>" "T:\diu\Crops\5000000-5000999\Process\5000006m.tif" >> "T:\diu\Worksheets\error\5000006.txt" 2>>&#38;1</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (6)</h3>
+  <div class="message reply" id="message-3035">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3034?r=3035#message-3035">RE: Slow embed times</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Jan 2018 13:48" href="/projects/exiv2/activity?from=2018-01-09">almost 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Scott</p>
+
+
+	<p>Happy New Year.  Long time no speak!</p>
+
+
+	<p>Here's what the exiv2(.exe) application does:</p>
+
+
+	<p>1) It parses the commands into memory<br />2) For each file<br />...a) It opens the file and reads the metadata into memory<br />.......b) For every command, it modifies the in-memory metadata<br />.......c) It writes the modified memory data to file<br />...d) It closes the file</p>
+
+
+	<p>You can execute several commands in a single invocation of exiv2.  For example:<br /><pre>
+exiv2 -M"set Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiEmailWork XmpText is-crc@ed.ac.uk" set Iptc.Application2.Copyright String Digital Image: Copyright The University of Edinburgh. Original: Copyright The University of Edinburgh. Free use." file1.tif file2.tif  
+</pre></p>
+
+
+	<p>Another approach is to use a file containing the commands and process with the -mCommandFile argument For example:<br /><pre>&gt; type commands.txt
+set Xmp.iptc.CreatorContactInfo/Iptc4xmpCore:CiEmailWork XmpText is-crc@ed.ac.uk
+set Iptc.Application2.Copyright String Digital Image: Copyright The University of Edinburgh. Original: Copyright The University of Edinburgh. Free use.
+
+&gt; exiv2 -mcommands.txt file1.tif file2.tif</pre></p>
+
+
+	<p>I also notice you're using the T: drive.  If this is a network drive, you might get better performance by copying the 200mb Tiff to a file in local storage, processing the file and copying the result back to the network drive.</p>
+
+
+	<p>And be aware that anti-virus software could be also be causing contention issues on the disk.  It would be best to process the data on a local drive on which the anti-virus software is not active.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3036">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3034?r=3036#message-3036">RE: Slow embed times</a>
+    -
+    Added by <a class="user active" href="/users/4409">Scott Renton</a> <a title="10 Jan 2018 10:29" href="/projects/exiv2/activity?from=2018-01-10">almost 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks Robin- I mistakenly thought you'd left the world of exiv2, so that's great that you're still around to answer these schoolboy questions. Happy new year to you too.</p>
+
+
+	<p>I'll begin by given the first one a whirl- I didn't realise it could be done. That sounds like it could massively improve things, fingers crossed!</p>
+
+
+	<p>Cheers<br />Scott</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3037">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3034?r=3037#message-3037">RE: Slow embed times</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Jan 2018 14:16" href="/projects/exiv2/activity?from=2018-01-10">almost 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Scott</p>
+
+
+	<p>I have announced that I'm going to retire and give up ownership.  I've recruited 3 wonderful new guys to help me.  I'll help users, mentor team members and fix bugs.  However I'm not going to do feature development and project management.  Exiv2 has been about 40 hours/week of effort since I retired from work in 2014.  I have other stuff on my bucket list.  <a class="external" href="http://clanmills.com/Homepages/2018/plan.shtml">http://clanmills.com/Homepages/2018/plan.shtml</a></p>
+
+
+	<p>Two questions:<br />1) Which version of exiv2(.exe) are you using?<br />2) How large are your tiff files?</p>
+
+
+	<p>There was an issue reported on Christmas Day concerning updating large tiff files (100mb)  with Exiv2 v0.26 on Windows.  If you're using v0.25, you will not be impacted.  <a class="external" href="https://github.com/Exiv2/exiv2/issues/200">https://github.com/Exiv2/exiv2/issues/200</a></p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3038">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3034?r=3038#message-3038">RE: Slow embed times</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Jan 2018 14:25" href="/projects/exiv2/activity?from=2018-01-10">almost 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Another thought about this.  Is it possible to do the image processing on Linux (or a Mac)?  I like the user experience on Windows.  On a dual boot machine, build/compiling Exiv2 with Cygwin is 3 times slower than Linux (with the same version of GCC).    MinGW is even slower.  I suspect NTFS (the file system) in Windows is so slow slow slow ..........</p>
+
+
+	<p>I can't remember what you're doing for your Kiwi Photographer Lady, however you can probably do it much more quickly on a Linux box.  And bash (which you can use on Linux, MacOS-X, Cygwin and MinGW) is a much nicer scripting environment than cmd.exe/.bat files.  I encourage you to use Python for cross-platform scripting.  One of my new team-mates has been re-writing the Exiv2 test harness in python.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3039">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3034?r=3039#message-3039">RE: Slow embed times</a>
+    -
+    Added by <a class="user active" href="/users/4409">Scott Renton</a> <a title="11 Jan 2018 11:32" href="/projects/exiv2/activity?from=2018-01-11">almost 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin</p>
+
+
+	<p>Thanks again, but I think I've got all I need. I went with the commands file option, and I believe we're running about 10-15 times faster than we were, so thanks very much for the advice. The words from my favourite New Zealander ("you're a genius") were enough for me.</p>
+
+
+	<p>Just to remind you, we currently fire off Exiv2 from a DOS window triggered by an Excel macro, because that is where they do all their processing. I had been giving them a window for each image and an exiv command for each line of data, and they frankly hated me. I think changing the looping to one window processing everything (and faster) is great, but I also think that, because each line is waiting for the previous to complete, we won't see so much of another issue we've had, of DOS windows not closing, and occasional file corruption.</p>
+
+
+	<p>Agree with you about Linux and Python though- I do everything else in such environments because it's so much faster.</p>
+
+
+	<p>Cheers again Robin- very grateful for this. We're getting a lot of heat about digitising faster, so this will be a success story to report back!</p>
+
+
+	<p>Thanks<br />Scott</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3040">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3034?r=3040#message-3040">RE: Slow embed times</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Jan 2018 13:33" href="/projects/exiv2/activity?from=2018-01-11">almost 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ah yes, the Excel Spreadsheet.  I had forgotten about that, although I remembered there was a Kiwi Lady involved.</p>
+
+
+	<p>Thanks for the update.  Happy Users, that's what we want, and, it sounds like that's what we have!  Good start to 2018.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-6/6)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

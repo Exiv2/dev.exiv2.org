@@ -1,0 +1,23 @@
+Signed-off-by: Felix Bolte <bolte.felix@gmail.com>
+
+Index: src/tags.cpp
+===================================================================
+--- src/tags.cpp	(revision 3846)
++++ src/tags.cpp	(working copy)
+@@ -2567,10 +2567,13 @@
+             os << "0 EV";
+         }
+         else {
+-            int32_t d = gcd(bias.first, bias.second);
+-            int32_t num = std::abs(bias.first) / d;
++            int32_t d = std::abs(gcd(bias.first, bias.second));
++            int32_t num = bias.first / d;
+             int32_t den = bias.second / d;
+-            os << (bias.first < 0 ? "-" : "+") << num;
++            if (num > 0) {
++                os << "+";
++            }
++            os << num;
+             if (den != 1) {
+                 os << "/" << den;
+             }

@@ -1,0 +1,21 @@
+#!/bin/bash
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+
+while read 'line';
+do
+	file=$(basename "$line")
+	echo -e "Checking to see if Exiv2 likes $file."
+	exiv2 -pi $line 1>>fileinfo.txt 2>>errorbucket2.text
+	r=$(cat errorbucket2.text | grep Error)
+	if [[ "$r" != "" ]]; then
+		echo -ne "$line\n$r\n">>errorbucket.txt
+	fi
+	s=$(cat errorbucket2.text | grep Warning)
+	if [[ "$s" != "" ]]; then
+		echo -ne "$line\n$s\n">>errorbucket.txt
+	fi
+	rm errorbucket2.text
+	touch errorbucket2.text
+
+done<likedislikelist

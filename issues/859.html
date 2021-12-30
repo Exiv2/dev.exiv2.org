@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #859: Compilation warning using Clang - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="WGygkF8NN3jpj8PRdhEIGH2qUhv85GU8clHLl6vvNuW6IQt/LXf7eLzr3N3JxgQrQjgGYg0HxIaPcVsf6NbRig==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #859: Compilation warning using Clang" href="https://dev.exiv2.org/issues/859.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #859</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Compilation warning using Clang</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/1646">Davide Anastasia</a> <a title="11 Oct 2012 15:55" href="/projects/exiv2/activity?from=2012-10-11">about 9 years</a> ago.
+        Updated <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">11 Oct 2012</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I am currently on Mac OS X 10.8.2 and using Clang 4.1/Apple (based on LLVM 3.1). One of exiv's header is giving me this warning:</p>
+
+
+<pre>
+/opt/local/include/exiv2/value.hpp:984:9: warning: attribute 'visibility' is ignored, place it after "struct" to apply attribute to type declaration [-Wignored-attributes]
+        EXIV2API struct Date
+        ^
+/opt/local/include/exiv2/exv_conf.h:245:20: note: expanded from macro 'EXIV2API'
+#  define EXIV2API EXV_IMPORT
+                   ^
+/opt/local/include/exiv2/exv_conf.h:217:39: note: expanded from macro 'EXV_IMPORT'
+#   define EXV_IMPORT __attribute__ ((visibility("default")))
+                                      ^
+1 warning generated.
+</pre>
+
+	<p>I think the warning is quite self-explanatory.<br />Let me know if you need more help/tests.</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/859" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="O5jfdc8ltv18vWZV6sO56+gzRet9cW+RJ/pP9LwOdpXZ1XSavV96/SnZeVlVFLXY16ERkoySziva2t98/zeR+g==" />
+  <table class="list issues odd-even"><tr id="relation-93" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="857" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/857">Bug #857</a>: CMake compilation issue on MacOS-X 4.5.1/Mountain Lion</td><td class="status">Closed</td><td class="start_date">07 Oct 2012</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/859/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=859&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2905" href="/projects/exiv2/repository/exiv2/revisions/2905">Revision 2905</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2905/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Oct 2012 11:02" href="/projects/exiv2/activity?from=2012-10-14">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Fix: Issue: <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Compilation warning using Clang (Closed)" href="/issues/859">#859</a>.  Don't set visibility for clang compiler.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2906" href="/projects/exiv2/repository/exiv2/revisions/2906">Revision 2906</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2906/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Oct 2012 14:22" href="/projects/exiv2/activity?from=2012-10-14">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Fix: Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Compilation warning using Clang (Closed)" href="/issues/859">#859</a> (and <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: CMake compilation issue on MacOS-X 4.5.1/Mountain Lion (Closed)" href="/issues/857">#857</a>).  Redefine EXIV2_RCSID macro for clang as empty (to eliminate warnings).</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2907" href="/projects/exiv2/repository/exiv2/revisions/2907">Revision 2907</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2907/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Oct 2012 03:54" href="/projects/exiv2/activity?from=2012-10-15">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Compilation warning using Clang (Closed)" href="/issues/859">#859</a>: Fixed position of visibility support macro.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2266" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Oct 2012 20:55" href="/projects/exiv2/activity?from=2012-10-11">about 9 years</a> ago
+      <span id="journal-2266-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>build</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Priority</strong> changed from <i>Low</i> to <i>Normal</i></li>
+       <li><strong>Target version</strong> set to <i>0.24</i></li>
+    </ul>
+    <div id="journal-2266-notes" class="wiki"><p>I'm surprised.  I built this on Sunday and didn't notice anything like this.  I see you're compiling from /opt/local/include/exiv2/value.hpp and I'm wondering if you're building with fink or MacPorts.</p>
+
+
+	<p>Can I suggest you get the code from the web site, or use svn to get the trunk.  I personally always build in the directory ~/gnu/exiv2 - however the name isn't important.  Use the usual recipe:</p>
+
+
+	<p>$ make config ; ./configure ; make ; sudo make install ; cd samples ; make ; cd ../test ; make test</p>
+
+
+	<p>Unfortunately, after upgrading to Mountain Lion last week, my Mac has decided to start crashing.  Despite about 4 reloads of the OS this week, my system remains unusable at the moment.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2267" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1646">Davide Anastasia</a> <a title="11 Oct 2012 23:05" href="/projects/exiv2/activity?from=2012-10-11">about 9 years</a> ago
+      <span id="journal-2267-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2267-notes" class="wiki"><p>I am currently using MacPorts. I will try to build from source during the weekend and I will get back to you.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2268" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Oct 2012 00:06" href="/projects/exiv2/activity?from=2012-10-13">about 9 years</a> ago
+      <span id="journal-2268-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2268-notes" class="wiki"><p>David</p>
+
+
+	<p>I rebuilt my Mac.  I formatted the disk and installed SnowLeopard from DVD, then downloaded/installed ML + Xcode + Apple's Command Line Tools (for make and such), SVN, CMake.  I found this very helpful script for building the auto tools:</p>
+
+
+	<p><a class="external" href="http://www.mattvsworld.com/blog/2010/02/install-the-latest-autoconf-and-automake-on-mac-os-10-6/">http://www.mattvsworld.com/blog/2010/02/install-the-latest-autoconf-and-automake-on-mac-os-10-6/</a></p>
+
+
+	<p>I also download/built/installed gettext:<br /><a class="external" href="http://ftp.gnu.org/pub/gnu/gettext/gettext-0.18.1.1.tar.gz">http://ftp.gnu.org/pub/gnu/gettext/gettext-0.18.1.1.tar.gz</a><br />(this produced some errors which I ignored!)</p>
+
+
+	<p>I built the trunk with ./configure and cmake environments.<br />$ ./configure ; make ; sudo make install ; make samples LDFLAGS=-lexiv2 ; cd test ; make test</p>
+
+
+	<p>Two excuses:<br />1) Our test suite is currently failing our video tests (video is in development for 0.24)<br />2) I had to add the LDFLAGS to build the samples because I didn't have pkg-config built and installed.</p>
+
+
+	<p>The cmake environment ran well and the build passed our test suite.  Of course the compiler generated the message which I reported in Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: CMake compilation issue on MacOS-X 4.5.1/Mountain Lion (Closed)" href="/issues/857">#857</a> (which I hope to investigate later this weekend).</p>
+
+
+	<p>I also built our current 0.23 release with the ./configure approach.<br />You download it from <a class="external" href="http://exiv2.org/download.html">http://exiv2.org/download.html</a> <a class="external" href="http://exiv2.org/exiv2-0.23.tar.gz">http://exiv2.org/exiv2-0.23.tar.gz</a><br /><pre>
+$ cd exiv2-0.23
+$ cd config &#38;&#38; make -f config.make config
+$ autoconf -o ../configure
+$ cd .. ; chmod +x ./configure ; chmod +x config/*
+$ make ; sudo make install
+$ cd samples ; make LDFLAGS=-lexiv2
+$ svn export svn://dev.exiv2.org/svn/tags/0.23/test
+$ cd ../test ; make test
+</pre></p>
+
+
+	<p>The test suite passes 100% (it has no video code!).  Same excuse concerning LDFLAGS and pkg-config</p>
+
+
+	<p>I've tried to build pkg-config and ran into trouble.<br />I got the code here:<br /><pre>
+http://pkgconfig.freedesktop.org/releases/pkg-config-0.27.tar.gz
+$ chmod +x ./configure ; ./configure --with-internal-glib
+Rats:  It won't build because of the errors I ignored on gettext.
+</pre></p>
+
+
+	<p>I'll think about this another day.  This isn't an exiv2 issue.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2269" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Oct 2012 15:30" href="/projects/exiv2/activity?from=2012-10-13">about 9 years</a> ago
+      <span id="journal-2269-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+    </ul>
+    <div id="journal-2269-notes" class="wiki"><a name="Installing-pkg-config-on-Mountain-Lion"></a>
+<h3 >Installing pkg-config on Mountain Lion<a href="#Installing-pkg-config-on-Mountain-Lion" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>I downloaded a pre-built version of pkg-config from <a class="external" href="http://iweb.dl.sourceforge.net/project/macpkg/PkgConfig/0.26/PkgConfig.pkg">http://iweb.dl.sourceforge.net/project/macpkg/PkgConfig/0.26/PkgConfig.pkg</a></p>
+
+
+	<p>This installed into /opt/pkgconfig/bin which I added to my path.  You'll also need export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/lib/pkgconfig"  (which I have already in my bash .profile file).  Then samples built without the LDFLAGS=-lexiv2</p>
+
+
+	<a name="And-now-to-MacPorts"></a>
+<h3 >And now to MacPorts<a href="#And-now-to-MacPorts" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>I downloaded and installed macports from <a class="external" href="http://www.macports.org/install.php">http://www.macports.org/install.php</a>.  I asked him to build and install exiv2 and he worked perfectly.</p>
+
+
+<pre>
+394 rmills@rmills-imac:~/temp $ sudo port install exiv2
+---&gt;  Computing dependencies for exiv2
+---&gt;  Dependencies to be installed: expat gettext libiconv gperf ncurses zlib
+---&gt;  Fetching archive for expat
+---&gt;  Attempting to fetch expat-2.1.0_0.darwin_12.x86_64.tbz2 from http://packages.macports.org/expat
+---&gt;  Attempting to fetch expat-2.1.0_0.darwin_12.x86_64.tbz2 from http://mse.uk.packages.macports.org/sites/packages.macports.org/expat
+---&gt;  Attempting to fetch expat-2.1.0_0.darwin_12.x86_64.tbz2 from http://lil.fr.packages.macports.org/expat
+---&gt;  Fetching distfiles for expat
+---&gt;  Attempting to fetch expat-2.1.0.tar.gz from http://voxel.dl.sourceforge.net/project/expat/expat/2.1.0
+---&gt;  Verifying checksum(s) for expat
+---&gt;  Extracting expat
+---&gt;  Configuring expat
+---&gt;  Building expat
+---&gt;  Staging expat into destroot
+---&gt;  Installing expat @2.1.0_0
+---&gt;  Activating expat @2.1.0_0
+---&gt;  Cleaning expat
+---&gt;  Fetching archive for gperf
+---&gt;  Attempting to fetch gperf-3.0.4_2.darwin_12.x86_64.tbz2 from http://packages.macports.org/gperf
+---&gt;  Attempting to fetch gperf-3.0.4_2.darwin_12.x86_64.tbz2 from http://mse.uk.packages.macports.org/sites/packages.macports.org/gperf
+---&gt;  Attempting to fetch gperf-3.0.4_2.darwin_12.x86_64.tbz2 from http://lil.fr.packages.macports.org/gperf
+---&gt;  Fetching distfiles for gperf
+---&gt;  Attempting to fetch gperf-3.0.4.tar.gz from http://distfiles.macports.org/gperf
+---&gt;  Verifying checksum(s) for gperf
+---&gt;  Extracting gperf
+---&gt;  Applying patches to gperf
+---&gt;  Configuring gperf
+---&gt;  Building gperf
+---&gt;  Staging gperf into destroot
+---&gt;  Installing gperf @3.0.4_2
+---&gt;  Activating gperf @3.0.4_2
+---&gt;  Cleaning gperf
+---&gt;  Fetching archive for libiconv
+---&gt;  Attempting to fetch libiconv-1.14_0.darwin_12.x86_64.tbz2 from http://packages.macports.org/libiconv
+---&gt;  Attempting to fetch libiconv-1.14_0.darwin_12.x86_64.tbz2 from http://mse.uk.packages.macports.org/sites/packages.macports.org/libiconv
+---&gt;  Attempting to fetch libiconv-1.14_0.darwin_12.x86_64.tbz2 from http://lil.fr.packages.macports.org/libiconv
+---&gt;  Fetching distfiles for libiconv
+---&gt;  Attempting to fetch libiconv-1.14.tar.gz from http://distfiles.macports.org/libiconv
+---&gt;  Verifying checksum(s) for libiconv
+---&gt;  Extracting libiconv
+---&gt;  Applying patches to libiconv
+---&gt;  Configuring libiconv
+---&gt;  Building libiconv
+---&gt;  Staging libiconv into destroot
+---&gt;  Installing libiconv @1.14_0
+---&gt;  Activating libiconv @1.14_0
+---&gt;  Cleaning libiconv
+---&gt;  Fetching archive for ncurses
+---&gt;  Attempting to fetch ncurses-5.9_1.darwin_12.x86_64.tbz2 from http://packages.macports.org/ncurses
+---&gt;  Attempting to fetch ncurses-5.9_1.darwin_12.x86_64.tbz2 from http://mse.uk.packages.macports.org/sites/packages.macports.org/ncurses
+---&gt;  Attempting to fetch ncurses-5.9_1.darwin_12.x86_64.tbz2 from http://lil.fr.packages.macports.org/ncurses
+---&gt;  Fetching distfiles for ncurses
+---&gt;  Attempting to fetch ncurses-5.9.tar.gz from http://distfiles.macports.org/ncurses
+---&gt;  Verifying checksum(s) for ncurses
+---&gt;  Extracting ncurses
+---&gt;  Applying patches to ncurses
+---&gt;  Configuring ncurses
+---&gt;  Building ncurses
+---&gt;  Staging ncurses into destroot
+---&gt;  Installing ncurses @5.9_1
+---&gt;  Activating ncurses @5.9_1
+---&gt;  Cleaning ncurses
+---&gt;  Fetching archive for gettext
+---&gt;  Attempting to fetch gettext-0.18.1.1_2.darwin_12.x86_64.tbz2 from http://packages.macports.org/gettext
+---&gt;  Attempting to fetch gettext-0.18.1.1_2.darwin_12.x86_64.tbz2 from http://mse.uk.packages.macports.org/sites/packages.macports.org/gettext
+---&gt;  Attempting to fetch gettext-0.18.1.1_2.darwin_12.x86_64.tbz2 from http://lil.fr.packages.macports.org/gettext
+---&gt;  Fetching distfiles for gettext
+---&gt;  Attempting to fetch gettext-0.18.1.1.tar.gz from http://distfiles.macports.org/gettext
+---&gt;  Verifying checksum(s) for gettext
+---&gt;  Extracting gettext
+---&gt;  Applying patches to gettext
+---&gt;  Configuring gettext
+---&gt;  Building gettext
+---&gt;  Staging gettext into destroot
+---&gt;  Installing gettext @0.18.1.1_2
+---&gt;  Activating gettext @0.18.1.1_2
+---&gt;  Cleaning gettext
+---&gt;  Fetching archive for zlib
+---&gt;  Attempting to fetch zlib-1.2.7_0.darwin_12.x86_64.tbz2 from http://packages.macports.org/zlib
+---&gt;  Attempting to fetch zlib-1.2.7_0.darwin_12.x86_64.tbz2 from http://mse.uk.packages.macports.org/sites/packages.macports.org/zlib
+---&gt;  Attempting to fetch zlib-1.2.7_0.darwin_12.x86_64.tbz2 from http://lil.fr.packages.macports.org/zlib
+---&gt;  Fetching distfiles for zlib
+---&gt;  Attempting to fetch zlib-1.2.7.tar.bz2 from http://distfiles.macports.org/zlib
+---&gt;  Verifying checksum(s) for zlib
+---&gt;  Extracting zlib
+---&gt;  Configuring zlib
+---&gt;  Building zlib
+---&gt;  Staging zlib into destroot
+---&gt;  Installing zlib @1.2.7_0
+---&gt;  Activating zlib @1.2.7_0
+---&gt;  Cleaning zlib
+---&gt;  Fetching archive for exiv2
+---&gt;  Attempting to fetch exiv2-0.23_0.darwin_12.x86_64.tbz2 from http://packages.macports.org/exiv2
+---&gt;  Attempting to fetch exiv2-0.23_0.darwin_12.x86_64.tbz2 from http://mse.uk.packages.macports.org/sites/packages.macports.org/exiv2
+---&gt;  Attempting to fetch exiv2-0.23_0.darwin_12.x86_64.tbz2 from http://lil.fr.packages.macports.org/exiv2
+---&gt;  Fetching distfiles for exiv2
+---&gt;  Attempting to fetch exiv2-0.23.tar.gz from http://distfiles.macports.org/exiv2
+---&gt;  Verifying checksum(s) for exiv2
+---&gt;  Extracting exiv2
+---&gt;  Configuring exiv2
+---&gt;  Building exiv2
+---&gt;  Staging exiv2 into destroot
+---&gt;  Installing exiv2 @0.23_0
+---&gt;  Activating exiv2 @0.23_0
+---&gt;  Cleaning exiv2
+---&gt;  Updating database of binaries: 100.0%
+---&gt;  Scanning binaries for linking errors: 100.0%
+---&gt;  No broken files found.
+
+395 rmills@rmills-imac:/opt $ find . -name exiv2
+./local/bin/exiv2
+./local/include/exiv2
+./local/var/macports/distfiles/exiv2
+./local/var/macports/software/exiv2
+./local/var/macports/sources/rsync.macports.org/release/tarballs/ports/graphics/exiv2
+
+396 rmills@rmills-imac:/opt $ /opt/local/bin/exiv2 -V
+exiv2 0.23 001700 (64 bit build)
+Copyright (C) 2004-2012 Andreas Huggel.
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free
+Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA 02110-1301 USA
+
+397 rmills@rmills-imac:/opt $ xcodebuild -version
+Xcode 4.5.1
+Build version 4G1004
+
+398 rmills@rmills-imac:/opt $ sw_vers
+ProductName:    Mac OS X
+ProductVersion:    10.8.2
+BuildVersion:    12C60
+
+399 rmills@rmills-imac:/opt $ gcc --version
+i686-apple-darwin11-llvm-gcc-4.2 (GCC) 4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.11.00)
+Copyright (C) 2007 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre>
+
+	<a name="Getting-back-to-your-original-bug-report"></a>
+<h3 >Getting back to your original bug report<a href="#Getting-back-to-your-original-bug-report" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>So, I'm not sure why you got the warnings you reported.  Perhaps your path is causing you to pick up the wrong version of gcc or the autotools.  We used to get the visibility warning on Cygwin and I documented the build procedure for that platform to be ./configure --disable-visibility.  A few months ago, I changed config/configure.ac to set the visibility flag off by default on Cygwin.</p>
+
+
+	<p>I've assigned this issue to me.  If you have additional information to add, please update this bug report and I will investigate.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2274" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Oct 2012 01:27" href="/projects/exiv2/activity?from=2012-10-14">about 9 years</a> ago
+      <span id="journal-2274-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2274-notes" class="wiki"><p>David</p>
+
+
+	<p>I've discovered something new about this.  Issue#857 concerns warnings being produced by our CMake build on Mountain Lion.  I discovered that the warnings were coming from the code being compiled by /usr/bin/c++ which is the Clang compiler.  I added code to our CMakeLists.txt file to tell him to use the g++ compiler (/usr/bin/g++) which is GCC.  Warnings disappear.</p>
+
+
+	<p>I see in the title of this bug report, you attributed these warning to clang and perhaps that's the explanation. Did you explicitly tell macports to use Clang?</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2275" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1646">Davide Anastasia</a> <a title="14 Oct 2012 03:51" href="/projects/exiv2/activity?from=2012-10-14">about 9 years</a> ago
+      <span id="journal-2275-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2275-notes" class="wiki"><p>Sorry for the long waiting.</p>
+
+
+	<p>Macports: I haven't changed the default compiler in my MacPorts, so I am not exactly sure which one uses. cc by default on Mountain Lion points to Apple Clang 4.0 (a derivation of LLVM 3.1). I've done a simple "otool -L" of the built library in the /opt folder to check its dependencies, and it states:</p>
+
+
+	<p>/usr/lib/libstdc++.6.dylib (compatibility version 7.0.0, current version 56.0.0)</p>
+
+
+	<p>Is this an hint GCC has been used for the compilation?</p>
+
+
+	<p>However, personal opinion, the problem with my compilation warning is not related with what the library was compiled with. I get this error while I compile the code of my project (Luminance HDR), and not while I compile exiv2, so the problem is in the header only somehow.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2276" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Oct 2012 11:27" href="/projects/exiv2/activity?from=2012-10-14">about 9 years</a> ago
+      <span id="journal-2276-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2276-notes" class="wiki"><p>Dave</p>
+
+
+	<p>Thanks for letting me know that this impacts your code and not only when building the library.  I know what's wrong.  The fix is in config/config.h.in and I've submitted SVN: 2905 to fix this.</p>
+
+
+	<p>To build with clang, I used the command: <br />$ make clean ; make config ; ./configure CXX=/usr/bin/c++</p>
+
+
+	<p>Using clang opens new compilation/linking issues which I haven't seen before.  I'll hope to work on these later today.  I know that clang can successfully build and link exiv2 because CMake builds (which use clang) have passed the test suite.  I dealt with <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: CMake compilation issue on MacOS-X 4.5.1/Mountain Lion (Closed)" href="/issues/857">#857</a> yesterday by getting CMake builds to use the GCC compiler.</p>
+
+
+	<a name="How-to-get-the-fix-immediately-with-rebuilding-anything"></a>
+<h3 >How to get the fix immediately (with rebuilding anything)<a href="#How-to-get-the-fix-immediately-with-rebuilding-anything" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>If you already have exiv2 built, you can put this fix into use by modifying exv_config.h (in /opt/local/include/exiv2 or /usr/local/include/exiv2)<br />Change (around line 215)<pre>
+#  if defined(__GNUC__) &#38;&#38; (__GNUC__ &gt;= 4)
+to
+#  if defined(__GNUC__) &#38;&#38; (__GNUC__ &gt;= 4) &#38;&#38; !defined(__clang__)
+</pre></p>
+
+
+	<a name="Determining-the-compiler"></a>
+<h3 >Determining the compiler<a href="#Determining-the-compiler" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>You can determine the version of the compiler used to build exiv2 with the command:</p>
+
+
+	<p>$ exiv2 -v -V     # == --verbose --version</p>
+
+
+	<p>This is new (and still undocumented) for 0.24.  It prints a list of libraries loaded at run-time AND information about the compiler.  For example:</p>
+
+
+	<p>builder=GCC=4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.11.00),DEBUG=0,DLL=1,Bits=8:  <br />or<br />builder=GCC=4.2.1 Compatible Apple Clang 4.1 ((tags/Apple/clang-421.11.66)),DEBUG=0,DLL=1,Bits=8:</p>
+
+
+	<p>The main information in the builder= strings is the <i>VERSION</i> macro defined at compile time.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2277" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Oct 2012 03:55" href="/projects/exiv2/activity?from=2012-10-15">about 9 years</a> ago
+      <span id="journal-2277-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2277-notes" class="wiki"><p>That looks like a bug, just one that no other compiler complained about so far. I've changed it, pls re-test.</p>
+
+
+<pre>
+andreas@Twinmate:~/src/exiv2/git/src$ grep EXIV2API *.hpp | grep struct
+datasets.hpp:    struct EXIV2API RecordInfo {
+datasets.hpp:    struct EXIV2API DataSet {
+jpgimage.hpp:    struct EXIV2API Photosho {
+preview.hpp:    struct EXIV2API PreviewProperties {
+properties.hpp:    struct EXIV2API XmpPropertyInfo {
+properties.hpp:    struct EXIV2API XmpNsInfo {
+tags.hpp:    struct EXIV2API GroupInfo {
+tags.hpp:    struct EXIV2API GroupInfo::GroupName {
+tags.hpp:    struct EXIV2API TagInfo {
+types.hpp:    struct EXIV2API DataBufRef {
+types.hpp:    EXIV2API int exifTime(const char* buf, struct tm* tm);
+value.hpp:        EXIV2API struct Date
+</pre>
+
+	<p>-ahu.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2278" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Oct 2012 03:59" href="/projects/exiv2/activity?from=2012-10-15">about 9 years</a> ago
+      <span id="journal-2278-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2278-notes" class="wiki"><p>Robin, with <a class="changeset" title="#859: Fixed position of visibility support macro." href="/projects/exiv2/repository/exiv2/revisions/2907">r2907</a>, can we undo <a class="changeset" title="Fix: Issue: #859.  Don&#39;t set visibility for clang compiler." href="/projects/exiv2/repository/exiv2/revisions/2905">r2905</a>?</p>
+
+
+	<p>-ahu.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2283" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Oct 2012 09:04" href="/projects/exiv2/activity?from=2012-10-15">about 9 years</a> ago
+      <span id="journal-2283-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2283-notes" class="wiki"><p>Sure.  No problem.  I've submitted SVN: 2908.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2584" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 16:01" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2584-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.24</i> to <i>0.25</i></li>
+    </ul>
+    <div id="journal-2584-notes" class="wiki"><p>Deferred to 0.25.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2929" class="journal has-notes has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Oct 2014 19:23" href="/projects/exiv2/activity?from=2014-10-07">about 7 years</a> ago
+      <span id="journal-2929-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-2929-notes" class="wiki"><p>I'm going to mark this "resolved" as I haven't seen those warnings for a long time.  I've just done a build on MacOS-X 10.9.5 with Xcode6.  Both cmake and ./configure environments build cleanly without warnings.<br /><pre>
+668 rmills@rmillsmbp:~/gnu/exiv2/trunk $ sw_vers
+ProductName:    Mac OS X
+ProductVersion:    10.9.5
+BuildVersion:    13F34
+670 rmills@rmillsmbp:~/gnu/exiv2/trunk $ clang --version
+Apple LLVM version 6.0 (clang-600.0.51) (based on LLVM 3.5svn)
+Target: x86_64-apple-darwin13.4.0
+Thread model: posix
+671 rmills@rmillsmbp:~/gnu/exiv2/trunk $ 
+</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3635" class="journal has-details">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 16:22" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3635-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3915" class="journal has-details">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3915-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/859.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/859.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

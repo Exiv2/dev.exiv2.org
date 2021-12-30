@@ -1,0 +1,24 @@
+diff -r 9a52de471aa5 libsrc/exiv2/exiv2/tags.cpp
+--- a/libsrc/exiv2/exiv2/tags.cpp	Sat Jan 10 00:38:57 2015 +0100
++++ b/libsrc/exiv2/exiv2/tags.cpp	Tue Mar 24 14:11:25 2015 +0100
+@@ -531,6 +531,9 @@
+                 "unit is used for both <XResolution> and <YResolution>. If "
+                 "the image resolution is unknown, 2 (inches) is designated."),
+                 ifd0Id, imgStruct, unsignedShort, 1, printExifUnit),
++        TagInfo(0x0129, "PageNumber", N_("Page Number"),
++                N_("The page number of the page from which this image was scanned."),
++                ifd0Id, imgStruct, unsignedShort, 2, printValue),
+         TagInfo(0x012d, "TransferFunction", N_("Transfer Function"),
+                 N_("A transfer function for the image, described in tabular style. "
+                 "Normally this tag is not necessary, since color space is "
+diff -r 9a52de471aa5 libsrc/exiv2/exiv2/tiffimage.cpp
+--- a/libsrc/exiv2/exiv2/tiffimage.cpp	Sat Jan 10 00:38:57 2015 +0100
++++ b/libsrc/exiv2/exiv2/tiffimage.cpp	Tue Mar 24 14:11:25 2015 +0100
+@@ -2115,6 +2115,7 @@
+             { 0x0124, ifd0Id }, // Exif.Image.T4Options
+             { 0x0125, ifd0Id }, // Exif.Image.T6Options
+             { 0x0128, ifd0Id }, // Exif.Image.ResolutionUnit
++            { 0x0129, ifd0Id }, // Exif.Image.PageNumber
+             { 0x012d, ifd0Id }, // Exif.Image.TransferFunction
+             { 0x013d, ifd0Id }, // Exif.Image.Predictor
+             { 0x013e, ifd0Id }, // Exif.Image.WhitePoint

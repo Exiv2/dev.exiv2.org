@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #682: Olympus (E-1 and E-300) makernote flavour not supported: libexiv2 destroy some exif data on write - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="1azpeC3/zLZolmG6gUkc6L4+AGzfKkE1uVAXbC5DzxQ34UKXX4UAtj3yfrY+nhDbgaxUFS7J4I9EcIfkbXooew==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #682: Olympus (E-1 and E-300) makernote flavour not supported: libexiv2 destroy some exif data on write" href="https://dev.exiv2.org/issues/682.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #682</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Olympus (E-1 and E-300) makernote flavour not supported: libexiv2 destroy some exif data on write</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/363">Johann-Nikolaus Andreae</a> <a title="11 Feb 2010 11:55" href="/projects/exiv2/activity?from=2010-02-11">almost 12 years</a> ago.
+        Updated <a title="29 Apr 2016 23:00" href="/projects/exiv2/activity?from=2016-04-29">over 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">withdrawn</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">11 Feb 2010</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Writing a tag to a immage destroy some olympus exiv data.<br />I found this bug using digikam an report it. See <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=225272">https://bugs.kde.org/show_bug.cgi?id=225272</a><br />In this report are example data for verification.</p>
+
+
+	<p>I reporduce the bug using $exiv2 -M "set Exif.Image.Artist Ascii nobody" image.jpg</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/147">bug225272.jpg</a>    <span class="size">(88.4 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/147/bug225272.jpg">bug225272.jpg</a>  </td>
+  <td>Sample from digiKam bug 225272</td>
+  <td>
+      <span class="author">Andreas Huggel, 16 Feb 2010 22:22</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/217">p20090613_104056.jpg</a>    <span class="size">(5.97 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/217/p20090613_104056.jpg">p20090613_104056.jpg</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Matěj Cepl, 30 Oct 2010 06:21</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1543" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 Feb 2010 22:20" href="/projects/exiv2/activity?from=2010-02-16">almost 12 years</a> ago
+      <span id="journal-1543-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Priority</strong> changed from <i>Urgent</i> to <i>Normal</i></li>
+    </ul>
+    <div id="journal-1543-notes" class="wiki"><p>This is the result of missing support for this particular version of the Olympus Makernote.<br />The following comment from exiftool explains in detail:</p>
+
+
+<pre>
+#
+# Olympus really screwed up the format of the following subdirectories (for the
+# E-1 and E-300 anyway). Not only is the subdirectory value data not included in
+# the size, but also the count is 2 bytes short for the subdirectory itself
+# (presumably the Olympus programmers forgot about the 2-byte entry count at the
+# start of the subdirectory).  This mess is straightened out and these subdirs
+# are written properly when ExifTool rewrites the file.  (This problem has been
+# fixed in the new-style MakerNoteOlympus2 maker notes since a standard SubIFD
+# offset value is used.) - PH
+#
+</pre>
+
+	<p>Exiv2 currently only supports the newer Olympus Makernotes that use standard SubIFD offset values for these subdirectories (called 'MakerNoteOlympus2' in exiftool and the comment above). As a result, Exiv2 does not decode the directories</p>
+
+
+	<p>Exif.Olympus.Equipment<br />Exif.Olympus.CameraSettings<br />Exif.Olympus.RawDevelopment<br />Exif.Olympus.ImageProcessing<br />Exif.Olympus.FocusInfo</p>
+
+
+	<p>and they are potentially corrupted when Exiv2 attempts to write to the Exif data (only in case of non-intrusive writing).</p>
+
+
+	<p>Changing Priority to 'Normal', this issue affects only specific Olympus camera models as it seems and is a feature, rather than a bug.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1544" class="journal has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 Feb 2010 22:22" href="/projects/exiv2/activity?from=2010-02-16">almost 12 years</a> ago
+      <span id="journal-1544-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/147">bug225272.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/147/bug225272.jpg">bug225272.jpg</a> added</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1577" class="journal has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="02 Apr 2010 22:56" href="/projects/exiv2/activity?from=2010-04-02">over 11 years</a> ago
+      <span id="journal-1577-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Subject</strong> changed from <i>libexiv destroy some exif data on write</i> to <i>Olympus (E-1 and E-300) makernote flavour not supported: libexiv2 destroy some exif data on write</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1779" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/1038">Matěj Cepl</a> <a title="30 Oct 2010 06:21" href="/projects/exiv2/activity?from=2010-10-30">about 11 years</a> ago
+      <span id="journal-1779-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/217">p20090613_104056.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/217/p20090613_104056.jpg">p20090613_104056.jpg</a> added</li>
+    </ul>
+    <div id="journal-1779-notes" class="wiki"><p>Just adding mee too here ... E-510 procued the attached image. For more information and whole saga see <a class="external" href="https://code.google.com/p/jbrout/issues/detail?id=161&#38;q=exiftool#c8">https://code.google.com/p/jbrout/issues/detail?id=161&#38;q=exiftool#c8</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4087" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Aug 2015 16:17" href="/projects/exiv2/activity?from=2015-08-23">about 6 years</a> ago
+      <span id="journal-4087-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> set to <i>53</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4898" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Mar 2016 21:31" href="/projects/exiv2/activity?from=2016-03-28">over 5 years</a> ago
+      <span id="journal-4898-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+    </ul>
+    <div id="journal-4898-notes" class="wiki"><p>This issue has been in the database for 5 years and nobody else has requested progress with this matter. So, unless you engage to persuade me to keep this matter alive, it will be closed on April 30 as "no longer needed/wanted".</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5014" class="journal has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="29 Apr 2016 23:00" href="/projects/exiv2/activity?from=2016-04-29">over 5 years</a> ago
+      <span id="journal-5014-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>exif</i> to <i>withdrawn</i></li>
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>Target version</strong> changed from <i>53</i> to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/682.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/682.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+#
+# Olympus really screwed up the format of the following subdirectories (for the
+# E-1 and E-300 anyway). Not only is the subdirectory value data not included in
+# the size, but also the count is 2 bytes short for the subdirectory itself
+# (presumably the Olympus programmers forgot about the 2-byte entry count at the
+# start of the subdirectory).  This mess is straightened out and these subdirs
+# are written properly when ExifTool rewrites the file.  Note that this problem
+# has been fixed by Olympus in the new-style IFD maker notes since a standard
+# SubIFD offset value is used.  As written by the camera, the old style
+# directories have format 'undef' or 'string', and the new style has format
+# 'ifd'.  However, some older versions of exiftool may have rewritten the new
+# style as 'int32u', so handle both cases. - PH
+#

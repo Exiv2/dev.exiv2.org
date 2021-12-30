@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1309: Writing gps metadata to sony alpha6300 raw files deletes data  - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="cR6pAsCCNrPeEG4BmgOtYtZktpwa1YPSG5R5D531JVWTUwLtsvj6s4t0cQ0l1KFR6fbi5es2ImjmtOmH3szCOg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1309: Writing gps metadata to sony alpha6300 raw files deletes data " href="https://dev.exiv2.org/issues/1309.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1309</h2>
+
+<div class="issue tracker-1 status-2 priority-4 priority-default details">
+    <div class="next-prev-links contextual">
+      <a title="#1371" accesskey="p" href="/issues/1371">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;op%5Bstatus_id%5D=o&amp;page=1&amp;per_page=25&amp;set_filter=1&amp;sort=updated_on%3Adesc%2Cid%3Adesc&amp;v%5Bstatus_id%5D%5B%5D=">6 of 78</a>
+        </span> |
+      <a title="#885" accesskey="n" href="/issues/885">Next »</a>
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Writing gps metadata to sony alpha6300 raw files deletes data </h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/6209">Alexander nofamilyname</a> <a title="28 Aug 2017 09:33" href="/projects/exiv2/activity?from=2017-08-28">about 4 years</a> ago.
+        Updated <a title="18 Sep 2018 13:23" href="/projects/exiv2/activity?from=2018-09-18">about 3 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Assigned</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">tiff parser</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Dec 2020" href="/versions/54">0.28</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">28 Aug 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Adding Gps locations to a raw file from a sony a6300 corrupts some data on the raw file. Possibly the White-balance information.<br />This happens only when you enable writing metadata to raw files.</p>
+
+
+	<p>Test to reproduce:<br />1)Go here: <a class="external" href="http://www.photographyblog.com/reviews/sony_a6300_review/sample_images/">http://www.photographyblog.com/reviews/sony_a6300_review/sample_images/</a><br />2) Download <a class="external" href="http://img.photographyblog.com/reviews/sony_a6300/sample_images/sony_a6300_01.arw">http://img.photographyblog.com/reviews/sony_a6300/sample_images/sony_a6300_01.arw</a><br />As a note: If you try to download the raw directly over <a class="external" href="http://img.photographyblog.com/reviews/sony_a6300/sample_images/sony_a6300_01.arw">http://img.photographyblog.com/reviews/sony_a6300/sample_images/sony_a6300_01.arw</a>  you will get a 404 error. You have to download it over <a class="external" href="http://www.photographyblog.com/reviews/sony_a6300_review/sample_images/">http://www.photographyblog.com/reviews/sony_a6300_review/sample_images/</a> (referrer check most likely).</p>
+
+
+	<p>3)Open it in the DigiKam image editor. The colors are fine.<br />4)Add gps info with the geolocation tool to the file and save it.<br />5)Open it again in the image editor and you will see that the colors are wrong now.</p>
+
+
+	<p>This bug was confirmed by another User in the digikam IRC.</p>
+
+
+	<p>Initially reported here: <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=384092">https://bugs.kde.org/show_bug.cgi?id=384092</a></p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-6084" class="journal has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Aug 2017 11:18" href="/projects/exiv2/activity?from=2017-08-28">about 4 years</a> ago
+      <span id="journal-6084-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>tiff parser</i></li>
+       <li><strong>Priority</strong> changed from <i>Urgent</i> to <i>Normal</i></li>
+       <li><strong>Target version</strong> set to <i>1.0</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-6099" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/6396">Pascal Heinrich</a> <a title="29 Sep 2017 16:38" href="/projects/exiv2/activity?from=2017-09-29">about 4 years</a> ago
+      <span id="journal-6099-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6099-notes" class="wiki"><p>I have the problem using the exiv library in an cpp environment. Writing gps locations results is a red coloured arw file.</p>
+
+
+	<p>Any update on this?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6100" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/6396">Pascal Heinrich</a> <a title="29 Sep 2017 17:20" href="/projects/exiv2/activity?from=2017-09-29">about 4 years</a> ago
+      <span id="journal-6100-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6100-notes" class="wiki"><p>The MakerNote is missing 4 zero values after a writeMetadata call.</p>
+
+
+	<p>before:<br /><pre>
+Exif.Photo.MakerNote                         Undefined 37092  (Binary value suppressed)
+</pre></p>
+
+
+	<p>after:<br /><pre>
+Exif.Photo.MakerNote                         Undefined 37088  (Binary value suppressed)
+</pre></p>
+
+
+	<p>I have change UserComment only. And this is correctly changed.<br /><pre>
+exifData["Exif.Photo.UserComment"] = QString("test").toStdString();
+</pre></p>
+
+
+	<p>If I compare the Binary Data the only difference is four 0 values at the end.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6101" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2017 12:46" href="/projects/exiv2/activity?from=2017-09-30">about 4 years</a> ago
+      <span id="journal-6101-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> changed from <i>1.0</i> to <i>0.27</i></li>
+    </ul>
+    <div id="journal-6101-notes" class="wiki"><p>To help you, I will need more information.</p>
+
+
+	<p>Can you attach (or dropbox a file) with an exiv2 command to reproduce your issue.  If you can only reproduce this with digiKam, I am unable to help.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6103" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/6450">Christian Pietzsch</a> <a title="08 Oct 2017 13:23" href="/projects/exiv2/activity?from=2017-10-08">about 4 years</a> ago
+      <span id="journal-6103-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6103-notes" class="wiki"><p>Hello Robin,<br />I've done an experiment. I change the metadata of a raw file once directly with exiv2 and once with Digikam.<br />The result was that the Digikam file got corrupted and the command line one didn't.<br /><a class="external" href="https://www.dropbox.com/s/twy49qw7ecnqpf7/Metadata%20Digikam.ARW?dl=0">https://www.dropbox.com/s/twy49qw7ecnqpf7/Metadata%20Digikam.ARW?dl=0</a><br /><a class="external" href="https://www.dropbox.com/s/1dyz2d90glim04i/Metadata%20exiv2.ARW?dl=0">https://www.dropbox.com/s/1dyz2d90glim04i/Metadata%20exiv2.ARW?dl=0</a><br />The exif output is the same in both. Terminal output below.<br />It's Digikam specific as far as I can tell. I'll forward my knowledge to the original issue.</p>
+
+
+	<p>(In the output the picture with _2  was edited by Digikam and the other one by exiv2)</p>
+
+
+	<p>[#]$ exiv2 DSC04326.ARW <br />File name       : DSC04326.ARW<br />File size       : 20676608 Bytes<br />MIME type       : image/tiff<br />Image size      : 5504 x 3656<br />Camera make     : SONY<br />Camera model    : SLT-A58<br />Image timestamp : 2017:09:18 04:44:44<br />Image number    : <br />Exposure time   : 1/20 s<br />Aperture        : F11<br />Exposure bias   : 0 EV<br />Flash           : No, compulsory<br />Flash bias      : 0 EV<br />Focal length    : 40.0 mm (35 mm equivalent: 60.0 mm)<br />Subject distance: <br />ISO speed       : 640<br />Exposure mode   : Auto<br />Metering mode   : Multi-segment<br />Macro mode      : <br />Image quality   : n/a<br />Exif Resolution : 5504 x 3656<br />White balance   : Cloudy<br />Thumbnail       : image/jpeg, 6128 Bytes<br />Copyright       : <br />Exif comment    :</p>
+
+
+	<p>[#]$ exiv2 DSC04326_2.ARW <br />File name       : DSC04326_2.ARW<br />File size       : 20554786 Bytes<br />MIME type       : image/tiff<br />Image size      : 5504 x 3656<br />Camera make     : SONY<br />Camera model    : SLT-A58<br />Image timestamp : 2017:09:18 04:44:44<br />Image number    : <br />Exposure time   : 1/20 s<br />Aperture        : F11<br />Exposure bias   : 0 EV<br />Flash           : No, compulsory<br />Flash bias      : 0 EV<br />Focal length    : 40.0 mm (35 mm equivalent: 60.0 mm)<br />Subject distance: <br />ISO speed       : 640<br />Exposure mode   : Auto<br />Metering mode   : Multi-segment<br />Macro mode      : <br />Image quality   : n/a<br />Exif Resolution : 5504 x 3656<br />White balance   : Cloudy<br />Thumbnail       : image/jpeg, 6128 Bytes<br />Copyright       : <br />Exif comment    : test</p>
+
+
+	<p>[#]$    exiv2  -M"set  Exif.Photo.UserComment  charset=Ascii  exiv2 write" DSC04326.ARW <br />[#]$ exiv2 DSC04326.ARW <br />File name       : DSC04326.ARW<br />File size       : 20676608 Bytes<br />MIME type       : image/tiff<br />Image size      : 5504 x 3656<br />Camera make     : SONY<br />Camera model    : SLT-A58<br />Image timestamp : 2017:09:18 04:44:44<br />Image number    : <br />Exposure time   : 1/20 s<br />Aperture        : F11<br />Exposure bias   : 0 EV<br />Flash           : No, compulsory<br />Flash bias      : 0 EV<br />Focal length    : 40.0 mm (35 mm equivalent: 60.0 mm)<br />Subject distance: <br />ISO speed       : 640<br />Exposure mode   : Auto<br />Metering mode   : Multi-segment<br />Macro mode      : <br />Image quality   : n/a<br />Exif Resolution : 5504 x 3656<br />White balance   : Cloudy<br />Thumbnail       : image/jpeg, 6128 Bytes<br />Copyright       : <br />Exif comment    :  exiv2 write</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6161" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="08 Mar 2018 15:57" href="/projects/exiv2/activity?from=2018-03-08">over 3 years</a> ago
+      <span id="journal-6161-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6161-notes" class="wiki"><p>The SR2 IFD's are completely missing from the "Metadata exiv2.ARW" file you uploaded, so no wonder if the colours are messed up.  Did you name the files incorrectly?  I thought it was the one written by Digikam ("Metadata Digikam.ARW"?) that showed the problem.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6162" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Mar 2018 17:18" href="/projects/exiv2/activity?from=2018-03-08">over 3 years</a> ago
+      <span id="journal-6162-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6162-notes" class="wiki"><p>Thanks for saying something about this, Phil  The was reported months ago when I was on vacation and hasn't received attention.  Thanks for dealing with this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6263" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2018 13:23" href="/projects/exiv2/activity?from=2018-09-18">about 3 years</a> ago
+      <span id="journal-6263-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> deleted (<del><i>Robin Mills</i></del>)</li>
+       <li><strong>Target version</strong> changed from <i>0.27</i> to <i>0.28</i></li>
+    </ul>
+    <div id="journal-6263-notes" class="wiki"><p>I'm deferring this issue to Exiv2 v0.28.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1309.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1309.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

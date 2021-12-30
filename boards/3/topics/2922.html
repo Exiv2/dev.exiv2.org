@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>How to build exiv2 32-bit libraries using Cmake - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="AvM3kAsMw+3Sav8J7kyxxniHIwiNebRzCFOINTwoRvDgvpx/eXYP7YcO4AVRm731RxV3cXyaFcn1cxi9fxGhnw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>How to build exiv2 32-bit libraries using Cmake</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="03 Sep 2017 00:36" href="/projects/exiv2/activity?from=2017-09-03">about 4 years</a> ago</span></p>
+<div class="wiki">
+<p>Running under Win 10 - 64-bit using MSVC 2015 Community edition.<br />Installed Cmake and have downloaded the latest trunk exiv2-0.26<br />I have been able to build the 64-bit code (which seems to be the default), both static &#38; dynamic versions - release and debug, but have been unable to guess at what command line arguments or environment variable to set to make it compile 32-bit versions.<br />Even cmakeBuild --help  gives no hints<br />Any help or pointer will be very much appreciated</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (43)</h3>
+  <div class="message reply" id="message-2923">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2923#message-2923">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2017 02:56" href="/projects/exiv2/activity?from=2017-09-03">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Arnold</p>
+
+
+	<p>You set the compiler/bits using Microsoft's vcvars.bat script before you run contrib/cmake/msvc/cmakeBuild.cmd.  CMake (and cmakeBuild.cmd) detects the compiler/bits from the environment.  For your convenience there is a script contrib/cmake/msvc/vcvars.bat to make it easy to call Microsoft's vcvars.bat script. <pre>Microsoft Windows [Version 10.0.15063]
+(c) 2017 Microsoft Corporation. All rights reserved.
+
+C:\Users\rmills&gt;cd gnu\github\exiv2\exiv2\contrib\cmake\msvc
+
+C:\Users\rmills\gnu\github\exiv2\exiv2\contrib\cmake\msvc&gt;vcvars 2015 32
+Success Environment for Visual Studio 14.0 = 2015 32
+
+C:\Users\rmills\gnu\github\exiv2\exiv2\contrib\cmake\msvc&gt;cmakeBuild
+calling cmakeDefaults.cmd
+checking that ..\..\.. exists
+_EXIV2_ = C:\Users\rmills\gnu\github\exiv2\exiv2
+testing VSINSTALLDIR "C:\Program Files (x86)\Microsoft Visual Studio 14.0\" 
+testing architecture
+Platform = Win32 (x86)
+determine generator
+GENERATOR = Visual Studio 14 2015
+testing out of source build
+...
+... lots and lots of stuff for about 5 minutes
+...
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:07.62
+
+C:\Users\rmills\gnu\github\exiv2\exiv2\contrib\cmake\msvc&gt;dist\2015\Win32\dll\Release\bin\exiv2 --verbose --version
+exiv2 0.26 001a00 (32 bit build)
+Copyright (C) 2004-2017 Andreas Huggel.
+</pre>Please be aware the Luis and I are actively refactoring the CMake build at the moment and the status on GitHub 'master' is volatile.  It is working, however it's possible/likely to be partially broken.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2924">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2924#message-2924">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="03 Sep 2017 03:11" href="/projects/exiv2/activity?from=2017-09-03">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you, but ..</p>
+
+
+	<p>if I run vcvars 2015 32 in the same directory where I built the default, I get</p>
+
+
+<blockquote>
+
+	<p>D:\pkg\C++\MSVC2015\exiv2\trunk\build>vcvars 2015 32<br />already installed</p>
+
+
+</blockquote>
+
+	<p>If I open another DOS window, I get</p>
+
+
+<blockquote>
+
+	<p>D:\>cd \pkg\C++\MSVC2015\exiv2\trunk\build</p>
+
+
+	<p>D:\pkg\C++\MSVC2015\exiv2\trunk\build>vcvars 2015 32<br />Success Environment for Visual Studio 14.0 = 2015 32</p>
+
+
+	<p>D:\pkg\C++\MSVC2015\exiv2\trunk\build>cmakeBuild --verbose --exiv2 .. --static<br />calling cmakeDefaults.cmd<br />checking that .. exists</p>
+
+
+</blockquote>
+
+	<p>..... and ends with:</p>
+
+
+<blockquote>
+
+	<p>---------- EXIV2 building with cmake ------------------</p>
+
+
+	<p>+<ins>++</ins>+++++++++++++++++++++++++++++++++++++++++++++++++++<br />CD = D:\pkg\C++\MSVC2015\exiv2\trunk\build\work\exiv2<br />cmake -G "Visual Studio 14 2015" -DCMAKE_BUILD_TYPE=Release  -DCMAKE_INSTALL_PREFIX=D:\pkg\C++\MSVC2015\exiv2\trunk\build\dist\2015\Win32\static\Release -DCMAKE_LIBRARY_PATH=D:/pkg/C++/MSVC2015/exiv2/trunk/build/dist/2015/Win32/static/Release/bin -DCMAKE_INCLUDE_PATH=D:/pkg/C++/MSVC2015/exiv2/trunk/build/dist/2015/Win32/static/Release/include               -DEXIV2_ENABLE_NLS=OFF                -DEXIV2_ENABLE_BUILD_SAMPLES=ON               -DEXIV2_ENABLE_WIN_UNICODE=OFF        -DEXIV2_ENABLE_SHARED=OFF               -DEXIV2_ENABLE_DYNAMIC_RUNTIME=OFF                                -DEXIV2_ENABLE_WEBREADY=OFF  -DEXIV2_ENABLE_CURL=ON  -DEXIV2_ENABLE_SSH=OFF -DEXIV2_ENABLE_VIDEO=OFF              "D:\pkg\C++\MSVC2015\exiv2\trunk" <br />CMake Error: Error: generator : Visual Studio 14 2015<br />Does not match the generator used previously: Visual Studio 14 2015 Win64<br />Either remove the CMakeCache.txt file and CMakeFiles directory or choose a different binary directory.<br />"*** cmake errors in EXIV2 ***"</p>
+
+
+	<p>D:\pkg\C++\MSVC2015\exiv2\trunk\build></p>
+
+
+</blockquote>
+
+	<p>Would this be due to the reworking?<br />and if so, any expected date when the rework will be usable?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2925">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2925#message-2925">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2017 03:22" href="/projects/exiv2/activity?from=2017-09-03">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Arnold</p>
+
+
+	<p>Use: <pre>D:\pkg\C++\MSVC2015\exiv2\trunk\build&gt; cmakeBuild.cmd --rebuild .....</pre>CMake writes a file CMakeCache.txt that remembers setting for your previous build.  The --rebuild option will remove that file (and some other previous build relics).</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2926">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2926#message-2926">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2017 10:45" href="/projects/exiv2/activity?from=2017-09-03">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>I hope that worked for you.</p>
+
+
+	<p>I'd like to say a few more things about this:</p>
+
+
+	<p>1) <em><strong>contrib\cmake\msvc\vcvars.bat</strong></em></p>
+
+
+	<p>The reason it's called "vcvars.bat" is to say "Go and find Microsoft's vcvars.bat and run it".  Microsoft have changed the directories and scripts with almost every release of Visual Studio.  I've tried to simplify that with contrib\cmake\msvc\vcvars.bat, so that you just say <em><strong><code>contrib\cmake\msvc\vcvars.bat VSedition [32|64]</code></strong></em></p>
+
+
+	<p>2) <em><strong>contrib\cmake\msvc\cmakeBuildAll.cmd</strong></em></p>
+
+
+	<p>When I'm using/debugging cmakeBuild.cmd, I usually run cmd.exe from cmd.exe</p>
+
+
+<pre>.....&gt; cmd.exe
+.....&gt; vcvars 2015 64
+.....&gt; cmakeBuild ...
+....
+.....&gt; exit
+.....&gt; cmd.exe
+.....&gt; vcvars 2005 64
+.....&gt; cmakeBuild ...
+....
+.....&gt; exit</pre>I use cmd.exe within cmd.exe so that when I exit, I get back to a "clean machine".  Regrettably Microsoft don't provide a script to remove the environment for Visual Studio.  If you use contrib\cmake\msvc\cmakeBuildAll.cmd to run a different version of Visual Studio, I say "already installed" because I don't know how to undo the earlier version.  I use the "shell within a shell" approach to achieve the undo effect.
+
+	<p>You'll see there is a script contrib\cmake\msvc\cmakeBuildAll.cmd:<br /><pre>for %%a in (32) do for %%v in (2010 2008 2005) do cmd /c "vcvars %%v %%a &#38;&#38; cmakeBuild %* 2&gt;&#38;1"</pre>When I'm doing serious testing, I'll edit that script to 32 and 64 builds of 2005/8/10/12/13/15 (and 17 with Exiv2 v0.26.1).  You can pass additional arguments to the script:<pre>
+.....&gt; cmakeBuildAll.cmd --rebuild --static
+</pre>3) <em><strong>msvc/exiv2.sln</strong></em></p>
+
+
+	<p>For years, I developed Exiv2 using the msvc/exiv2.sln  It supports {x64|x86} {release|debug} {static|dll}.  Luis is working hard to persuade me to remove the msvc solution which he describes as <em><strong>"madness"</strong></em>.  It's not madness.  It works well and supports 2005/8/10/12/13/15/18, although the Visual Studio project convertor from 2012 on-wards takes about 5 minutes to run and produces loads of unhelpful messages and warnings about nothing.  Today, I do Exiv2 development on MacOS-X/CMake.</p>
+
+
+	<p>Thank You for using Exiv2.  I'll be interested to receive your feedback as I'm always looking for ways to improve every aspect of Exiv2 including the build.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2927">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2927#message-2927">RE: How to build exiv2 32-bit libraries using Cmake &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="03 Sep 2017 17:46" href="/projects/exiv2/activity?from=2017-09-03">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'll try to document my experience here a bit more, though it will come in bits and pieces.<br />If I wait to the end, it'll be too much of a jumble, I'd expect.</p>
+
+
+	<p>First I'll try to carry on with the Cmake process, though I much prefer the .sln path.<br />I had seen the msvc/exic2.sln file, but because I have had unsatisfactory and frustrating experiences with MSVC update for such files, I usually avoid that path, especially of the upgrade spans several MSVC versions.</p>
+
+
+	<p>More about my luck with that approach though in another post.</p>
+
+
+	<p>For the Cmake process:<br />the default in the build file assumes exiv2 to live at ../trunk, but extracting the zip file from the download site puts that info into <em>trunk-exiv2</em></p>
+
+
+	<p>The idea of using the 'cleanup' option --rebuild needs more emphasis, or make the default for 32-bit, which still seems to be the more likely requirement, at least for the time being.</p>
+
+
+	<p>Another way to give more helpful information: display more information in response to --help.<br />Specifically say<br />--config Release|Debug<br />--generator - spell out more of what 'strings' will be acceptable</p>
+
+
+	<p>When I tried --generator 2015, admittedly likely ambiguous, the error response was very detailed :-)<br />but, is it really realistic to have the users spell out</p>
+
+
+	<p>Visual Studio 15 2017 [arch] = Generates Visual Studio 2017 project files.<br />                                 Optional [arch] can be "Win64" or "ARM".</p>
+
+
+	<p>and, if we do, will we need quotes around the strings with spaces?<br />can we we specify x86 or 32-bit for arch? or is there only provision for 64-bit &#38; ARM?</p>
+
+
+	<p>But most importantly, for me, can I &#38; how do I request <strong>Unicode</strong>???</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2928">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2928#message-2928">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="03 Sep 2017 18:16" href="/projects/exiv2/activity?from=2017-09-03">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>msvc.sln issues</p>
+
+
+	<p>As you mentioned, the upgrade to MSVC 2015 took a bit of time, but completed, to my surprise, without errors, though there were lots of warnings &#38; messages :-)</p>
+
+
+	<p>The first issue when trying to compile the whole project I ran into was that the source files for expat, and possibly others, are not part of the extracted data.</p>
+
+
+	<p>Since I am really only interested, at least for now, in libexiv2, I tried to only compile that sub-project by itself.</p>
+
+
+	<p>The issue, in this case, was the detail the all of the zlib headers needed for this library live in directories which include the zlib version number.<br />The other issue is that there are config headers which live in directories dependent on the configuration and other details.</p>
+
+
+	<p>in my case, I had to add the following paths to get a compile:</p>
+
+
+	<p>D:\pkg\C++\MSVC2015\exiv2\trunk\build\zlib-1.2.8<br />D:\pkg\C++\MSVC2015\exiv2\trunk\build\dist\2015\Win32\static\Debug\include</p>
+
+
+	<p>For the time being, I kept the paths absolute, though relative paths, as used in the rest of the .sln file would be preferable.</p>
+
+
+	<p>Again, can I compile for UNICODE?? How??</p>
+
+
+	<p>Would environment variables pointing to expat, zlib etc sources make life easier wrt using different versions of these libs??</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2929">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2929#message-2929">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2017 18:30" href="/projects/exiv2/activity?from=2017-09-03">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the feedback.  Lots of stuff for me to think about.</p>
+
+
+	<p>Regrettfully, I didn't make --unicode an option in contrib\cmake\msvc\cmakeBuild.cmd because I never thought about it.  I will fix this in v0.26.1.  For the moment,  you have to edit the script<pre>C:\Users\rmills\gnu\exiv2\0.26&gt;grep --line-number UNICODE contrib/cmake/msvc/*.cmd
+contrib/cmake/msvc/cmakeBuild.cmd:288:              -DEXIV2_ENABLE_WIN_UNICODE=OFF        -DEXIV2_ENABLE_SHARED=%ENABLE_SHARED% ^
+
+C:\Users\rmills\gnu\exiv2\0.26&gt;</pre></p>
+
+
+	<p>Your comments about the defaults for cmakeBuild.cmd are very useful.  The script cmakeBuild.cmd was added for v0.26 and you are the first user to discuss it with me.  I'll be reviewing the documentation in <em><strong>contrib\cmake\msvc\ReadMe.txt</strong></em> for our up-coming "dot" release v0.26.1.  I'll make sure your comments are reflected in that document.</p>
+
+
+	<p>Luis is working with great enthusiasm to replace the <em><strong>msvc solution/project</strong></em> files and the <em><strong>Linux ./configure</strong></em> script with a combination of <strong>Conan+CMake</strong>.  Today he submitted his first version of our Conan support.  Conan is Python based build technology which understands dependencies.  Exiv2 has dependencies on zlib, expat, libssh, openssl and curl.  With v0.26.1 we want to enable the user to link different versions of Adobe XMPsdk.  It remains to be proven that Conan+CMake will enable us to simplify the build and dependencies on all platforms, however we are optimistic.  Exiv2 v0.26.1 will remain backwards compatible with v0.26.  We will continue to support all existing build methods and the CMake+Conan support will be be introduced as "experimental".</p>
+
+
+	<p>Thank for taking the time to give me feedback.  Working on open-source can be a lonely business.  I usually only hear from people who want something fixed or changed.  When I develop Exiv2, I "do my best", however user feedback is rare. Thank you for taking the time to write down your thoughts.   Constructive criticism is always helpful.  Thank You very much.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2930">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2930#message-2930">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2017 18:41" href="/projects/exiv2/activity?from=2017-09-03">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your feedback about the msvc/solution files.</p>
+
+
+	<p>You should place the code for expat and zlib into directories "parallel" to exiv2.  This is documented in msvc/ReadMe.txt</p>
+
+
+	<p>I don't like having to have the expat and zlib in "parallel" directories, however it's quite easy to set up and I provide build project files for expat and zlib in the exiv2.sln.  I did this because the MSVC support provided by expat and zlib was not good.</p>
+
+
+	<p>To configure the msvc build, please edit include\exiv2\exv_msvc.h  There's a setting there for UNICODE.  This file is part of the libexiv2 project and labelled "MSVC only" in the project explorer.</p>
+
+
+	<p>Thanks for the feedback.  Very much appreciated.  Thank You.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2931">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2931#message-2931">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="03 Sep 2017 19:53" href="/projects/exiv2/activity?from=2017-09-03">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>If only all open source software forums were as responsive as this one ;-)<br />Thank you.<br />I certainly can relate to the issues of the many and various versions of those essential supporting libraries and how to keep them up-to-date and in-sync with the rest of the code one is working with - made worse by cross-platform &#38; OS differences.<br />For myself, using Windows  basically came down to a more intuitive debugger, mainly because of experience at work, where Linux was not an option ;-)<br />I have dabbled with Linux and similar Unix-derivatives (mainly Solaris), but always ended up going back to what I knew best and usually the debugging facility was a very important part of the move. At times the multitude of 'flavours' and sometimes brick-wall differences - to the uninitiated newb - did not help keep me in the Linux 'fold. ;-)<br />My main toolkit now includes wxWidgets, where Unicode is a must with the current releases, along with the need to handle more than plain ASCII text, which also needs either MS multi-byte strings or Unicode.<br />The problem of some of my projects depending on several of these supporting libraries has always been a frustrating experience for me, to the point of often enough installing a specific version for each project - usually the version current when the project was started - to make sure any changes in the library code would not upset anything over the years that most projects live.<br />These are then updated only when the new version of the libraries includes something essential for the project's operation or makes it possible to remove a limitation imposed by those libraries.</p>
+
+
+	<p>As for the notes in the read.me files, it is a very valid point and I can only say in my 'defense'- there is always the issue of RTFM :-) coupled to the fact that this project contains a number of read.mes and after reading a number of them, it becomes hard to remember just what one read where and in relation to which issue.</p>
+
+
+	<p>Later on this week, I will try the suggested fixes and report back on how I made/make out.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2932">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2932#message-2932">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2017 20:54" href="/projects/exiv2/activity?from=2017-09-03">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you for your kind comments about the forum.  I enclose my updated version of the code and documentation in contrib/cmake/msvc  Comments and feedback welcome.</p>
+
+
+	<p>I've always really liked Visual Studio as a development environment.  It's easy to target your build, great debugging and wonderful object browser, MFC and good GUI design tools.  In the open-source world, I've been surprised by the Windows-hostility (mostly based on ignorance of Visual Studio).  Light-weight cross platform GUI hardly exist.  Qt and wx are both huge things.</p>
+
+
+	<p>I try to "silo" my ReadMe.txt files.  If you're working in contrib/cmake/msvc, everything you need to know should be in that file.  And in msvc/ - all you need should there.  But you know, mistakes get made.  And when I document everything, folks don't read it and say "It's insufficient and it's too long".</p>
+
+
+	<p>Anyway, it's nice to work with you.  Good luck in your endeavours.  Speak later in the week.</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1182">forArnold.tar.gz</a>    <span class="size">(8.08 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1182/forArnold.tar.gz">forArnold.tar.gz</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2933">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2933#message-2933">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="04 Sep 2017 15:19" href="/projects/exiv2/activity?from=2017-09-04">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>As for the size of Qt &#38; wx, I only know a bit about wx, next to nothing about Qt &#38; I suppose trying to be all things to all things makes for a lot of wrappers and shims :-(</p>
+
+
+	<p>Regarding readmes, I can relate to your observation "too long &#38; insufficient" :-) I know well enough from my own way of leaving myself extensive 'breadcrumbs' about my 'history' of any particular project. When I get back to it some time later either for further work or to fix issues, sometimes what I can find what I need, other times, even though I know I have faced the same error or warning  a number of times, any  record of the earlier 'solution' is nowhere to be found.</p>
+
+
+	<p>I suppose that is/was the motivation behind the Linux type config script tests. In applications, the solution is checking &#38; reporting issues resulting from bad assumptions by the user, but in libraries and compile scripts, it is a bit harder.</p>
+
+
+	<p>Back to the real issues :-)<br />cmake --help</p>
+
+
+	<p>no mention of --unicode</p>
+
+
+	<p>-------------<br />in the builds of interest, even though I use the option --static, the scripts seem to be building DLLs</p>
+
+
+	<p>A question: the debug versions of the libs &#38; DLLs have a 'd' suffix, would it be possible to add a 'u' suffix for the Unicode builds?</p>
+
+
+	<p>After replacing the original 2 build scripts with the new ones, <br />for either the Unicode or non Unicode build, expat &#38; zlib build OK, but it is the DLLs that get built, not libs<br />non Unicode:</p>
+
+
+	<p>D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\contrib\cmake\msvc>cmakebuild --rebuild --verbose --config Debug --static<br />calling cmakeDefaults.cmd<br />checking that ..\..\.. exists<br /><em>EXIV2</em> = D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk<br />testing VSINSTALLDIR "C:\Program Files (x86)\Microsoft Visual Studio 14.0\" <br />testing architecture<br />Platform = Win32 (x86)<br />The system cannot find the batch label specified - echo<br />GENERATOR = Visual Studio 14 2015<br />testing out of source build<br />testing compiler<br />Microsoft (R) C/C++ Optimizing Compiler Version 19.00.24215.1 for x86<br />Copyright (C) Microsoft Corporation.  All rights reserved.<br />  ...............</p>
+
+
+	<p>---------- EXIV2 building with cmake ------------------</p>
+
+
+	<p>+<ins>++</ins>+++++++++++++++++++++++++++++++++++++++++++++++++++<br />CD = D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\contrib\cmake\msvc\work\exiv2<br />cmake -G "Visual Studio 14 2015"     -DCMAKE_BUILD_TYPE=Debug  -DCMAKE_INSTALL_PREFIX=D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\contrib\cmake\msvc\dist\2015\Win32\static\Debug -DCMAKE_LIBRARY_PATH=D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/dist/2015/Win32/static/Debug/bin -DCMAKE_INCLUDE_PATH=D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/dist/2015/Win32/static/Debug/include               -DEXIV2_ENABLE_NLS=OFF  -DEXIV2_ENABLE_BUILD_SAMPLES=ON               -DEXIV2_ENABLE_WIN_UNICODE=OFF -DBUILD_SHARED_LIBS=OFF               -DEXIV2_ENABLE_DYNAMIC_RUNTIME=OFF               -DEXIV2_ENABLE_WEBREADY=OFF  -DEXIV2_ENABLE_CURL=ON  -DEXIV2_ENABLE_SSH=OFF -DEXIV2_ENABLE_VIDEO=OFF              "D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk"</p>
+
+
+	<p>..............</p>
+
+
+	<p>Link:<br />  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"D:\pkg\C++\MSVC2015\exiv<br />  2\exiv2-0.26-trunk\trunk\contrib\cmake\msvc\work\exiv2\src\Debug\exiv2d.dll" /INCREMENTAL /NOLOGO /LIBPATH:"D:/pkg/C+<br />  <ins>/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/dist/2015/Win32/static/Debug/bin" /LIBPATH:"D:/pkg/C</ins>+/MSV<br />  C2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/dist/2015/Win32/static/Debug/bin/Debug" ..\..\..\dist\2015\Win3<br />  2\static\Debug\lib\zlibd.lib ..\..\..\dist\2015\Win32\static\Debug\lib\expat.lib ..\xmpsdk\Debug\xmpd.lib ..\..\..\di<br />  st\2015\Win32\static\Debug\lib\expat.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut3<br />  2.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed<br />  /DEBUG /PDB:"D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/work/exiv2/src/Debug/exiv2d.pdb" /SU<br />  BSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cma<br />  ke/msvc/work/exiv2/src/Debug/exiv2d.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /DLL exiv2lib.dir\Debug\asfvideo.obj<br />  exiv2lib.dir\Debug\basicio.obj<br />  exiv2lib.dir\Debug\bmpimage.obj<br />  exiv2lib.dir\Debug\canonmn.obj</p>
+
+
+	<p>.................</p>
+	<pre><code>exiv2lib.dir\Debug\localtime.obj<br />  exiv2lib.dir\Debug\getopt_win32.obj<br />     Creating library D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/work/exiv2/src/Debug/exiv2d.l<br />  ib and object D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/work/exiv2/src/Debug/exiv2d.exp<br />xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol _<em>imp</em>_XML_ParserCreateNS referenced in function<br /> "public: _<em>thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter@<code>QAE@XZ) [D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-<br />trunk\trunk\contrib\cmake\msvc\work\exiv2\src\exiv2lib.vcxproj]<br />xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol __imp__XML_SetElementHandler referenced in funct<br />ion "public: __thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter</code>@QAE@XZ) [D:\pkg\C++\MSVC2015\exiv2\exiv2-0.<br />26-trunk\trunk\contrib\cmake\msvc\work\exiv2\src\exiv2lib.vcxproj]<br />xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol __imp</em>_XML_SetCharacterDataHandler referenced in<br /> function "public: __thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter@@QAE@XZ) [D:\pkg\C++\MSVC2015\exiv2\ex<br />iv2-0.26-trunk\trunk\contrib\cmake\msvc\work\exiv2\src\exiv2lib.vcxproj]</code></pre>
+
+
+	<p>============<br />Unicode build</p>
+
+
+	<p>D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\contrib\cmake\msvc>vcvars 2015 x86<br />Success Environment for Visual Studio 14.0 = 2015 x86</p>
+
+
+	<p>D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\contrib\cmake\msvc>cmakebuild --rebuild --verbose --config Debug --static --unicode<br />calling cmakeDefaults.cmd</p>
+
+
+	<p>...............<br />---------- EXIV2 building with cmake ------------------</p>
+
+
+	<p>+<ins>++</ins>+++++++++++++++++++++++++++++++++++++++++++++++++++<br />CD = D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\contrib\cmake\msvc\work\exiv2<br />cmake -G "Visual Studio 14 2015"     -DCMAKE_BUILD_TYPE=Debug  -DCMAKE_INSTALL_PREFIX=D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\contrib\cmake\msvc\dist\2015\Win32\static\Debug -DCMAKE_LIBRARY_PATH=D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/dist/2015/Win32/static/Debug/bin -DCMAKE_INCLUDE_PATH=D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/dist/2015/Win32/static/Debug/include               -DEXIV2_ENABLE_NLS=OFF  -DEXIV2_ENABLE_BUILD_SAMPLES=ON               -DEXIV2_ENABLE_WIN_UNICODE=ON -DBUILD_SHARED_LIBS=OFF               -DEXIV2_ENABLE_DYNAMIC_RUNTIME=OFF               -DEXIV2_ENABLE_WEBREADY=OFF  -DEXIV2_ENABLE_CURL=ON  -DEXIV2_ENABLE_SSH=OFF -DEXIV2_ENABLE_VIDEO=OFF              "D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk" <br /> .............</p>
+	<pre><code>Creating library D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/work/exiv2/src/Debug/exiv2d.l<br />  ib and object D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/work/exiv2/src/Debug/exiv2d.exp<br />xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol _<em>imp</em>_XML_ParserCreateNS referenced in function<br /> "public: __thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter@@QAE@XZ) [D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-<br />trunk\trunk\contrib\cmake\msvc\work\exiv2\src\exiv2lib.vcxproj]</code></pre>
+
+
+	<p>====================</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2934">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2934#message-2934">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="04 Sep 2017 15:30" href="/projects/exiv2/activity?from=2017-09-04">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Loading the exiv2.sln file for MSVC 2015 in trunk\contrib\cmake\msvc\work\exiv2 &#38; trying to build the debug version gives me:<br />3 failing projects <br />4>------ Build started: Project: exiv2lib, Configuration: Debug Win32 ------<br />4>     Creating library D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/work/exiv2/src/Debug/exiv2d.lib and object D:/pkg/C++/MSVC2015/exiv2/exiv2-0.26-trunk/trunk/contrib/cmake/msvc/work/exiv2/src/Debug/exiv2d.exp<br />4>xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol _<em>imp</em>_XML_ParserCreateNS referenced in function "public: _<em>thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter@<code>QAE@XZ)<br />4>xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol __imp__XML_SetElementHandler referenced in function "public: __thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter</code>@QAE@XZ)<br />4>xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol __imp</em>_XML_SetCharacterDataHandler referenced in function "public: _<em>thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter@<code>QAE@XZ)<br />4>xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol __imp__XML_SetProcessingInstructionHandler referenced in function "public: __thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter</code>@QAE@XZ)<br />4>xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol __imp</em>_XML_SetCommentHandler referenced in function "public: _<em>thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter@<code>QAE@XZ)<br />4>xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol __imp__XML_SetCdataSectionHandler referenced in function "public: __thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter</code>@QAE@XZ)<br />4>xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol __imp</em>_XML_SetNamespaceDeclHandler referenced in function "public: _<em>thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter@<code>QAE@XZ)<br />4>xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol __imp__XML_SetUserData referenced in function "public: __thiscall ExpatAdapter::ExpatAdapter(void)" (??0ExpatAdapter</code>@QAE@XZ)<br />4>xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol __imp</em>_XML_Parse referenced in function "public: virtual void __thiscall ExpatAdapter::ParseBuffer(void const *,unsigned int,bool)" (?ParseBuffer@ExpatAdapter@<code>UAEXPBXI_N@Z)<br />4>xmpd.lib(ExpatAdapter.obj) : error LNK2019: unresolved external symbol __imp__XML_ParserFree referenced in function "public: virtual __thiscall ExpatAdapter::~ExpatAdapter(void)" (??1ExpatAdapter</code>@UAE@XZ)<br />4>D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\contrib\cmake\msvc\work\exiv2\src\Debug\exiv2d.dll : fatal error LNK1120: 10 unresolved externals</p>
+
+
+	<p>-------------<br />18>------ Build started: Project: geotag, Configuration: Debug Win32 ------<br />18>geotag.obj : error LNK2019: unresolved external symbol _<em>imp</em>_XML_ParserCreate referenced in function _<em>catch$?parseTime@<code>YA_JPBD_N@Z$0<br />18>geotag.obj : error LNK2019: unresolved external symbol __imp__XML_SetElementHandler referenced in function __catch$?parseTime</code>@YA_JPBD_N@Z$0<br />18>geotag.obj : error LNK2019: unresolved external symbol __imp</em>_XML_SetCharacterDataHandler referenced in function _<em>catch$?parseTime@<code>YA_JPBD_N@Z$0<br />18>geotag.obj : error LNK2019: unresolved external symbol __imp__XML_SetUserData referenced in function __catch$?parseTime</code>@YA_JPBD_N@Z$0<br />18>geotag.obj : error LNK2019: unresolved external symbol __imp</em>_XML_Parse referenced in function __catch$?parseTime@<code>YA_JPBD_N@Z$0<br />18>geotag.obj : error LNK2019: unresolved external symbol __imp__XML_ParserFree referenced in function __catch$?parseTime</code>@YA_JPBD_N@Z$0<br />18>D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\contrib\cmake\msvc\work\exiv2\samples\Debug\geotag.exe : fatal error LNK1120: 6 unresolved externals</p>
+
+
+	<p>------------------<br />16>------ Build started: Project: exiv2, Configuration: Debug Win32 ------<br />16>D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\src\actions.cpp(2121): error C2664: 'std::string Exiv2::ws2s(const std::wstring &#38;)': cannot convert argument 1 from 'std::string' to 'const std::wstring &#38;'<br />16>  D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\src\actions.cpp(2121): note: Reason: cannot convert from 'std::string' to 'const std::wstring'<br />16>  D:\pkg\C++\MSVC2015\exiv2\exiv2-0.26-trunk\trunk\src\actions.cpp(2121): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2935">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2935#message-2935">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Sep 2017 16:57" href="/projects/exiv2/activity?from=2017-09-04">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Slow down, you're going too fast.</p>
+
+
+	<p>1) Can we add u for Unicode?  Yes, I think so.  &lt;exiv2&gt;/CMakeLists.txt has the code: <pre>550 rmills@rmillsmbp:~/gnu/exiv2/0.26 $ grep --line-number -B 3 -A 1 CMAKE_DEBUG_POSTFIX CMakeLists.txt  
+111-if( MSVC )
+112-    # cmake_policy(SET CMP0008)
+113-    ADD_DEFINITIONS(-DPSAPI_VERSION=1) # to be compatible with &lt;= WinVista (#905)
+114:    set(CMAKE_DEBUG_POSTFIX "d")
+115-endif( MSVC )
+551 rmills@rmillsmbp:~/gnu/exiv2/0.26 $ </pre>We could have "&lt;undecorated&gt;", "d", "u", "ud".  Put in a request (on GitHub, or redmine) and it'll be looked at.  You can patch the code on your machine.  Luis is refactoring the CMake code at the moment, so the code on GitHub exiv2/exiv2.git is considerably different from v0.26.</p>
+
+
+	<p>2) Linking DLLs, instead of statics.<br />Exiv2 is static (there's no exiv2 dll), however it links expat.dll and zlib.dll</p>
+
+
+	<p>This was fixed in July  <a class="external" href="https://github.com/Exiv2/exiv2/issues/11">https://github.com/Exiv2/exiv2/issues/11</a>  You can patch the fix into your code.  However I'll fix it on master because Luis recently disturbed my fix on GitHub exiv2/exiv2.git.  I hope to fix it in the next day or two.</p>
+
+
+	<p>3) All this output.  Are you reporting issues with Visual Studio+UNICODE+32+static  Is this msvc/exiv2.sln or CMake generated exiv2.sln  Can you isolate the lethal combination for me please?</p>
+
+
+	<p>4) Are there more questions I failed to notice?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2936">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2936#message-2936">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="04 Sep 2017 19:09" href="/projects/exiv2/activity?from=2017-09-04">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>OK, I'll slow down ;-)<br />Perhaps I'd best wait till things settle down with exiv2?</p>
+
+
+	<p>I'll put in a request to redmine for the 'u' decoration - sometime later today.</p>
+
+
+	<p>As for my 'output' samples: my first reply was from <br />trunk\contrib\cmake\msvc>cmakebuild --rebuild --verbose --config Debug --static</p>
+
+
+	<p>&#38;&#38;</p>
+
+
+	<p>trunk\contrib\cmake\msvc>cmakebuild --rebuild --verbose --config Debug --static --unicode</p>
+
+
+	<p>the second reply was output from my attempts to use the sln file (presumably) generated by the above attempts to use cmakebuild</p>
+
+
+	<p>In general, I think you have addressed all my questions.</p>
+
+
+<hr />
+
+
+	<p>My main interest is using exiv2lib in a Unicode build because I need to handle UTF-8 for European languages other than English with all their 'funny' characters, including potentially Cyrillic scripts/fonts.<br />To avoid multiple file dependencies, I prefer static linking of all bits and pieces, but I can live with using DLLs if necessary.</p>
+
+
+	<p>Earlier today, I have used exiv2.exe as it was build without Unicode and when I dump all of the metadata in a PNG file with UTF8 strings, it naturally displays a garbled string.</p>
+
+
+	<p>This particular project is part of my work on our family tree and my efforts to 'weld' details of interest to the png documents, so that the data can be searched using suitable DAM software. It all started out with my attempts to find out where and how the metadata was stored, since not all utilities look for or save the 'same' data in the same place. There are just too many image metadata 'standards' and nothing to search and/or edit the data, other than Exiftool which seems to handle them all - but it is a bit cumbersome to run from the command line in a GUI environment.</p>
+
+
+	<p>Some time ago I had tried to use the XMP SDK from Adobe directly, but even then UTF-8 seemed to be an issue and when I corresponded with some of Adobe's people, I never did get the issue resolved.<br />From the looks of things, though, even Exiv2 uses the XMP SDK and I do hope that UTF-8 won't be the problem this time as well ;-)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2937">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2937#message-2937">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Sep 2017 21:19" href="/projects/exiv2/activity?from=2017-09-04">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the explanation about your project.</p>
+
+
+	<p>Exiv2's XMP support is a wrapper over the Adobe XMPsdk.  We locate the XMP/xml and feed it into Adobe's code.  I cannot predict anything about XMPsdk's UTF-8 handling.  Let's wait until we identify an issue and I will try to help.</p>
+
+
+	<p>To avoid confusion with the work being done by Luis, I am focusing our discussion on the released version of Exiv2 v0.26.  Please remove the modified files which I sent yesterday - they are polluted by changes on GitHub exiv2/exiv2 and disturbing the peace!</p>
+
+
+	<p>The fix for "pure" static linking (no expat.dll no zlib.dll) is in GitHub for v0.26.1.</p>
+
+
+	<p>I built static and it's good.<pre>contrib\cmake\msvc\&gt; cmakebuild --rebuild --static  --exiv2 ..\..\..</pre></p>
+
+
+	<p>I manually edited cmakeBuild.cmd and changed UNICODE=OFF to UNICODE=ON and reran the build.  There is a bug in UNICODE src/actions.cpp which was fixed in GitHub on 2017-08-09.  Regrettably, I think release v0.26 UNICODE build is broken.  The file src/actions.cpp is used by exiv2.exe and isn't part of the library.  The library is successfully build, however it's not copied to the distribution directory when the build fails to build exiv2.exe.</p>
+
+
+	<p>You are exercising build configurations that have not received much of my attention.  May I suggest that you give me a couple of weeks to stabilise various matters on Github and then you build and use that.  You will be helping hugely to improve the quality of our UNICODE and CMake build (and probably other matters).  Can we work together, have some fun, and get this fixed?  How's that?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2938">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2938#message-2938">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="04 Sep 2017 22:17" href="/projects/exiv2/activity?from=2017-09-04">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>That sounds like a good plan :-)<br />Your help in this is much appreciated.<br />Resolving the UTF-8 issue is important to me and it is not as if there was nothing else to do at my end ;-)<br />So 2 weeks, or whatever it takes, is quite OK with me.<br />And testing code etc is what I spend most of my time at as it is.</p>
+
+
+	<p>I had been able to compile and link 0.25, but because I ran into issues with some of the exiv2 code that I tried to update to 0.26 and that is where this thread started.</p>
+
+
+	<p>Any replies to this thread show up in my in-box and I'll simply wait for your signal that it is time for me to carry on with this thread.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2939">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2939#message-2939">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="05 Sep 2017 08:38" href="/projects/exiv2/activity?from=2017-09-05">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Right.  Can you open another thread to discuss this UTF-8 business, please?</p>
+
+
+	<p>I'll get on with the builds.  I've made a truth table.  As you can see, I have a lot to do (and that's only MSVC).  Similar (but not quite as large) effort needed on Cygwin, MacOS-X, Linux and somebody has requested MinGW msys/2.0.<pre>+--------------------------------------------------------+
+| MSVC                2005 2008 2010 2012 2013 2015 2017 |
+| 32|64              :    :    :    :    :    :    :     |
+| static|shared      :    :    :    :    :    :    :     |
+| ascii|unicode      :    :    :    :    :    :    :     |
+| Debug|Release      :    :    :    :    :    :    :     |
+| CMake|msvc         :    :    :    :    :    :    :     |
+| webready           :    :    :    :    :    :    :     |
+| samples            :    :    :    :    :    :    :     |
++--------------------------------------------------------+</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2945">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2945#message-2945">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="05 Sep 2017 16:11" href="/projects/exiv2/activity?from=2017-09-05">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Looks like you do have a full 'plate' alright <br />Any time or any way I can help with this, please let me know.</p>
+
+
+	<p>Also, I have started a new thread for the Unicode version.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2947">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2947#message-2947">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="05 Sep 2017 16:27" href="/projects/exiv2/activity?from=2017-09-05">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>The machine will do the hard work to populate the build matrix.  I've made good progress today on the code.  Optimistic that I'll get this submitted this week.  Both you and Tobias will be testing.  This will be a better and stronger release of the UNICODE support than has been done in the past.</p>
+
+
+	<p>I've done the decoration: '', 'd', 'u','du' and I believe it's working.  I only intend to support this with CMake/Visual Studio builds.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2955">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2955#message-2955">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2017 17:14" href="/projects/exiv2/activity?from=2017-09-06">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Quick update.  I've done something useful today.  I've cut the grass!</p>
+
+
+	<p>I've been going round in circles for the last 24 hours.  I'm totally focused on VS 2015/32-bit static.  That cuts the options to:
+{ascii | unicode} x {debug | release}.  The config option {debug | release} is causing great pain.  I suspect a bug in CMake!</p>
+
+
+	<p>When I wrote cmakeBuild.cmd (2 years ago), I may have only have tested Release.  If it built and passed the test suite, I was happy.  And it has been in service (performing nightly builds) for 18 months.  The script works.</p>
+
+
+	<p>Anyway, I will try different things until it works, or I discover a way to make it work correctly.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2956">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2956#message-2956">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="06 Sep 2017 17:36" href="/projects/exiv2/activity?from=2017-09-06">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>I can relate to 'going in circles' - fortunately you are much more familiar with CMake than I am, so I am optimistic the issues will be resolved.<br />(Since I have had some major issues when moving up from earlier MSVC IDE, might things work (better) with some versions of MSVC and not with others?)<br />Meanwhile, because I realized Adobe had updated their XMP SDK, I will give it a try again.<br />Partly because that is where I started out and partly because even Exiv2 uses it to handle XMP data.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2957">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2957#message-2957">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2017 18:09" href="/projects/exiv2/activity?from=2017-09-06">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>The most important feature arriving in Exiv2 v0.26.1 is support for Adobe XMPsdk 2013|2014|2016 or our existing libxmp.a code (based on some Adobe code from about 10 years ago).  When you choose one of the Adobe SDKs, it will be built as a static library and linked into Exiv2.  That's what I was working on before you appeared at the weekend.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2958">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2958#message-2958">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="06 Sep 2017 22:26" href="/projects/exiv2/activity?from=2017-09-06">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>By now I have been able to make my test app compile &#38; link with the latest Adobe XMP SDK and from the limited testing I have done so far, it looks like I can at least read the UTf-8 strings embedded by XnViewMP :-)<br />I also realized that I referred to the wrong utility I mostly use to inspect PNG = tweakpng is the one which has a GUI and allow some editing of the data.<br />I am still interested both in using Exiv2 as a library and in testing the Windows parts of the distribution. <br />My work today simply means I am not as dependent on Exiv2 as I had thought.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2959">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2959#message-2959">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Sep 2017 09:56" href="/projects/exiv2/activity?from=2017-09-07">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the update.  I'm glad to be "off the hook" to get the build fixed quickly for you.  I think I know what's wrong and it concerns the --config.  I want to fix it for Tobias and hope to get it done in the next few days.</p>
+
+
+	<p>I guess you've seen my remarks about your request for unicode support in exiv2:  <a class="external" href="http://dev.exiv2.org/issues/1311#note-1">http://dev.exiv2.org/issues/1311#note-1</a></p>
+
+
+	<p>I think we should only build UNICODE in our msvc builds in v0.27 and later.   Would you be interested in mentoring a student next year to undertake the various tasks I have mentioned ?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2960">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2922?r=2960#message-2960">RE: How to build exiv2 32-bit libraries using Cmake</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="07 Sep 2017 19:00" href="/projects/exiv2/activity?from=2017-09-07">about 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, I have seen your comments, but have not really digested all of the implications.</p>
+
+
+	<p>Whether to restrict yourself, or rather exiv2, to Unicode under Windows, I am in a very poor position to judge, if only because I have no idea where, how and by how many exiv2 is used under Windows.</p>
+
+
+	<p>The same reasons argue against my mentoring a student as does my inexperience with any such sort of work as well as my rather limited understanding of localization as well as Unicode vs other encodings. Still, I'd be interested in helping - and learning myself - as much as possible.<br />-----------</p>
+
+
+	<p>One of the comments in my test app code regarding my reasons for abandoning Adobe's XMP SDK concerns the problems with embedded UTF-8 strings I could not resolve, even with the help of the SDK support staff. The was with the old version XMP-Toolkit-SDK-CC201306.</p>
+
+
+	<p>My tests with the current version XMP-Toolkit-SDK-CC201607 show no such problems.</p>
+
+
+	<p>In fact, the XMP Spec in  XMPSpecificationPart1.pdf states:<br /><em>7.1 General<br />The abstract XMP data model needs a concrete representation when given a physical representation such as a<br />digital file or a printed document. This document defines a canonical serialization of XMP metadata using a<br />subset of the RDF metadata syntax. The RDF serialization shall use Unicode text as defined in The Unicode<br />Standard. The choice of Unicode encoding (UTF-8, UTF-16, or UTF-32) is beyond the scope of this document.<br />Other file embedding or usage standards may specify the Unicode encoding.<br />For this serialization, a single XMP packet shall be serialized using a single rdf:RDF XML element. <br />Serialized XMP shall be well-formed XML and well-formed RDF. An XMP reader shall conform to the rules of<br />XML and RDF given in their respective specifications.</em></p>
+
+
+	<p>Depending on which version you use with exiv2, there might not be any problems in this respect for exiv2.</p>
+
+
+	<p>Other standards seem to be handling this, IIRC, using some language specifications - I believe this is how the PNG sample addresses the issue, though it has been some time since I have looked at it closely enough to be sure.<br />----------------</p>
+
+
+	<p>At the back of my mind is another issue sort of related to this discussion.<br />As part of my interests in genealogy, I am currently using a Windows package of Gramps.<br />It is written in Python and one of the issues in porting it to Windows that seems to be lurking in the background is a problem with - or rather the lack of - using/editing image metadata in the Windows package. <br />As I understand things, it revolves around some difficulties in the use of the Exiv2 library Python interface under Windows.<br />Unfortunately, I don't know enough about the issue or python to be helpful to anyone in this regard.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"><li class="previous"><span>« Previous</span></li><li class="current"><span>1</span></li><li class="page"><a href="/boards/3/topics/2922?page=2">2</a></li><li class="next page"><a accesskey="n" href="/boards/3/topics/2922?page=2">Next »</a></li></ul><span><span class="items">(1-25/43)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

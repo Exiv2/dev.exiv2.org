@@ -1,0 +1,24 @@
+--- config/config.h.in.orig	2010-07-23 22:27:32.869158921 +0200
++++ config/config.h.in	2010-07-23 22:35:32.901490968 +0200
+@@ -212,10 +212,17 @@
+ # define EXV_DLLPUBLIC
+ #else
+ # ifdef EXV_HAVE_GXXCLASSVISIBILITY
+-#  define EXV_IMPORT __attribute__ ((visibility("default")))
+-#  define EXV_EXPORT __attribute__ ((visibility("default")))
+-#  define EXV_DLLLOCAL __attribute__ ((visibility("hidden")))
+-#  define EXV_DLLPUBLIC __attribute__ ((visibility("default")))
++#  if defined(__SUNPRO_C) || defined(__SUNPRO_CC)
++#   define EXV_IMPORT __global
++#   define EXV_EXPORT __global
++#   define EXV_DLLLOCAL __hidden
++#   define EXV_DLLPUBLIC __global
++#  else
++#   define EXV_IMPORT __attribute__ ((visibility("default")))
++#   define EXV_EXPORT __attribute__ ((visibility("default")))
++#   define EXV_DLLLOCAL __attribute__ ((visibility("hidden")))
++#   define EXV_DLLPUBLIC __attribute__ ((visibility("default")))
++#  endif
+ # else
+ #  define EXV_IMPORT
+ #  define EXV_EXPORT

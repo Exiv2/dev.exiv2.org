@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1088: malloc or free error in XmpKey::key() reading QuickTime movie - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="eUTkRc1zmmXBjGxoTORBCjAPmIDIg2W3gyrpdcO/XfKbCU+qvwlWZZToc2TzM005D53M+TlgxA1+Cnn9gIa6nQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1088: malloc or free error in XmpKey::key() reading QuickTime movie" href="https://dev.exiv2.org/issues/1088.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1088</h2>
+
+<div class="issue tracker-1 status-1 priority-4 priority-default details">
+    <div class="next-prev-links contextual">
+      <a title="#842" accesskey="p" href="/issues/842">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;op%5Bstatus_id%5D=o&amp;page=1&amp;per_page=100&amp;set_filter=1&amp;sort=updated_on%3Adesc%2Ctracker%2Cid%3Adesc&amp;v%5Bstatus_id%5D%5B%5D=">32 of 78</a>
+        </span> |
+      <a title="#467" accesskey="n" href="/issues/467">Next »</a>
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>malloc or free error in XmpKey::key() reading QuickTime movie</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4442">René Bertin</a> <a title="25 May 2015 18:23" href="/projects/exiv2/activity?from=2015-05-25">over 6 years</a> ago.
+        Updated <a title="16 Sep 2016 07:13" href="/projects/exiv2/activity?from=2016-09-16">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">New</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">video</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Dec 2020" href="/versions/54">0.28</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">25 May 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>There is a bug in Exiv2::XmpKey::key() called from QuickTimeVideo::userDataDecoder() that causes a memory allocation related crash on both OS X and Linux.</p>
+
+
+	<p>This bug existed in v 0.24 and persists in the svn/head (3839).</p>
+
+
+	<p>Backtrace on OS X with 0.24 svn-3839:</p>
+
+
+@Application Specific Information:<br />abort() called
+	<ul>
+	<li>error for object 0x7f8b2b407b68: incorrect checksum for freed object - object was probably modified after being freed.</li>
+	</ul>
+
+
+	<p>Thread 0 Crashed:: Dispatch queue: com.apple.main-thread<br />0   libsystem_kernel.dylib            0x00007fff8dcee866 _<em>pthread_kill + 10<br />1   libsystem_pthread.dylib           0x00007fff8e4dd35c pthread_kill + 92<br />2   libsystem_c.dylib                 0x00007fff91d85b1a abort + 125<br />3   libsystem_malloc.dylib            0x00007fff91490690 szone_error + 587<br />4   libsystem_malloc.dylib            0x00007fff91495218 tiny_malloc_from_free_list + 1412<br />5   libsystem_malloc.dylib            0x00007fff914953c3 szone_malloc_should_clear + 320<br />6   libsystem_malloc.dylib            0x00007fff91497868 malloc_zone_malloc + 71<br />7   libsystem_malloc.dylib            0x00007fff9149827c malloc + 42<br />8   libc++.1.dylib                    0x00007fff8d48128e operator new(unsigned long) + 30<br />9   libc++.1.dylib                    0x00007fff8d4865ba std::</em>_1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; >::__init(char const*, unsigned long, unsigned long) + 64<br />10  libexiv2.13.dylib                 0x0000000109de15fe Exiv2::XmpKey::key() const + 302 (string:1631)<br />11  libexiv2.13.dylib                 0x0000000109e2feae Exiv2::Xmpdatum::key() const + 30 (xmp.cpp:184)<br />12  libexiv2.13.dylib                 0x0000000109e3072f Exiv2::XmpData::findKey(Exiv2::XmpKey const&#38;) + 79 (string:1683)<br />13  libexiv2.13.dylib                 0x0000000109e30539 Exiv2::XmpData::operator[](std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; > const&#38;) + 41 (xmp.cpp:317)<br />14  libexiv2.13.dylib                 0x0000000109dee43f Exiv2::QuickTimeVideo::userDataDecoder(unsigned long) + 1983 (quicktimevideo.cpp:946)<br />15  libexiv2.13.dylib                 0x0000000109de8834 Exiv2::QuickTimeVideo::tagDecoder(Exiv2::DataBuf&#38;, unsigned long) + 932 (quicktimevideo.cpp:714)<br />16  libexiv2.13.dylib                 0x0000000109de7e09 Exiv2::QuickTimeVideo::decodeBlock() + 169 (types.hpp:204)<br />17  libexiv2.13.dylib                 0x0000000109de7ab2 Exiv2::QuickTimeVideo::readMetadata() + 834 (quicktimevideo.cpp:654)<br />18  exiv2                             0x0000000109d067a7 Action::Print::printSummary() + 103 (actions.cpp:277)<br />19  exiv2                             0x0000000109d065f1 Action::Print::run(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; > const&#38;) + 65 (actions.cpp:240)<br />20  exiv2                             0x0000000109cfa127 main + 615 (exiv2.cpp:172)<br />21  libdyld.dylib                     0x00007fff91ef75fd start + 1</p>
+
+
+	<p>Thread 0 crashed with X86 Thread State (64-bit):<br />  rax: 0x0000000000000000  rbx: 0x00007fff76091310  rcx: 0x00007fff55f06de8  rdx: 0x0000000000000000<br />  rdi: 0x0000000000000303  rsi: 0x0000000000000006  rbp: 0x00007fff55f06e10  rsp: 0x00007fff55f06de8<br />   <a class="changeset" title="More code" href="/projects/exiv2/repository/exiv2/revisions/8">r8</a>: 0x0000000000000010   <a class="changeset" title="Added Value et al." href="/projects/exiv2/repository/exiv2/revisions/9">r9</a>: 0x00000000fffffff0  <a class="changeset" title="Values implemented" href="/projects/exiv2/repository/exiv2/revisions/10">r10</a>: 0x0000000008000000  <a class="changeset" title="More code..." href="/projects/exiv2/repository/exiv2/revisions/11">r11</a>: 0x0000000000000206<br />  <a class="changeset" title="added license blabla" href="/projects/exiv2/repository/exiv2/revisions/12">r12</a>: 0x000000010a0bb000  <a class="changeset" title="Metadatum interface, Ifd::Entry" href="/projects/exiv2/repository/exiv2/revisions/13">r13</a>: 0x000000010a0bf000  <a class="changeset" title="Fix in the docu" href="/projects/exiv2/repository/exiv2/revisions/14">r14</a>: 0x0000000000000006  <a class="changeset" title="Rewrote Thumbnail::read(), added ExifData::findKey, cleanup" href="/projects/exiv2/repository/exiv2/revisions/15">r15</a>: 0x0000000000000000<br />  rip: 0x00007fff8dcee866  rfl: 0x0000000000000206  cr2: 0x000000010a124000<br />@</p>
+
+
+	<p>On Ubuntu 14.04 (exiv2 0.24):</p>
+
+
+@
+	<ul>
+	<li>Error in `/usr/bin/exiv2': free(): invalid next size (normal): 0x0000000000642300 ***</li>
+	</ul>
+
+
+	<p>Program received signal SIGABRT, Aborted.<br />0x00007ffff7016cc9 in __GI_raise (sig=sig@entry=6) at ../nptl/sysdeps/unix/sysv/linux/raise.c:56<br />56      ../nptl/sysdeps/unix/sysv/linux/raise.c: No such file or directory.<br />(gdb) bt<br />#0  0x00007ffff7016cc9 in __GI_raise (sig=sig@entry=6) at ../nptl/sysdeps/unix/sysv/linux/raise.c:56<br />#1  0x00007ffff701a0d8 in __GI_abort () at abort.c:89<br />#2  0x00007ffff7053394 in __libc_message (do_abort=do_abort@entry=1, <br />    fmt=fmt@entry=0x7ffff7161b28 "*** Error in `%s': <span>s: 0x%s ***\n") at ../sysdeps/posix/libc_fatal.c:175<br />#3  0x00007ffff705f66e in malloc_printerr (ptr=&lt;optimised out&gt;, str=0x7ffff7161ca0 "free(): invalid next size (normal)", action=1)<br />    at malloc.c:4996<br />#4  _int_free (av=&lt;optimised out&gt;, p=&lt;optimised out&gt;, have_lock=0) at malloc.c:3840<br />#5  0x00007ffff7a69ef4 in ?? () from /usr/lib/x86_64-linux-gnu/libexiv2.so.13<br />#6  0x00007ffff7a693f5 in Exiv2::QuickTimeVideo::userDataDecoder(unsigned long) () from /usr/lib/x86_64-linux-gnu/libexiv2.so.13<br />#7  0x00007ffff7a6880b in Exiv2::QuickTimeVideo::tagDecoder(Exiv2::DataBufx%x</span>, unsigned long) ()<br />   from /usr/lib/x86_64-linux-gnu/libexiv2.so.13<br />#8  0x00007ffff7a68b70 in Exiv2::QuickTimeVideo::decodeBlock() () from /usr/lib/x86_64-linux-gnu/libexiv2.so.13<br />#9  0x00007ffff7a68dbd in Exiv2::QuickTimeVideo::readMetadata() () from /usr/lib/x86_64-linux-gnu/libexiv2.so.13<br />#10 0x0000000000416308 in ?? ()<br />#11 0x000000000041846c in ?? ()<br />#12 0x00000000004057aa in ?? ()<br />#13 0x00007ffff7001ec5 in __libc_start_main (main=0x4056a0, argc=4, argv=0x7fffffffe3c8, init=&lt;optimised out&gt;, <br />    fini=&lt;optimised out&gt;, rtld_fini=&lt;optimised out&gt;, stack_end=0x7fffffffe3b8) at libc-start.c:287<br />#14 0x0000000000405a7a in ?? ()<br />@</p>
+
+
+	<p>This does not happen with all QuickTime files : the ones recorded on an iPhone 4S are fine, but after saving some edits in QuickTime Player Pro they can provoke the crash.<br />I'm attaching an example video. This is a QuickTime reference movie that refers to sequences I cannot upload due to space constraints, but the same movie still causes the crash after "flattening" (i.e. including all clips into a standalone movie).</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/793">video.mov</a>    <span class="size">(458 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/793/video.mov">video.mov</a>  </td>
+  <td>QuickTime reference movie without the clips it refers to; the same movie still causes the crash after &quot;flattening&quot; (i.e. including all clips into a standalone movie).</td>
+  <td>
+      <span class="author">René Bertin, 25 May 2015 18:23</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3777" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4442">René Bertin</a> <a title="25 May 2015 18:30" href="/projects/exiv2/activity?from=2015-05-25">over 6 years</a> ago
+      <span id="journal-3777-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3777-notes" class="wiki"><p>A more complete backtrace on Linux:</p>
+
+
+	<p><code>#0  0x00007ffff7016cc9 in __GI_raise (sig=sig@entry=6) at ../nptl/sysdeps/unix/sysv/linux/raise.c:56<br />#1  0x00007ffff701a0d8 in __GI_abort () at abort.c:89<br />#2  0x00007ffff7053394 in __libc_message (do_abort=do_abort@entry=1, <br />    fmt=fmt@entry=0x7ffff7161b28 "*** Error in `%s': %s: 0x%s ***\n") at ../sysdeps/posix/libc_fatal.c:175<br />#3  0x00007ffff705f66e in malloc_printerr (ptr=&lt;optimised out&gt;, str=0x7ffff7161ca0 "free(): invalid next size (normal)", action=1)<br />    at malloc.c:4996<br />#4  _int_free (av=&lt;optimised out&gt;, p=&lt;optimised out&gt;, have_lock=0) at malloc.c:3840<br />#5  0x00007ffff7a69ef4 in _M_dispose (__a=..., this=&lt;optimised out&gt;) at /usr/include/c++/4.8/bits/basic_string.h:249<br />#6  ~basic_string (this=0x7fffffffd9c0, __in_chrg=&lt;optimised out&gt;) at /usr/include/c++/4.8/bits/basic_string.h:539<br />#7  ~basic_stringbuf (this=0x7fffffffd978, __in_chrg=&lt;optimised out&gt;) at /usr/include/c++/4.8/sstream:64<br />#8  ~basic_ostringstream (this=0x7fffffffd970, __in_chrg=&lt;optimised out&gt;, __vtt_parm=&lt;optimised out&gt;)<br />    at /usr/include/c++/4.8/sstream:453<br />#9  Exiv2::toString&lt;unsigned char*&gt; (arg=@0x7fffffffdc00: 0x641e80 "name") at types.hpp:480<br />#10 0x00007ffff7a693f5 in Exiv2::QuickTimeVideo::userDataDecoder (this=this@entry=0x63d6a0, size_external=size_external@entry=906)<br />    at quicktimevideo.cpp:900<br />#11 0x00007ffff7a6880b in Exiv2::QuickTimeVideo::tagDecoder (this=this@entry=0x63d6a0, buf=..., size=size@entry=906)<br />    at quicktimevideo.cpp:705<br />#12 0x00007ffff7a68b70 in Exiv2::QuickTimeVideo::decodeBlock (this=0x63d6a0) at quicktimevideo.cpp:672<br />#13 0x00007ffff7a68dbd in Exiv2::QuickTimeVideo::readMetadata (this=0x63d6a0) at quicktimevideo.cpp:645<br />#14 0x0000000000416308 in Action::Print::printSummary (this=this@entry=0x63c190) at actions.cpp:258<br />#15 0x000000000041846c in Action::Print::run (this=0x63c190, path="/Volumes/Debian/HDR/201505/Country@Varreddes/video.mov")<br />    at actions.cpp:236<br />#16 0x00000000004057aa in main (argc=&lt;optimised out&gt;, argv=&lt;optimised out&gt;) at exiv2.cpp:171<br /></code></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4004" class="journal has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Aug 2015 17:58" href="/projects/exiv2/activity?from=2015-08-21">about 6 years</a> ago
+      <span id="journal-4004-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5590" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Sep 2016 06:58" href="/projects/exiv2/activity?from=2016-09-16">about 5 years</a> ago
+      <span id="journal-5590-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>New</i></li>
+       <li><strong>Assignee</strong> deleted (<del><i>Abhinav Badola</i></del>)</li>
+    </ul>
+    <div id="journal-5590-notes" class="wiki"><p>I'm going to defer this for v0.27.  I'm also removing Abhinav as the assignee.  I hope to have a team hangout in October 2016 to deal with assignments for v0.27.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5596" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Sep 2016 07:13" href="/projects/exiv2/activity?from=2016-09-16">about 5 years</a> ago
+      <span id="journal-5596-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>0.28</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1088.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1088.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

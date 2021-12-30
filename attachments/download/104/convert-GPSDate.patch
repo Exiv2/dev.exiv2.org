@@ -1,0 +1,71 @@
+Index: convert.cpp
+===================================================================
+--- convert.cpp	(revision 1907)
++++ convert.cpp	(working copy)
+@@ -590,28 +590,52 @@
+ 
+             snprintf(buf, sizeof(buf), "%.9f", dsec);
+             buf[sizeof(buf) - 1] = 0;
++            buf[1] = '.'; // some locales use ','
+             subsec = buf + 1;
+ 
++            ok = false;
+             Exiv2::ExifData::iterator datePos = exifData_->findKey(ExifKey("Exif.GPSInfo.GPSDateStamp"));
+-            if (datePos == exifData_->end()) {
+-                datePos = exifData_->findKey(ExifKey("Exif.Photo.DateTimeOriginal"));
+-            }
+-            if (datePos == exifData_->end()) {
+-                datePos = exifData_->findKey(ExifKey("Exif.Photo.DateTimeDigitized"));
+-            }
+-            if (datePos == exifData_->end()) {
++            if (datePos != exifData_->end()) {
++                ok = true;
++                if (datePos->count() != 3) ok = false;
++                if (ok) {
++                    for (int i = 0; i < 3; ++i) {
++                        if (datePos->toRational(i).second == 0) {
++                            ok = false;
++                            break;
++                        }
++                    }
++                }
++                if (!ok) {
+ #ifndef SUPPRESS_WARNINGS
+-                std::cerr << "Warning: Failed to convert " << from << " to " << to << "\n";
++                    std::cerr << "Warning: Failed to convert Exif.GPSInfo.GPSDateStamp to " << to << "\n";
+ #endif
+-                return;
++                }
++                else {
++                    year = datePos->toLong(0);
++                    month = datePos->toLong(1);
++                    day = datePos->toLong(2);
++                }
+             }
+-            std::string value = datePos->toString();
+-            if (sscanf(value.c_str(), "%d:%d:%d", &year, &month, &day) != 3) {
++            if (!ok) { // "Exif.GPSInfo.GPSDateStamp" not found or the conversion failed
++                datePos = exifData_->findKey(ExifKey("Exif.Photo.DateTimeOriginal"));
++                if (datePos == exifData_->end()) {
++                    datePos = exifData_->findKey(ExifKey("Exif.Photo.DateTimeDigitized"));
++                }
++                if (datePos == exifData_->end()) {
+ #ifndef SUPPRESS_WARNINGS
+-                std::cerr << "Warning: Failed to convert " << from << " to " << to
+-                          << ", unable to parse '" << value << "'\n";
++                    std::cerr << "Warning: Failed to convert " << from << " to " << to << "\n";
+ #endif
+-                return;
++                    return;
++                }
++                std::string value = datePos->toString();
++                if (sscanf(value.c_str(), "%d:%d:%d", &year, &month, &day) != 3) {
++#ifndef SUPPRESS_WARNINGS
++                    std::cerr << "Warning: Failed to convert " << from << " to " << to
++                              << ", unable to parse '" << value << "'\n";
++#endif
++                    return;
++                }
+             }
+         }
+ 

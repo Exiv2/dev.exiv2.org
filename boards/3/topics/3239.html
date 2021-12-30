@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Problem using libexiv2 (v 0.26) in a C++ application - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="pLRpad5/u6pSEuzy5KtZbv7S4nleeXWA7ARjte9TN3BG+cKGrAV3qgd28/5bfFVdwUC2AK+a1DoRJPM9rGrQHw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Problem using libexiv2 (v 0.26) in a C++ application</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/7407">antoine cousyn</a> <a title="19 Nov 2018 10:30" href="/projects/exiv2/activity?from=2018-11-19">about 3 years</a> ago</span></p>
+<div class="wiki">
+<p>Hello everyone!</p>
+
+
+	<p>I am developing a specialized scientific application in C++, dealing with photos and videos, with a need to analyze metadata, for which I use the excellent libexiv2 library.</p>
+
+
+	<p>But I am presently stopped by the following problem (which will most probably sound ridiculous to many system analysts):</p>
+
+
+	<p>In order to analyze metadata included in a JPEG image file, I successfully execute:</p>
+	<pre><code>Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open (imagefilepath);<br />    image-&gt;readMetadata ();</code></pre>
+
+
+	<p>But I found no way to do the same thing with a QuickTime video file.</p>
+
+
+	<p>If I try:</p>
+	<pre><code>Exiv2::BasicIo::AutoPtrio = Exiv2::ImageFactory::createIo (fichier, true);<br />    io-&gt;open ();<br />    Exiv2::QuickTimeVideo::AutoPtr video = Exiv2::newQTimeInstance (io, false);<br />    video-&gt;readMetadata ();</code></pre>
+
+
+	<p>my program aborts, because of the “lack of dynamic links for newQTimeInstance”.</p>
+
+
+	<p>Could the explanation simply be that I have not installed libexiv2 correctly? Or is my code incorrect?</p>
+
+
+	<p>Any help would be much appreciated!</p>
+
+
+	<p>Thank you</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (17)</h3>
+  <div class="message reply" id="message-3240">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3240#message-3240">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Nov 2018 12:24" href="/projects/exiv2/activity?from=2018-11-19">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>You have to build exiv2 for video.  By default, you don't have video support.  You can check with the command:<br /><pre>$ exiv2 -vVg video</pre>This will display enable-video=1 when video support is enabled.</p>
+
+
+	<p>Exiv2 v0.27 is scheduled for 28 December 2018.  You can down load the current release candidate from <a class="external" href="http://exiv2.dyndns.org">http://exiv2.dyndns.org</a></p></div>
+  
+  </div>
+  <div class="message reply" id="message-3241">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3241#message-3241">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/7407">antoine cousyn</a> <a title="19 Nov 2018 16:28" href="/projects/exiv2/activity?from=2018-11-19">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks very much for your quick and helpful answer.</p>
+
+
+	<p>I knew I had to activate somehow the video support while installing libexiv2, but I failed doing it properly.</p>
+
+
+	<p>My personal problem is that I am very little knowledgeable in installing external libraries.</p>
+
+
+	<p>I work under Visual Studio 2013, in a WIN32 configuration.</p>
+
+
+	<p>I understand I may not use “exiv2-0.26-trunk/exiv2-trunk/msvc”, because I am with WIN32 and I need the video support option. Therefore I use “exiv2-0.26-trunk/exiv2-trunk/src”, after having modified “exiv2-0.26-trunk/exiv2-trunk/include/exiv2/exv_msvc.h” to set:  #define EXV_ENABLE_VIDEO 1. But thisproves not to be sufficient.</p>
+
+
+	<p>Obviously I am still missing something basic.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3242">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3242#message-3242">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Nov 2018 20:07" href="/projects/exiv2/activity?from=2018-11-19">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>What you've done sounds correct to me.  I'm surprised it hasn't enabled you to move forward.</p>
+
+
+	<p>Tomorrow I'll do a build of Exiv2 v0.27RC2/video-enabled using Visual Studio 2013.  I will verify that the video code is working and attach the build to this issue.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3243">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3243#message-3243">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Nov 2018 08:27" href="/projects/exiv2/activity?from=2018-11-20">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm not sure your code is correct.  Normally, you'd use the image factory to open the file and create the Image handler as follows:<br /><pre>
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(file);
+    assert(image.get() != 0);
+    image-&gt;readMetadata();
+</pre>I don't think you need to use: <code>Exiv2::new QT....</code></p>
+
+
+	<p>Before I do the build, can I ask you to download and test some files on your build.  I found some video files here:  <a class="external" href="https://github.com/mediaelement/mediaelement-files">https://github.com/mediaelement/mediaelement-files</a></p>
+
+
+	<p>When I build v0.26 on MacOS-X, I see:<br /><pre>$ exiv2 -vVg video
+exiv2 0.26 001a00 (64 bit build)
+enable_video=1
+xmlns=video:http://www.video/
+$ exiv2 -pa big_buck_bunny.*
+big_buck_bunny.jpg    Xmp.xmp.CreatorTool                          XmpText    31  Adobe Fireworks CS6 (Macintosh)
+big_buck_bunny.jpg    Xmp.xmp.CreateDate                           XmpText    20  2012-11-15T21:36:37Z
+big_buck_bunny.jpg    Xmp.xmp.ModifyDate                           XmpText    20  2012-11-15T21:36:56Z
+big_buck_bunny.jpg    Xmp.dc.format                                XmpText    10  image/jpeg
+
+big_buck_bunny.mp4    Xmp.video.FileSize                           XmpText     7  5.25558
+big_buck_bunny.mp4    Xmp.video.FileName                           XmpText    18  big_buck_bunny.mp4
+big_buck_bunny.mp4    Xmp.video.MimeType                           XmpText    15  video/quicktime
+...
+big_buck_bunny.mp4    Xmp.video.AspectRatio                        XmpText     4  16:9
+
+big_buck_bunny.webm   Xmp.video.FileName                           XmpText    19  big_buck_bunny.webm
+big_buck_bunny.webm   Xmp.video.FileSize                           XmpText     7  4.83615
+big_buck_bunny.webm   Xmp.video.MimeType                           XmpText    14  video/matroska
+big_buck_bunny.webm   Xmp.video.EBMLVersion                        XmpText     1  1
+big_buck_bunny.webm   Xmp.video.EBMLReadVersion                    XmpText     1  1
+...
+$ </pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-3244">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3244#message-3244">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/7407">antoine cousyn</a> <a title="20 Nov 2018 16:22" href="/projects/exiv2/activity?from=2018-11-20">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks very much indeed for your new detailed answer. Your last message helped me to progress a lot: so far I had been thinking that my code was probably the problem rather than the installation of libexiv2, and you indicate clearly that it is the other way around. My code for videos should indeed be the same as for photos (my initial guess):</p>
+	<pre><code>Exiv2::Image::AutoPtr video = Exiv2::ImageFactory::open (videofilepath);<br />        Assert (video.get () != 0);    <br />        video-&gt;readMetadata ();</code></pre>
+
+
+	<p>rather than the complicated erroneous code I mentioned previously, and my error definitely lies somewhere in my libexiv2 installation. In effect, when I try to open your “big_buck_bunny “ file with the appropriate code (see above), the “ImageFactory::open” crashes, and if I try a getType() function, the result is “0” (unrecognized format).</p>
+
+
+	<p>If I refer to the “ReadDMe.txt” file contained in “exiv2-0.26-trunk/exiv2-trunk/msvc”, paragraph “1.4 Configuring build options”, I get lost precisely  in the use of files “configure.bat” and “configure.py”.</p>
+
+
+	<p>I just downloaded Python 3.7 (so far unknown to me) but I have no idea on how to use it so as to reach the point where I can enter the famous option “-V” for “—enable-video”. I do not know if things look the same in your Mac configuration, but maybe you could show me an example. Once I get to the point where readMetadata () works, I will be in a well-known environment for the rest of my developments.</p>
+
+
+	<p>Thanks again for your invaluable help.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3245">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3245#message-3245">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Nov 2018 17:14" href="/projects/exiv2/activity?from=2018-11-20">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>You really don't need to use configure.bat/configure.py combination.  You can think of that as an "experts" build tool.  Before I developed that (for v0.25), changing exv_msvc.h was the only way to set the build options for Visual Studio builds.  configure.py does a lot of work to tailor/rewrite MSVC solution and project files to precisely match your build configuration..  For v0.27, we have adopted CMake and conan to achieve the same aim.</p>
+
+
+	<p>So, you are close to happiness.  Please perform the build with VIDEO enabled in exv_msvc.h and run the command to be sure you have enabled video support.<br /><pre>c:\this\and\that\exiv2\msvc&gt; bin\exiv2 -vVg video</pre>I don't remember at the moment in which directory exiv2.exe is build.  Run the command  to determine the location of exiv2.exe:  <pre>c:\this\and\that\exiv2\msvc&gt; dir/s exiv2.exe</pre>.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3246">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3246#message-3246">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/7407">antoine cousyn</a> <a title="21 Nov 2018 15:01" href="/projects/exiv2/activity?from=2018-11-21">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Once again, thank you for your advice, thanks to which I stop wasting time in “useless areas” of the exiv2 world. Unfortunately, even though I am now sure, thanks to you, that my code is correct (using exiv2::ImageFactory to open video files, which obviously must be managed like other image types), I am still unable to install correctly libexiv2 in my own C++ solution (under Visual Studio 2013). The aim is not to obtain exiv2.exe, but libexiv2.dll with video handling enabled.</p>
+
+
+	<p>At the beginning of my work with exiv2, a few years ago, my initial question was: should I build my own solution adding a “libexiv2” project created from scratch using the exiv2 source code? , or should I first build exiv2 (exiv2-trunk/msvc/eviv2.sln), then extract and use libexiv2.lib and libexiv2.dll?</p>
+
+
+	<p>So far, as long as I was only concerned by still images, I have made the second choice and all was 100% OK. But now, when I follow the same procedure, even after having set to 1 the parameter EXV_ENABLE_VIDEO, I get everything working but with still no recognition of video files. Would you by any chance have an example of installation procedure? Maybe using “Cmake with Conan” would be easier, but my problem is that I do not know anything about those tools…</p>
+
+
+	<p>If it sounds useful, I could give you the exact step-by-step procedure I have been using so far, which is clearly insufficient to cope with video management. But if my story is getting boring (which I can easily imagine!), please disregard this message and accept my thanks for all your help so far.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3247">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3247#message-3247">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Nov 2018 18:34" href="/projects/exiv2/activity?from=2018-11-21">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Don't go down the conan/cmake road.  This is a very good road (that's why we have chosen it).  However, it might make your life more difficult while you learn those tools.</p>
+
+
+	<p>For sure, you don't need to copy the Exiv2 source into your project.  The whole point of using a library is to enable large code bodies to used and you only need two things:</p>
+
+
+	<p>1) The header files<br />2) The library (both the .lib and .dll)</p>
+
+
+	<p>I always recommend that people use the exiv2.exe command-line utility because I know what it is!  I don't need/want to know about your project.  When you get exiv2 to report that video is enabled, your library is good.</p>
+
+
+<pre>........&gt; bin\exiv2 -vVg video</pre>
+
+	<p>So let's discuss how to compile and link the library using your code.  I've copied ReadMe.txt from the MSVC build for Exiv2 v.0.27 RC2 which was released on Saturday.  Please read the notes.  I think you can see how to link exiv2.lib and xmp.lib with your code.  At run-time, your executable will use exiv2.dll.</p>
+
+
+	<p>I highly recommend that you work with exifprint.cpp (which you have).  When you know how to compile, link and run a little program, you'll have more courage to tackle working with your own code.</p>
+
+
+	<p>As part of my work to release Exiv2 v0.27, I'm going to do some testing on the video code.  Exiv2 is extensively tested, however the video code was contributed by students a few years ago.  Building and testing is optional and regrettably it doesn't get much attention.</p>
+
+
+	<p>If you're still stuck, we could talk one-to-one on Skype next week when I've reviewed the video code on Visual Studio 2013.</p>
+
+
+<pre>Visual Studio 2017 Release DLL Bundle
+-------------------------------------
+
+Structure of the bundle:
+------------------------
+
+bin/exiv2.exe                             exiv2 and sample applications
+bin/exiv2.dll                             dll
+lib/exiv2.lib &#38; xmp.lib                   link libraries
+include/exiv2/                            include files
+share/exiv2/cmake                         consume CMake files
+samples/exifprint.cpp                     sample code
+
+ReadMe.txt                                This file
+license.txt                               GPLv2.0 Software License
+releasenotes.txt                          Late breaking news
+README.md                                 Developer Manual
+README-CONAN.md                           Developer Manual Appendix
+exiv2.png                                 Exiv2 Logo
+
++----------------------------------------------------------------------------+
+| Caution: Use a Windows unzip utility such as 7z or winzip                  |
+| Cygwin unzip utilities can result in incorrect security with bin/exiv2.dll |
++----------------------------------------------------------------------------+
+
+To run exiv2.exe from the bundle:
+c:\&gt; cd &lt;bundle&gt;\bin
+&lt;bundle&gt;\bin&gt; exiv2
+
+Add the bin to your PATH:
+c:\&gt; cd &lt;bundle&gt;\bin
+&lt;bundle&gt;\bin&gt;set PATH=%CD%;%PATH%
+
+To compile and link your own code:
+
++-------------------------------------------------------------------------------+
+| Caution: You must use the same version of Visual Studio as the build          |
+|          You will need to use the "Visual Studio Command Prompt"              |
+|          or initialise the DOS environment by calling vcvarsall.bat           |
+| C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\amd64&gt;vcvars64.bat |
++-------------------------------------------------------------------------------+
+
+c:\&gt; cd &lt;bundle&gt;
+&lt;bundle&gt;&gt; cl /EHsc -Iinclude /MD samples\exifprint.cpp /link lib\exiv2.lib
+&lt;bundle&gt;&gt; exifprint --version
+exiv2=0.27.0
+...
+xmlns=xmpidq:http://ns.adobe.com/xmp/Identifier/qual/1.0/
+&lt;bundle&gt;&gt;
+</pre></div>
+  
+  </div>
+  <div class="message reply" id="message-3283">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3283#message-3283">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/7407">antoine cousyn</a> <a title="30 Dec 2018 11:09" href="/projects/exiv2/activity?from=2018-12-30">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Firstly, and to clear up things, I work with Dr François Louange (73 years old), a French PHD in signal processing, as a photo/video analyst. You can find his bio here : <a class="external" href="http://ipaco.fr/page38.html">http://ipaco.fr/page38.html</a></p>
+
+
+	<p>He asked me to serve as intermediary between you and him, as he's not familiar at all with all the Internet/Forum/Blog stuff. All the previous posts here were written by him.</p>
+
+
+	<p>Anyway, here's its last reply:</p>
+
+
+	<p>I have had no opportunity to work on the integration of exiv2 into my software since our last exchange (health problems), and I took the opportunity of your new released 0.27 version to resume my attempts.</p>
+
+
+	<p>I am still stuck, due to my real difficulties in the field of “system engineering” (I am presently developing a large scientific application, which makes use of exiv2, but my skills in purely “system” areas are about 40 years old…). I have no difficulty at all using eviv2 functions, which I have done for several years with success, dealing so far with photos only. But my personal “nightmares” always lie in installing external software libraries.</p>
+
+
+	<p>So far I have used your Visual Studio solutions (.SLN files, available last time in exiv2-0.26-trunk) to build libexiv2 and to integrate the .LIB, .DLL and .HPP files into my solution. It always worked fine, except that I had no access to video metadata. I understand that now I should use Cmake to build the 0.27 version with the right options, but I have no clue about that tool. My goal is to build the libexiv2.LIB and .DLL files, to be used with my application under Visual Studio 2013 in WIN32 mode. Is there any pragmatic advice you could give me, an example I could follow, or anyone who could help me (including at charge)?</p>
+
+
+	<p>Thanks in advance for your help. I send you, and to the “exiv2” project, my sincere best wishes for the coming new year.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3286">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3286#message-3286">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Jan 2019 18:07" href="/projects/exiv2/activity?from=2019-01-01">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Happy New Year.</p>
+
+
+	<p>Thanks for your message.  I was a little surprised when you "disappeared" in December.  I was very busy with v0.27, so I didn't "ping" you.</p>
+
+
+	<p>I'd like you to consider moving to the Community Edition of Visual C++ 2017 and using CMake with v0.27.  I understand that changing tools and building libraries can be rather challenging, however if you and I use the same tools, it's easier for me to help you.  My license for Visual Studio 2013 has expired and while I can continue to run batch scripts to build for that platform, I am unable to launch the IDE and use it interactively.</p>
+
+
+	<p>If you'd like to send me your code (on a CD/DVD or as a download), I will investigate getting your code to work with VS 2017.  I don't require payment to investigate this.  If this is going to be a lot of work, we can discuss payment - however offer is to investigate for nothing.  I am retired and have no desire to do consultancy.</p>
+
+
+	<p>If you're unable to move to 2017, I believe I can do a build of Exiv2 v0.27 with VS2013.  CMake creates solution/vcxproj files.  Integrating your code with that build is probably quite easy.  However if you have issues, I may be unable to help because of my license issue with VS2013.  If you send me your code, I assure you that it will be treated with respect and privacy.</p>
+
+
+	<p>I believe there is a community edition of Visual Studio 2013 and we could both use that.  However, if we're going to cooperate, I'd prefer to work with Microsoft's more recent product offerings.</p>
+
+
+	<p>Thank you for using Exiv2.  I'm optimistic that we can easily find a path forward.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3296">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3296#message-3296">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/7407">antoine cousyn</a> <a title="07 Jan 2019 11:53" href="/projects/exiv2/activity?from=2019-01-07">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Happy New Year, Robin, and many thanks for your quite positive and helpful message. I wish you and your “baby” EXIV2 a lot of success and satisfaction in 2019.</p>
+
+
+	<p>You are absolutely right, I must first migrate from Visual 2013 to Visual 2017. This is now my first priority (in the past, I already managed to migrate from VS 2003 to VS 2013) and I will let you know as soon as my solution  works under VS2017 (or if I meet too big problems). This should take me a few days.</p>
+
+
+	<p>Thanks again and best regards.<br />François</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3297">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3297#message-3297">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Jan 2019 17:39" href="/projects/exiv2/activity?from=2019-01-07">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>François and Antoine</p>
+
+
+	<p>Exiv2 isn't a baby any more.  It's a rebellious teenager (born 2003).  I think it's going to be a beautiful swan as it moves into the future with Luis and Dan.</p>
+
+
+	<p>Good Luck with moving to Visual Studio 2017.  I hope that transition doesn't cause you too much pain.</p>
+
+
+	<p>If VS2017 is diffult, I have two suggestions:<br />1) Send me your code (on a CD/DVD or download)<br />2) Come to England and work with me 1-to-1</p>
+
+
+	<p>We had a "Exiv2 Developer's Week-end" in May 2018 at my home in England.  Luis is Spanish.  He live in lives in Switzerland and speaks French (and English).  We haven't discussed a weekend together in 2019.  However, if you need 1-to-1 help, that would be the perfect time for us to help you.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3325">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3325#message-3325">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/7407">antoine cousyn</a> <a title="16 Jan 2019 10:05" href="/projects/exiv2/activity?from=2019-01-16">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Dear Robin, I did it at last! My solution (93 projects) is now managed by Visual Studio 2017 Community. It has been sort of a struggle, with many small modifications required, mainly due to drastic changes in Windows 10 (Windows Kits, etc.). I have reinstalled exiv2 version 0.26 as I did before, using your “exiv2.sln” solution.</p>
+
+
+	<p>Still, the result is a bit strange: in Release mode, my software IPACO now runs exactly like before, including for exiv2, which is operational with photos and not with videos (in spite of “#define EXV_ENABLE_VIDEO 1”). But in Debug mode, it crashes when executing certain exiv2 functions. I do not know why, but this is not that crucial, since the aim is anyway to integrate exiv2 0.27 and to enable IPACO to work also with videos.</p>
+
+
+	<p>What do you advise me to do now?</p>
+
+
+	<p>Best regards. Francois.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3326">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3326#message-3326">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Jan 2019 11:08" href="/projects/exiv2/activity?from=2019-01-16">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Congratulations.</p>
+
+
+	<p>As you know, build engineering is hard work.  Seldom appreciated.  A lot of build engineering work involves unfamiliar tools.  Writing C++ seems easy by comparison to fixing the build.  In most offices the senior people only write code and get the young folks (college hires) to manage the build and test suite.  Wrong way round to me.  Having confidence in the build and test tools ensures the product is working well.</p>
+
+
+	<p>To move forward from here, you should:</p>
+
+
+	<p>1) Install python3</p>
+
+
+	<p>2) Install conan<br />- install conan with pip3<br />- instructions on the conan web site</p>
+
+
+	<p>3) Download and install CMake for windows<br />- install it for "all users" and be sure it's on your PATH</p>
+
+
+	<p>4) Download the Exiv2 0.27 Source bundle from <a class="external" href="http://exiv2.org">http://exiv2.org</a><br />- build exiv2 v0.27 as documented in README-CONAN.md.</p>
+
+
+	<p>When you build with CMake, you have to choose Shared (DLL) or Static when you run CMake.  Although Visual Studio can dynamically switch between DLLs and Static, CMake does not support that.  I personally dislike static libraries.  However when folks distribute software, they often like "one big .exe" with everything in a single file.</p>
+
+
+	<p>Choosing is documented in README.md section 2.3.  The default is to build DLLs.  To build static, use the CMake option -DBUILD_SHARED_LIBS=Off.</p>
+
+
+	<p>You will need the CMake option -DEXIV2_ENABLE_VIDEO=On to build the video code.</p>
+
+
+	<p>Running the test suite is documented in README.md, however it's rather clunky as you need to install MinGW/msys2 to run our bash test scripts.  We're transitioning to a new cross-platform test suite in python3 and hope to complete that work for Exiv2 v0.28.  However you can run exiv2.exe from the command line to be certain that you've built it ok.</p>
+
+
+<pre>dir/s exiv2.exe
+cd bla/bla/bin
+exiv2 --verbose --version
+exiv2 -pa --grep DateTime http://clanmills.com/Stonehenge.jpg
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:25:28
+Exif.Photo.DateTimeOriginal                  Ascii      20  2015:07:16 15:38:54
+Exif.Photo.DateTimeDigitized                 Ascii      20  2015:07:16 15:38:54</pre>
+
+	<p>When you've done that, you'll be ready for a break.</p>
+
+
+<hr />
+
+
+	<p>Then we need to integrate your code with the build.  I think you can do that in Visual Studio by dragging and dropping project files.</p>
+
+
+	<p>I've never used Visual Studio 2017 GUI.   Microsoft added support for CMake in Visual Studio 2017.   So, I'm going to play with Visual Studio 2017 and give you an update. I don't expect pain.</p>
+
+
+<hr />
+
+
+	<p>I'm surprised that Exiv2 v0.26 with Video enabled is causing you trouble.  If you get stuck with Exiv2 v0.27, I'll investigate what you've said about v0.26.  However, if you're successful with v0.27, we don't need to bother.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3335">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3335#message-3335">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/7407">antoine cousyn</a> <a title="19 Jan 2019 16:51" href="/projects/exiv2/activity?from=2019-01-19">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks a lot, Robin, for your last long and detailed message. I agree that build engineering is a very complex job. I used to be myself a system engineer, working close to hardware and assembler, in the low layers of operating systems, but that was more than 40 years ago… Today, being half-retired, I am still able to develop scientific software tools but I confess that I am lost with modern build techniques. I am only a bit familiar with Visual Studio.</p>
+
+
+	<p>However I started trying to follow your detailed roadmap, and so far I managed to install successfully Python, Pip3, Conan and Cmake in my PC (under Windows 10 professional 64 bits). Now I am facing the README-CONAN.md file, with the feeling that I try to read Chinese, but I am ready to take the necessary time to progress.</p>
+
+
+	<p>However, I am wondering whether I have any chance to succeed, and on the other hand I remember that you told me the following, on November 18th:</p>
+	<pre><code>“Don't go down the conan/cmake road. This is a very good road (that's why we have chosen it). However,     it might make your life more difficult while you learn about those tools.<br />    For sure, you don't need to copy the Exiv2 source into your project. The whole point of using a library is to     enable large code bodies to used and you only need two things:<br />    1) The header files<br />    2) The library (both the .lib and .dll)”</code></pre>
+
+
+	<p>Did this mean that there exists a simpler way for me to obtain those .lb, .dll and .hpp files?</p>
+
+
+	<p>Again, thank you for your patience.<br />François</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3337">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3337#message-3337">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Jan 2019 07:57" href="/projects/exiv2/activity?from=2019-01-20">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes.  There is another way to proceed.</p>
+
+
+	<p>You can download the "build bundle" from here <a class="external" href="http://exiv2.org">http://exiv2.org</a>  For Visual Studio 2017, it is:  <a class="external" href="http://www.exiv2.org/builds/exiv2-0.27.0-msvc64.zip">http://www.exiv2.org/builds/exiv2-0.27.0-msvc64.zip</a>  It's a DLL/Release build for 64 bits.</p>
+
+
+	<p>I've copied the file ReadMe.txt in the bundle below.  I've documented how to build samples/exifprint.cpp without even using the Visual Studio GUI.  This command is sufficient:</p>
+
+
+<pre> cl /EHsc -Iinclude /MD samples\exifprint.cpp /link lib\exiv2.lib </pre>
+
+	<p>However there are a couple of things you have to do.</p>
+
+
+	<p>1) In a DOS Shell (cmd.exe), run the command:<pre>cd c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC
+vcvarsall.bat</pre></p>
+
+
+	<p>2) When you run the <strong><code>cl /EHsc -Iinclude ..../link lib\exiv2.lib</code></strong> you must be in the exact directory in build bundle that I have specified.</p>
+
+
+	<p>This is essential because the option: <strong><code>-Iinclude</code></strong> tells the compiler exactly where to find the exiv2 header files.  Similarly, the option: <strong><code>/link lib\exiv2.lib</code></strong> tells the linker exactly where to find the library.</p>
+
+
+	<p>3) You will require exiv2.dll at run time to execute the code once it is built.</p>
+
+
+	<p>I recommend that you try to follow my instructions <em><strong>below</strong></em> in ReadMe.txt as it should work easily and give you confidence.</p>
+
+
+	<p>Start up Visual Studio 2017, and Use File/New to create a new Console Application, I called it exifprint<br />Build and run the application.<br />It doesn't do anything interesting (it doesn't do anything)<br />Add <strong><code>#include &lt;iostream&gt;</code></strong> after <strong><code>#include "stdafx.h"</code></strong><br />Add <strong><code>std::cout &lt;&lt; "hello world\n";</code></strong> to the code body<br />Build and run the application.  It will say "hello world"</p>
+
+
+	<p>It knows nothing about exiv2.</p>
+
+
+	<p>I have downloaded the bundle to: c:\users\rmills\temp\exiv2-0.27.0-msvc</p>
+
+
+	<p>I the "Solution Explorer", Add the file  <code>c:\users\rmills\temp\exiv2-0.27.0-msvc\samples\exifprint.cpp</code> and remove the existing exifprint.cpp</p>
+
+
+	<p>Right-clink on the Solution exifprint and open the Properties.<br />In C/C++, Update "Additional Include Directories" with <strong><code>c:\users\rmills\temp\exiv2-0.27.0-msvc\include</code></strong></p>
+
+
+	<p>In Linker, Update "Additional Library Directories" with <strong><code>c:\users\rmills\temp\exiv2-0.27.0-msvc\lib</code></strong><br />In Linker, Update "Libraries" to include exiv2.lib</p>
+
+
+	<p>Be sure to select x64 in the target drop-down in the GUI.</p>
+
+
+	<p>You'll need to specify the output directory to be: <strong><code>c:\users\rmills\temp\exiv2-0.27.0-msvc\bin</code></strong></p>
+
+
+	<p>It's very difficult for me to write those instructions and I'm sure you can't follow what I'm describing.  However this is "everyday" Visual Studio.</p>
+
+
+	<p>I can't make it simpler.</p>
+
+
+	<p>I'm struggling to get him to link exiv2.lib.  I know he will.  I'm 1000% confident.  I haven't used Visual Studio for a few years.  It'll be easy, however I have to figure something out and I don't have any more time until Sunday evening.</p>
+
+
+<pre>Visual Studio 2017 Release DLL Bundle
+-------------------------------------
+
+Structure of the bundle:
+------------------------
+
+bin/exiv2.exe                             exiv2 and sample applications
+bin/exiv2.dll                             dll
+lib/exiv2.lib &#38; xmp.lib                   link libraries
+lib/cmake/exiv2                           consume CMake files
+include/exiv2/                            include files
+samples/exifprint.cpp                     sample code
+logs                                      build and test logs
+
+ReadMe.txt                                This file
+license.txt                               GPLv2.0 Software License
+releasenotes.txt                          Late breaking news
+README.md                                 Developer Manual
+README-CONAN.md                           Developer Manual Appendix
+exiv2.png                                 Exiv2 Logo
+
++----------------------------------------------------------------------------+
+| Caution: Use a Windows unzip utility such as 7z or winzip                  |
+| Cygwin unzip utilities can result in incorrect security with bin/exiv2.dll |
++----------------------------------------------------------------------------+
+
+To run exiv2.exe from the bundle:
+c:\&gt; cd &lt;bundle&gt;\bin
+&lt;bundle&gt;\bin&gt; exiv2
+
+Add the bin to your PATH:
+c:\&gt; cd &lt;bundle&gt;\bin
+&lt;bundle&gt;\bin&gt;set PATH=%CD%;%PATH%
+
+To compile and link your own code:
+
++-------------------------------------------------------------------------------+
+| Caution: You must use the same version of Visual Studio as the build          |
+|          You will need to use the "Visual Studio Command Prompt"              |
+|          or initialise the DOS environment by calling vcvarsall.bat           |
+| C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\amd64&gt;vcvars64.bat |
++-------------------------------------------------------------------------------+
+
+c:\&gt; cd &lt;bundle&gt;
+&lt;bundle&gt;&gt; cl /EHsc -Iinclude /MD samples\exifprint.cpp /link lib\exiv2.lib
+&lt;bundle&gt;&gt; exifprint --version
+exiv2=0.27.0
+...
+xmlns=xmpidq:http://ns.adobe.com/xmp/Identifier/qual/1.0/
+&lt;bundle&gt;&gt;</pre></div>
+  
+  </div>
+  <div class="message reply" id="message-3338">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3239?r=3338#message-3338">RE: Problem using libexiv2 (v 0.26) in a C++ application</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Jan 2019 13:23" href="/projects/exiv2/activity?from=2019-01-20">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've put together a Visual C++ 2017 Project in the attached zip.  This is a copy of the "download bundle" and I've added 2 files in UserProject.  exifprint.sln and exivprint/exifprint.vcxproject.  This will compile and link samples/exifprint.cpp.</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1260">exiv2-0.27.0-msvc64PlusUserProject.zip</a>    <span class="size">(3.12 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1260/exiv2-0.27.0-msvc64PlusUserProject.zip">exiv2-0.27.0-msvc64PlusUserProject.zip</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-17/17)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

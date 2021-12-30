@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1289: Infinite loop on command exiv2 -pR on a .CR2 file - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="m1H7hUfJHyb8hGP1gR05Z/v8mTP8vaJunOA76n8ySA15HFBqNbPTJqngfPk+yjVUxG7NSg1eA9RhwKtiPAuvYg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1289: Infinite loop on command exiv2 -pR on a .CR2 file" href="https://dev.exiv2.org/issues/1289.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1289</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+    <div class="next-prev-links contextual">
+      <a title="#1286" accesskey="p" href="/issues/1286">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;f%5B%5D=author_id&amp;op%5Bauthor_id%5D=%3D&amp;op%5Bstatus_id%5D=%2A&amp;page=1&amp;per_page=100&amp;set_filter=1&amp;sort=updated_on%3Adesc%2Cid%3Adesc&amp;v%5Bauthor_id%5D%5B%5D=119&amp;v%5Bstatus_id%5D%5B%5D=">23 of 115</a>
+        </span> |
+      <a title="#1279" accesskey="n" href="/issues/1279">Next »</a>
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Infinite loop on command exiv2 -pR on a .CR2 file</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Apr 2017 19:42" href="/projects/exiv2/activity?from=2017-04-14">over 4 years</a> ago.
+        Updated <a title="15 Apr 2017 21:36" href="/projects/exiv2/activity?from=2017-04-15">over 4 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/4722">Ben Touchette</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">image format</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">14 Apr 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">3.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>This has been reported by Asdiel (AlienSkin Software).  Test file at <a class="external" href="http://exiv2.dyndns.org:8080/userContent/testfiles/1289/IMG_1538.CR2">http://exiv2.dyndns.org:8080/userContent/testfiles/1289/IMG_1538.CR2</a></p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4754" href="/projects/exiv2/repository/exiv2/revisions/4754">Revision 4754</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4754/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Apr 2017 19:42" href="/projects/exiv2/activity?from=2017-04-14">over 4 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Infinite loop on command exiv2 -pR on a .CR2 file (Closed)" href="/issues/1289">#1289</a> Thanks to Asdiel (AlienSkin) for reporting this and providing a test file.  Thanks to Ben for investigation and patch.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5935" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Apr 2017 19:46" href="/projects/exiv2/activity?from=2017-04-14">over 4 years</a> ago
+      <span id="journal-5935-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>image format</i></li>
+       <li><strong>Assignee</strong> set to <i>Ben Touchette</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>3.00 h</i></li>
+    </ul>
+    <div id="journal-5935-notes" class="wiki"><p>Fix submitted <a class="changeset" title="#1175.  Thanks to LaserSoft for reporting this and providing a patch." href="/projects/exiv2/repository/exiv2/revisions/4755">r4755</a>.  Thank You to Ben for providing the patch.</p>
+
+
+	<p>Ben:  I shortened your fix by 4 lines, however it is your fix.  Thanks for working on this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5936" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Apr 2017 20:10" href="/projects/exiv2/activity?from=2017-04-14">over 4 years</a> ago
+      <span id="journal-5936-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5936-notes" class="wiki"><p>A couple of additional observations about this:</p>
+
+
+	<p>1) Why is this looping when TiffVisitor reads it successfully?<br />I should investigate to discover why printStructure() dies on this file and TiffVisitor does not.</p>
+
+
+	<p>2) Why are we frequently running exiv2 -pR for no good reason?</p>
+
+
+	<p>Asdiel has pointed out that we shouldn't be executing <em><strong>Image::printStructure(kpsRecursive)</em></strong> on files which are not remote.  This code is only required by RemoteIO objects to ensure that the metadata is in memory for TiffVisitor.</p>
+
+
+	<p>I have proposed method BasicIo::isRemote() which would return true for remote data sources.  We could add the following to Image::printIFDStructure() after the first write:<pre>   if ( !out.good() &#38;&#38; !io-&gt;isRemote() ) return; </pre></p>
+
+
+	<p>This says skip printIFDStructure() on a stream attached to /dev/null when the IO source is remote.</p>
+
+
+	<p>It’s easy to define isRemote() for files using protocols such as http/ftp/ssh.  However local files which are network shares/mounts (afp, nfs, samba) require investigation.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5937" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Apr 2017 21:19" href="/projects/exiv2/activity?from=2017-04-15">over 4 years</a> ago
+      <span id="journal-5937-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5937-notes" class="wiki"><p>I've investigated the subject of how to determine if a file is on local storage or a network share.  On Windows there is an API GetDeviceType(path) which looks like our man!  <a class="external" href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa364939(v=vs.85).aspx">https://msdn.microsoft.com/en-us/library/windows/desktop/aa364939(v=vs.85).aspx</a></p>
+
+
+	<p>On Mac/Linux, one solution is to call realpath <em>(see man 3 realpath)</em>.  If realpath starts with /media <em>(Linux)</em> or /Volumes <em>(MacOS-X)</em>, it's a network share.</p>
+
+
+	<p>So the default implementation of BasicIo::isRemote() is to return false.  For class RemoteIo (and derived classes), isRemote() returns true. FileIo::isRemote can be implemented on Windows (including MinGW and Cygwin) using GetDeviceType.  Linux and MacOS-X can use the realpath /media or /Volumes strategy.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5938" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Apr 2017 21:36" href="/projects/exiv2/activity?from=2017-04-15">over 4 years</a> ago
+      <span id="journal-5938-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5938-notes" class="wiki"><p>I've investigated why the test file loops on Image::printIFDStructure and survives TiffVisitor.  I don't know the exact reason, however Ben's fix is very effective.  We stop processing the subIFD in the .CR2.  <pre>778 rmills@rmillsmbp:~/Downloads $ exiv2 -pR IMG_1538.CR2 2&gt;&#38;1
+...
+    STRUCTURE OF TIFF FILE (II): IMG_1538.CR2
+     address |    tag                           |      type |    count |    offset | value
+         998 | 0x0001 Version                   |     SHORT |       49 |      1518 | 98 2 0 4 0 ...
+        1010 | 0x0002 ISOSpeed                  |     SHORT |        4 |      1616 | 0 85 63343 21770
+        1022 | 0x0003 ColorMode                 |     SHORT |        4 |      1624 | 0 0 0 0
+        1034 | 0x0004 Quality                   |     SHORT |       34 |      1632 | 68 0 160 52 52 ...
+        1046 | 0x0006 Sharpening                |     ASCII |       20 |      1700 | Canon EOS REBEL SL1
+        1058 | 0x0007 Focus                     |     ASCII |       24 |      1732 | Firmware Version 1.0.0.
+        1070 | 0x0009 GPSStatus                 |     ASCII |       32 |      1756 | ...............................
+        1082 | 0x000d GPSSpeed                  | UNDEFINED |     1536 |      1788 | .._.`.H..../..................T ...
+        1094 | 0x0010 DataDump                  |      LONG |        1 |2147484486 | 2147484486
+        1106 | 0x0013 GPSDestLatitudeRef        |     SHORT |        4 |      3324 | 0 159 7 112
+        1118 | 0x0019 GPSDestDistanceRef        |     SHORT |        1 |         1 | 1
+        1130 | 0x0026                           |     SHORT |      139 |      3332 | 278 2 31 9 5184 ...
+        1142 | 0x0035                           |      LONG |        4 |      3610 | 16 4294966816 30 0
+        1154 | 0x0093                           |     SHORT |       32 |      3626 | 64 0 0 0 0 ...
+        1166 | 0x0095                           |     ASCII |       74 |      3690 | EF85mm f/1.8 USM............... ...
+        1178 | 0x0096                           |     ASCII |       16 |      3764 | HA0751226......
+        1190 | 0x0097                           | UNDEFINED |     1024 |      3780 | ............................... ...
+        1202 | 0x0098                           |     SHORT |        4 |      4804 | 0 0 0 0
+        1214 | 0x0099                           |      LONG |       38 |      4812 | 152 4 1 32 2 ...
+        1226 | 0x009a                           |      LONG |        5 |      4964 | 0 5184 3456 0 0
+        1238 | 0x00a0                           |     SHORT |       14 |      4984 | 28 0 3 0 0 ...
+        1250 | 0x00aa                           |     SHORT |        6 |      5012 | 12 835 1024 1024 407 ...
+        1262 | 0x00b4                           |     SHORT |        1 |         1 | 1
+        1274 | 0x00d0                           |      LONG |        1 |         0 | 0
+        1286 | 0x00e0                           |     SHORT |       17 |      5024 | 34 5280 3528 1 1 ...
+        1298 | 0x4001                           |     SHORT |     1313 |      5058 | 10 749 1024 1024 348 ...
+        1310 | 0x4002                           | UNDEFINED |    43636 |      7684 | t..0""""""".................... ...
+        1322 | 0x4005                           | UNDEFINED |    16796 |     51320 | .A..... ....................... ...
+        1334 | 0x4008                           |     SHORT |        3 |     68116 | 135 135 135
+        1346 | 0x4009                           |     SHORT |        3 |     68122 | 0 0 0
+        1358 | 0x4010                           |     ASCII |       32 |     68128 | ...............................
+        1370 | 0x4011                           | UNDEFINED |      252 |     68160 | ............................... ...
+        1382 | 0x4012                           |     ASCII |       32 |     68412 | ...............................
+        1394 | 0x4013                           |      LONG |       11 |     68444 | 44 0 0 10 4294967295 ...
+        1406 | 0x4015                           | UNDEFINED |      456 |     68488 | .!....................@........ ...
+        1418 | 0x4016                           |      LONG |        7 |     68944 | 28 0 1 0 1 ...
+        1430 | 0x4018                           |      LONG |        7 |     68972 | 28 0 0 0 0 ...
+        1442 | 0x4019                           | UNDEFINED |       30 |     69000 | .............................
+        1454 | 0x4020                           |      LONG |        7 |     69030 | 28 0 0 0 2147483647 ...
+invalid type value detected in Image::printIFDStructure:  0
+    END IMG_1538.CR2</pre>I suspect the TiffVisitor behaves in a similar manner and quietly stops processing this subIFD.  TiffVisitor does detect and warn:<pre>Warning: Directory Canon, entry 0x0000 has unknown Exif (TIFF) type 0; setting type size 1.</pre></p>
+
+
+	<p>I'm going to leave this issue closed.  I'm unwilling at this time in v0.26 to introduce the new API BasicIo::isRemote() and the implementation.  It's not a lot of work, however it's not essential.  And with the C++ implementation being platform dependent, there will probably be build and test matters which will arise from this.  And finally, there is no question that the file has illegal data.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1289.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1289.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

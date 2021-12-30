@@ -1,0 +1,174 @@
+Index: src/canonmn.cpp
+===================================================================
+diff --git a/trunk/src/canonmn.cpp b/trunk/src/canonmn.cpp
+--- a/trunk/src/canonmn.cpp	(revision 4493)
++++ b/trunk/src/canonmn.cpp	(working copy)
+@@ -1312,6 +1312,59 @@
+         return tagInfoSi_;
+     }
+ 
++    //! HighlightTonePriority, tag 0x0007
++    extern const TagDetails canonCiHighlightTonePriority[] = {
++        { 0, N_("Disabled")  },
++        { 1, N_("Enabled")   }
++    };
++
++    // Canon Camera Info Tag
++    const TagInfo CanonMakerNote::tagInfoCiHtp_[] = {
++        TagInfo(0x0007, "HighlightTonePriority", N_("Highlight Tone Priority"), N_("Highlight Tone Priority"), canonCiId, makerTags, unsignedByte, 1, EXV_PRINT_TAG(canonCiHighlightTonePriority)),
++        // End of list marker
++        TagInfo(0xffff, "(UnknownCanonCiTag)", "(UnknownCanonCiTag)", N_("Unknown Canon Camera Info 1 tag"), canonCiId, makerTags, unsignedShort, 1, printValue)
++    };
++    const TagInfo CanonMakerNote::tagInfoCi_[] = {
++        // End of list marker
++        TagInfo(0xffff, "(UnknownCanonCiTag)", "(UnknownCanonCiTag)", N_("Unknown Canon Camera Info 1 tag"), canonCiId, makerTags, unsignedShort, 1, printValue)
++    };
++
++    const long CanonMakerNote::supportedHTPCameraIds[] = {
++        /*  1 5D MK II   */ 0x80000218,
++        /*  2 7D         */ 0x80000250,
++        /*  3 50D        */ 0x80000261,
++        /*  4 1D X       */ 0x80000269,
++        /*  5 550D       */ 0x80000270,
++        /*  6 1D MK IV   */ 0x80000281,
++        /*  7 5D MK III  */ 0x80000285,
++        /*  8 600D       */ 0x80000286,
++        /*  9 60D        */ 0x80000287,
++        /* 10 7D MK II   */ 0x80000289,
++        /* 11 650D       */ 0x80000301,
++        /* 12 6D         */ 0x80000302,
++        /* 13 70D        */ 0x80000325,
++        /* 14 700D       */ 0x80000326,
++        /* 15 1D X MK II */ 0x80000328,
++        /* 16 80D        */ 0x80000350,
++        /* 17 5DS        */ 0x80000382,
++        /* 18 5DS        */ 0x80000393,
++        /* 19 5DS R      */ 0x80000401,
++        /* 20 1300D      */ 0x80000404
++    };
++
++    const TagInfo* CanonMakerNote::tagListCi()
++    {
++        long modelId = 0x0;
++        int camera_num = sizeof(supportedHTPCameraIds) / sizeof(supportedHTPCameraIds[0]);
++        for (long index = 0; index < camera_num; index++) {
++            if (modelId == supportedHTPCameraIds[index]) {
++                return tagInfoCiHtp_;
++            }
++        }
++
++        return tagInfoCi_;
++    }
++
+     //! PanoramaDirection, tag 0x0005
+     extern const TagDetails canonPaDirection[] = {
+         { 0, N_("Left to right")          },
+Index: src/canonmn_int.hpp
+===================================================================
+diff --git a/trunk/src/canonmn_int.hpp b/trunk/src/canonmn_int.hpp
+--- a/trunk/src/canonmn_int.hpp	(revision 4493)
++++ b/trunk/src/canonmn_int.hpp	(working copy)
+@@ -63,6 +63,8 @@
+         static const TagInfo* tagListCs();
+         //! Return read-only list of built-in Canon Shot Info tags
+         static const TagInfo* tagListSi();
++        //! Return read-only list of built-in Canon Camera Info tags
++        static const TagInfo* tagListCi();
+         //! Return read-only list of built-in Canon Panorama tags
+         static const TagInfo* tagListPa();
+         //! Return read-only list of built-in Canon Custom Function tags
+@@ -108,15 +110,20 @@
+         static std::ostream& printSi0x0017(std::ostream& os, const Value& value, const ExifData*);
+         //! Focus Distance
+         static std::ostream& printFiFocusDistance(std::ostream& os, const Value& value, const ExifData*);
++        //! Model Id
++        static std::ostream& printModelId(std::ostream& os, const Value& value, const ExifData*);
+         //@}
+ 
+     private:
+         // DATA
++        static const long supportedHTPCameraIds[];
+ 
+         //! Tag information
+         static const TagInfo tagInfo_[];
+         static const TagInfo tagInfoCs_[];
+         static const TagInfo tagInfoSi_[];
++        static const TagInfo tagInfoCi_[];
++        static const TagInfo tagInfoCiHtp_[];
+         static const TagInfo tagInfoCf_[];
+         static const TagInfo tagInfoPi_[];
+         static const TagInfo tagInfoFi_[];
+Index: src/tags.cpp
+===================================================================
+diff --git a/trunk/src/tags.cpp b/trunk/src/tags.cpp
+--- a/trunk/src/tags.cpp	(revision 4493)
++++ b/trunk/src/tags.cpp	(working copy)
+@@ -106,6 +106,7 @@
+         { canonFiId,       "Makernote", "CanonFi",      CanonMakerNote::tagListFi      },
+         { canonPaId,       "Makernote", "CanonPa",      CanonMakerNote::tagListPa      },
+         { canonPrId,       "Makernote", "CanonPr",      CanonMakerNote::tagListPr      },
++        { canonCiId,       "Makernote", "CanonCi",      CanonMakerNote::tagListCi      },
+         { casioId,         "Makernote", "Casio",        CasioMakerNote::tagList        },
+         { casio2Id,        "Makernote", "Casio2",       Casio2MakerNote::tagList       },
+         { fujiId,          "Makernote", "Fujifilm",     FujiMakerNote::tagList         },
+Index: src/tags_int.hpp
+===================================================================
+diff --git a/trunk/src/tags_int.hpp b/trunk/src/tags_int.hpp
+--- a/trunk/src/tags_int.hpp	(revision 4493)
++++ b/trunk/src/tags_int.hpp	(working copy)
+@@ -78,6 +78,7 @@
+         canonId,
+         canonCsId,
+         canonSiId,
++        canonCiId,
+         canonCfId,
+         canonPiId,
+         canonPaId,
+Index: src/tiffimage.cpp
+===================================================================
+diff --git a/trunk/src/tiffimage.cpp b/trunk/src/tiffimage.cpp
+--- a/trunk/src/tiffimage.cpp	(revision 4493)
++++ b/trunk/src/tiffimage.cpp	(working copy)
+@@ -703,6 +703,18 @@
+         { 0, ttUnsignedShort, 1 }
+     };
+ 
++    //! Canon Camera Info binary array - configuration
++    extern const ArrayCfg canonCiCfg = {
++        canonCiId,        // Group for the elements
++        invalidByteOrder, // Use byte order from parent
++        ttUndefined,      // Type for array entry and size element
++        notEncrypted,     // Not encrypted
++        false,            // With size element
++        false,            // No fillers
++        false,            // Don't concatenate gaps
++        { 0, ttUnsignedByte, 1 }
++    };
++
+     //! Canon Panorama binary array - configuration
+     extern const ArrayCfg canonPaCfg = {
+         canonPaId,        // Group for the elements
+@@ -1549,6 +1561,7 @@
+         { Tag::root, canonCsId,        canonId,          0x0001    },
+         { Tag::root, canonSiId,        canonId,          0x0004    },
+         { Tag::root, canonPaId,        canonId,          0x0005    },
++        { Tag::root, canonCiId,        canonId,          0x000d    },
+         { Tag::root, canonCfId,        canonId,          0x000f    },
+         { Tag::root, canonPiId,        canonId,          0x0012    },
+         { Tag::root, canonFiId,        canonId,          0x0093    },
+@@ -1881,6 +1894,7 @@
+         {    0x0001, canonId,          EXV_BINARY_ARRAY(canonCsCfg, canonCsDef)  },
+         {    0x0004, canonId,          EXV_SIMPLE_BINARY_ARRAY(canonSiCfg)       },
+         {    0x0005, canonId,          EXV_SIMPLE_BINARY_ARRAY(canonPaCfg)       },
++        {    0x000d, canonId,          EXV_SIMPLE_BINARY_ARRAY(canonCiCfg)       },
+         {    0x000f, canonId,          EXV_SIMPLE_BINARY_ARRAY(canonCfCfg)       },
+         {    0x0012, canonId,          EXV_SIMPLE_BINARY_ARRAY(canonPiCfg)       },
+         {    0x0093, canonId,          EXV_BINARY_ARRAY(canonFiCfg, canonFiDef)  },
+@@ -1892,6 +1906,7 @@
+         {  Tag::all, canonCsId,        newTiffBinaryElement                      },
+         {  Tag::all, canonSiId,        newTiffBinaryElement                      },
+         {  Tag::all, canonPaId,        newTiffBinaryElement                      },
++        {  Tag::all, canonCiId,        newTiffBinaryElement                      },
+         {  Tag::all, canonCfId,        newTiffBinaryElement                      },
+         {  Tag::all, canonPiId,        newTiffBinaryElement                      },
+         {  Tag::all, canonFiId,        newTiffBinaryElement                      },

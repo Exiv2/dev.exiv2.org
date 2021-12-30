@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Redefinition error while compiling DLL with Visual Studio - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="UEV215lLGPNeebYMf+TBBC+e4P7NljprDC/Y+a7B9JiyCN046zHU8wsdqQDAM803EAy0hzx1m9HxD0hx7fgT9w==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Redefinition error while compiling DLL with Visual Studio</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/3351">Achim Schäfer</a> <a title="27 Mar 2012 14:39" href="/projects/exiv2/activity?from=2012-03-27">over 9 years</a> ago</span></p>
+<div class="wiki">
+<p>Hello,</p>
+
+
+	<p>Environment: Win7 x64, exiv2-0.22, Visual Studio 11 (Beta), trying to compile 64 Bit DLL (msvc64\exiv2.sln)</p>
+
+
+	<p>I'm getting a lot of errors of type "C2371: 'int8_t : redefinition; different basic types" but cannot find any typedef redefining int8_t.</p>
+
+
+	<p>I know it's a bit "risky" to use a beta compiler but as far as I know the changes between VS 2010 and VS 11 are mainly in the IDE and the .NET parts (version 4.5 support) and all this Windows 8 stuff but not in the C++ compiler.</p>
+
+
+	<p>Any idea what is going wrong?</p>
+
+
+	<p>Or is it possible to just download a compiled DLL? Also some .NET wrapper would be welcome as I'm writing normally in C#....</p>
+
+
+	<p>I want to use exiv2 in a workflow software for my own needs because I'm disappointed in the lack of network support in Adobe Lightroom 4 and Corel Aftershot Pro doesn't have the possibility to extensive renaming and making backups to another drive at the same time. And for grouping the raw material I want inspect the real shooting date and the GPS coordinates (my Sony Alpha 55 has GPS on board) - I cannot rely on file dates as sometimes/often I have to work with copies to external drives etc.</p>
+
+
+	<p>TIA from Nuremberg<br />Achim</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (6)</h3>
+  <div class="message reply" id="message-1148">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1147?r=1148#message-1148">RE: Redefinition error while compiling DLL with Visual Studio</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="27 Mar 2012 18:37" href="/projects/exiv2/activity?from=2012-03-27">over 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Achim,</p>
+
+
+	<p>This is important feedback, thanks. Can you try to compile the trunk? (see <a class="external" href="http://www.exiv2.org/download.html#devel">http://www.exiv2.org/download.html#devel</a>)<br />There was a recent change (<a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/revisions/2623/diff">http://dev.exiv2.org/projects/exiv2/repository/revisions/2623/diff</a>) to cater for the new stdint.h include file, introduced with DevStudio 2010. Before that, MSVC didn't have these C99 types, so Exiv2 defined them. It would be good to hear if the current trunk also works with Visual Studio 2011 (Beta).</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1149">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1147?r=1149#message-1149">RE: Redefinition error while compiling DLL with Visual Studio</a>
+    -
+    Added by <a class="user active" href="/users/3351">Achim Schäfer</a> <a title="27 Mar 2012 22:41" href="/projects/exiv2/activity?from=2012-03-27">over 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi,</p>
+
+
+	<p>thanks for the quick reply, I'll test it this evening.</p>
+
+
+	<p>greetings from Nuremberg<br />Achim</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1151">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1147?r=1151#message-1151">RE: Redefinition error while compiling DLL with Visual Studio</a>
+    -
+    Added by <a class="user active" href="/users/3351">Achim Schäfer</a> <a title="28 Mar 2012 12:37" href="/projects/exiv2/activity?from=2012-03-28">over 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Andreas,</p>
+
+
+	<p>as suggested I downloaded the trunk via subversion and copied the xpat and zlib lib sources to the correct positions. I used the same environment as before (x64 etc.) and the DLL configurations (both debug and release compiled well without errors and the following warnings:</p>
+
+
+	<p>Warning    1    warning C4013: 'write' undefined; assuming extern returning int    p:\projekte\e\zlib-1.2.5\gzwrite.c    84    1    zlib1<br />Warning    2    warning C4013: 'close' undefined; assuming extern returning int    p:\projekte\e\zlib-1.2.5\gzwrite.c    558    1    zlib1<br />Warning    3    warning C4013: 'read' undefined; assuming extern returning int    p:\projekte\e\zlib-1.2.5\gzread.c    30    1    zlib1<br />Warning    4    warning C4013: 'close' undefined; assuming extern returning int    p:\projekte\e\zlib-1.2.5\gzread.c    581    1    zlib1<br />Warning    5    warning C4013: 'open' undefined; assuming extern returning int    p:\projekte\e\zlib-1.2.5\gzlib.c    180    1    zlib1<br />Warning    6    warning C4013: '_lseeki64' undefined; assuming extern returning int    p:\projekte\e\zlib-1.2.5\gzlib.c    204    1    zlib1<br />Warning    7    warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification    P:\Projekte\E\exiv2-0.22\msvc64\expat\xmlparse.obj    expat<br />Warning    8    warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification    P:\Projekte\E\exiv2-0.22\msvc64\zlib\adler32.obj    zlib1<br />Warning    9    warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification    P:\Projekte\E\exiv2-0.22\msvc64\expat\xmlparse.obj    expat</p>
+
+
+	<p>The "normal" configurations both had an error:</p>
+
+
+	<p>Error    19    error LNK2019: unresolved external symbol _<em>imp</em>_vsnprintf referenced in function _gzprintf    P:\Projekte\E\exiv2-0.22\msvc64\exiv2\zlib1d.lib(gzwrite.obj)    exiv2<br />Error    20    error LNK1120: 1 unresolved externals    P:\Projekte\E\exiv2-0.22\msvc64\exiv2\Win32\Debug\exiv2.exe    exiv2</p>
+
+
+	<p>(There are also 18 warnings. That's the reason why the first error is no. 19...)</p>
+
+
+	<p>Then I tried the resulting exe from the ReleaseDLL configuration with some pictures, plain jpg files and raw files from my Sony alpha55 (arw) and Canon 20D (cr2). EXIF data all showed up correctly. Only one thing is kind of peculiar: the downloaded exe accepts wildcards - my self compiled version does not????</p>
+
+
+	<p>So my next step is to incorporate your lib in my C# project... Are there any wrappers around or some examples? My experience with C++ and incorporating C++ dlls in .NET projects is a little bit "rusty" - my twitter name is "Dotnet_Oldie"....</p>
+
+
+	<p>Thank's a lot for this lib!</p>
+
+
+	<p>greetings from Nuremberg<br />Achim</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1159">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1147?r=1159#message-1159">RE: Redefinition error while compiling DLL with Visual Studio</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="09 Apr 2012 20:24" href="/projects/exiv2/activity?from=2012-04-09">over 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Sorry for the late reply. There is some old sample code in msvc/exivsimple which may be of interest, but I'm really not sure.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1160">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1147?r=1160#message-1160">RE: Redefinition error while compiling DLL with Visual Studio</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Apr 2012 23:40" href="/projects/exiv2/activity?from=2012-04-20">over 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you for using the exiv2 library.</p>
+
+
+	<p>DevStudio 10 added stdint.h and you'll have to make that known to the compiler.  We added code to exv_msvc.h to support this.</p>
+
+
+	<p>#if _MSC_VER >= 1600<br />// stdint.h was introduced with DevStudio 2010<br />#define EXV_HAVE_STDINT_H 1<br />#endif</p>
+
+
+	<p>However the xmpsdk (which is provided by Adobe) doesn't appear to take advantage of stdint.h</p>
+
+
+	<p>#if XMP_MacBuild    // ! No stdint.h on Windows and some UNIXes.<br />    #include &lt;stdint.h&gt;<br />#endif</p>
+
+
+	<p>And I think that may cause this message.   It's rather odd the DevStudio 10 (2010) didn't complain about this.</p>
+
+
+	<p>You'll find the compiler switches /E, /P and /showIncludes very helpful for tracking down the culprit.</p>
+
+
+	<p>It's probably useful to take a look in Adobe Labs (or wherever the latest xmpsdk can be located).</p>
+
+
+	<p>For the moment, I haven't looked at DevStudio 11.  Perhaps an Express Edition of a supported compiler will be a quicker road to happiness.</p>
+
+
+	<p>Andreas Grimme (take care, not Andreas Huggel) published a .Net wrapper about 4 years ago (around exiv2 0.16 or so)  I was able to build and run that successfully.  I believe the source is still available from the exiv2 forum on yahoo.co.uk.  We don't support this offering, however you might find the code useful for inspiration.  You might even get lucky and it'll just work for you with very little effort.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1161">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1147?r=1161#message-1161">RE: Redefinition error while compiling DLL with Visual Studio</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Apr 2012 23:18" href="/projects/exiv2/activity?from=2012-04-21">over 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Achim</p>
+
+
+	<p>I pulled down the 2GByte Visual Studio 11 Ultimate Beta.  A heavy beast which occupies 10Gbytes on the disk and took about 4-5 hours to install on my 2 year old 64bit Sony Vaio.  It's DevStudio with another makeover and plenty of fresh paint.  I really liked the animation during installation.  I had plenty of time to watch it.  Then another hour to download and install the update.  Anyway it's working fine.  I've always really liked DevStudio (although hardly used 2010).</p>
+
+
+	<p>I've built exiv2/msvc64/exiv2.sln and everything seems OK to me.  I pulled down the latest code from the exiv2 trunk.  This is the release candidate for exiv2 0.23.  I builds OK for me (all 40 targets).  I've run the sanity tests (exiv2/msvc64/runner.py).</p>
+
+
+	<p>Visual Studio 11's batch build seems a little suspect to me.  It ran very quickly and said "5 succeeded, 35 failed".  So I used the dentist's method (pulled them out one at a time).  I selected Debug/x64/exiv2 build.  (yawn) DebugDLL .... for the 8 targets (Debug|DebugDLL|Release|ReleaseDLL)x(Win32|x64) and everything built.  The build hung several times and I had to cancel it, terminate/restart DevStudio several times.  I'll give the blame to Redmond Prerelease Blues.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-6/6)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

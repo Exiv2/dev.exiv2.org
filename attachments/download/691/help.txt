@@ -1,0 +1,101 @@
+thomas@linux.site:~> exiv2 -help
+exiv2: Unbekanntextract Ziel `l'
+Benutzung: exiv2 [ Optionen ] [ Aktionen ] Datei ...
+
+Ändert die Exif-Metadaten von Bildern.
+
+Aktionen:
+   ad | adjust   ändert die Exif-Zeitstempel um eine gegebene Zeit. Diese
+                 Aktion benötigt mindestens eine der Optionen -a, -Y, -O oder -D.
+   pr | print    Druckt die Metadaten des Bildes.
+   rm | delete   Löscht die Bildmetadaten aus den Dateien.
+   in | insert   Fügt die Metadaten aus den zugehörigen *.exv Dateien ein.
+                 Benutzen Sie die Option -S um die Erweiterung der Eingabedateien zu ändern.
+   ex | extract  Extrahiert die Metadaten in *.exv, *.xmp und Bildvorschaudateien.
+   mv | rename   Benennt Dateien und/oder setzt die Dateizeitstempel passend zu den
+                 Exif-Erstellungszeitstempeln. Das Format der Dateinamen kann mit der Option
+                 -r format gesetzt werden. Die Optionen der Zeitstempel werden mit -t und -T kontrolliert.
+   mo | modify   Wendet Kommandos zum Ändern (Hinzufügen, Setzen, Löschen) der Exif- und
+                 IPTC Metadaten von Bilddateien an oder setzt das JPEG-Kommentar.
+                 Benötigt zusätzlich eine Option von-c, -m oder -M.
+   fi | fixiso   Kopiert die ISO-Einstellungen aus der Nikon-Herstellerbemerkung in das reguläre
+                 Exif-Feld.
+   fc | fixcom   Convert the UNICODE Exif user comment to UCS-2. Its current
+                 character encoding can be specified with the -n option.
+
+Optionen:
+    -h      Gibt diese Hilfe aus und beendet sich.
+    -V      Zeigt die Programmversion an und beendet sich.
+    -v      Ausführliche Meldungen während des Programmlaufs.
+    -q      Silence warnings and error messages during the program run (quiet).
+    -Q lvl  Set log-level to d(ebug), i(nfo), w(arning), e(rror) or m(ute).
+    -b      zeigt große binäre Werte an.
+    -u      Show unknown tags.
+    -g key  Only output info for this key (grep).
+    -n enc  Charset to use to decode UNICODE Exif user comments.
+    -k      Bewahrt die Dateizeitstempel (keep).
+    -t      Setzt beim "Umbennenen" auch die Zeitstempel der Datei (überschreibt -k).
+    -T      Setzt nur die Dateizeitstempel in der Aktion "umbenennen" und benennt nicht die
+            Datei um (überschreibt -k).
+    -f      Vor dem überschreiben von existierenden Dateien nicht nachfragen (force).
+    -F      Vor dem umbenennen nicht nachfragen (Force).
+    -a time Zeitjustierung im Format [-]HH[:MM[:SS]]. Diese Option wird
+            nur in Zusammenhang mit der Aktion 'Justieren' benutzt.
+    -Y yrs  Justierung von Jahren in der Aktion "justieren".
+    -O mon  Justierung der Monate in der Aktion 'justieren'.
+    -D day  Jusitierung von tagen in der Aktion "Justierung".
+    -p mode Druckmodus für die Aktion 'Drucken'. Mögliche Modi sind:
+              s : druckt eine Zusammenfassung der Exif-Metadaten (Standard)
+              a : print Exif, IPTC and XMP metadata (shortcut for -Pkyct)
+              t : interpreted (translated) Exif data (-PEkyct)
+              v : plain Exif data values (-PExgnycv)
+              h : hexdump of the Exif data (-PExgnycsh)
+              i : IPTC data values (-PIkyct)
+              x : XMP properties (-PXkyct)
+              c : JPEG-Kommentar
+              p : list available previews
+    -P flgs Print flags for fine control of tag lists ('print' action):
+              E : include Exif tags in the list
+              I : IPTC datasets
+              X : XMP properties
+              x : print a column with the tag number
+              g : Gruppenname
+              k : Schlüssel
+              l : Feldlabel
+              n : Feldname
+              y : Typ
+              c : Anzahl der Komponenten (Zähler)
+              s : Größe in Bytes
+              v : Vollständiger Datenwert
+              t : interpretierte, übersetzte Daten
+              h : Hexdump der Daten
+    -d ziel  Ziele für die Aktion "Löschen". Mögliche Ziele sind:
+              a : Alle unterstützten Metadaten (Standard)
+              e : Exif-Abschnitt
+              t : Nur die Exif-Vorschau
+              i : IPTC-Daten
+              x : XMP-Paket
+              c : JPEG-Kommentar
+    -i ziel  Einfügeziele für die Aktion "Einfügen". Mögliche Ziele sind
+            die gleichen wie bei der Option -d und:
+              X : Fügt die Metadaten aus der XMP-Zusatzdatei <file>.xmp ein
+            Nur JPEG Bildvorschauen können eingefügt werden. Sie müssen den Namen
+            <file>-thumb.jpg haben.
+    -e tgt  Extract target(s) for the 'extract' action. Possible targets
+            are the same as those for the -d option, plus a target to extract
+            preview images and a modifier to generate an XMP sidecar file:
+              p[<n>[,<m> ...]] : Extract preview images.
+              X : Extract metadata to an XMP sidecar file <file>.xmp
+    -r fmt  Dateinamensformat für die Aktion 'umbenennen'. Die Formatierungszeichenkette
+            entspricht strftime(3). Die folgenden Schlüsselwörter werden unterstützt:
+              :basename:   - Originaldateiname ohne Erweiterung
+              :dirname:    - Name des Ordners in dem die Originaldatei liegt
+              :parentname: - Name des Elternordners
+            Das Standardformat des Dateinamens ist %Y%m%d_%H%M%S.
+    -c txt  JPEG-Kommentar der im Bild gesetzt wird.
+    -m datei Befehlsdatei für die Aktion "Modifizieren". Das Format für die Befehle ist
+            set|add|del <schlüssel> [[<typ>] <wert>].
+    -M bef  Befehlszeile für die Aktion "Modifizieren". Das Format für die
+            Befehle ist das gleiche wie der Befehlsdatei.
+    -l ord  Lokation (Ordner) für die Dateien aus den eingefügt bzw. extrahiert wird.
+    -S .suf Benutzt den Suffix .suf für die Quelldateien beim Befehl Einfügen.

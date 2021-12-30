@@ -1,0 +1,64 @@
+From 3e3a1ad2f1b04ae60878c374268f3ea36930cd28 Mon Sep 17 00:00:00 2001
+From: Michael Pratt <michael@pratt.im>
+Date: Sat, 5 Jul 2014 15:22:23 -0700
+Subject: [PATCH 1/6] types: Add map_value_iterator
+
+Add a map_value_iterator type which wraps a std::(multi)map::iterator,
+directly accessing the value on derefence, rather than the key, value
+std::pair.
+---
+ src/types.hpp | 38 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+
+diff --git a/src/types.hpp b/src/types.hpp
+index c3dca54..ec676a1 100644
+--- a/src/types.hpp
++++ b/src/types.hpp
+@@ -554,6 +554,44 @@ namespace Exiv2 {
+         }
+     }
+ 
++    /* Wraps a map iterator, returning the value on dereference */
++    template<typename _Container, typename _Iterator, typename _ValueType = typename _Iterator::value_type::second_type>
++    class map_value_iterator
++        : public std::iterator<typename _Iterator::iterator_category, _ValueType, typename _Iterator::difference_type>
++    {
++    private:
++        /*
++         * const_map_value_iterator should look like an iterator of
++         * const _ValueType.  Unfortunately, the map const_iterator
++         * is actually just an iterator of const pairs, where
++         * _ValueType is not const, so we need to explicitly add
++         * const to _ValueType.
++         */
++        typedef map_value_iterator<_Container, typename _Container::const_iterator, const typename _Container::const_iterator::value_type::second_type> const_map_value_iterator;
++
++    public:
++        _Iterator it;
++
++        map_value_iterator() {}
++        map_value_iterator(typename _Container::const_iterator it) : it(it) {}
++        map_value_iterator(typename _Container::iterator it) : it(it) {}
++
++        _ValueType& operator*() const { return it->second; }
++        _ValueType* operator->() const { return &it->second; }
++        map_value_iterator& operator++() { it++; return *this; }
++        map_value_iterator& operator++(int) { it++; return *this; }
++        map_value_iterator& operator--() { it--; return *this; }
++        map_value_iterator& operator--(int) { it--; return *this; }
++        bool operator==(map_value_iterator const & rhs) const { return it == rhs.it; }
++        bool operator!=(map_value_iterator const & rhs) const { return it != rhs.it; }
++
++        /* Support conversion to const_iterator */
++        operator const_map_value_iterator() const
++        {
++            return const_map_value_iterator(it);
++        }
++    };
++
+ }                                       // namespace Exiv2
+ 
+ #endif                                  // #ifndef TYPES_HPP_
+-- 
+2.0.0
+

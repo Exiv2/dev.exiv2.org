@@ -1,0 +1,497 @@
+diff --exclude .svn -urwEB exiv2-0.26-svn/include/exiv2/orfimage.hpp exiv2-0.26.as/include/exiv2/orfimage.hpp
+--- exiv2-0.26-svn/include/exiv2/orfimage.hpp	2017-02-15 09:56:58.708106496 -0500
++++ exiv2-0.26.as/include/exiv2/orfimage.hpp	2017-01-24 10:08:23.000000000 -0500
+@@ -79,6 +79,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         void writeMetadata();
+         /*!
+diff --exclude .svn -urwEB exiv2-0.26-svn/include/exiv2/rafimage.hpp exiv2-0.26.as/include/exiv2/rafimage.hpp
+--- exiv2-0.26-svn/include/exiv2/rafimage.hpp	2017-02-15 09:56:58.703106437 -0500
++++ exiv2-0.26.as/include/exiv2/rafimage.hpp	2017-01-24 10:08:23.000000000 -0500
+@@ -78,6 +78,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         /*!
+           @brief Todo: Write metadata back to the image. This method is not
+diff --exclude .svn -urwEB exiv2-0.26-svn/include/exiv2/riffvideo.hpp exiv2-0.26.as/include/exiv2/riffvideo.hpp
+--- exiv2-0.26-svn/include/exiv2/riffvideo.hpp	2017-02-15 09:56:58.703106437 -0500
++++ exiv2-0.26.as/include/exiv2/riffvideo.hpp	2017-01-24 10:08:23.000000000 -0500
+@@ -71,6 +71,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         void writeMetadata();
+         //@}
+@@ -185,9 +186,14 @@
+         RiffVideo(const RiffVideo& rhs);
+         //! Assignment operator
+         RiffVideo& operator=(const RiffVideo& rhs);
++        bool equalsRiffTag(Exiv2::DataBuf& buf ,const char* str);
+         //@}
+ 
+     private:
++        const static int RIFF_TAG_SIZE;
++        const static char* RIFF_CHUNK_HEADER_ICCP;
++        const static char* RIFF_CHUNK_HEADER_EXIF;
++        const static char* RIFF_CHUNK_HEADER_XMP;
+         //! Variable to check the end of metadata traversing.
+         bool continueTraversing_;
+         //! Variable which stores current stream being processsed.
+diff --exclude .svn -urwEB exiv2-0.26-svn/include/exiv2/rw2image.hpp exiv2-0.26.as/include/exiv2/rw2image.hpp
+--- exiv2-0.26-svn/include/exiv2/rw2image.hpp	2017-02-15 09:56:58.707106484 -0500
++++ exiv2-0.26.as/include/exiv2/rw2image.hpp	2017-01-24 10:08:23.000000000 -0500
+@@ -76,6 +76,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         /*!
+           @brief Todo: Write metadata back to the image. This method is not
+diff --exclude .svn -urwEB exiv2-0.26-svn/src/cr2image.cpp exiv2-0.26.as/src/cr2image.cpp
+--- exiv2-0.26-svn/src/cr2image.cpp	2017-02-15 09:57:01.503139279 -0500
++++ exiv2-0.26.as/src/cr2image.cpp	2017-02-01 07:23:55.000000000 -0500
+@@ -107,6 +107,8 @@
+             throw Error(3, "CR2");
+         }
+         clearMetadata();
++        std::ofstream devnull;
++        printStructure(devnull, kpsRecursive, 0);
+         ByteOrder bo = Cr2Parser::decode(exifData_,
+                                          iptcData_,
+                                          xmpData_,
+diff --exclude .svn -urwEB exiv2-0.26-svn/src/orfimage.cpp exiv2-0.26.as/src/orfimage.cpp
+--- exiv2-0.26-svn/src/orfimage.cpp	2017-02-15 09:57:01.490139126 -0500
++++ exiv2-0.26.as/src/orfimage.cpp	2017-02-01 07:23:55.000000000 -0500
+@@ -89,6 +89,21 @@
+         throw(Error(32, "Image comment", "ORF"));
+     }
+ 
++    void OrfImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        std::cout << "ORF IMAGE" << std::endl;
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        // Ensure that this is the correct image type
++        if ( imageType() == ImageType::none )
++            if (!isOrfType(*io_, false)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++                throw Error(15);
++        }
++
++        io_->seek(0,BasicIo::beg);
++
++        printTiffStructure(io(),out,option,depth-1);
++    } // OrfImage::printStructure
++
+     void OrfImage::readMetadata()
+     {
+ #ifdef DEBUG
+@@ -104,6 +119,8 @@
+             throw Error(3, "ORF");
+         }
+         clearMetadata();
++        std::ofstream devnull;
++        printStructure(devnull, kpsRecursive, 0);
+         ByteOrder bo = OrfParser::decode(exifData_,
+                                          iptcData_,
+                                          xmpData_,
+diff --exclude .svn -urwEB exiv2-0.26-svn/src/rafimage.cpp exiv2-0.26.as/src/rafimage.cpp
+--- exiv2-0.26-svn/src/rafimage.cpp	2017-02-15 09:57:01.481139021 -0500
++++ exiv2-0.26.as/src/rafimage.cpp	2017-02-01 17:39:32.000000000 -0500
+@@ -34,6 +34,7 @@
+ 
+ #include "rafimage.hpp"
+ #include "tiffimage.hpp"
++#include "image_int.hpp"
+ #include "image.hpp"
+ #include "basicio.hpp"
+ #include "error.hpp"
+@@ -95,6 +96,189 @@
+         throw(Error(32, "Image comment", "RAF"));
+     }
+ 
++    void RafImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) {
++            throw Error(9, io_->path(), strError());
++        }
++        // Ensure this is the correct image type
++        if (!isRafType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "RAF");
++        }
++        bool bPrint = option==kpsBasic || option==kpsRecursive;
++        if ( bPrint ) {
++            io_->seek(0,BasicIo::beg); // rewind
++
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << "STRUCTURE OF RAF FILE: "
++                    << io().path()
++                    << std::endl;
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("    Length |   Offset | Payload")
++                    << std::endl;
++            }
++
++            byte magicdata [17];
++            io_->read(magicdata, 16);
++            magicdata[16] = 0;
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", 16, 0)
++                    << "Magic number : "
++                    << std::string((char*)&magicdata)
++                    << std::endl;
++            }
++
++            byte data1 [5];
++            io_->read(data1, 4);
++            data1[4] = 0;
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", 4, 16)
++                    << "data 1 : "
++                    << std::string((char*)&data1)
++                    << std::endl;
++            }
++
++            byte data2 [9];
++            io_->read(data2, 8);
++            data2[8] = 0;
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", 8, 20)
++                    << "data 2 : "
++                    << std::string((char*)&data2)
++                    << std::endl;
++            }
++
++            byte camdata [33];
++            io_->read(camdata, 32);
++            camdata[32] = 0;
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", 32, 28)
++                    << "camera : "
++                    << std::string((char*)&camdata)
++                    << std::endl;
++            }
++
++            byte dir_version [5];
++            io_->read(dir_version, 4);
++            dir_version[4] = 0;
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", 4, 60)
++                    << "dir version : "
++                    << std::string((char*)&dir_version)
++                    << std::endl;
++            }
++
++            byte unknown [20];
++            io_->read(unknown, 20);
++
++            byte jpg_img_offset [4];
++            io_->read(jpg_img_offset, 4);
++            byte jpg_img_length [4];
++            io_->read(jpg_img_length, 4);
++            long jpg_img_off = Exiv2::getULong((const byte *) jpg_img_offset, bigEndian);
++            long jpg_img_len = Exiv2::getULong((const byte *) jpg_img_length, bigEndian);
++            std::stringstream j_off;
++            std::stringstream j_len;
++            j_off << jpg_img_off;
++            j_len << jpg_img_len;
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", 4, 84)
++                    << "JPEG Image Offset : "
++                    << j_off.str()
++                    << std::endl;
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", 4, 88)
++                    << "JPEG Image Length : "
++                    << j_len.str()
++                    << std::endl;
++            }
++
++            byte cfa_header_offset [4];
++            io_->read(cfa_header_offset, 4);
++            byte cfa_header_length [4];
++            io_->read(cfa_header_length, 4);
++            long cfa_hdr_off = Exiv2::getULong((const byte *) cfa_header_offset, bigEndian);
++            long cfa_hdr_len = Exiv2::getULong((const byte *) cfa_header_length, bigEndian);
++            std::stringstream ch_off;
++            std::stringstream ch_len;
++            ch_off << cfa_hdr_off;
++            ch_len << cfa_hdr_len;
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", 4, 92)
++                    << "CFA Header Offset : "
++                    << ch_off.str()
++                    << std::endl;
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", 4, 96)
++                    << "CFA Header Length : "
++                    << ch_len.str()
++                    << std::endl;
++            }
++
++            byte cfa_offset [4];
++            io_->read(cfa_offset, 4);
++            byte cfa_length [4];
++            io_->read(cfa_length, 4);
++            long cfa_off = Exiv2::getULong((const byte *) cfa_offset, bigEndian);
++            long cfa_len = Exiv2::getULong((const byte *) cfa_length, bigEndian);
++            std::stringstream c_off;
++            std::stringstream c_len;
++            c_off << cfa_off;
++            c_len << cfa_len;
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", 4, 100)
++                    << "CFA Offset : "
++                    << c_off.str()
++                    << std::endl;
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", 4, 104)
++                    << "CFA Length : "
++                    << c_len.str()
++                    << std::endl;
++            }
++
++            io_->seek(jpg_img_off, BasicIo::beg); // rewind
++            DataBuf payload(16); // header is different from chunks
++            io_->read(payload.pData_, payload.size_);
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", jpg_img_len, jpg_img_off)
++                    << "jpg image / exif : "
++                    << Internal::binaryToString(payload, payload.size_)
++                    << std::endl;
++            }
++
++            io_->seek(cfa_hdr_off, BasicIo::beg); // rewind
++            io_->read(payload.pData_, payload.size_);
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", cfa_hdr_len, cfa_hdr_off)
++                    << "CFA Header: "
++                    << Internal::binaryToString(payload, payload.size_)
++                    << std::endl;
++            }
++
++            io_->seek(cfa_off, BasicIo::beg); // rewind
++            io_->read(payload.pData_, payload.size_);
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << Internal::stringFormat("  %8u | %8u | ", cfa_len, cfa_off)
++                    << "CFA : "
++                    << Internal::binaryToString(payload, payload.size_)
++                    << std::endl;
++            }
++        }
++    } // RafImage::printStructure
++
+     void RafImage::readMetadata()
+     {
+ #ifdef DEBUG
+@@ -107,20 +291,32 @@
+             if (io_->error() || io_->eof()) throw Error(14);
+             throw Error(3, "RAF");
+         }
+-        byte const* pData = io_->mmap();
+-        long size = io_->size();
+-        if (size < 88 + 4) throw Error(14); // includes the test for -1
+-        uint32_t const start = getULong(pData + 84, bigEndian) + 12;
+-        if (static_cast<uint32_t>(size) < start) throw Error(14);
++
+         clearMetadata();
++
++        io_->seek(84,BasicIo::beg);
++        byte jpg_img_offset [4];
++        io_->read(jpg_img_offset, 4);
++        byte jpg_img_length [4];
++        io_->read(jpg_img_length, 4);
++        long jpg_img_off = Exiv2::getULong((const byte *) jpg_img_offset, bigEndian);
++        long jpg_img_len = Exiv2::getULong((const byte *) jpg_img_length, bigEndian);
++
++        DataBuf buf(jpg_img_len - 12);
++        io_->seek(jpg_img_off + 12,BasicIo::beg);
++        io_->read(buf.pData_, buf.size_ - 12);
++        if (io_->error() || io_->eof()) throw Error(14);
++
++        io_->seek(0,BasicIo::beg); // rewind
++
+         ByteOrder bo = TiffParser::decode(exifData_,
+                                           iptcData_,
+                                           xmpData_,
+-                                          pData + start,
+-                                          size - start);
++                                          buf.pData_,
++                                          buf.size_);
+ 
+-        exifData_["Exif.Image2.JPEGInterchangeFormat"] = getULong(pData + 84, bigEndian);
+-        exifData_["Exif.Image2.JPEGInterchangeFormatLength"] = getULong(pData + 88, bigEndian);
++        exifData_["Exif.Image2.JPEGInterchangeFormat"] = getULong(jpg_img_offset, bigEndian);
++        exifData_["Exif.Image2.JPEGInterchangeFormatLength"] = getULong(jpg_img_length, bigEndian);
+ 
+         setByteOrder(bo);
+     } // RafImage::readMetadata
+diff --exclude .svn -urwEB exiv2-0.26-svn/src/riffvideo.cpp exiv2-0.26.as/src/riffvideo.cpp
+--- exiv2-0.26-svn/src/riffvideo.cpp	2017-02-15 09:57:01.496139197 -0500
++++ exiv2-0.26.as/src/riffvideo.cpp	2017-02-01 07:23:55.000000000 -0500
+@@ -41,6 +41,7 @@
+ #include "tags_int.hpp"
+ #include "types.hpp"
+ #include "tiffimage_int.hpp"
++#include "image_int.hpp"
+ // + standard includes
+ #include <cmath>
+ 
+@@ -516,6 +517,88 @@
+         return "video/riff";
+     }
+ 
++    const int RiffVideo::RIFF_TAG_SIZE = 0x4;
++    const char* RiffVideo::RIFF_CHUNK_HEADER_ICCP = "ICCP";
++    const char* RiffVideo::RIFF_CHUNK_HEADER_EXIF = "EXIF";
++    const char* RiffVideo::RIFF_CHUNK_HEADER_XMP  = "XMP ";
++
++    /*!
++     @brief Function used to check equality of a Tags with a
++     particular string (ignores case while comparing).
++     @param buf Data buffer that will contain Tag to compare
++     @param str char* Pointer to string
++     @return Returns true if the buffer value is equal to string.
++     */
++    bool RiffVideo::equalsRiffTag(Exiv2::DataBuf& buf, const char* str) {
++        for(int i = 0; i < 4; i++ )
++            if(toupper(buf.pData_[i]) != str[i])
++                return false;
++        return true;
++    }
++
++    void RiffVideo::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) {
++            throw Error(9, io_->path(), strError());
++        }
++        // Ensure this is the correct image type
++        if (!isRiffType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "RIFF");
++        }
++
++        bool bPrint  = option==kpsBasic || option==kpsRecursive;
++        if ( bPrint || option == kpsXMP || option == kpsIccProfile || option == kpsIptcErase ) {
++            byte      data [RIFF_TAG_SIZE * 2];
++            io_->read(data, RIFF_TAG_SIZE * 2);
++            uint64_t filesize = Exiv2::getULong(data + RIFF_TAG_SIZE, littleEndian);
++            DataBuf  chunkId(5)      ;
++            chunkId.pData_[4] = '\0' ;
++
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << "STRUCTURE OF RIFF FILE: "
++                    << io().path()
++                    << std::endl;
++                out << Internal::indent(depth)
++                    << Internal::stringFormat(" Chunk |       Length |       Offset | Payload")
++                    << std::endl;
++            }
++
++            io_->seek(0,BasicIo::beg); // rewind
++            while ( !io_->eof() && (uint64_t) io_->tell() < filesize) {
++                uint64_t offset = (uint64_t) io_->tell();
++                byte     size_buff[RIFF_TAG_SIZE];
++                io_->read(chunkId.pData_, RIFF_TAG_SIZE);
++                io_->read(size_buff, RIFF_TAG_SIZE);
++                long size = Exiv2::getULong(size_buff, littleEndian);
++                DataBuf payload(offset?size:RIFF_TAG_SIZE); // header is different from chunks
++                io_->read(payload.pData_, payload.size_);
++
++                if ( bPrint ) {
++                    out << Internal::indent(depth)
++                        << Internal::stringFormat("  %s | %12u | %12u | ", (const char*)chunkId.pData_,size,(uint32_t)offset)
++                        << Internal::binaryToString(payload,payload.size_>32?32:payload.size_)
++                        << std::endl;
++                }
++
++                if ( equalsRiffTag(chunkId, RIFF_CHUNK_HEADER_EXIF) && option==kpsRecursive ) {
++                    // create memio object with the payload, then print the structure
++                    BasicIo::AutoPtr p = BasicIo::AutoPtr(new MemIo(payload.pData_,payload.size_));
++                    printTiffStructure(*p,out,option,depth);
++                }
++
++                bool bPrintPayload = (equalsRiffTag(chunkId, RIFF_CHUNK_HEADER_XMP) && option==kpsXMP)
++                                     || (equalsRiffTag(chunkId, RIFF_CHUNK_HEADER_ICCP) && option==kpsIccProfile)
++                ;
++                if ( bPrintPayload ) {
++                    out.write((const char*) payload.pData_,payload.size_);
++                }
++
++                if ( offset && io_->tell() % 2 ) io_->seek(+1, BasicIo::cur); // skip padding byte on sub-chunks
++            }
++        }
++    } // RiffVideo::printStructure
++
+     void RiffVideo::writeMetadata()
+     {
+     } // RiffVideo::writeMetadata
+diff --exclude .svn -urwEB exiv2-0.26-svn/src/rw2image.cpp exiv2-0.26.as/src/rw2image.cpp
+--- exiv2-0.26-svn/src/rw2image.cpp	2017-02-15 09:57:01.501139255 -0500
++++ exiv2-0.26.as/src/rw2image.cpp	2017-02-01 12:26:49.000000000 -0500
+@@ -100,6 +100,21 @@
+         throw(Error(32, "Image comment", "RW2"));
+     }
+ 
++    void Rw2Image::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        std::cout << "RW2 IMAGE" << std::endl;
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        // Ensure that this is the correct image type
++        if ( imageType() == ImageType::none )
++            if (!isRw2Type(*io_, false)) {
++                if (io_->error() || io_->eof()) throw Error(14);
++                throw Error(15);
++            }
++
++        io_->seek(0,BasicIo::beg);
++
++        printTiffStructure(io(),out,option,depth-1);
++    } // Rw2Image::printStructure
++
+     void Rw2Image::readMetadata()
+     {
+ #ifdef DEBUG
+@@ -115,6 +130,8 @@
+             throw Error(3, "RW2");
+         }
+         clearMetadata();
++        std::ofstream devnull;
++        printStructure(devnull, kpsRecursive, 0);
+         ByteOrder bo = Rw2Parser::decode(exifData_,
+                                          iptcData_,
+                                          xmpData_,
+diff --exclude .svn -urwEB exiv2-0.26-svn/src/webpimage.cpp exiv2-0.26.as/src/webpimage.cpp
+--- exiv2-0.26-svn/src/webpimage.cpp	2017-02-15 09:57:01.504139291 -0500
++++ exiv2-0.26.as/src/webpimage.cpp	2017-02-01 07:23:55.000000000 -0500
+@@ -412,8 +412,9 @@
+ 
+     void WebPImage::printStructure(std::ostream& out, PrintStructureOption option,int depth)
+     {
+-        if (io_->open() != 0) throw Error(9, io_->path(), strError());
+-        IoCloser closer(*io_);
++        if (io_->open() != 0) {
++            throw Error(9, io_->path(), strError());
++        }
+         // Ensure this is the correct image type
+         if (!isWebPType(*io_, true)) {
+             if (io_->error() || io_->eof()) throw Error(14);

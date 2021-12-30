@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1305: Segmentation fault on certain image - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="5LZmU6A6m2g7LH3KnAnfkJP8+Cqc7jtIgcyDbxW9c+EG+8280kBXaG5IYsYj3tOjrG6sU20NmvJ87BPnVoSUjg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1305: Segmentation fault on certain image" href="https://dev.exiv2.org/issues/1305.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1305</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Segmentation fault on certain image</h3></div>
+</div>
+        <p class="author">
+        Added by Anonymous <a title="28 Jul 2017 11:17" href="/projects/exiv2/activity?from=2017-07-28">over 4 years</a> ago.
+        Updated <a title="12 Sep 2017 08:18" href="/projects/exiv2/activity?from=2017-09-12">about 4 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">miscellaneous</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Dec 2018" href="/versions/55">0.27</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">28 Jul 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">8.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Originally discovered in Gwenview wich uses libexiv2 <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=382842">https://bugs.kde.org/show_bug.cgi?id=382842</a><br />The problematic image attached.</p>
+
+
+	<p>libexiv2 0.26 openSUSE Tumbleweed 64 bit</p>
+
+
+	<p>Thread 1 "gwenview" received signal SIGSEGV, Segmentation fault.<br />0x00007ffff180fb5f in Exiv2::ExifData::findKey(Exiv2::ExifKey const&#38;) const () from /usr/lib64/libexiv2.so.26<br />(gdb) bt<br />#0  0x00007ffff180fb5f in Exiv2::ExifData::findKey(Exiv2::ExifKey const&#38;) const () from /usr/lib64/libexiv2.so.26<br />#1  0x00007ffff18556a1 in Exiv2::Internal::PentaxMakerNote::printShutterCount(std::ostream&#38;, Exiv2::Value const&#38;, Exiv2::ExifData const*) ()<br />   from /usr/lib64/libexiv2.so.26<br />#2  0x00007ffff746c0cf in ?? () from /usr/lib64/libgwenviewlib.so.5<br />#3  0x00007ffff7468b89 in Gwenview::ImageMetaInfoModel::setExiv2Image(Exiv2::Image const*) () from /usr/lib64/libgwenviewlib.so.5<br />#4  0x00007ffff74207b7 in Gwenview::Document::setExiv2Image(std::auto_ptr&lt;Exiv2::Image&gt;) () from /usr/lib64/libgwenviewlib.so.5<br />#5  0x00007ffff741f7d1 in ?? () from /usr/lib64/libgwenviewlib.so.5<br />#6  0x00007ffff742fa11 in ?? () from /usr/lib64/libgwenviewlib.so.5<br />#7  0x00007ffff3a7645a in QMetaObject::activate(QObject*, int, int, void**) () from /usr/lib64/libQt5Core.so.5<br />#8  0x00007ffff3873103 in QFutureWatcherBase::event(QEvent*) () from /usr/lib64/libQt5Core.so.5<br />#9  0x00007ffff4f0a93c in QApplicationPrivate::notify_helper(QObject*, QEvent*) () from /usr/lib64/libQt5Widgets.so.5<br />#10 0x00007ffff4f11cb4 in QApplication::notify(QObject*, QEvent*) () from /usr/lib64/libQt5Widgets.so.5<br />#11 0x00007ffff3a48f28 in QCoreApplication::notifyInternal2(QObject*, QEvent*) () from /usr/lib64/libQt5Core.so.5<br />#12 0x00007ffff3a4b515 in QCoreApplicationPrivate::sendPostedEvents(QObject*, int, QThreadData*) () from /usr/lib64/libQt5Core.so.5<br />#13 0x00007ffff3a9f373 in postEventSourceDispatch(_GSource*, int (<strong>)(void</strong>), void*) () from /usr/lib64/libQt5Core.so.5<br />#14 0x00007fffec763b57 in g_main_context_dispatch () from /usr/lib64/libglib-2.0.so.0<br />#15 0x00007fffec763d88 in ?? () from /usr/lib64/libglib-2.0.so.0<br />#16 0x00007fffec763e1c in g_main_context_iteration () from /usr/lib64/libglib-2.0.so.0<br />#17 0x00007ffff3a9e9ef in QEventDispatcherGlib::processEvents(QFlags&lt;QEventLoop::ProcessEventsFlag&gt;) () from /usr/lib64/libQt5Core.so.5<br />#18 0x00007ffff3a4753a in QEventLoop::exec(QFlags&lt;QEventLoop::ProcessEventsFlag&gt;) () from /usr/lib64/libQt5Core.so.5<br />#19 0x00007ffff3a4fdc4 in QCoreApplication::exec() () from /usr/lib64/libQt5Core.so.5<br />#20 0x0000555555588189 in ?? ()<br />#21 0x00007ffff30bc46a in __libc_start_main () from /lib64/libc.so.6<br />#22 0x000055555558854a in _start ()</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1177">IMGP0006.JPG</a>    <span class="size">(175 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1177/IMGP0006.JPG">IMGP0006.JPG</a>  </td>
+  <td>Problematic image</td>
+  <td>
+      <span class="author">Anonymous, 28 Jul 2017 11:17</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1178">IMGP0006-min.jpg</a>    <span class="size">(12.1 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1178/IMGP0006-min.jpg">IMGP0006-min.jpg</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Henri Salo, 29 Jul 2017 12:00</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1179">IMGP0006-min.jpg</a>    <span class="size">(12.1 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1179/IMGP0006-min.jpg">IMGP0006-min.jpg</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Henri Salo, 29 Jul 2017 12:01</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-6053" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Jul 2017 19:00" href="/projects/exiv2/activity?from=2017-07-28">over 4 years</a> ago
+      <span id="journal-6053-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>not-a-bug</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.27</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-6053-notes" class="wiki"><p>I can't reproduce this with the exiv2(.exe) command line program on MacOS-X.  <pre>506 rmills@rmillsmbp:~/gnu/exiv2/0.26 $ exiv2 -pa ~/Downloads/IMGP0006.JPG 
+Warning: Directory Pentax, entry 0x0004: Data area exceeds data buffer, ignoring it.
+Error: XMP Toolkit error 203: Duplicate property or field node
+Warning: Failed to decode XMP metadata.
+Exif.Image.Make                              Ascii      19  PENTAX Corporation
+Exif.Image.Model                             Ascii      17  PENTAX Optio M50
+...
+Exif.Thumbnail.XResolution                   Rational    1  72
+Exif.Thumbnail.YResolution                   Rational    1  72
+Exif.Thumbnail.ResolutionUnit                Short       1  inch
+Exif.Thumbnail.JPEGInterchangeFormat         Long        1  5520
+Exif.Thumbnail.JPEGInterchangeFormatLength   Long        1  7564
+507 rmills@rmillsmbp:~/gnu/exiv2/0.26 $</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-6054" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/6169">Henri Salo</a> <a title="29 Jul 2017 12:00" href="/projects/exiv2/activity?from=2017-07-29">over 4 years</a> ago
+      <span id="journal-6054-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1178">IMGP0006-min.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1178/IMGP0006-min.jpg">IMGP0006-min.jpg</a> added</li>
+    </ul>
+    <div id="journal-6054-notes" class="wiki"><p>With version 0.26 from <a class="external" href="http://exiv2.org/builds/exiv2-0.26-trunk.tar.gz">http://exiv2.org/builds/exiv2-0.26-trunk.tar.gz</a></p>
+
+
+	<p>Build with: DFLAGS="-fsanitize=address" CXXFLAGS="-fsanitize=address -ggdb -fno-omit-frame-pointer" ./configure --enable-video --enable-webready</p>
+
+
+	<p>This file causes heap buffer overflow when executed using flag -pa. Without -pa flag no heap buffer overflow is detected.</p>
+
+
+	<p>258d54d0745e9958eb803da602cc45363f06dd3b7e37268f1dd18c1e20fdd860  IMGP0006.JPG<br />c3f8acd2496fc8f80ad6f730e363eb6ddfffe77353d31440047a0ee768069c2b  IMGP0006-min.jpg</p>
+
+
+	<p>I have attached minimized sample file (using afl-2.49b/afl-tmin).</p>
+
+
+	<p>ASAn output is below:</p>
+
+
+	<p>afl@haiven2:~/exiv2-crashes$ ~/builds/exiv2/0.26-afl-asan/bin/exiv2 -pa IMGP0006.JPG <br />Warning: Directory Pentax, entry 0x0004: Data area exceeds data buffer, ignoring it.<br />Error: XMP Toolkit error 203: Duplicate property or field node<br />Warning: Failed to decode XMP metadata.<br />Exif.Image.Make                              Ascii      19  PENTAX Corporation<br />Exif.Image.Model                             Ascii      17  PENTAX Optio M50<br />Exif.Image.Orientation                       Short       1  top, left<br />Exif.Image.XResolution                       Rational    1  72<br />Exif.Image.YResolution                       Rational    1  72<br />Exif.Image.ResolutionUnit                    Short       1  inch<br />Exif.Image.Software                          Ascii      12  GIMP 2.8.22<br />Exif.Image.DateTime                          Ascii      20  2017:07:27 20:49:15<br />Exif.Image.YCbCrPositioning                  Short       1  Co-sited<br />Exif.Image.ExifTag                           Long        1  582<br />Exif.Photo.ExposureTime                      Rational    1  1/25 s<br />Exif.Photo.FNumber                           Rational    1  F3.5<br />Exif.Photo.ISOSpeedRatings                   Short       1  800<br />Exif.Photo.ExifVersion                       Undefined   4  2.20<br />Exif.Photo.DateTimeOriginal                  Ascii      20  2008:01:01 00:00:45<br />Exif.Photo.DateTimeDigitized                 Ascii      20  2008:01:01 00:00:45<br />Exif.Photo.ComponentsConfiguration           Undefined   4  YCbCr<br />Exif.Photo.CompressedBitsPerPixel            Rational    1  1<br />Exif.Photo.ExposureBiasValue                 SRational   1  0 EV<br />Exif.Photo.MaxApertureValue                  Rational    1  F3.5<br />Exif.Photo.MeteringMode                      Short       1  Multi-segment<br />Exif.Photo.Flash                             Short       1  No, compulsory<br />Exif.Photo.FocalLength                       Rational    1  6.3 mm<br />Exif.Photo.MakerNote                         Undefined 4364  (Binary value suppressed)<br />Exif.MakerNote.Offset                        Long        1  1024<br />Exif.MakerNote.ByteOrder                     Ascii       3  II<br />Exif.Pentax.Version                          Byte        4  4.2.0.0<br />Exif.Pentax.Mode                             Short       1  Manual<br />Exif.Pentax.PreviewResolution                Short       2  640x480<br />Exif.Pentax.PreviewLength                    Long        1  38648<br />Exif.Pentax.PreviewOffset                    Long        1  15933<br />Exif.Pentax.ModelID                          Long        1  Optio M50<br />Exif.Pentax.Date                             Undefined   4  2008:01:01<br />Exif.Pentax.Time                             Undefined   3  00:00:45<br />Exif.Pentax.Quality                          Short       1  Better<br />Exif.Pentax.Size                             Short       1  3264x2448<br />Exif.Pentax.Flash                            Short       1  Off, Did not fire<br />Exif.Pentax.Focus                            Short       1  Macro<br />Exif.Pentax.AFPoint                          Short       1  Auto<br />Exif.Pentax.AFPointInFocus                   Short       1  Top-left<br />Exif.Pentax.ExposureTime                     Long        1  38.97 ms<br />Exif.Pentax.FNumber                          Short       1  F3.5<br />Exif.Pentax.ISO                              Short       1  800<br />Exif.Pentax.ExposureCompensation             Short       1  0 EV<br />Exif.Pentax.MeteringMode                     Short       1  Multi Segment<br />Exif.Pentax.WhiteBalance                     Short       1  Auto<br />Exif.Pentax.WhiteBalanceMode                 Short       1  Auto (Flash)<br />Exif.Pentax.BlueBalance                      Short       1  469<br />Exif.Pentax.RedBalance                       Short       1  401<br />Exif.Pentax.FocalLength                      Long        1  6.3 mm<br />Exif.Pentax.DigitalZoom                      Short       1  100<br />Exif.Pentax.Saturation                       Short       1  Normal<br />Exif.Pentax.Contrast                         Short       1  Normal<br />Exif.Pentax.Sharpness                        Short       1  Normal<br />Exif.Pentax.Location                         Short       1  Home town<br />Exif.Pentax.Hometown                         Short       1  New York<br />Exif.Pentax.Destination                      Short       1  New York<br />Exif.Pentax.HometownDST                      Short       1  No<br />Exif.Pentax.DestinationDST                   Short       1  No<br />Exif.Pentax.DSPFirmwareVersion               Undefined   4  254 255 255 255<br />Exif.Pentax.ImageProcessing                  Undefined   4  Unprocessed<br />Exif.Pentax.DigitalFilter                    Short       1  Off
+=================================================================<br />12028ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6020000077b4 at pc 0x7fe2167a3708 bp 0x7ffcd49ceea0 sp 0x7ffcd49cee98<br />READ of size 4 at 0x6020000077b4 thread T0<br />    #0 0x7fe2167a3707 in Exiv2::ValueType&lt;unsigned int&gt;::toLong(long) const ../include/exiv2/value.hpp:1659<br />    #1 0x7fe2169d5b42 in Exiv2::Internal::PentaxMakerNote::printShutterCount(std::ostream&#38;, Exiv2::Value const&#38;, Exiv2::ExifData const*) /home/afl/src/exiv2-trunk/src/pentaxmn.cpp:1193<br />    #2 0x7fe21692bde7 in Exiv2::Metadatum::print(Exiv2::ExifData const*) const /home/afl/src/exiv2-trunk/src/metadatum.cpp:80<br />    #3 0x46beaa in Action::Print::printMetadatum(Exiv2::Metadatum const&#38;, Exiv2::Image const*) /home/afl/src/exiv2-trunk/src/actions.cpp:757<br />    #4 0x4721e6 in Action::Print::printMetadata(Exiv2::Image const*) /home/afl/src/exiv2-trunk/src/actions.cpp:549<br />    #5 0x472e01 in Action::Print::printList() /home/afl/src/exiv2-trunk/src/actions.cpp:538<br />    #6 0x491e07 in Action::Print::run(std::string const&#38;) /home/afl/src/exiv2-trunk/src/actions.cpp:245<br />    #7 0x407c67 in main /home/afl/src/exiv2-trunk/src/exiv2.cpp:170<br />    #8 0x7fe2158ebb44 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21b44)<br />    #9 0x408cd9 (/home/afl/builds/exiv2/0.26-afl-asan/bin/exiv2+0x408cd9)</p>
+
+
+	<p>0x6020000077b4 is located 0 bytes to the right of 4-byte region [0x6020000077b0,0x6020000077b4)<br />allocated by thread T0 here:<br />    #0 0x7fe2178b5fff in operator new(unsigned long) (/usr/lib/x86_64-linux-gnu/libasan.so.1+0x54fff)<br />    #1 0x7fe2167a9efa in _<em>gnu_cxx::new_allocator&lt;unsigned int&gt;::allocate(unsigned long, void const*) /usr/include/c++/4.9/ext/new_allocator.h:104<br />    #2 0x7fe2167a9efa in __gnu_cxx::</em>_alloc_traits&lt;std::allocator&lt;unsigned int&gt; >::allocate(std::allocator&lt;unsigned int&gt;&#38;, unsigned long) /usr/include/c++/4.9/ext/alloc_traits.h:182<br />    #3 0x7fe2167a9efa in std::_Vector_base&lt;unsigned int, std::allocator&lt;unsigned int&gt; >::_M_allocate(unsigned long) /usr/include/c++/4.9/bits/stl_vector.h:170<br />    #4 0x7fe2167a9efa in std::_Vector_base&lt;unsigned int, std::allocator&lt;unsigned int&gt; >::_M_create_storage(unsigned long) /usr/include/c++/4.9/bits/stl_vector.h:185<br />    #5 0x7fe2167a9efa in <em>Vector_base /usr/include/c++/4.9/bits/stl_vector.h:136<br />    #6 0x7fe2167a9efa in vector /usr/include/c++/4.9/bits/stl_vector.h:320<br />    #7 0x7fe2167a9efa in ValueType ../include/exiv2/value.hpp:1544<br />    #8 0x7fe2167a9efa in Exiv2::ValueType&lt;unsigned int&gt;::clone</em>() const ../include/exiv2/value.hpp:1632<br />    #9 0x7fe21681abf4 in Exiv2::Value::clone() const ../include/exiv2/value.hpp:122<br />    #10 0x7fe21681abf4 in Exiv2::Exifdatum::Exifdatum(Exiv2::Exifdatum const&#38;) /home/afl/src/exiv2-trunk/src/exif.cpp:221<br />    #11 0x7fe21681cae3 in __gnu_cxx::new_allocator&lt;Exiv2::Exifdatum&gt;::construct(Exiv2::Exifdatum*, Exiv2::Exifdatum const&#38;) /usr/include/c++/4.9/ext/new_allocator.h:130<br />    #12 0x7fe21681cae3 in std::list&lt;Exiv2::Exifdatum, std::allocator&lt;Exiv2::Exifdatum&gt; >::_M_create_node(Exiv2::Exifdatum const&#38;) /usr/include/c++/4.9/bits/stl_list.h:496<br />    #13 0x7fe21681cae3 in std::list&lt;Exiv2::Exifdatum, std::allocator&lt;Exiv2::Exifdatum&gt; >::_M_insert(std::_List_iterator&lt;Exiv2::Exifdatum&gt;, Exiv2::Exifdatum const&#38;) /usr/include/c++/4.9/bits/stl_list.h:1680<br />    #14 0x7fe21681cae3 in std::list&lt;Exiv2::Exifdatum, std::allocator&lt;Exiv2::Exifdatum&gt; >::push_back(Exiv2::Exifdatum const&#38;) /usr/include/c++/4.9/bits/stl_list.h:1029<br />    #15 0x7fe21681cae3 in Exiv2::ExifData::add(Exiv2::Exifdatum const&#38;) /home/afl/src/exiv2-trunk/src/exif.cpp:577<br />    #16 0x7fe21681cb8c in Exiv2::ExifData::add(Exiv2::ExifKey const&#38;, Exiv2::Value const*) /home/afl/src/exiv2-trunk/src/exif.cpp:571<br />    #17 0x7fe216b9f6c1 in Exiv2::Internal::TiffDecoder::decodeStdTiffEntry(Exiv2::Internal::TiffEntryBase const*) /home/afl/src/exiv2-trunk/src/tiffvisitor.cpp:488<br />    #18 0x7fe216af8ca1 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #19 0x7fe216af8ca1 in Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:919<br />    #20 0x7fe216af7520 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #21 0x7fe216af7520 in Exiv2::Internal::TiffIfdMakernote::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:949<br />    #22 0x7fe216af6821 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #23 0x7fe216af6821 in Exiv2::Internal::TiffMnEntry::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:938<br />    #24 0x7fe216af8ca1 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #25 0x7fe216af8ca1 in Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:919<br />    #26 0x7fe216af594d in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #27 0x7fe216af594d in Exiv2::Internal::TiffSubIfd::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:931<br />    #28 0x7fe216af8ca1 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #29 0x7fe216af8ca1 in Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:919<br />    #30 0x7fe216b5f20b in Exiv2::Internal::TiffParserWorker::decode(Exiv2::ExifData&#38;, Exiv2::IptcData&#38;, Exiv2::XmpData&#38;, unsigned char const*, unsigned int, unsigned int, void (Exiv2::Internal::TiffDecoder::*(<strong>)(std::string const&#38;, unsigned int, Exiv2::Internal::IfdId))(Exiv2::Internal::TiffEntryBase const</strong>), Exiv2::Internal::TiffHeaderBase*) /home/afl/src/exiv2-trunk/src/tiffimage.cpp:1907<br />    #31 0x7fe216b5f20b in Exiv2::TiffParser::decode(Exiv2::ExifData&#38;, Exiv2::IptcData&#38;, Exiv2::XmpData&#38;, unsigned char const*, unsigned int) /home/afl/src/exiv2-trunk/src/tiffimage.cpp:266<br />    #32 0x7fe21681f83a in Exiv2::ExifParser::decode(Exiv2::ExifData&#38;, unsigned char const*, unsigned int) /home/afl/src/exiv2-trunk/src/exif.cpp:629<br />    #33 0x7fe2168ef0fc in Exiv2::JpegBase::readMetadata() /home/afl/src/exiv2-trunk/src/jpgimage.cpp:386<br />    #34 0x472d11 in Action::Print::printList() /home/afl/src/exiv2-trunk/src/actions.cpp:530<br />    #35 0x491e07 in Action::Print::run(std::string const&#38;) /home/afl/src/exiv2-trunk/src/actions.cpp:245<br />    #36 0x407c67 in main /home/afl/src/exiv2-trunk/src/exiv2.cpp:170<br />    #37 0x7fe2158ebb44 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21b44)</p>
+
+
+	<p>SUMMARY: AddressSanitizer: heap-buffer-overflow ../include/exiv2/value.hpp:1659 Exiv2::ValueType&lt;unsigned int&gt;::toLong(long) const<br />Shadow bytes around the buggy address:<br />  0x0c047fff8ea0: fa fa fd fd fa fa 02 fa fa fa 00 00 fa fa fd fa<br />  0x0c047fff8eb0: fa fa fd fd fa fa 04 fa fa fa 00 00 fa fa fd fa<br />  0x0c047fff8ec0: fa fa fd fd fa fa 04 fa fa fa 00 00 fa fa fd fa<br />  0x0c047fff8ed0: fa fa fd fd fa fa 02 fa fa fa 00 00 fa fa fd fa<br />  0x0c047fff8ee0: fa fa fd fd fa fa 04 fa fa fa 00 00 fa fa fd fa<br />=>0x0c047fff8ef0: fa fa fd fd fa fa<sup><a href="#fn04">04</a></sup>fa fa fa 00 00 fa fa fd fa<br />  0x0c047fff8f00: fa fa fd fd fa fa 02 fa fa fa 00 00 fa fa fd fa<br />  0x0c047fff8f10: fa fa fd fd fa fa 04 fa fa fa 00 00 fa fa fd fa<br />  0x0c047fff8f20: fa fa fd fd fa fa 04 fa fa fa 00 00 fa fa fd fa<br />  0x0c047fff8f30: fa fa fd fd fa fa 02 fa fa fa 00 00 fa fa fd fa<br />  0x0c047fff8f40: fa fa fd fd fa fa 02 fa fa fa 00 00 fa fa fd fa<br />Shadow byte legend (one shadow byte represents 8 application bytes):<br />  Addressable:           00<br />  Partially addressable: 01 02 03 04 05 06 07 <br />  Heap left redzone:       fa<br />  Heap right redzone:      fb<br />  Freed heap region:       fd<br />  Stack left redzone:      f1<br />  Stack mid redzone:       f2<br />  Stack right redzone:     f3<br />  Stack partial redzone:   f4<br />  Stack after return:      f5<br />  Stack use after scope:   f8<br />  Global redzone:          f9<br />  Global init order:       f6<br />  Poisoned by user:        f7<br />  Contiguous container OOB:fc<br />  ASan internal:           fe<br />12028ABORTING</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6055" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/6169">Henri Salo</a> <a title="29 Jul 2017 12:01" href="/projects/exiv2/activity?from=2017-07-29">over 4 years</a> ago
+      <span id="journal-6055-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1179">IMGP0006-min.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1179/IMGP0006-min.jpg">IMGP0006-min.jpg</a> added</li>
+    </ul>
+    <div id="journal-6055-notes" class="wiki"><p>With version 0.26 from <a class="external" href="http://exiv2.org/builds/exiv2-0.26-trunk.tar.gz">http://exiv2.org/builds/exiv2-0.26-trunk.tar.gz</a></p>
+
+
+	<p>Build with: DFLAGS="-fsanitize=address" CXXFLAGS="-fsanitize=address -ggdb -fno-omit-frame-pointer" ./configure --enable-video --enable-webready</p>
+
+
+	<p>This file causes heap buffer overflow when executed using flag -pa. Without -pa flag no heap buffer overflow is detected.</p>
+
+
+	<p>258d54d0745e9958eb803da602cc45363f06dd3b7e37268f1dd18c1e20fdd860  IMGP0006.JPG<br />c3f8acd2496fc8f80ad6f730e363eb6ddfffe77353d31440047a0ee768069c2b  IMGP0006-min.jpg</p>
+
+
+	<p>I have attached minimized sample file (using afl-2.49b/afl-tmin).</p>
+
+
+	<p>ASAn output is below:<br /><pre>
+afl@haiven2:~/exiv2-crashes$ ~/builds/exiv2/0.26-afl-asan/bin/exiv2 -pa IMGP0006.JPG 
+Warning: Directory Pentax, entry 0x0004: Data area exceeds data buffer, ignoring it.
+Error: XMP Toolkit error 203: Duplicate property or field node
+Warning: Failed to decode XMP metadata.
+Exif.Image.Make                              Ascii      19  PENTAX Corporation
+Exif.Image.Model                             Ascii      17  PENTAX Optio M50
+Exif.Image.Orientation                       Short       1  top, left
+Exif.Image.XResolution                       Rational    1  72
+Exif.Image.YResolution                       Rational    1  72
+Exif.Image.ResolutionUnit                    Short       1  inch
+Exif.Image.Software                          Ascii      12  GIMP 2.8.22
+Exif.Image.DateTime                          Ascii      20  2017:07:27 20:49:15
+Exif.Image.YCbCrPositioning                  Short       1  Co-sited
+Exif.Image.ExifTag                           Long        1  582
+Exif.Photo.ExposureTime                      Rational    1  1/25 s
+Exif.Photo.FNumber                           Rational    1  F3.5
+Exif.Photo.ISOSpeedRatings                   Short       1  800
+Exif.Photo.ExifVersion                       Undefined   4  2.20
+Exif.Photo.DateTimeOriginal                  Ascii      20  2008:01:01 00:00:45
+Exif.Photo.DateTimeDigitized                 Ascii      20  2008:01:01 00:00:45
+Exif.Photo.ComponentsConfiguration           Undefined   4  YCbCr
+Exif.Photo.CompressedBitsPerPixel            Rational    1  1
+Exif.Photo.ExposureBiasValue                 SRational   1  0 EV
+Exif.Photo.MaxApertureValue                  Rational    1  F3.5
+Exif.Photo.MeteringMode                      Short       1  Multi-segment
+Exif.Photo.Flash                             Short       1  No, compulsory
+Exif.Photo.FocalLength                       Rational    1  6.3 mm
+Exif.Photo.MakerNote                         Undefined 4364  (Binary value suppressed)
+Exif.MakerNote.Offset                        Long        1  1024
+Exif.MakerNote.ByteOrder                     Ascii       3  II
+Exif.Pentax.Version                          Byte        4  4.2.0.0
+Exif.Pentax.Mode                             Short       1  Manual
+Exif.Pentax.PreviewResolution                Short       2  640x480
+Exif.Pentax.PreviewLength                    Long        1  38648
+Exif.Pentax.PreviewOffset                    Long        1  15933
+Exif.Pentax.ModelID                          Long        1  Optio M50
+Exif.Pentax.Date                             Undefined   4  2008:01:01
+Exif.Pentax.Time                             Undefined   3  00:00:45
+Exif.Pentax.Quality                          Short       1  Better
+Exif.Pentax.Size                             Short       1  3264x2448
+Exif.Pentax.Flash                            Short       1  Off, Did not fire
+Exif.Pentax.Focus                            Short       1  Macro
+Exif.Pentax.AFPoint                          Short       1  Auto
+Exif.Pentax.AFPointInFocus                   Short       1  Top-left
+Exif.Pentax.ExposureTime                     Long        1  38.97 ms
+Exif.Pentax.FNumber                          Short       1  F3.5
+Exif.Pentax.ISO                              Short       1  800
+Exif.Pentax.ExposureCompensation             Short       1  0 EV
+Exif.Pentax.MeteringMode                     Short       1  Multi Segment
+Exif.Pentax.WhiteBalance                     Short       1  Auto
+Exif.Pentax.WhiteBalanceMode                 Short       1  Auto (Flash)
+Exif.Pentax.BlueBalance                      Short       1  469
+Exif.Pentax.RedBalance                       Short       1  401
+Exif.Pentax.FocalLength                      Long        1  6.3 mm
+Exif.Pentax.DigitalZoom                      Short       1  100
+Exif.Pentax.Saturation                       Short       1  Normal
+Exif.Pentax.Contrast                         Short       1  Normal
+Exif.Pentax.Sharpness                        Short       1  Normal
+Exif.Pentax.Location                         Short       1  Home town
+Exif.Pentax.Hometown                         Short       1  New York
+Exif.Pentax.Destination                      Short       1  New York
+Exif.Pentax.HometownDST                      Short       1  No
+Exif.Pentax.DestinationDST                   Short       1  No
+Exif.Pentax.DSPFirmwareVersion               Undefined   4  254 255 255 255
+Exif.Pentax.ImageProcessing                  Undefined   4  Unprocessed
+Exif.Pentax.DigitalFilter                    Short       1  Off
+=================================================================
+==12028==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6020000077b4 at pc 0x7fe2167a3708 bp 0x7ffcd49ceea0 sp 0x7ffcd49cee98
+READ of size 4 at 0x6020000077b4 thread T0
+    #0 0x7fe2167a3707 in Exiv2::ValueType&lt;unsigned int&gt;::toLong(long) const ../include/exiv2/value.hpp:1659
+    #1 0x7fe2169d5b42 in Exiv2::Internal::PentaxMakerNote::printShutterCount(std::ostream&#38;, Exiv2::Value const&#38;, Exiv2::ExifData const*) /home/afl/src/exiv2-trunk/src/pentaxmn.cpp:1193
+    #2 0x7fe21692bde7 in Exiv2::Metadatum::print(Exiv2::ExifData const*) const /home/afl/src/exiv2-trunk/src/metadatum.cpp:80
+    #3 0x46beaa in Action::Print::printMetadatum(Exiv2::Metadatum const&#38;, Exiv2::Image const*) /home/afl/src/exiv2-trunk/src/actions.cpp:757
+    #4 0x4721e6 in Action::Print::printMetadata(Exiv2::Image const*) /home/afl/src/exiv2-trunk/src/actions.cpp:549
+    #5 0x472e01 in Action::Print::printList() /home/afl/src/exiv2-trunk/src/actions.cpp:538
+    #6 0x491e07 in Action::Print::run(std::string const&#38;) /home/afl/src/exiv2-trunk/src/actions.cpp:245
+    #7 0x407c67 in main /home/afl/src/exiv2-trunk/src/exiv2.cpp:170
+    #8 0x7fe2158ebb44 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21b44)
+    #9 0x408cd9 (/home/afl/builds/exiv2/0.26-afl-asan/bin/exiv2+0x408cd9)
+
+0x6020000077b4 is located 0 bytes to the right of 4-byte region [0x6020000077b0,0x6020000077b4)
+allocated by thread T0 here:
+    #0 0x7fe2178b5fff in operator new(unsigned long) (/usr/lib/x86_64-linux-gnu/libasan.so.1+0x54fff)
+    #1 0x7fe2167a9efa in __gnu_cxx::new_allocator&lt;unsigned int&gt;::allocate(unsigned long, void const*) /usr/include/c++/4.9/ext/new_allocator.h:104
+    #2 0x7fe2167a9efa in __gnu_cxx::__alloc_traits&lt;std::allocator&lt;unsigned int&gt; &gt;::allocate(std::allocator&lt;unsigned int&gt;&#38;, unsigned long) /usr/include/c++/4.9/ext/alloc_traits.h:182
+    #3 0x7fe2167a9efa in std::_Vector_base&lt;unsigned int, std::allocator&lt;unsigned int&gt; &gt;::_M_allocate(unsigned long) /usr/include/c++/4.9/bits/stl_vector.h:170
+    #4 0x7fe2167a9efa in std::_Vector_base&lt;unsigned int, std::allocator&lt;unsigned int&gt; &gt;::_M_create_storage(unsigned long) /usr/include/c++/4.9/bits/stl_vector.h:185
+    #5 0x7fe2167a9efa in _Vector_base /usr/include/c++/4.9/bits/stl_vector.h:136
+    #6 0x7fe2167a9efa in vector /usr/include/c++/4.9/bits/stl_vector.h:320
+    #7 0x7fe2167a9efa in ValueType ../include/exiv2/value.hpp:1544
+    #8 0x7fe2167a9efa in Exiv2::ValueType&lt;unsigned int&gt;::clone_() const ../include/exiv2/value.hpp:1632
+    #9 0x7fe21681abf4 in Exiv2::Value::clone() const ../include/exiv2/value.hpp:122
+    #10 0x7fe21681abf4 in Exiv2::Exifdatum::Exifdatum(Exiv2::Exifdatum const&#38;) /home/afl/src/exiv2-trunk/src/exif.cpp:221
+    #11 0x7fe21681cae3 in __gnu_cxx::new_allocator&lt;Exiv2::Exifdatum&gt;::construct(Exiv2::Exifdatum*, Exiv2::Exifdatum const&#38;) /usr/include/c++/4.9/ext/new_allocator.h:130
+    #12 0x7fe21681cae3 in std::list&lt;Exiv2::Exifdatum, std::allocator&lt;Exiv2::Exifdatum&gt; &gt;::_M_create_node(Exiv2::Exifdatum const&#38;) /usr/include/c++/4.9/bits/stl_list.h:496
+    #13 0x7fe21681cae3 in std::list&lt;Exiv2::Exifdatum, std::allocator&lt;Exiv2::Exifdatum&gt; &gt;::_M_insert(std::_List_iterator&lt;Exiv2::Exifdatum&gt;, Exiv2::Exifdatum const&#38;) /usr/include/c++/4.9/bits/stl_list.h:1680
+    #14 0x7fe21681cae3 in std::list&lt;Exiv2::Exifdatum, std::allocator&lt;Exiv2::Exifdatum&gt; &gt;::push_back(Exiv2::Exifdatum const&#38;) /usr/include/c++/4.9/bits/stl_list.h:1029
+    #15 0x7fe21681cae3 in Exiv2::ExifData::add(Exiv2::Exifdatum const&#38;) /home/afl/src/exiv2-trunk/src/exif.cpp:577
+    #16 0x7fe21681cb8c in Exiv2::ExifData::add(Exiv2::ExifKey const&#38;, Exiv2::Value const*) /home/afl/src/exiv2-trunk/src/exif.cpp:571
+    #17 0x7fe216b9f6c1 in Exiv2::Internal::TiffDecoder::decodeStdTiffEntry(Exiv2::Internal::TiffEntryBase const*) /home/afl/src/exiv2-trunk/src/tiffvisitor.cpp:488
+    #18 0x7fe216af8ca1 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891
+    #19 0x7fe216af8ca1 in Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:919
+    #20 0x7fe216af7520 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891
+    #21 0x7fe216af7520 in Exiv2::Internal::TiffIfdMakernote::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:949
+    #22 0x7fe216af6821 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891
+    #23 0x7fe216af6821 in Exiv2::Internal::TiffMnEntry::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:938
+    #24 0x7fe216af8ca1 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891
+    #25 0x7fe216af8ca1 in Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:919
+    #26 0x7fe216af594d in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891
+    #27 0x7fe216af594d in Exiv2::Internal::TiffSubIfd::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:931
+    #28 0x7fe216af8ca1 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:891
+    #29 0x7fe216af8ca1 in Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) /home/afl/src/exiv2-trunk/src/tiffcomposite.cpp:919
+    #30 0x7fe216b5f20b in Exiv2::Internal::TiffParserWorker::decode(Exiv2::ExifData&#38;, Exiv2::IptcData&#38;, Exiv2::XmpData&#38;, unsigned char const*, unsigned int, unsigned int, void (Exiv2::Internal::TiffDecoder::*(*)(std::string const&#38;, unsigned int, Exiv2::Internal::IfdId))(Exiv2::Internal::TiffEntryBase const*), Exiv2::Internal::TiffHeaderBase*) /home/afl/src/exiv2-trunk/src/tiffimage.cpp:1907
+    #31 0x7fe216b5f20b in Exiv2::TiffParser::decode(Exiv2::ExifData&#38;, Exiv2::IptcData&#38;, Exiv2::XmpData&#38;, unsigned char const*, unsigned int) /home/afl/src/exiv2-trunk/src/tiffimage.cpp:266
+    #32 0x7fe21681f83a in Exiv2::ExifParser::decode(Exiv2::ExifData&#38;, unsigned char const*, unsigned int) /home/afl/src/exiv2-trunk/src/exif.cpp:629
+    #33 0x7fe2168ef0fc in Exiv2::JpegBase::readMetadata() /home/afl/src/exiv2-trunk/src/jpgimage.cpp:386
+    #34 0x472d11 in Action::Print::printList() /home/afl/src/exiv2-trunk/src/actions.cpp:530
+    #35 0x491e07 in Action::Print::run(std::string const&#38;) /home/afl/src/exiv2-trunk/src/actions.cpp:245
+    #36 0x407c67 in main /home/afl/src/exiv2-trunk/src/exiv2.cpp:170
+    #37 0x7fe2158ebb44 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21b44)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow ../include/exiv2/value.hpp:1659 Exiv2::ValueType&lt;unsigned int&gt;::toLong(long) const
+Shadow bytes around the buggy address:
+  0x0c047fff8ea0: fa fa fd fd fa fa 02 fa fa fa 00 00 fa fa fd fa
+  0x0c047fff8eb0: fa fa fd fd fa fa 04 fa fa fa 00 00 fa fa fd fa
+  0x0c047fff8ec0: fa fa fd fd fa fa 04 fa fa fa 00 00 fa fa fd fa
+  0x0c047fff8ed0: fa fa fd fd fa fa 02 fa fa fa 00 00 fa fa fd fa
+  0x0c047fff8ee0: fa fa fd fd fa fa 04 fa fa fa 00 00 fa fa fd fa
+=&gt;0x0c047fff8ef0: fa fa fd fd fa fa[04]fa fa fa 00 00 fa fa fd fa
+  0x0c047fff8f00: fa fa fd fd fa fa 02 fa fa fa 00 00 fa fa fd fa
+  0x0c047fff8f10: fa fa fd fd fa fa 04 fa fa fa 00 00 fa fa fd fa
+  0x0c047fff8f20: fa fa fd fd fa fa 04 fa fa fa 00 00 fa fa fd fa
+  0x0c047fff8f30: fa fa fd fd fa fa 02 fa fa fa 00 00 fa fa fd fa
+  0x0c047fff8f40: fa fa fd fd fa fa 02 fa fa fa 00 00 fa fa fd fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Heap right redzone:      fb
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack partial redzone:   f4
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Contiguous container OOB:fc
+  ASan internal:           fe
+==12028==ABORTING
+</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-6056" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="29 Jul 2017 12:51" href="/projects/exiv2/activity?from=2017-07-29">over 4 years</a> ago
+      <span id="journal-6056-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>not-a-bug</i> to <i>miscellaneous</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>20</i></li>
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>5.00 h</i></li>
+    </ul>
+    <div id="journal-6056-notes" class="wiki"><p>Thanks for providing a lot more information about this issue.  I'm on vacation at the moment and will investigate when I get home next week.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6073" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/6177">Jacopo Guderzo</a> <a title="07 Aug 2017 21:41" href="/projects/exiv2/activity?from=2017-08-07">over 4 years</a> ago
+      <span id="journal-6073-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6073-notes" class="wiki"><p>The function <code>PentaxMakerNote::printShutterCount</code> [<a href="https://github.com/Exiv2/exiv2/blob/v0.26/src/pentaxmn.cpp#L1168" class="external">pentaxmn.cpp#L1168</a>] is missing a null check for the parameter <code>ExifData* metadata</code>.</p>
+
+
+	<p>Gwenview uses <code>operator<<(std::ostream&#38; os, const Metadatum&#38; md)</code> to get metadata values, and with this operator the pointer is always null.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6074" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Aug 2017 08:14" href="/projects/exiv2/activity?from=2017-08-08">over 4 years</a> ago
+      <span id="journal-6074-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6074-notes" class="wiki"><p>Are you saying that the fix is: <pre>    std::ostream&#38; PentaxMakerNote::printShutterCount(std::ostream&#38; os, const Value&#38; value, const ExifData* metadata)
+    {
+        if ( ! metadata ) return os;
+
+        ExifData::const_iterator dateIt = metadata-&gt;findKey(
+                ExifKey("Exif.PentaxDng.Date"));
+        ...
+   }</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-6075" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/6177">Jacopo Guderzo</a> <a title="08 Aug 2017 08:49" href="/projects/exiv2/activity?from=2017-08-08">over 4 years</a> ago
+      <span id="journal-6075-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6075-notes" class="wiki"><p>I don't know whether it's better to return the untouched stream, to put "undefined" or to put the raw value without decoding it, but basically yes, that's the fix.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6076" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Aug 2017 09:10" href="/projects/exiv2/activity?from=2017-08-08">over 4 years</a> ago
+      <span id="journal-6076-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>20</i> to <i>80</i></li>
+       <li><strong>Estimated time</strong> changed from <i>5.00 h</i> to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-6076-notes" class="wiki"><p>Right.  Thank You very much for working on this and discovering the “core” of the issue.  I think you are correct, we should do something like <em><strong><code>        return os &lt;&lt; “undefined”;</code></strong></em>.</p>
+
+
+	<p>I hope to submit the fix today.</p>
+
+
+	<p>Thanks again for your help.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6088" class="journal has-notes has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Sep 2017 08:17" href="/projects/exiv2/activity?from=2017-09-12">about 4 years</a> ago
+      <span id="journal-6088-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>80</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>2.00 h</i> to <i>8.00 h</i></li>
+    </ul>
+    <div id="journal-6088-notes" class="wiki"><p>Fix submitted to <a class="external" href="https://github.com/Exiv2/exiv2">https://github.com/Exiv2/exiv2</a>  5405d61</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6089" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Sep 2017 08:18" href="/projects/exiv2/activity?from=2017-09-12">about 4 years</a> ago
+      <span id="journal-6089-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1305.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1305.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

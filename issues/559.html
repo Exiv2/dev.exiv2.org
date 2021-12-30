@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #559: Crash when extracting Exif orientation flag from Kodak DCR raw file - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="9cie4sgGCAYPAiU3cbTXEiIrpQ83xTftLR/0ibBNmWAXhTUNunzEBlpmOjvOY9shHbnxdsYmllfQP2QB83R+Dw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #559: Crash when extracting Exif orientation flag from Kodak DCR raw file" href="https://dev.exiv2.org/issues/559.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #559</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Crash when extracting Exif orientation flag from Kodak DCR raw file</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 Jun 2008 03:45" href="/projects/exiv2/activity?from=2008-06-16">over 13 years</a> ago.
+        Updated <a title="15 Dec 2008 01:18" href="/projects/exiv2/activity?from=2008-12-15">almost 13 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/53">Andreas Huggel</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">exif</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="19 Jun 2008" href="/versions/29">0.17.1</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value"></div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>From Gilles Caulier (digikam.org):</p>
+
+
+	<p>All is in the title. Look this backtrace :</p>
+
+
+	<p>gdb /home/gilles/Documents/devel/SVN/trunk/graphics/digikam/digikam/digikam<br />--interpreter=mi2 -quiet<br />Using host libthread_db library "/lib/i686/libthread_db.so.1".<br />(gdb) bt<br />bt<br />#0  0x00000000 in ?? ()<br />#1  0xb50e66a0 in Exiv2::ExifTags::tagList () from /usr/lib/libexiv2.so.4<br />#2  0xb50e66d9 in Exiv2::ExifTags::tagInfo () from /usr/lib/libexiv2.so.4<br />#3  0xb50ed6b6 in Exiv2::ExifTags::tagName () from /usr/lib/libexiv2.so.4<br />#4  0xb50edbc7 in Exiv2::ExifKey::makeKey () from /usr/lib/libexiv2.so.4<br />#5  0xb50efdaa in Exiv2::ExifKey::ExifKey () from /usr/lib/libexiv2.so.4<br />#6  0xb50ff09c in Exiv2::TiffMetadataDecoder::decodeStdTiffEntry ()<br />from /usr/lib/libexiv2.so.4<br />#7  0xb50f92d4 in Exiv2::TiffMetadataDecoder::decodeTiffEntry () from<br />/usr/lib/libexiv2.so.4<br />#8  0xb50f94e4 in Exiv2::TiffMetadataDecoder::visitEntry () from<br />/usr/lib/libexiv2.so.4<br />#9  0xb50f3cc8 in Exiv2::TiffEntry::doAccept () from /usr/lib/libexiv2.so.4<br />#10 0xb50f3ca0 in Exiv2::TiffComponent::accept () from /usr/lib/libexiv2.so.4<br />#11 0xb50f4058 in Exiv2::TiffDirectory::doAccept () from /usr/lib/libexiv2.so.4<br />#12 0xb50f3ca0 in Exiv2::TiffComponent::accept () from /usr/lib/libexiv2.so.4<br />#13 0xb50f3f19 in Exiv2::TiffSubIfd::doAccept () from /usr/lib/libexiv2.so.4<br />#14 0xb50f3ca0 in Exiv2::TiffComponent::accept () from /usr/lib/libexiv2.so.4<br />#15 0xb50f4058 in Exiv2::TiffDirectory::doAccept () from /usr/lib/libexiv2.so.4<br />#16 0xb50f3ca0 in Exiv2::TiffComponent::accept () from /usr/lib/libexiv2.so.4<br />#17 0xb50f7bee in Exiv2::TiffParser::decode () from /usr/lib/libexiv2.so.4<br />#18 0xb50f643c in Exiv2::TiffImage::readMetadata () from /usr/lib/libexiv2.so.4<br />#19 0xb5c333f5 in KExiv2Iface::KExiv2::load (this=0xabbff0e0,<br />filePath=@0xa8d4291c) at<br />/home/gilles/Documents/devel/SVN/trunk/kdegraphics/libs/libkexiv2/libkexiv2/kexiv2.cpp:145<br />#20 0xb6a707a0 in Digikam::DMetadata::load (this=0xabbff0e0,<br />filePath=@0xa8d4291c) at<br />/mnt/data/devel/SVN/trunk/graphics/digikam/libs/dmetadata/dmetadata.cpp:74<br />#21 0xb6a708ea in DMetadata (this=0xabbff0e0, filePath=@0xa8d4291c) at<br />/mnt/data/devel/SVN/trunk/graphics/digikam/libs/dmetadata/dmetadata.cpp:62</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1006" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 Jun 2008 03:48" href="/projects/exiv2/activity?from=2008-06-16">over 13 years</a> ago
+      <span id="journal-1006-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1006-notes" class="wiki"><p><a class="changeset" title="Fixed several potential crashes." href="/projects/exiv2/repository/exiv2/revisions/1499">r1499</a></p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/559.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/559.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

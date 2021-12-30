@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #841: exiv2 crashes on input - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="4AlgHdHHKdYub+LkLmYn+yBT5CW5dfQrbpeDOyglz7sCRMvyo73l1nsL/eiRsSvIH8GwXEiWVZGTtxOzaxwo1A==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #841: exiv2 crashes on input" href="https://dev.exiv2.org/issues/841.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #841</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>exiv2 crashes on input</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3632">Christian Grothoff</a> <a title="25 Aug 2012 05:48" href="/projects/exiv2/activity?from=2012-08-25">about 9 years</a> ago.
+        Updated <a title="24 Jul 2013 15:25" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">exif</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Jul 2013" href="/versions/50">0.24</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">25 Aug 2012</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>$ exiv2 -V<br />exiv2 0.23 001700 (32 bit build)<br />Copyright (C) 2004-2012 Andreas Huggel.<br />$ exiv2 exiv2crash.input <br />terminate called after throwing an instance of 'std::bad_alloc'<br />  what():  std::bad_alloc<br />Aborted (core dumped)<br />grothoff@niko:~$ valgrind exiv2 exiv2crash.input <br />2932 Memcheck, a memory error detector<br />2932 Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.<br />2932 Using Valgrind-3.8.0 and LibVEX; rerun with -h for copyright info<br />2932 Command: exiv2 exiv2crash.input<br />2932 <br /><b>2932</b> new/new[] failed and should throw an exception, but Valgrind<br /><b>2932</b>    cannot throw exceptions and so is aborting instead.  Sorry.<br />2932    at 0x4025BD7: VALGRIND_PRINTF_BACKTRACE (valgrind.h:4550)<br />2932    by 0x4027C3F: operator new[](unsigned int) (vg_replace_malloc.c:357)<br />2932    by 0x4121577: Exiv2::PngImage::readMetadata() (in /usr/lib/libexiv2.so.12.0.0)<br />2932    by 0x80587FB: ??? (in /usr/bin/exiv2)<br />2932    by 0x43AEE45: (below main) (libc-start.c:228)</p>
+
+
+	<p>The input file was generated by zzuf (fuzzing tool) and is intentionally corrupt.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/388">exiv2crash.input</a>    <span class="size">(2.52 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/388/exiv2crash.input">exiv2crash.input</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Christian Grothoff, 25 Aug 2012 05:48</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2861" href="/projects/exiv2/repository/exiv2/revisions/2861">Revision 2861</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2861/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="30 Aug 2012 21:30" href="/projects/exiv2/activity?from=2012-08-30">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 crashes on input (Closed)" href="/issues/841">#841</a>: Do not read past the end of the data stream (file), added test case.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2862" href="/projects/exiv2/repository/exiv2/revisions/2862">Revision 2862</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2862/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="30 Aug 2012 21:31" href="/projects/exiv2/activity?from=2012-08-30">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 crashes on input (Closed)" href="/issues/841">#841</a>: Additional check to prevent issues with the sign when casting uint32_t to long.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2194" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Aug 2012 07:38" href="/projects/exiv2/activity?from=2012-08-27">about 9 years</a> ago
+      <span id="journal-2194-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Priority</strong> changed from <i>High</i> to <i>Normal</i></li>
+    </ul>
+    <div id="journal-2194-notes" class="wiki"><p>I've built exiv2 from the trunk on Windows7/64 (32 bit DebugDLL build) and Linux (Ubuntu 12.04).  Both report an error.  Neither crashed.</p>
+
+
+	<p>1001 rmills@rmills-ubuntu:/Windows/Users/rmills/Desktop $ exiv2 crash.png <br />Exiv2 exception in print action for file crash.png:<br />Failed to read input data</p>
+
+
+	<p>1002 rmills@rmills-ubuntu:/Windows/Users/rmills/Desktop $ which exiv2<br />/usr/local/bin/exiv2</p>
+
+
+	<p>1003 rmills@rmills-ubuntu:/Windows/Users/rmills/Desktop $ exiv2 -v -V <br />(verbose Version is a new feature for 0.24 and reports additional build and loading of shared-libraries).<br />exiv2 0.23 001700 (32 bit build)<br />Copyright (C) 2004-2012 Andreas Huggel.</p>
+
+
+	<p>This program is free software; you can redistribute it and/or</p>
+
+
+	<p>...<br />Software Foundation, Inc., 51 Franklin Street, Fifth Floor,<br />Boston, MA 02110-1301 USA<br />GCC=4.6.3,DEBUG=0,DLL=0,Bits=4: library=/usr/local/lib/libz.so.1<br />GCC=4.6.3,DEBUG=0,DLL=0,Bits=4: library=/usr/local/lib/libexpat.so.1<br />GCC=4.6.3,DEBUG=0,DLL=0,Bits=4: library=/lib/i386-linux-gnu/libdl.so.2<br />GCC=4.6.3,DEBUG=0,DLL=0,Bits=4: library=/usr/lib/i386-linux-gnu/libstdc++.so.6<br />GCC=4.6.3,DEBUG=0,DLL=0,Bits=4: library=/lib/i386-linux-gnu/libm.so.6<br />GCC=4.6.3,DEBUG=0,DLL=0,Bits=4: library=/lib/i386-linux-gnu/libgcc_s.so.1<br />GCC=4.6.3,DEBUG=0,DLL=0,Bits=4: library=/lib/i386-linux-gnu/libc.so.6<br />GCC=4.6.3,DEBUG=0,DLL=0,Bits=4: library=/lib/ld-linux.so.2<br />builder=GCC=4.6.3,DEBUG=0,DLL=0,Bits=4: <br />GCC=4.6.3,DEBUG=0,DLL=0,Bits=4: executable=/usr/local/bin/exiv2<br />GCC=4.6.3,DEBUG=0,DLL=0,Bits=4: date="Aug 25 2012",time=23:27:21<br />1004 rmills@rmills-ubuntu:/Windows/Users/rmills/Desktop $ ^C</p>
+
+
+	<p>The file is not a valid PNG (as you've said) and results in a malloc for a great deal of memory.</p>
+
+
+	<p>I'm not convinced we have a case to answer here, however I'll listen if you put forward a case for additional investigation and remediation.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2195" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3632">Christian Grothoff</a> <a title="27 Aug 2012 11:23" href="/projects/exiv2/activity?from=2012-08-27">about 9 years</a> ago
+      <span id="journal-2195-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2195-notes" class="wiki"><p>Ah, that's because your system has extensive amounts of memory.  If I run with 9 GB, I get this:</p>
+
+
+	<p>$ exiv2 exiv2crash.input <br />Exiv2 exception in print action for file exiv2crash.input:<br />Failed to read input data<br />$ ulimit -v 1024<br />grothoff@spec:~$ exiv2 --version<br />Segmentation fault</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2197" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Aug 2012 12:59" href="/projects/exiv2/activity?from=2012-08-27">about 9 years</a> ago
+      <span id="journal-2197-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2197-notes" class="wiki"><p>Christian</p>
+
+
+	<p>Thanks for the update.</p>
+
+
+	<p>I can reproduce your crash at ulimit -v 1024*1024 (on bash 4.2,24 on Ubuntu 12.04)</p>
+
+
+	<p>$ for i in 4 3 2 1 ;do echo --- $i --- ; ulimit <del>v $(($i*1024*1024)) ; exiv2 crash.png ; done<br />--</del> 4 ---<br />Exiv2 exception in print action for file crash.png:<br />Failed to read input data<br />--- 3 ---<br />Exiv2 exception in print action for file crash.png:<br />Failed to read input data<br />--- 2 ---<br />Exiv2 exception in print action for file crash.png:<br />Failed to read input data<br />--- 1 ---<br />terminate called after throwing an instance of 'std::bad_alloc'<br />  what():  std::bad_alloc<br />Aborted (core dumped)</p>
+
+
+	<p>I'm surprised we don't catch this exception.  I'll update this issue when I've investigated a little more.</p>
+
+
+	<p>Observation:<br />ulimit -v 1024 cannot even run ls!</p>
+
+
+	<p>$ for i in 500 200 100 50 30 10 5 3 2 1 ; do echo <del>n $i '</del>> ' ; ulimit -v $(($i*1024)) ; ls | wc -l ; done<br />500 -> 19<br />...<br />3 -> 19<br />2 -> ls: error while loading shared libraries: libc.so.6: failed to map segment from shared object: Cannot allocate memory<br />wc: error while loading shared libraries: libc.so.6: failed to map segment from shared object: Cannot allocate memory<br />1 -> ls: error while loading shared libraries: libc.so.6: failed to map segment from shared object: Cannot allocate memory<br />wc: error while loading shared libraries: libc.so.6: failed to map segment from shared object: Cannot allocate memory<br />$</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2198" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="27 Aug 2012 20:41" href="/projects/exiv2/activity?from=2012-08-27">about 9 years</a> ago
+      <span id="journal-2198-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2198-notes" class="wiki"><p>Thanks for looking into this, Robin. <br />I'm not so concerned that exiv2 dies when there is not enough memory. There is not much else we can do, other than maybe die prettier. (That's why std::bad_alloc is not caught in the exiv2 CLI.)<br />But can we recognize that something is fishy and avoid attempting to allocate an unreasonable amount of memory? We do that quite extensively for JPEGs, but have much less experience with PNGs.<br />Besides, I don't seem to be able to download the attachment. Tried on Ubuntu with Chrome and Firefox and Windows with Chrome and Explorer. How did you get hold of it? Could you send me the attachment by email please?</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2199" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="27 Aug 2012 20:44" href="/projects/exiv2/activity?from=2012-08-27">about 9 years</a> ago
+      <span id="journal-2199-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2199-notes" class="wiki"><blockquote>
+
+	<p>Besides, I don't seem to be able to download the attachment.</p>
+
+
+</blockquote>
+
+	<p>Looks like some proxy or firewall issue here. Will try from home later.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2201" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3632">Christian Grothoff</a> <a title="28 Aug 2012 00:38" href="/projects/exiv2/activity?from=2012-08-28">about 9 years</a> ago
+      <span id="journal-2201-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2201-notes" class="wiki"><p>Andreas, you're missing a key point: this is not just exiv2 crashing, but also libexiv2 crashes when it encounters this file.  And libexiv2 is used by GNU libextractor, and GNU libextractor is not supposed to crash ever.  Also, I don't think any library should ever contain code that just crashes -- especially if it could possibly be avoided -- after all, your lib might be used in some kind of GUI app and then all the user sees is his browser / e-mail client / etc. crashing.  Very bad.  So please treat this as a real issue.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2202" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="28 Aug 2012 01:38" href="/projects/exiv2/activity?from=2012-08-28">about 9 years</a> ago
+      <span id="journal-2202-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2202-notes" class="wiki"><p>Christian, I understand this is happening in the library. Also, I agree of course the library is not supposed to crash. So yes, this is a real issue.</p>
+
+
+	<p>The point I was trying to make was that we should prevent the PNG parser from trying to allocate unreasonable amounts of memory (using sanity checks where appropriate) in the first place as opposed to trying to catch and deal with an std::bad_alloc exception somewhere in the library.</p>
+
+
+	<p>And once we're doing that correctly, i.e., libexiv2 only allocates what makes sense and there is still simply not enough memory for the attempted operation, then there is nothing the library can do about it. In this case libexiv2 typically throws exceptions that the application has to deal with. So we'll just let the std::bad_alloc exception escape, there is no point catching that and translating it to an Exiv2 exception.</p>
+
+
+	<p>So yes, you can say exiv2 (the command line tool) should catch the std::bad_alloc exception and then die more gracefully, but that's secondary, it doesn't help you in libextractor or any app that uses libextractor.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2203" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Aug 2012 08:34" href="/projects/exiv2/activity?from=2012-08-28">about 9 years</a> ago
+      <span id="journal-2203-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2203-notes" class="wiki"><p>I think we're talking about two different things:</p>
+
+
+	<p>1) Running with no memory (ulimit -v 1024)<br />2) Files with corrupt data that cause the library to crash (by attempting to allocate too much memory)</p>
+
+
+	<p>I don't think we should bother with 1).  It's a contrived case.  Nothing runs when there's no memory.  Failure is guaranteed.  We're only discussing the error message on failure.</p>
+
+
+	<p>Case (2) is interesting as corrupt files can be used to attack an application.  How about we add an integer to the library "maxMemoryMalloc" and ensure that's respected when "new" is needed?  We can profile new() to determine a reasonable default.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2204" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3632">Christian Grothoff</a> <a title="28 Aug 2012 09:30" href="/projects/exiv2/activity?from=2012-08-28">about 9 years</a> ago
+      <span id="journal-2204-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2204-notes" class="wiki"><p>Right, I had not intended to run with 1k -- ulimit -v works in kb on my system, so I gave it 1 MB, not 1kb.  The issue was simply that I could easily reproduce the bug on my notebook with 1 GB RAM, but not on my system with 9 GB, so I figured I needed to restrict overall memory.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2205" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Aug 2012 09:54" href="/projects/exiv2/activity?from=2012-08-28">about 9 years</a> ago
+      <span id="journal-2205-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2205-notes" class="wiki"><p>Thanks, Christian.  I think we're all "on the same page" with this one.  You're prescribing ulimit to ensure that the issue appears.  The issue is the crash caused by the corrupted png demanding too much memory.  As you've explained, that file could crash an application which uses the library.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2207" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="30 Aug 2012 03:55" href="/projects/exiv2/activity?from=2012-08-30">about 9 years</a> ago
+      <span id="journal-2207-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2207-notes" class="wiki"><p>I'll commit the following small patch, it replaces an existing check with a hardcoded max size with a check that makes sure we don't read beyond the end of the data source (input file in this case). I'm also adding a test case to the test-suite using the corrupted input file you provided.</p>
+
+
+<pre>
+diff --git a/src/pngimage.cpp b/src/pngimage.cpp
+index 3407371..b527901 100644
+--- a/src/pngimage.cpp
++++ b/src/pngimage.cpp
+@@ -118,6 +118,7 @@ namespace Exiv2 {
+         }
+         clearMetadata();
+
++        const long imgSize = io_-&gt;size();
+         DataBuf cheaderBuf(8);       // Chunk header size : 4 bytes (data size) + 4 bytes (chunk type).
+
+         while(!io_-&gt;eof())
+@@ -134,7 +135,8 @@ namespace Exiv2 {
+
+             // Decode chunk data length.
+             uint32_t dataOffset = Exiv2::getULong(cheaderBuf.pData_, Exiv2::bigEndian);
+-            if (dataOffset &gt; 0x7FFFFFFF) throw Exiv2::Error(14);
++            long pos = io_-&gt;tell();
++            if (pos == -1 || static_cast&lt;long&gt;(dataOffset) &gt; imgSize - pos) throw Exiv2::Error(14);
+
+             // Perform a chunk triage for item that we need.
+
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-2208" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Aug 2012 14:19" href="/projects/exiv2/activity?from=2012-08-30">about 9 years</a> ago
+      <span id="journal-2208-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2208-notes" class="wiki"><p>Andreas</p>
+
+
+	<p>That's a clever trick to limit the max alloc to the size of the file.</p>
+
+
+	<p>Let's leave this issue assigned to me and I'll close this when I'm certain that the Christian's file passes our test suite on every platform.  It may be some time before this can be closed because of the work associated with <a class="external" href="http://dev.exiv2.org/boards/3/topics/1249">http://dev.exiv2.org/boards/3/topics/1249</a>.  I hope to do some work on MSVC/MSVC64 concerning the gsoc additions this weekend.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2375" class="journal has-details">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Jan 2013 19:56" href="/projects/exiv2/activity?from=2013-01-15">almost 9 years</a> ago
+      <span id="journal-2375-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2542" class="journal has-notes has-details">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 15:25" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2542-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-2542-notes" class="wiki"><p>Fixed in 0.24.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/841.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/841.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

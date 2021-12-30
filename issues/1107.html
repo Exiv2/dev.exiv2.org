@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1107: DigiKam hangs during search for new items - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="SztFRbKgRd6IwT/E4cXXxG5fjqutyXvnNutOpAzr7Jmpdu6qwNqJ3t2lIMheEtv3Uc3a0lwq2l3Ly94sT9IL9g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1107: DigiKam hangs during search for new items" href="https://dev.exiv2.org/issues/1107.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1107</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>DigiKam hangs during search for new items</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4498">Sveinn Felli</a> <a title="20 Aug 2015 08:26" href="/projects/exiv2/activity?from=2015-08-20">over 6 years</a> ago.
+        Updated <a title="06 Dec 2015 21:08" href="/projects/exiv2/activity?from=2015-12-06">almost 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">miscellaneous</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value"></div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">3.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Directed to here from the digikam-users mailinglist.</p>
+
+
+	<p>Hi, guess I'm having the sorts of problem many Kubuntu/LinuxMint users are experiencing. Already upgraded my sqlite3/libsqlite3, also tested adding folders one by one to the collection; all was normal up to ~60 Gb of images or ~35 Mb of digikam4.db. Then the scan dies.<br />Similar symptoms as in <a class="external" href="http://dev.exiv2.org/issues/1098">http://dev.exiv2.org/issues/1098</a></p>
+
+
+	<p>To get rid of any doubt I even replaced the notsoveryold HDD containing the collection with a brand new HDD, but the symptoms persist.</p>
+
+
+	<p>My system is LinuxMint 17.2 64bit, but I started to see this phenomenon before upgrading from 17.1.</p>
+
+
+	<p>Backtrace:</p>
+
+
+	<p>sveinn@MIKLAFELL ~ $ gdb digikam</p>
+
+
+	<p>&lt;snip&gt;...</p>
+
+
+	<p>Reading symbols from digikam...Reading symbols from /usr/lib/debug/.build-id/d1/b0ef81f272f5bc1bbca37367a121860d97ac64.debug...done.<br />done.<br />(gdb) catch throw<br />Catchpoint 1 (throw)<br />(gdb) run<br />Starting program: /usr/bin/digikam <br />Traceback (most recent call last):<br />  File "/usr/share/gdb/auto-load/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19-gdb.py", line 63, in &lt;module&gt;<br />    from libstdcxx.v6.printers import register_libstdcxx_printers<br />ImportError: No module named 'libstdcxx'<br />[Thread debugging using libthread_db enabled]<br />Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".<br />[New Thread 0x7fffcd3bc700 (LWP 3584)]<br />[New Thread 0x7fffc3faf700 (LWP 3585)]<br />[New Thread 0x7fffc37ae700 (LWP 3586)]<br />Object::connect: No such signal org::freedesktop::UPower::DeviceAdded(QDBusObjectPath)<br />Object::connect: No such signal org::freedesktop::UPower::DeviceRemoved(QDBusObjectPath)<br />[New Thread 0x7fffc2fad700 (LWP 3587)]<br />[Thread 0x7fffc2fad700 (LWP 3587) exited]<br />[New Thread 0x7fffc2fad700 (LWP 3588)]<br />[New Thread 0x7fffac3ab700 (LWP 3589)]<br />[Thread 0x7fffac3ab700 (LWP 3589) exited]<br />[New Thread 0x7fffac3ab700 (LWP 3590)]<br />[New Thread 0x7fffaa8f3700 (LWP 3591)]<br />[Thread 0x7fffac3ab700 (LWP 3590) exited]<br />[Thread 0x7fffaa8f3700 (LWP 3591) exited]<br />[New Thread 0x7fffaa8f3700 (LWP 3592)]<br />[New Thread 0x7fffac3ab700 (LWP 3593)]<br />[New Thread 0x7fffa94a2700 (LWP 3594)]<br />[New Thread 0x7fffa8ca1700 (LWP 3595)]<br />[New Thread 0x7fff9bfff700 (LWP 3596)]<br />[New Thread 0x7fff9b7fe700 (LWP 3597)]<br />[New Thread 0x7fff9affd700 (LWP 3598)]<br />[New Thread 0x7fff9a7fc700 (LWP 3599)]<br />[New Thread 0x7fff99ffb700 (LWP 3600)]<br />[New Thread 0x7fff997fa700 (LWP 3601)]<br />[New Thread 0x7fff98ff9700 (LWP 3602)]<br />[New Thread 0x7fff7bfff700 (LWP 3603)]<br />[New Thread 0x7fff7b7fe700 (LWP 3604)]<br />[New Thread 0x7fff7affd700 (LWP 3605)]<br />[New Thread 0x7fff7a7fc700 (LWP 3606)]<br />[New Thread 0x7fff79ffb700 (LWP 3607)]<br />[New Thread 0x7fff797fa700 (LWP 3608)]<br />[New Thread 0x7fff78ff9700 (LWP 3609)]<br />[New Thread 0x7fff5bfff700 (LWP 3610)]<br />[New Thread 0x7fff5b7fe700 (LWP 3611)]<br />[New Thread 0x7fff5affd700 (LWP 3612)]<br />[New Thread 0x7fff5a7fc700 (LWP 3613)]<br />[New Thread 0x7fff59ffb700 (LWP 3614)]<br />[New Thread 0x7fff597fa700 (LWP 3615)]<br />[New Thread 0x7fff58ff9700 (LWP 3616)]<br />[New Thread 0x7fff37fff700 (LWP 3617)]<br />[New Thread 0x7fff377fe700 (LWP 3618)]<br />[New Thread 0x7fff36ffd700 (LWP 3619)]<br />[New Thread 0x7fff367fc700 (LWP 3620)]<br />[New Thread 0x7fff35ffb700 (LWP 3621)]<br />[New Thread 0x7fff357fa700 (LWP 3622)]<br />[New Thread 0x7fff34ff9700 (LWP 3623)]<br />[New Thread 0x7fff1ffff700 (LWP 3624)]<br />[New Thread 0x7fff1f7fe700 (LWP 3625)]<br />[New Thread 0x7fff1effd700 (LWP 3626)]<br />[New Thread 0x7fff1e7fc700 (LWP 3627)]<br />[New Thread 0x7fff1dffb700 (LWP 3628)]<br />[New Thread 0x7fff1d7fa700 (LWP 3629)]<br />[New Thread 0x7fff1cff9700 (LWP 3630)]<br />[New Thread 0x7ffefbfff700 (LWP 3631)]<br />[New Thread 0x7ffefb7fe700 (LWP 3632)]<br />[New Thread 0x7ffefaffd700 (LWP 3633)]<br />Object::connect: No such signal org::freedesktop::UPower::DeviceAdded(QDBusObjectPath)<br />Object::connect: No such signal org::freedesktop::UPower::DeviceRemoved(QDBusObjectPath)<br />Object::connect: No such signal org::freedesktop::UPower::DeviceAdded(QDBusObjectPath)<br />Object::connect: No such signal org::freedesktop::UPower::DeviceRemoved(QDBusObjectPath)<br />Object::connect: No such signal org::freedesktop::UPower::DeviceAdded(QDBusObjectPath)<br />Object::connect: No such signal org::freedesktop::UPower::DeviceRemoved(QDBusObjectPath)<br />[Switching to Thread 0x7fffc3faf700 (LWP 3585)]<br />Catchpoint 1 (exception thrown), 0x00007ffff10788b0 in __cxa_throw ()<br />   from /usr/lib/x86_64-linux-gnu/libstdc++.so.6</p>
+
+
+	<p>(gdb) bt<br />#0  0x00007ffff10788b0 in __cxa_throw ()<br />   from /usr/lib/x86_64-linux-gnu/libstdc++.so.6<br />#1  0x00007fffeec955a7 in ?? () from /usr/lib/x86_64-linux-gnu/libexiv2.so.14<br />#2  0x00007fffeec95cea in ?? () from /usr/lib/x86_64-linux-gnu/libexiv2.so.14<br />#3  0x00007fffeec964cf in ?? () from /usr/lib/x86_64-linux-gnu/libexiv2.so.14<br />#4  0x00007fffeec96c89 in ?? () from /usr/lib/x86_64-linux-gnu/libexiv2.so.14<br />#5  0x00007fffeec7148a in ?? () from /usr/lib/x86_64-linux-gnu/libexiv2.so.14<br />#6  0x00007fffeec9f9c0 in ?? () from /usr/lib/x86_64-linux-gnu/libexiv2.so.14<br />#7  0x00007fffeec40e58 in ?? () from /usr/lib/x86_64-linux-gnu/libexiv2.so.14<br />#8  0x00007fffeec40ec0 in ?? () from /usr/lib/x86_64-linux-gnu/libexiv2.so.14<br />#9  0x00007fffeec3c1c0 in Exiv2::XmpParser::decode(Exiv2::XmpData&#38;, std::string const&#38;) () from /usr/lib/x86_64-linux-gnu/libexiv2.so.14<br />#10 0x00007fffeebbf206 in Exiv2::JpegBase::readMetadata() ()<br />   from /usr/lib/x86_64-linux-gnu/libexiv2.so.14<br />#11 0x00007ffff6368aca in KExiv2Iface::KExiv2::load(QString const&#38;) const ()<br />   from /usr/lib/libkexiv2.so.11<br />#12 0x00007ffff5c7afb6 in Digikam::DMetadata::load (<br />    this=this@entry=0x7fffbc2d8a50, filePath=...)<br />    at /build/digikam-6g9Kqs/digikam-4.12.0/core/libs/dmetadata/dmetadata.cpp:110<br />#13 0x00007ffff56d6c1f in Digikam::ImageScanner::loadFromDisk (<br />    this=this@entry=0x7fffc3fae490)<br />    at /build/digikam-6g9Kqs/digikam-4.12.0/core/libs/database/imagescanner.cpp:1550<br />#14 0x00007ffff56d6e00 in Digikam::ImageScanner::newFile (<br />    this=this@entry=0x7fffc3fae490, albumId=albumId@entry=1422)<br />    at /build/digikam-6g9Kqs/digikam-4.12.0/core/libs/database/imagescanner.cpp:289<br />#15 0x00007ffff566f636 in Digikam::CollectionScanner::scanNewFile (<br />    this=this@entry=0x7fffc3faeae0, info=..., albumId=1422)<br />    at /build/digikam-6g9Kqs/digikam-4.12.0/core/libs/database/collectionscanner.cpp:1255<br />#16 0x00007ffff56727bf in Digikam::CollectionScanner::scanAlbum (<br />    this=this@entry=0x7fffc3faeae0, location=..., album=...)<br />    at /build/digikam-6g9Kqs/digikam-4.12.0/core/libs/database/collectionscanner.cpp:1090<br />#17 0x00007ffff5672677 in Digikam::CollectionScanner::scanAlbum (<br />    this=this@entry=0x7fffc3faeae0, location=..., album=...)<br />    at /build/digikam-6g9Kqs/digikam-4.12.0/core/libs/database/collectionscanner.cpp:1113<br />#18 0x00007ffff5673083 in Digikam::CollectionScanner::scanAlbumRoot (<br />    this=this@entry=0x7fffc3faeae0, location=...)<br />    at /build/digikam-6g9Kqs/digikam-4.12.0/core/libs/database/collectionscanner.cpp:829<br />#19 0x00007ffff5673c5d in Digikam::CollectionScanner::completeScan (<br />    this=this@entry=0x7fffc3faeae0)<br />    at /build/digikam-6g9Kqs/digikam-4.12.0/core/libs/database/collectionscanner.cpp:490<br />#20 0x00000000005dafaf in Digikam::ScanController::run (this=0xfd4a90)<br />    at /build/digikam-6g9Kqs/digikam-4.12.0/core/app/database/scancontroller.cpp:756<br />#21 0x00007ffff161432f in QThreadPrivate::start (arg=0xfd4a90)<br />    at thread/qthread_unix.cpp:349<br />#22 0x00007fffedc5f182 in start_thread (arg=0x7fffc3faf700)<br />    at pthread_create.c:312<br />#23 0x00007ffff0b3947d in clone ()<br />    at ../sysdeps/unix/sysv/linux/x86_64/clone.S:111<br />(gdb)</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/814">svinshs.jpg</a>    <span class="size">(183 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/814/svinshs.jpg">svinshs.jpg</a>  </td>
+  <td>image with duplicate entries</td>
+  <td>
+      <span class="author">Sveinn Felli, 20 Aug 2015 09:07</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3971" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4498">Sveinn Felli</a> <a title="20 Aug 2015 09:07" href="/projects/exiv2/activity?from=2015-08-20">over 6 years</a> ago
+      <span id="journal-3971-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/814">svinshs.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/814/svinshs.jpg">svinshs.jpg</a> added</li>
+    </ul>
+    <div id="journal-3971-notes" class="wiki"><p>Some more info:</p>
+
+
+	<p>exiv2 0.25 001900 (64 bit build)<br />Qt: 4.8.6<br />KDE: 4.14.2<br />digiKam: 4.12.0</p>
+
+
+	<p>I've been fiddling with EXIV2 commands on the directories that EXIV2 couldn't parse, such as:<br /><pre>
+exiv2 -g Olympus *.jpg
+</pre><br />(my main camera is an Olympus), and regularly I get:<br /><pre>
+Error: XMP Toolkit error 203: Duplicate property or field node
+Warning: Failed to decode XMP metadata.
+</pre><br />As I recall, this message sometimes came up after editing images with GIMP, right?<br />And actually, in the images there are duplicate entries like in XMP EXIF:<br /><pre>
+exif:UserComment[1]
+exif:UserComment[1]/?xml:lang    x-default
+</pre></p>
+
+
+	<p>What is curious is that exif-parsing of these images has been flawless during several years (at least 11), through many iterations of software &#38; kernels, being accessed from various distributions, and never been a problem until 1-2 months ago.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3972" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Aug 2015 13:46" href="/projects/exiv2/activity?from=2015-08-20">over 6 years</a> ago
+      <span id="journal-3972-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3972-notes" class="wiki"><p>v0.25 was released at the end of June 2015.  I doubt a coincidence for your observation: <em>never been a problem until 1-2 months ago</em></p>
+
+
+	<p>I'm unable to reproduce "XMP Toolkit error 203:" on Linux (Ubuntu 15.04) or MacOS-X with your test file:<pre>673 rmills@rmillsmbp:~/clanmills $ exiv2 -vV -g svn -g version -g compiler -g platform
+exiv2 0.25 001900 (64 bit build)
+platform=apple
+compiler=Clang
+version=4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)
+svn=3883
+id=$Id: version.cpp 3800 2015-05-08 22:26:36Z robinwmills $
+library=/usr/lib/system/libcompiler_rt.dylib
+library=/usr/lib/system/libsystem_platform.dylib
+674 rmills@rmillsmbp:~/clanmills $ exiv2 -px http://dev.exiv2.org/attachments/download/814/svinshs.jpg
+Xmp.tiff.Software                            XmpText    14  digiKam-0.10.0
+Xmp.tiff.ImageDescription                    LangAlt     1  lang="x-default" 
+Xmp.xmp.CreatorTool                          XmpText    14  digiKam-0.10.0
+Xmp.dc.description                           LangAlt     1  lang="x-default" 
+Xmp.exif.UserComment                         LangAlt     1  lang="x-default" 
+675 rmills@rmillsmbp:~/clanmills $ exiv2 -pX http://dev.exiv2.org/attachments/download/814/svinshs.jpg | xmllint -pretty 1 -
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.1.1-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:tiff="http://ns.adobe.com/tiff/1.0/" xmlns:xap="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:exif="http://ns.adobe.com/exif/1.0/" rdf:about="" tiff:Software="digiKam-0.10.0" xap:CreatorTool="digiKam-0.10.0"&gt;
+      &lt;tiff:ImageDescription&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="x-default"/&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/tiff:ImageDescription&gt;
+      &lt;dc:description&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="x-default"/&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:description&gt;
+      &lt;exif:UserComment&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="x-default"/&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/exif:UserComment&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+676 rmills@rmillsmbp:~/clanmills $ </pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3994" class="journal has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Aug 2015 17:03" href="/projects/exiv2/activity?from=2015-08-21">about 6 years</a> ago
+      <span id="journal-3994-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>miscellaneous</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>30</i></li>
+       <li><strong>Estimated time</strong> set to <i>5.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4278" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Sep 2015 11:07" href="/projects/exiv2/activity?from=2015-09-24">about 6 years</a> ago
+      <span id="journal-4278-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Start date</strong> deleted (<del><i>20 Aug 2015</i></del>)</li>
+       <li><strong>Estimated time</strong> changed from <i>5.00 h</i> to <i>10.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4371" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Oct 2015 21:17" href="/projects/exiv2/activity?from=2015-10-11">about 6 years</a> ago
+      <span id="journal-4371-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>30</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>10.00 h</i> to <i>3.00 h</i></li>
+    </ul>
+    <div id="journal-4371-notes" class="wiki"><p>I don't see any evidence of a bug in exiv2.  I suspect there is something wrong with the linking of libexiv2 and digikam.  Please try this with the next version of digikam.</p>
+
+
+	<p>The Exiv2 project cannot easily test/reproduce issues in DigiKam.  We have to ask you to report issues using our command-line tools.</p>
+
+
+	<p>I don't agree that exiv2 cannot parse the following:<pre>exiv2 -g Olympus *.jpg</pre>The -g (--grep) command argument is intended to filter output tags.  So the tag will have to contain the string 'Olympus'.  For sure, it's working on your test image:<pre>542 rmills@rmillsmbp:~/Pictures/2015/ToppingTower $ exiv2 -g Olympus http://dev.exiv2.org/attachments/download/814/svinshs.jpg 
+Exif.Olympus.SpecialMode                     Long        3  Normal
+Exif.Olympus.Quality                         Short       1  High Quality (HQ)
+...
+Exif.Olympus.NearLensStep                    Short       1  400
+543 rmills@rmillsmbp:~/Pictures/2015/ToppingTower $</pre>And it's working fine for me on a directory of images (taken with my Nikon D5300).<pre>544 rmills@rmillsmbp:~/Pictures/2015/ToppingTower $ exiv2 -g Model *.jpg
+DSC_7341.jpg          Exif.Image.Model                             Ascii      12  NIKON D5300
+DSC_7342.jpg          Exif.Image.Model                             Ascii      12  NIKON D5300
+DSC_7343.jpg          Exif.Image.Model                             Ascii      12  NIKON D5300
+DSC_7344.jpg          Exif.Image.Model                             Ascii      12  NIKON D5300
+DSC_7345.jpg          Exif.Image.Model                             Ascii      12  NIKON D5300
+DSC_7346.jpg          Exif.Image.Model                             Ascii      12  NIKON D5300
+DSC_7347.jpg          Exif.Image.Model                             Ascii      12  NIKON D5300
+DSC_7348.jpg          Exif.Image.Model                             Ascii      12  NIKON D5300
+545 rmills@rmillsmbp:~/Pictures/2015/ToppingTower $ </pre></p>
+
+
+	<p>I'm going to mark this 100%/Resolved.  This issue will remain open if you wish to add new information.  It will be closed during review before we ship v0.26.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4528" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Dec 2015 21:08" href="/projects/exiv2/activity?from=2015-12-06">almost 6 years</a> ago
+      <span id="journal-4528-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1107.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1107.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

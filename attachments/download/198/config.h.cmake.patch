@@ -1,0 +1,16 @@
+Index: config/config.h.cmake
+===================================================================
+--- config/config.h.cmake	(revision 2329)
++++ config/config.h.cmake	(working copy)
+@@ -243,6 +243,8 @@
+   Disable warnings about 'deprecated' standard functions
+   See, eg. http://www.informit.com/guides/content.asp?g=cplusplus&seqNum=259
+ */
+-#if _MSC_VER >= 1400
+-# pragma warning(disable : 4996 4251)
+-#endif
++#ifdef WIN32
++# if _MSC_VER >= 1400
++#  pragma warning(disable : 4996 4251)
++# endif
++#endif /* ! WIN32 */

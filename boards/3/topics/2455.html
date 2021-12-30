@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>localtime.c causes problems in MSVC 2015 &amp; is not needed - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="st43TZK6dO0pvEo1gZoxvYuu2NRP98sKFmMJuBPLY4RQk5yi4MC47XzYVTk+TT2OtDyMrb4UarDrQ5kwUPKE6w==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>localtime.c causes problems in MSVC 2015 &amp; is not needed</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="19 Mar 2016 21:22" href="/projects/exiv2/activity?from=2016-03-19">over 5 years</a> ago</span></p>
+<div class="wiki">
+<p>After moving exiv2 (only static linked, Unicode debug version tested/compiled) it gave me a hard error when compiling localtime.c at:<br />localtime.c(934):    tzname[tmp->tm_isdst] = &#38;sp->chars[ttisp->tt_abbrind];<br />because tzname[] is undefined.<br />In fact we have a comment in the same file: localtime.c(194):/* ahu: deleted definition of tzname[] */</p>
+
+
+	<p>To fix this, I simply removed the file loacaltime.c from all sub projects, including libexiv2 and all ( except geotags &#38; conntest - they have other issues) compiled, though I did not run all executables to verify.</p>
+
+
+	<p>MSVC 2013 had complained about localtime.c but excluded it from linking because it detected that it did not provide any variables or function that were needed or used.<br />MSVC 2015 was not so forgiving.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (3)</h3>
+  <div class="message reply" id="message-2456">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2455?r=2456#message-2456">RE: localtime.c causes problems in MSVC 2015 &amp; is not needed</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Mar 2016 21:45" href="/projects/exiv2/activity?from=2016-03-19">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>That's really odd.  The build server builds that every night on 2005/8/10/12/13/15.  I'll check the logs.  For sure that code's been in the mix forever.</p>
+
+
+	<p>It's quite likely that local time.c is not really needed in most of the sample applications.  The .vcproj files were stamped out by using one (exiv2.vcproj, I think) as a template.  Whether it's needed or not, I just compile and link it.</p>
+
+
+	<p>I'll have a look at this tomorrow.  Thanks for letting me know.  I'm very surprised to hear about this.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2457">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2455?r=2457#message-2457">RE: localtime.c causes problems in MSVC 2015 &amp; is not needed</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Mar 2016 21:56" href="/projects/exiv2/activity?from=2016-03-19">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've thought of why I didn't detect this on the buildserver.  The buildserver builds and tests the library.  To save time (because it's building 2005/8/10/12/13/15), it doesn't build the sample applications.  So, it's MSVC 2015 + samples that's broken and I didn't know.</p>
+
+
+	<p>Software is a mine field.  We have a lot of build and test infrastructure to detect all this stuff.  With every step, you can have your leg blown off.</p>
+
+
+	<p>Thanks again for letting me know.  I'll get that fixed on Sunday.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2514">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2455?r=2514#message-2514">RE: localtime.c causes problems in MSVC 2015 &amp; is not needed</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Mar 2016 23:14" href="/projects/exiv2/activity?from=2016-03-22">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've opened an issue to address this.  <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: localtime.c causes problems in MSVC 2015 &amp; is not needed (Closed)" href="/issues/1171">#1171</a></p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-3/3)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

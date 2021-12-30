@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Exif.CanonCs.FocusContinuous comes out as unsigned short - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="AElb8tJPH8rvNj+IukdTr0gWtEGIOPSOtavV+dUFbTziBPAdoDXTyrpSIIQFkF+cd4TgOHnbVTRIi0VxljyKUw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Exif.CanonCs.FocusContinuous comes out as unsigned short</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4728">Sridhar Boovaraghavan</a> <a title="10 Aug 2016 13:43" href="/projects/exiv2/activity?from=2016-08-10">over 5 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>This Exif.CanonCs.FocusContinuous value comes out as unsigned short and thus reports a value of 65535 when it should be reporting a -1 because it is a signed short type.</p>
+
+
+	<p>Now, I see that only 0 and 1 are defined values for this type. What does -1 signify? I see that there is a "8" defined as Manual in the exiftool documentation that could possibly be added to this list. I would also make -1 be treated as if it is 0.</p>
+
+
+	<p>I see evidence of this behaviour in exiv2's test files itself. Try exiv2\test\data\exiv2-test.out(Line #2697). See that it reports (65535) whereas it should be a -1.</p>
+
+
+	<p>Where is this going incorrect? I see that the definition of FocusContinuous in canonmn.cpp correctly as signedShort.</p>
+
+
+	<p>Thanks,<br />Sridhar<br />p.s. Windows 10 x64 with MSVC 2015 (exhibits the same behavior in x86/x64 builds)</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (7)</h3>
+  <div class="message reply" id="message-2625">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2624?r=2625#message-2625">RE: Exif.CanonCs.FocusContinuous comes out as unsigned short</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Aug 2016 08:57" href="/projects/exiv2/activity?from=2016-08-11">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>You're right.  It should be reporting -1.  However it has been reporting 65535 since before I joined the project 8 years ago.  I don't recall anybody complaining about this.  I'm rather reluctant to change this as it may break somebody's script.  For sure it will impact our test suite.</p>
+
+
+	<p>I can't say what 65535/-1 means.  Exiv2 reports the data it finds in an image.  If Canon choose to store 65535, 8, or 911, exiv2 will report it.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2626">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2624?r=2626#message-2626">RE: Exif.CanonCs.FocusContinuous comes out as unsigned short</a>
+    -
+    Added by <a class="user active" href="/users/4728">Sridhar Boovaraghavan</a> <a title="11 Aug 2016 09:25" href="/projects/exiv2/activity?from=2016-08-11">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I think you should change it because it is a signedShort in your documentation (please see <a class="external" href="http://www.exiv2.org/tags-canon.html">http://www.exiv2.org/tags-canon.html</a>) and it is being interpreted as an unsignedShort in the code. 65535 is the unsigned short version of -1 (signedShort).</p>
+
+
+	<p>As I said in my original post, exiftool reports -1.</p>
+
+
+	<p>All indications are that this is a bug in exiv2. It not being raised in 8 years possibly just means that no one was interested in that tag till now.</p>
+
+
+	<p>As to what -1 actually means, that's a different question. I was proposing that we interpret -1 to mean Single (i.e. the same as zero).</p>
+
+
+	<p>I also propose that you add the value 8 to count as Manual (following exiftool).</p>
+
+
+	<p>Thanks,<br />Sridhar</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2627">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2624?r=2627#message-2627">RE: Exif.CanonCs.FocusContinuous comes out as unsigned short</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Aug 2016 11:15" href="/projects/exiv2/activity?from=2016-08-11">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Please raise an issue on Redmine about this.  Somebody might change it for you.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2628">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2624?r=2628#message-2628">RE: Exif.CanonCs.FocusContinuous comes out as unsigned short</a>
+    -
+    Added by <a class="user active" href="/users/4728">Sridhar Boovaraghavan</a> <a title="11 Aug 2016 11:21" href="/projects/exiv2/activity?from=2016-08-11">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you.</p>
+
+
+	<p>Please see <a class="external" href="http://dev.exiv2.org/issues/1202">http://dev.exiv2.org/issues/1202</a></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2629">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2624?r=2629#message-2629">RE: Exif.CanonCs.FocusContinuous comes out as unsigned short</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Aug 2016 16:57" href="/projects/exiv2/activity?from=2016-08-11">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>We've split this matter into two issues.  <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exif.CanonCs.FocusContinuous = 8 = Manual (Closed)" href="/issues/1202">#1202</a> = 8/Manual <a class="issue tracker-1 status-2 priority-4 priority-default" title="Bug: Exif.CanonCs.FocusContinuous reported as Short (Assigned)" href="/issues/1203">#1203</a> = SShort/Short contradiction.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2630">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2624?r=2630#message-2630">RE: Exif.CanonCs.FocusContinuous comes out as unsigned short</a>
+    -
+    Added by <a class="user active" href="/users/4728">Sridhar Boovaraghavan</a> <a title="12 Aug 2016 05:51" href="/projects/exiv2/activity?from=2016-08-12">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Please see my update to <a class="external" href="http://dev.exiv2.org/issues/1203">http://dev.exiv2.org/issues/1203</a></p>
+
+
+	<p>There are other tags such as Exif.CanonCs.ImageStabilization (returns 65535), Exif.CanonCs.SpotMeteringMode (returns 65535), Exif.CanonCs.Sharpness (returns 32767) that are also incorrect.</p>
+
+
+	<p>FocusContinuous is an obscure field, but I need values of ImageStabilization and SpotMeteringMode to be correct - i.e. I intend to use them much more often.</p>
+
+
+	<p>Please update the issue to say that all of these signedShort values are returned as short.</p>
+
+
+	<p>Thanks,<br />Sridhar</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2631">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2624?r=2631#message-2631">RE: Exif.CanonCs.FocusContinuous comes out as unsigned short</a>
+    -
+    Added by <a class="user active" href="/users/4728">Sridhar Boovaraghavan</a> <a title="12 Aug 2016 06:58" href="/projects/exiv2/activity?from=2016-08-12">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Sorry for the multiple updates.</p>
+
+
+	<p>I feel like I have more information now.</p>
+
+
+	<p>When I ask exiftool to report on such images (where I get 65535), those tags are not reported unless you pass along a "-v" switch.</p>
+
+
+	<p>This along with those values not being defined (i.e. there is no interpretation for -1), makes me feel that these are tags that are not "written" and thus contain default values.</p>
+
+
+	<p>This reinforces my earlier suggestion of creating a -1, but interpreting it as a new key that we introduce - say Unknown.</p>
+
+
+	<p>I can confirm (for ImageStabilization at least), the lens in question does not have it (and neither does the camera). So when exiv2 returns -1 for that image for this field, it should be interpreted as Unknown. If you can think of a better name for this, please do suggest.</p>
+
+
+	<p>Thanks,<br />Sridhar</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-7/7)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

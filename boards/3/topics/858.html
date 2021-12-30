@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Using exiv dll in MFC (VC++ 6.0) application - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="FhjXfBp6sQbtecyG1x7azkl3fjDbWs1mlqsl/B9LIy/0VXyTaAB9Brgd04poydb9duUqSSq5bNxri7V0XHLEQA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Using exiv dll in MFC (VC++ 6.0) application</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/2201">Shilpa Naik</a> <a title="29 Mar 2011 07:30" href="/projects/exiv2/activity?from=2011-03-29">over 10 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,<br />I have been able to build the exiv library in MSVS 2008 successfully. I am trying to use exiv in my MFC (VC++6.0) application. In my project I have defined the Include folder and the library path correctly. I get a lot of complilation errors. The first one says<br />error C2265: '&lt;Unknown&gt;' : reference to a zero-sized array is illegal<br />I would be really grateful if somebody could help me with the steps to use exiv library in MFC (VC++ 6.0) application.</p>
+
+
+	<p>Thanks in advance.</p>
+
+
+	<p>Regards,<br />Shilpa</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (12)</h3>
+  <div class="message reply" id="message-859">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=859#message-859">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="29 Mar 2011 23:49" href="/projects/exiv2/activity?from=2011-03-29">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Shilpa</p>
+
+
+	<p>We don't support MSCV v6.0 for several reasons including:<br />1) Nobody's ever requested this.<br />2) C++ template support in MSVC6.0 had poor standards compliance.  So it probably won't compile, even if I/you constructed a good build environment.<br />3) MSVC is rather old (about 1998, I think).<br />4) We support many MSVC versions (Express/Standard/Pro)  2003 (32 bit only), 2005, 2008 and 2010 (32 and 64 bit).</p>
+
+
+	<p>We have CMake support and I've used it with some success on MSVC 2003 and up.  I plan to support CMake/MSVC later this year (for the 0.23 release).  CMake does have support for MSVC6.0, however simply fixing the build environment won't fix the template/compilation issues with MSVC6.0</p>
+
+
+	<p>The Express Edition of MSVC 2010 is available free from microsoft.com.  I believe can successfully create a 32 bit of the libraries.  I recommend using the msvc64 build environment with MSVC 2010 (even for 32 bit builds).</p>
+
+
+	<p>You've mentioned that you have built the libraries with MSVC 2008.  Is there a reason why you are unable to build your application with 2008 ?</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-860">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=860#message-860">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/2201">Shilpa Naik</a> <a title="30 Mar 2011 04:12" href="/projects/exiv2/activity?from=2011-03-30">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,<br />Firstly, thanks for replying to my post.<br />Secondly, apologies for making this post more confusing than comprehendible.<br />After much digging on the internet I am confirmed about the fact that exiv library can be only built on VC++ (7.1) and above. What I am trying to do here is that build the library on Visual Studio 2008, and use the exiv dll &#38; lib in my MFC (VC++ 6.0) application which for legacy reasons cannot be built &#38; upgraded on a higher version of VC++. Can this be a possible way of using the exiv or do I need to use the exiv2.exe console application and invoke it by passing parameters within my MFC application?<br />Please help.</p>
+
+
+	<p>Thanks &#38; Regards,<br />Shilpa</p></div>
+  
+  </div>
+  <div class="message reply" id="message-861">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=861#message-861">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="30 Mar 2011 09:40" href="/projects/exiv2/activity?from=2011-03-30">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Shilpa</p>
+
+
+	<p>I think it's unlikely that you'll be able to link the MSVC 2008 lib/dll to an app built with MSVC6.0.  The reason is that the compiler generates code that refers to the run-time support libraries, and so you'll probably find that the library either doesn't link or won't run.  However it's quite easy to try an experiment using the exiv2/sample/exifprint.cpp source code.  It is possible that it works!</p>
+
+
+	<p>The alternative is (as you have suggested) to build/download exiv2.exe and invoke it from your MSVC6.0 application (using CreateProcess or something).  You might find that exiv2.exe displays a DOS box - in which case you can probably use SrvAny from the Windows resource kit to run exiv2 as a service (which runs on an invisible desktop).  If you're calling exiv2 a lot, you might prefer to build a "proper" service and avoid the overhead of starting/terminating exiv2 every time you want to use it.  You can communicate with a service using a named pipe or the message-queue, sockets or some other IAC mechanism.  However before you spend a lot of effort on this - try using CreateProcess to invoke exiv2.exe - that might be sufficient for your needs.</p>
+
+
+	<p>I have a copy of MSVC6.0 at home.  Please let me know if you want help with any of this.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-862">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=862#message-862">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/2201">Shilpa Naik</a> <a title="30 Mar 2011 12:18" href="/projects/exiv2/activity?from=2011-03-30">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,<br />I did try to use the exifprint.cpp code earlier. But the compiler throws the below errors when it initially encounters the include statement #include &lt;exiv2/exiv2.hpp&gt;</p>
+
+
+	<p>Errors begin with (and they are more than 100)<br />C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/types.hpp(464) : error C2265: '&lt;Unknown&gt;' : reference to a zero-sized array is illegal<br />C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/types.hpp(471) : error C2265: '&lt;Unknown&gt;' : reference to a zero-sized array is illegal<br />C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/types.hpp(471) : error C2266: '&lt;Unknown&gt;' : reference to a non-constant bounded array is illegal<br />C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/types.hpp(471) : error C2265: '&lt;Unknown&gt;' : reference to a zero-sized array is illegal<br />C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/value.hpp(336) : error C2555: 'Exiv2::DataValue::clone_' : overriding virtual function differs from 'Exiv2::Value::clone_' only by return type or <br />calling convention<br />        C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/value.hpp(63) : see declaration of 'Value'<br />C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/value.hpp(419) : error C2555: 'Exiv2::StringValueBase::clone_' : overriding virtual function differs from 'Exiv2::Value::clone_' only by return ty<br />pe or calling convention<br />        C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/value.hpp(63) : see declaration of 'Value'<br />C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/value.hpp(456) : error C2555: 'Exiv2::StringValue::clone_' : overriding virtual function differs from 'Exiv2::Value::clone_' only by return type o<br />r calling convention<br />        C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/value.hpp(63) : see declaration of 'Value'<br />C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/value.hpp(456) : error C2555: 'Exiv2::StringValue::clone_' : overriding virtual function differs from 'Exiv2::StringValueBase::clone_' only by ret<br />urn type or calling convention<br />        C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/value.hpp(352) : see declaration of 'StringValueBase'<br />C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/value.hpp(505) : error C2555: 'Exiv2::AsciiValue::clone_' : overriding virtual function differs from 'Exiv2::Value::clone_' only by return type or<br /> calling convention<br />        C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/value.hpp(63) : see declaration of 'Value'<br />C:\Documents and Settings\shilpa.naik\Desktop\Copy of exiv2-0.21.1.tar\exiv2-0.21.1\msvc\include\exiv2/value.hpp(505) : error C2555: 'Exiv2::AsciiValue::clone_' : overriding virtual function differs from 'Exiv2::StringValueBase::clone_' only by retu<br />rn type or calling convention</p></div>
+  
+  </div>
+  <div class="message reply" id="message-863">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=863#message-863">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="30 Mar 2011 13:08" href="/projects/exiv2/activity?from=2011-03-30">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Shilpa</p>
+
+
+	<p>I'm at work (in California) at the moment and don't have time to investigate those messages.  I'd like to ask you to investigate invoking exiv2.exe instead of trying to build the exiv2 libraries with MSVC6.0.</p>
+
+
+	<p>It may be that we can add something to types.hpp and value.hpp to calm the compiler and get the code built with MSVC6.0.  However if you find that invoking exiv2.exe is sufficient for your purposes, then that might be quick and effective (and of course save me work).</p>
+
+
+	<p>And another possibility is that you investigate those errors.  If you know how to persuade this to build with MSVC6.0, you could send us a patch file.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-869">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=869#message-869">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/2201">Shilpa Naik</a> <a title="05 Apr 2011 04:52" href="/projects/exiv2/activity?from=2011-04-05">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,<br />I have given up on fixing the errors generated while linking the exiv dll/lib (built in VS 2008) within the MFC application (built on v6.0). I have therefore implemented an invoke function to the exiv2.exe and used named pipes to communicate with the messages. Thanks for suggesting the named pipes.<br />I would like to know if it is possible to turn off the zlib and xmp within the exiv exe as I will be using only the EXIF. This would also help in reducing the size of the exiv exe.</p>
+
+
+	<p>Thanks once again.</p>
+
+
+	<p>Have a nice day.</p>
+
+
+	<p>Regards,<br />Shilpa</p></div>
+  
+  </div>
+  <div class="message reply" id="message-871">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=871#message-871">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="05 Apr 2011 20:41" href="/projects/exiv2/activity?from=2011-04-05">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Shilpa</p>
+
+
+	<p>I believe this is possible, however I don't recall ever building exiv2 without expat, xmpsdk and zlib support.</p>
+
+
+	<p>There's a file exiv2\msvc\include\exv_msvc.h which contains directives which you can set.  Additionally, you'll have to change the project settings to remove explicit linking of the (sub) libraries and project dependencies.  I've just tried this and although I've been able to link without zlib (which provides PNG support), I did get unsatisfied link errors requiring XMP code.  So I build and linked expat and xmpsdk (but not zlib).</p>
+
+
+	<p>A static Release build of exiv2.exe (on version 0.21 32 bit build) is only 1.4mb - so he's not fat even if he contain code you don't really want.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-872">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=872#message-872">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/2201">Shilpa Naik</a> <a title="06 Apr 2011 04:01" href="/projects/exiv2/activity?from=2011-04-06">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,<br />Sounds wise not to remove any expat or zlib from the build with the file size not making much difference. Thanks for confirming this.<br />I am surprised that you say the exiv 2.exe is only 1.4 MB. I have downloaded the windows executable v2-0.21.1. Below are the list of files unzipped with their file sizes.<br />cmd.txt          2KB<br />cmdxmp.txt         4KB<br />exiv2.exe         3,417 KB<br />exiv2-man.html         18 KB<br />libexpat.dll         148 KB<br />This exe sure looks bigger.</p>
+
+
+	<p>Could you help me with building a static release build of exiv2.exe. Just for the records, I am a beginner with VS 2008</p>
+
+
+	<p>Thanks again in advance. I appreciate you taking time and replying to each of my messages amidst your busy tasks.</p>
+
+
+	<p>Regards,<br />Shilpa</p></div>
+  
+  </div>
+  <div class="message reply" id="message-873">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=873#message-873">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="06 Apr 2011 18:57" href="/projects/exiv2/activity?from=2011-04-06">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Shilpa</p>
+
+
+	<p>Use the materials in exiv2\msvc64 to build a static version of exiv2.exe.  There are detailed instructions in exiv2\msvc64\ ReadMe.txt  If you need help, email me directly at <a class="email" href="mailto:robin@clanmills.com">robin@clanmills.com</a></p>
+
+
+	<p>I've just build the trunk using DevStudio 2008 (Studio Team Edition) and the full exiv2.exe (which includes zlib, expat and xmpsdk is:<br /> Directory of C:\gnu\exiv2\msvc64\bin\Win32\Release<br />04/06/2011  18:47         2,019,840 exiv2.exe</p>
+
+
+	<p>We discussed the library size (MSVC vs GCC) in detail a couple years ago:  <a class="external" href="http://dev.exiv2.org/boards/3/topics/137#message-138">http://dev.exiv2.org/boards/3/topics/137#message-138</a><br />  I seem to recall that GCC compiled Linux executables (.exe and .dlls) are typically 50% bigger than MSVC executables.  The Windows binaries on the web site are cross-compiled for Windows on Linux using GCC.  I'm guessing the GCC produces 50% fatter Windows executables (something I'll get round to investigating some day!).</p></div>
+  
+  </div>
+  <div class="message reply" id="message-878">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=878#message-878">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/2201">Shilpa Naik</a> <a title="07 Apr 2011 14:09" href="/projects/exiv2/activity?from=2011-04-07">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,<br />It took some time, but was finally able to build the trunk version of msvc64. Had to install the Tortoise SVN for the same.<br />Thanks for the help.<br />The size of exiv2.exe under the path C:\TortoiseSVN\Exiv\exiv2\msvc64\bin\Win32\Release showed as below<br />1.92 MB (2,017,280 bytes) <br />I hope I am not missing anything here as the size differs from what you have built.<br />I am very much elated about the fact that I will not need to have libexpat.dll along with the exiv2.exe :)</p>
+
+
+	<p>You have a nice day.</p>
+
+
+	<p>Thanks again.</p>
+
+
+	<p>Regards,<br />Shilpa</p></div>
+  
+  </div>
+  <div class="message reply" id="message-879">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=879#message-879">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="07 Apr 2011 14:22" href="/projects/exiv2/activity?from=2011-04-07">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Shilpa</p>
+
+
+	<p>I really like to the Tortoise - he's one of my favorite software tools.  I'm a little surprised that your build and mine are different by 2,560 bytes.  Run a couple of JPGs through exiv2.exe and if the output's sensible, then it's probably nothing to worry about.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-897">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/858?r=897#message-897">RE: Using exiv dll in MFC (VC++ 6.0) application</a>
+    -
+    Added by <a class="user active" href="/users/2201">Shilpa Naik</a> <a title="18 Apr 2011 03:30" href="/projects/exiv2/activity?from=2011-04-18">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,<br />Sorry for coming back soo late. Was busy with something other than EXIV. <br />I took time to test the usecases for the newly build static exe and all seems fine. Just wanted to know for my knowledge as to what has been done to get this exe trimmed down to 1.9 MB from almost its double size. <br />Thanks a million.</p>
+
+
+	<p>Regards,<br />Shilpa</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-12/12)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

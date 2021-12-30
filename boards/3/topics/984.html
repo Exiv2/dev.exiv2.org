@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Encode/decode corrupt MakerNote field - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="BD/UI5NKAnBaq2VrWabWaeK4yAGYRTU0C9+KKctKxAjmcn/M4TDOcA/Pemfmcdpa3SqceGmmlI72/xqhiHMjZw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Encode/decode corrupt MakerNote field</h2>
+
+<div class="message">
+<p><span class="author">Added by Anonymous <a title="23 Sep 2011 06:08" href="/projects/exiv2/activity?from=2011-09-23">about 10 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi!</p>
+
+
+	<p>I have to save/load pure exif blobs, but when I use encode/decode some fields like MakerNote change it size.</p>
+
+
+	<p>Here is a sample of code:</p>
+
+
+	<p>image->readMetadata();</p>
+
+
+	<p>Exiv2::ExifData &#38;exifData = image->exifData();<br />//   PrintExif(exifData); <--- here MakerNote 770 byte long</p>
+
+
+	<p>Exiv2::Blob exifBlob;<br />Exiv2::ExifParser::encode(exifBlob, 0,0, Exiv2::bigEndian, exifData);</p>
+
+
+	<p>Exiv2::ExifData exifData2;<br />Exiv2::ExifParser::decode(exifData2, &#38;exifBlob<sup><a href="#fn0">0</a></sup>, exifBlob.size());<br />//   PrintExif(exifData2); Here MakerNote 17764(!) byte long</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (4)</h3>
+  <div class="message reply" id="message-985">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/984?r=985#message-985">RE: Encode/decode corrupt MakerNote field</a>
+    -
+    Added by Anonymous <a title="23 Sep 2011 17:04" href="/projects/exiv2/activity?from=2011-09-23">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Also I tried replace ExifParser by TiffParser and have the same results.</p>
+
+
+	<p>I use exiv2-bug444.jpg from test data as input image. Could you reproduce this bug or I am using exiv2 wrong way?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-989">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/984?r=989#message-989">RE: Encode/decode corrupt MakerNote field</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="26 Sep 2011 04:08" href="/projects/exiv2/activity?from=2011-09-26">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Exiv2 doesn't have an API to extract just an Exif blob from an image, even if for some image formats that is technically possible. I think there is an old issue for this (couldn't find it just now) but recently the focus was more on supporting more image formats, many of which (all TIFF related formats) do not contain the Exif metadata in an isolated blob anyway.</p>
+
+
+	<p>In your example, the call to image->readMetadata() will parse Exif data into an internal structure. A later call to <a href="http://www.exiv2.org/doc/classExiv2_1_1ExifParser.html#296a8f2aa49297103667cc882450d1c2" class="external">ExifParser::encode()</a> will (<a href="http://www.exiv2.org/doc/classExiv2_1_1TiffParser.html#22522605aa9135493a08969aaaa227a2" class="external">in general</a>) re-serialize the Exif structure from just the exifData and is very likely to result in a binary representation which is different from the original.</p>
+
+
+	<p>At least if you're only dealing with JPEGs you may find another library to get the relevant APP segment out of the image (libjpeg or ImageMagick maybe). You can then still use ExifParser::decode if you need to parse it.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-990">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/984?r=990#message-990">RE: Encode/decode corrupt MakerNote field</a>
+    -
+    Added by Anonymous <a title="26 Sep 2011 05:46" href="/projects/exiv2/activity?from=2011-09-26">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you for your answer, but I want to clarify some details.</p>
+
+
+	<p>You said that binary representaion is different from the original, but is it ok that it contains new fields? I erased MakerNote from ExifData, encode into memory blob, decode from it and decoded ExifData contains huge MakerNote.</p>
+
+
+	<p>Will it work if I save ExifData::exifMetadata_, or it could contains references on areas of image file? (yes currently I am interested only in jpeg)</p>
+
+
+	<p>Ok, if I follow your advise and extract APP segment by other library, then ExifParser::decode on it, filter some fields and I want to save new ExifData segment. I am going to use encode again and don't be sure if some new fields appear. Or in this case everything will be alright?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-991">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/984?r=991#message-991">RE: Encode/decode corrupt MakerNote field</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="26 Sep 2011 20:37" href="/projects/exiv2/activity?from=2011-09-26">about 10 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>You said that binary representaion is different from the original, but is it ok that it contains new fields? I erased MakerNote from ExifData, encode into memory blob, decode from it and decoded ExifData contains huge MakerNote.</p>
+
+
+</blockquote>
+
+	<p>It won't contain new fields. The most likely reason I can think of why the Makernote grew so much bigger is that it contains a preview image, i.e., typically a tag with a pointer to the data and one for the size of the data and the preview image data is not stored within the original Makernote. (It is possible to do all sorts of strange things with TIFF format, which is used to encode Exif metadata.) Exiv2 will pack such preview image data into the Makernote IFD when it encodes the tags from scratch.<br />Other than that it is more common that the binary Exif data and in particular the Makernote shrink in size, e.g., when it contained "holes" or when Exiv2 omits Makernote IFDs that it doesn't know.</p>
+
+
+<blockquote>
+
+	<p>Will it work if I save ExifData::exifMetadata_, or it could contains references on areas of image file? (yes currently I am interested only in jpeg)</p>
+
+
+</blockquote>
+
+	<p>The type of this member is a std::list&lt;Exifdatum&gt;, how do you want to "save" this? But you're right, you can also look at the Exiv2 library code and tweak it a bit for your purposes, for example to add an API to get the binary Exif blob out of a JPEG image before it is decoded. As a quick hack, you could add a member function to class JpegImage (jpgimage.hpp) which returns a DataBuf containing a copy of the Exif blob. You'd also have to add a new member to hold the blob and copy it into this member in readMetadata(). Look for ExifParser::decode() in jpgimage.cpp, that's where you have access to the blob and can copy it into the new member. Then your program would simply call image->readMetadata(); followed by your new function DataBuf blob = image->exifBlob(); If you want to also be able to set the blob in an image, add a setExifBlob() member and use that in writeMetadata() instead of calling ExifParser::encode(). If you end up doing this, you would have more or less implemented the issue I mentioned above, so please send me the patch and I'll see how I can merge it.</p>
+
+
+<blockquote>
+
+	<p>Ok, if I follow your advise and extract APP segment by other library, then ExifParser::decode on it, filter some fields and I want to save new ExifData segment. I am going to use encode again and don't be sure if some new fields appear. Or in this case everything will be alright?</p>
+
+
+</blockquote>
+
+	<p>The same thing will happen.</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-4/4)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

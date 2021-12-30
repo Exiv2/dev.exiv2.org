@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1112: lost timezone information in XMP dates - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="KD4HX6KL23TXZ8l8Ppd3AKmZ79iUKxu4S8/8tvW9ECDKc6yw0PEXdIID1nCBQHszlgu7oWXIugK272w+toT3Tw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1112: lost timezone information in XMP dates" href="https://dev.exiv2.org/issues/1112.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1112</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>lost timezone information in XMP dates</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4490">Jakub Wilk</a> <a title="28 Aug 2015 16:46" href="/projects/exiv2/activity?from=2015-08-28">about 6 years</a> ago.
+        Updated <a title="13 Oct 2015 19:54" href="/projects/exiv2/activity?from=2015-10-13">about 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">metadata</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">28 Aug 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">15.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Exiv2 loses timezone information in some XMP dates:</p>
+
+
+<pre>
+$ cp test.xmp test.xmp.bak
+$ exiv2 -M 'del Xmp.dc.title' test.xmp
+$ diff test.xmp.bak test.xmp
+6c6
+&lt;    xmp:CreateDate="2012-02-01T16:28:00+02:00"/&gt;
+---
+&gt;    xmp:CreateDate="2012-02-01T15:28:00"/&gt;
+</pre>
+
+	<p>Tested with svn <a class="changeset" title="#1111: Fixed library example links to point to the new page." href="/projects/exiv2/repository/exiv2/revisions/3911">r3911</a>. AFAICT, it didn't happen in 0.24.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/822">test.xmp</a>    <span class="size">(358 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/822/test.xmp">test.xmp</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Jakub Wilk, 28 Aug 2015 16:46</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/824">exif.xmp</a>    <span class="size">(334 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/824/exif.xmp">exif.xmp</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Alan Pater, 31 Aug 2015 12:13</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1112" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="BxHhQQbkeDFt8IDamIrjMM93to0gyl017XQF+uIfed7lXEqudJ60MTiUn9YnXe8D8OXi9NEp/I8QVJVyoSaesQ==" />
+  <table class="list issues odd-even"><tr id="relation-174" class="issue hascontextmenu issue tracker-2 status-2 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="1050" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-2 priority-4 priority-default" href="/issues/1050">Feature #1050</a>: Extend exif &lt;&gt; iptc &lt;&gt; xmp conversions</td><td class="status">Assigned</td><td class="start_date">04 Apr 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-30"><tr><td style="width: 30%;" class="closed" title="30%"></td><td style="width: 70%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-175" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="864" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/864">Bug #864</a>: Mapping of Exif DateTime fields to XMP changed in spec</td><td class="status">Closed</td><td class="start_date">30 Oct 2012</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1112/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1112&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3923" href="/projects/exiv2/repository/exiv2/revisions/3923">Revision 3923</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3923/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2015 20:21" href="/projects/exiv2/activity?from=2015-09-03">about 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: lost timezone information in XMP dates (Closed)" href="/issues/1112">#1112</a>.  Fix submitted.  Also added typedefs to datasets.hpp for Exiv2::Dictionary, Exiv2::StringSet, Exiv2::StringVector</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3924" href="/projects/exiv2/repository/exiv2/revisions/3924">Revision 3924</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3924/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2015 20:35" href="/projects/exiv2/activity?from=2015-09-03">about 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: lost timezone information in XMP dates (Closed)" href="/issues/1112">#1112</a>.  Regression detector added to test/bugfixes-test.sh</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4140" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="29 Aug 2015 15:23" href="/projects/exiv2/activity?from=2015-08-29">about 6 years</a> ago
+      <span id="journal-4140-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>metadata</i></li>
+       <li><strong>Assignee</strong> set to <i>Alan Pater</i></li>
+    </ul>
+    <div id="journal-4140-notes" class="wiki"><p>This is a feature, not a bug. ;-)</p>
+
+
+	<p>exiv2 0.25 was updated to follow MWG guidelines(1) and attempts to map the appropriate values between exif and xmp. The catch is that exif does not contain timezone data.</p>
+
+
+<pre>
+~$ exiv2 -pa test.xmp 
+Exif.Photo.DateTimeDigitized                 Ascii      20  2012:02:01 09:28:00
+Iptc.Application2.DigitizationDate           Date        8  2012-02-01
+Iptc.Envelope.CharacterSet                   String      3  
+Xmp.xmp.CreateDate                           XmpText    25  2012-02-01T16:28:00+02:00
+~$  cp test.xmp test.xmp.bak
+~$  exiv2 -M 'del Xmp.dc.title' test.xmp
+~$  diff test.xmp.bak test.xmp
+6c6
+&lt;    xmp:CreateDate="2012-02-01T16:28:00+02:00"/&gt;
+---
+&gt;    xmp:CreateDate="2012-02-01T09:28:00"/&gt;
+
+</pre>
+
+	<p>The result you see comes from Exif.Photo.DateTimeDigitized.</p>
+
+
+	<p>(1) <a class="external" href="http://www.metadataworkinggroup.org/pdf/mwg_guidance.pdf#page=37">http://www.metadataworkinggroup.org/pdf/mwg_guidance.pdf#page=37</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4142" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="29 Aug 2015 17:16" href="/projects/exiv2/activity?from=2015-08-29">about 6 years</a> ago
+      <span id="journal-4142-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-4142-notes" class="wiki"><p>Thanks for looking at this, Alan.  And thanks to Jakub for such a clear issue report and test case.  Thank You, Gentlemen.</p>
+
+
+	<p>I'm going to assign this to Alan to ensure that he's credited in the release notes.  I'm also going to mark it 100% Resolved.  If Jakub doesn't contest Alan's reply, we'll mark this "Closed" before we ship v0.26.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4146" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="30 Aug 2015 20:31" href="/projects/exiv2/activity?from=2015-08-30">about 6 years</a> ago
+      <span id="journal-4146-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Assigned</i></li>
+    </ul>
+    <div id="journal-4146-notes" class="wiki"><p>On second thought, I am not sure that correct behaviour is being shown here.</p>
+
+
+	<p>The sample xmp file only has the Xmp.xmp.CreateDate property<br /><pre>
+~$ cat test.xmp
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+ &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+  &lt;rdf:Description rdf:about="" 
+    xmlns:xmp="http://ns.adobe.com/xap/1.0/" 
+   xmp:CreateDate="2012-02-01T16:28:00+02:00"/&gt;
+ &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+</pre><br />Exif.Photo.DateTimeDigitized and the IPTC tags are being generated by exiv2 0.25 and adjusted to my local timezone. I don't see why the conversion is being triggered here. As Jakub said, this does not happen with 0.24</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4147" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="30 Aug 2015 22:28" href="/projects/exiv2/activity?from=2015-08-30">about 6 years</a> ago
+      <span id="journal-4147-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4147-notes" class="wiki"><p>Digging in further, on exiv2 0.24 and earlier, Exif.Photo.DateTimeDigitized was mapped to Xmp.exif.DateTimeDigitized rather then Xmp.xmp.CreateDate.</p>
+
+
+	<p>So, with an xmp file containing Xmp.exif.DateTimeDigitized:</p>
+
+
+<pre>
+$ cat exif.xmp 
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+ &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+  &lt;rdf:Description rdf:about="" 
+    xmlns:exif="http://ns.adobe.com/exif/1.0/" 
+   exif:DateTimeDigitized="2012-02-01T16:28:00+02:00"/&gt;
+ &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+</pre>
+
+	<p>Results in:</p>
+
+
+<pre>
+$ exiv2 -pa exif.xmp 
+Exif.Photo.DateTimeDigitized                 Ascii      20  2012:02:01 09:28:00
+Xmp.exif.DateTimeDigitized                   XmpText    25  2012-02-01T16:28:00+02:00
+$ cp exif.xmp exif.xmp.bak
+$ exiv2 -M 'del Xmp.dc.title' exif.xmp
+$ diff exif.xmp.bak exif.xmp
+6c6
+&lt;    exif:DateTimeDigitized="2012-02-01T16:28:00+02:00"/&gt;
+---
+&gt;    exif:DateTimeDigitized="2012-02-01T09:28:00"/&gt;
+</pre>
+
+	<p>So 0.24 DOES shows the same behaviour as 0.25 but with a xmp file containing Xmp.exif.DateTimeDigitized.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4148" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Aug 2015 22:51" href="/projects/exiv2/activity?from=2015-08-30">about 6 years</a> ago
+      <span id="journal-4148-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4148-notes" class="wiki"><p>Going back to Jakub's issue report, his test file in pure XMP.  So why are we loosing TZ data when the user removed <em>the Title</em>.  I think it's worth finding (and reconsidering) the change which introduced this.</p>
+
+
+	<p>Can it be as simple as mapping one Exiv2 key into XMP.  Looking at my Stonehenge photo, the Exif Dates don't have TZ info - that's being stored in the Nikon Makernote Exif.NikonWt.Timezone:<pre> $ exiv2 -pa -g Date -g Time -g description -g Caption http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:25:28
+Exif.Photo.ExposureTime                      Rational    1  1/400 s
+Exif.Photo.DateTimeOriginal                  Ascii      20  2015:07:16 15:38:54
+Exif.Photo.DateTimeDigitized                 Ascii      20  2015:07:16 15:38:54
+Exif.NikonWt.Timezone                        SShort      1  UTC +00:00
+Exif.NikonWt.DateDisplayFormat               Byte        1  Y/M/D
+Exif.Photo.SubSecTime                        Ascii       3  00
+Exif.Photo.SubSecTimeOriginal                Ascii       3  00
+Exif.Photo.SubSecTimeDigitized               Ascii       3  00
+Exif.GPSInfo.GPSTimeStamp                    Rational    3  14:38:55.9
+Exif.GPSInfo.GPSDateStamp                    Ascii      11  2015:07:16
+Iptc.Application2.Caption                    String     12  Classic View
+Xmp.xmp.ModifyDate                           XmpText    25  2015-07-16T20:25:28+01:00
+Xmp.dc.description                           LangAlt     1  lang="x-default" Classic View
+$ </pre>The photo was taken at 3:38pm.  The Xmp.xmp.ModifyDate was added by Picasa when I added the Caption "Classic View" about 8:25pm</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4149" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="30 Aug 2015 23:31" href="/projects/exiv2/activity?from=2015-08-30">about 6 years</a> ago
+      <span id="journal-4149-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4149-notes" class="wiki"><p>Well, convert.cpp dates to March 2008. </p>
+	<pre><code><a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/changes/trunk/src/convert.cpp">http://dev.exiv2.org/projects/exiv2/repository/changes/trunk/src/convert.cpp</a></code></pre>
+
+
+	<p>But I am wondering the same. Why are the conversions getting called and applied when they are not being explicitly asked for?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4150" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="30 Aug 2015 23:33" href="/projects/exiv2/activity?from=2015-08-30">about 6 years</a> ago
+      <span id="journal-4150-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4150-notes" class="wiki"><p>Also note that test.xmp does not contain a title. The test case is trying to remove a non-existent value.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4152" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Aug 2015 10:10" href="/projects/exiv2/activity?from=2015-08-31">about 6 years</a> ago
+      <span id="journal-4152-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4152-notes" class="wiki"><p>I've built a "vanilla" v0.24 this morning to investigate something on the forum from Mikayel.  I've rerun Jakub's test.  Here's the output:<pre>603 rmills@rmillsmbp:~/Downloads $ cp test.xmp test.xmp.bak
+604 rmills@rmillsmbp:~/Downloads $ exiv2 -M 'del Xmp.dc.title' test.xmp
+605 rmills@rmillsmbp:~/Downloads $ diff test.xmp test.xmp.bak 
+1c1
+&lt; &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+---
+&gt; &lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+8a9
+&gt; &lt;?xpacket end="w"?&gt;
+\ No newline at end of file
+606 rmills@rmillsmbp:~/Downloads $</pre>As you can see, XMPsdk has made xml changes, however the CreateDate retains the TZ information in v0.24.<pre>613 rmills@rmillsmbp:~/Downloads $ grep CreateDate test.*
+test.xmp:   xmp:CreateDate="2012-02-01T16:28:00+02:00"/&gt;
+test.xmp.bak:   xmp:CreateDate="2012-02-01T16:28:00+02:00"/&gt;
+614 rmills@rmillsmbp:~/Downloads $ </pre>Just for information, here's test.xmp.bak<pre>614 rmills@rmillsmbp:~/Downloads $ cat test.xmp.bak 
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+ &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+  &lt;rdf:Description rdf:about="" 
+    xmlns:xmp="http://ns.adobe.com/xap/1.0/" 
+   xmp:CreateDate="2012-02-01T16:28:00+02:00"/&gt;
+ &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;615 rmills@rmillsmbp:~/Downloads $ </pre>It's a public holiday in England today and therefore pouring with rain.  I'll build different SVN revisions and see when/why this changes has taken place.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4153" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Aug 2015 10:35" href="/projects/exiv2/activity?from=2015-08-31">about 6 years</a> ago
+      <span id="journal-4153-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4153-notes" class="wiki"><p>No doubt about it.  This arrived with r3659:<pre>633 rmills@rmillsmbp:~/Downloads $ cp test.xmp.bak test.xmp ; exiv2 -M 'del Xmp.dc.title' test.xmp ; diff test.xmp.bak test.xmp
+1c1
+&lt; &lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+---
+&gt; &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+4a5
+&gt;     xmlns:exif="http://ns.adobe.com/exif/1.0/" 
+6c7,8
+&lt;    xmp:CreateDate="2012-02-01T16:28:00+02:00"/&gt;
+---
+&gt;    exif:DateTimeDigitized="2012-02-01T14:28:00" 
+&gt;    xmp:CreateDate="2012-02-01T14:28:00"/&gt;
+9d10
+&lt; &lt;?xpacket end="w"?&gt;
+\ No newline at end of file
+634 rmills@rmillsmbp:~/Downloads $ exiv2 -vV -g svn -g version
+exiv2 0.24 001800 (64 bit build)
+version=4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)
+svn=3658
+id=$Id: version.cpp 3639 2015-03-25 19:55:02Z robinwmills $
+635 rmills@rmillsmbp:~/Downloads $ </pre>Here are the same commands on r3658:<pre>620 rmills@rmillsmbp:~/Downloads $ cp test.xmp.bak test.xmp ; exiv2 -M 'del Xmp.dc.title' test.xmp
+621 rmills@rmillsmbp:~/Downloads $ diff test.xmp.bak test.xmp
+1c1
+&lt; &lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+---
+&gt; &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+9d8
+&lt; &lt;?xpacket end="w"?&gt;
+\ No newline at end of file
+622 rmills@rmillsmbp:~/Downloads $ exiv2 -vV -g svn -g version
+exiv2 0.24 001800 (64 bit build)
+version=4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)
+svn=3658
+id=$Id: version.cpp 3639 2015-03-25 19:55:02Z robinwmills $
+623 rmills@rmillsmbp:~/Downloads $</pre>Good News: it's still raining!  So I'll dig into the code this morning.  Hoping for a sunny afternoon with friends coming for BBQ/dinner.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4154" class="journal has-notes has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="31 Aug 2015 12:13" href="/projects/exiv2/activity?from=2015-08-31">about 6 years</a> ago
+      <span id="journal-4154-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/824">exif.xmp</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/824/exif.xmp">exif.xmp</a> added</li>
+    </ul>
+    <div id="journal-4154-notes" class="wiki"><p>Test file that shows issue existed pre <a class="changeset" title="#1050 Add Rating and additional simple DateTime conversions" href="/projects/exiv2/repository/exiv2/revisions/3659">r3659</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4155" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="31 Aug 2015 12:36" href="/projects/exiv2/activity?from=2015-08-31">about 6 years</a> ago
+      <span id="journal-4155-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4155-notes" class="wiki"><p>Here I show that the issue existed even earlier. Exiv2 0.23 was released in April 2013.<br />This is with the exif.xmp test file rather then test.xmp.</p>
+
+
+<pre>
+$ exiv2 -vV
+exiv2 0.23 001700 (64 bit build)
+</pre>
+
+	<p>Let's look directly inside the exif.xmp file. It only contains a value for Xmp.exif.DateTimeDigitized.</p>
+
+
+<pre>
+$ cat exif.xmp
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+ &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+  &lt;rdf:Description rdf:about="" 
+    xmlns:exif="http://ns.adobe.com/exif/1.0/" 
+   exif:DateTimeDigitized="2012-02-01T16:28:00+02:00"/&gt;
+ &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+</pre>
+
+	<p>Now let's see how exiv2 interprets that file.</p>
+
+
+<pre>
+$ exiv2 -pa exif.xmp
+Exif.Photo.DateTimeDigitized                 Ascii      20  2012:02:01 09:28:00
+Xmp.exif.DateTimeDigitized                   XmpText    25  2012-02-01T16:28:00+02:00
+</pre>
+
+	<p>exiv2 displays a value for Exif.Photo.DateTimeDigitized that does not exist in the exif.xmp file. It has not yet written any new information to the exif.xmp file.</p>
+
+
+<pre>
+$ cp exif.xmp exif.xmp.bak
+
+$ exiv2 -M 'del Xmp.dc.title' exif.xmp
+</pre>
+
+	<p>That was the command that wrote changes to the exif.xmp file. Exiv2 takes the value it has generated for Exif.Photo.DateTimeDigitized and writes it to Xmp.exif.DateTimeDigitized.</p>
+
+
+<pre>
+$ diff exif.xmp exif.xmp.bak
+6c6
+&lt;    exif:DateTimeDigitized="2012-02-01T09:28:00"/&gt;
+---
+&gt;    exif:DateTimeDigitized="2012-02-01T16:28:00+02:00"/&gt;
+
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-4156" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="31 Aug 2015 12:58" href="/projects/exiv2/activity?from=2015-08-31">about 6 years</a> ago
+      <span id="journal-4156-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4156-notes" class="wiki"><p>Robin, the change to the xmp header is, I think, unrelated to the lost timezone issue. The xmp header change happened in <a class="changeset" title="#774.  Thanks to Alan for resolving this matter and providing the patch." href="/projects/exiv2/repository/exiv2/revisions/3662">r3662</a> via issue <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: &quot;exiv2 -eX&quot; followed by &quot;exiv2 -iX&quot; produces invalid XMP metadata packet (Closed)" href="/issues/774">#774</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4157" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Aug 2015 13:05" href="/projects/exiv2/activity?from=2015-08-31">about 6 years</a> ago
+      <span id="journal-4157-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4157-notes" class="wiki"><p>Thanks, Alan.  I've reproduced your findings with a "vanilla" v0.24 (built from our published/archived v0.24 <a class="external" href="http://www.exiv2.org/archive.html">http://www.exiv2.org/archive.html</a>).</p>
+
+
+	<p>I think we're both right.  There's something causing us to loose TZ data.  This loss is new in <a class="changeset" title="#1050 Add Rating and additional simple DateTime conversions" href="/projects/exiv2/repository/exiv2/revisions/3659">r3659</a> with xmp.CreateDate <em><strong>AND</strong></em> has been forever in exif.DateTimeDigitized.</p>
+
+
+	<p>I haven't looked at <a class="changeset" title="#774.  Thanks to Alan for resolving this matter and providing the patch." href="/projects/exiv2/repository/exiv2/revisions/3662">r3662</a> yet.  Hold your guns, buster.  Gimme a chance to understand what's going on here.  It's still pouring here, so I'll dig about a bit more.  I've never visited this part of the code before.  In fact, I didn't even know until earlier this year that exiv2 had conversion code.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4158" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Aug 2015 15:03" href="/projects/exiv2/activity?from=2015-08-31">about 6 years</a> ago
+      <span id="journal-4158-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4158-notes" class="wiki"><p>There's no doubt that the issue with <a class="changeset" title="#1050 Add Rating and additional simple DateTime conversions" href="/projects/exiv2/repository/exiv2/revisions/3659">r3659</a> is coming from src/convert.cpp:346:<pre>{mdExif, "Exif.Photo.DateTimeDigitized", "Xmp.xmp.CreateDate", &#38;Converter::cnvExifDate,&#38;Converter::cnvXmpDate },</pre>That code is converting an Exif date (which doesn't have TZ information) into Xmp.xmp.CreateDate.</p>
+
+
+	<p>I don't know why it's being called for a "pure xmp" file.  It feels as though something has manufactured Exif.Photo.DateTimeDigitized from the original xmp.CreateDate and removed the TZ information.  Then we convert the Exif date into an XML date which can (but doesn't in this case) store TZ.  And here's the evidence:  <pre>$ exiv2 -pv -g Exif ~/Downloads/test.xmp.bak 
+cnvXmpDate  erase_= 0 from,to = Xmp.xmp.CreateDate,Exif.Photo.DateTimeDigitized ...
+... value= 2012-02-01T16:28:00+02:00 result = 2012-02-01T16:28:00+02:00
+0x9004 Photo        DateTimeDigitized           Ascii      20  2012:02:01 14:28:00
+$</pre>The output cvnXmpDate erase_ cvnXmpDate is coming from debug code I have added locally <em>change listed below</em>.</p>
+
+
+	<p>cvnXmpDate created a string of 26 bytes which includes the TZ.  However something chopped it to 20 bytes as specified <a class="external" href="http://www.exiv2.org/Exif2-2.PDF">http://www.exiv2.org/Exif2-2.PDF</a> p24 Section 4.6.5.  The long-standing conversion Exif.Photo.DateTimeDigitized -> Xmp.exif.DateTimeDigitized has the same behaviour, as you have shown with the file exiv.xmp</p>
+
+
+	<p>I believe <a class="changeset" title="#1050 Add Rating and additional simple DateTime conversions" href="/projects/exiv2/repository/exiv2/revisions/3659">r3659</a> is correct when operating on "real" image files (jpeg etc).  And I believe <a class="changeset" title="#774.  Thanks to Alan for resolving this matter and providing the patch." href="/projects/exiv2/repository/exiv2/revisions/3662">r3662</a> is good as it's an XML formatting/presentation change.</p>
+
+
+	<p>I think the issue here is that we should not use those conversion tables for .xmp files.</p>
+
+
+	<p>My local change to convert.cpp is:<pre>    void Converter::cnvXmpDate(const char* from, const char* to)
+    {
+        Exiv2::XmpData::iterator pos = xmpData_-&gt;findKey(XmpKey(from));
+        if (pos == xmpData_-&gt;end()) return;
+        if (!prepareExifTarget(to)) return;
+#ifdef EXV_HAVE_XMP_TOOLKIT
+        std::string value = pos-&gt;toString();
+        std::cout &lt;&lt; "cnvXmpDate  erase_= " &lt;&lt; erase_ &lt;&lt; " from,to = " &lt;&lt; from &lt;&lt; "," &lt;&lt; to &lt;&lt; " value= " &lt;&lt; value ;
+        if (!pos-&gt;value().ok()) {
+... unchanged ...
+        }
+
+        std::cout &lt;&lt; " result = " &lt;&lt; (*xmpData_)[from].value().toString() &lt;&lt; std::endl;
+
+        if (erase_) xmpData_-&gt;erase(pos);
+#else
+# ifndef SUPPRESS_WARNINGS
+        EXV_WARNING &lt;&lt; "Failed to convert " &lt;&lt; from &lt;&lt; " to " &lt;&lt; to &lt;&lt; "\n";
+# endif
+#endif // !EXV_HAVE_XMP_TOOLKIT
+    }</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4159" class="journal has-notes">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="31 Aug 2015 15:47" href="/projects/exiv2/activity?from=2015-08-31">about 6 years</a> ago
+      <span id="journal-4159-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4159-notes" class="wiki"><p>I believe the conversion functions only apply to xmp files. I tested exiv2 0.23 on a jpeg file with the same xmp value set:</p>
+
+
+<pre>
+$ exiv2 -pa exif.jpg 
+Xmp.exif.DateTimeDigitized                   XmpText    25  2012-02-01T16:28:00+02:00
+
+$ exiv2 -M 'del Xmp.dc.title' exif.jpg
+
+$ exiv2 -pa exif.jpg 
+Xmp.exif.DateTimeDigitized                   XmpText    25  2012-02-01T16:28:00+02:00
+</pre>
+
+	<p>No change, no loss of data. The conversion functions did not get triggered.</p>
+
+
+	<p>Let's try something else:</p>
+
+
+	<p>-eX creates an xmp sidecar file.<br /><pre>
+$ exiv2 -eX exif.jpg
+</pre></p>
+
+
+	<p>-iX imports and converts data from the xmp sidecar file.<br /><pre>
+$ exiv2 -iX exif.jpg
+</pre></p>
+
+
+	<p>Exif.Photo.DateTimeDigitized has been added with a value derived from Xmp.exif.DateTimeDigitized and adjusted to the timezone of this computer.<br /><pre>
+$ exiv2 -pa exif.jpg 
+Exif.Image.ExifTag                           Long        1  26
+Exif.Photo.DateTimeDigitized                 Ascii      20  2012:02:01 09:28:00
+Xmp.exif.DateTimeDigitized                   XmpText    25  2012-02-01T16:28:00+02:00
+</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4160" class="journal has-notes">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Aug 2015 16:12" href="/projects/exiv2/activity?from=2015-08-31">about 6 years</a> ago
+      <span id="journal-4160-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4160-notes" class="wiki"><p>Yuck, this is horrible.  I don't think this is a sensible feature - however it's been there a long time and we're stuck with it.  We shouldn't massage/manufacture anything.  Never.  We should report/update what's there.  I think there's a feedback loop in the code. xmpsidecar.cpp reads the XMP, then runs the convertors to <em>"manufacture fake"</em> Exif and Iptc data.<pre>        copyXmpToIptc(xmpData_, iptcData_);
+        copyXmpToExif(xmpData_, exifData_);
+    } // XmpSidecar::readMetadata</pre>I think, later on, we push the <em>"fake manufactured"</em> Exif data back to XML and loose the TZ information.</p>
+
+
+	<p>Sadly, it's still pouring and there will be no BBQ today.  I might as well keep working on this, it's more interesting than the rain.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4163" class="journal has-notes has-details">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Aug 2015 20:56" href="/projects/exiv2/activity?from=2015-08-31">about 6 years</a> ago
+      <span id="journal-4163-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> changed from <i>Alan Pater</i> to <i>Robin Mills</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>60</i></li>
+       <li><strong>Estimated time</strong> set to <i>30.00 h</i></li>
+    </ul>
+    <div id="journal-4163-notes" class="wiki"><p>There's no doubt that this puzzle is limited to sidecar XMP->Exif->XMP Date tags loosing their time-zone data.  The Exif Data is a 20 byte string without TZ data.</p>
+
+
+	<p>Alan is quite correct.  This has always occurred when the sidecar contains:<pre>exif:DateTimeDigitized="2012-02-01T16:28:00+02:00</pre>causes a new tag to appear:<pre>xmp:CreateDate="2012-02-01T16:20:00"</pre>Jakub is quite correct that <a class="changeset" title="add enums in riffvideo" href="/projects/exiv2/repository/exiv2/revisions/3696">r3696</a> has changed this tag:<pre>xmp:CreateDate="2012-02-01T16:28:00+02:00"</pre>to be rewritten as <pre>xmp:CreateDate="2012-02-01T16:20:00"</pre>The previous behaviour was to ignore xmp:CreateDate and it would pass unchanged.</p>
+
+
+	<p>Do we really need to fix this, Jakub?  I've spent about 12 hours on this and I'm wondering if this deserves more time.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4165" class="journal has-notes">
+    <div id="note-18">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-18" class="journal-link">#18</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="01 Sep 2015 02:56" href="/projects/exiv2/activity?from=2015-09-01">about 6 years</a> ago
+      <span id="journal-4165-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4165-notes" class="wiki"><p>The changes that occur when using the -eX and -iX flags are by design so they should stay as is. With issue <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Extend exif &lt;&gt; iptc &lt;&gt; xmp conversions (Assigned)" href="/issues/1050">#1050</a> I am hoping to make those conversions both more robust and fully compliant with MWG guidelines, including ensuring that data is never lost.</p>
+
+
+	<p>But I remain unsure that it is correct that the convert functions get triggered in this case. I don't think that is by design. It looks like an oversight.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4190" class="journal has-notes has-details">
+    <div id="note-19">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-19" class="journal-link">#19</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2015 20:24" href="/projects/exiv2/activity?from=2015-09-03">about 6 years</a> ago
+      <span id="journal-4190-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>60</i> to <i>90</i></li>
+    </ul>
+    <div id="journal-4190-notes" class="wiki"><p>Fix submitted: <a class="changeset" title="#1112.  Fix submitted.  Also added typedefs to datasets.hpp for Exiv2::Dictionary, Exiv2::StringS..." href="/projects/exiv2/repository/exiv2/revisions/3923">r3923</a>.  No side effects!  Passes test suite without changing anything in the test suite.</p>
+
+
+	<p>TODO:<br />Add regression detector with Jakub's to test suite.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4191" class="journal has-notes has-details">
+    <div id="note-20">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-20" class="journal-link">#20</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2015 20:37" href="/projects/exiv2/activity?from=2015-09-03">about 6 years</a> ago
+      <span id="journal-4191-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>90</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>30.00 h</i> to <i>15.00 h</i></li>
+    </ul>
+    <div id="journal-4191-notes" class="wiki"><p><a class="changeset" title="#1112.  Regression detector added to test/bugfixes-test.sh" href="/projects/exiv2/repository/exiv2/revisions/3924">r3924</a>.  Submitted regression detector.</p>
+
+
+	<p>I'm going to mark this resolved/100% for now and, if nothing else arises from this, this issue will be closed prior to shipping v0.26.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4391" class="journal has-details">
+    <div id="note-21">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-21" class="journal-link">#21</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Oct 2015 19:54" href="/projects/exiv2/activity?from=2015-10-13">about 6 years</a> ago
+      <span id="journal-4391-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1112.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1112.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+diff -urwEB /home/draekko/Perforce/bent_linux_m/exiv2-0.26/src/crwimage.cpp exiv2-0.26/src/crwimage.cpp
+--- /home/draekko/Perforce/bent_linux_m/exiv2-0.26/src/crwimage.cpp	2017-01-24 10:08:23.108332270 -0500
++++ exiv2-0.26/src/crwimage.cpp	2017-01-31 11:36:40.306101926 -0500
+@@ -133,6 +133,7 @@
+         clearMetadata();
+         // read all metadata into memory
+         // we should put this into clearMetadata(), however it breaks the test suite!
++#ifdef EXV_DO_PRINTSTRUCTURE_IN_CRW
+         try {
+             std::ofstream devnull;
+             printStructure(devnull,kpsRecursive,0);
+@@ -140,6 +141,10 @@
+             DataBuf file(io().size());
+             io_->read(file.pData_,file.size_);
+         }
++#else
++        DataBuf file(io().size());
++        io_->read(file.pData_,file.size_);
++#endif
+ 
+         CrwParser::decode(this, io_->mmap(), io_->size());
+ 

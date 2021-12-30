@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #836: writeMetadata() destroys resource fork on MacOS X for big files (&gt;1MB) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="+GDNXlmSj9MeVE3CxLjZasWmPQW+5TmsjNCz3Wjw0OkaLWaxK+hD00swUs57b9VZ+jRpfE8GmBZx8CNVK8k3hg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #836: writeMetadata() destroys resource fork on MacOS X for big files (&gt;1MB)" href="https://dev.exiv2.org/issues/836.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #836</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>writeMetadata() destroys resource fork on MacOS X for big files (&gt;1MB)</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="03 Aug 2012 07:07" href="/projects/exiv2/activity?from=2012-08-03">over 9 years</a> ago.
+        Updated <a title="24 Jul 2013 16:03" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/53">Andreas Huggel</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">basicio</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Jul 2013" href="/versions/50">0.24</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">03 Aug 2012</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Under MacOS X, if an image has a file size greater than 1MB, writeMetadata() destroys the image's resource fork.</p>
+
+
+	<p>This leads to all types of strange effects. One example, from a typical designer workflow: You save a file in Photoshop as EPS, and tell the MacOS X Finder to open that specific file with Photoshop rather than Illustator. You don't set this globally, as you only want Photoshop to (re-)open those EPS files originally created by Photoshop, and all other EPS files with a vector graphics tool such as Illustrator. If you then adjust the metadata using the Exiv2 library, the file no longer opens automatically with Photoshop, but with the standard vector tool. This happens because the information that you want to open that specific file with Photoshop was stored in the resource fork which has been destroyed by Exiv2.</p>
+
+
+	<p>Since files which are at most 1MB are written "in place", those don't suffer from the problem. However, a file greater than 1MB is written to a temp file (that has no resource fork), which is then moved (renamed) over the old file. That's why the resource fork is lost here.</p>
+
+
+	<p>This issue is partly connected with bug <a class="issue tracker-1 status-5 priority-5 priority-high3 closed" title="Bug: Exiv2 destroys hard links (Closed)" href="/issues/812">#812</a> (see also <a class="external" href="http://dev.exiv2.org/boards/3/topics/1103">http://dev.exiv2.org/boards/3/topics/1103</a>), where the "tempfile+move" mechanism destroyed hard links. However, although the solution of <a class="issue tracker-1 status-5 priority-5 priority-high3 closed" title="Bug: Exiv2 destroys hard links (Closed)" href="/issues/812">#812</a> would also be applicable here, I don't think it is a good idea to use the "in place" mechanism for all files under MacOS X. That would lead to huge memory consumption when writing metadata to big image files.</p>
+
+
+	<p>Instead, the temporary file mechanism of <code>BasicIo::temporary()</code> should be improved to copy the original file's <strong>extended attributes</strong> (which contain the resource fork, among others) into the newly created temporary file.</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/836" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="LUH86AHgmFRvgb1fQx83Qsw22njL9Fk5qJuSbORCVIHPDFcHc5pUVDrlolP8yDtx86SOAToX+INVuwLkp3uz7g==" />
+  <table class="list issues odd-even"><tr id="relation-97" class="issue hascontextmenu issue tracker-1 status-2 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="910" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-2 priority-4 priority-default" href="/issues/910">Bug #910</a>: Bug #836 possibly reintroduced: writeMetadata() destroys resource fork on MacOS X for big files (&gt;1MB)</td><td class="status">Assigned</td><td class="start_date">25 Jul 2013</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/836/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=836&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2794" href="/projects/exiv2/repository/exiv2/revisions/2794">Revision 2794</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2794/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="03 Aug 2012 07:44" href="/projects/exiv2/activity?from=2012-08-03">over 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: writeMetadata() destroys resource fork on MacOS X for big files (&gt;1MB) (Closed)" href="/issues/836">#836</a>: Add test case (currently failing on MacOS X)</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2795" href="/projects/exiv2/repository/exiv2/revisions/2795">Revision 2795</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2795/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="03 Aug 2012 07:49" href="/projects/exiv2/activity?from=2012-08-03">over 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: writeMetadata() destroys resource fork on MacOS X for big files (&gt;1MB) (Closed)" href="/issues/836">#836</a>: Improve test case</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2796" href="/projects/exiv2/repository/exiv2/revisions/2796">Revision 2796</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2796/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="03 Aug 2012 09:21" href="/projects/exiv2/activity?from=2012-08-03">over 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: writeMetadata() destroys resource fork on MacOS X for big files (&gt;1MB) (Closed)" href="/issues/836">#836</a>: Copy over xattr (extended attributes, such as resource forks) when creating temporary files</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2187" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="03 Aug 2012 07:11" href="/projects/exiv2/activity?from=2012-08-03">over 9 years</a> ago
+      <span id="journal-2187-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2187-notes" class="wiki"><p>This idea could be generalized further to preserve not just the extended attributes of MacOS X, but also of Linux, FreeBSD and others. However, preserving the MacOS X extended attributes is currently the most pressing need. So I opened that as a separate feature request: <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Preserve xattrs (extended attributes) of files not just for MacOS X (Closed)" href="/issues/837">#837</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2189" class="journal has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="03 Aug 2012 07:53" href="/projects/exiv2/activity?from=2012-08-03">over 9 years</a> ago
+      <span id="journal-2189-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Volker Grabsch</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>20</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2190" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="03 Aug 2012 09:26" href="/projects/exiv2/activity?from=2012-08-03">over 9 years</a> ago
+      <span id="journal-2190-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Feedback</i></li>
+       <li><strong>Assignee</strong> changed from <i>Volker Grabsch</i> to <i>Andreas Huggel</i></li>
+       <li><strong>% Done</strong> changed from <i>20</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-2190-notes" class="wiki"><p>I just fixed this issue and added a test case for it.</p>
+
+
+	<p>This mechanism could have been added to <code>FileIo::temporary()</code> as well as <code>FileIo::transfer()</code>. I decided to add it to <code>FileIo::temporary()</code>.</p>
+
+
+	<p>@Andreas: Please check if my solution makes sense to you.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2586" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 16:03" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2586-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Feedback</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-2586-notes" class="wiki"><p>Fixed in 0.4.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/836.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/836.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

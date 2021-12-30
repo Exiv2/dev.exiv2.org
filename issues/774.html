@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #774: &quot;exiv2 -eX&quot; followed by &quot;exiv2 -iX&quot; produces invalid XMP metadata packet - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="T3xuKxYnwG6WcKZa75lkpm26XcoaDjUpAsRBryCOr5atMcXEZF0MbsMUuVZQTmiVUigJs+vtlJP/5NEnY7dI+Q==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #774: &quot;exiv2 -eX&quot; followed by &quot;exiv2 -iX&quot; produces invalid XMP metadata packet" href="https://dev.exiv2.org/issues/774.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #774</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+    <div class="next-prev-links contextual">
+      <a title="#776" accesskey="p" href="/issues/776">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;f%5B%5D=author_id&amp;op%5Bauthor_id%5D=%3D&amp;op%5Bstatus_id%5D=%2A&amp;page=1&amp;per_page=100&amp;set_filter=1&amp;sort=id%3Adesc&amp;v%5Bauthor_id%5D%5B%5D=206&amp;v%5Bstatus_id%5D%5B%5D=">9 of 13</a>
+        </span> |
+      <a title="#767" accesskey="n" href="/issues/767">Next »</a>
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>&quot;exiv2 -eX&quot; followed by &quot;exiv2 -iX&quot; produces invalid XMP metadata packet</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="30 May 2011 06:18" href="/projects/exiv2/activity?from=2011-05-30">over 10 years</a> ago.
+        Updated <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/4035">Alan Pater</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">xmp</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">30 May 2011</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>For any image "test.jpg" that contains XMP metadata, the following sequence of commands will corrupt the XMP:</p>
+
+
+<pre>
+exiv2 -eX test.jpg
+exiv2 -iX test.jpg
+</pre>
+
+	<p>This happens with all image formats in exiv2-trunk as well as exiv2-0.21.1, and older versions. The problem is that these commands make different assumptions about the exact file format of the XMP sidecar file "test.xmp".</p>
+
+
+	<p>The first command "exiv2 -eX" reads the XMP metadata and modifies it before writing to "test.xmp". That is, it removes the beginning and trailing <code><?xpacket ...?></code> processing instructions, and prepends an <code><?xml ...?></code> processing instruction instead. (It also adds metadata from IPTC to XMP, but this seems to be irrelevant for this issue.)</p>
+
+
+	<p>The second command "exiv2 -iX", however, embeds the "test.xmp" file as is, without restoring the <code><?xpacket ...?></code> processing instructions. Thus, the "test.jpg" will contain invalid XMP metadata.</p>
+
+
+	<p>In summary, "exiv2 -iX" expects "test.xmp" to be identical to the XMP block in the image file:</p>
+
+
+<pre>
+&lt;?xpacket begin=...?&gt;
+&lt;x:xmpmeta ...&gt;
+  ...
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+</pre>
+
+	<p>while "exiv2 -eX" produces a slightly modified format:</p>
+
+
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;x:xmpmeta ...&gt;
+  ...
+&lt;/x:xmpmeta&gt;
+</pre>
+
+	<p>Shouldn't both commands agree on one file format? This would avoid unpleasant surprises.</p>
+
+
+	<p>Note that the corrupted file is usually still readable with Exiv2, but technically incorrect because of the missing  <code><?xpacket ...?></code> processing instructions. This may lead to problems with other tools, as well as problems with the upcoming EPS support, which will depend on valid <code><?xpacket ...?></code> processing instructions as specified in the XMP spec.</p>
+
+
+	<p>Currently, the only workaround is to embed the XMP metadata via "exiv2 -ix" instead of "exiv2 -iX". However, it would be much better if the produced XMP sidecar file would be directly usable by "exiv2 -iX".</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/752">xmpsidecar.changes</a>    <span class="size">(1.04 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/752/xmpsidecar.changes">xmpsidecar.changes</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Alan Pater, 07 Apr 2015 03:00</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/753">774.exiv2.eX.xmp</a>    <span class="size">(455 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/753/774.exiv2.eX.xmp">774.exiv2.eX.xmp</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Alan Pater, 07 Apr 2015 03:00</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/754">774.exiv2.pX.xmp</a>    <span class="size">(2.42 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/754/774.exiv2.pX.xmp">774.exiv2.pX.xmp</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Alan Pater, 07 Apr 2015 03:00</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3662" href="/projects/exiv2/repository/exiv2/revisions/3662">Revision 3662</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3662/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Apr 2015 21:32" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: &quot;exiv2 -eX&quot; followed by &quot;exiv2 -iX&quot; produces invalid XMP metadata packet (Closed)" href="/issues/774">#774</a>.  Thanks to Alan for resolving this matter and providing the patch.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3670" href="/projects/exiv2/repository/exiv2/revisions/3670">Revision 3670</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3670/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Apr 2015 17:48" href="/projects/exiv2/activity?from=2015-04-10">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: &quot;exiv2 -eX&quot; followed by &quot;exiv2 -iX&quot; produces invalid XMP metadata packet (Closed)" href="/issues/774">#774</a>.  Fix MSVC compiler warning.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3367" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="06 Apr 2015 21:50" href="/projects/exiv2/activity?from=2015-04-06">over 6 years</a> ago
+      <span id="journal-3367-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3367-notes" class="wiki"><p>Confirmed using exiv2 trunk <a class="changeset" title="#1040 doc template for mwg-kw schema" href="/projects/exiv2/repository/exiv2/revisions/3657">r3657</a>. The new -pX method of generating an XMP file produces a standard format.</p>
+
+
+	<p><sub>$ exiv2 -eX <pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+</pre><br /></sub>$ exiv2 -pX <pre>
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt; 
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3371" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Apr 2015 22:37" href="/projects/exiv2/activity?from=2015-04-06">over 6 years</a> ago
+      <span id="journal-3371-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Alan Pater</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    <div id="journal-3371-notes" class="wiki"><p>Alan</p>
+
+
+	<p>Volker is a very good engineer and contributed the Exiv2 EPS support.  A tough project on which he worked very hard. I think Volker's identified the problem accurately - we are not being consistent on -eX (export XMP) and -iX (import XMP).  Clearly this isn't correct.  And you and I have been discussing a "roundtrip" option to extract/import.</p>
+
+
+	<p>I'm going to assign this to you for v0.26.  It's been broken for 4 years without anybody else mentioning this.  So waiting a while longer can't hurt any more!  I'm hoping to find somebody to help you with the C++ for the XML stuff, and otherwise, I'll fix the code.  You can remind me when I have more time and you have time to verify my fix.</p>
+
+
+	<p>A word of clarification about the -pX option.  It doesn't "generate" xmp.  It extracts the raw xmp data from the image file.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3372" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="07 Apr 2015 02:04" href="/projects/exiv2/activity?from=2015-04-07">over 6 years</a> ago
+      <span id="journal-3372-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3372-notes" class="wiki"><p>Thanks Robin. I stand corrected on -pX not generating the XMP. It was, however, generated by exiv2. Rather then an existing image taken "in the wild", so to speak, I created a clean test image using imagemagick and then wrote a single xmp key to that image using exiv2 -M. So it was writing from that exiv2 command which generated the valid xmp header:<pre> &lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt; </pre> I found Volker's work on EPS support and see that he is very explicit and clear on valid XMP headers. It looks to me that the invalid xmp header comes from xmpsidecar.cpp. I will test locally with Volker's valid xmp header and see if I can generate a valid xmp sidecar.</p>
+
+
+	<p>I have looked at xmp headers from a variety of images written from a variety  applications and they all show variations of Volker's valid xmp headers.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3373" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="07 Apr 2015 02:36" href="/projects/exiv2/activity?from=2015-04-07">over 6 years</a> ago
+      <span id="journal-3373-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <i>xmpsidecar.changes</i> added</li>
+       <li><strong>File</strong> <i>774.exiv2.xmp</i> added</li>
+    </ul>
+    <div id="journal-3373-notes" class="wiki"><p>I changed the xmlHeader in xmpsidecar.cpp to a valid header and my simple test was successful. exiv2 -eX wrote the valid xmp header. Can someone suggest further tests? I would like to be sure that something was not missed and that this change won't have any undesirable effects.</p>
+
+
+	<p>I'll submit a real patch once we are sure that I haven't broken anything.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3374" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="07 Apr 2015 02:55" href="/projects/exiv2/activity?from=2015-04-07">over 6 years</a> ago
+      <span id="journal-3374-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> deleted (<del><i>xmpsidecar.changes</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3375" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="07 Apr 2015 02:55" href="/projects/exiv2/activity?from=2015-04-07">over 6 years</a> ago
+      <span id="journal-3375-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> deleted (<del><i>774.exiv2.xmp</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3376" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="07 Apr 2015 03:00" href="/projects/exiv2/activity?from=2015-04-07">over 6 years</a> ago
+      <span id="journal-3376-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/752">xmpsidecar.changes</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/752/xmpsidecar.changes">xmpsidecar.changes</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/753">774.exiv2.eX.xmp</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/753/774.exiv2.eX.xmp">774.exiv2.eX.xmp</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/754">774.exiv2.pX.xmp</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/754/774.exiv2.pX.xmp">774.exiv2.pX.xmp</a> added</li>
+    </ul>
+    <div id="journal-3376-notes" class="wiki"><p>Forget the footer: <?xpacket end="w"?> string.</p>
+
+
+	<p>Apart from whitespace, both xmp files are now the same.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3381" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Apr 2015 21:35" href="/projects/exiv2/activity?from=2015-04-08">over 6 years</a> ago
+      <span id="journal-3381-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> changed from <i>Alan Pater</i> to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>0.25</i></li>
+    </ul>
+    <div id="journal-3381-notes" class="wiki"><p>Submitted <a class="changeset" title="#774.  Thanks to Alan for resolving this matter and providing the patch." href="/projects/exiv2/repository/exiv2/revisions/3662">r3662</a>.  Thanks to Alan for resolving this matter and providing the patch.</p>
+
+
+	<p>I'm going to assign this to myself to add a regression detector to test/bugfixes.sh.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3385" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="09 Apr 2015 07:47" href="/projects/exiv2/activity?from=2015-04-09">over 6 years</a> ago
+      <span id="journal-3385-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3385-notes" class="wiki"><p>It's nice to see that old issue finally fixed!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3386" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Apr 2015 07:56" href="/projects/exiv2/activity?from=2015-04-09">over 6 years</a> ago
+      <span id="journal-3386-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3386-notes" class="wiki"><p>Volker</p>
+
+
+	<p>How nice to hear from you.  I hope you are well.  I'm very pleased to say that your code is working perfectly.  I can't recall anybody reporting any issue with it.</p>
+
+
+	<p>I retired in April 2014 and Alison and I have returned to our 'old' home in England after 14+ years in Silicon Valley.  Very happy to be home.</p>
+
+
+	<p>Exiv2 is very active.  Too much to do and not enough hands!  I've been joined by Alan and he's a very enthusiastic XMP kind of guy.  He doesn't do C++, however he most certainly knows things that I don't.  He's working through old issues and dealing with stuff that's been ignored.  I've still got your extended attributes to fix and although I feel guilty - there's always something that seems more important!</p>
+
+
+	<p>Right.  I hope everything's good with you.  Regards to Michael.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3392" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Apr 2015 14:25" href="/projects/exiv2/activity?from=2015-04-10">over 6 years</a> ago
+      <span id="journal-3392-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>Assignee</strong> changed from <i>Robin Mills</i> to <i>Alan Pater</i></li>
+    </ul>
+    <div id="journal-3392-notes" class="wiki"><p>Fix submitted: <a class="changeset" title="#1053.  Changes to test/data reference files to respect modified output." href="/projects/exiv2/repository/exiv2/revisions/3669">r3669</a>.  I'm going to mark this "resolved" as there is a regression detector already in place.  I'm going to assign this to Alan to be sure he gets the credit in the v0.25 release notes.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3628" class="journal has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="08 May 2015 16:21" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3628-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3905" class="journal has-details">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3905-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/774.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/774.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

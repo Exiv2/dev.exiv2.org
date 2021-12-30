@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>0003-exif-convert-metadata-store-from-std-vector-to-std-m.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="lktgk5fJDLJ/TQqYefZRg5PrNtUM/7jVjt5mIL9UX290Bst85bPAsiopFZTGIV2wrHlirP0cGW9z/vao/G24AA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/versions.html">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/624/0003-exif-convert-metadata-store-from-std-vector-to-std-m.patch">Download (7.31 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-4 status-1 priority-4 priority-default" title="Back metadata by map instead of vector" href="/issues/967">Patch #967</a> » 0003-exif-convert-metadata-store-from-std-vector-to-std-m.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/4173">Michael Pratt</a>, 05 Jul 2014 19:14</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/624/0003-exif-convert-metadata-store-from-std-vector-to-std-m.patch" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/exif.cpp
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">61</th>
+  <th class="line-num">61</th>
+  <td class="line-code ">
+    <pre>// *****************************************************************************</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">62</th>
+  <th class="line-num">62</th>
+  <td class="line-code ">
+    <pre>namespace {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">63</th>
+  <th class="line-num">63</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">64</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    //! Unary predicate that matches a Exifdatum with a given key</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">65</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    class FindExifdatumByKey {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">66</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    public:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">67</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        //! Constructor, initializes the object with the key to look for</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">68</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        FindExifdatumByKey(const std::string&amp; key) : key_(key) {}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">69</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">70</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>          @brief Returns true if the key of \em exifdatum is equal</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">71</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                 to that of the object.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">72</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">73</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        bool operator()(const Exiv2::Exifdatum&amp; exifdatum) const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">74</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">75</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            return key_ == exifdatum.key();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">76</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">77</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">78</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    private:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">79</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        const std::string&amp; key_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">80</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">81</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    }; // class FindExifdatumByKey</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">82</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">83</th>
+  <th class="line-num">64</th>
+  <td class="line-code ">
+    <pre>    /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">84</th>
+  <th class="line-num">65</th>
+  <td class="line-code ">
+    <pre>      @brief Exif %Thumbnail image. This abstract base class provides the</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">85</th>
+  <th class="line-num">66</th>
+  <td class="line-code ">
+    <pre>             interface for the thumbnail image that is optionally embedded in</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">317</th>
+  <th class="line-num">298</th>
+  <td class="line-code ">
+    <pre>        return value_.get() == 0 ? -1 : value_-&gt;setDataArea(buf, len);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">318</th>
+  <th class="line-num">299</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">319</th>
+  <th class="line-num">300</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">301</th>
+  <td class="line-code diff_in">
+    <pre>    const ExifKey&amp; Exifdatum::exifKey() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">302</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">303</th>
+  <td class="line-code diff_in">
+    <pre>        if (key_.get() == 0) throw Error(8);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">304</th>
+  <td class="line-code diff_in">
+    <pre>        return *key_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">305</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">306</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">320</th>
+  <th class="line-num">307</th>
+  <td class="line-code ">
+    <pre>    std::string Exifdatum::key() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">321</th>
+  <th class="line-num">308</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">322</th>
+  <th class="line-num">309</th>
+  <td class="line-code ">
+    <pre>        return key_.get() == 0 ? &quot;&quot; : key_-&gt;key();</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">562</th>
+  <th class="line-num">549</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">563</th>
+  <th class="line-num">550</th>
+  <td class="line-code ">
+    <pre>    Exifdatum&amp; ExifData::operator[](const std::string&amp; key)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">564</th>
+  <th class="line-num">551</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">565</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        ExifKey exifKey(key);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">566</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        iterator pos = findKey(exifKey);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">567</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (pos == end()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">568</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            add(Exifdatum(exifKey));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">569</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            pos = findKey(exifKey);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">552</th>
+  <td class="line-code diff_in">
+    <pre>        ExifKey k = ExifKey(key);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">553</th>
+  <td class="line-code diff_in">
+    <pre>        ExifMetadata::iterator it = exifMetadata_.find(k);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">554</th>
+  <td class="line-code diff_in">
+    <pre>        if (it != exifMetadata_.end()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">555</th>
+  <td class="line-code diff_in">
+    <pre>            return it-&gt;second;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">570</th>
+  <th class="line-num">556</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">571</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return *pos;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">557</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">558</th>
+  <td class="line-code diff_in">
+    <pre>        add(Exifdatum(k));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">559</th>
+  <td class="line-code diff_in">
+    <pre>        return (*this)[key];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">572</th>
+  <th class="line-num">560</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">573</th>
+  <th class="line-num">561</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">574</th>
+  <th class="line-num">562</th>
+  <td class="line-code ">
+    <pre>    void ExifData::add(const ExifKey&amp; key, const Value* pValue)</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">579</th>
+  <th class="line-num">567</th>
+  <td class="line-code ">
+    <pre>    void ExifData::add(const Exifdatum&amp; exifdatum)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">580</th>
+  <th class="line-num">568</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">581</th>
+  <th class="line-num">569</th>
+  <td class="line-code ">
+    <pre>        // allow duplicates</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">582</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        exifMetadata_.<span>push_back(exifdatum</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">570</th>
+  <td class="line-code diff_in">
+    <pre>        exifMetadata_.<span>insert(std::make_pair(exifdatum.exifKey(), exifdatum)</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">583</th>
+  <th class="line-num">571</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">584</th>
+  <th class="line-num">572</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">585</th>
+  <th class="line-num">573</th>
+  <td class="line-code ">
+    <pre>    ExifData::const_iterator ExifData::findKey(const ExifKey&amp; key) const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">586</th>
+  <th class="line-num">574</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">587</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return std::find_if(exifMetadata_.begin(), exifMetadata_.end(),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">588</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                            FindExifdatumByKey(key.key()));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">575</th>
+  <td class="line-code diff_in">
+    <pre>        return exifMetadata_.find(key);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">589</th>
+  <th class="line-num">576</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">590</th>
+  <th class="line-num">577</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">591</th>
+  <th class="line-num">578</th>
+  <td class="line-code ">
+    <pre>    ExifData::iterator ExifData::findKey(const ExifKey&amp; key)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">592</th>
+  <th class="line-num">579</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">593</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return std::find_if(exifMetadata_.begin(), exifMetadata_.end(),</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">594</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                            FindExifdatumByKey(key.key()));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">580</th>
+  <td class="line-code diff_in">
+    <pre>        return exifMetadata_.find(key);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">595</th>
+  <th class="line-num">581</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">596</th>
+  <th class="line-num">582</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">597</th>
+  <th class="line-num">583</th>
+  <td class="line-code ">
+    <pre>    void ExifData::clear()</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">601</th>
+  <th class="line-num">587</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">602</th>
+  <th class="line-num">588</th>
+  <td class="line-code ">
+    <pre>    void ExifData::sortByKey()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">603</th>
+  <th class="line-num">589</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">604</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        <span>exifMetadata_.sort(cmpMetadataByKey);</span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">590</th>
+  <td class="line-code diff_in">
+    <pre>        <span>// map is sorted by ifdId then tag</span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">605</th>
+  <th class="line-num">591</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">606</th>
+  <th class="line-num">592</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">607</th>
+  <th class="line-num">593</th>
+  <td class="line-code ">
+    <pre>    void ExifData::sortByTag()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">608</th>
+  <th class="line-num">594</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">609</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        <span>exifMetadata_.sort(cmpMetadataByTag);</span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">595</th>
+  <td class="line-code diff_in">
+    <pre>        <span>// map is already sorted by ifdId then tag</span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">610</th>
+  <th class="line-num">596</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">611</th>
+  <th class="line-num">597</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">612</th>
+  <th class="line-num">598</th>
+  <td class="line-code ">
+    <pre>    ExifData::iterator ExifData::erase(ExifData::iterator beg, ExifData::iterator end)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">613</th>
+  <th class="line-num">599</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">614</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return exifMetadata_.erase(beg, end);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">600</th>
+  <td class="line-code diff_in">
+    <pre>        ExifData::iterator next = end;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">601</th>
+  <td class="line-code diff_in">
+    <pre>        next++;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">602</th>
+  <td class="line-code diff_in">
+    <pre>        exifMetadata_.erase(beg.it, end.it);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">603</th>
+  <td class="line-code diff_in">
+    <pre>        return next;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">615</th>
+  <th class="line-num">604</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">616</th>
+  <th class="line-num">605</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">617</th>
+  <th class="line-num">606</th>
+  <td class="line-code ">
+    <pre>    ExifData::iterator ExifData::erase(ExifData::iterator pos)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">618</th>
+  <th class="line-num">607</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">619</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return exifMetadata_.erase(pos);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">608</th>
+  <td class="line-code diff_in">
+    <pre>        ExifData::iterator next = pos;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">609</th>
+  <td class="line-code diff_in">
+    <pre>        next++;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">610</th>
+  <td class="line-code diff_in">
+    <pre>        exifMetadata_.erase(pos.it);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">611</th>
+  <td class="line-code diff_in">
+    <pre>        return next;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">620</th>
+  <th class="line-num">612</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">621</th>
+  <th class="line-num">613</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">622</th>
+  <th class="line-num">614</th>
+  <td class="line-code ">
+    <pre>    ByteOrder ExifParser::decode(</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/exif.hpp
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">156</th>
+  <th class="line-num">156</th>
+  <td class="line-code ">
+    <pre>        //@{</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">157</th>
+  <th class="line-num">157</th>
+  <td class="line-code ">
+    <pre>        //! Return the key of the %Exifdatum.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">158</th>
+  <th class="line-num">158</th>
+  <td class="line-code ">
+    <pre>        std::string key() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">159</th>
+  <td class="line-code diff_in">
+    <pre>        const ExifKey&amp; exifKey() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">159</th>
+  <th class="line-num">160</th>
+  <td class="line-code ">
+    <pre>        const char* familyName() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">160</th>
+  <th class="line-num">161</th>
+  <td class="line-code ">
+    <pre>        std::string groupName() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">161</th>
+  <th class="line-num">162</th>
+  <td class="line-code ">
+    <pre>        std::string tagName() const;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">421</th>
+  <th class="line-num">422</th>
+  <td class="line-code ">
+    <pre>    }; // class ExifThumb</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">422</th>
+  <th class="line-num">423</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">423</th>
+  <th class="line-num">424</th>
+  <td class="line-code ">
+    <pre>    //! Container type to hold all metadata</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">424</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    typedef std::<span>list&lt;</span>Exifdatum&gt; ExifMetadata;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">425</th>
+  <td class="line-code diff_in">
+    <pre>    typedef std::<span>multimap&lt;ExifKey, </span>Exifdatum&gt; ExifMetadata;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">425</th>
+  <th class="line-num">426</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">426</th>
+  <th class="line-num">427</th>
+  <td class="line-code ">
+    <pre>    /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">427</th>
+  <th class="line-num">428</th>
+  <td class="line-code ">
+    <pre>      @brief A container for Exif data.  This is a top-level class of the %Exiv2</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">438</th>
+  <th class="line-num">439</th>
+  <td class="line-code ">
+    <pre>    class EXIV2API ExifData {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">439</th>
+  <th class="line-num">440</th>
+  <td class="line-code ">
+    <pre>    public:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">440</th>
+  <th class="line-num">441</th>
+  <td class="line-code ">
+    <pre>        //! ExifMetadata iterator type</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">441</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        typedef <span>ExifMetadata::iterator</span> iterator;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">442</th>
+  <td class="line-code diff_in">
+    <pre>        typedef <span>map_value_iterator&lt;ExifMetadata, ExifMetadata::iterator&gt;</span> iterator;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">442</th>
+  <th class="line-num">443</th>
+  <td class="line-code ">
+    <pre>        //! ExifMetadata const iterator type</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">443</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        typedef <span>ExifMetadata::const_iterator</span> const_iterator;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">444</th>
+  <td class="line-code diff_in">
+    <pre>        typedef <span>map_value_iterator&lt;ExifMetadata, ExifMetadata::const_iterator, const typename ExifMetadata::const_iterator::value_type::second_type&gt;</span> const_iterator;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">444</th>
+  <th class="line-num">445</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">445</th>
+  <th class="line-num">446</th>
+  <td class="line-code ">
+    <pre>        //! @name Manipulators</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">446</th>
+  <th class="line-num">447</th>
+  <td class="line-code ">
+    <pre>        //@{</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">486</th>
+  <th class="line-num">487</th>
+  <td class="line-code ">
+    <pre>                 Note that this also removes thumbnails.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">487</th>
+  <th class="line-num">488</th>
+  <td class="line-code ">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">488</th>
+  <th class="line-num">489</th>
+  <td class="line-code ">
+    <pre>        void clear();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">489</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        //! Sort metadata by key</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">490</th>
+  <td class="line-code diff_in">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">491</th>
+  <td class="line-code diff_in">
+    <pre>          @deprecated Exif metadata is always kept sorted by IfdId, then tag.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">492</th>
+  <td class="line-code diff_in">
+    <pre>                This method is a no-op.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">493</th>
+  <td class="line-code diff_in">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">490</th>
+  <th class="line-num">494</th>
+  <td class="line-code ">
+    <pre>        void sortByKey();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">491</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        //! Sort metadata by tag</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">495</th>
+  <td class="line-code diff_in">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">496</th>
+  <td class="line-code diff_in">
+    <pre>          @deprecated Exif metadata is always kept sorted by IfdId, then tag.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">497</th>
+  <td class="line-code diff_in">
+    <pre>                This method is a no-op.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">498</th>
+  <td class="line-code diff_in">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">492</th>
+  <th class="line-num">499</th>
+  <td class="line-code ">
+    <pre>        void sortByTag();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">493</th>
+  <th class="line-num">500</th>
+  <td class="line-code ">
+    <pre>        //! Begin of the metadata</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">494</th>
+  <th class="line-num">501</th>
+  <td class="line-code ">
+    <pre>        iterator begin() { return exifMetadata_.begin(); }</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/tags.cpp
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">3036</th>
+  <th class="line-num">3036</th>
+  <td class="line-code ">
+    <pre>        return *this;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">3037</th>
+  <th class="line-num">3037</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">3038</th>
+  <th class="line-num">3038</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">3039</th>
+  <td class="line-code diff_in">
+    <pre>    bool ExifKey::operator&lt;(const ExifKey&amp; b) const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">3040</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">3041</th>
+  <td class="line-code diff_in">
+    <pre>        if (this-&gt;ifdId() != b.ifdId()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">3042</th>
+  <td class="line-code diff_in">
+    <pre>            return this-&gt;ifdId() &lt; b.ifdId();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">3043</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">3044</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">3045</th>
+  <td class="line-code diff_in">
+    <pre>        return this-&gt;tag() &lt; b.tag();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">3046</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">3047</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">3039</th>
+  <th class="line-num">3048</th>
+  <td class="line-code ">
+    <pre>    void ExifKey::setIdx(int idx)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">3040</th>
+  <th class="line-num">3049</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">3041</th>
+  <th class="line-num">3050</th>
+  <td class="line-code ">
+    <pre>        p_-&gt;idx_ = idx;</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/tags.hpp
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">192</th>
+  <th class="line-num">192</th>
+  <td class="line-code ">
+    <pre>          @brief Assignment operator.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">193</th>
+  <th class="line-num">193</th>
+  <td class="line-code ">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">194</th>
+  <th class="line-num">194</th>
+  <td class="line-code ">
+    <pre>        ExifKey&amp; operator=(const ExifKey&amp; rhs);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">195</th>
+  <td class="line-code diff_in">
+    <pre>        //! Comparison operator.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">196</th>
+  <td class="line-code diff_in">
+    <pre>        bool operator&lt;(const ExifKey&amp; b) const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">195</th>
+  <th class="line-num">197</th>
+  <td class="line-code ">
+    <pre>        //! Set the index.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">196</th>
+  <th class="line-num">198</th>
+  <td class="line-code ">
+    <pre>        void setIdx(int idx);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">197</th>
+  <th class="line-num">199</th>
+  <td class="line-code ">
+    <pre>        //@}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">198</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>- </pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"><li class="previous page"><a href="/attachments/623/0002-xmp-convert-metadata-store-from-std-vector-to-std-mu.patch">« Previous</a></li><li class="page"><a href="/attachments/620/20140515-Yosemite-2233.jpg">1</a></li><li class="spacer"><span>&hellip;</span></li><li class="page"><a href="/attachments/622/0001-types-Add-map_value_iterator.patch">3</a></li><li class="page"><a href="/attachments/623/0002-xmp-convert-metadata-store-from-std-vector-to-std-mu.patch">4</a></li><li class="current"><span>5</span></li><li class="page"><a href="/attachments/625/0004-iptc-convert-metadata-store-from-std-vector-to-std-m.patch">6</a></li><li class="page"><a href="/attachments/626/bench.cpp">7</a></li><li class="next page"><a href="/attachments/625/0004-iptc-convert-metadata-store-from-std-vector-to-std-m.patch">Next »</a></li></ul><span><span class="items">(5-5/7)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

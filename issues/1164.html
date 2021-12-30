@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1164: exiv2 tool crash with bad canon raw file - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="KNi0/RZYC6im+dIxLvd/vq4GKb1IqUO/CQBHKhoZ9HHKlR8SZCLHqPOdzT2RIHONkZR9xLlK4gX0INeiWSATHg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1164: exiv2 tool crash with bad canon raw file" href="https://dev.exiv2.org/issues/1164.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1164</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>exiv2 tool crash with bad canon raw file</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4632">Nicolas THOMASSON</a> <a title="02 Mar 2016 08:56" href="/projects/exiv2/activity?from=2016-03-02">over 5 years</a> ago.
+        Updated <a title="24 Apr 2016 06:06" href="/projects/exiv2/activity?from=2016-04-24">over 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">metadata</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">02 Mar 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Running exiv2 tool with the attached bad file crashes. This file was corrupted by an interrupted copy.</p>
+
+
+	<p>exiv2 version : 0.25 001900 (64 bit build)</p>
+
+
+	<p>$ exiv2 -v crw_3888.crw <br />File 1/1: crw_3888.crw <br />Segmentation fault (core dumped)</p>
+
+
+	<p>Originally I had this problem in dikikam. Someone at Digikam was able to generate this backtrace and therefore we think it comes from the exiv2 library :</p>
+
+
+	<p>Thread 1 (Thread 0x7f54e39bda40 (LWP 10870)): <br />[KCrash Handler]<br />#6 0x00007f55098f1718 in Exiv2::getUShort(unsigned char const*, Exiv2::ByteOrder) (buf=buf@entry=0x7f55d4019019 &lt;error: Cannot access memory at address 0x7f55d4019019&gt;, byteOrder=byteOrder@entry=Exiv2::littleEndian) at types.cpp:236 <br />#7 0x00007f5509855fc4 in Exiv2::Internal::CiffDirectory::readDirectory(unsigned char const*, unsigned int, Exiv2::ByteOrder) (this=0x1d89e90, pData=0x7f54d401901a "", size=1277926, byteOrder=Exiv2::littleEndian) at crwimage.cpp:452 <br />#8 0x00007f5509856327 in Exiv2::Internal::CiffHeader::read(unsigned char const*, unsigned int) (this=this@entry=0x1d89e60, pData=pData@entry=0x7f54d4019000 "II\032", size=size@entry=1277952) at crwimage.cpp:391 <br />#9 0x00007f5509856481 in Exiv2::CrwParser::decode(Exiv2::CrwImage*, unsigned char const*, unsigned int) (pCrwImage=pCrwImage@entry=0x1d89d90, pData=0x7f54d4019000 "II\032", size=size@entry=1277952) at crwimage.cpp:177 <br />#10 0x00007f55098566cd in Exiv2::CrwImage::readMetadata() (this=0x1d89d90) at crwimage.cpp:134 <br />#11 0x00007f550cf59e75 in Digikam::MetaEngine::load(QString const&#38;) const (this=0x7ffc08993850, filePath=...) at /home/gilles/Devel/5.x/core/libs/dmetadata/metaengine.cpp:283</p>
+
+
+	<p>Please ask if you need the original uncorrupted file.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/971">crw_3888.crw</a>    <span class="size">(1.22 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/971/crw_3888.crw">crw_3888.crw</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Nicolas THOMASSON, 02 Mar 2016 08:56</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/972">exiv2.cpp</a>    <span class="size">(50 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/972/exiv2.cpp">exiv2.cpp</a>  </td>
+  <td>Added a signal handler</td>
+  <td>
+      <span class="author">Nicolas THOMASSON, 02 Mar 2016 13:35</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/973">CMakeLists.txt</a>    <span class="size">(10.2 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/973/CMakeLists.txt">CMakeLists.txt</a>  </td>
+  <td>Quick and dirty modification of the flags</td>
+  <td>
+      <span class="author">Nicolas THOMASSON, 02 Mar 2016 13:35</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4210" href="/projects/exiv2/repository/exiv2/revisions/4210">Revision 4210</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4210/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Mar 2016 21:43" href="/projects/exiv2/activity?from=2016-03-02">over 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 tool crash with bad canon raw file (Closed)" href="/issues/1164">#1164</a>.  Fix submitted.  Thank you Nicolas and Gilles for reporting this.  More comments in the issue report.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4819" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Mar 2016 09:40" href="/projects/exiv2/activity?from=2016-03-02">over 5 years</a> ago
+      <span id="journal-4819-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>not-a-bug</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Closed</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-4819-notes" class="wiki"><p>Nothing can be done about this.  DigiKam has to use an interrupt handler to catch this situation.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4820" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4632">Nicolas THOMASSON</a> <a title="02 Mar 2016 11:02" href="/projects/exiv2/activity?from=2016-03-02">over 5 years</a> ago
+      <span id="journal-4820-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4820-notes" class="wiki"><p>Hi,</p>
+
+
+	<p>I still think there is something wrong somewhere because the exiv2 tool crash as well (and it is not related to digikam). Please correct me if I am wrong but there is likely something to correct somewhere, either in exiv2 executable or either in the exiv2 library.</p>
+
+
+	<p>Nicolas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4821" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Mar 2016 11:08" href="/projects/exiv2/activity?from=2016-03-02">over 5 years</a> ago
+      <span id="journal-4821-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4821-notes" class="wiki"><p>If you want something done about this, please provide a patch for me to review.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4822" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="02 Mar 2016 11:13" href="/projects/exiv2/activity?from=2016-03-02">over 5 years</a> ago
+      <span id="journal-4822-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>not-a-bug</i> to <i>metadata</i></li>
+    </ul>
+    <div id="journal-4822-notes" class="wiki"><p>Of course it's a bug. Try Exiv2 CLI tool with corrupted CR2 file, and lib crash.</p>
+
+
+	<p>digiKam already has the C++ exception handler everywhere to wrap Exiv2 dysfunctions. This is not a DK bug, but an Exiv2 one...</p>
+
+
+	<p>[gilles@localhost BugDigikamRaw]$ exiv2 --version<br />exiv2 0.25 001900 (64 bit build)<br />Copyright (C) 2004-2015 Andreas Huggel.</p>
+
+
+	<p>This program is free software; you can redistribute it and/or<br />modify it under the terms of the GNU General Public License<br />as published by the Free Software Foundation; either version 2<br />of the License, or (at your option) any later version.</p>
+
+
+	<p>This program is distributed in the hope that it will be useful,<br />but WITHOUT ANY WARRANTY; without even the implied warranty of<br />MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br />GNU General Public License for more details.</p>
+
+
+	<p>You should have received a copy of the GNU General Public<br />License along with this program; if not, write to the Free<br />Software Foundation, Inc., 51 Franklin Street, Fifth Floor,<br />Boston, MA 02110-1301 USA<br />[gilles@localhost BugDigikamRaw]$ exiv2 -v crw_3888.crw<br />File 1/1: crw_3888.crw<br />Segmentation fault (core dumped)<br />[gilles@localhost BugDigikamRaw]$</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4823" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Mar 2016 11:18" href="/projects/exiv2/activity?from=2016-03-02">over 5 years</a> ago
+      <span id="journal-4823-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4823-notes" class="wiki"><p>What does your exception handler not catch it?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4824" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4632">Nicolas THOMASSON</a> <a title="02 Mar 2016 13:35" href="/projects/exiv2/activity?from=2016-03-02">over 5 years</a> ago
+      <span id="journal-4824-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/972">exiv2.cpp</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/972/exiv2.cpp">exiv2.cpp</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/973">CMakeLists.txt</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/973/CMakeLists.txt">CMakeLists.txt</a> added</li>
+    </ul>
+    <div id="journal-4824-notes" class="wiki"><p>I'm neither involved in digikam or exiv and I'm not an expert of dealing with exception but from my point of view this is a memory fault signal and not a standard c++ exception.</p>
+
+
+	<p>Natively it seems not possible to catch that signal by a try/catch mechanism unless maybe some compilation flags. For instance it is possible to compile with -fnon-exception-call with gcc which allows to throw exception inside a signal handler.</p>
+
+
+	<p>I read this and try to use it on exiv2 cli : <a class="external" href="http://angasule.blogspot.fr/2011/09/catching-null-pointer-exceptions-with.html">http://angasule.blogspot.fr/2011/09/catching-null-pointer-exceptions-with.html</a></p>
+
+
+	<p>If I modify exiv2.cpp this way</p>
+
+
+	<p>#include &lt;signal.h&gt;</p>
+
+
+	<p>static void handler(int sig, siginfo_t *dont_care, void *dont_care_either)
+{<br />  throw(Exiv2::BasicError&lt;char&gt;(-1));<br />}</p>
+
+
+	<p>int main(int argc, char* const argv[])
+{<br />…<br />  struct sigaction sa;</p>
+	<pre><code>memset(&#38;sa, 0, sizeof(sa));<br />  sigemptyset(&#38;sa.sa_mask);</code></pre>
+	<pre><code>sa.sa_flags     = SA_NODEFER;<br />  sa.sa_sigaction = handler;</code></pre>
+	<pre><code>sigaction(SIGSEGV, &#38;sa, NULL); /*  ignore whether it works or not */ <br />…<br />}</code></pre>
+
+
+	<p>I get this result :</p>
+
+
+	<p>$ ../bin/exiv2 ~/Dropbox/BugDigikamRaw/crw_3888.crw <br />Exiv2 exception in print action for file /home/thm/Dropbox/BugDigikamRaw/crw_3888.crw:<br />Error -1: arg2=%2, arg3=%3, arg1=%1.</p>
+
+
+	<p>This time the signal is caught and threw back to the application.</p>
+
+
+	<p>I don't know the impact of this solution and if it is the right one (for portability reason).</p>
+
+
+	<p>Nicolas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4825" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Mar 2016 13:42" href="/projects/exiv2/activity?from=2016-03-02">over 5 years</a> ago
+      <span id="journal-4825-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Closed</i> to <i>Assigned</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-4825-notes" class="wiki"><p>Ah, your determination to make me fix this has prevailed.  I'll fix this tonight.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4828" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Mar 2016 21:53" href="/projects/exiv2/activity?from=2016-03-02">over 5 years</a> ago
+      <span id="journal-4828-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4828-notes" class="wiki"><p>Nicolas and Gilles</p>
+
+
+	<p>Thanks for pushing me into this.  Apologies to Nicolas and Gilles for rejecting this today.  You are right, the library should never crash.</p>
+
+
+	<p>I've added a fix in the code - <a class="changeset" title="#1164.  Fix submitted.  Thank you Nicolas and Gilles for reporting this.  More comments in the is..." href="/projects/exiv2/repository/exiv2/revisions/4210">r4210</a></p>
+
+
+	<p>The blog found by Nicolas is interesting.  I was aware that some exceptions can escape try/catch and now I've learned something about why.  We had already had a trap in the code for this, however it required a little hardening to avoid an arithmetic overflow.  Software is tricky stuff.</p>
+
+
+	<p>I'm hesitant to add a Linux signal handler to our code.  This is really a process mechanism and should go into our sample applications.  Putting a signal handler into the exiv2 library doesn't feel good.  We could obliterate/defeat signal handlers installed by applications.  Comments Welcome.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4829" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4632">Nicolas THOMASSON</a> <a title="03 Mar 2016 09:29" href="/projects/exiv2/activity?from=2016-03-03">over 5 years</a> ago
+      <span id="journal-4829-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4829-notes" class="wiki"><p>Hello Robin,</p>
+
+
+	<p>You are right, signal management is application responsibility (digikam, exiv2 cli,...) and should not be part of libraries.</p>
+
+
+	<p>I sent you this link because I thought there was no way to prevent the segmentation fault other than handling the signal.</p>
+
+
+	<p>Since there is a classical way to prevent the fault, I strongly prefer the kind of correction you made in this patch. Using signal handler should only be used in last resort or inside the final application for safety/specific reasons.</p>
+
+
+	<p>Thanks for the patch,</p>
+
+
+	<p>Nicolas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4958" class="journal has-notes has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Apr 2016 06:06" href="/projects/exiv2/activity?from=2016-04-24">over 5 years</a> ago
+      <span id="journal-4958-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-4958-notes" class="wiki"><p>I think we're done with this.  The article here is interesting <a class="external" href="http://angasule.blogspot.co.uk/2011/09/catching-null-pointer-exceptions-with.html">http://angasule.blogspot.co.uk/2011/09/catching-null-pointer-exceptions-with.html</a>  Perhaps Gilles/DigiKam should consider adding a null pointer exception handler.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1164.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1164.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

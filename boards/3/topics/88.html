@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Porting to Symbian OS - issues with arrays in templates - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="wl8t0rpM9xnkdxbTtZWAEIO1QPp/MpXzP7VIPxdZNHEgEoY9yDY7GbETCd8KQowjvCcUg47RNEnCldi3VGDTHg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Porting to Symbian OS - issues with arrays in templates</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/148">Mark Wilcox</a> <a title="25 Feb 2009 09:16" href="/projects/exiv2/activity?from=2009-02-25">over 12 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>I'm porting Exiv2 to Symbian OS.  Lots of mulit-megapixel cameras in Symbian based devices and GPS tagging via Exif is getting popular... plus Symbian is going open source now so... :-)</p>
+
+
+	<p>Symbian builds can currently use 3 different compilers:<br />1) GCCE - Arm EABI version of the GCC toolchain (building with this one going OK so far)<br />2) ARM RVCT 2.2 (commercial compiler from ARM, I don't have access to it at the moment)<br />3) Nokia x86 - ex-Metrowerks compiler, modified for Symbian's Windows Emulator builds (this is where the trouble is)</p>
+
+
+	<p>I'm first hitting problems in tags.hpp with template functions like this:<br /><pre>
+template &lt;int N, const TagDetailsBitmask (&#38;array)[N]&gt;
+std::ostream&#38; printTagBitmask(std::ostream&#38; os, const Value&#38; value)
+{
+...
+    // *&#38; acrobatics is a workaround for a MSVC 7.1 bug
+    const TagDetailsBitmask* td = *(&#38;array) + i;
+...
+}
+</pre></p>
+
+
+	<p>I don't really understand this syntax - and the compiler doesn't like it either.  It also does't like indexing into the array, nor the implicit casts involved in other permutations on the syntax.  I was going to complain to the guys that maintain the compiler but looked it up on the web and in Stroustrup first.  I can't actually see any reference to this being legal syntax... is there a part of the standard somewhere that I can reference if I report a bug on the compiler?</p>
+
+
+	<p>Alternatively, would it make sense to use a pointer for these constructions rather than a reference to a fixed size array, since the size is being passed in anyway?</p>
+
+
+	<p>If it were a one-off issue I'd be happy with any workaround, but it also comes up wherever this syntax is used, which is quite often - so I'd like to figure out what the "right" thing to do is.  Any assitance or advice much appreciated?</p>
+
+
+	<p>Mark</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (7)</h3>
+  <div class="message reply" id="message-89">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/88?r=89#message-89">RE: Porting to Symbian OS - issues with arrays in templates</a>
+    -
+    Added by <a class="user active" href="/users/148">Mark Wilcox</a> <a title="25 Feb 2009 09:17" href="/projects/exiv2/activity?from=2009-02-25">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>P.S. Looks like I didn't get the "inline code" feature on the forum to work properly, or it's broken. :-)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-90">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/88?r=90#message-90">RE: Porting to Symbian OS - issues with arrays in templates</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="25 Feb 2009 16:27" href="/projects/exiv2/activity?from=2009-02-25">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mark Wilcox wrote:</p>
+
+
+<blockquote>
+
+	<p>P.S. Looks like I didn't get the "inline code" feature on the forum to work properly, or it's broken. :-)</p>
+
+
+</blockquote>
+
+	<p>It only <code>works within one</code> line.<br /><pre>
+for blocks
+of code, you can use
+"preformatted text" 
+</pre></p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-91">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/88?r=91#message-91">RE: Porting to Symbian OS - issues with arrays in templates</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="25 Feb 2009 17:45" href="/projects/exiv2/activity?from=2009-02-25">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Mark,</p>
+
+
+<blockquote>
+
+	<p>I'm porting Exiv2 to Symbian OS.</p>
+
+
+</blockquote>
+
+	<p>Great! I'm keen to understand what changes are needed for this platform. If possible, I wouldn't mind including them in the Exiv2 distribution directly.</p>
+
+
+<blockquote>
+
+	<p>I'm first hitting problems in tags.hpp with template functions like this:</p>
+
+
+</blockquote>
+
+<blockquote>
+
+	<p>template &lt;int N, const TagDetailsBitmask (&#38;array)[N]&gt;<br />std::ostream&#38; printTagBitmask(std::ostream&#38; os, const Value&#38; value)</p>
+
+
+</blockquote>
+
+<blockquote>
+
+	<p>[...]</p>
+
+
+</blockquote>
+
+<blockquote>
+
+	<p>I don't really understand this syntax - and the compiler doesn't like it either.  It also does't like indexing into the array, nor the implicit casts involved in other permutations on the syntax.  I was going to complain to the guys that maintain the compiler but looked it up on the web and in Stroustrup first.  I can't actually see any reference to this being legal syntax... is there a part of the standard somewhere that I can reference if I report a bug on the compiler?</p>
+
+
+</blockquote>
+
+	<p>I had some <a href="http://groups.google.com/group/comp.lang.c++.moderated/browse_thread/thread/8cf55fd1723390a2/15617c20b54fe81d" class="external">help from the good people at comp.lang.c++.moderated for this one</a>. There are also references to the C++ standard in that thread (I don't have the standard myself, so I don't know exactly what is referred to). If nothing else, the last post has a complete example to play with. Of all the code, at least the COUNTOF macro is quite common, maybe you can reproduce the problem with just that alone.</p>
+
+
+<blockquote>
+
+	<p>const TagDetailsBitmask* td = *(&#38;array) + i;</p>
+
+
+</blockquote>
+
+	<p>Yes, <a href="http://dev.exiv2.org/repositories/diff/exiv2/trunk/src/tags.hpp?rev=872&#38;rev_to=856" class="external">this used to just index into the array</a>. (I should be careful when complaining about MSVC though, there has been at least one instance in the meantime where MSVC turned out to be correct when it behaved different from other compilers... :)</p>
+
+
+<blockquote>
+
+	<p>Alternatively, would it make sense to use a pointer for these constructions rather than a reference to a fixed size array, since the size is being passed in anyway?</p>
+
+
+</blockquote>
+
+	<p>For Exiv2, I was specifically looking for a template function which results in a different function (pointer) for each array at compile time, as these are used in tag lookup tables in many places (eg, here: <a class="external" href="http://dev.exiv2.org/repositories/entry/exiv2/trunk/src/fujimn.cpp#L173">http://dev.exiv2.org/repositories/entry/exiv2/trunk/src/fujimn.cpp#L173</a>). Using a pointer would turn all these different functions into just one.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-92">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/88?r=92#message-92">RE: Porting to Symbian OS - issues with arrays in templates</a>
+    -
+    Added by <a class="user active" href="/users/148">Mark Wilcox</a> <a title="26 Feb 2009 08:21" href="/projects/exiv2/activity?from=2009-02-26">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Andreas,</p>
+
+
+	<p>Thanks for the information - it makes a lot more sense to me now.</p>
+
+
+	<p>I've been reading up on template magic because it's not something that gets used much in embedded development (or not historically at least - tends to generate too much code and then use too much flash memory, and because it's always NAND flash, too much RAM as well - however, in this case I think it's actually a very valid and efficient solution) and I'm a little rusty.</p>
+
+
+	<p>I think this should work:</p>
+
+
+<pre>
+template &lt;int N, const TagDetailsBitmask* array&gt;
+std::ostream&#38; printTagBitmask(std::ostream&#38; os, const Value&#38; value)
+{
+...
+    const TagDetailsBitmask* td = array + i;
+...
+}
+</pre>
+
+	<p>I'm actually only working with version 0.15 of the library at the moment - that's the version included in Bluemapia Mobile (<a class="external" href="http://www.bluemapia.com">www.bluemapia.com</a>) which is the application I'm porting from Windows Mobile to Symbian OS.  I see there are some slight changes in this area in the latest release, but with 0.15 the only other change I need to make to get the whole library to compile is in the same file:</p>
+
+
+<pre>
+template &lt;int N, const TagDetails* array&gt;
+std::ostream&#38; printTag(std::ostream&#38; os, const Value&#38; value)
+{
+    const TagDetails* td = std:find(array, array + N, value.toLong());
+    if (td == array + N) td = 0;
+...
+}
+</pre><br />That is, I simply removed the call to the templated version of find and effectively replaced it with the contents of the function, since the template use isn't actually required and the compiler didn't like it.
+
+	<p>I'm not in a position to test this yet, but I can confirm this builds with Visual Studio 2008 for Win32 platforms as well - actually 3 of the projects in the solution fail to build but not because of this change, something to do with pre-compiled headers (? .inl files anyway) which I guess you may have fixed in a later version already so I didn't look into them.  It's possible that there are other problems with use of the previous template pattern elsewhere that only show up at run time.  I think this change should still create a separate function for each of your constant arrays though, with the only requirement being that the pointers passed in have external linkage (which I beleive you already do anyway).</p>
+
+
+	<p>The <abbr title="">COUNTOF</abbr> macro seems to be OK, it's just indexing the templated array and trying to pass it to other template functions that seems to cause pain!</p>
+
+
+	<p>Is there any chance you can test this change on the existing supported platforms?  If so it may well be that there are no other code changes required for Symbian <abbr title="*">OS</abbr> and I'd be happy to submit the necessary build files for Symbian and assign what little copyright there is so you can sell commercial licenses for Symbian too.</p>
+
+
+	<p>Mark</p>
+
+
+	<p>(*) Symbian/Nokia have added support for the standard C library and STL in the last couple of years, so porting is pretty easy in many cases - however there are still some bugs in the implementations and one of them affects std::ostream, so you have to make a small patch to the SDK to use it.  This is a known bug though and should be fixed in an official release in the next month or so.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-100">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/88?r=100#message-100">RE: Porting to Symbian OS - issues with arrays in templates</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Mar 2009 06:17" href="/projects/exiv2/activity?from=2009-03-01">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Mark,</p>
+
+
+	<p>I've done some quick tests of these two changes: Everything looks fine on MinGW with g++ 3.4.2 (mingw-special). However, with MSVC 7.1</p>
+
+
+<blockquote>
+
+	<p>const TagDetails* td = std:find(array, array + N, value.toLong());<br />if (td == array + N) td = 0;</p>
+
+
+</blockquote>
+
+	<p>this crashes at runtime for some not immediately obvious reason (in TagDetails::operator==, even if I make it not inlined).</p>
+
+
+<blockquote>
+
+	<p>I'm actually only working with version 0.15 of the library at the moment - that's the version included in Bluemapia Mobile (<a class="external" href="http://www.bluemapia.com">www.bluemapia.com</a>) which is the application I'm porting from Windows Mobile to Symbian OS.  I see there are some slight changes in this area in the latest release</p>
+
+
+</blockquote>
+
+	<p>Yes, not much changed in this area. But 0.18 is very different in some other areas, so it would be interesting to hear what happens if you try version 0.18 (or, even better, SVN branches/unstable, which is where I'll possibly apply these changes).</p>
+
+
+<blockquote>
+
+	<p>it may well be that there are no other code changes required for Symbian <abbr title="*">OS</abbr> and I'd be happy to submit the necessary build files for Symbian and assign what little copyright there is so you can sell commercial licenses for Symbian too.</p>
+
+
+</blockquote>
+
+	<p>Thanks. I think the code changes are sufficient, I wouldn't be able to maintain Symbian build files and they'd be outdated before long. (Can cmake build for Symbian?). However, you could post the build files here, where interested people can later find them.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-102">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/88?r=102#message-102">RE: Porting to Symbian OS - issues with arrays in templates</a>
+    -
+    Added by <a class="user active" href="/users/148">Mark Wilcox</a> <a title="02 Mar 2009 04:16" href="/projects/exiv2/activity?from=2009-03-02">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Andreas,</p>
+
+
+	<p>Thanks for checking that.  As far as I can tell with 10 minutes of running the test projects this is OK with the MSVC 9 compiler (Visual Studio 2008).  As far as I can see, the only thing that should be using TagDetails::operator== would be the internals of std::find()... not sure how you'd fix that.  I don't have MSVC 7.1 so can't investigate further.</p>
+
+
+	<p>I'm very busy finishing a book on porting to Symbian OS at the moment and the publishing deadline is approaching fast, so I haven't got time to try this out with the latest code right now, but I'll get back to it when the book is done.  If you haven't heard anything in a month then please ping this thread (I'm subscribed).</p>
+
+
+	<p>Build files for Symbian OS are pretty simple, and the development environment is free (Carbide.c++ - it's Eclipse based).  I think it'd generally only be a case of adding or removing source files when there are updates.  If you don't have the time or interest to do it though, then I can probably maintain them for you - you're only doing new releases about 2-4 times a year right?</p>
+
+
+	<p>Cheers,<br />Mark</p></div>
+  
+  </div>
+  <div class="message reply" id="message-104">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/88?r=104#message-104">RE: Porting to Symbian OS - issues with arrays in templates</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="02 Mar 2009 07:15" href="/projects/exiv2/activity?from=2009-03-02">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Mark,</p>
+
+
+	<p>If nothing else helps, we can resort to a precompiler #define, but that can wait. This will only be in 0.19, where API and ABI changes are allowed.<br />And of course, if you can maintain the build files I'll be happy to add them. (I didn't want to ask for that, it doesn't usually work then).</p>
+
+
+<blockquote>
+
+	<p>you're only doing new releases about 2-4 times a year right?</p>
+
+
+</blockquote>
+
+	<p>Right</p>
+
+
+	<p>Thanks and let me know when your book is done!<br />Andreas</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-7/7)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

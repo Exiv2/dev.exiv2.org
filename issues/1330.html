@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1330: Crash in Exiv2::TiffImage::readMetadata - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="BdzyVjdOmiIswzwtqvB7JQ/dzseQqhfsnnOCJacPWMPnkVm5RTRWInmnIyEVJ3cWME+avmFJtlZjUxKt5Da/rA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1330: Crash in Exiv2::TiffImage::readMetadata" href="https://dev.exiv2.org/issues/1330.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1330</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Crash in Exiv2::TiffImage::readMetadata</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3663">Tobias E.</a> <a title="13 Dec 2017 16:58" href="/projects/exiv2/activity?from=2017-12-13">almost 4 years</a> ago.
+        Updated <a title="14 Dec 2017 16:37" href="/projects/exiv2/activity?from=2017-12-14">almost 4 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">tiff parser</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Dec 2018" href="/versions/55">0.27</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">13 Dec 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hello,</p>
+
+
+	<p>there is a darktable user reporting a crash on Windows which looks like some problem inside exiv2 to me. The backtrace is here: <a class="external" href="https://pixls-discuss.s3.amazonaws.com/original/2X/e/ec1ac0f71e2df63696d9446ca3e640f965d25167.txt">https://pixls-discuss.s3.amazonaws.com/original/2X/e/ec1ac0f71e2df63696d9446ca3e640f965d25167.txt</a></p>
+
+
+	<p>The relevant part to me is that we use Exiv2::TiffImage::readMetadata which seems to use Exiv2::TiffImage::printStructure internally. However, that is not thread safe according to your documentation.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1204">forTobias0-26-MultithreadingPatch.patch</a>    <span class="size">(2.84 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1204/forTobias0-26-MultithreadingPatch.patch">forTobias0-26-MultithreadingPatch.patch</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 14 Dec 2017 11:02</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-6135" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Dec 2017 18:07" href="/projects/exiv2/activity?from=2017-12-13">almost 4 years</a> ago
+      <span id="journal-6135-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>tiff parser</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Closed</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.27</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-6135-notes" class="wiki"><p>Tobias</p>
+
+
+	<p>Regrettably, I don't have good news for you here.  The good news is that we know all about this.  Unfortunately, there isn't a simple "one commit" fix.  There is a multi-threading issue with the code.  However, there are numerous other issues with the printStructure() code and have revealed several security issues with Exiv2.  We've been very busy since September dealing with them.</p>
+
+
+	<p>Realistically, the fix is to move to v0.27 when it is released.  I can't honestly say when that will be ready.  I'm suffering from motivational issues.  Mostly, I'm getting old (67 next month) and would like to retire.  2017 has been an exhausting year with Exiv2.  For the first time, I actually published a release and found that a very tough experience.  We moved the code to Git and, at the moment, I find it effectively impossible to submit code to GitHub.com  Then the Linux security people arrived and have been dumping security issues on us.  I've been travelling in the States and Vietnam and several security bugs every week was very distressing.  They are using "fuzzing tools" which generate illegal files which exploit weaknesses in the code (including the one you have reported here).</p>
+
+
+	<p>The good news is that I have recruited three great new engineers who have put in lots of work on the security and other issues.</p>
+
+
+	<p>I'm hoping that after Christmas, I'll break out of my current mood, get the 0.27 release ready, and release it spring 2017.  While travelling, I thought "Oh when I get home in December, I'll deal with this.".  I'm now home (with no plan to travel until August 2018).  I am doing some work, however I remain very demotivated.</p>
+
+
+	<p>As you know, open source puts quite extra-ordinary demands onto a small number of people.  I'm very appreciative of my new team mates.  I'm also pleased with the move to git.  After 5 years of dealing almost alone with Exiv2, I now have more engineers.  Moving the code to GitHub was the magnet to attract fresh contributors.  However, I remain "the man" to do the release.  I wish I were not.</p>
+
+
+	<p>I'm going to close this issue because I cannot give you a simple response.  I assure that this matter is fixed on 'master', however 'master' is not ready to be released at this time.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6136" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3663">Tobias E.</a> <a title="13 Dec 2017 20:15" href="/projects/exiv2/activity?from=2017-12-13">almost 4 years</a> ago
+      <span id="journal-6136-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6136-notes" class="wiki"><p>I understand you. Both the issue at hand and also your general problems with being responsible for an open source project. My advantage is that I am working on <del>the top of the food chain</del> an end user application. Doing infrastructure like you is extra hard as everyone complains. Like me. :-)</p>
+
+
+	<p>So thank you for your open and honest words. I will look forward to any new release and try to come up with ways to mitigate the crashes in the mean time. Worst case would be a bunch of locks in the code.</p>
+
+
+	<p>Keep up the good work and have a nice Christmas time with the family!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6137" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Dec 2017 00:36" href="/projects/exiv2/activity?from=2017-12-14">almost 4 years</a> ago
+      <span id="journal-6137-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6137-notes" class="wiki"><p>Tobias</p>
+
+
+	<p>I don't think many folks complain.  Almost the opposite - lots of praise and encouragement.  Things are as they are.  We'll get there.  Tomorrow I'll construct a patch against the released v0.26.  If it passes the test suite, I'll send it to you.  There's a possibility we can fix this with one good patch.  However, if the patch doesn't work out, I feel you have to wait for v0.27.  Let's see if we can fix up something in the next few days.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6138" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Dec 2017 11:02" href="/projects/exiv2/activity?from=2017-12-14">almost 4 years</a> ago
+      <span id="journal-6138-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1204">forTobias0-26-MultithreadingPatch.patch</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1204/forTobias0-26-MultithreadingPatch.patch">forTobias0-26-MultithreadingPatch.patch</a> added</li>
+       <li><strong>Status</strong> changed from <i>Closed</i> to <i>Assigned</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>4.00 h</i></li>
+    </ul>
+    <div id="journal-6138-notes" class="wiki"><p>I attach a patch for you to try.</p>
+
+
+	<p>Incidentally, there is a multi-threading samples "samples/mt-test.cpp".  It's not built by default because it uses C++11 (which is slated for v0.27), however the code is in v0.26.  It can read 100 images on my laptop on both the "released v0.26" and this patched code.</p>
+
+
+	<p>The "unthread safe" code in tiffimage.cpp is subtle.  Like most multi-threading issues, it's hard to consistently reproduce!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6139" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3663">Tobias E.</a> <a title="14 Dec 2017 12:42" href="/projects/exiv2/activity?from=2017-12-14">almost 4 years</a> ago
+      <span id="journal-6139-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6139-notes" class="wiki"><p>Wow, that was fast! I gave the patch a try using the sample code you mentioned, unfortunately it doesn't crash for me. The fun of race conditions.</p>
+
+
+	<p>For now I added some locks around calls to readMetadata in darktable. That way it should work for people using stock exiv2, too. I will keep testing your patch myself.</p>
+
+
+	<p>Thanks again.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6140" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Dec 2017 16:37" href="/projects/exiv2/activity?from=2017-12-14">almost 4 years</a> ago
+      <span id="journal-6140-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>4.00 h</i> to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-6140-notes" class="wiki"><p>Ah yes of course.  You can lock around readMetadata() in the application code.  Yes, that sounds like a good work-around for now.</p>
+
+
+	<p>Best Wishes to you and your for Christmas and New Year.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6141" class="journal has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Dec 2017 16:37" href="/projects/exiv2/activity?from=2017-12-14">almost 4 years</a> ago
+      <span id="journal-6141-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1330.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1330.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

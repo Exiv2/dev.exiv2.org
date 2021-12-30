@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Multiple threads and namespaces - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="uboYt1Azp/3IdNGdCsOIjw34lAJSHi/XQz43q+jNtzZb97NYIklr/Z0QzpG1FIS8MmrAe6P9jm2+Hqcjq/RQWQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Multiple threads and namespaces</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4198">Mike Erickson</a> <a title="16 Sep 2014 08:16" href="/projects/exiv2/activity?from=2014-09-16">about 7 years</a> ago</span></p>
+<div class="wiki">
+<p>I am having a lot of trouble correctly using a custom xmp namespace from multiple threads.<br />Reading the documentation it is apparent that I must call XmpProperties::registerNS and XmpParser::initialize on my main thread. This I do. In my main() function I do this:</p>
+	<pre><code>Exiv2::XmpProperties::registerNs("http://www.alienskin.com/exposure#", "alienexposure");<br />    QMutex xmp_mutex;<br />    Exiv2::XmpParser::initialize(XmpLockUnlock, &#38;xmp_mutex);</code></pre>
+
+
+	<p>where the locking function looks like:</p>
+	<pre><code>void XmpLockUnlock(void* pData, bool fLock)
+  {<br />    QMutex* mutex_ptr = reinterpret_cast&amp;lt;QMutex*&amp;gt;(pData);<br />    if (mutex_ptr)
+    {<br />      (fLock) ? mutex_ptr-&gt;lock()<br />          : mutex_ptr-&gt;unlock();<br />    }<br />  }</code></pre>
+
+
+	<p>The QMutex is taken from the stack in main(), so it should be valid for the run of the program.</p>
+
+
+	<p>There is one thread (not on the main thread ) that reads metadata. There is another thread that occasionally writes xmp metadata.<br />When the 2 threads both try to operate on metadata at once, there is a crash. These threads are <strong>NOT</strong> trying to write to / read from the same file.<br />Here is the relevant portion of the crash log on mac. I have elided some template spew for clarity. It is clearly related to a namespace operation:</p>
+
+
+	<p>0   com.alienskin.exposure7           0x0000000104dbca83 std::__1::__tree&lt;std::__1::__value_type&lt;std::__1::basic_string.....) + 35<br />1   com.alienskin.exposure7           0x0000000104db97c5 XMPMeta::DeleteNamespace(char const*) + 133<br />2   com.alienskin.exposure7           0x0000000104da0131 WXMPMeta_DeleteNamespace_1 + 65<br />3   com.alienskin.exposure7           0x0000000104d8f50c Exiv2::XmpParser::registerNs(...) + 92<br />4   com.alienskin.exposure7           0x0000000104d909bb Exiv2::XmpParser::encode(...) + 155<br />5   com.alienskin.exposure7           0x0000000104d981d6 Exiv2::XmpSidecar::writeMetadata() + 118<br />6   com.alienskin.exposure7           0x0000000104a9b4fe MetaDataIO::MetaDataChanged() + 2766</p>
+
+
+	<p>Could someone help me figure out what I am doing wrong?</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (5)</h3>
+  <div class="message reply" id="message-1828">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1826?r=1828#message-1828">RE: Multiple threads and namespaces</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Sep 2014 09:22" href="/projects/exiv2/activity?from=2014-09-16">about 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mike</p>
+
+
+	<p>Can you have a read at this Wiki article:  <a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/Thread_safety">http://dev.exiv2.org/projects/exiv2/wiki/Thread_safety</a></p>
+
+
+	<p>I think that was written by Andreas.  For certain, I didn't write this, and really know nothing more about this.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1829">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1826?r=1829#message-1829">RE: Multiple threads and namespaces</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="16 Sep 2014 10:06" href="/projects/exiv2/activity?from=2014-09-16">about 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>As usual, in digiKam source code, the response already exist.</p>
+
+
+	<p>We use multithreading everywhere with multicore support. digiKam use Qt/KDE Exiv2 interface libkexiv2, to wrap all Exiv2 calls to C++ exception wrapper. <br />The client application of libkexiv2 do not depend of Exiv2 API.</p>
+
+
+	<p>To initialize multithreading support with exiv2, this is how we do :</p>
+
+
+	<p>In main thread call this method :</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/extragear/graphics/digikam/repository/revisions/master/entry/app/main/main.cpp#L92">https://projects.kde.org/projects/extragear/graphics/digikam/repository/revisions/master/entry/app/main/main.cpp#L92</a></p>
+
+
+	<p>Which is in fact this code :</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/kde/kdegraphics/libs/libkexiv2/repository/revisions/master/entry/libkexiv2/kexiv2.cpp#L97">https://projects.kde.org/projects/kde/kdegraphics/libs/libkexiv2/repository/revisions/master/entry/libkexiv2/kexiv2.cpp#L97</a></p>
+
+
+	<p>At end of application we call : <a class="external" href="https://projects.kde.org/projects/extragear/graphics/digikam/repository/revisions/master/entry/app/main/main.cpp#L238">https://projects.kde.org/projects/extragear/graphics/digikam/repository/revisions/master/entry/app/main/main.cpp#L238</a></p>
+
+
+	<p>Which is in fact this code :</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/kde/kdegraphics/libs/libkexiv2/repository/revisions/master/entry/libkexiv2/kexiv2.cpp#L113">https://projects.kde.org/projects/kde/kdegraphics/libs/libkexiv2/repository/revisions/master/entry/libkexiv2/kexiv2.cpp#L113</a></p>
+
+
+	<p>And that all... No need a mutex in your code. This work perfectly.</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1831">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1826?r=1831#message-1831">RE: Multiple threads and namespaces</a>
+    -
+    Added by <a class="user active" href="/users/4198">Mike Erickson</a> <a title="16 Sep 2014 10:28" href="/projects/exiv2/activity?from=2014-09-16">about 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks you Gilles. Looks like the main difference is you don't bother with a locking function. I will try this.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1834">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1826?r=1834#message-1834">RE: Multiple threads and namespaces</a>
+    -
+    Added by <a class="user active" href="/users/4198">Mike Erickson</a> <a title="17 Sep 2014 06:49" href="/projects/exiv2/activity?from=2014-09-17">about 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Still crashes on mac.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1835">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1826?r=1835#message-1835">RE: Multiple threads and namespaces</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Sep 2014 06:52" href="/projects/exiv2/activity?from=2014-09-17">about 7 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mike</p>
+
+
+	<p>Can you strip your code down to the minimum required to reproduce this and I'll have a look on one of my Macs running Mavericks.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-5/5)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

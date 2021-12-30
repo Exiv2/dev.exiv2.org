@@ -1,0 +1,71 @@
+GNU gdb (GDB) 7.2-ubuntu
+Copyright (C) 2010 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i686-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /usr/local/bin/exiv2...done.
+(gdb) run
+Starting program: /usr/local/bin/exiv2 -pp P5150003.JPG
+
+Program received signal SIGSEGV, Segmentation fault.
+0x00277314 in Exiv2::DataValue::toLong (this=0x8088a50, n=0) at value.cpp:246
+246	        return value_[n];
+(gdb) backtrace full
+#0  0x00277314 in Exiv2::DataValue::toLong (this=0x8088a50, n=0)
+    at value.cpp:246
+No locals.
+#1  0x001da48b in Exiv2::Exifdatum::toLong (this=0x8088910, n=0)
+    at exif.cpp:407
+No locals.
+#2  0x0022695a in (anonymous namespace)::LoaderExifJpeg::LoaderExifJpeg (
+    this=0x80812b0, id=22, image=..., parIdx=7) at preview.cpp:344
+        pos = {_M_node = 0x8088908}
+#3  0x00226d0e in (anonymous namespace)::createLoaderExifJpeg (id=22, 
+    image=..., parIdx=7) at preview.cpp:369
+No locals.
+#4  0x002260fe in (anonymous namespace)::Loader::create (id=22, image=...)
+    at preview.cpp:309
+        loader = {_M_ptr = 0x0}
+#5  0x0022a900 in Exiv2::PreviewManager::getPreviewProperties (this=0xbffff768)
+    at preview.cpp:773
+        loader = {_M_ptr = 0x0}
+        id = 22
+        list = {<std::_Vector_base<Exiv2::PreviewProperties, std::allocator<Exiv2::PreviewProperties> >> = {
+            _M_impl = {<std::allocator<Exiv2::PreviewProperties>> = {<__gnu_cxx::new_allocator<Exiv2::PreviewProperties>> = {<No data fields>}, <No data fields>}, _M_start = 0x0, _M_finish = 0x1, 
+              _M_end_of_storage = 0x8049d3c}}, <No data fields>}
+        list = <error reading variable list (DWARF-2 expression error: DW_OP_reg operations must be used either alone or in conjuction with DW_OP_piece or DW_OP_bit_piece.)>
+#6  0x0805d39f in Action::Print::printPreviewList (this=0x8077ec8)
+    at actions.cpp:776
+        image = {_M_ptr = 0x8078088}
+        __PRETTY_FUNCTION__ = "int Action::Print::printPreviewList()"
+        cnt = 0
+        list = {<std::_Vector_base<Exiv2::PreviewProperties, std::allocator<Exiv2::PreviewProperties> >> = {
+            _M_impl = {<std::allocator<Exiv2::PreviewProperties>> = {<__gnu_cxx::new_allocator<Exiv2::PreviewProperties>> = {<No data fields>}, <No data fields>}, _M_start = 0x8088e38, _M_finish = 0x8088e50, 
+              _M_end_of_storage = 0x8088e50}}, <No data fields>}
+        manyFiles = false
+        pm = {image_ = @0x8078088}
+#7  0x08058692 in Action::Print::run (this=0x8077ec8, path=...)
+    at actions.cpp:240
+        rc = 0
+#8  0x0804eba2 in main (argc=3, argv=0xbffff8e4) at exiv2.cpp:171
+        ret = -1073743880
+        i = {_M_current = 0x8077cf8}
+        params = @0x8077b20
+        taskFactory = @0x8077d08
+        __PRETTY_FUNCTION__ = "int main(int, char* const*)"
+        s = 1
+        w = 1
+        task = {_M_ptr = 0x8077ec8}
+        rc = 0
+        n = 1
+(gdb) exit
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [process 3396] will be killed.
+
+Quit anyway? (y or n) 

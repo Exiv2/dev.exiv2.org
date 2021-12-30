@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #920: Cross compiling for Android on OSX is keep using &#39;/usr/bin/gcc&#39; - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="WcHaRT9cQ/9eGSTJYfORg4XojbERzblRhl0wrveTVQW7jHGqTSaP/wt9O8XeJJ2wunrZyOAuGOt7faAmtKqyag==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #920: Cross compiling for Android on OSX is keep using &#39;/usr/bin/gcc&#39;" href="https://dev.exiv2.org/issues/920.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #920</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Cross compiling for Android on OSX is keep using &#39;/usr/bin/gcc&#39;</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3968">Tao Wang</a> <a title="22 Sep 2013 23:36" href="/projects/exiv2/activity?from=2013-09-22">about 8 years</a> ago.
+        Updated <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">22 Sep 2013</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>To cross compile the exiv2 for Android, the standalone toolchain created by Android NDK should be used. However, although CC and CXX has been set to the standalone toolchain, it keeps using system's '/usr/bin/gcc' and '/usr/bin/g++'.</p>
+
+
+After check the CMakeLists.txt, I found the following lines:<br />---------
+##
+	<ol>
+	<li>Issue:#857.  Use g++ instead of c++ (clang) compiler to eliminate warnings<br />if (APPLE)<br />    set(CMAKE_C_COMPILER gcc)<br />    set(CMAKE_CXX_COMPILER g++)<br />endif(APPLE)
+##<br />---------</li>
+	</ol>
+
+
+	<p>This code fixed issue 857. However, it should only force to use 'gcc' when the target is the host.</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/920" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="/YS5b58ytZLeWijth9KLKCIVrpJ2IZLgHuPPB/ZkfywfyRKA7Uh5kos+N+E4BYcbHYf664fCM1rjw1+PtV2YQw==" />
+  <table class="list issues odd-even"><tr id="relation-99" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="857" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/857">Bug #857</a>: CMake compilation issue on MacOS-X 4.5.1/Mountain Lion</td><td class="status">Closed</td><td class="start_date">07 Oct 2012</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-186" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1131" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1131">Bug #1131</a>: Please explain the RCSID macro at the start of every .cpp file.</td><td class="status">Closed</td><td class="start_date">25 Oct 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/920/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=920&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2616" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Sep 2013 23:59" href="/projects/exiv2/activity?from=2013-09-22">about 8 years</a> ago
+      <span id="journal-2616-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2616-notes" class="wiki"><p>Tao</p>
+
+
+	<p>Thanks for reporting this.  Good detective work.  Well done.</p>
+
+
+	<p>I don't have the Android SDK on my machines (and have never used the Android SDK on any platform).</p>
+
+
+	<p>I think you are saying that you are using a Mac to cross build for Android.  The IF statement here requires a modification.  If you know how to modify this, please let me know and I will submit a fix.</p>
+
+
+	<p>As a work-around, you may be able to force the tool-chain from the make command line using <pre> $ make CXX=&lt;path&gt; CC=&lt;path&gt; </pre></p>
+
+
+	<p>Another obvious work-around is to use Windows or Linux to cross compile.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2617" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="23 Sep 2013 01:56" href="/projects/exiv2/activity?from=2013-09-23">about 8 years</a> ago
+      <span id="journal-2617-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2617-notes" class="wiki"><p>Robin,</p>
+
+
+	<p>I don't know who has written this condition here, but it's not me.</p>
+
+
+	<p>Using g++ instead of c++ (clang) compiler to eliminate warnings under OSX is typically a bad idea. Not because GCC is wrong, it's not the case. But ignoring warnings from a compiler is typically a wrong way. Warnings must be fixed in fact.</p>
+
+
+	<p>Also Clang will be verbose differently than GCC. It's a good point for developers to know a possible mess in source code. MSVC is different also under Windows, and very instructive. Typically, i already important bug that GCC don't see using another compiler.</p>
+
+
+	<p>I recommend to drop this rules definitively. As CLang use similar options than GCC, you can just do this rule with cmake to suppress warnings at compilation time :</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/extragear/graphics/digikam/repository/entry/digikam/CMakeLists.txt?rev=development%2F3.0.0#L7">https://projects.kde.org/projects/extragear/graphics/digikam/repository/entry/digikam/CMakeLists.txt?rev=development%2F3.0.0#L7</a></p>
+
+
+	<p>Gilles Caulier</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2618" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Sep 2013 02:47" href="/projects/exiv2/activity?from=2013-09-23">about 8 years</a> ago
+      <span id="journal-2618-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2618-notes" class="wiki"><p>I agree with you about warnings from the compiler.  There are a number of issues related to clang.  <a class="external" href="http://dev.exiv2.org/issues/857">http://dev.exiv2.org/issues/857</a></p>
+
+
+	<p>There is a warning on every C++ file being issued by clang in response to statements such as:<br /><pre>EXIV2_RCSID("@(#) $Id: exiv2.cpp 3118 2013-08-13 06:28:46Z nhudinhtuan $")
+</pre></p>
+
+
+	<p>I haven't really understood what this code does, however it has something to do with the linker.  It is documented in a man page (however I can't remember where).  Anyway it is discussed on this topic:  <a class="external" href="http://dev.exiv2.org/issues/857">http://dev.exiv2.org/issues/857</a></p>
+
+
+	<p>I agree, I have not solved this issue correctly and for that reason, I deferred it to 0.25 during my bug review for 0.24. You'll notice that Andreas said (in 857) <strong><em>Sooner or later someone will tell us what's really wrong.</em></strong> Now's the time, Gilles.  Do you know how to fix the ident code on clang?</p>
+
+
+	<p>It is my error to have added the <abbr title="APPLE">IF</abbr> code to suppress the clang warning.  My error.  I am guilty!</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2619" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Sep 2013 04:00" href="/projects/exiv2/activity?from=2013-09-23">about 8 years</a> ago
+      <span id="journal-2619-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+    </ul>
+    <div id="journal-2619-notes" class="wiki"><p>Fix submitted: <a class="changeset" title="Issue: 920.  Do not enforce gcc compiler on Apple platforms for CMake builds." href="/projects/exiv2/repository/exiv2/revisions/3172">r3172</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2623" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Sep 2013 21:41" href="/projects/exiv2/activity?from=2013-09-25">about 8 years</a> ago
+      <span id="journal-2623-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>Target version</strong> changed from <i>0.24</i> to <i>0.25</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-2623-notes" class="wiki"><p>I'm going to mark this as "resolved".  If anybody disagrees with my fix, please update this issue report with your concerns.  If the fix is not contested, the issue will be closed during bug review for the 0.25 release.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3925" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3925-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/920.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/920.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

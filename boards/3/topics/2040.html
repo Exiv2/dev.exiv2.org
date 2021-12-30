@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Merging two sets of XmpData - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="uRSEHNY4q9rvOtabUIQZrFK2458mi6Xb4H97n/7OhbpbWS/zpEJn2rpeyZfvUxWfbSS35tdoBGEdX+sXvfdi1Q==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Merging two sets of XmpData</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/3663">Tobias E.</a> <a title="28 Apr 2015 13:45" href="/projects/exiv2/activity?from=2015-04-28">over 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Hello,</p>
+
+
+	<p>I guess I need your advice how to properly do something with libexiv2. I want to read XMP data from an image and then add more XMP data from a .xmp file to the same XmpData object so I can work on the merged data. However, just calling Exiv2::XmpParser::decode twice obviously doesn't work since it clears the XmpDatum. Is there some helper function that I missed or do I have to read the .xmp file into its own XmpData and then iterate over all Xmpdatum and use add() from the first object?</p>
+
+
+	<p>Thanks in advance<br />Tobias</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (4)</h3>
+  <div class="message reply" id="message-2041">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2040?r=2041#message-2041">RE: Merging two sets of XmpData</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Apr 2015 13:55" href="/projects/exiv2/activity?from=2015-04-28">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I think you'll have to do the merge by adding data elements one at a time.  Here are another couple suggestions:</p>
+
+
+	<p>1) I've added a sample application exiv2json to extract metadata into a JSON object.  If you're not a XML guru, you might two JSON objects easier to merge.<br />2) I've added an option -pX to extract the "raw" XMP.   You might find it easier to merge a couple of XML packets with xmllint (which includes XPath).</p>
+
+
+	<p>If you adopt either of those external approaches, you'll end up with a XML (or JSON) object that you'll want to insert into the file.  I'm not too sure how to push that data into the image, however I think it's possible with the insert sub command.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2042">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2040?r=2042#message-2042">RE: Merging two sets of XmpData</a>
+    -
+    Added by <a class="user active" href="/users/3663">Tobias E.</a> <a title="28 Apr 2015 15:54" href="/projects/exiv2/activity?from=2015-04-28">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks, iterating over the data should be simple. I am using libexiv2 and not the command line tool, so external programs won't help me.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2043">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2040?r=2043#message-2043">RE: Merging two sets of XmpData</a>
+    -
+    Added by <a class="user active" href="/users/3663">Tobias E.</a> <a title="28 Apr 2015 17:52" href="/projects/exiv2/activity?from=2015-04-28">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>In case someone else want to do something similar, this is the test code I ended up with:<br /><pre>
+// g++ -W -Wall -g `pkg-config --cflags --libs exiv2` -o merge merge.cpp
+#include &lt;exiv2/image.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+  Exiv2::XmpData xmpData1, xmpData2;
+  std::string xmpPacket;
+
+  // read 1st XMP, could also be an image
+  Exiv2::DataBuf buf = Exiv2::readFile("1.xmp");
+  xmpPacket.assign(reinterpret_cast&lt;char *&gt;(buf.pData_), buf.size_);
+  Exiv2::XmpParser::decode(xmpData1, xmpPacket);
+
+  // read 2nd XMP (sidecar)
+  buf = Exiv2::readFile("2.xmp");
+  xmpPacket.assign(reinterpret_cast&lt;char *&gt;(buf.pData_), buf.size_);
+  Exiv2::XmpParser::decode(xmpData2, xmpPacket);
+
+  // merge 2 into 1, so that 2 has higher priority
+  for(Exiv2::XmpData::const_iterator it = xmpData2.begin(); it != xmpData2.end(); it++)
+    xmpData1.add(*it);
+
+  // print for inspection
+  if(Exiv2::XmpParser::encode(xmpPacket, xmpData1, Exiv2::XmpParser::useCompactFormat | Exiv2::XmpParser::omitPacketWrapper) != 0)
+    std::cout &lt;&lt; "Failed to serialize XMP data" &lt;&lt; std::endl;
+  else
+    std::cout &lt;&lt; xmpPacket &lt;&lt; std::endl;
+
+  // cleanup
+  Exiv2::XmpParser::terminate();
+  return 1;
+}
+</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2044">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2040?r=2044#message-2044">RE: Merging two sets of XmpData</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Apr 2015 18:14" href="/projects/exiv2/activity?from=2015-04-28">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Well done, Tobias.  And thank you for sharing your solution.  The spirit of open-source is to share the intellectual property.  If you know something - pass it on for others to use.  Thank You Very Much  for this contribution.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-4/4)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

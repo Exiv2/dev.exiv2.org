@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Suppressing, redirecting errors and warnings on the command line - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ROCirW5lmQmOe0OFRxD1cG+aScGh4D6MnKUE1JcsOgymrQlCHB9VCdsfXIn4x/lDUAgduFADnzZhhZRc1BXdYw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Suppressing, redirecting errors and warnings on the command line</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="15 Feb 2010 01:55" href="/projects/exiv2/activity?from=2010-02-15">almost 12 years</a> ago</span></p>
+<div class="wiki">
+<p>Is there a way to do this that I'm not seeing?</p>
+
+
+	<p>Working from the assumption that the former, suppressing errors altogether so they're not shown while exiv2 works on files, would involve another revision of the source code, I figured I would pursue the latter: redirecting error and warning messages to an external file.</p>
+
+
+	<p>I've been to half a dozen forums and how-to pages and it appears to me that exiv2 defies many, if not all, of the conventional methods for stdout or stderr redirection to text or ASCII files in shell scripts or CLI commands. Maybe it's because I'm trying this all in Cygwin where the BASH is pre-4.0, but I don't think so, since even the methods from that time in the course of BASH's development don't seem to work any better than the newer ones.</p>
+
+
+	<p>It occurred to me that perhaps a non-ASCII file type, similar to the .exv files generated for field and tag data, might work in this instance, but as I write this I'm still not unpersuaded there should be a simpler, more transparent (if that's the word) method that would work. Besides, hex output or something along those lines would likely mean another re-code.</p>
+
+
+	<p>So I'm picking the brains of the more-experienced coders, scripters and such folk in the exiv2 user community for advice.</p>
+
+
+	<p>S.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (4)</h3>
+  <div class="message reply" id="message-404">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/402?r=404#message-404">RE: Suppressing, redirecting errors and warnings on the command line</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Feb 2010 03:30" href="/projects/exiv2/activity?from=2010-02-15">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>Suppressing,</p>
+
+
+</blockquote>
+
+	<p><code>$ exiv2 -pa someimage.jpg 2>/dev/null</code></p>
+
+
+<blockquote>
+
+	<p>redirecting errors and warnings</p>
+
+
+</blockquote>
+
+	<p><code>$ exiv2 -pa someimage.jpg 2>/some/file</code></p>
+
+
+	<p>That's pretty conventional, actually.</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-405">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/402?r=405#message-405">RE: Suppressing, redirecting errors and warnings on the command line</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="15 Feb 2010 12:05" href="/projects/exiv2/activity?from=2010-02-15">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas,</p>
+
+
+	<p>No doubt with -p print commands you're right. I ought to have been more specific. The problem I've been having, specifically, is with -M"add..." commands in a script I just started working on.</p>
+
+
+	<p>I'll give some background here, as the example I'm using consists of a couple of variables. The script is meant to be the last step in the process of copying FixtureId tag data to the ObjectName tag in batches of jpegs. I mentioned this briefly in the "Pulling Out" thread. (I haven't decided whether or not to have exiv2 read in and parse that data from the files themselves in the final version.)</p>
+
+
+	<p>fixture is set to be the FixtureID tag data as read in from an ASCII text file which is a list of the files to be processed.<br />file is the name of the file in the directory, read in from the same text file.<br />At this point in the script, the file name has already been verified by an if-else loop, or alternately dismissed as not found by the same loop.</p>
+
+
+	<p><code>exiv2 -M"add Iptc.Application2.ObjectName String $fixture" modify $file</code></p>
+
+
+	<p>As the greater number of my jpeg files come from different places on the Web and/or Usenet, the condition and nature of their tag &#38; packet data is often dubious, to say the least; definitely unpredictable. It's these kinds of errors I'm having a hard time passing out to an external file.</p>
+
+
+	<p>If you'd like to see the whole script in its current draft, I can certainly upload it.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-406">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/402?r=406#message-406">RE: Suppressing, redirecting errors and warnings on the command line</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="15 Feb 2010 13:48" href="/projects/exiv2/activity?from=2010-02-15">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas, all:</p>
+
+
+	<p>I have it worked out. Apparently in Cygwin's BASH this syntax is the best for doing redirects (of any output class) to an external file.</p>
+
+
+	<p><code>(somefancycommand) > file1.txt 2>&#38;1</code></p>
+
+
+	<p>The space between the command and the name of the output file is necessary in Cygwin's BASH. <br />Leave it out and you get an empty text file as output. I'm sure there are other BASH versions or builds in other L/Unix environments that work the same way.</p>
+
+
+	<p>And as I found out, too, that the ampersand is crucial. Without <em>it</em>, you get a file called "1" (no quotes) with all your output <ins>and</ins> an empty text file named "file1.txt".</p>
+
+
+	<p>Now the rubber meets the road as I apply this script to a folder with over 2500 files inside it.</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-407">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/402?r=407#message-407">RE: Suppressing, redirecting errors and warnings on the command line</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="16 Feb 2010 00:31" href="/projects/exiv2/activity?from=2010-02-16">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Steve</p>
+
+
+	<p>Welcome to the (hideous) world of shell scripting - notice the spelling is 's hell'  (s is for shear, not Steve).  The cryptic heiroglyphic syntax of the shell is grim.  And the different shells (csh, bash, zsh and so on) are inexplicably contrary.  I can't recall ever writing a script specifically for Cygwin's bash interpreter, but I'm not surprised to hear there are IEDs just waiting to blow your foot off.  Beware.  Having said this, I do use bash quite a lot on Linux and the Mac and I find O'Reilly's book "Learning the Bash Shell" very helpful.</p>
+
+
+	<p>If you want to construct cross-platform scripts with clean syntax, use Python.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-4/4)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

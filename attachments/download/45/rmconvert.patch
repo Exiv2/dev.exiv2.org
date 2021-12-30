@@ -1,0 +1,42 @@
+Index: src/Makefile
+===================================================================
+--- src/Makefile	(revision 1495)
++++ src/Makefile	(working copy)
+@@ -70,7 +70,6 @@
+ CCSRC =  basicio.cpp          \
+ 	 bmpimage.cpp         \
+ 	 canonmn.cpp          \
+-	 convert.cpp          \
+ 	 cr2image.cpp         \
+ 	 crwimage.cpp         \
+ 	 datasets.cpp         \
+Index: src/xmpsidecar.cpp
+===================================================================
+--- src/xmpsidecar.cpp	(revision 1495)
++++ src/xmpsidecar.cpp	(working copy)
+@@ -43,7 +43,6 @@
+ #include "error.hpp"
+ #include "xmp.hpp"
+ #include "futils.hpp"
+-#include "convert.hpp"
+ 
+ // + standard includes
+ #include <string>
+@@ -104,8 +103,6 @@
+             std::cerr << "Warning: Failed to decode XMP metadata.\n";
+ #endif
+         }
+-        copyXmpToIptc(xmpData_, iptcData_);
+-        copyXmpToExif(xmpData_, exifData_);
+     } // XmpSidecar::readMetadata
+ 
+     void XmpSidecar::writeMetadata()
+@@ -116,8 +113,6 @@
+         IoCloser closer(*io_);
+ 
+         if (writeXmpFromPacket() == false) {
+-            copyExifToXmp(exifData_, xmpData_);
+-            copyIptcToXmp(iptcData_, xmpData_);
+             if (XmpParser::encode(xmpPacket_, xmpData_,
+                                   XmpParser::omitPacketWrapper|XmpParser::useCompactFormat)) {
+ #ifndef SUPPRESS_WARNINGS

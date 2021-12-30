@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Cross compiling libexiv2 for windows on linux - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="laQAzeejWNuRCqiu1qRKm/4ri1Pz3lW+TUXbrm+IN3x36asildmU28Rut6Jpc0aowbnfKgI99ASwZUsmLLHQEw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Cross compiling libexiv2 for windows on linux</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/140">Olivier Tilloy</a> <a title="27 Jan 2010 14:36" href="/projects/exiv2/activity?from=2010-01-27">almost 12 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi Andreas &#38; all,</p>
+
+
+	<p>I'm hopefully close to releasing version 0.2 of my python binding to libexiv2, pyexiv2.<br />I'd like to test it (and have an official release) on windows, and for me the easiest solution is to cross compile it on linux using mingw32. I remember reading somewhere that there exist some scripts to automate that, are they available somewhere?<br />Instructions to retrieve the needed dependencies and cross compile libexiv2 would be very welcome.<br />Thanks in advance for your help!</p>
+
+
+	<p>Olivier</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (5)</h3>
+  <div class="message reply" id="message-356">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/354?r=356#message-356">RE: Cross compiling libexiv2 for windows on linux</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="28 Jan 2010 05:38" href="/projects/exiv2/activity?from=2010-01-28">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Olivier,</p>
+
+
+	<p>I use the attached script to cross-compile the exiv2 windows executable that is available on exiv2.org on my Debian system.<br />The libraries and header files that I use here are also attached, although I recommend you build or otherwise get your own - I don't remember where I have these from.</p>
+
+
+	<p>Andreas</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/137">exiv2-buildwinexe.sh</a>    <span class="size">(1.17 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/137/exiv2-buildwinexe.sh">exiv2-buildwinexe.sh</a>  </td>
+  <td>Cross-compile Exiv2 executable for Windows</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/138">libs.tar.gz</a>    <span class="size">(822 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/138/libs.tar.gz">libs.tar.gz</a>  </td>
+  <td>Required Windows libraries and header files</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-357">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/354?r=357#message-357">RE: Cross compiling libexiv2 for windows on linux</a>
+    -
+    Added by <a class="user active" href="/users/140">Olivier Tilloy</a> <a title="28 Jan 2010 06:16" href="/projects/exiv2/activity?from=2010-01-28">almost 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks a lot Andreas, I'll experiment with your script and write about my findings (I'll probably document the full build process for pyexiv2 on windows anyway).</p></div>
+  
+  </div>
+  <div class="message reply" id="message-461">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/354?r=461#message-461">RE: Cross compiling libexiv2 for windows on linux</a>
+    -
+    Added by <a class="user active" href="/users/140">Olivier Tilloy</a> <a title="11 Mar 2010 09:50" href="/projects/exiv2/activity?from=2010-03-11">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>I finally found the time to experiment with cross-compilation, and with the help of your script I found it pretty straightforward to cross-compile libexiv2 statically, which is what I want for pyexiv2.<br />Getting the other dependencies to compile (in particular boost_python) was much more of a hairy problem, but that's off topic here.</p>
+
+
+	<p>I wrote a very basic shell script that retrieves the dependencies and compiles them, here is how it looks, up to compilation of libexiv2:</p>
+
+
+<pre>
+#!/bin/sh
+
+BASE=$HOME/dev/win32
+mkdir -p $BASE
+cd $BASE
+
+PLATFORM=i586-mingw32msvc
+COMPILER=$PLATFORM-g++
+ARCHIVER=$PLATFORM-ar
+
+# zlib (for exiv2)
+wget http://gnuwin32.sourceforge.net/downlinks/zlib-lib-zip.php
+unzip -d zlib zlib-*.zip
+
+# iconv (for exiv2)
+wget ftp://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.13.1.tar.gz
+tar xzf libiconv-1.13.1.tar.gz
+cd libiconv-1.13.1
+./configure --enable-static --disable-visibility --target=$PLATFORM --host=$PLATFORM --build=i586-linux --prefix=$BASE/libiconv
+make
+make install
+cd ..
+
+# expat (for exiv2)
+wget http://sourceforge.net/projects/expat/files/expat/2.0.1/expat-2.0.1.tar.gz/download
+tar xf expat-2.0.1.tar.gz
+cd expat-2.0.1
+./configure --disable-shared --disable-visibility --target=$PLATFORM --host=$PLATFORM --build=i586-linux --prefix=$BASE/expat
+make
+make install
+cd ..
+
+# exiv2
+wget http://exiv2.org/exiv2-0.19.tar.gz
+tar xzf exiv2-0.19.tar.gz
+cd exiv2-0.19
+./configure --disable-shared --disable-visibility --target=$PLATFORM --host=$PLATFORM --build=i586-linux --disable-nls --with-zlib=$BASE/zlib --with-libiconv-prefix=$BASE/libiconv --with-expat=$BASE/expat --prefix=$BASE/exiv2
+make
+make install
+cd ..
+</pre>
+
+	<p>And voilà, the result is located in <code>$HOME/dev/win32/exiv2/</code>.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1066">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/354?r=1066#message-1066">RE: Cross compiling libexiv2 for windows on linux</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="13 Jan 2012 09:04" href="/projects/exiv2/activity?from=2012-01-13">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Have you an updated version of your script that reflects new versions of all that libs?<br />I would like to compile my patched version of exiv2 for win32 (maybe 64) using linux.<br />Or is there a new way for cross-compiling?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1067">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/354?r=1067#message-1067">RE: Cross compiling libexiv2 for windows on linux</a>
+    -
+    Added by <a class="user active" href="/users/140">Olivier Tilloy</a> <a title="14 Jan 2012 10:05" href="/projects/exiv2/activity?from=2012-01-14">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>The latest version of the script above can be found in pyexiv2's trunk branch: <a class="external" href="http://bazaar.launchpad.net/~osomon/pyexiv2/pyexiv2-0.3/view/head:/cross-compile.sh">http://bazaar.launchpad.net/~osomon/pyexiv2/pyexiv2-0.3/view/head:/cross-compile.sh</a></p>
+
+
+	<p>It currently only works for win32 (64 bits support is not there yet). I hope this helps.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-5/5)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

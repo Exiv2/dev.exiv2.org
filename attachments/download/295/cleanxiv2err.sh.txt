@@ -1,0 +1,55 @@
+#!/bin/bash
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+#Subroutine comprising the steps and commands in Pass Five (see below)
+function savetime () {
+	utime=$(exiv2 -g Exif.Image.DateTime -Pv $line 2>/dev/null)
+	if [[ ! "X${utime}" == "X" ]]; then
+		exiv2 -qkde $line
+		exiv2 -qkM"set Exif.Image.DateTime Ascii $utime" $line
+		exiv2 -qkM"set Exif.Photo.DateTimeOriginal Ascii $utime" $line
+	else
+		echo -e "Pass 5 not valid for $file - no date & time data."
+		echo -e "Skipping Pass 5 stage.\n"
+	fi
+}
+#We begin here...
+echo "Clean Exiv2 Error Script"
+echo "This script will remove the EXIF tags which"
+echo "cause many errors with Exiv2."
+
+#Bonus:It restores EXIF date & time data to the Image AND Photo directories.
+
+echo
+echo "This script requires that the file"
+echo -ne "\t\"errantfiles.txt\"\n"
+echo "be present in the same directory with"
+echo "the files in question."
+#My script 'exivate' creates this text file. 
+#If you can't find the 'exivate' script on dev.exiv2.org,
+#email me for it on silversleevesx@googlemail.com .
+echo
+if [ ! -f "errantfiles.txt" ]; then
+	echo "The list can't be located."
+	echo -ne "Exiting.\n\n"
+	exit 1
+fi
+while read 'line';
+do
+	file=$(basename "$line")	
+	echo "File is $line"
+	echo "First Pass..." # 'Make' data in EXIF
+	exiv2 -qkM"del Exif.Image.Make" $line
+	echo "Second pass..." # 'MakerNote' data in EXIF
+	exiv2 -qkM"del Exif.Photo.MakerNote" $line
+	echo "Third pass..." # In case the EXIF "Software" tag is set wrong.
+	exiv2 -qkM"del Exif.Image.Software" $line
+	echo "Fourth Pass..." # On the good chance it's the thumbnail causing the error
+	exiv2 -qkdt $line
+	echo "Fifth pass:" # 'Could it be the date & time data? Let's find out.'
+	echo -e "\tThis one might take longer..."
+	savetime
+#We're done here. Next file please and tyvm.
+	echo "File $line cleaned."; echo
+done<errantfiles.txt
+IFS=$SAVEIFS

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Support #1082: Crash when removing property of unregistered XMP namespace - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="7Bx8TUZtjYWkQ8TPt032oNZ9SArnxSTg8nDqX6qxFCoOUdeiNBdBhfEn28MImvqT6e8ccxYmhVoPUHrX6YjzRQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Support #1082: Crash when removing property of unregistered XMP namespace" href="https://dev.exiv2.org/issues/1082.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Support #1082</h2>
+
+<div class="issue tracker-3 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Crash when removing property of unregistered XMP namespace</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4434">Johannes Kapune</a> <a title="15 May 2015 14:24" href="/projects/exiv2/activity?from=2015-05-15">over 6 years</a> ago.
+        Updated <a title="19 Jun 2016 16:09" href="/projects/exiv2/activity?from=2016-06-19">over 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/4035">Alan Pater</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">not-a-bug</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">15 May 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>main screen of digicam 4.10.0 on openSUSE 13.2 freezes when going from picture to picture and name faces, sometimes very soon soon, sometimes it takes a while</p>
+
+
+	<p>what I have done:</p>
+
+
+	<p>1. start digikam<br />2. open an album<br />3. open a picture and name one of the faces<br />4. switch to next picture and name a face<br />5. ... n. same like 4.</p>
+
+
+	<p>main window of digikam freezes and only possibility is to end digikam by clicking upper right x to quit. After this it takes a while than window pops up to ask if I want to end process of digikam</p>
+
+
+	<p>here it happens always, it does not depend n a special picture</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/787">digikam-gdb-20150515a</a>    <span class="size">(23 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/787/digikam-gdb-20150515a">digikam-gdb-20150515a</a>  </td>
+  <td>start digikam with gdb</td>
+  <td>
+      <span class="author">Johannes Kapune, 15 May 2015 14:24</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/788">digikam-start-20150515a</a>    <span class="size">(39.5 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/788/digikam-start-20150515a">digikam-start-20150515a</a>  </td>
+  <td>start digikam again without gdb from command line</td>
+  <td>
+      <span class="author">Johannes Kapune, 15 May 2015 14:24</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/790">digikam_gdb_laptop</a>    <span class="size">(15 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/790/digikam_gdb_laptop">digikam_gdb_laptop</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Johannes Kapune, 20 May 2015 17:47</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1082" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="yjrMzbwqzIaQvbA6SsbW4My1tj3aJdoinULwvw3llbYod2cizlAAhsXZrzb1EdrT8yfiRCvGe5hgYmA3Ttxy2Q==" />
+  <table class="list issues odd-even"><tr id="relation-159" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="941" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/941">Feature #941</a>: Upgrade xmpsdk source to Adobe&#39;s current version</td><td class="status">Closed</td><td class="start_date">27 Dec 2013</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1082/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1082&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3706" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="15 May 2015 14:27" href="/projects/exiv2/activity?from=2015-05-15">over 6 years</a> ago
+      <span id="journal-3706-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3706-notes" class="wiki"><p>Have you reported this to the digikam team?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3727" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="19 May 2015 12:33" href="/projects/exiv2/activity?from=2015-05-19">over 6 years</a> ago
+      <span id="journal-3727-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3727-notes" class="wiki"><p><a class="external" href="https://bugs.kde.org/show_bug.cgi?id=347753">https://bugs.kde.org/show_bug.cgi?id=347753</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3729" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4434">Johannes Kapune</a> <a title="20 May 2015 09:03" href="/projects/exiv2/activity?from=2015-05-20">over 6 years</a> ago
+      <span id="journal-3729-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3729-notes" class="wiki"><p>Alan Pater wrote:</p>
+
+
+<blockquote>
+
+	<p>Have you reported this to the digikam team?</p>
+
+
+</blockquote>
+
+	<p>yes, I was sent to here to report this behaviour.</p>
+
+
+	<p>I test it on second PC with only a few pictures and I get same problem when moving rectangle around the face to centre on the face. Every time than I get:</p>
+
+
+	<p>digikam(6311)/KEXIV2: Cannot remove Xmp tag using Exiv2    (Error # 35 : No namespace info avaible for XMP prefix 'acdsee'<br />digikam(6311)/KEXIV2: Cannot set Xmp tag string into image using Exiv2    (Error # 35 : No namespace info avaible for XMP prefix 'acdsee'</p>
+
+
+	<p>I don't use AcdSEE and have never used.</p>
+
+
+	<p>Johannes</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3730" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="20 May 2015 10:52" href="/projects/exiv2/activity?from=2015-05-20">over 6 years</a> ago
+      <span id="journal-3730-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3730-notes" class="wiki"><p>Can you double check that none of the images have ACDSee metadata in them? You can do this from the command line in the folder with the images.</p>
+
+
+<pre>
+exiv2 -g acdsee *.jpg
+</pre>
+
+	<p>If they do turn out to have ACDSee properties, could you test on a folder of images that don't have that metadata.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3731" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4434">Johannes Kapune</a> <a title="20 May 2015 11:13" href="/projects/exiv2/activity?from=2015-05-20">over 6 years</a> ago
+      <span id="journal-3731-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3731-notes" class="wiki"><p>Alan Pater wrote:</p>
+
+
+<blockquote>
+
+	<p>Can you double check that none of the images have ACDSee metadata in them? You can do this from the command line in the folder with the images.</p>
+
+
+	<p>[...]</p>
+
+
+	<p>If they do turn out to have ACDSee properties, could you test on a folder of images that don't have that metadata.</p>
+
+
+</blockquote>
+
+	<p>sorry, may be I have not understand you correctly:</p>
+
+
+	<p>~/Ser-04/bilder/bilder/Fabritzius/SW/001_1501231641> exiv2 -g acdsee *.jpg<br />If 'exiv2' is not a typo you can use command-not-found to lookup the package that contains it, like this:<br />    cnf exiv2</p>
+
+
+	<p>how do I get to use exiv2 from command line?</p>
+
+
+	<p><sub>/Ser-04/bilder/bilder/Fabritzius/SW/001_1501231641> l                                                                                                   <br />insgesamt 27808                                                                                                                                                                    <br />drwxr-xr-x  2 johannes users    4096 21. Mär 17:22 ./<br />drwxr-xr-x 69 johannes users    4096 19. Mai 21:50 ../<br /><del>rwsrwxrwx  1 johannes users 3019583 23. Jan 17:40 --</del>_01149.jpg*<br /><del>rwsrwxrwx  1 johannes users 2538855 23. Jan 17:40 --</del>_01151.jpg*<br /><del>rwsrwxrwx  1 johannes users 2675244 23. Jan 17:40 --</del>_01152.jpg*<br /><del>rwsrwxrwx  1 johannes users 2363119 23. Jan 17:41 --</del>_01153.jpg*<br /><del>rwsrwxrwx  1 johannes users 3000557 23. Jan 17:41 --</del>_01155.jpg*<br /><del>rwsrwxrwx  1 johannes users 2672025 23. Jan 17:41 --</del>_01156.jpg*<br /><del>rwsrwxrwx  1 johannes users 2576937 23. Jan 17:41 --</del>_01157.jpg*<br /><del>rwsrwxrwx  1 johannes users 2470485 23. Jan 17:41 --</del>_01158.jpg*<br /><del>rwsrwxrwx  1 johannes users 2466735 23. Jan 17:41 --</del>_01159.jpg*<br /><del>rwsrwxrwx  1 johannes users 2391055 23. Jan 17:41 --</del>_01160.jpg*<br /><del>rwsrwxrwx  1 johannes users 2266607 23. Jan 17:41 --</del>_01161.jpg*<br />johannes@JohannesHT87PLUS:</sub>/Ser-04/bilder/bilder/Fabritzius/SW/001_1501231641></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3732" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="20 May 2015 12:48" href="/projects/exiv2/activity?from=2015-05-20">over 6 years</a> ago
+      <span id="journal-3732-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Alan Pater</i></li>
+    </ul>
+    <div id="journal-3732-notes" class="wiki"><p>You need to install exiv2 on your system. In the digikam report you mention that you are using suse. If I recall correctly, you can use yast to install exiv2.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3733" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4434">Johannes Kapune</a> <a title="20 May 2015 13:04" href="/projects/exiv2/activity?from=2015-05-20">over 6 years</a> ago
+      <span id="journal-3733-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3733-notes" class="wiki"><p>Alan Pater wrote:</p>
+
+
+<blockquote>
+
+	<p>You need to install exiv2 on your system. In the digikam report you mention that you are using suse. If I recall correctly, you can use yast to install exiv2.</p>
+
+
+</blockquote>
+
+	<p>Ok, done.<br />But see the result:</p>
+
+
+	<p>johannes@JohannesHT87PLUS:~/Ser-04/bilder/bilder/Fabritzius/SW/001_1501231641> l<br />insgesamt 27812<br />drwxr-xr-x  2 johannes users    4096 20. Mai 15:01 ./<br />drwxr-xr-x 69 johannes users    4096 19. Mai 21:50 ../<br /><del>rwsrwxrwx  1 johannes users 3019583 23. Jan 17:40 01149.jpg*<br />-rwsrwxrwx  1 johannes users 2538855 23. Jan 17:40 01151.jpg*<br />-rwsrwxrwx  1 johannes users 2675244 23. Jan 17:40 01152.jpg*<br />-rwsrwxrwx  1 johannes users 2363119 23. Jan 17:41 01153.jpg*<br />-rwsrwxrwx  1 johannes users 3000557 23. Jan 17:41 01155.jpg*<br />-rwsrwxrwx  1 johannes users 2672025 23. Jan 17:41 01156.jpg*<br />-rwsrwxrwx  1 johannes users 2576937 23. Jan 17:41 01157.jpg*<br />-rwsrwxrwx  1 johannes users 2470485 23. Jan 17:41 01158.jpg*<br />-rwsrwxrwx  1 johannes users 2466735 23. Jan 17:41 01159.jpg*<br />-rwsrwxrwx  1 johannes users 2391055 23. Jan 17:41 01160.jpg*<br />-rwsrwxrwx  1 johannes users 2266607 23. Jan 17:41 01161.jpg*<br />-rw------</del>  1 johannes users      59 20. Mai 15:00 .directory<br />johannes@JohannesHT87PLUS:~/Ser-04/bilder/bilder/Fabritzius/SW/001_1501231641> exiv2 -g acdsee *.jpg<br />johannes@JohannesHT87PLUS:~/Ser-04/bilder/bilder/Fabritzius/SW/001_1501231641></p>
+
+
+	<p>sorry, no output of acdsee</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3734" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4434">Johannes Kapune</a> <a title="20 May 2015 13:30" href="/projects/exiv2/activity?from=2015-05-20">over 6 years</a> ago
+      <span id="journal-3734-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3734-notes" class="wiki"><p>what I see now ist: some of my pictures names are beginning with ---_  can this be a problem? when I tried to examine folders like this I get some strange output of exiv2 like</p>
+
+
+	<p>johannes@JohannesHT87PLUS:~/Ser-04/bilder/bilder/Fabritzius/SW/002_1501231645_Soenke> exiv2 <del>g acdsee *.jpg<br />exiv2: Unbekannte Option -</del><br />exiv2: Unbekannte Option --<br />exiv2: Unbekannte Option <del><em><br />exiv2: Unbekannte Option -0<br />exiv2: Unbekannte Option -1<br />exiv2: Unbekannte Option -1<br />exiv2: Unbekannte Option -6<br />exiv2: Unbekannte Option -2<br />exiv2: Unbekannte Option -.<br />exiv2: Unbekannte Option -j<br />exiv2: Unbekannter Druckmodus `g'<br />exiv2: Unbekannte Option -</del><br />exiv2: Unbekannte Option --<br />exiv2: Unbekannte Option <del></em><br />exiv2: Unbekannte Option -0<br />exiv2: Unbekannte Option -1<br />exiv2: Unbekannte Option -1<br />exiv2: Unbekannte Option -6<br />exiv2: Unbekannte Option -3<br />exiv2: Unbekannte Option -.<br />exiv2: Unbekannte Option -j<br />exiv2: Unbekannter Druckmodus `g'<br />[...]<br />exiv2: Unbekannte Option -</del><br />exiv2: Unbekannte Option --<br />exiv2: Unbekannte Option -_<br />exiv2: Unbekannte Option -0<br />exiv2: Unbekannte Option -1<br />exiv2: Unbekannte Option -1<br />exiv2: Unbekannte Option -9<br />exiv2: Unbekannte Option -5<br />exiv2: Unbekannte Option -.<br />exiv2: Unbekannte Option -j<br />exiv2: Unbekannter Druckmodus `g'<br />exiv2: Eine Aktion muss angegeben werden<br />exiv2: Es muss mindestens eine Datei angegeben werden<br />Benutzung: exiv2 [ Optionen ] [ Aktionen ] Datei ...</p>
+
+
+	<p>Ändert die Exif-Metadaten von Bildern.<br />johannes@JohannesHT87PLUS:~/Ser-04/bilder/bilder/Fabritzius/SW/002_1501231645_Soenke></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3735" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="20 May 2015 14:41" href="/projects/exiv2/activity?from=2015-05-20">over 6 years</a> ago
+      <span id="journal-3735-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3735-notes" class="wiki"><p>So what happens if you run digikam on a folder of images without the filenames begining in "--"? In other words, if all the images have names beginning with a letter or a number, no other characters.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3736" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4434">Johannes Kapune</a> <a title="20 May 2015 15:28" href="/projects/exiv2/activity?from=2015-05-20">over 6 years</a> ago
+      <span id="journal-3736-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3736-notes" class="wiki"><p>Alan Pater wrote:</p>
+
+
+<blockquote>
+
+	<p>So what happens if you run digikam on a folder of images without the filenames begining in "--"? In other words, if all the images have names beginning with a letter or a number, no other characters.</p>
+
+
+</blockquote>
+
+	<p>nothing, as you can see under #8</p>
+
+
+	<p>as you can see in the file list too, first I erased the trailing --_  so only the numbers 01149 to 01161 are in this folder.</p>
+
+
+	<p>last comment was only because I realized that exiv2 seems to use the trailing minus-signs as part of an option ( -- <del>_ -0 -1 -1 ... -j is unknown and for p there is the g unknown -> -</del>_011....jpg)</p>
+
+
+	<p>After this I choose in digikam only one single folder with no other filename as numbers but same result</p>
+
+
+	<p>I still think there is a problem with digikam itself because this problem discovers always with face recognition / some changes on faces. (like the rectangle)</p>
+
+
+	<p>I'm sorry I can't give some output of gdb, but here on my opensuse it does not work, also KDE crash handler is not able to give more information (most often digikam dies silently after Error #35 of exiv2)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3737" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4434">Johannes Kapune</a> <a title="20 May 2015 17:47" href="/projects/exiv2/activity?from=2015-05-20">over 6 years</a> ago
+      <span id="journal-3737-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/790">digikam_gdb_laptop</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/790/digikam_gdb_laptop">digikam_gdb_laptop</a> added</li>
+    </ul>
+    <div id="journal-3737-notes" class="wiki"><p>Johannes Kapune wrote:</p>
+
+
+<blockquote>
+
+	<p>Alan Pater wrote:</p>
+
+
+<blockquote>
+
+	<p>So what happens if you run digikam on a folder of images without the filenames begining in "--"? In other words, if all the images have names beginning with a letter or a number, no other characters.</p>
+
+
+</blockquote>
+
+	<p>nothing, as you can see under #8</p>
+
+
+	<p>as you can see in the file list too, first I erased the trailing --_  so only the numbers 01149 to 01161 are in this folder.</p>
+
+
+	<p>last comment was only because I realized that exiv2 seems to use the trailing minus-signs as part of an option ( -- <del>_ -0 -1 -1 ... -j is unknown and for p there is the g unknown -> -</del>_011....jpg)</p>
+
+
+	<p>After this I choose in digikam only one single folder with no other filename as numbers but same result</p>
+
+
+	<p>I still think there is a problem with digikam itself because this problem discovers always with face recognition / some changes on faces. (like the rectangle)</p>
+
+
+	<p>I'm sorry I can't give some output of gdb, but here on my opensuse it does not work, also KDE crash handler is not able to give more information (most often digikam dies silently after Error #35 of exiv2)</p>
+
+
+</blockquote>
+
+	<p>here I can give a debug output with gdb. I have only one folder with 6 pictures in it. Only thing I have done was to name one single face in faces:unknown</p>
+
+
+	<p>hope this helps</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3738" class="journal has-notes has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="20 May 2015 18:52" href="/projects/exiv2/activity?from=2015-05-20">over 6 years</a> ago
+      <span id="journal-3738-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Tracker</strong> changed from <i>Bug</i> to <i>Support</i></li>
+    </ul>
+    <div id="journal-3738-notes" class="wiki"><p>Maik of digikam suggests checking and updating the version of libkexiv2 on your system. I'm not sure how to do that on openSuse though.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3739" class="journal has-notes has-details">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="20 May 2015 23:12" href="/projects/exiv2/activity?from=2015-05-20">over 6 years</a> ago
+      <span id="journal-3739-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Subject</strong> changed from <i>digikam freeezes when tagging faces</i> to <i>Crash when removing property of unregistered XMP namespace</i></li>
+       <li><strong>Category</strong> set to <i>xmp</i></li>
+       <li><strong>Assignee</strong> changed from <i>Alan Pater</i> to <i>Andreas Huggel</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    <div id="journal-3739-notes" class="wiki"><p>Gilles Caulier: <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=347753#c18">https://bugs.kde.org/show_bug.cgi?id=347753#c18</a></p>
+
+
+<pre>
+(gdb) bt #0 0x00007ffff0f494c0 in __cxa_throw () from /usr/lib64/libstdc++.so.6 #1 0x00007fffee5cea56 in Exiv2::XmpProperties::nsInfo(std::string const&#38;) () from /usr/lib64/libexiv2.so.13 #2 0x00007fffee5ceb30 in Exiv2::XmpProperties::ns(std::string const&#38;) () from /usr/lib64/libexiv2.so.13 #3 0x00007fffee5cf36b in Exiv2::XmpKey::Impl::decomposeKey(std::string const&#38;) () from /usr/lib64/libexiv2.so.13 #4 0x00007fffee5cf735 in Exiv2::XmpKey::XmpKey(std::string const&#38;) () from /usr/lib64/libexiv2.so.13 #5 0x00007ffff639d805 in KExiv2Iface::KExiv2::removeXmpTag(char const*, bool) const () from /usr/lib64/libkexiv2.so.11
+</pre> 
+
+	<p>It look like Exiv2 debug symbols are not installed. So it's impossible to see exactly where in Exiv2 code the problem appears.</p>
+
+
+I recommend : 
+	<ul>
+	<li>to install Exiv2 debug package and try to get a better GDB backtrace. </li>
+		<li>to catch exception directly in GDB before to run digiKam, as explained at <a class="external" href="https://www.digikam.org/contrib">https://www.digikam.org/contrib</a></li>
+	</ul>
+
+
+	<p>I suspect that Adobe XMP SDK generate an exception which is not catch by Exiv2 code.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5186" class="journal has-notes has-details">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="19 Jun 2016 16:09" href="/projects/exiv2/activity?from=2016-06-19">over 5 years</a> ago
+      <span id="journal-5186-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>xmp</i> to <i>not-a-bug</i></li>
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>Assignee</strong> changed from <i>Andreas Huggel</i> to <i>Alan Pater</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-5186-notes" class="wiki"><p>This report from last year is typical of reports involving digikam. The root cause was out-of-sync exiv2 library versions on the affected system.</p>
+
+
+	<p>Solution was to remove all old exiv2 library versions on the affected system and update to version 0.25 of libexiv2.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1082.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1082.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>compiling under MSVC - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ebXRl6ZeiTBnTe40NpldEFSH6Cl0rKZrwlEhfWVyD7mb+Hp41CRFMDIp8TiJTlEjaxW8UIVPB9E/cbH1Jkvo1g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>compiling under MSVC</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="17 Mar 2016 19:32" href="/projects/exiv2/activity?from=2016-03-17">over 5 years</a> ago</span></p>
+<div class="wiki">
+<p>After looking over the wiki and downloading the code, I am a bit confused.<br />The wiki at: <a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/Building_on_Windows_Using_Visual_Studio_Express_2012">http://dev.exiv2.org/projects/exiv2/wiki/Building_on_Windows_Using_Visual_Studio_Express_2012</a> talks about a directory trunk/msvc2012, but I cannot find such a directory in the tarball I downloaded, nor in the code I got via svn.</p>
+
+
+	<p>Do I really have to install MSVC 2005 ot 2008??</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (13)</h3>
+  <div class="message reply" id="message-2424">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2424#message-2424">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Mar 2016 21:02" href="/projects/exiv2/activity?from=2016-03-17">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Good News.  That's an error in the documentation.</p>
+
+
+	<p>You can build the projects in msvc2005 with Visual Studio 2005/8/10/12/13/15  Our build server builds them all every night.  We support  <em><strong>the works</strong></em> { Dynamic|Static x86|x64 Debug|Release }.  msvc2003/exiv2.sln will build x86 with Visual Studio 2003/2005/2008 { Dynamic|Static Debug|Release }</p>
+
+
+	<p>So ... <em><strong>bottom line:</strong></em>  Open msvc2005/exiv2.sln in Visual Studio 2012 and you should be able to build.  The convertor takes a remarkably long time to run (1 or 2 minutes), however you only have to do that once.</p>
+
+
+	<p><em><strong>Explanation:</strong></em></p>
+
+
+	<p><em>At the end of the v0.24 release cycle, I discovered that the Visual Studio 2012 project convertor wasn't working correctly on msvc2005/exiv2.sln.  I quickly added the msvc2012 tree to provide Visual Studio 2012 support for v0.24.  However I fixed msvc2005/exiv2.sln early in v0.25 development, removed the msvc2012 tree, and forgot to update the Wiki Page about VS2012.</em></p>
+
+
+	<p><em>Support for Visual Studio 2013 and 2015 was added to the trunk for v0.26 (expected to ship in July 2016).</em></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2427">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2427#message-2427">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="18 Mar 2016 02:04" href="/projects/exiv2/activity?from=2016-03-18">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you for the good news.<br />I have been able to do a compile under MSVC 2013 Express.<br />Now I'll have to worry about integrating it with the app.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2771">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2771#message-2771">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/4745">Raphael Attie</a> <a title="27 Oct 2016 07:57" href="/projects/exiv2/activity?from=2016-10-27">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>In Windows 10, I've started to work under VS 2015 too, in addition to the mac/clang/clion build. So I'm interested to see that working in VS 2015. At the moment, here's what I did:</p>
+
+
+	<p>1) Get the exiv2libs from <a class="external" href="http://clanmills.com/files/exiv2libs.zip">http://clanmills.com/files/exiv2libs.zip</a> , put the unzipped files into <strong>c:\exiv2libs</strong><br />2) Based on the MSVC 2003 documentation at step 2- and 3-, having used step 1) above, I thus skip the step of building expat and zlib.<br />3) With exiv2 files in c:\exiv2, I execute the msvc2003/copylibs.bat. Can't see anything, except the terminal showing for a fraction of a second and so can't see what it actually did. <br />4) I open the sln file in exiv2/msvc2005/exiv2.sln <br />5) VS 2015 tells me I have to upgrade the files. After a few minutes, I see a report with a failed upgrade for the file exiv2.vsprops, only warnings for the rest<br />6) Build/batch -> build/select all -> build  , this fails.</p>
+
+
+	<p>Robin is sending updated instruction on this as I write these lines. I will report back here the corrected steps for anyone interested in building with VS 2015.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2772">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2772#message-2772">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Oct 2016 08:08" href="/projects/exiv2/activity?from=2016-10-27">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>The copylibs.bat file is of very little importance.  It's used by the buildserver to install the library code every time it builds (because I have no idea where Jenkins actually performs the build!).</p>
+
+
+	<p>The important matter is to arrange the code as follows: <pre>1.2  Install zlib and expat sources.
+     I use the directory c:\gnu\exiv2 for this purpose, however the name isn't important.
+
+     c:\gnu\exiv2&gt;dir
+     Directory of c:\gnu\exiv2
+     2010-12-05  10:05     &lt;DIR&gt;    trunk     &lt;--- this tree
+     2012-05-04  23:35     &lt;DIR&gt;    expat     &lt;--- "vanilla" expat   2.1.0  source tree
+     2012-05-04  23:35     &lt;DIR&gt;    zlib      &lt;--- "vanilla" zlib    1.2.7  source tree
+     2012-05-04  23:35     &lt;DIR&gt;    curl      &lt;--- "vanilla" curl    7.39.0 source tree
+     2012-05-04  23:35     &lt;DIR&gt;    openssl   &lt;--- "vanilla" openssl 1.0.1j source tree
+     2012-05-04  23:35     &lt;DIR&gt;    libssh    &lt;--- "vanilla" libssh  0.5.5  source tree
+     c:\gnu\exiv2&gt;</pre>You can obtain the library code from the internet.  I've put a copy here:  <a class="external" href="http://clanmills.com/files/exiv2libs.zip">http://clanmills.com/files/exiv2libs.zip</a></p>
+
+
+	<p>The libraries <em><strong><code>curl, openssl, libssh</code></strong></em> are only used when building the optional <em><strong>webready</strong></em> feature.</p>
+
+
+	<p>The Visual Studio convertor reports loads of warnings which can be ignored.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2773">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2773#message-2773">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/4745">Raphael Attie</a> <a title="27 Oct 2016 09:57" href="/projects/exiv2/activity?from=2016-10-27">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ok, thanks for the advise. I realised also that copylibs.bat assumes we downloaded exiv2 source from svn repo while I downloaded the .tar.gz archive. So I was missing the "trunk" directory on top of what you otherwise get by downloading the .tar.gz archive, which i did. So the ../../ was putting the files one directory above where things should have been. Regardless, it's clearer now that I know where to copy things relative to the trunk directory.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2774">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2774#message-2774">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Oct 2016 10:03" href="/projects/exiv2/activity?from=2016-10-27">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you for looking into this.  I've discovered there are several things "wobbling" here.  "wobbling" is "well it works on my machine!".</p>
+
+
+	<p>I've reviewed everything I can and created a brand-new edition of <a class="external" href="http://clanmills.com/files/exiv2libs.zip">http://clanmills.com/files/exiv2libs.zip</a> (and <a class="external" href="http://clanmills.com/files/exiv2libs.tar.gz">http://clanmills.com/files/exiv2libs.tar.gz</a>) and testing then everywhere.  Getting to the very end of a software project is hard work.  It's even harder without a test engineer to find stuff like this!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2775">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2775#message-2775">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/4745">Raphael Attie</a> <a title="27 Oct 2016 12:52" href="/projects/exiv2/activity?from=2016-10-27">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>It compiled without apparent trouble in VS 2015, but I have a linker error when using libexiv2 in Qt Creator on Windows.</p>
+
+
+	<p>Error is LNK1104: cannot open file 'exiv2.lib'</p>
+
+
+	<p>yet the LIBS set the path as: <br />LIBS += -LC:\dev\exiv2\Win32\Debug - lexiv2</p>
+
+
+	<p>and the file "libexiv2.lib" is there.</p>
+
+
+	<p>I am really not a Windows expert, even less on VS 2015... To compile this, I was in "Debug" and "Win32" on the top scroll down menus.</p>
+
+
+	<p>Any idea ?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2776">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2776#message-2776">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Oct 2016 13:08" href="/projects/exiv2/activity?from=2016-10-27">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Question 1:  <em><strong>Which version of Qt are you using?</strong></em>  You have to match the version of Exiv2 and Qt.</p>
+
+
+	<p>If you're using Qt/MinGW, you'll have to build and link Exiv2 build on MinGW.  Good News:  I build it every night and you can fetch the build from the buildserver.  I can help you build Exiv2 for MinGW.</p>
+
+
+	<p>If you're using Qt/VS2015 your build "should" work.  I'm totally confident that it will work.  There is a Qt sample program in contrib/Qt  I recommend you get try to get that working.  Here are the build notes:  <a class="external" href="http://clanmills.com/exiv2/qt.shtml">http://clanmills.com/exiv2/qt.shtml</a></p>
+
+
+	<p>There have been several discussions over the years on Redmine about Qt.  Try the search box.  If you're stuck at the end of the day, I'll investigate this evening.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2777">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2777#message-2777">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Oct 2016 13:18" href="/projects/exiv2/activity?from=2016-10-27">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>You'll probably have to "decorate" your path.  Those Unix things (like QMake) seldom understand DOS filenames such as c:\dev\exiv2\Win32\Debug as they treat the \ as an escape.  So they see the string <em><strong><code>c:\dev\exiv2\Win32\Debug</code></strong></em> as <em><strong><code>c:devexiv2Win32Debug</code></strong></em>.</p>
+
+
+	<p>Try doubling up the <em><strong><code>\</code></strong></em> as <em><strong><code>\\</code></strong></em>  Something like: <em><strong><code>c:\\dev\\exiv2\\Win32\\Debug</code></strong></em></p>
+
+
+	<p>Here's a qmake file that has worked for me and uses qmake magic <em><strong><code>$$quote</code></strong></em> :<br /><pre>TARGET    = exiv2
+QT       += core
+QT       -= gui
+
+# http://stackoverflow.com/questions/1011197/qt-static-linking-and-deployment
+CONFIG   += static
+CONFIG   += console
+CONFIG   -= app_bundle
+
+TEMPLATE  = app
+
+win32 {
+    # http://www.formortals.com/build-qt-static-small-microsoft-intel-gcc-compiler/
+    QMAKE_CFLAGS_RELEASE =  /D "WIN32" /D "_NDEBUG" /D "_CONSOLE" /D "BUILD_GETOPT" /D "_MBCS" /FD /EHsc /MD /W3 /WX
+
+    INCLUDEPATH  += $$quote(C:/gnu.test/exiv2/msvc64/include)
+    LIBS         += $$quote(C:/gnu.test/exiv2/msvc64/exiv2lib/Win32/release/exiv2s.lib)
+    LIBS         += $$quote(C:/gnu.test/exiv2/msvc64/xmpsdk/win32/release/xmpsdk.lib)
+    LIBS         += $$quote(C:/gnu.test/exiv2/msvc64/expat/Win32/Release/libexpat.lib)
+    LIBS         += $$quote(C:/gnu.test/exiv2/msvc64/zlib/Win32/Release/zlib1.lib)
+}
+
+SOURCES += $$quote(C:/gnu.test/exiv2/src/exiv2.cpp) \
+           $$quote(C:/gnu.test/exiv2/src/actions.cpp)      \
+           $$quote(C:/gnu.test/exiv2/src/getopt_win32.c)   \
+           $$quote(C:/gnu.test/exiv2/src/localtime.c)      \
+           $$quote(C:/gnu.test/exiv2/src/utils.cpp)</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2778">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2778#message-2778">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/4745">Raphael Attie</a> <a title="27 Oct 2016 13:19" href="/projects/exiv2/activity?from=2016-10-27">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I found the problem. I was using Qt 5.7. For people used to mac like me, I'd like to spare hours of head-scratching to other poor souls used to Qt on mac and not windows. <br />The problem is due to a difference between the linking vocable between mac (unix?) and windows.</p>
+
+
+	<p>Simply put, you just have to write <br />LIBS += blah -llibexiv2 <br />and not<br />LIBS += blah -lexiv2</p>
+
+
+	<p>So, Qt/windows here need the full name of the file, in addition to the -l</p>
+
+
+	<p>Now everything is working.</p>
+
+
+	<p>Thanks</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2779">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2779#message-2779">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/4745">Raphael Attie</a> <a title="27 Oct 2016 13:26" href="/projects/exiv2/activity?from=2016-10-27">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>cross-fire, i posted the above while you posted yours. I see that you used the $$quote. I didn't know that way.</p>
+
+
+	<p>With Qt, for include and link paths, you can also simply use quotes " " , which allows also to use blank space.</p>
+
+
+	<p>For example, to link something installed in Program Files: <br />LIBS += -L"C:\Program Files\blah1\blah2\" -lmylib</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2780">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2780#message-2780">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Oct 2016 14:02" href="/projects/exiv2/activity?from=2016-10-27">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Whatever way works, is the way that it works.  At least you know how NASA put men on the Moon.  They didn't have software to help them.  They would have landed on Mars by mistake!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2781">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2423?r=2781#message-2781">RE: compiling under MSVC</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="29 Oct 2016 03:20" href="/projects/exiv2/activity?from=2016-10-29">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I have investigated and fixed the convertor error message concerning exiv2.vsprops in Visual Studio 2015.  <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Eliminate Visual Studio project convertor errors  (Closed)" href="/issues/1250">#1250</a></p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-13/13)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

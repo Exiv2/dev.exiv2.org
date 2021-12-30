@@ -1,0 +1,45 @@
+diff -Nur -x '*.orig' -x '*~' exiv2-0.17/src/basicio.cpp exiv2-0.17.new/src/basicio.cpp
+--- exiv2-0.17/src/basicio.cpp	2008-03-09 04:10:50.000000000 +1100
++++ exiv2-0.17.new/src/basicio.cpp	2008-06-10 20:47:20.000000000 +1000
+@@ -428,7 +428,7 @@
+             // Minimum size for 1st block is 32kB
+             long size  = std::max(32768 * (1 + need / 32768), size_);
+             byte* data = (byte*)std::malloc(size);
+-            std::memcpy(data, data_, size_);
++            memcpy(data, data_, size_);
+             data_ = data;
+             sizeAlloced_ = size;
+             isMalloced_ = true;
+diff -Nur -x '*.orig' -x '*~' exiv2-0.17/xmpsdk/src/XMPCore_Impl.hpp exiv2-0.17.new/xmpsdk/src/XMPCore_Impl.hpp
+--- exiv2-0.17/xmpsdk/src/XMPCore_Impl.hpp	2008-04-05 02:50:11.000000000 +1100
++++ exiv2-0.17.new/xmpsdk/src/XMPCore_Impl.hpp	2008-06-10 20:49:53.000000000 +1000
+@@ -90,7 +90,7 @@
+ #define kHexDigits "0123456789ABCDEF"
+ 
+ #define XMP_LitMatch(s,l)		(std::strcmp((s),(l)) == 0)
+-#define XMP_LitNMatch(s,l,n)	(std::strncmp((s),(l),(n)) == 0)
++#define XMP_LitNMatch(s,l,n)	(strncmp((s),(l),(n)) == 0)
+ 	// *** Use the above macros!
+ 
+ #define kTab ((char)0x09)
+@@ -370,7 +370,7 @@
+ IsPathPrefix ( XMP_StringPtr fullPath, XMP_StringPtr prefix )
+ {
+ 	bool isPrefix = false;
+-	XMP_StringLen prefixLen = std::strlen(prefix);
++	XMP_StringLen prefixLen = strlen(prefix);
+ 	if ( XMP_LitNMatch ( prefix, fullPath, prefixLen ) ) {
+ 		char separator = fullPath[prefixLen];
+ 		if ( (separator == 0) || (separator == '/') ||
+diff -Nur -x '*.orig' -x '*~' exiv2-0.17/xmpsdk/src/XMPMeta.cpp exiv2-0.17.new/xmpsdk/src/XMPMeta.cpp
+--- exiv2-0.17/xmpsdk/src/XMPMeta.cpp	2008-05-13 19:28:28.000000000 +1000
++++ exiv2-0.17.new/xmpsdk/src/XMPMeta.cpp	2008-06-10 20:47:20.000000000 +1000
+@@ -20,6 +20,8 @@
+ #include "UnicodeInlines.incl_cpp"
+ #include "UnicodeConversions.hpp"
+ 
++#include <cstring>
++
+ #if XMP_DebugBuild
+ 	#include <iostream>
+ #endif

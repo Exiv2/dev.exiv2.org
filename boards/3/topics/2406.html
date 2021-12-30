@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Why does Exiv2 write to ImageIFD? - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="R8KMliNAW1R/ejfk2cJoElZiYRpcxEdvlhGcBrt6+Vmljyd5UTqXVCoeKOhmFWQhafA1Y60n5tVrMQyO+EMeNg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Why does Exiv2 write to ImageIFD?</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="10 Mar 2016 16:15" href="/projects/exiv2/activity?from=2016-03-10">over 5 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>When writing a meta information into a PNG file, it appears that Exiv2 adds to "Raw profile type <strong>exif" -> <em>encoded exif data</em></strong> into the PNG textual information(1). Why is it done? Is there a way not to do that?</p>
+
+
+	<p>Thanks,<br />Mikayel</p>
+
+
+	<p>(1) <a class="external" href="http://www.libpng.org/pub/png/spec/1.2/PNG-Chunks.html">http://www.libpng.org/pub/png/spec/1.2/PNG-Chunks.html</a></p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (2)</h3>
+  <div class="message reply" id="message-2407">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2406?r=2407#message-2407">RE: Why does Exiv2 write to ImageIFD?</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Mar 2016 17:12" href="/projects/exiv2/activity?from=2016-03-10">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I believe the exif data is conventionally stored in an tEXt chunk, although I don't know if this is part of a standard.  Here's a discussion:  <a class="external" href="http://stackoverflow.com/questions/9542359/does-png-contain-exif-data-like-jpg">http://stackoverflow.com/questions/9542359/does-png-contain-exif-data-like-jpg</a></p>
+
+
+	<p>Apparently imagemagic use the tEXt chunk and exiv2 implements that.   I have taken my favourite test file <a class="external" href="http://clanmills.com/Stonehenge.jpg">http://clanmills.com/Stonehenge.jpg</a> and exported it to PNG on the Mac using Preview.app.  The metadata has been written as XMP in an iTXt chunk.</p>
+
+
+	<p>You can dump the structure of a PNG with <strong><code>$ exiv2 -pS or -pR path</code></strong>. For Example:<pre>736 rmills@rmillsmbp:~/clanmills $ exiv2 -pR ~/gnu/exiv2/trunk/test/data/imagemagick.png 
+STRUCTURE OF PNG FILE: /Users/rmills/gnu/exiv2/trunk/test/data/imagemagick.png
+ address | index | chunk_type |  length | data
+       8 |     0 |       IHDR |      13 | ...@........
+      33 |     1 |       iCCP |    1404 | icc..x...i8.......af\...w_3...+
+    1449 |     2 |       sBIT |       3 | ...
+    1464 |     3 |       zTXt |      87 | Software..x...A.. ......B....}.N
+Software: digiKam 0.9.0-svn ( libpng version 1.2.8 - December 3, 2004 (header) )
+    1563 |     4 |       tEXt |   24482 | Raw profile type exif..exif.   1
+  STRUCTURE OF TIFF FILE (MM): MemIo
+   address |    tag                           |      type |    count |    offset | value
+        10 | 0x0100 ImageWidth                |     SLONG |        1 |       320 | 320
+        22 | 0x0101 ImageLength               |     SLONG |        1 |       211 | 211
+        34 | 0x010f Make                      |     ASCII |       18 |       146 | NIKON CORPORATION
+        46 | 0x0110 Model                     |     ASCII |       10 |       164 | NIKON D70
+        58 | 0x0112 Orientation               |     SHORT |        1 |     65536 | 1
+        70 | 0x011a XResolution               |  RATIONAL |        1 |       174 | 174/0
+        82 | 0x011b YResolution               |  RATIONAL |        1 |       182 | 182/0
+        94 | 0x0128 ResolutionUnit            |     SHORT |        1 |    131072 | 2
+       106 | 0x0131 Software                  |     ASCII |       18 |       190 | digiKam-0.9.0-svn
+       118 | 0x0132 DateTime                  |     ASCII |       20 |       208 | 2006:02:04 16:09:30
+       130 | 0x8769 ExifTag                   |      LONG |        1 |       228 | 228
+    STRUCTURE OF TIFF FILE (MM): MemIo
+     address |    tag                           |      type |    count |    offset | value
+         230 | 0x829a ExposureTime              |  RATIONAL |        1 |       546 | 546/0
+         242 | 0x829d FNumber                   |  RATIONAL |        1 |       554 | 554/0
+         254 | 0x8822 ExposureProgram           |     SHORT |        1 |    262144 | 4
+         266 | 0x8827 ISOSpeedRatings           |     SHORT |        1 |  13107200 | 200
+         278 | 0x9003 DateTimeOriginal          |     ASCII |       20 |       562 | 2006:02:04 16:09:30
+         290 | 0x9004 DateTimeDigitized         |     ASCII |       20 |       582 | 2006:02:04 16:09:30
+         302 | 0x9201 ShutterSpeedValue         |  RATIONAL |        1 |       602 | 602/0
+         314 | 0x9202 ApertureValue             |  RATIONAL |        1 |       610 | 610/0
+         326 | 0x9204 ExposureBiasValue         |  RATIONAL |        1 |       618 | 618/0
+         338 | 0x9205 MaxApertureValue          |  RATIONAL |        1 |       626 | 626/0
+         350 | 0x9208 LightSource               |     SHORT |        1 |         0 | 0
+         362 | 0x9209 Flash                     |     SHORT |        1 |         0 | 0
+         374 | 0x920a FocalLength               |  RATIONAL |        1 |       634 | 634/0
+         386 | 0x927c MakerNote                 | UNDEFINED |     6989 |       642 |  ...
+         398 | 0xa002 PixelXDimension           |     SLONG |        1 |       320 | 320
+         410 | 0xa003 PixelYDimension           |     SLONG |        1 |       211 | 211
+         422 | 0xa217 SensingMethod             |      BYTE |        1 |  33554432 | 
+         434 | 0xa301 SceneType                 |      BYTE |        1 |  16777216 | 
+         446 | 0xa402 ExposureMode              |     SHORT |        1 |         0 | 0
+         458 | 0xa403 WhiteBalance              |     SHORT |        1 |         0 | 0
+         470 | 0xa405 FocalLengthIn35mmFilm     |     SHORT |        1 |   4915200 | 75
+         482 | 0xa406 SceneCaptureType          |     SHORT |        1 |         0 | 0
+         494 | 0xa408 Contrast                  |     SHORT |        1 |         0 | 0
+         506 | 0xa409 Saturation                |     SHORT |        1 |         0 | 0
+         518 | 0xa40a Sharpness                 |     SHORT |        1 |         0 | 0
+         530 | 0xa40c SubjectDistanceRange      |     SHORT |        1 |         0 | 0
+    END MemIo
+      7633 | 0x0103 Compression               |     SHORT |        1 |    393216 | 6
+      7645 | 0x0201 JPEGInterchangeFormat     |      LONG |        1 |      7673 | 7673
+      7657 | 0x0202 JPEGInterchangeFormatLeng |      LONG |        1 |      4376 | 4376
+  END MemIo
+   26057 |     5 |       tEXt |     471 | Raw profile type iptc..iptc.    
+   26540 |     6 |       IDAT |    8192 | x...Y.$Wv&#38;v.{.{l.T.......[w.=m$G
+   34744 |     7 |       IDAT |    8192 | .4X.y.AR...4....:Ue..U.|1..:..D.
+   42948 |     8 |       IDAT |    8192 | 'g.!... ...n...s..Jdz.........6.
+   51152 |     9 |       IDAT |    8192 | ........k....CY/75I..u;.. .z...}
+   59356 |    10 |       IDAT |    8192 | .f&gt;..]....UKqD2s.(.q....=x.l.\V.
+   67560 |    11 |       IDAT |    8192 | .i.{!!B0...C!4.p..`D g`.........
+   75764 |    12 |       IDAT |    8192 | .*.].4..Q..}(9...S0&#38;.......T.9.+
+   83968 |    13 |       IDAT |    8192 | ..k...6....g.1..}.].&#38;.H........
+   92172 |    14 |       IDAT |    8192 | .j..S.........z..!U.G0*.m%..09&lt;,
+  100376 |    15 |       IDAT |    8192 | .....t.&gt;!.....6^.&lt;..;..?$I..M.9
+  108580 |    16 |       IDAT |    8192 | W.&#38;5.5J........FW`....3.N.9Pk;.s
+  116784 |    17 |       IDAT |    8192 | .....d.z".`...v=g-..-.c8...Z.5.x
+  124988 |    18 |       IDAT |    8192 | .."...o&lt;&#38;."....1M....1&#38;. ..5....
+  133192 |    19 |       IDAT |    8192 | k........!..B*.....\*.(!..0.s..B
+  141396 |    20 |       IDAT |    3346 | .Y.L@I$M.Z[.0A ...K#.t.0+.G(.jX.
+  144754 |    21 |       IEND |       0 | 
+737 rmills@rmillsmbp:~/clanmills $ </pre>You can see that the 'Raw profile type exif' chunk contains an embedded TIFF structure which defines the metadata.</p>
+
+
+	<p>I'm not sure that there's anything in libexiv2 to say "read this PNG and ignore tEXt/exif chunk", however the chunk can be easily removed in a script using <strong><code>exiv2 -pS</code></strong> to locate the chunk.  Then use utility <strong>dd</strong> to rewrite the file minus that chunk.</p>
+
+
+	<p>Perhaps you could explain your situation/puzzle and I'll be able to give you better assistance.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2408">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2406?r=2408#message-2408">RE: Why does Exiv2 write to ImageIFD?</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Mar 2016 18:06" href="/projects/exiv2/activity?from=2016-03-10">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've just realised that you are talking about <em><strong>writing</strong></em> the PNG file.  I believe writeMetadata() for png files will write the tEXt chunk described above.</p>
+
+
+	<p>I didn't write exiv2, so I don't know why it is done this way.  The mostly likely explanation is "because it works".  If you have a proposal for a different way in which to store the metadata, please let me know.  It's obvious that the metadata can be represented in XMP which is also stored in a <em>different</em> tEXt chunk.  You can delete the exif metadata in an image and <em>"Raw profile type exif"</em> will not be written.</p>
+
+
+	<p>I've had a look at Phil's Exiftool Documentation concerning PNG:  <a class="external" href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/PNG.html#TextualData">http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/PNG.html#TextualData</a>  The page says <em>Some of the tags below are not registered as part of the PNG specification, but are included here because they are generated by other software such as ImageMagick.</em>  So our friend imagemagick seems to be the reason for this.  It would also seem that we could write the Exif data into 'Raw profile type exif' or 'Raw profile type APP1'  :  <a class="external" href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html">http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html</a></p>
+
+
+	<p>However, you're asking the wrong question!  I don't know why libexiv2 writes the data this way and I don't believe you can cause him to write it differently.</p>
+
+
+	<p>Perhaps you can explain how and why you'd like the metadata written in a different format and I'll try my best to answer.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-2/2)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Broken cmake support on windows? (trunk, r3883) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="qNJTJoCldO9M0TDyVtBzM3Lqw67XZ1rPmwtw7q8J8FpKn/jJ8t+47xm1L/7pB38ATXiX1yaE+3VmK+Bm7DAXNQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Broken cmake support on windows? (trunk, r3883)</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4516">Emmanuel d&#39;Angelo</a> <a title="18 Sep 2015 16:24" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Hello,</p>
+
+
+	<p>While trying to build exiv2 as a dynamic library on windows, I ran into the following linker problem: <pre>LNK error, missing file zlib.obj.</pre>However, I was trying to link against a (correctly found and identified) library zlib.lib.</p>
+
+
+	<p>After investigation, it turned out that the cmake link command doesn't work properly (at least on my setup): basically, I had to change the linker setup line in src/CMakeLists.txt from:<br /><pre>TARGET_LINK_LIBRARIES( exiv2lib optimized ${ZLIB_LIBRARIES} debug ${ZLIB_LIBRARIES}d )</pre>to:<pre>TARGET_LINK_LIBRARIES( exiv2lib optimized ${ZLIB_LIBRARIES}.lib debug ${ZLIB_LIBRARIES}d.lib )</pre>On my setup (windows 8, MS Visual Studio 2013, CMake 3.3.1), it turns out that the variable ZLIB_LIBRARIES will contain only the base name of zlib, and then Visual Studio is trying to link with an obj instead. This is fixed when I add the .lib extension.</p>
+
+
+	<p>Do more people experience the same issue or is it somehow bound to my configuration? I'll be happy to submit a patch is that sounds a real issue to you.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (9)</h3>
+  <div class="message reply" id="message-2234">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2232?r=2234#message-2234">RE: Broken cmake support on windows? (trunk, r3883)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2015 16:48" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Emmanuel</p>
+
+
+	<p>Apologies for the inconvenience.  Our CMake/Visual Studio support isn't good.  I'm hoping to get this solid and reliable for v0.26.    As it says in README-CMAKE:<pre>* CMake scripts are "work in progress".
+  Use them only if you're prepared to fix them.
+  See TODO-CMAKE for known pending tasks. </pre>And in TODO-CMAKE, it says:<pre>ToDo: * Fix out of source builds for NMake
+      * Find and link iconv library on Windows
+      * Test Cygwin, MinGW, Xcode, NMake and more versions of MSVC
+      * Revisit searching for zlib, expat and iconv
+      * Work on the "inherited from Gilles" list below</pre>I'd really like to recruit a volunteer to take CMake off my back.  Are you interested in volunteering?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2238">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2232?r=2238#message-2238">RE: Broken cmake support on windows? (trunk, r3883)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2015 18:26" href="/projects/exiv2/activity?from=2015-09-18">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Fix submitted.  <a class="changeset" title="Forum topic 2232: http://dev.exiv2.org/boards/3/topics/2232  Issue linking zlib on Visual Studio...." href="/projects/exiv2/repository/exiv2/revisions/3948">r3948</a>.  Thanks for reporting this and providing a fix.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2246">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2232?r=2246#message-2246">RE: Broken cmake support on windows? (trunk, r3883)</a>
+    -
+    Added by <a class="user active" href="/users/4516">Emmanuel d&#39;Angelo</a> <a title="20 Sep 2015 12:27" href="/projects/exiv2/activity?from=2015-09-20">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi guys,</p>
+
+
+	<p>No need for apologies, I'm glad that you already accepted the proposed fix.</p>
+
+
+	<p>It's hard for me to commit in maintaining the cmake part, because I only have access to a windows PC at work (I'm more on the *nix side at home). Anyway, I'm currently working with the cmake build system on both windows and linux, and I will fix and report any issue I find. Currently, version 0.24 did build pretty well on windows via cmake (we only had to force unicode support), and my issue-to-fix next week is related to the build output on linux (I couldn't detect more issues on windows).</p>
+
+
+	<p>I asked in the forum first, because we did update at the same time exiv2 and cmake (3.3.1). I'm not sure to understand why it the behavior of the FindZLib module is different from the behavior of other Find* modules, and I will also investigate that too.</p>
+
+
+	<p>Again, thanks for the reactivity!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2247">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2232?r=2247#message-2247">RE: Broken cmake support on windows? (trunk, r3883)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Sep 2015 13:39" href="/projects/exiv2/activity?from=2015-09-20">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Gosh, this is good news.  Thanks.  Daniel did some work on this a few months ago and I hope to give it more attention before v0.26 ships.</p>
+
+
+	<p>I worked on this a couple of years ago between contracts.  I found it rather frustrating because the builds take such a long time and there are lots of versions of Visual Studio.  I have committed to making our buildserver available to anybody and that will make it easier to request lots of builds.  I started working on this last week and you can see the UI here:  <a class="external" href="http://clanmills.com/exiv2/buildServer.html">http://clanmills.com/exiv2/buildServer.html</a></p>
+
+
+	<p>The buildServer has been operational for about a year.  It builds trunk and selected branches when code is submitted.  If you have a user account, you can trigger a build.  I hope to enable anybody to request a build (by SVN revision) and get all the build artefacts (libraries, logs, executables).  <a class="external" href="http://exiv2.dyndns.org:8080">http://exiv2.dyndns.org:8080</a></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2248">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2232?r=2248#message-2248">RE: Broken cmake support on windows? (trunk, r3883)</a>
+    -
+    Added by <a class="user active" href="/users/4516">Emmanuel d&#39;Angelo</a> <a title="22 Sep 2015 12:24" href="/projects/exiv2/activity?from=2015-09-22">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi everyone,</p>
+
+
+	<p>Thanks for the warm welcome!</p>
+
+
+	<p>Here is another patch submission. It will move the logic to enable the flag EXV_UNICODE_PATH (useful if you have wide strings on Windows) to the CMake configuration. The previous solution was based on detecting the environment (test for windows &#38;&#38; not mingw &#38;&#38; not cygwin). This solution was not reliable at all in our automated build system, so I chose to explicitly enable/disable this option in the cmake configuration. I chose to turn this option OFF by default to retain the previous behaviour, but it makes sense to have it ON by default if most of the windows users use MSVC instead of MinGW/Cygwin.</p>
+
+
+	<p>Hope this helps!</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/838">cmake-win-unicode.patch</a>    <span class="size">(1.44 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/838/cmake-win-unicode.patch">cmake-win-unicode.patch</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2249">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2232?r=2249#message-2249">RE: Broken cmake support on windows? (trunk, r3883)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Sep 2015 13:39" href="/projects/exiv2/activity?from=2015-09-22">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks Emmanuel.  Submitted <a class="changeset" title="#1041  Thanks you to Emmanuel for the patch.  Discussed here:  http://dev.exiv2.org/boards/3/topi..." href="/projects/exiv2/repository/exiv2/revisions/3958">r3958</a> and attributed to this CMake/Windows issue <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: CMake toolchain for windows (Closed)" href="/issues/1041">#1041</a>.  Let's bring this thread to a close and continue in <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: CMake toolchain for windows (Closed)" href="/issues/1041">#1041</a>.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2266">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2232?r=2266#message-2266">RE: Broken cmake support on windows? (trunk, r3883)</a>
+    -
+    Added by <a class="user active" href="/users/2456">Daniel Kaneider</a> <a title="09 Oct 2015 14:52" href="/projects/exiv2/activity?from=2015-10-09">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi, sorry for the late reply.</p>
+
+
+	<p>I will have to revert that initial change (<a class="changeset" title="Forum topic 2232: http://dev.exiv2.org/boards/3/topics/2232  Issue linking zlib on Visual Studio...." href="/projects/exiv2/repository/exiv2/revisions/3948">r3948</a>), since it makes no sense. Adding .lib to the target-link-library path may just be a workaround for missing paths. I know CMake on windows works quite differently than on Linux, such as you need to tell the system where the libraries are stored. One way is to do this using DCMAKE_LIBRARY_PATH, using install paths also works on linux.</p>
+
+
+	<p>Have a look at my scripts in contrib/build/msvc, they compile exiv2 out of the box from an empty directory. Set the right paths in setenv.bat (svn,cmake,cygwin), and then simply launch build from within a VC command prompt. The scripts might give you an idea how I generally use cmake on windows.</p>
+
+
+	<p>At least this works with my configuration including curl support (VC13, Win10, CMake 3.3.2)</p>
+
+
+	<p>Any doubts?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2267">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2232?r=2267#message-2267">RE: Broken cmake support on windows? (trunk, r3883)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Oct 2015 17:53" href="/projects/exiv2/activity?from=2015-10-09">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for getting involved in this Daniel.  The conversation has moved to <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: CMake toolchain for windows (Closed)" href="/issues/1041">#1041</a>.  I thought Emmanuel and T were going to send me something this week, however that hasn't happened.  If you want to revert <a class="changeset" title="Forum topic 2232: http://dev.exiv2.org/boards/3/topics/2232  Issue linking zlib on Visual Studio...." href="/projects/exiv2/repository/exiv2/revisions/3948">r3948</a>, I'm fine with that and T said it was wrong.  However, Emmanuel needs it to get his CMake/Visual Studio 2013.  I haven't been able to get anything to build with CMake 3.3.2/Visual Studio (2005, 2008, 2010, 2012, 2013 or 2015).  I am totally frustrated by this.</p>
+
+
+	<p>I had a conversation with Gilles last weekend (<a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: libexiv2 should hide XMP-SDK symbols (Closed)" href="/issues/1123">#1123</a>) and proposed that we adopt CMake as our primary build platform from v0.26 forward for *nix systems (Linux, Mac, Cygwin, MinGW).  However I'd like to retain msvc2005 as the primary Visual Studio build environment.  I have an open issue to do various enhancements to our Visual Studio support.  <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Visual Studio support for v0.27 (Closed)" href="/issues/1121">#1121</a>.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2328">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2232?r=2328#message-2328">RE: Broken cmake support on windows? (trunk, r3883)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Nov 2015 20:57" href="/projects/exiv2/activity?from=2015-11-18">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Gentlemen</p>
+
+
+	<p>I have good news.  I had a meeting with on Skype with Daniel.  Very productive meeting.  I've copied his scripts and started modifying them.  Mine are in contrib/cmake/msvc/ and there's a ReadMe.txt to explain how to use them.  The scripts are now building exiv2 with zlib-1.2.8 and expat-2.1.0.  In the next few days I'm going to work on the webready support which requires building openssl, libssh and curl.</p>
+
+
+	<p>If you don't require webready support, I'd appreciate feedback concerning my scripts.</p>
+
+
+	<p>I'm very optimistic that CMake/Visual Studio will work well in v0.26.  Not too confident about building openssl with CMake.  However Daniel had some way of getting that to work.  So there's reason for optimism.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-9/9)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

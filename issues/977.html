@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #977: Tagging RAW images for Canon EOS-1Ds corrupts them - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="/0JkJB35YcW1hbdzgC/UFOqWXB1uwzbCEAec55YVod4dD8/Lb4OtxeDhqH8/+Ngn1QQIZJ8gl3jtJwxv1SxGsQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #977: Tagging RAW images for Canon EOS-1Ds corrupts them" href="https://dev.exiv2.org/issues/977.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #977</h2>
+
+<div class="issue tracker-1 status-2 priority-4 priority-default details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Tagging RAW images for Canon EOS-1Ds corrupts them</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4192">Kory Roberts</a> <a title="06 Aug 2014 13:19" href="/projects/exiv2/activity?from=2014-08-06">over 7 years</a> ago.
+        Updated <a title="13 Jun 2016 06:23" href="/projects/exiv2/activity?from=2016-06-13">over 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Assigned</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">metadata</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Dec 2020" href="/versions/54">0.28</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">06 Aug 2014</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-10"><tr><td style="width: 10%;" class="closed" title="10%"></td><td style="width: 90%;" class="todo"></td></tr></table><p class="percent">10%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">10.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I first reported to digiKam, but they directed me here since this appears to be the library at issue.  I'm sorry for not digging into the relevant command line inputs, but hopefully testing can be done from what's provided here.  This issue seems pretty critical since RAW files are completely destroyed and unrecoverable simply by trying to tag them.</p>
+
+
+	<p>.....</p>
+
+
+	<p>I have digital RAW images taken with a Canon EOS-1Ds (mark 1, original).  Tagging these images in digiKam corrupts them.</p>
+
+
+	<p>When these files have a .TIF extension, tagging always corrupts them.  When these files have a .RAW extension and "If possible write Metadata to RAW files (experimental)" in the digiKam settings is unchecked, sidecar XMP files are created and the originals spared.</p>
+
+
+	<p>When corruption occurs, what should be 9-11 MB files are resaved as 280ish KB files (embedded thumbnail?).  No warnings or any other obvious signs hint that this has occurred.</p>
+
+
+	<p>A sample raw image for testing can be downloaded:</p>
+
+
+	<p><a class="external" href="https://drive.google.com/file/d/0ByXO8US0zFPicXFYVV9ISDY0Rlk/edit?usp=sharing">https://drive.google.com/file/d/0ByXO8US0zFPicXFYVV9ISDY0Rlk/edit?usp=sharing</a></p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2824" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4192">Kory Roberts</a> <a title="06 Aug 2014 13:25" href="/projects/exiv2/activity?from=2014-08-06">over 7 years</a> ago
+      <span id="journal-2824-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2824-notes" class="wiki"><p>I might mention that, for some bizarre reason, Canon gave these raw images a .TIF extension which has causes all kinds of issues along the way!  Usually renaming to .RAW extension solves minor issues, such as an image program correctly identifying the image as RAW format, rather than a true TIF (and only "seeing" the small embedded thumbnail).</p>
+
+
+	<p>This issue was the final straw for me personally (thank goodness I did have backups!!!), so I'm now in the process of converting my entire library of older 1Ds RAW photos to DNG.  Even to do that with digiKam's converter, I'm having to first rename from .TIF to .RAW.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2825" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Aug 2014 16:26" href="/projects/exiv2/activity?from=2014-08-06">over 7 years</a> ago
+      <span id="journal-2825-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Priority</strong> changed from <i>Urgent</i> to <i>Normal</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-2825-notes" class="wiki"><p>I agree that this is a serious bug.  The library should never destroy/corrupt an image.  Thanks for providing the test image.  I will look at this tomorrow.</p>
+
+
+	<p>It sounds as though your work-around is to convert all images to DNG and use that exclusively in your work-flow.  Can you confirm that is working correctly?  Adobe provide a free downloadable convertor to create DNGs.  I believe it can operate on a directory of images, so it's probably easy to import images from your camera and convert them immediately.</p>
+
+
+	<p>Please be aware that even if this is fixed tomorrow in the library, the fix will probably not be available until included in a future version of DigiKam.  We hope to release Exiv2 v0.25 in November and it could be early 2015 when available in DigiKam.  So, if your workflow based on DNG is working, you will be using that for some time to come and will probably never revert to a pure RAW workflow.  Once you live in the world of DNG, you will probably be using other tools are also broken in RAW format.  So when you adopt DNG, you'll probably be very happy.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2826" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4192">Kory Roberts</a> <a title="06 Aug 2014 17:03" href="/projects/exiv2/activity?from=2014-08-06">over 7 years</a> ago
+      <span id="journal-2826-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2826-notes" class="wiki"><p>Thanks, Robin.  Yes, I'm aware that bug-fixes can take some time to propagate into future releases, but appreciate your explanation.  Basically, I'm hoping to save someone else from completely fubaring their 1Ds raw archives!  I think Canon really messed up and was not forward-thinking in the way they named (TIF???) and formatted these files.</p>
+
+
+	<p>I've been moving forward today in converting all of these files to DNG, careful to convert before accidentally trying to tag first.  I have tested conversion (digiKam converter) and keyword/metadata application (digiKam) with these DNG files.  Other than having to first rename from .TIF to .RAW extension, all appears to be working as expected.</p>
+
+
+	<p>I will hold back a few unaltered originals (possibly renamed?) in case these are needed for further testing.  I was unsuccessful in locating any others online to download.</p>
+
+
+	<p>Thanks.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2827" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Aug 2014 18:10" href="/projects/exiv2/activity?from=2014-08-06">over 7 years</a> ago
+      <span id="journal-2827-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2827-notes" class="wiki"><p>Kory</p>
+
+
+	<p>I've downloaded you image and the latest Adobe DNG convertor.</p>
+
+
+	<p>I've reproduced the corruption you describe.  I think your guess that we have removed the image and only retained the thumbnail is probably correct.  Exiv2 operates on the file with either extension .tif or .raw.  The .tif extension may have implications for image recognition in DigiKam or other applications, however the Exiv2 library works (equally badly) with either.</p>
+
+
+	<p>I've converted the image to DNG and applied the command from the Exiv2 man page:<br /><pre>
+614 rmills@rmillsmbp:~/Pictures/DNG $ exiv2 -M"set Exif.Photo.UserComment charset=Ascii Comment added by rmills" bug.dng 
+Error: Directory Canon with 25665 entries considered invalid; not read.
+Error: Directory Canon with 25665 entries considered invalid; not read.
+615 rmills@rmillsmbp:~/Pictures/DNG $ exiv2 -pa bug.dng  | grep -i rmills
+Error: Directory Canon with 25665 entries considered invalid; not read.
+Exif.Photo.UserComment                       Undefined  31  Comment added by rmills
+616 rmills@rmillsmbp:~/Pictures/DNG $ ls -alt *.dng
+-rw-r--r--  1 rmills  staff  9311394  7 Aug 02:05 bug.dng
+617 rmills@rmillsmbp:~/Pictures/DNG $ </pre></p>
+
+
+	<p>That seems to be working OK.  I will investigate the warnings.</p>
+
+
+	<p>However to return focus to your original report, I will step the code tomorrow in the debugger.  It's 2am here in England and time to go to bed.  Maybe the simple fix is to report  "Unsupported file format.  Please convert to DNG.".  Doing nothing is less harmful than corrupting files.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2829" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4192">Kory Roberts</a> <a title="08 Aug 2014 22:48" href="/projects/exiv2/activity?from=2014-08-08">over 7 years</a> ago
+      <span id="journal-2829-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2829-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Doing nothing is less harmful than corrupting files.</p>
+
+
+</blockquote>
+
+	<p>I am in full agreement.  I think many--including me!!!--would consider tagging a few keywords to an image a very benign action, and might not take the necessary precautions to safeguard the image against corruption.  I lost a whole year's worth of raw images before I caught what was going on.  I did have backups though...thank goodness!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2830" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Aug 2014 05:18" href="/projects/exiv2/activity?from=2014-08-09">over 7 years</a> ago
+      <span id="journal-2830-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2830-notes" class="wiki"><p>We agree.  Corrupting files is not acceptable.</p>
+
+
+	<p>Good News.  I've found a fix which will cause exiv2.exe to report:<br /><pre>
+C:\&gt;\Users\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\DebugDLL\exiv2.exe -M"set Exif.Photo.UserComment charset=Ascii Comment added by rmills" c:\20030803
+-021.TIF
+Warning: Unsupported date format
+Warning: Unsupported time format
+Exiv2 exception in modify action for file c:\20030803-021.TIF:
+c:\20030803-021.TIF: No image found in file.  Try converting to DNG
+
+C:\&gt;
+</pre><br />There are three matters to deal with before committing the fix:<br />1) This disturbs a couple of our standard tests and I want to investigate those before committing a fix.<br />2) The "Unsupported data/time format" message deserves investigation, although I think that's something in your file and unrelated to this issue.<br />3) I'd like to discuss my fix with Andreas, our Project Lead Engineer.</p>
+
+
+	<p>When resolved, I would like to add a test to our test harness.  Do you have a smaller file than the file you have provided.</p>
+
+
+	<p>Just for the record, here is my current patch:<br /><pre>
+505 rmills@rmills-laptop:~/gnu/exiv2/trunk $ svn diff
+Index: src/error.cpp
+===================================================================
+--- src/error.cpp       (revision 3288)
++++ src/error.cpp       (working copy)
+@@ -105,7 +105,8 @@
+         { 49, N_("TIFF directory %1 has too many entries") }, // %1=TIFF directory name
+         { 50, N_("Multiple TIFF array element tags %1 in one directory") }, // %1=tag number
+         { 51, N_("TIFF array element tag %1 has wrong type") }, // %1=tag number
+-        { 52, N_("%1 has invalid XMP value type `%2'") } // %1=key, %2=value type
++        { 52, N_("%1 has invalid XMP value type `%2'") }, // %1=key, %2=value type
++        { 53, N_("%1: No image found in file.  Try converting to DNG") }, // %1=path
+     };
+
+ }
+Index: src/tiffimage.cpp
+===================================================================
+--- src/tiffimage.cpp   (revision 3288)
++++ src/tiffimage.cpp   (working copy)
+@@ -198,6 +198,8 @@
+
+     void TiffImage::writeMetadata()
+     {
++               // Issue: #977.  Don't re-write TIFs if there is no image!
++               if ( !pixelHeight_ || !pixelWidth_ ) throw Error(53, io_-&gt;path());
+ #ifdef DEBUG
+         std::cerr &lt;&lt; "Writing TIFF file " &lt;&lt; io_-&gt;path() &lt;&lt; "\n";
+ #endif
+506 rmills@rmills-laptop:~/gnu/exiv2/trunk $
+</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-2831" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4192">Kory Roberts</a> <a title="09 Aug 2014 08:28" href="/projects/exiv2/activity?from=2014-08-09">over 7 years</a> ago
+      <span id="journal-2831-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2831-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Do you have a smaller file than the file you have provided.</p>
+
+
+</blockquote>
+
+	<p>Since these are RAW images there are limits to how small, but I've discovered those with a lot of black tend to be smaller.  I've uploaded one that is just over 5 MB.  It has been renamed from the original file name, now with a .raw extension, but I think the EXIF information might provide the original file name, if that even matters.</p>
+
+
+	<p><a class="external" href="https://drive.google.com/file/d/0ByXO8US0zFPiOVdjLXRzRU5PRmc/edit?usp=sharing">https://drive.google.com/file/d/0ByXO8US0zFPiOVdjLXRzRU5PRmc/edit?usp=sharing</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-2832" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Aug 2014 09:27" href="/projects/exiv2/activity?from=2014-08-09">over 7 years</a> ago
+      <span id="journal-2832-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2832-notes" class="wiki"><p>Thanks for the smaller file.</p>
+
+
+	<p>The video test files are downloaded on demand using svn.  We only download the file once of course, not on every test.  We had a complaint about our test directory being too fat, and we put it on a diet by storing the video and eps files in a different SVN branch and downloading them on demand.  When I add a test for your file, I'll use that mechanism.</p>
+
+
+	<p>I regret that your files were corrupted and I understand the inconvenience.  I believe Exiv2 to be solid and reliable code.  I didn't write it - however I've contributed to this project for 6 years, and I don't recall anybody saying their files had been corrupted.  But, you know how it is with software, we can't know what we don't know and RAW files are a software standards nightmare.  Maybe we should tighten up and recommend DNG whenever it's not JPEG/PNG/GIF/BMP - then we move responsibility to the Adobe guys!</p>
+
+
+	<p>Anyway, I hope we get this fixed in the trunk in the next few days and it'll be in v0.25 which we hope to ship in November 2014.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2840" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="18 Aug 2014 05:40" href="/projects/exiv2/activity?from=2014-08-18">over 7 years</a> ago
+      <span id="journal-2840-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2840-notes" class="wiki"><p>I encountered this same problem in ExifTool 9 years ago.  My solution was to specifically test for the 1D magic bytes at offset 8 in all TIFF images (0xba 0xb0 0xac 0xbb), and if found treat this as a 1D RAW file instead of a TIFF.  (ExifTool does not support writing a 1D RAW file, so the response is to issue an error when attempting to write a file like this.)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2841" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Aug 2014 07:23" href="/projects/exiv2/activity?from=2014-08-18">over 7 years</a> ago
+      <span id="journal-2841-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2841-notes" class="wiki"><p>Thanks, Phil.<br />If that's good enough for ExifTool, it's good enough for Exiv2.  I'll incorporate your strategy in our code.</p>
+
+
+	<p>Kory<br />I still have to investigate the tests which failed with my fix above and resolve that before committing a fix to the trunk.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3678" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 May 2015 08:18" href="/projects/exiv2/activity?from=2015-05-09">over 6 years</a> ago
+      <span id="journal-3678-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.25</i> to <i>0.26</i></li>
+    </ul>
+    <div id="journal-3678-notes" class="wiki"><p>Deferred to v0.26.  Insufficient time to deal with this for v0.25.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3758" class="journal has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 May 2015 08:39" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+      <span id="journal-3758-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> deleted (<del><i>Robin Mills</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4379" class="journal has-details">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Oct 2015 09:02" href="/projects/exiv2/activity?from=2015-10-12">about 6 years</a> ago
+      <span id="journal-4379-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4634" class="journal has-notes has-details">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Jan 2016 10:47" href="/projects/exiv2/activity?from=2016-01-04">almost 6 years</a> ago
+      <span id="journal-4634-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> set to <i>10.00 h</i></li>
+    </ul>
+    <div id="journal-4634-notes" class="wiki"><p>I haven't looked at this for a long time.  However, I'm adding a SWAG to the outstanding tasks for v0.26 to attempt to understand how much work remains.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4639" class="journal has-details">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Jan 2016 11:37" href="/projects/exiv2/activity?from=2016-01-04">almost 6 years</a> ago
+      <span id="journal-4639-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>10</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5148" class="journal has-notes has-details">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Jun 2016 06:23" href="/projects/exiv2/activity?from=2016-06-13">over 5 years</a> ago
+      <span id="journal-5148-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>0.28</i></li>
+    </ul>
+    <div id="journal-5148-notes" class="wiki"><p>Deferred to v0.27 to make the schedule for v0.26.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/977.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/977.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

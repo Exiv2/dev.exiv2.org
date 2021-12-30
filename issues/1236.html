@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #1236: Build Exiv2 on MinGW using CMake - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="PrkG+r9Yry/DdMz3suWqr/uBsZcEGme6wvxXnkA7tFPc9K0VzSJjL5YQ0/sNMqacxBPl7vX5xgA/3McWAwJTPA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #1236: Build Exiv2 on MinGW using CMake" href="https://dev.exiv2.org/issues/1236.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #1236</h2>
+
+<div class="issue tracker-2 status-5 priority-4 priority-default closed details">
+    <div class="next-prev-links contextual">
+      <a title="#1237" accesskey="p" href="/issues/1237">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;f%5B%5D=author_id&amp;op%5Bauthor_id%5D=%3D&amp;op%5Bstatus_id%5D=%2A&amp;page=1&amp;per_page=25&amp;set_filter=1&amp;sort=id%3Adesc&amp;v%5Bauthor_id%5D%5B%5D=119&amp;v%5Bstatus_id%5D%5B%5D=">22 of 115</a>
+        </span> |
+      <a title="#1234" accesskey="n" href="/issues/1234">Next »</a>
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Build Exiv2 on MinGW using CMake</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2016 16:45" href="/projects/exiv2/activity?from=2016-09-30">about 5 years</a> ago.
+        Updated <a title="10 Oct 2016 19:01" href="/projects/exiv2/activity?from=2016-10-10">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">30 Sep 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">35.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I've got this working and documented.  For sure we should consider it 'experimental' for v0.26.</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1236" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="lby+4i2JvuF+CNYhppYw5fK76V6CpvHd9/uhS/OlLZZ38RUNX/Ny4StsyS0ZQTzWzSm9J3NFUGcK2zHDsJzK+Q==" />
+  <table class="list issues odd-even"><tr id="relation-250" class="issue hascontextmenu issue tracker-3 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1237" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-3 status-5 priority-4 priority-default closed" href="/issues/1237">Support #1237</a>: Report CMake/MinGW issues to Kitware</td><td class="status">Closed</td><td class="start_date">02 Oct 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1236/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1236&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4590" href="/projects/exiv2/repository/exiv2/revisions/4590">Revision 4590</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4590/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2016 16:45" href="/projects/exiv2/activity?from=2016-09-30">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Build Exiv2 on MinGW using CMake (Closed)" href="/issues/1236">#1236</a>  CMake build on MinGW.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4591" href="/projects/exiv2/repository/exiv2/revisions/4591">Revision 4591</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4591/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2016 16:46" href="/projects/exiv2/activity?from=2016-09-30">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Build Exiv2 on MinGW using CMake (Closed)" href="/issues/1236">#1236</a> Documentation</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4592" href="/projects/exiv2/repository/exiv2/revisions/4592">Revision 4592</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4592/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2016 18:21" href="/projects/exiv2/activity?from=2016-09-30">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Adding <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Build Exiv2 on MinGW using CMake (Closed)" href="/issues/1236">#1236</a> to the Feature report.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4593" href="/projects/exiv2/repository/exiv2/revisions/4593">Revision 4593</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4593/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2016 19:33" href="/projects/exiv2/activity?from=2016-09-30">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Build Exiv2 on MinGW using CMake (Closed)" href="/issues/1236">#1236</a>.  Updated CMake/MinGW build instructions.  That's all I intend to do on CMake/MinGW for v0.26</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4596" href="/projects/exiv2/repository/exiv2/revisions/4596">Revision 4596</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4596/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Oct 2016 09:40" href="/projects/exiv2/activity?from=2016-10-02">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Build Exiv2 on MinGW using CMake (Closed)" href="/issues/1236">#1236</a> Updated CMake Documentation.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4599" href="/projects/exiv2/repository/exiv2/revisions/4599">Revision 4599</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4599/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2016 09:19" href="/projects/exiv2/activity?from=2016-10-03">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Bug Hunt for v0.26 (Closed)" href="/issues/1230">#1230</a> and <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Build Exiv2 on MinGW using CMake (Closed)" href="/issues/1236">#1236</a> Buildserver maintenance.  Work-in-progress fixes for CMake/MinGW32</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4601" href="/projects/exiv2/repository/exiv2/revisions/4601">Revision 4601</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4601/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Oct 2016 08:32" href="/projects/exiv2/activity?from=2016-10-04">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Build Exiv2 on MinGW using CMake (Closed)" href="/issues/1236">#1236</a> and <a class="issue tracker-3 status-5 priority-4 priority-default closed" title="Support: Report CMake/MinGW issues to Kitware (Closed)" href="/issues/1237">#1237</a>  Improvements/fixed to TODO-CMAKE for CMake/MinGW/32.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5648" class="journal has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2016 17:40" href="/projects/exiv2/activity?from=2016-09-30">about 5 years</a> ago
+      <span id="journal-5648-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Closed</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>80</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5649" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2016 17:44" href="/projects/exiv2/activity?from=2016-09-30">about 5 years</a> ago
+      <span id="journal-5649-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5649-notes" class="wiki"><p>This is a very exciting and bold new feature.  I've go this mostly completed in <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Bug Hunt for v0.26 (Closed)" href="/issues/1230">#1230</a> (bug hunt).  However it's crashing the test suite here and there (metadata, geotag and exiv2json).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5651" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2016 19:08" href="/projects/exiv2/activity?from=2016-09-30">about 5 years</a> ago
+      <span id="journal-5651-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>80</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>50.00 h</i> to <i>25.00 h</i></li>
+    </ul>
+    <div id="journal-5651-notes" class="wiki"><p>The crashing in the test programs (geotag, exiv2json for sure) is coming from expat:<pre>#0  0x6085daa6 in strsep () from c:\MinGW\msys\1.0\bin\msys-1.0.dll
+#1  0x6082d627 in msys-1.0!calloc () from c:\MinGW\msys\1.0\bin\msys-1.0.dll
+#2  0x6088d3a1 in strftime () from c:\MinGW\msys\1.0\bin\msys-1.0.dll
+#3  0x6082d320 in msys-1.0!malloc () from c:\MinGW\msys\1.0\bin\msys-1.0.dll
+#4  0x6994127c in msys-expat-1!XML_ParserCreate_MM () from c:\MinGW\msys\1.0\bin\msys-expat-1.dll &lt;-- using msys-expat  
+#5  0x69941076 in msys-expat-1!XML_ParserCreate_MM () from c:\MinGW\msys\1.0\bin\msys-expat-1.dll
+#6  0x69941044 in msys-expat-1!XML_ParserCreateNS () from c:\MinGW\msys\1.0\bin\msys-expat-1.dll
+#7  0x6c71e18b in ExpatAdapter::ExpatAdapter() () from c:\MinGW\msys\1.0\home\rmills\gnu\exiv2\trunk\build\bin\libexiv2.dll</pre>I want it to use /usr/local/bin/libexpat-1.dll</p>
+
+
+	<p>I'm not going to spend more time on this for v0.26.  This has to be "experimental - use at your own risk".  I'll get this all fixed in v0.27 and deploy it on the nightly build.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5652" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2016 22:04" href="/projects/exiv2/activity?from=2016-09-30">about 5 years</a> ago
+      <span id="journal-5652-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5653" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Oct 2016 07:11" href="/projects/exiv2/activity?from=2016-10-02">about 5 years</a> ago
+      <span id="journal-5653-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Closed</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>90</i></li>
+    </ul>
+    <div id="journal-5653-notes" class="wiki"><p>I've realised (while eating breakfast) why CMake has linked the wrong versions of expat and zlib.  It's for the same issue in CMake concerning the include files.  We'll have to rewrite the linker response files to link the libraries in /usr/local/lib.</p>
+
+
+	<p>The problem with CMake on MinGW is that CMake does not use the CMAKE_CXX_COMPILER directive in it's initial search for support for common matters such as linkng ZLIB, HAVE_STDINT_H and so on.</p>
+
+
+	<p>CMake is unfit for purpose on Windows.  It works well on Cygwin which is posix compliant layer over windows.  However MinGW is a thin veneer over Windows.  For sure CMake/Visual Studio is hideous.</p>
+
+
+	<p>I will report the bugs I have discovered in CMake/MinGW to Kitware.  I'll review CMake/MinGW before we ship v0.27.  In the meanwhile, I will update our CMAKE documentation to reflect the current status.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5654" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Oct 2016 09:46" href="/projects/exiv2/activity?from=2016-10-02">about 5 years</a> ago
+      <span id="journal-5654-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>90</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-5654-notes" class="wiki"><p>I've opened a new issue to pursue this matter during v0.27 <a class="issue tracker-3 status-5 priority-4 priority-default closed" title="Support: Report CMake/MinGW issues to Kitware (Closed)" href="/issues/1237">#1237</a></p>
+
+
+	<p><a class="changeset" title="#1236 Updated CMake Documentation." href="/projects/exiv2/repository/exiv2/revisions/4596">r4596</a> CMAKE documentation updated.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5655" class="journal has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Oct 2016 09:47" href="/projects/exiv2/activity?from=2016-10-02">about 5 years</a> ago
+      <span id="journal-5655-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5659" class="journal has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Oct 2016 08:07" href="/projects/exiv2/activity?from=2016-10-06">about 5 years</a> ago
+      <span id="journal-5659-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>25.00 h</i> to <i>35.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5663" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Oct 2016 18:58" href="/projects/exiv2/activity?from=2016-10-10">about 5 years</a> ago
+      <span id="journal-5663-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Subject</strong> changed from <i>Enable CMake to build on MinGW</i> to <i>Enable Exiv2 to build on MinGW using CMake</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5664" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Oct 2016 19:01" href="/projects/exiv2/activity?from=2016-10-10">about 5 years</a> ago
+      <span id="journal-5664-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Subject</strong> changed from <i>Enable Exiv2 to build on MinGW using CMake</i> to <i>Build Exiv2 on MinGW using CMake</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1236.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1236.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

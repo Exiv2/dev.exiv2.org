@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #862: Video code is failing the test suite (on all plaforms) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="yJfBuDVxBICIxMYY5LKGpMfEr7z/0upfwYRd3uG6/LQq2mpXRwvIgN2g2RRbZYqX+Fb7xQ4xS+U8pM1WooMb2w==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #862: Video code is failing the test suite (on all plaforms)" href="https://dev.exiv2.org/issues/862.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #862</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Video code is failing the test suite (on all plaforms)</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Oct 2012 21:59" href="/projects/exiv2/activity?from=2012-10-19">about 9 years</a> ago.
+        Updated <a title="24 Jul 2013 15:19" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/3290">Abhinav Badola</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">testing</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Jul 2013" href="/versions/50">0.24</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">19 Oct 2012</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Two issues here:</p>
+
+
+	<p>1) The video code isn't passing its tests<br />2) I've assigned this issue to Category 'testing', however we need a Category 'video'</p>
+
+
+	<p>One of our users asked us to reduce the foot-print of our source download.  So I've created a new tree in the depot to hold the video data.  svn://dev.exiv2.org/svn/testdata/trunk.  I've updated test/Makefile to download the video data on demand.  This is discussed in <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: SVN repository download size (Closed)" href="/issues/858">#858</a> <a class="external" href="http://dev.exiv2.org/issues/858">http://dev.exiv2.org/issues/858</a></p>
+
+
+	<p>I've also update the test environment so we can run tests (from ./configure and CMake builds) using the command:<br />$ make tests</p>
+
+
+	<p>This doesn't include the video tests and these are run with the command:<br />$ make testv</p>
+
+
+	<p>I intend to do the same to the EPS tests which are now run with 'make teste'.  I don't download the EPS files on demand yet, as this would break our published test procedure for 0.23.</p>
+
+
+	<p>Of course it's simple to re-instate testv/teste into 'make tests'.  However because of the size of the download and because the testv is reporting errors, I'd prefer to keep your tests out of 'make tests'.  The point is that because there's quite a lengthy report from the video tests, I often don't bother to look back in the transcript.  So I could easily be missing important new errors from elsewhere.  You'll find that running make testv expedites your tests as it omits all the other tests!</p>
+
+
+	<p>Abhinav:<br />I know you have a lot to do at college.  Please let me know if I can help you in any way to get this investigated and resolved.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/405">video-test.out</a>    <span class="size">(17.6 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/405/video-test.out">video-test.out</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Abhinav Badola, 23 Oct 2012 16:31</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/406">testunix.txt</a>    <span class="size">(3.64 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/406/testunix.txt">testunix.txt</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 24 Oct 2012 09:25</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/407">testmac.txt</a>    <span class="size">(3.82 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/407/testmac.txt">testmac.txt</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 24 Oct 2012 16:30</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/408">video-test.out</a>    <span class="size">(17.6 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/408/video-test.out">video-test.out</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Abhinav Badola, 25 Oct 2012 15:28</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/409">cygwin.out</a>    <span class="size">(8.96 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/409/cygwin.out">cygwin.out</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 26 Oct 2012 13:56</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/412">debug_error.png</a>    <span class="size">(41.9 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/412/debug_error.png">debug_error.png</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 01 Nov 2012 19:49</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2923" href="/projects/exiv2/repository/exiv2/revisions/2923">Revision 2923</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2923/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Oct 2012 14:29" href="/projects/exiv2/activity?from=2012-10-28">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Issue: <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Video code is failing the test suite (on all plaforms) (Closed)" href="/issues/862">#862</a>.  Please see discussions items 12 and 13 for more explanation.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2926" href="/projects/exiv2/repository/exiv2/revisions/2926">Revision 2926</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2926/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Nov 2012 19:50" href="/projects/exiv2/activity?from=2012-11-01">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Fix: <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Video code is failing the test suite (on all plaforms) (Closed)" href="/issues/862">#862</a> buffer overflow.  See bug report discussion item#19.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2292" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="21 Oct 2012 06:01" href="/projects/exiv2/activity?from=2012-10-21">about 9 years</a> ago
+      <span id="journal-2292-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2292-notes" class="wiki"><p>Hi Robin,<br />I will look into the code asap and report back if I get stuck anywhere.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2293" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="23 Oct 2012 16:31" href="/projects/exiv2/activity?from=2012-10-23">about 9 years</a> ago
+      <span id="journal-2293-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/405">video-test.out</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/405/video-test.out">video-test.out</a> added</li>
+    </ul>
+    <div id="journal-2293-notes" class="wiki"><p>Hi Robin,</p>
+
+
+	<p>I have detected the change that is creating all the mutations. It seems that the line-</p>
+
+
+	<p>const long bufMinSize = 4;</p>
+
+
+	<p>has been changed to</p>
+
+
+	<p>const long bufMinSize = 5;</p>
+
+
+	<p>in all occurrences in the video files.</p>
+
+
+	<p>For now, I have changed the code and pushed it back. The test is running fine on Linux.</p>
+
+
+	<p>Please update the test repository with the following attached video-test.out file, in the location - <br /><a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/show/testdata/trunk/video">http://dev.exiv2.org/projects/exiv2/repository/show/testdata/trunk/video</a></p>
+
+
+	<p>It is only after that the test will run successfully.<br />Please report back to me, if you find any problem.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2294" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Oct 2012 17:13" href="/projects/exiv2/activity?from=2012-10-23">about 9 years</a> ago
+      <span id="journal-2294-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2294-notes" class="wiki"><p>Thanks for investigating this, Abhinav.  I'll build and test this after work this evening.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2295" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Oct 2012 09:25" href="/projects/exiv2/activity?from=2012-10-24">about 9 years</a> ago
+      <span id="journal-2295-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/406">testunix.txt</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/406/testunix.txt">testunix.txt</a> added</li>
+    </ul>
+    <div id="journal-2295-notes" class="wiki"><p>Abhinav</p>
+
+
+	<p>Thanks for doing this and things are much better.  However, I'm still getting errors (both on Mac and Unix).  I've attached the output files.  Remarkably the output of the Mac (10.8.2/64 bit) and Unix (Kubuntu 12.10/64 bit) are different.</p>
+
+
+	<p>I see that you've changed some values of '5' to '4' in the code.  I believe some of the '5's in the code arrived with Shawn's msvc patch which I submitted as SVN: 2879</p>
+
+
+	<p>For example QuickTimeVideo::decodeBlock() line#2920 QuickTimeVideo.cpp.<br /><pre>
+Before 2879 const long bufMinSize = 4; // your original code
+SVN:   2879 const long bufMinSize = 5; // Shawn's change
+SVN:   2920 const long bufMinSize = 4; // you've reverted
+</pre><br />Shawn changed this because on line 655, you have <pre>   buf.pData[4] = '\0' </pre>  Maybe the correct fix is to keep 2920 and change line 653.  I haven't look at the constructor for DataBuf, it might alloc the nul terminator (however I doubt it).<br /><pre>
+DataBuf buf(bufMinSize);
+to
+DataBuf buf(bufMinSize+1);
+</pre><br />The null terminator assignment is a litte odd because you're using memset on the next line.  Perhaps we should change:<br /><pre>
+    void QuickTimeVideo::decodeBlock()
+    {
+        const long bufMinSize = 4;
+        DataBuf buf(bufMinSize);
+        unsigned long size = 0;
+        buf.pData_[4] = '\0' ;
+
+        std::memset(buf.pData_, 0x0, buf.size_);
+
+        io_-&gt;read(buf.pData_, 4);
+        if(io_-&gt;eof()) {
+            continueTraversing_ = false;
+            return;
+        }
+
+        size = Exiv2::getULong(buf.pData_, bigEndian);
+
+        io_-&gt;read(buf.pData_, 4);
+        if(size &lt; 8)
+            return;
+
+        tagDecoder(buf,size-8);
+    } // QuickTimeVideo::decodeBlock
+</pre><br />to<br /><pre>
+    void QuickTimeVideo::decodeBlock()
+    {
+        const long bufMinSize = 4;
+        DataBuf buf(bufMinSize+1);
+        unsigned long size = 0;
+
+        std::memset(buf.pData_, 0x0, buf.size_+1);
+
+        io_-&gt;read(buf.pData_, bufMinSize);
+        if(io_-&gt;eof()) {
+            continueTraversing_ = false;
+            return;
+        }
+
+        size = Exiv2::getULong(buf.pData_, bigEndian);
+
+        io_-&gt;read(buf.pData_, bufMinSize);
+        if(size &lt; 8)
+            return;
+
+        tagDecoder(buf,size-8);
+    } // QuickTimeVideo::decodeBlock
+</pre></p>
+
+
+I'd like to ask you to:
+	<ol>
+	<li>Review the attached files from the Mac and Linux.</li>
+		<li>Consider my suggestion above.</li>
+		<li>Review every change in 2879.</li>
+		<li>Review the changes in 2920 to see if the restored '4's might cause buffer overflow.</li>
+	</ol>
+
+
+	<p>I know this is rather tedious, however I believe this review will save time and bug reports in future.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2296" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Oct 2012 16:30" href="/projects/exiv2/activity?from=2012-10-24">about 9 years</a> ago
+      <span id="journal-2296-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/407">testmac.txt</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/407/testmac.txt">testmac.txt</a> added</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2297" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="25 Oct 2012 15:28" href="/projects/exiv2/activity?from=2012-10-25">about 9 years</a> ago
+      <span id="journal-2297-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/408">video-test.out</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/408/video-test.out">video-test.out</a> added</li>
+    </ul>
+    <div id="journal-2297-notes" class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Please update the test repository with the following attached video-test.out file, in the location -<br /><a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/show/testdata/trunk/video">http://dev.exiv2.org/projects/exiv2/repository/show/testdata/trunk/video</a><br />(I have attached a new revised file this time.)</p>
+
+
+	<p>It is only after that the test will run successfully. Without the above mentioned changes, the test will fail in Unix as well as Mac, as I have corrected some minor output discrepancies. I do not know how to update the above mentioned file, in the repository.</p>
+
+
+	<p>I have made small little changes in video files code as well. I hope the tests should now build successfully on both platforms.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2298" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Oct 2012 16:26" href="/projects/exiv2/activity?from=2012-10-25">about 9 years</a> ago
+      <span id="journal-2298-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2298-notes" class="wiki"><p>Thanks, Abhinav.  Very good and quick work.  $ make testv -> "All testcases passed" on Kubuntu 12.10/64.</p>
+
+
+	<p>The test files now live at svn://dev.exiv2.org/svn/testdata/trunk and are downloaded on demand by test/Makefile when you run $ make testv in the &lt;exiv2-dir&gt;.  I've submitted your revised file SVN:2922 (to testdata/trunk/video/video-test.out)</p>
+
+
+	<p>Have you reviewed the buffer size changes?  I'm very nervous about line#655 in quicktimevideo.cpp</p>
+
+
+<pre>
+    void QuickTimeVideo::decodeBlock()
+    {
+        const long bufMinSize = 4;
+        DataBuf buf(bufMinSize);
+        unsigned long size = 0;
+        buf.pData_[4] = '\0' ;    // really ?  Are you sure?
+
+        std::memset(buf.pData_, 0x0, buf.size_);
+</pre>
+
+	<p>Are you confident that we don't have a buffer overflow?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2299" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Oct 2012 13:56" href="/projects/exiv2/activity?from=2012-10-26">about 9 years</a> ago
+      <span id="journal-2299-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/409">cygwin.out</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/409/cygwin.out">cygwin.out</a> added</li>
+    </ul>
+    <div id="journal-2299-notes" class="wiki"><p>Abhinav.  Apologies for spoiling your day.  The tests are not passing on cygwin.  Mac and Unix are OK.  I haven't built/tested on the Windows/DevStudio builds.  I attach cygwin.out.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2300" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="26 Oct 2012 14:05" href="/projects/exiv2/activity?from=2012-10-26">about 9 years</a> ago
+      <span id="journal-2300-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2300-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Abhinav.  Apologies for spoiling your day.  The tests are not passing on cygwin.  Mac and Unix are OK.  I haven't built/tested on the Windows/DevStudio builds.  I attach cygwin.out.</p>
+
+
+</blockquote>
+
+	<p>Hi Robin,<br />It seems that the code in the cygwin repository is old. I have removed the lines that would have created the following error report. Please check if the test was applied on the latest updated code.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2301" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Oct 2012 15:00" href="/projects/exiv2/activity?from=2012-10-26">about 9 years</a> ago
+      <span id="journal-2301-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2301-notes" class="wiki"><p>Abhinav</p>
+
+
+	<p>You're not going to believe this.  I totally reran the build and test.  I pulled down a fresh copy of the trunk and built him with ./configure.  Same result!  There's something here.  So I did a cmake build and it passes!</p>
+
+
+	<p>I'm going away for the weekend, however I'll be home on Sunday afternoon.  If you don't have any ideas about this, I'll investigate.  I'm sure it's nothing very much.</p>
+
+
+	<p>Thanks for looking at this so quickly.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2302" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="26 Oct 2012 15:15" href="/projects/exiv2/activity?from=2012-10-26">about 9 years</a> ago
+      <span id="journal-2302-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2302-notes" class="wiki"><p>Hi Robin,<br />Hope you have an awesome weekend. :)</p>
+
+
+	<p>Thanks for the info. <br />I am sure that I have removed the lines that were mentioned in the test output report.</p>
+
+
+	<p>There is one thing that I would like to point out here as well. For some reasons, I am not able to install exiv2 by normal method.</p>
+
+
+	<p>I mean in Linux, I tried the following commands - <br />[1] make config<br />[2] ./configure<br />[3] make -j4<br />[4] sudo make install</p>
+
+
+	<p>The compilation went on fine, but then installation showed an error -</p>
+
+
+<pre>
+
+libtool: install: /usr/bin/install -c -m 644 .libs/libexiv2.12.dylib /usr/local/lib/libexiv2.12.dylib
+libtool: install: (cd /usr/local/lib &#38;&#38; { ln -s -f libexiv2.12.dylib libexiv2.dylib || { rm -f libexiv2.dylib &#38;&#38; ln -s libexiv2.12.dylib libexiv2.dylib; }; })
+libtool: install: /usr/bin/install -c -m 644 .libs/libexiv2.lai /usr/local/lib/libexiv2.la
+libtool: install: /usr/bin/install -c -m 644 .libs/libexiv2.a /usr/local/lib/libexiv2.a
+libtool: install: chmod 644 /usr/local/lib/libexiv2.a
+libtool: install: ranlib /usr/local/lib/libexiv2.a
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/local/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `DYLD_LIBRARY_PATH' environment variable
+     during execution
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+../config/mkinstalldirs /usr/local/bin
+../config/mkinstalldirs /usr/local/lib/pkgconfig
+/usr/bin/install -c -m 644 ../config/exiv2.pc /usr/local/lib/pkgconfig/exiv2.pc
+../config/mkinstalldirs /usr/local/bin
+libtool: install: /usr/bin/install -c bin/exiv2 /usr/local/bin/exiv2
+install: bin/exiv2: No such file or directory
+make[1]: *** [install] Error 71
+make: *** [install] Error 2
+</pre>
+
+	<p>This error occurs when I execute the command</p>
+
+
+	<p>sudo make install</p>
+
+
+	<p>I think there is some modification in the Makefile or something, that may be the cause.</p>
+
+
+	<p>Note - The cmake method is working fine and installation is also working perfectly.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2303" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Oct 2012 16:17" href="/projects/exiv2/activity?from=2012-10-26">about 9 years</a> ago
+      <span id="journal-2303-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2303-notes" class="wiki"><p>I haven't noticed what you've described.  Do you have a directory /usr/local/bin ?  Maybe something's disturbed ../config/mkinstalldirs which I think is create by the autotools.  I'll also have a look at that on Sunday.</p>
+
+
+	<p>Well, I hope you also have a nice week-end.  I'm off camping/running with my Adobe buddies.  We go camping/running this weekend every year:  <a class="external" href="http://clanmills.com/2011/BigSur/Saturday/">http://clanmills.com/2011/BigSur/Saturday/</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-2304" class="journal has-notes has-details">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Oct 2012 14:31" href="/projects/exiv2/activity?from=2012-10-28">about 9 years</a> ago
+      <span id="journal-2304-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-2304-notes" class="wiki"><p>Well spotted, Abhinav.  I've submitted a 3 byte fix that covers both!  SVN:2923.</p>
+
+
+	<p>When I changed the build output directory to &lt;exiv2dir&gt;/bin and I missed building the exiv2 application into bin for the autotools build.  So it didn't install, and the test suite was running the "old" version of exiv2.   This also explains why it passes on the cmake build, which did output correctly to &lt;exiv2dir&gt;/bin.</p>
+
+
+	<p>I've changing the status to "Resolved" and 100% Done as I believe this is now complete.  Thanks very much for working on this.  We won't close the issue until the end of 0.24 development - just in case something else appears concerning this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2305" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="28 Oct 2012 14:43" href="/projects/exiv2/activity?from=2012-10-28">about 9 years</a> ago
+      <span id="journal-2305-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2305-notes" class="wiki"><p>Cool. :)</p>
+
+
+	<p>Yeah now the bug seems fixed. I have downloaded and tested the new code and it installed successfully.<br />Thanks. :)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2306" class="journal has-notes">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="29 Oct 2012 19:50" href="/projects/exiv2/activity?from=2012-10-29">about 9 years</a> ago
+      <span id="journal-2306-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2306-notes" class="wiki"><p>Abhinav</p>
+
+
+	<p>Everything looks good.  May I ask you again about possible buffer overflows:<br /><pre>
+    void QuickTimeVideo::decodeBlock()
+    {
+        const long bufMinSize = 4;
+        DataBuf buf(bufMinSize);
+        unsigned long size = 0;
+        buf.pData_[4] = '\0' ;    // really ?  Are you sure?
+
+        std::memset(buf.pData_, 0x0, buf.size_);
+</pre></p>
+
+
+	<p>Are you OK with this?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2308" class="journal has-notes">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="30 Oct 2012 15:17" href="/projects/exiv2/activity?from=2012-10-30">about 9 years</a> ago
+      <span id="journal-2308-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2308-notes" class="wiki"><p>Hi Robin,<br /><pre>
+const long bufMinSize = 4;
+DataBuf buf(bufMinSize);
+buf.pData_[4] = '\0' ;
+</pre><br />This has been used just as a precautionary measure.</p>
+
+
+	<p>Actually, the buffer size can't be changed and we cant include "\0" into the data buffer as well, because that would lead to conversion discrepancies, especially in case of Integer or Float.<br />I can't say it for sure that it will never create any buffer overflow, but it has worked fine with all the test cases that I took under consideration. I have also applied checks at places in the code to prevent it from breaking down. <br />So I think it would be safe to consider that it won't cause any buffer overflow kind of problem.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2309" class="journal has-notes">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Oct 2012 16:02" href="/projects/exiv2/activity?from=2012-10-30">about 9 years</a> ago
+      <span id="journal-2309-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2309-notes" class="wiki"><p>Would it hurt to change:<br /><pre>
+DataBuf buf(bufMinSize);
+</pre><br />to:<br /><pre>
+DataBuf buf(bufMinSize+1);
+</pre><br />And review similar changes in Shawn's submission?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2310" class="journal has-notes">
+    <div id="note-18">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-18" class="journal-link">#18</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="31 Oct 2012 02:13" href="/projects/exiv2/activity?from=2012-10-31">about 9 years</a> ago
+      <span id="journal-2310-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2310-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Would it hurt to change:<br />[...]<br />to:<br />[...]<br />And review similar changes in Shawn's submission?</p>
+
+
+</blockquote>
+
+	<p>Yes, it will lead to a lot of misinterpretations(when the buffer is interpreted to integer or float) and may even break the code.<br />The data generated by interpreting the buffer would not be accurate and would also cause all of the video tests to fail.</p>
+
+
+	<p>One of the prominent reason that I could think about is -<br />[1] The binary data is stored either in big endian or small endian format. So the interpretation differs from case to case. So if the buffer size is increased to five (instead of four), the interpretation may be correct for little endian, but may fail in the case if big endian or vice versa. The conversion function would be expecting four byte, where it would get five bytes instead and then the result may not be well defined.</p>
+
+
+	<p>[2] The '\0' is important and can't be removed from the code either. This is because sometimes the buffer is interpreted as character string. And it can't be placed inside the buffer, cause then when a four character string is stored in the buffer, it will get overwritten, and will be useless.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2311" class="journal has-notes has-details">
+    <div id="note-19">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-19" class="journal-link">#19</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Nov 2012 19:49" href="/projects/exiv2/activity?from=2012-11-01">about 9 years</a> ago
+      <span id="journal-2311-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/412">debug_error.png</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/412/debug_error.png">debug_error.png</a> added</li>
+    </ul>
+    <div id="journal-2311-notes" class="wiki"><p>When I started testing, the MSVC debug builds (32/64 bit DLL/Static) all asserted and displayed a dialog box about heap corruption for a couple of the test files (*.avi for certain).</p>
+
+
+	<p><img src="http://clanmills.com/files/debug_error.png" alt="" /></p>
+
+
+	<p>I've fixed this "in-line" by adding +1 to the DataBuf constructors.  I can't help but feel there's a better solution in modifying the constructor itself.  I considered two ideas:</p>
+
+
+	<p>1) Adding options inputs to the constructor:<br />   DataBuf buff(long size,bool bAddNulTerminator = false,bool bZeroFillBuffer = false)</p>
+
+
+	<p>2) If you request allocate 8 or less bytes you get 8 zero'd bytes.</p>
+
+
+	<p>However I've stuck with the in-line fix as it passed the test suite and it's "good enough".  It also seems better to have this exposed in the code and not hidden away.  However there's a risk that I haven't spotted every instance.  I know Abhinav will review the changes.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2529" class="journal has-notes has-details">
+    <div id="note-20">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-20" class="journal-link">#20</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 15:19" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2529-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-2529-notes" class="wiki"><p>Fixed in 0.24.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/862.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/862.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

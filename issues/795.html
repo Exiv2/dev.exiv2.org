@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #795: Set/Get of PNG comment - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="Q2eqsJlfnBqq/sMs8BbFoj9DURBWT2RweB2nEuFDxdKhKgFf6yVQGv+a3CBPwcmRANEFaaesxcqFPTeaonoivQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #795: Set/Get of PNG comment" href="https://dev.exiv2.org/issues/795.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #795</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Set/Get of PNG comment</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="24 Oct 2011 13:48" href="/projects/exiv2/activity?from=2011-10-24">about 10 years</a> ago.
+        Updated <a title="03 May 2012 17:14" href="/projects/exiv2/activity?from=2012-05-03">over 9 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/53">Andreas Huggel</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">image format</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="23 Apr 2012" href="/versions/49">0.23</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">24 Oct 2011</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>If I set and retrieve the comment of a PNG file using Exiv2 0.22 on WinXPSP3 I get strange characters if the comment string is shorter than 8 characters.<br /><code>C:\temp>exiv2 -c "PNG" imagemagick.png<br />C:\temp>exiv2 -pc imagemagick.png<br />PNG x☺4</code></p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2634" href="/projects/exiv2/repository/exiv2/revisions/2634">Revision 2634</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2634/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="14 Nov 2011 08:23" href="/projects/exiv2/activity?from=2011-11-14">about 10 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Set/Get of PNG comment (Closed)" href="/issues/795">#795</a>: Fixed decoding of PNG comment.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2018" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="08 Nov 2011 11:53" href="/projects/exiv2/activity?from=2011-11-08">about 10 years</a> ago
+      <span id="journal-2018-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2018-notes" class="wiki"><p>After two weeks of waiting: Can someone please accept this issue. I tried but I failed.</p>
+
+
+	<p>If I run the debug version of exiv2.exe (i.e. with undefined SUPPRESS_WARNINGS) I get a strange error on the original PNG file <em>imagemagick.png</em> which like a strange bug.</p>
+
+
+	<p><code>C:\temp>exiv2.exe -pc imagemagick.png<br />Error: Directory NikonPreview with 512 entries considered invalid; not read.</code></p></div>
+    </div>
+  </div>
+  
+  <div id="change-2019" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="08 Nov 2011 17:04" href="/projects/exiv2/activity?from=2011-11-08">about 10 years</a> ago
+      <span id="journal-2019-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> set to <i>Andreas Huggel</i></li>
+       <li><strong>Target version</strong> deleted (<del><i>0.23</i></del>)</li>
+    </ul>
+    <div id="journal-2019-notes" class="wiki"><p>Hi Thomas, I'll have a look, sorry for the delay.</p>
+
+
+	<p>The error complains about an invalid NikonPreview directory, which typically gets corrupted if the image is edited (converted?) with a software that doesn't handle this part of the makernote correctly.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2020" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="09 Nov 2011 04:16" href="/projects/exiv2/activity?from=2011-11-09">about 10 years</a> ago
+      <span id="journal-2020-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2020-notes" class="wiki"><p>OK, thanks for looking into this.</p>
+
+
+	<p>By the way, SUPPRESS_WARNINGS is kind of misleading here. If it is undefined, I get an error and exiv2 aborts. If it is defined, there is neither a warning nor a error. I think it is better if SUPPRESS_WARNINGS only suppresses warnings and not changes the error / exception behaviour.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2021" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="09 Nov 2011 17:18" href="/projects/exiv2/activity?from=2011-11-09">about 10 years</a> ago
+      <span id="journal-2021-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2021-notes" class="wiki"><p>The differentiation between "Warning" and "Error" <strong>messages</strong> is subjective and I have no well-defined criteria for it (suggestions welcome). Both are equally affected by the SUPPRESS_WARNINGS flag. Exceptions are different. SUPPRESS_WARNINGS should not modify the program flow, in particular it should not affect exceptions. It's a bug if it does, but the code for the error you highlighted looks ok, it doesn't explain your observation, will also check in more detail later.</p>
+
+
+<pre>
+        // Sanity check with an "unreasonably" large number
+        if (n &gt; 256) {
+#ifndef SUPPRESS_WARNINGS
+            EXV_ERROR &lt;&lt; "Directory " &lt;&lt; groupName(object-&gt;group()) &lt;&lt; " with " 
+                      &lt;&lt; n &lt;&lt; " entries considered invalid; not read.\n";
+#endif
+            return;
+        }
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-2022" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="14 Nov 2011 08:31" href="/projects/exiv2/activity?from=2011-11-14">about 10 years</a> ago
+      <span id="journal-2022-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+    </ul>
+    <div id="journal-2022-notes" class="wiki"><p><a class="changeset" title="#795: Fixed decoding of PNG comment." href="/projects/exiv2/repository/exiv2/revisions/2634">r2634</a> fixes the PNG comment decoding issue I can see here, using Valgrind on Mac OSX. Maybe there are memory leaks too, I'll have to also test on Linux. Does it look better on Windows now?</p>
+
+
+	<p>What command did you run to get exiv2 to abort as described in the comment above (with SUPPRESS_WARNINGS undefined)?</p>
+
+
+	<p>-ahu.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2023" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="14 Nov 2011 11:01" href="/projects/exiv2/activity?from=2011-11-14">about 10 years</a> ago
+      <span id="journal-2023-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2023-notes" class="wiki"><p>Yes, <a class="changeset" title="#795: Fixed decoding of PNG comment." href="/projects/exiv2/repository/exiv2/revisions/2634">r2634</a> solves the primary problem with the PNG comment on Windows using MS Visual Studio C++ 2010 SP1 Express Edition.</p>
+
+
+	<p>I checked in Debugger with <a href="http://vld.codeplex.com" class="external">Visual Leak Detector</a> Version 2.2 (if compiled with defined SUPPRESS_WARNINGS) and could not detect any memory holes.</p>
+
+
+	<p>The command that aborts (if compiled with undefined SUPPRESS_WARNINGS) is (taken from above):<br /><code>C:\temp>exiv2.exe -pc imagemagick.png<br />Error: Directory NikonPreview with 512 entries considered invalid; not read.</code><br />This error still occurs with the fix <a class="changeset" title="#795: Fixed decoding of PNG comment." href="/projects/exiv2/repository/exiv2/revisions/2634">r2634</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2024" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="14 Nov 2011 17:00" href="/projects/exiv2/activity?from=2011-11-14">about 10 years</a> ago
+      <span id="journal-2024-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2024-notes" class="wiki"><blockquote>
+
+	<p>C:\temp>exiv2.exe -pc imagemagick.png<br />Error: Directory NikonPreview with 512 entries considered invalid; not read.<br />This error still occurs with the fix <a class="changeset" title="#795: Fixed decoding of PNG comment." href="/projects/exiv2/repository/exiv2/revisions/2634">r2634</a>.</p>
+
+
+</blockquote>
+
+	<p>Are you sure it aborts, i.e., throws an exception or crashes? Here all I get is that error message, but that doesn't change the program flow (see the code snippet above). I can't reproduce any exception or crash, if you really observe something like that, can you please try to trace where it comes from? (btw the -q option will turn it off)</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2025" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="14 Nov 2011 22:45" href="/projects/exiv2/activity?from=2011-11-14">about 10 years</a> ago
+      <span id="journal-2025-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2025-notes" class="wiki"><p>Sorry for confusion. It is not a program exception or crash but rather a regular program termination with an error message.</p>
+
+
+	<p>With undefined SUPPRESS_WARNINGS:<br /><code>C:\temp>exiv2.exe -pc imagemagick.png<br />Error: Directory NikonPreview with 512 entries considered invalid; not read.</code></p>
+
+
+	<p>With defined SUPPRESS_WARNINGS:<br /><code>C:\temp>exiv2 -pc imagemagick.png<br />PNG</code></p>
+
+
+	<p>It is just about the different program flow. If SUPPRESS_WARNINGS is not defined I get an error message rather than the expected PNG comment. If SUPPRESS_WARNINGS is defined, the program output is as expected.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2026" class="journal has-notes has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Nov 2011 07:54" href="/projects/exiv2/activity?from=2011-11-15">about 10 years</a> ago
+      <span id="journal-2026-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>Target version</strong> set to <i>0.23</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-2026-notes" class="wiki"><p>Marking the issue as resolved, the remaining Valgrind complaints don't seem to be caused by Exiv2.</p>
+
+
+	<p>As for the error message, does this explain what you see: When you first run exiv2 -pc imagemagick.png, you get the error message and no PNG comment, because none was set yet. Running exiv2 -c "PNG" imagemagick sets the comment (and also writes the error message to stderr). Running exiv2 -pc imagemagick.png again after this writes out the comment but not the error message anymore. That's because the Exif block was re-written without the suspicious directory (because that wasn't read it in the first place, as the error message says) when the comment was set.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2123" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="03 May 2012 17:14" href="/projects/exiv2/activity?from=2012-05-03">over 9 years</a> ago
+      <span id="journal-2123-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/795.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/795.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

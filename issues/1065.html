@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1065: Is fileProtocol() thread-safe? - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="uJ0wfi/3s8goCGU71+Oa1F5sq22WktFCJJBZ17bC4ZVa0JuRXY1/yH1sejdoNJbnYf7/FGdxcPjZsMlf9fsG+g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1065: Is fileProtocol() thread-safe?" href="https://dev.exiv2.org/issues/1065.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1065</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+    <div class="next-prev-links contextual">
+      <a title="#1066" accesskey="p" href="/issues/1066">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;f%5B%5D=author_id&amp;op%5Bauthor_id%5D=%3D&amp;op%5Bstatus_id%5D=%2A&amp;page=1&amp;per_page=100&amp;set_filter=1&amp;sort=id%3Adesc&amp;v%5Bauthor_id%5D%5B%5D=4413&amp;v%5Bstatus_id%5D%5B%5D=">5 of 5</a>
+        </span> |
+      Next »
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Is fileProtocol() thread-safe?</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4413">Max Pozdeev</a> <a title="25 Apr 2015 18:03" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago.
+        Updated <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">basicio</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">25 Apr 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I use libexiv2 in multi-threaded app (2 parallel threads) and sometimes get a crash on function fileProtocol(). I see in debugger that both threads are in this proc and trying to fill the protDict var. Here is the trace.</p>
+
+
+	<p>First thread:<br /><pre>
+* thread #15: tid = 0xddef48, 0x00007fff8efe128e libstdc++.6.dylib`std::string::compare(std::string const&#38;) const + 10, name = 'DataCacherThread'
+    frame #0: 0x00007fff8efe128e libstdc++.6.dylib`std::string::compare(std::string const&#38;) const + 10
+    frame #1: 0x00000001007ad6ed libexiv2.dylib`bool std::operator&lt;&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;(__lhs=0x0000000100adb558, __rhs=0x0000000108103498) + 29 at basic_string.h:2228
+    frame #2: 0x00000001007ad5c1 libexiv2.dylib`std::less&lt;std::string&gt;::operator(this=0x0000000100adb530, __x=0x0000000100adb558, __y=0x0000000108103498)(std::string const&#38;, std::string const&#38;) const + 33 at stl_function.h:227
+    frame #3: 0x000000010080ff0d libexiv2.dylib`std::_Rb_tree&lt;std::string, std::pair&lt;std::string const, Exiv2::Protocol&gt;, std::_Select1st&lt;std::pair&lt;std::string const, Exiv2::Protocol&gt; &gt;, std::less&lt;std::string&gt;, std::allocator&lt;std::pair&lt;std::string const, Exiv2::Protocol&gt; &gt; &gt;::_M_insert_unique(this=0x0000000100adb530, __position=std::_Rb_tree&lt;std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, std::pair&lt;const std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, Exiv2::Protocol&gt;, std::_Select1st&lt;std::pair&lt;const std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, Exiv2::Protocol&gt; &gt;, std::less&lt;std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt;, std::allocator&lt;std::pair&lt;const std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, Exiv2::Protocol&gt; &gt; &gt;::iterator at 0x00000001081033e8, __v=0x0000000108103498) + 493 at stl_tree.h:1019
+    frame #4: 0x000000010080fc5d libexiv2.dylib`std::map&lt;std::string, Exiv2::Protocol, std::less&lt;std::string&gt;, std::allocator&lt;std::pair&lt;std::string const, Exiv2::Protocol&gt; &gt; &gt;::insert(this=0x0000000100adb530, __position=std::map&lt;std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, Exiv2::Protocol, std::less&lt;std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt;, std::allocator&lt;std::pair&lt;const std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, Exiv2::Protocol&gt; &gt; &gt;::iterator at 0x0000000108103428, __x=0x0000000108103498) + 45 at stl_map.h:427
+    frame #5: 0x000000010080f097 libexiv2.dylib`std::map&lt;std::string, Exiv2::Protocol, std::less&lt;std::string&gt;, std::allocator&lt;std::pair&lt;std::string const, Exiv2::Protocol&gt; &gt; &gt;::operator[](this=0x0000000100adb530, __k=0x00000001081035a8) + 199 at stl_map.h:350
+  * frame #6: 0x000000010080d84d libexiv2.dylib`Exiv2::fileProtocol(path=0x0000000108103868) + 989 at futils.cpp:252
+    frame #7: 0x000000010081831d libexiv2.dylib`Exiv2::ImageFactory::createIo(path=0x0000000108103868, useCurl=false) + 45 at image.cpp:425
+    frame #8: 0x0000000100818650 libexiv2.dylib`Exiv2::ImageFactory::open(path=0x0000000108103868, useCurl=false) + 64 at image.cpp:473
+</pre><br /><pre>
+frame #6: 0x000000010080d84d libexiv2.dylib`Exiv2::fileProtocol(path=0x0000000108103868) + 989 at futils.cpp:252
+   249                  protDict["ssh://"  ]   = pSsh;
+   250                  protDict["file://" ]   = pFileUri;
+   251                  protDict["data:"   ]   = pDataUri;
+-&gt; 252                  protDict["-"       ]   = pStdin;
+   253             }
+   254             for (Exiv2::protDict_i it = protDict.begin(); it != protDict.end(); it++) {
+   255                 if (path.find(it-&gt;first) == 0)
+</pre></p>
+
+
+	<p>Second thread:<br /><pre>
+* thread #16: tid = 0xddef49, 0x00007fff8efe128e libstdc++.6.dylib`std::string::compare(std::string const&#38;) const + 10, name = 'DataCacherThread', stop reason = EXC_BAD_ACCESS (code=1, address=0xfffffffffffffff2)
+    frame #0: 0x00007fff8efe128e libstdc++.6.dylib`std::string::compare(std::string const&#38;) const + 10
+    frame #1: 0x00000001007ad6ed libexiv2.dylib`bool std::operator&lt;&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;(__lhs=0x0000000100adb558, __rhs=0x000000010ad09498) + 29 at basic_string.h:2228
+  * frame #2: 0x00000001007ad5c1 libexiv2.dylib`std::less&lt;std::string&gt;::operator(this=0x0000000100adb530, __x=0x0000000100adb558, __y=0x000000010ad09498)(std::string const&#38;, std::string const&#38;) const + 33 at stl_function.h:227
+    frame #3: 0x000000010080ff0d libexiv2.dylib`std::_Rb_tree&lt;std::string, std::pair&lt;std::string const, Exiv2::Protocol&gt;, std::_Select1st&lt;std::pair&lt;std::string const, Exiv2::Protocol&gt; &gt;, std::less&lt;std::string&gt;, std::allocator&lt;std::pair&lt;std::string const, Exiv2::Protocol&gt; &gt; &gt;::_M_insert_unique(this=0x0000000100adb530, __position=std::_Rb_tree&lt;std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, std::pair&lt;const std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, Exiv2::Protocol&gt;, std::_Select1st&lt;std::pair&lt;const std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, Exiv2::Protocol&gt; &gt;, std::less&lt;std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt;, std::allocator&lt;std::pair&lt;const std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, Exiv2::Protocol&gt; &gt; &gt;::iterator at 0x000000010ad093e8, __v=0x000000010ad09498) + 493 at stl_tree.h:1019
+    frame #4: 0x000000010080fc5d libexiv2.dylib`std::map&lt;std::string, Exiv2::Protocol, std::less&lt;std::string&gt;, std::allocator&lt;std::pair&lt;std::string const, Exiv2::Protocol&gt; &gt; &gt;::insert(this=0x0000000100adb530, __position=std::map&lt;std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, Exiv2::Protocol, std::less&lt;std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt;, std::allocator&lt;std::pair&lt;const std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, Exiv2::Protocol&gt; &gt; &gt;::iterator at 0x000000010ad09428, __x=0x000000010ad09498) + 45 at stl_map.h:427
+    frame #5: 0x000000010080f097 libexiv2.dylib`std::map&lt;std::string, Exiv2::Protocol, std::less&lt;std::string&gt;, std::allocator&lt;std::pair&lt;std::string const, Exiv2::Protocol&gt; &gt; &gt;::operator[](this=0x0000000100adb530, __k=0x000000010ad095a8) + 199 at stl_map.h:350
+    frame #6: 0x000000010080d84d libexiv2.dylib`Exiv2::fileProtocol(path=0x000000010ad09868) + 989 at futils.cpp:252
+    frame #7: 0x000000010081831d libexiv2.dylib`Exiv2::ImageFactory::createIo(path=0x000000010ad09868, useCurl=false) + 45 at image.cpp:425
+    frame #8: 0x0000000100818650 libexiv2.dylib`Exiv2::ImageFactory::open(path=0x000000010ad09868, useCurl=false) + 64 at image.cpp:473
+</pre><br /><pre>
+frame #6: 0x000000010080d84d libexiv2.dylib`Exiv2::fileProtocol(path=0x000000010ad09868) + 989 at futils.cpp:252
+   249                  protDict["ssh://"  ]   = pSsh;
+   250                  protDict["file://" ]   = pFileUri;
+   251                  protDict["data:"   ]   = pDataUri;
+-&gt; 252                  protDict["-"       ]   = pStdin;
+   253             }
+   254             for (Exiv2::protDict_i it = protDict.begin(); it != protDict.end(); it++) {
+   255                 if (path.find(it-&gt;first) == 0)
+</pre></p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1065" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="SAwF3Ic4V77PsDBIo0/E39YBaIH33h8Rsoq4pVOGSt+qQa4z9UKbvprUL0QcmMjs6ZM8+AY9vqtPqigtEL+tsA==" />
+  <table class="list issues odd-even"><tr id="relation-133" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1066" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1066">Bug #1066</a>: Unable to build for Mac OSX 10.6</td><td class="status">Closed</td><td class="start_date">25 Apr 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1065/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1065&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3729" href="/projects/exiv2/repository/exiv2/revisions/3729">Revision 3729</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3729/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2015 19:04" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Is fileProtocol() thread-safe? (Closed)" href="/issues/1065">#1065</a>.  Fixing thread safety in fileProtocol.  Thank You, Max for reporting this.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3730" href="/projects/exiv2/repository/exiv2/revisions/3730">Revision 3730</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3730/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2015 19:47" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Is fileProtocol() thread-safe? (Closed)" href="/issues/1065">#1065</a>.  Thanks to Thomas B for spotting my error in omitting support for https.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3732" href="/projects/exiv2/repository/exiv2/revisions/3732">Revision 3732</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3732/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2015 20:43" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Is fileProtocol() thread-safe? (Closed)" href="/issues/1065">#1065</a>.  std::map&lt;int,const char*&gt; doesn't build on MacOS-X 10.6 (Snow Leopard).  Thanks Max for letting me know about this.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3493" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2015 18:35" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+      <span id="journal-3493-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Subject</strong> changed from <i>Does fileProtocol() thread-safe?</i> to <i>Is fileProtocol() thread-safe?</i></li>
+       <li><strong>Category</strong> set to <i>basicio</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-3493-notes" class="wiki"><p>Max</p>
+
+
+	<p>You are right.  It is not thread safe.  It builds a little static map when it's run for the first time.  If two threads hit it while it's being built - bad things can happen.  I'll have to think about how best to have the dictionary built.  We have tried to avoid having library initialization code.  I'd also like to see if there are other little threading bombs hiding nearby!</p>
+
+
+	<p>My suggested work around for now is to call fileProtocol("") before you start spinning up threads and you'll probably be good.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3494" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2015 19:11" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+      <span id="journal-3494-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3494-notes" class="wiki"><p>Fix submitted.  <a class="changeset" title="#1065.  Fixing thread safety in fileProtocol.  Thank You, Max for reporting this." href="/projects/exiv2/repository/exiv2/revisions/3729">r3729</a>.  Thank you, Max for reporting this.</p>
+
+
+	<p>I've eliminated the (horrible) static and replaced it with a constant compiled-in array of static data.  No need to initialize anything.  I've reviewed the other two statics in futils.cpp and they are true static strings used by hex and base64 code.</p>
+
+
+	<p>Max:<br />I'm very pleased that you have a multi-threaded application.  I won't mark this issue as "Resolved" at the moment.  If/when you encounter additional thread-safety issues, please update this issue report and I will give it attention.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3496" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="25 Apr 2015 19:38" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+      <span id="journal-3496-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3496-notes" class="wiki"><p>Any reason why <code>pHttps</code> was removed by <a class="changeset" title="#1065.  Fixing thread safety in fileProtocol.  Thank You, Max for reporting this." href="/projects/exiv2/repository/exiv2/revisions/3729">r3729</a> from the map?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3497" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2015 19:48" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+      <span id="journal-3497-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3497-notes" class="wiki"><p>Yes, there's a reason.  I'm dyslexic.  I counted the protocols in the Protocols enum in futils.hpp and decided everything was OK.  Thank Goodness you're awake Thomas.  Well spotted.  Fix submitted <a class="changeset" title="#1065.  Thanks to Thomas B for spotting my error in omitting support for https." href="/projects/exiv2/repository/exiv2/revisions/3730">r3730</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3498" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4413">Max Pozdeev</a> <a title="25 Apr 2015 19:58" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+      <span id="journal-3498-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3498-notes" class="wiki"><p>Thank you for quick response. I'll do more tests, I want to use multi-threading in production.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3499" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4413">Max Pozdeev</a> <a title="25 Apr 2015 20:19" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+      <span id="journal-3499-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3499-notes" class="wiki"><p>Just for info. I can not build latest revision (<a class="changeset" title="#1065.  Thanks to Thomas B for spotting my error in omitting support for https." href="/projects/exiv2/repository/exiv2/revisions/3730">r3730</a>) on Mac OSX 10.10 64 bit using "-stdlib=libstdc++ -mmacosx-version-min=10.6". The error is missing std::unique_ptr.<br /><pre>tiffimage.cpp:347:8: error: no member named 'unique_ptr' in namespace 'std'
+                std::unique_ptr&lt;char[]&gt; formatted;
+                ~~~~~^
+...
+1 warning and 6 errors generated.
+</pre><br /><pre>$ g++ -v
+Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/include/c++/4.2.1
+Apple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn)
+Target: x86_64-apple-darwin14.3.0
+Thread model: posix
+</pre><br />The fix is to use "-stdlib=libc++ -mmacosx-version-min=10.7", but the minimum system version will be higher - 10.7.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3500" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2015 20:59" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+      <span id="journal-3500-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3500-notes" class="wiki"><p>Oh, that's odd.  I'm also working on MacOS-X.  I haven't built on 10.6 (Snow Leopard) for years.  I know what's causing that.  It's code that I found on StackOverflow.  Can I ask you to raise a different bug about building on 10.6 and I'll deal with it tomorrow.  I've reproduced your build failure with the command: <pre>env MACOSX_DEPLOYMENT_TARGET=10.6 make rebuild ; exiv2 -vV -g date -g time -t svn</pre>Perhaps you could check 10.7, 10.8 and 10.9.  As they could be building with GCC or Clang.  Best to know the extent of the issue.  Here's what's building OK for me:<pre>773 rmills@rmillsmbp:~/gnu/exiv2/trunk $ date ; sw_vers ; g++ --version ; exiv2 -vV -g date -g time -g svn
+Sat 25 Apr 2015 21:58:44 BST
+ProductName:    Mac OS X
+ProductVersion:    10.10.3
+BuildVersion:    14D136
+Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+Apple LLVM version 6.1.0 (clang-602.0.49) (based on LLVM 3.6.0svn)
+Target: x86_64-apple-darwin14.3.0
+Thread model: posix
+exiv2 0.24 001800 (64 bit build)
+date=Apr 25 2015
+time=21:56:27
+svn=3732
+have_gmtime_r=1
+have_timegm=1
+774 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3525" class="journal has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Apr 2015 09:39" href="/projects/exiv2/activity?from=2015-04-26">over 6 years</a> ago
+      <span id="journal-3525-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3596" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 15:55" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3596-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3837" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3837-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1065.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1065.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

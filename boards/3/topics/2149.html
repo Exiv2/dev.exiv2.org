@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Compiling fails - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="N5z+J/0DMzmdUk6Swlu2RzpMEeVuUfr0ArTP/C/7Y1nV0VXIj3n/Ocg2UZ59jLp0Bd5FnJ+yW07/lF90bMKENg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Compiling fails</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4470">P Krueger</a> <a title="17 Jul 2015 08:16" href="/projects/exiv2/activity?from=2015-07-17">over 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi guys,</p>
+
+
+	<p>I'm trying to build exiv on Windows using cygwin with the goal of having static and dynamic libs available for inclusion in other projects. I've built a lot of stuff on linux and have recently ported some projects to MIPS, so I at least have half of a clue what I'm doing.</p>
+
+
+	<p>I've installed all the required dependencies (including zlib) but when I run ./configure, I get the following output:<br /><pre>
+# ./configure
+checking for g++... g++
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.exe
+checking for suffix of executables... .exe
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C++ compiler... yes
+checking whether g++ accepts -g... (cached) no
+checking how to run the C++ preprocessor... g++ -E
+checking for gcc... gcc
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... (cached) no
+checking for gcc option to accept ISO C89... none needed
+checking how to run the C preprocessor... gcc -E
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether ln -s works... yes
+checking whether make sets $(MAKE)... yes
+checking build system type... x86_64-unknown-cygwin
+checking host system type... x86_64-unknown-cygwin
+checking whether NLS is requested... yes
+checking for msgfmt... /usr/bin/msgfmt
+checking for gmsgfmt... /usr/bin/msgfmt
+checking for xgettext... /usr/bin/xgettext
+checking for msgmerge... /usr/bin/msgmerge
+checking for ld used by GCC... /usr/i686-w64-mingw32/bin/ld.exe
+checking if the linker (/usr/i686-w64-mingw32/bin/ld.exe) is GNU ld... yes
+checking for shared library run path origin... done
+checking for CFPreferencesCopyAppValue... no
+checking for CFLocaleCopyCurrent... no
+checking whether NLS is requested... yes
+checking for GNU gettext in libc... no
+checking for iconv... no, consider installing GNU libiconv
+checking for GNU gettext in libintl... no
+checking whether to use NLS... no
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by gcc... /usr/i686-w64-mingw32/bin/ld.exe
+checking if the linker (/usr/i686-w64-mingw32/bin/ld.exe) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking the maximum length of command line arguments... 8192
+checking whether the shell understands some XSI constructs... yes
+checking whether the shell understands "+="... yes
+checking for /usr/i686-w64-mingw32/bin/ld.exe option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... file_magic ^x86 archive import|^x86 DLL
+checking for ar... ar
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... no
+checking whether we are using the GNU C++ compiler... (cached) yes
+checking whether g++ accepts -g... (cached) no
+checking how to run the C++ preprocessor... g++ -E
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -DDLL_EXPORT -DPIC
+checking if gcc PIC flag -DDLL_EXPORT -DPIC works... yes
+checking if gcc static flag -static works... yes
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/usr/i686-w64-mingw32/bin/ld.exe) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... yes
+checking dynamic linker characteristics... Win32 ld.exe
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+checking for ld used by g++... /usr/i686-w64-mingw32/bin/ld.exe
+checking if the linker (/usr/i686-w64-mingw32/bin/ld.exe) is GNU ld... yes
+checking whether the g++ linker (/usr/i686-w64-mingw32/bin/ld.exe) supports shared libraries... yes
+checking for g++ option to produce PIC... -DDLL_EXPORT -DPIC
+checking if g++ PIC flag -DDLL_EXPORT -DPIC works... yes
+checking if g++ static flag -static works... yes
+checking if g++ supports -c -o file.o... yes
+checking if g++ supports -c -o file.o... (cached) yes
+checking whether the g++ linker (/usr/i686-w64-mingw32/bin/ld.exe) supports shared libraries... yes
+checking dynamic linker characteristics... Win32 ld.exe
+checking how to hardcode library paths into programs... immediate
+checking if zlib is wanted... yes
+checking for inflateEnd in -lz... no
+checking zlib.h usability... no
+checking zlib.h presence... no
+checking for zlib.h... no
+checking zlib in /usr/x86_64-w64-mingw32/sys-root/mingw/include... failed
+configure: error: either specify a valid zlib installation with --with-zlib=DIR or disable zlib usage with --without-zlib
+</pre></p>
+
+
+	<p>For some reason, the configure script can't find my zlib.h. I have 2 flavours of zlib.h installed:<br /><pre>
+# find / | grep zlib.h
+/usr/include/zlib.h
+/usr/x86_64-w64-mingw32/sys-root/mingw/include/zlib.h
+</pre></p>
+
+
+	<p>And I've tried running "./configure --with-zlib=/usr", "./configure --with-zlib=/usr/include" and "./configure --with-zlib=/usr/x86_64-w64-mingw32/sys-root/mingw/include". But all no good. I don't understand why it's not picked up. Can anybody give me a pointer, please?</p>
+
+
+	<p>Thanks in advance!</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (1)</h3>
+  <div class="message reply" id="message-2150">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2149?r=2150#message-2150">RE: Compiling fails</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Jul 2015 15:04" href="/projects/exiv2/activity?from=2015-07-17">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I can't say for sure why this isn't building for you, however I can explain how it builds for me!  I'm currently running cygwin64:<pre>464 rmills@rmillsmbp-w7:~/gnu/zlib $ uname -a
+CYGWIN_NT-6.1 rmillsmbp-w7 1.7.32(0.274/5/3) 2014-08-13 23:06 x86_64 Cygwin
+465 rmills@rmillsmbp-w7:~/gnu/zlib $
+</pre>I download the source for zlib.1.2.8 and built/installed it to its default.<pre>
+463 rmills@rmillsmbp-w7:~/gnu/zlib $ find . -name zlib.h -exec ls -alt {} \;
+-rw-r--r-- 1 rmills None 87883 Apr 29  2013 ./zlib-1.2.8/zlib.h &lt;---- zlib.h for 1.2.8
+464 rmills@rmillsmbp-w7:~/gnu/zlib $</pre><br />I believe I've done this for cygwin32/cygwin64/mingw32 and mingw64.  Here's where the zlib.h has been installed:<br /><pre>
+60 rmills@rmillsmbp-w7:/usr $ find . -name zlib.h -exec ls -alt {} \;
+-rw-r--r-- 1 rmills None 87883 Apr 29  2013 ./i686-pc-cygwin/sys-root/usr/include/zlib.h  &lt;--- zlib.h for 1.2.8
+-rw-r--r-- 1 rmills None 87883 Apr 29  2013 ./i686-pc-mingw32/sys-root/mingw/include/zlib.h  &lt;--- zlib.h for 1.2.8
+-rw-r--r-- 1 rmills None 87883 Apr 29  2013 ./i686-w64-mingw32/sys-root/mingw/include/zlib.h &lt;--- zlib.h for 1.2.8
+-rw-r--r-- 1 rmills None 1050 May 12  2014 ./include/botan/zlib.h
+-rw-r--r-- 1 rmills None 1388 Sep  1  2014 ./include/botan-1.10/botan/zlib.h
+-rw-r--r-- 1 rmills None 87883 Apr 29  2013 ./include/zlib.h &lt;--- zlib.h for 1.2.8
+-rw-r--r-- 1 rmills None 87883 Jan 24 21:43 ./local/include/zlib.h 
+-rw-r--r-- 1 rmills None 87883 Apr 29  2013 ./x86_64-w64-mingw32/sys-root/mingw/include/zlib.h &lt;--- zlib.h for 1.2.8
+</pre>As I said, I can't really say why something isn't working.  The Exiv2 build server builds on Cygwin64 and MinGW64 when the team engineers submit to trunk (and selected branches).  I'm very confident that cygwin builds well.</p>
+
+
+	<p>I believe config.log contains additional debugging information from ./configure.  Probably worth having a look there as he may reveal his unsuccessful searches.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-1/1)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

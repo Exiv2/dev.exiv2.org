@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Exif.Image.Orientation issue - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ZxbUSEypnrhv+Y0d6ZO0IENRZmfnnW8wTWEmKzIvh92FW3+nPtNSuDqdkhFWRLgTfMMyHhZ+zoqwQbajcRZgsg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Exif.Image.Orientation issue</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4762">Goran Nagy</a> <a title="19 Sep 2018 11:21" href="/projects/exiv2/activity?from=2018-09-19">about 3 years</a> ago</span></p>
+<div class="wiki">
+<p>I am trying to change orientation of a file with exiv2.</p>
+
+
+	<p>I use this command:</p>
+
+
+	<p>exiv2 mo -M "set Exif.Image.Orientation 8" original.jpg</p>
+
+
+	<p>After this command finishes, I check the file and indeed one byte in the image is changed from 1 to 8, as I would expect.</p>
+
+
+	<p>However quite a few viewers/editors (XnView, Corel Photo Paint, Paint (from Windows 10)) do not recognize this orientation. Other applications (Affinity Photo, Fast Stone image viewer) do properly rotate image.</p>
+
+
+	<p>If I use exiftool to rotate image there is another byte that is changed from 0x09 to 0x03. I don't know what that byte means and how to change it with exiv2 too.</p>
+
+
+	<p>Can someone shed some light on the issue.</p>
+
+
+	<p>Attached original image, image changed with exiv2 and image changed with exiftool.</p>
+</div>
+<div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1239">original.jpg</a>    <span class="size">(1.87 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1239/original.jpg">original.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1240">exiv2.jpg</a>    <span class="size">(1.87 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1240/exiv2.jpg">exiv2.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1241">exiftool.jpg</a>    <span class="size">(1.87 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1241/exiftool.jpg">exiftool.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (13)</h3>
+  <div class="message reply" id="message-3180">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3180#message-3180">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/4762">Goran Nagy</a> <a title="19 Sep 2018 13:39" href="/projects/exiv2/activity?from=2018-09-19">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>OK, so I checked EXIF file format. It seems that this image has data format of the Exif.Image.Orientation set to 0x09 (signed long) which is incorrect. Exiftool fixes this and sets it to 0x03 (unsigned short) while exiv2 leaves it as it is (at least with the command I used in my first post). So, now the question is whether I can fix data format from 0x09 to 0x03. I am more interested in doing this programmatically, though any help how to do it via command line tool would also be appreciated.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3181">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3181#message-3181">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/4190">Jim Easterbrook</a> <a title="19 Sep 2018 13:53" href="/projects/exiv2/activity?from=2018-09-19">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>You can clear the value with <code>exiv2 mo -M "del Exif.Image.Orientation" original.jpg</code>, then set it as you did before. It will then have the correct data format.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3182">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3182#message-3182">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/4762">Goran Nagy</a> <a title="19 Sep 2018 14:02" href="/projects/exiv2/activity?from=2018-09-19">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks. That's one way to do it. I found another one (explicitly setting data format):</p>
+
+
+	<p>exiv2 -k -M"set Exif.Image.Orientation Short 8"  original.jpg</p>
+
+
+	<p>I'm still trying to find how to do it programmatically, which is obviously possible, since evix2 command line tool does it.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3183">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3183#message-3183">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/4190">Jim Easterbrook</a> <a title="19 Sep 2018 14:07" href="/projects/exiv2/activity?from=2018-09-19">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Sorry I can't help with that. I use libexiv2 programmatically via a Python / gexiv2 interface which hides that sort of detail. (But allows me to delete a value and then set it again.)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3184">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3184#message-3184">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/4762">Goran Nagy</a> <a title="19 Sep 2018 14:59" href="/projects/exiv2/activity?from=2018-09-19">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks anyway.</p>
+
+
+	<p>It seems there was an issue in my code.</p>
+
+
+	<p>int Rotation = 8;<br />exifData["Exif.Image.Orientation"] = Rotation;</p>
+
+
+	<p>instead of</p>
+
+
+	<p>unsigned short Rotation = 8;<br />exifData["Exif.Image.Orientation"] = Rotation;</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3185">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3185#message-3185">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Sep 2018 23:00" href="/projects/exiv2/activity?from=2018-09-19">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Interesting discussion.  Thanks to Jim for answering this one.</p>
+
+
+	<p>The Exif specification provides for 8 types of data.  Short, Long, SShort, SLong (and others).  See page 14.  <a class="external" href="https://www.exif.org/Exif2-2.PDF">https://www.exif.org/Exif2-2.PDF</a></p>
+
+
+	<p>When you set a value of '1', the command-line program defaults to Short.  However, you can specify other types if you wish with the syntax:<pre> $ exiv2 -M'set Exif.Image.Orientation &lt;type&gt; &lt;value&gt;' file ...</pre>Here are examples:<pre>504 rmills@rmillsmbp:~/temp $ curl -O http://clanmills.com/Stonehenge.jpg
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 6599k  100 6599k    0     0  1254k      0  0:00:05  0:00:05 --:--:-- 1354k
+505 rmills@rmillsmbp:~/temp $ exiv2 -pa --grep orientation/i Stonehenge.jpg 
+Exif.Image.Orientation                       Short       1  top, left
+506 rmills@rmillsmbp:~/temp $ exiv2 -M'set Exif.Image.Orientation 8' Stonehenge.jpg 
+507 rmills@rmillsmbp:~/temp $ exiv2 -pa --grep orientation/i Stonehenge.jpg 
+Exif.Image.Orientation                       Short       1  left, bottom
+508 rmills@rmillsmbp:~/temp $ exiv2 -M'set Exif.Image.Orientation SShort 8' Stonehenge.jpg 
+509 rmills@rmillsmbp:~/temp $ exiv2 -pa --grep orientation/i Stonehenge.jpg 
+Exif.Image.Orientation                       SShort      1  left, bottom
+510 rmills@rmillsmbp:~/temp $ exiv2 -M'set Exif.Image.Orientation Long 8' Stonehenge.jpg 
+511 rmills@rmillsmbp:~/temp $ exiv2 -pa --grep orientation/i Stonehenge.jpg 
+Exif.Image.Orientation                       Long        1  left, bottom
+512 rmills@rmillsmbp:~/temp $ </pre> I wouldn't like to offer an opinion about which applications handle the Orientation flag well.  For sure, the Mac's Preview.app doesn't understand Orientation unless it's a Short (as Specified by Exif on page 16)</p>
+
+
+	<p>Incidentally, you should consider the value of Orientation to be a bit-mask.  Bit 0 is left-right, Bit 1 is up-down, Bit 2 is 0/90 rotation.</p>
+
+
+	<p>Here's the data in your files:<pre>542 rmills@rmillsmbp:~/temp $ exiv2 -pa --grep image.orientation/i *.jpg
+exiftool.jpg          Exif.Image.Orientation                       Short       1  left, bottom
+exiv2.jpg             Exif.Image.Orientation                       SLong       1  left, bottom
+original.jpg          Exif.Image.Orientation                       SLong       1  top, left
+543 rmills@rmillsmbp:~/temp $ </pre>As you see, exiftool has used Short.  The original and exiv2 are using SLong.</p>
+
+
+	<p>To explain your C++ code, please see the document:  <a class="external" href="http://www.exiv2.org/doc/classExiv2_1_1Exifdatum.html">http://www.exiv2.org/doc/classExiv2_1_1Exifdatum.html</a></p>
+
+
+	<p>We overload <strong>operator=</strong>, so to get a Short, use:<pre>exifData["Exif.Image.Orientation"] = (const int16_t) 8;</pre></p>
+
+
+	<p>Exiv2 is not a metadata policeman.  We don't enforce the types of data according to the specification.  You can set a metadatum to a value and/or type of your choice and I've used that to set Long and SShort.  I don't encourage you to use the wrong type, however we provide this capability.  Use <em><strong>"the force"</strong></em> carefully.  With great power, comes awesome responsibility!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3190">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3190#message-3190">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="16 Oct 2018 17:01" href="/projects/exiv2/activity?from=2018-10-16">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>We overload <strong>operator=</strong>, so to get a Short, use:[...]</p>
+
+
+</blockquote>
+
+	<p>This sounds dangerous if I understand correctly -- is it really up to the programmer to specify the storage format for each piece of metadata written?  And using the wrong variable type causes the metadata to be written in the wrong format?  This sounds like a recipe for disaster.  I hope I'm reading this wrong.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3191">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3191#message-3191">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Oct 2018 18:01" href="/projects/exiv2/activity?from=2018-10-16">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Phil</p>
+
+
+	<p>I hope I'm not frightening you.  My understanding is that exiv2 will allow you to set the data without reference to the specification.  As I usually express this - Exiv2 is not a metadata policeman.  He's a tool and it is the user's responsibility to use it correctly.<pre>$ curl http://clanmills.com/Stonehenge.jpg &gt; S.jpg ; exiv2 -pa --grep Exif.Image.DateTime S.jpg
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 6599k  100 6599k    0     0  1265k      0  0:00:05  0:00:05 --:--:-- 1372k
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:25:28
+$ exiv2 -M"set Exif.Image.DateTime 2018:10:16 18:43:40" S.jpg ; exiv2 -pa --grep Exif.Image.DateTime S.jpg 
+Exif.Image.DateTime                          Ascii      20  2018:10:16 18:43:40
+$ exiv2 -M"set Exif.Image.DateTime Short 1 2 3 4 5" S.jpg ; exiv2 -pa --grep Exif.Image.DateTime S.jpg 
+Exif.Image.DateTime                          Short       5  1 2 3 4 5
+$ exiv2 -M"set Exif.Image.DateTime Rational 1/2 3/4 5/6" S.jpg ; exiv2 -pa --grep Exif.Image.DateTime S.jpg 
+Exif.Image.DateTime                          Rational    3  1/2 3/4 5/6
+$ </pre>I believe applications (such as digiKam) provide the "policeman" to conform with standards.  We have APIs to inspect the tag database.  For example:<pre>709 rmills@rmillsmbp:~/temp $ taglist --help
+Usage: taglist [--group name|Groups|Exif|Canon|CanonCs|...]]
+Print Exif tags, MakerNote tags, or Iptc datasets
+710 rmills@rmillsmbp:~/temp $ taglist Exif | grep Exif.Image.DateTime,
+DateTime,    306,    0x0132,    Image,    Exif.Image.DateTime,    Ascii,
+    The date and time of image creation. In Exif standard,
+      it is the date and time the file was changed.
+</pre>So, an application can determine that the tag Exif.Image.DateTime is a string (type Ascii).  There are functions in the code to format date as 20 bytes "YYYY:MM:DD HH:MM:SS\0"</p>
+
+
+	<p>It was this way when I joined the project in 2008.  Please don't shoot the messenger!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3192">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3192#message-3192">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="17 Oct 2018 11:26" href="/projects/exiv2/activity?from=2018-10-17">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I can tell you from experience that incorrect formats are a common problem, and that various applications have problems with unexpected formats.</p>
+
+
+	<p>I don't expect Exiv2 to police the metadata, but it would be much more reasonable if Exiv2 wrote in the correct format by default, and if it required some extra effort to write in a different format.  As it stands right now, the extra effort is required to write in the correct format, which will definitely cause more headaches and hair-pulling down the road.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3193">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3193#message-3193">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Oct 2018 12:10" href="/projects/exiv2/activity?from=2018-10-17">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I think you're right.  We set the correct data type by default and enable the user to "force" something else.<br /><pre>$ curl http://clanmills.com/Stonehenge.jpg &gt; S.jpg ; exiv2 -pa --grep Exif.Image.DateTime S.jpg
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 6599k  100 6599k    0     0   824k      0  0:00:08  0:00:08 --:--:-- 1216k
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:25:28
+$ exiv2 -M"set Exif.Image.DateTime 3 2 1" S.jpg ; exiv2 -pa --grep Exif.Image.DateTime S.jpg 
+Exif.Image.DateTime                          Ascii       6  3 2 1  &lt;---- Yip, it's ascii
+$ </pre>If you declare the type, we'll set it.<br /><pre>$ curl http://clanmills.com/Stonehenge.jpg &gt; S.jpg ; exiv2 -pa --grep Exif.Image.DateTime S.jpg
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 6599k  100 6599k    0     0  1321k      0  0:00:04  0:00:04 --:--:-- 1624k
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:25:28
+$ exiv2 -M"set Exif.Image.DateTime Short 3 2 1" S.jpg ; exiv2 -pa --grep Exif.Image.DateTime S.jpg &lt;--- Notice 'Short' in the set
+Exif.Image.DateTime                          Short       3  3 2 1 &lt;---- We've set an array of 3 shorts
+$ </pre>We could be more diligent with time tags to enforce the formatting.</p>
+
+
+	<p>You know how it is, Phil.  There's a never ending and growing request list.  The good news is that I have two wonderful people working with me on Exiv2.  I'm working hard to get Exiv2 v0.27 RC1 released (probably next week) and GM by the end of the year.  Next year, I will deal with the forum and issue/requests - however I'm not going to contribute to the code.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3194">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3194#message-3194">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="17 Oct 2018 13:02" href="/projects/exiv2/activity?from=2018-10-17">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>I think you're right.  We set the correct data type by default and enable the user to "force" something else.</p>
+
+
+</blockquote>
+
+	<p>Just to be clear:  I was talking about the API (specifically, the overloaded operator=), which doesn't impose a default format.  I understand that the "exiv2" app imposes the correct format by default.</p>
+
+
+<blockquote>
+
+	<p>You know how it is, Phil.  There's a never ending and growing request list.</p>
+
+
+</blockquote>
+
+	<p>I know. :(</p>
+
+
+<blockquote>
+
+	<p>I'm working hard to get Exiv2 v0.27 RC1 released (probably next week) and GM by the end of the year.</p>
+
+
+</blockquote>
+
+	<p>Excellent!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3195">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3195#message-3195">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Oct 2018 13:47" href="/projects/exiv2/activity?from=2018-10-17">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Next year I want to relax and only deal with Exiv2 correspondence.  The others have great ideas and skills to take the project into the future.</p>
+
+
+	<p>I've purchased a Euphonium in September and hope to join a Silver Band next year.  And in November I will qualify as a "Run Leader" to help our running club establish a "Couch to 5K" program next year.</p>
+
+
+	<p>So, less C++, more fun.  And we're thinking about a trip to Canada in July 2020.</p>
+
+
+	<p><img src="/attachments/download/1249/img_1642.jpg" alt="" /></p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1249">img_1642.jpg</a>    <span class="size">(66.5 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1249/img_1642.jpg">img_1642.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-3196">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3179?r=3196#message-3196">RE: Exif.Image.Orientation issue</a>
+    -
+    Added by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="17 Oct 2018 13:59" href="/projects/exiv2/activity?from=2018-10-17">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>That's a very shiny instrument you've got there!  Coincidentally I played the euphonium in school myself.</p>
+
+
+	<p>What?  C++ isn't fun?  ;)</p>
+
+
+	<p>We've got a spare room for you if you're ever looking for accommodation in the Kingston area.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-13/13)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

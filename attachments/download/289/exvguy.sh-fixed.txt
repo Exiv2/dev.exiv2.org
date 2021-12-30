@@ -1,0 +1,57 @@
+#!/bin/bash
+# Requires BASH 4.x and exiv2 0.2.1 or later
+
+#Get the list loaded.
+function infile () {
+while [ ! -f "$theList" ];
+do
+#No list by that name? Really? Are you sure? *G*
+	read -p "Please enter the name of the list to use: " theList
+	if [ ! -f "$theList" ]; then
+	echo -e "There is no file named $theList\nin this directory.\nPlease try again."
+	fi
+done
+}
+
+function mangle () {
+	#Select which task to complete
+	echo "What do you want to do?"
+	echo -ne "\tR - Create EXV files for JPEGs on the list\n\t\t or\n"
+	echo -ne "\tW - Write EXV data back to the files on your list?\n"
+	read -p "Enter your choice here: " choice
+		case "$choice" in
+			R ) cull;;
+			W ) etch;;
+			* ) mangle;;
+		esac
+}
+
+function cull () {
+	while read 'line';
+		do	
+			file=${line%.*}
+			sidecar="$file.exv"
+#If there's already an *exv file of the same name,
+#trash it and write a new one.			
+			if [ -f "$sidecar" ]; then rm $sidecar; fi
+			exiv2 -vea $line
+		done<$theList
+}
+
+function etch () {
+	while read 'line';
+		do
+			file=${line%.*}
+			sidecar="$file.exv"
+#Get ahead of the "file not found"error"
+			if [ ! -f "$sidecar" ]; then 
+				echo -e "No .exv file for $file found."
+				echo "Skipping."
+			else
+				exiv2 -vkia $line
+			fi
+		done<$theList
+}
+
+infile
+mangle

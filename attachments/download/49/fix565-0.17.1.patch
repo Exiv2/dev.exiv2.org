@@ -1,0 +1,96 @@
+--- src/ifd.cpp	2008-01-10 00:44:09.000000000 +0800
++++ ../0.17.1-bug565/src/ifd.cpp	2008-07-23 19:36:00.000000000 +0800
+@@ -566,8 +566,10 @@
+         const iterator e = entries_.end();
+         iterator i;
+         for (i = b; i != e; ++i) {
+-            if (i->size() > 4) {
+-                totalDataSize += i->size();
++            long sz = i->size();
++            if (sz > 4) {
++                sz += sz & 1;                   // Align size to word boundary
++                totalDataSize += sz;
+             }
+         }
+         for (i = b; i != e; ++i) {
+@@ -575,15 +577,22 @@
+             us2Data(buf + o + 2, i->type(), byteOrder);
+             ul2Data(buf + o + 4, i->count(), byteOrder);
+             if (i->sizeDataArea() > 0) {
+-                long dataAreaOffset = offset_+size()+totalDataSize+dataAreaSize;
+-                i->setDataAreaOffsets(dataAreaOffset, byteOrder);
+-                dataAreaSize += i->sizeDataArea();
++                long dao = offset_ + size() + totalDataSize + dataAreaSize;
++                dao += dao & 1;       // Align data area offset to word boundary
++                i->setDataAreaOffsets(dao, byteOrder);
++                long das = i->sizeDataArea();
++                das += das & 1;         // Align data area size to word boundary
++                dataAreaSize += das; 
+             }
+             if (i->size() > 4) {
+                 // Set the offset of the entry, data immediately follows the IFD
+-                i->setOffset(size() + dataSize);
++                long of = size() + dataSize;
++                of += of & 1;                   // Align offset to word boundary
++                i->setOffset(of);
+                 l2Data(buf + o + 8, offset_ + i->offset(), byteOrder);
+-                dataSize += i->size();
++                long ds = i->size();
++                ds += ds & 1;                // Align data size to word boundary
++                dataSize += ds;
+             }
+             else {
+                 // Copy data into the offset field
+@@ -606,17 +615,29 @@
+ 
+         // Add the data of all IFD entries to the data buffer
+         for (i = b; i != e; ++i) {
+-            if (i->size() > 4) {
+-                std::memcpy(buf + o, i->data(), i->size());
+-                o += i->size();
++            long sz = i->size();
++            if (sz > 4) {
++                std::memcpy(buf + o, i->data(), sz);
++                if ((sz & 1) == 1) {
++                    // Align data to word boundary
++                    std::memset(buf + o + sz, 0x0, 1);
++                    sz += 1;
++                }
++                o += sz;
+             }
+         }
+ 
+         // Add all data areas to the data buffer
+         for (i = b; i != e; ++i) {
+-            if (i->sizeDataArea() > 0) {
+-                std::memcpy(buf + o, i->dataArea(), i->sizeDataArea());
+-                o += i->sizeDataArea();
++            long sz = i->sizeDataArea();
++            if (sz > 0) {
++                std::memcpy(buf + o, i->dataArea(), sz);
++                if ((sz & 1) == 1) {
++                    // Align data area to word boundary
++                    std::memset(buf + o + sz, 0x0, 1);
++                    sz += 1;
++                }
++                o += sz;
+             }
+         }
+ 
+@@ -701,8 +722,14 @@
+         long dataSize = 0;
+         const_iterator end = this->end();
+         for (const_iterator i = begin(); i != end; ++i) {
+-            if (i->size() > 4) dataSize += i->size();
+-            dataSize += i->sizeDataArea();
++            long sz = i->size();
++            if (sz > 4) {
++                sz += sz & 1;                // Align data size to word boundary
++                dataSize += sz;
++            }
++            sz = i->sizeDataArea();
++            sz += sz & 1;               // Align data area size to word boundary
++            dataSize += sz;
+         }
+         return dataSize;
+     }

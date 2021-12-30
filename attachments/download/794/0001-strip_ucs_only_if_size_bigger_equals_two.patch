@@ -1,0 +1,19 @@
+Signed-off-by: Felix Bolte <bolte.felix@gmail.com>
+
+Index: src/tags.cpp
+===================================================================
+--- src/tags.cpp	(revision 3839)
++++ src/tags.cpp	(working copy)
+@@ -2321,7 +2321,11 @@
+             DataBuf buf(value.size());
+             value.copy(buf.pData_, invalidByteOrder);
+             // Strip trailing UCS-2 0-character, if there is one
+-            if (buf.pData_[buf.size_ - 1] == 0 && buf.pData_[buf.size_ - 2] == 0)  buf.size_ -= 2;
++            if (buf.size_ >= 2 &&
++                    buf.pData_[buf.size_ - 1] == 0 &&
++                    buf.pData_[buf.size_ - 2] == 0) {
++                buf.size_ -= 2;
++            }
+             std::string str((const char*)buf.pData_, buf.size_);
+             cnv = convertStringCharset(str, "UCS-2LE", "UTF-8");
+             if (cnv) os << str;

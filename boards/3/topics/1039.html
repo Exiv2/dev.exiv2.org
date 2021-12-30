@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Adding new XMP namespaces - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="bhQoxHS2XDh/kkwj/h/Qq33N+/BkhazKacc7Z+qieMeMWYMrBsyQOCr2Uy9ByNyYQl+viZVmDXCU56vvqZufqA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Adding new XMP namespaces</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="03 Jan 2012 08:02" href="/projects/exiv2/activity?from=2012-01-03">almost 10 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>I want to use exiv2 (via pyexiv2) to read and write currently not supported XMP namespaces. Can you give me some hints, where I have to extend exiv2 or how I can help you to extend the missing namespaces in the library? I want to use the Metadata Working Group Region Schema (see <a class="external" href="http://www.metadataworkinggroup.org/pdf/mwg_guidance.pdf">http://www.metadataworkinggroup.org/pdf/mwg_guidance.pdf</a> - Image Region Metadata) and the Microsoft Photo Region Information (see <a class="external" href="http://msdn.microsoft.com/en-us/library/ee719905%28VS.85%29.aspx">http://msdn.microsoft.com/en-us/library/ee719905%28VS.85%29.aspx</a> or <a class="external" href="http://metability.editme.com/mmf-scavenger-xmp-schemaex-MSPeopleTagging">http://metability.editme.com/mmf-scavenger-xmp-schemaex-MSPeopleTagging</a>.<br />I guess it also has to be done some work at the python wrapper, but extending the c++ lib would be the first thing to do.<br />How can I help to implement these?</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (26)</h3>
+  <div class="message reply" id="message-1040">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1040#message-1040">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="04 Jan 2012 16:40" href="/projects/exiv2/activity?from=2012-01-04">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Benjamin,</p>
+
+
+	<p>Thanks for your offer!</p>
+
+
+	<p>You can actually use exiv2 (and pyexiv2, I presume) also for XMP namespaces that it doesn't know of. Just make sure you register the namespace before use.</p>
+
+
+	<p>Adding properties of a new namespace to the library requires just a few changes. (I don't know if it also requires changes in pyexiv2.) The easiest way to go about it is to use an existing namespace for guidance, e.g., look for occurrences of "kipi" and "Kipi" and make similar changes:</p>
+
+
+	<p>In src/properties.cpp: <br />- add a XmpPropertyInfo array with the reference data for the new properties<br />- add an entry for the namespace to xmpNsInfo[]</p>
+
+
+	<p>In src/xmp.cpp:<br />- register the new namespace with the XMP-SDK</p>
+
+
+	<p>For the documentation, make changes similar to these:<br /><a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/diff?rev=2248&#38;rev_to=2247">http://dev.exiv2.org/projects/exiv2/repository/diff?rev=2248&#38;rev_to=2247</a></p>
+
+
+	<p>Test (try to set a new property without registering the namespace, e.g., using the exiv2 command line tool) and when you're happy with the change send me your patch and I'll check it in.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1042">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1042#message-1042">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="05 Jan 2012 05:12" href="/projects/exiv2/activity?from=2012-01-05">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ok, I will try on that (the face tagging only at first). For Microsoft Photo 1.2 RegionInfo this might be simply. I will have to look for the MWG Regions Schema, beacause it is less documented and more nested Tags.<br />I have to add namespaces and entries to exiv2, not only registring a namespace via exvi2, because pyexiv2 determines the tag types by asking the exiv2 lib. Otherwise one only can insert simple XmpText values.<br />What the different entries in the XmpPropertyInfo and in the entry in xmpNsInfo stand for? For some values I am not sure how to define for example bags which contain other complex/struct elements.<br />I will try and post my results here.</p>
+
+
+	<p>For later tests/comparison I now include some XMP examples:</p>
+
+
+	<a name="MPRegionInfo-by-WLPG"></a>
+<h2 >MP:RegionInfo by WLPG<a href="#MPRegionInfo-by-WLPG" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+  &lt;MP:RegionInfo rdf:parseType="Resource"&gt;
+    &lt;MPRI:Regions&gt;
+     &lt;rdf:Bag&gt;
+      &lt;rdf:li
+       MPReg:Rectangle="0.661608, 0.244310, 0.130501, 0.261002" 
+       MPReg:PersonDisplayName="Baby Tux"/&gt;
+      &lt;rdf:li
+       MPReg:Rectangle="0.205615, 0.226100, 0.130501, 0.261002" 
+       MPReg:PersonDisplayName="Baby Gnu"/&gt;
+     &lt;/rdf:Bag&gt;
+    &lt;/MPRI:Regions&gt;
+   &lt;/MP:RegionInfo&gt;
+</pre>
+
+	<a name="MPRegionInfo-as-described-at-MSDN"></a>
+<h2 >MP:RegionInfo as described at MSDN<a href="#MPRegionInfo-as-described-at-MSDN" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+  &lt;MP:RegionInfo&gt;
+    &lt;rdf:Description xmlns:MPRI="http://ns.microsoft.com/photo/1.2/t/RegionInfo#"&gt;
+      &lt;MPRI:Regions&gt;
+        &lt;rdf:Bag&gt;
+          &lt;rdf:li&gt;
+            &lt;rdf:Description xmlns:MPReg="http://ns.microsoft.com/photo/1.2/t/RegionInfo#&gt;
+              &lt;MPReg:Rectangle&gt;0.790650, 0.441734, 0.209350, 0.279133&lt;/MPReg:Rectangle&gt;
+              &lt;MPReg:PersonDisplayName&gt;John Doe&lt;/MPReg:PersonDisplayName&gt;
+              &lt;MPReg:PersonEmailDigest&gt;2FD4E1C67A2D28FCED849EE1BB76E7391B93EB13&lt;/MPReg:PersonEmailDigest&gt;
+              &lt;MPReg:PersonLiveIdCID&gt;1234567890123456789&lt;/MPReg:PersonLiveIdCID&gt;
+             &lt;/rdf:Description&gt;
+           &lt;/rdf:li&gt;
+           &lt;rdf:li&gt;
+             &lt;rdf:Description xmlns:MPRI="http://ns.microsoft.com/photo/1.2/t/RegionInfo#&gt;
+                &lt;MPReg:Rectangle&gt;0.222656, 0.302083, 0.378906, 0.505208&lt;/MPReg:Rectangle&gt;
+                &lt;MPReg:PersonDisplayName&gt;Jane Doe&lt;/MPReg:PersonDisplayName&gt;
+             &lt;/rdf:Description&gt;
+           &lt;/rdf:li&gt;
+           &lt;!-- Addition Regions --&gt;
+           ...
+           &lt;rdf:li&gt;...&lt;/rdf:li&gt;          
+        &lt;/rdf:Bag&gt;
+      &lt;/MPRI:Regions&gt;&lt;/rdf:Description&gt;
+    &lt;/MP:RegionInfo&gt;
+</pre>
+
+	<a name="MWGRegions-by-Picasa-39"></a>
+<h2 >MWG:Regions by Picasa 3.9<a href="#MWGRegions-by-Picasa-39" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+   &lt;mwg-rs:Regions rdf:parseType="Resource"&gt;
+    &lt;mwg-rs:AppliedToDimensions
+     stDim:w="1600" 
+     stDim:h="800" 
+     stDim:unit="pixel"/&gt;
+    &lt;mwg-rs:RegionList&gt;
+     &lt;rdf:Bag&gt;
+      &lt;rdf:li&gt;
+       &lt;rdf:Description
+        mwg-rs:Name="Baby Tux" 
+        mwg-rs:Type="Face"&gt;
+       &lt;mwg-rs:Area
+        stArea:x="0.72625" 
+        stArea:y="0.3775" 
+        stArea:w="0.125" 
+        stArea:h="0.25" 
+        stArea:unit="normalized"/&gt;
+       &lt;/rdf:Description&gt;
+      &lt;/rdf:li&gt;
+      &lt;rdf:li&gt;
+       &lt;rdf:Description
+        mwg-rs:Name="Baby Gnu" 
+        mwg-rs:Type="Face"&gt;
+       &lt;mwg-rs:Area
+        stArea:x="0.275312" 
+        stArea:y="0.409375" 
+        stArea:w="0.164375" 
+        stArea:h="0.28125" 
+        stArea:unit="normalized"/&gt;
+       &lt;/rdf:Description&gt;
+      &lt;/rdf:li&gt;
+     &lt;/rdf:Bag&gt;
+    &lt;/mwg-rs:RegionList&gt;
+   &lt;/mwg-rs:Regions&gt;
+</pre>
+
+	<a name="mwg-rsRegions-as-described-by-MWG"></a>
+<h2 >mwg-rs:Regions as described by MWG<a href="#mwg-rsRegions-as-described-by-MWG" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+&lt;mwg-rs:Regions rdf:parseType=“Resource”&gt;
+ &lt;mwg-rs:AppliedToDimensions stDim:w=“4288” stDim:h=“2848” stDim:unit=“pixel”/&gt; &lt;mwg-rs:RegionList&gt;
+  &lt;rdf:Bag&gt;
+   &lt;!-- Simple example for face detection --&gt;
+   &lt;rdf:li rdf:parseType=“Resource”&gt; 
+    &lt;mwg-rs:Area stArea:x=“0.5” stArea:y=“0.5” stArea:w=“0.06” stArea:h=“0.09” stArea:unit=“normalized”/&gt; 
+    &lt;mwg-rs:Type&gt;Face&lt;/mwg-rs:Type&gt; 
+    &lt;mwg-rs:Title&gt;John Doe&lt;/mwg-rs:Title&gt;
+   &lt;/rdf:li&gt;
+   &lt;!-- Simple example for pet detection --&gt;
+   &lt;rdf:li rdf:parseType=“Resource”&gt; 
+    &lt;mwg-rs:Area stArea:x=“0.5” stArea:y=“0.5” stArea:w=“0.06” stArea:h=“0.09” stArea:unit=“normalized”/&gt; 
+    &lt;mwg-rs:Type&gt;Pet&lt;/mwg-rs:Type&gt; 
+    &lt;mwg-rs:Title&gt;Fido&lt;/mwg-rs:Title&gt; 
+    &lt;mwg-rs:Description&gt;Fido looks happy!&lt;/mwg-rs:Description&gt;
+   &lt;/rdf:li&gt;
+   &lt;!-- Metadata applied to a specific region, defined locally --&gt;
+   &lt;rdf:li rdf:parseType=“Resource”&gt; 
+    &lt;mwg-rs:Area stArea:x=“0.5” stArea:y=“0.5” stArea:w=“0.003” stArea:h=“0.002” stArea:unit=“normalized”/&gt; 
+    &lt;mwg-rs:Type&gt;Focus&lt;/mwg-rs:Type&gt; 
+    &lt;mwg-rs:FocusUsage&gt;EvaluatedUsed&lt;/mwg-rs:FocusUsage&gt;
+   &lt;/rdf:li&gt; 
+   &lt;rdf:li rdf:parseType=“Resource”&gt;
+    &lt;mwg-rs:Area stArea:x=“0.5” stArea:y=“0.5” stArea:w=“0.003” stArea:h=“0.002” stArea:unit=“normalized”/&gt; 
+    &lt;mwg-rs:Type&gt;BarCode&lt;/mwg-rs:Type&gt; 
+    &lt;mwg-rs:BarCodeValue&gt;ISBN:1234567890&lt;/mwg-rs:BarCodeValue&gt; 
+    &lt;mwg-rs:Name&gt;The Best Book&lt;/mwg-rs:Name&gt;
+    &lt;mwg-rs:Description&gt;The best book is the best book ever.&lt;/mwg-rs:Description&gt; 
+   &lt;/rdf:li&gt;
+  &lt;/rdf:Bag&gt; 
+ &lt;/mwg-rs:RegionList&gt;
+&lt;/mwg-rs:Regions&gt;
+</pre></div>
+  
+  </div>
+  <div class="message reply" id="message-1043">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1043#message-1043">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="05 Jan 2012 09:18" href="/projects/exiv2/activity?from=2012-01-05">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I now tried the simpler Microsoft Photo Schema at first. There must be something wrong or incomplete in detail (see diff). Look at the following example: <strong>I have to set type=Bag</strong>. This is ok for using exiv2 cli at the console only, but <ins>I cannot use it in such a way with pyexiv2</ins>. All types must be defined in the lib, so that pyexiv2 can ask the lib for types to use the right type mapping.</p>
+
+
+<pre>
+ src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions XmpText type=Bag" BabyGnuTux-Big.jpg
+ src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:Rectangle 0.11, 0.22, 0.33, 0.44" BabyGnuTux-Big.jpg
+ src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:PersonDisplayName Leif" BabyGnuTux-Big.jpg
+</pre>
+
+	<a name="result-of-my-patch-using-exiv2-cli"></a>
+<h2 >result of my patch using exiv2 cli<a href="#result-of-my-patch-using-exiv2-cli" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+  &lt;rdf:Description rdf:about="" 
+    xmlns:MP="http://ns.microsoft.com/photo/1.2/" 
+    xmlns:MPRI="http://ns.microsoft.com/photo/1.2/t/RegionInfo#" 
+    xmlns:MPReg="http://ns.microsoft.com/photo/1.2/t/Region#"&gt;
+   &lt;MP:RegionInfo rdf:parseType="Resource"&gt;
+    &lt;MPRI:Regions&gt;
+     &lt;rdf:Bag&gt;
+      &lt;rdf:li
+       MPReg:Rectangle="0.11, 0.22, 0.33, 0.44" 
+       MPReg:PersonDisplayName="Benjamin"/&gt;
+     &lt;/rdf:Bag&gt;
+    &lt;/MPRI:Regions&gt;
+   &lt;/MP:RegionInfo&gt;
+  &lt;/rdf:Description&gt;
+</pre>
+
+	<a name="BUT-using-pyexiv2-does-not-work-right-now"></a>
+<h2 >BUT using pyexiv2 does not work right now<a href="#BUT-using-pyexiv2-does-not-work-right-now" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+md['Xmp.MP.RegionInfo/MPRI:Regions'] = 'type=Bag'
+</pre><br />produces<br /><pre>
+Xmp.MP.RegionInfo                            XmpText     0  type="Struct" 
+Xmp.MP.RegionInfo/MPRI:Regions               XmpText     0  
+</pre><br />and then<br /><pre>
+md['Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:Rectangle'] = '0.10, 0.10, 0.90, 0.90'
+</pre><br />clears all xmp data.</div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/307">MP_v1.diff</a>    <span class="size">(4.29 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/307/MP_v1.diff">MP_v1.diff</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-1044">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1044#message-1044">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="05 Jan 2012 23:20" href="/projects/exiv2/activity?from=2012-01-05">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>The patch looks quite ok. Does pyexiv2 have a method that corresponds to Exiv2::XmpValue::setXmpArrayType() that you could use instead of the 'type=Bag' qualifier? That's what Exiv2 calls when it encounters a 'type=' keyword in an XmpText value. (See <a class="external" href="http://www.exiv2.org/example5.html">http://www.exiv2.org/example5.html</a> and look for 'setXmpArrayType' for a C++ example).</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1045">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1045#message-1045">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="06 Jan 2012 06:43" href="/projects/exiv2/activity?from=2012-01-06">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Is there a way define/setup the namespace definition, so that exiv2 will do the type=Bag automatically. I am not deep enough in the exiv2 code and XMP details to answer this question now. pyexiv2 seems not to use/wrap the setXmpArrayType, only the *ArrayValue things even in the developer code (wrapping: <a class="external" href="http://bazaar.launchpad.net/~osomon/pyexiv2/pyexiv2-0.3/view/head:/src/exiv2wrapper_python.cpp">http://bazaar.launchpad.net/~osomon/pyexiv2/pyexiv2-0.3/view/head:/src/exiv2wrapper_python.cpp</a>). If the type could not be set/got implicitly, pyexiv2 would have to be extended I guess. It currently only retrieves all type information via exiv2 via XmpTag::getType for mapping to python types, no possibility to set the array type.</p>
+
+
+	<p>I hope there is a possibility to drive the type=tag by the namespace setting in the properties, isn't it?</p>
+
+
+	<p>I have the same problem with the MWG Regions schema. This also includes the Bags as the MP 1.2 schema. A first diff for this namespace is appended. I will add a complete diff including docs if everything works fine.</p>
+
+
+	<a name="here-a-first-MWG-Regions-example"></a>
+<h3 >here a first MWG Regions example<a href="#here-a-first-MWG-Regions-example" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>again I have to use the bad <strong>type=Bag</strong> explicitly <strong>:-(</strong> -- is there no other way?</p>
+
+
+<pre>
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:w 1600" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:h 800" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:unit pixel" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList XmpText type=Bag" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name Baby Gnu" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Type Face" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:x 0.275312" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:y 0.3775" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:w 0.164375" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:h 0.28125" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:unit normalized" BabyGnuTux-Big.jpg
+</pre><br />creates<br /><pre>
+  &lt;rdf:Description rdf:about="" 
+    xmlns:mwg-rs="http://www.metadataworkinggroup.com/schemas/regions/" 
+    xmlns:stDim="http://ns.adobe.com/xap/1.0/sType/Dimensions#" 
+    xmlns:stArea="http://ns.adobe.com/xmp/sType/Area#"&gt;
+   &lt;mwg-rs:Regions rdf:parseType="Resource"&gt;
+    &lt;mwg-rs:AppliedToDimensions
+     stDim:w="1600" 
+     stDim:h="800" 
+     stDim:unit="pixel"/&gt;
+    &lt;mwg-rs:RegionList&gt;
+     &lt;rdf:Bag&gt;
+      &lt;rdf:li&gt;
+       &lt;rdf:Description
+        mwg-rs:Name="Baby Gnu" 
+        mwg-rs:Type="Face"&gt;
+       &lt;mwg-rs:Area
+        stArea:x="0.275312" 
+        stArea:y="0.3775" 
+        stArea:w="0.164375" 
+        stArea:h="0.28125" 
+        stArea:unit="normalized"/&gt;
+       &lt;/rdf:Description&gt;
+      &lt;/rdf:li&gt;
+     &lt;/rdf:Bag&gt;
+    &lt;/mwg-rs:RegionList&gt;
+   &lt;/mwg-rs:Regions&gt;
+  &lt;/rdf:Description&gt;
+</pre></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/308">MWGRegions_v1.diff</a>    <span class="size">(4.62 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/308/MWGRegions_v1.diff">MWGRegions_v1.diff</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-1048">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1048#message-1048">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/140">Olivier Tilloy</a> <a title="08 Jan 2012 13:49" href="/projects/exiv2/activity?from=2012-01-08">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I can confirm Benjamin’s findings: pyexiv2 relies on libexiv2 to determine the type of a given tag and it doesn’t allow setting the type of an unknown tag in a custom namespace to anything other than XmpText (this is documented in the tutorial, see <a class="external" href="http://tilloy.net/dev/pyexiv2/tutorial.html#reading-and-writing-xmp-tags">http://tilloy.net/dev/pyexiv2/tutorial.html#reading-and-writing-xmp-tags</a>).</p>
+
+
+	<p>I guess making libexiv2 aware of the types of those tags is the way to go, pyexiv2 should then <em>theoretically</em> pick them up automatically. If it doesn’t once implemented in libexiv2, please file a bug at <a class="external" href="https://bugs.launchpad.net/pyexiv2/+filebug">https://bugs.launchpad.net/pyexiv2/+filebug</a>.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1050">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1050#message-1050">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="09 Jan 2012 01:49" href="/projects/exiv2/activity?from=2012-01-09">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Let's try to focus on my problem of the having to set explicit type=Bag. All other things should be ok, if this can be fixed.<br />The namespaces are not custom (anymore), because I added them to libexiv2. My examples here are made with the patched version.<br />See the appended diffs as <a class="external" href="http://dev.exiv2.org/attachments/307/MP_v1.diff">http://dev.exiv2.org/attachments/307/MP_v1.diff</a>.</p>
+
+
+	<p>The problem is to set up the (initial) empty bag, which only contains structs of other information. The namespace definition is</p>
+
+
+<pre>
+    extern const XmpPropertyInfo xmpMicrosoftPhotoRegionInfoInfo[] = {
+        { "DateRegionsValid", N_("DateRegionsValid"), "Date",       xmpText, xmpExternal, N_("Date the last region was created")  },
+        { "Regions",          N_("Regions"),          "bag Region", xmpBag,  xmpExternal, N_("Contains Regions/person tags") },           // SEE THIS LINE
+        // End of list marker
+        { 0, 0, 0, invalidTypeId, xmpInternal, 0 }
+    };
+</pre><br />As I understood the code of exiv2, I defined that Regions is a Bag, so why do one have to set explicitly type=Bag like the following?<br /><pre>
+src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions XmpText type=Bag" myfile
+## src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:PersonDisplayName Tux" myfile ## This one needs the manual Bag setup
+</pre><br />resulting in the correct xmp in file<br /><pre>
+  &lt;rdf:Description rdf:about="" 
+    xmlns:MP="http://ns.microsoft.com/photo/1.2/" 
+    xmlns:MPRI="http://ns.microsoft.com/photo/1.2/t/RegionInfo#"&gt;
+   &lt;MP:RegionInfo rdf:parseType="Resource"&gt;
+    &lt;MPRI:Regions&gt;
+     &lt;rdf:Bag/&gt;
+    &lt;/MPRI:Regions&gt;
+   &lt;/MP:RegionInfo&gt;
+  &lt;/rdf:Description&gt;
+</pre></div>
+  
+  </div>
+  <div class="message reply" id="message-1051">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1051#message-1051">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="10 Jan 2012 07:45" href="/projects/exiv2/activity?from=2012-01-10">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>It looks like the bug you've found here is that the type of a nested Exiv2 XMP key (one which contains a "/"), like Xmp.MP.RegionInfo/MPRI:Regions, is not properly detected. Exiv2 returns the type of Xmp.MP.RegionInfo for this construct instead of that of MPRI:Regions. I'm working on a fix, but it's a bit tricky and I'm quite tied up with other stuff, so please bear with me.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1054">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1054#message-1054">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="10 Jan 2012 17:02" href="/projects/exiv2/activity?from=2012-01-10">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>Exiv2 returns the type of Xmp.MP.RegionInfo for this construct</p>
+
+
+</blockquote>
+
+	<p>No. It tries to find an XMP "RegionInfo/MPRI:Regions" property in the lookup table for namespace "MP". Since that doesn't exist it uses the default XmpText type.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1056">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1056#message-1056">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="10 Jan 2012 23:54" href="/projects/exiv2/activity?from=2012-01-10">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>That means it is a general issue with hierarchic namespaces that has to be fixed in exiv2?</p>
+
+
+	<p>Wouldn't it be enough to lookup type for substring right to the last / in the flattened tag name?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1057">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1057#message-1057">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="11 Jan 2012 04:14" href="/projects/exiv2/activity?from=2012-01-11">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I added a complete diff (see <a class="external" href="http://dev.exiv2.org/attachments/309/RegionTagging.diff">http://dev.exiv2.org/attachments/309/RegionTagging.diff</a>)<br />for both schemas (MP*, mwg-rs) in issue <a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Add MS Photo RegionInfo and MetaWorkingGroup Regions schemas (Closed)" href="/issues/798">#798</a> I opened for this feature extension.</p>
+
+
+	<p>Hope the found bug can be fixed.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1058">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1058#message-1058">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="11 Jan 2012 06:32" href="/projects/exiv2/activity?from=2012-01-11">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Good stuff, thanks! I've created issue <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 returns wrong XMP type for nested XMP keys (Closed)" href="/issues/799">#799</a> for the bug and checked-in what I think is a fix with <a class="changeset" title="#799: Fixed type-determination for nested properties,       XmpBag::read: don&#39;t do anything if th..." href="/projects/exiv2/repository/exiv2/revisions/2644">r2644</a> (essentially as you suggested above, plus two less related tweaks). I've only tested one of your exiv2 cli examples from above. Can you test if the fix works with your patch for what you want to do eventually? I'll look at your patch in the meantime.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1059">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1059#message-1059">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="11 Jan 2012 08:20" href="/projects/exiv2/activity?from=2012-01-11">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>How would I use exiv2 CLI now? The first line I always used to setup the bag. Must this be done to open the bag? I cannot use this without any value, can I?<br /><pre>
+#src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions XmpText type=Bag" BabyGnuTux-Big.jpg  #  &lt;-- How do I set up this bag?
+
+src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:Rectangle 0.11, 0.22, 0.33, 0.44" BabyGnuTux-Big.jpg
+Error: XMP Toolkit error 102: Indexing applied to non-array
+Error: Failed to encode XMP metadata.
+
+src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:PersonDisplayName Baby Gnu" BabyGnuTux-Big.jpg
+</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-1060">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1060#message-1060">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="11 Jan 2012 10:52" href="/projects/exiv2/activity?from=2012-01-11">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Back again, I tried more after applying your changes.</p>
+
+
+<pre>
+src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions ''" BabyGnuTux-Big.jpg
+src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:Rectangle 0.11, 0.22, 0.33, 0.44" BabyGnuTux-Big.jpg
+src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:PersonDisplayName Baby Gnu" BabyGnuTux-Big.jpg
+
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:w 1600" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:h 800" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:unit pixel" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList ''" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name Baby Gnu" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Type Face" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:x 0.275312" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:y 0.3775" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:w 0.164375" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:h 0.28125" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:unit normalized" BabyGnuTux-Big.jpg
+</pre><br />results in<br /><pre>
+  &lt;rdf:Description rdf:about="" 
+    xmlns:MP="http://ns.microsoft.com/photo/1.2/" 
+    xmlns:MPRI="http://ns.microsoft.com/photo/1.2/t/RegionInfo#" 
+    xmlns:MPReg="http://ns.microsoft.com/photo/1.2/t/Region#" 
+    xmlns:mwg-rs="http://www.metadataworkinggroup.com/schemas/regions/" 
+    xmlns:stDim="http://ns.adobe.com/xap/1.0/sType/Dimensions#" 
+    xmlns:stArea="http://ns.adobe.com/xmp/sType/Area#"&gt;
+   &lt;MP:RegionInfo rdf:parseType="Resource"&gt;
+    &lt;MPRI:Regions&gt;
+     &lt;rdf:Bag&gt;
+      &lt;rdf:li
+       MPReg:Rectangle="0.11, 0.22, 0.33, 0.44" 
+       MPReg:PersonDisplayName="Leif"/&gt;
+     &lt;/rdf:Bag&gt;
+    &lt;/MPRI:Regions&gt;
+   &lt;/MP:RegionInfo&gt;
+   &lt;mwg-rs:Regions rdf:parseType="Resource"&gt;
+    &lt;mwg-rs:AppliedToDimensions
+     stDim:w="1600" 
+     stDim:h="800" 
+     stDim:unit="pixel"/&gt;
+    &lt;mwg-rs:RegionList&gt;
+     &lt;rdf:Bag&gt;
+      &lt;rdf:li&gt;
+       &lt;rdf:Description
+        mwg-rs:Name="Baby Gnu" 
+        mwg-rs:Type="Face"&gt;
+       &lt;mwg-rs:Area
+        stArea:x="0.275312" 
+        stArea:y="0.3775" 
+        stArea:w="0.164375" 
+        stArea:h="0.28125" 
+        stArea:unit="normalized"/&gt;
+       &lt;/rdf:Description&gt;
+      &lt;/rdf:li&gt;
+     &lt;/rdf:Bag&gt;
+    &lt;/mwg-rs:RegionList&gt;
+   &lt;/mwg-rs:Regions&gt;
+  &lt;/rdf:Description&gt;
+</pre><br />It seems to work with exiv2 CLI. But I have to test more tomorrow.<br />Btw., the man page says the value is optional in set command, but one has to define an empty value.
+
+	<p>I now have to struggle a problem with the empty value in pyexiv2, but that is out of scope here. There it should then look like<br /><pre>
+import pyexiv2
+md = pyexiv2.ImageMetadata('BabyGnuTux-Big.jpg')
+md.read()
+md['Xmp.MP.RegionInfo/MPRI:Regions'] = ['']                                         # this produces a "ValueError: Value not set" at write()
+md['Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:Rectangle'] = '0.11, 0.22, 0.33, 0.44'
+md['Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:PersonDisplayName'] = 'Baby Gnu'
+md.write()
+</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-1061">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1061#message-1061">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="11 Jan 2012 17:17" href="/projects/exiv2/activity?from=2012-01-11">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><pre>
+src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions ''" BabyGnuTux-Big.jpg
+</pre>
+
+	<p>Yes, that's what I used too. Strictly speaking, this is more concise than no value at all (just <code>"set Xmp.MP.RegionInfo/MPRI:Regions"</code>), since libexiv2 actually supports creating a metadatum with only a key and no value, but in this case, we want a metadatum with an empty value of the correct type. On the other hand, I don't see a use-case for which it would make sense to add a metadatum with no value at all from the Exiv2 CLI, so it may eventually support this notation too. Either way, this is a consideration for the CLI only.</p>
+
+
+	<p>Similarly, I think it's an issue for pyexiv2 that it should allow setting a metadatum with an empty value.</p>
+
+
+	<p>(The reason why the manpage indicates that the value is optional is just because it's not needed for the <code>del</code> command.)</p>
+
+
+	<p>(Historically, the simple notation <code>metaData[key] = "Value"</code> existed before XMP support was added to Exiv2 and the "nested" XMP keys are just an awkward way to deal with the complexity that XMP allows without Exiv2 having to know much about it.)</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1062">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1062#message-1062">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="12 Jan 2012 03:05" href="/projects/exiv2/activity?from=2012-01-12">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I am still looking for the error in pyexiv2 ... As I see, pyexiv2 also relies on the <em>xmpValueType</em> of the XmpPropertyInfo.<br />via <a class="external" href="http://bazaar.launchpad.net/~osomon/pyexiv2/pyexiv2-0.2/view/head:/src/exiv2wrapper.cpp#L747">http://bazaar.launchpad.net/~osomon/pyexiv2/pyexiv2-0.2/view/head:/src/exiv2wrapper.cpp#L747</a></p>
+
+
+<pre>
+import pyexiv2
+print '&lt;%s&gt;' % pyexiv2.XmpTag('Xmp.dc.subject/dc:contributor').type
+print '&lt;%s&gt;' % pyexiv2.XmpTag('Xmp.dc.contributor').type
+print '&lt;%s&gt;' % pyexiv2.XmpTag('Xmp.MPRI.Regions').type
+print '&lt;%s&gt;' % pyexiv2.XmpTag('Xmp.MP.RegionInfo/MPRI:Regions').type
+</pre><br />output: the nested-or-not info line including type comes from exiv2 properties.cpp debug output, <br />the output in the <em><></em> is the type attribute of the XmpTag class in Python that seems to wrap xmpValueType.<br /><pre>
+Nested key: Xmp.dc.subject/dc:contributor, prefix: dc, property: contributor, type: XmpBag
+&lt;&gt;
+Not nested key, type: XmpBag
+&lt;bag ProperName&gt;
+Not nested key, type: XmpBag
+&lt;bag Region&gt;
+Nested key: Xmp.MP.RegionInfo/MPRI:Regions, prefix: MPRI, property: Regions, type: XmpBag
+&lt;&gt;
+</pre><br />May the empty xmpValueType be a missing issue of your patch?<br />Or may this be the issue exiv2 had also in pyexiv2 now.</div>
+  
+  </div>
+  <div class="message reply" id="message-1063">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1063#message-1063">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="12 Jan 2012 06:18" href="/projects/exiv2/activity?from=2012-01-12">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><pre>
+md['Xmp.MP.RegionInfo/MPRI:Regions'] = ['']
+</pre>
+
+	<p>I don't see where this assignment happens in the pyexiv2 code. The question is why does this not set a value?</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1064">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1064#message-1064">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="12 Jan 2012 10:30" href="/projects/exiv2/activity?from=2012-01-12">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ok, I spotted the code where it is getting wrong. It is in pyexiv2's exiv2 wrapper code.<br />Here are my findings:</p>
+
+
+	<p>setting a new XmpTag with Python - let's call it newtag - with key 'Xmp.MP.RegionInfo/MPRI:Regions' and value = ['']<br />in Python <strong>newtag.type is ''</strong>, because xmpValueType does not return the right right (see above!) <strong>but it should be 'bad Region' (to be fixed)</strong> but where?</p>
+
+
+	<p>when now setting the value, this happenes:<br /><pre>
+newtag._set_value(self, value=[''])
+       -&gt; type = XmpBag
+       -&gt; stype = self.type[4:]  # !!! should be "Region", because type=xmpValueType should be "bag Region"  -  to be fixed!
+       -&gt; self.raw_value calls newtag._convert_to_string(for each in value =&gt; once with '' should be 'Region') 
+          -&gt; "Region" should be handled as ProperName, Text… shouldn't it?
+          -&gt; '' is a string and is handled as one - but should be added to "elif type in ('Propername', ...
+             -&gt; newtag._set_raw_value([''])
+                -&gt; newtag._tag._setArrayValue([''])
+                   ## here it happenes in the C++ wrapper
+</pre></p>
+
+
+	<p>This now may be the solution for the pyexiv2 guys (thanks to a collegue). Replace this line <a class="external" href="http://bazaar.launchpad.net/~osomon/pyexiv2/pyexiv2-0.2/view/head:/src/exiv2wrapper.cpp#L767">http://bazaar.launchpad.net/~osomon/pyexiv2/pyexiv2-0.2/view/head:/src/exiv2wrapper.cpp#L767</a><br /><pre>
+    //_datum-&gt;setValue(0);
+    _datum-&gt;setValue(std::string(""));     //  parameter=0 leads to "ValueError: Value not set" if array=['']
+</pre></p>
+
+
+	<p>After having changed that line, I can set up regions with both exiv2 CLI and pyexiv2 producing exactly the same XMP data.</p>
+
+
+	<a name="working-examples-for-MS-Photo-12-RegionInfo-and-MWG-RS-Regions-Face"></a>
+<h2 >working examples for MS Photo 1.2 RegionInfo and MWG-RS Regions (Face)<a href="#working-examples-for-MS-Photo-12-RegionInfo-and-MWG-RS-Regions-Face" class="wiki-anchor">&para;</a></h2>
+
+
+	<a name="CLI-way"></a>
+<h3 >CLI-way<a href="#CLI-way" class="wiki-anchor">&para;</a></h3>
+
+
+<pre>
+src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions ''" BabyGnuTux-Big.jpg
+src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:Rectangle 0.11, 0.22, 0.33, 0.44" BabyGnuTux-Big.jpg
+src/exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:PersonDisplayName Baby Gnu" BabyGnuTux-Big.jpg
+
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:w 1600" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:h 800" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:unit pixel" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList ''" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name Baby Gnu" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Type Face" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:x 0.275312" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:y 0.3775" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:w 0.164375" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:h 0.28125" BabyGnuTux-Big.jpg
+src/exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:unit normalized" BabyGnuTux-Big.jpg
+</pre>
+
+	<a name="pyexiv2-way"></a>
+<h3 >pyexiv2-way<a href="#pyexiv2-way" class="wiki-anchor">&para;</a></h3>
+
+
+<pre>
+import pyexiv2
+md = pyexiv2.ImageMetadata('BabyGnuTux-Big.jpg')
+md.read()
+md['Xmp.MP.RegionInfo/MPRI:Regions'] = ['']
+md['Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:Rectangle'] = '0.11, 0.22, 0.33, 0.44'
+md['Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:PersonDisplayName'] = 'Baby Gnu'
+
+md['Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:w'] = '1600'
+md['Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:h'] = '800'
+md['Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:unit'] = 'pixel'
+md['Xmp.mwg-rs.Regions/mwg-rs:RegionList'] = ['']
+md['Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name'] = 'Baby Gnu'
+md['Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Type'] = 'Face'
+md['Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:x'] = '0.275312'
+md['Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:y'] = '0.3775'
+md['Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:w'] = '0.164375'
+md['Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:h'] = '0.28125'
+md['Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:unit'] = 'normalized'
+
+md.write()
+
+</pre></div>
+  
+  </div>
+  <div class="message reply" id="message-1065">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1065#message-1065">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="12 Jan 2012 10:45" href="/projects/exiv2/activity?from=2012-01-12">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><a name="My-Summary"></a>
+<h1 >My Summary<a href="#My-Summary" class="wiki-anchor">&para;</a></h1>
+
+
+	<p>Starting with revision <a class="changeset" title="Added SamsungPictureWizard group with a decoding table for the Mode tag from Pascal de Bruijn." href="/projects/exiv2/repository/exiv2/revisions/2643">r2643</a><br /> + changes (bugfix <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 returns wrong XMP type for nested XMP keys (Closed)" href="/issues/799">#799</a>) in revision <a class="changeset" title="#799: Fixed type-determination for nested properties,       XmpBag::read: don&#39;t do anything if th..." href="/projects/exiv2/repository/exiv2/revisions/2644">r2644</a> (<a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/diff?rev=2644&#38;rev_to=2643">http://dev.exiv2.org/projects/exiv2/repository/diff?rev=2644&#38;rev_to=2643</a>)<br /> + namespaces added by me here / in <a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Add MS Photo RegionInfo and MetaWorkingGroup Regions schemas (Closed)" href="/issues/798">#798</a> (<a class="external" href="http://dev.exiv2.org/attachments/309/RegionTagging.diff">http://dev.exiv2.org/attachments/309/RegionTagging.diff</a>)</p>
+
+
+	<p>=> libexiv2 and exiv2 CLI support the Microsoft Photo 1.2 RegionInfo (Windows Live Photo Gallery) and the MWG-RS Regions schema (Picasa 3.9+)</p>
+
+
+If you want to use it with pyexiv2, there are still some issues
+	<ol>
+	<li>In Python the type attribute of the XmpTag is not correct. It is the empty string, but should be "Region" and "RegionStruct" because exiv2's xmpValueType is "bag Region" and "bag RegionStruct". It is still the question why this is not correct handled over to/in Python. Because the empty string as type is correctly handled as string it is not fully correct but works correct with current pyexiv2 code at the moment.</li>
+		<li>One line in the exiv2 wrapper code of pyexiv2 creates an Exception when setting an empty bag. This can be ommited by changing that line in the code as described before in <a class="external" href="http://dev.exiv2.org/boards/3/topics/1039#message-1064">http://dev.exiv2.org/boards/3/topics/1039#message-1064</a>. This may be a bug in pyexiv2 code and has to be reviewed by pyexiv2 developers.</li>
+	</ol>
+
+
+	<p>Regards,<br />Benjamin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1069">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1069#message-1069">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/140">Olivier Tilloy</a> <a title="15 Jan 2012 12:04" href="/projects/exiv2/activity?from=2012-01-15">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your investigation Benjamin.<br />I reviewed the change you suggest in pyexiv2 and it may fix the issue for this use case but it won't work in the general case.</p>
+
+
+	<p>The role of `_datum->setValue(0)` in XmpTag::setArrayValue(...) is to reset the value of the datum, i.e. to empty it if it previously contained values. Then all values in the list are appended by iterating over the list and calling _datum->setValue(...) for each value.<br />Replacing this line of code by `_datum->setValue(std::string(""))` would lead to appending an empty string (this is a no-op as the string is checked for emptiness) instead of actually clearing the potentially existing values.</p>
+
+
+	<p>I've discovered that the issue can be worked around by assigning [' '] (one whitespace) to md['Xmp.MP.RegionInfo/MPRI:Regions'] instead of [''], which doesn't work because XmpArrayValue::read(...) checks for the emptiness of the string before appending the value.<br />I wonder how this is implemented in exiv2 CLI. I would have thought that it roughly went through the same code path, but it seems it somehow works around it to allow appending a truly empty value to the datum. Andreas, could you maybe shed some light on this? If there's a way to implement that in pyexiv2, I think it would solve our issue.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1070">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1070#message-1070">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/140">Olivier Tilloy</a> <a title="15 Jan 2012 12:23" href="/projects/exiv2/activity?from=2012-01-15">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Regarding your first point (the type attribute of the XmpTag is not correct, it's the empty string, but should be "Region" and "RegionStruct"...), it appears that Exiv2::XmpProperties::propertyInfo(key) for key = 'Xmp.MP.RegionInfo/MPRI:Regions' returns a null pointer, which is why the type in pyexiv2 is an empty string.</p>
+
+
+	<p>Could it be that some static information regarding this tag is missing in libexiv2? Or that the implementation of XmpProperties::propertyInfo(...) doesn't play well with subkeys?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1071">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1071#message-1071">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Jan 2012 17:57" href="/projects/exiv2/activity?from=2012-01-15">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Olivier Tilloy wrote:</p>
+
+
+<blockquote>
+
+	<p>Regarding your first point (the type attribute of the XmpTag is not correct, it's the empty string, but should be "Region" and "RegionStruct"...), it appears that Exiv2::XmpProperties::propertyInfo(key) for key = 'Xmp.MP.RegionInfo/MPRI:Regions' returns a null pointer, which is why the type in pyexiv2 is an empty string.</p>
+
+
+	<p>Could it be that some static information regarding this tag is missing in libexiv2? Or that the implementation of XmpProperties::propertyInfo(...) doesn't play well with subkeys?</p>
+
+
+</blockquote>
+
+	<p>Yes, that doesn't work either. It needs to be fixed in Exiv2, similar to <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 returns wrong XMP type for nested XMP keys (Closed)" href="/issues/799">#799</a>. I've only changed XmpProperties::propertyType() but probably should rather move the fix to propertyInfo. Will check, thanks for pointing this out!</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1072">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1072#message-1072">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="15 Jan 2012 19:38" href="/projects/exiv2/activity?from=2012-01-15">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>The role of `_datum->setValue(0)` in XmpTag::setArrayValue(...) is to reset the value of the datum, i.e. to empty it if it previously contained values.</p>
+
+
+</blockquote>
+
+	<p>An Exiv2::Xmpdatum has a Value* pointing to its Exiv2 Value. This operation will reset that pointer, i.e., destroy the Exiv2 Value, not just empty it.</p>
+
+
+<blockquote>
+
+	<p>Then all values in the list are appended by iterating over the list and calling _datum->setValue(...) for each value.</p>
+
+
+</blockquote>
+
+	<p>The first of these appends will re-create the Exiv2 Value.</p>
+
+
+<blockquote>
+
+	<p>Replacing this line of code by `_datum->setValue(std::string(""))` would lead to appending an empty string (this is a no-op as the string is checked for emptiness) instead of actually clearing the potentially existing values.</p>
+
+
+</blockquote>
+
+	<p>Benjamin's `_datum->setValue(std::string(""))` creates an empty Exiv2::Value of the correct type and sets that in the Exiv2::Xmpdatum. In the case of an XmpArrayValue, "empty" means that it has an empty vector of strings.</p>
+
+
+<blockquote>
+
+	<p>I've discovered that the issue can be worked around by assigning [' '] (one whitespace) to md['Xmp.MP.RegionInfo/MPRI:Regions'] instead of ['']</p>
+
+
+</blockquote>
+
+	<p>I think the XMP-SDK will complain when encoding this (maybe only if the Regions bag actually contains something).</p>
+
+
+<blockquote>
+
+	<p>, which doesn't work because XmpArrayValue::read(...) checks for the emptiness of the string before appending the value.</p>
+
+
+</blockquote>
+
+	<p>This newly added check was also necessary to prevent an XMP-SDK error. Without the check, the read() would add an empty string, so that the value of the XmpArrayValue became a vector of strings containing one element, an empty string.</p>
+
+
+<blockquote>
+
+	<p>I wonder how this is implemented in exiv2 CLI. I would have thought that it roughly went through the same code path, but it seems it somehow works around it to allow appending a truly empty value to the datum. Andreas, could you maybe shed some light on this? If there's a way to implement that in pyexiv2, I think it would solve our issue.</p>
+
+
+</blockquote>
+
+	<p>The respective exiv2 cli code is in actions.cpp in Modify::setMetadatum and Modify::addMetadatum. It first creates an Exiv2 Value (if necessary), then reads the value string and sets the Exiv2 Value in the metadatum or adds a metadatum with a key and this new Exiv2 Value to the container as needed. See from here (note the comment at the beginning of the function): <a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/entry/trunk/src/actions.cpp#L1351">http://dev.exiv2.org/projects/exiv2/repository/entry/trunk/src/actions.cpp#L1351</a></p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1074">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1074#message-1074">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/140">Olivier Tilloy</a> <a title="16 Jan 2012 11:24" href="/projects/exiv2/activity?from=2012-01-16">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the pointers Andreas!</p>
+
+
+	<p>I re-worked the way tags are assigned to an image in pyexiv2, and Benjamin’s tests as described at <a class="external" href="http://dev.exiv2.org/boards/3/topics/1039#pyexiv2-way">http://dev.exiv2.org/boards/3/topics/1039#pyexiv2-way</a> now work as expected and produce the same result as the exiv2 CLI.</p>
+
+
+	<p>This has been committed to pyexiv2’s trunk (<a href="http://bazaar.launchpad.net/~osomon/pyexiv2/pyexiv2-0.3/revision/373" class="external">revision 373</a>).<br />Tests are welcome!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1076">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1039?r=1076#message-1076">RE: Adding new XMP namespaces</a>
+    -
+    Added by <a class="user active" href="/users/3160">Benjamin H.</a> <a title="19 Jan 2012 07:55" href="/projects/exiv2/activity?from=2012-01-19">almost 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>Yes, that doesn't work either. It needs to be fixed in Exiv2, similar to <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Exiv2 returns wrong XMP type for nested XMP keys (Closed)" href="/issues/799">#799</a>. I've only changed XmpProperties::propertyType() but probably should rather move the fix to propertyInfo. Will check, thanks for pointing this out!</p>
+
+
+</blockquote>
+
+	<p>Finally, that would be nice.</p>
+
+
+	<p>As addition, in the follwing some more (but not all) examples of the new namespaces:</p>
+
+
+<pre>
+# set MP 1.2 schema regioninfo
+exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions ''" empty.jpg
+#  a person anywhere on the picture
+exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[1]/MPReg:PersonDisplayName Mister Anywhere" empty.jpg
+#  a person with a bounding box
+exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[2]/MPReg:PersonDisplayName Bob" empty.jpg
+exiv2 -M"set Xmp.MP.RegionInfo/MPRI:Regions[2]/MPReg:Rectangle 0.11, 0.22, 0.33, 0.44" empty.jpg
+
+# set MWG Regions to an image of size 640x400 pixels
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:w 640" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:h 400" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:unit pixel" empty.jpg
+#  open the regions list
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList ''" empty.jpg
+#   a person with a bounding box
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name Mister Rectangle" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Type Face" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:x 0.275312" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:y 0.3775" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:w 0.164375" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:h 0.28125" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:unit normalized" empty.jpg
+#   a person with a bounding circle and a description
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Name Miss Circle" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Description Girlfriend of Mister Rectangle" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Type Face" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Area/stArea:x 0.575312" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Area/stArea:y 0.5775" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Area/stArea:d 0.2122" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Area/stArea:unit normalized" empty.jpg
+#   a person at a coordinate
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[3]/mwg-rs:Name Madame Dot" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[3]/mwg-rs:Type Face" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[3]/mwg-rs:Area/stArea:x 0.975" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[3]/mwg-rs:Area/stArea:y 0.976" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[3]/mwg-rs:Area/stArea:unit normalized" empty.jpg
+#   a pet in a bounding box with description
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[4]/mwg-rs:Name Doggy" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[4]/mwg-rs:Description My first dog" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[4]/mwg-rs:Type Pet" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[4]/mwg-rs:Area/stArea:x 0.2" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[4]/mwg-rs:Area/stArea:y 0.8" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[4]/mwg-rs:Area/stArea:w 0.25" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[4]/mwg-rs:Area/stArea:h 0.15" empty.jpg
+exiv2 -M"set Xmp.mwg-rs.Regions/mwg-rs:RegionList[4]/mwg-rs:Area/stArea:unit normalized" empty.jpg
+# missing: barcodes and focus points
+</pre>
+
+	<p>~ Benjamin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"><li class="previous"><span>« Previous</span></li><li class="current"><span>1</span></li><li class="page"><a href="/boards/3/topics/1039?page=2">2</a></li><li class="next page"><a accesskey="n" href="/boards/3/topics/1039?page=2">Next »</a></li></ul><span><span class="items">(1-25/26)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

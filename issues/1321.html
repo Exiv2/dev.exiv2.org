@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1321: Invalid memory address dereference in Exiv2::getULong(types.cpp:246)  - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="AykoE0meWYXyVtk8OFJOXTJNZl4LAQRheG2bGhIu8nPhZIP8O+SVhacyxjCHhUJuDd8yJ/ripduFTQuSURcVHA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1321: Invalid memory address dereference in Exiv2::getULong(types.cpp:246) " href="https://dev.exiv2.org/issues/1321.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1321</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Invalid memory address dereference in Exiv2::getULong(types.cpp:246) </h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/6309">Zhu Liu</a> <a title="23 Sep 2017 04:26" href="/projects/exiv2/activity?from=2017-09-23">about 4 years</a> ago.
+        Updated <a title="02 Oct 2018 09:28" href="/projects/exiv2/activity?from=2018-10-02">about 3 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">metadata</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Dec 2018" href="/versions/55">0.27</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">23 Sep 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I've submitted the vulnerability on bugzilla.redhat.com. the link is:https://bugzilla.redhat.com/show_bug.cgi?id=1494467</p>
+
+
+	<p>It's different from <a class="external" href="http://dev.exiv2.org/issues/1247">http://dev.exiv2.org/issues/1247</a> . it just can cause a invalid memory address dereference and crash.</p>
+
+
+	<p>./exiv2 02-Invalid-mem-def <br />ASAN:SIGSEGV
+=================================================================<br />27020ERROR: AddressSanitizer: SEGV on unknown address 0x62a100000405 (pc 0x7f827e6cc4af bp 0x7ffdbe4d55b0 sp 0x7ffdbe4d55a0 T0)<br />    #0 0x7f827e6cc4ae in Exiv2::getULong(unsigned char const*, Exiv2::ByteOrder) /root/fuzzing/exiv2-trunk/src/types.cpp:246<br />    #1 0x7f827e6cc6cb in Exiv2::getURational(unsigned char const*, Exiv2::ByteOrder) /root/fuzzing/exiv2-trunk/src/types.cpp:257<br />    #2 0x7f827e57323c in std::pair&lt;unsigned int, unsigned int&gt; Exiv2::getValue&lt;std::pair&lt;unsigned int, unsigned int&gt; >(unsigned char const*, Exiv2::ByteOrder) (/usr/local/exiv2_ASAN/lib/libexiv2.so.26+0x31523c)<br />    #3 0x7f827e580b4e in Exiv2::ValueType&lt;std::pair&lt;unsigned int, unsigned int&gt; >::read(unsigned char const*, long, Exiv2::ByteOrder) /root/fuzzing/exiv2-trunk/include/exiv2/value.hpp:1586<br />    #4 0x7f827e6c2d08 in Exiv2::Internal::TiffReader::readTiffEntry(Exiv2::Internal::TiffEntryBase*) /root/fuzzing/exiv2-trunk/src/tiffvisitor.cpp:1541<br />    #5 0x7f827e6bf4be in Exiv2::Internal::TiffReader::visitEntry(Exiv2::Internal::TiffEntry*) /root/fuzzing/exiv2-trunk/src/tiffvisitor.cpp:1204<br />    #6 0x7f827e68d97c in Exiv2::Internal::TiffEntry::doAccept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:896<br />    #7 0x7f827e68d909 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #8 0x7f827e68dcc2 in Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:919<br />    #9 0x7f827e68d909 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #10 0x7f827e68e351 in Exiv2::Internal::TiffIfdMakernote::doAccept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:949<br />    #11 0x7f827e68d909 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #12 0x7f827e68e1bf in Exiv2::Internal::TiffMnEntry::doAccept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:938<br />    #13 0x7f827e68d909 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #14 0x7f827e68dcc2 in Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:919<br />    #15 0x7f827e68d909 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #16 0x7f827e68e07e in Exiv2::Internal::TiffSubIfd::doAccept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:931<br />    #17 0x7f827e68d909 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #18 0x7f827e68dcc2 in Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:919<br />    #19 0x7f827e68d909 in Exiv2::Internal::TiffComponent::accept(Exiv2::Internal::TiffVisitor&#38;) /root/fuzzing/exiv2-trunk/src/tiffcomposite.cpp:891<br />    #20 0x7f827e6a6451 in Exiv2::Internal::TiffParserWorker::parse(unsigned char const*, unsigned int, unsigned int, Exiv2::Internal::TiffHeaderBase*) /root/fuzzing/exiv2-trunk/src/tiffimage.cpp:2011<br />    #21 0x7f827e6a5267 in Exiv2::Internal::TiffParserWorker::decode(Exiv2::ExifData&#38;, Exiv2::IptcData&#38;, Exiv2::XmpData&#38;, unsigned char const*, unsigned int, unsigned int, void (Exiv2::Internal::TiffDecoder::*(<strong>)(std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; > const&#38;, unsigned int, Exiv2::Internal::IfdId))(Exiv2::Internal::TiffEntryBase const</strong>), Exiv2::Internal::TiffHeaderBase*) /root/fuzzing/exiv2-trunk/src/tiffimage.cpp:1900<br />    #22 0x7f827e6a3a82 in Exiv2::TiffParser::decode(Exiv2::ExifData&#38;, Exiv2::IptcData&#38;, Exiv2::XmpData&#38;, unsigned char const*, unsigned int) /root/fuzzing/exiv2-trunk/src/tiffimage.cpp:266<br />    #23 0x7f827e5a043e in Exiv2::ExifParser::decode(Exiv2::ExifData&#38;, unsigned char const*, unsigned int) /root/fuzzing/exiv2-trunk/src/exif.cpp:629<br />    #24 0x7f827e5e0030 in Exiv2::JpegBase::readMetadata() /root/fuzzing/exiv2-trunk/src/jpgimage.cpp:386<br />    #25 0x43ab02 in Action::Print::printSummary() /root/fuzzing/exiv2-trunk/src/actions.cpp:289<br />    #26 0x43a1af in Action::Print::run(std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; > const&#38;) /root/fuzzing/exiv2-trunk/src/actions.cpp:244<br />    #27 0x422129 in main /root/fuzzing/exiv2-trunk/src/exiv2.cpp:170<br />    #28 0x7f827d91c82f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)<br />    #29 0x421af8 in _start (/usr/local/exiv2_ASAN/bin/exiv2+0x421af8)</p>
+
+
+	<p>AddressSanitizer can not provide additional info.<br />SUMMARY: AddressSanitizer: SEGV /root/fuzzing/exiv2-trunk/src/types.cpp:246 Exiv2::getULong(unsigned char const*, Exiv2::ByteOrder)<br />27020ABORTING</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1195">02-Invalid-mem-def</a>    <span class="size">(29.4 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1195/02-Invalid-mem-def">02-Invalid-mem-def</a>  </td>
+  <td>poc file</td>
+  <td>
+      <span class="author">Zhu Liu, 23 Sep 2017 04:26</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-6090" class="journal has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Sep 2017 18:54" href="/projects/exiv2/activity?from=2017-09-25">about 4 years</a> ago
+      <span id="journal-6090-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> deleted (<del><i>Robin Mills</i></del>)</li>
+       <li><strong>Priority</strong> changed from <i>Urgent</i> to <i>Normal</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-6255" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2018 12:40" href="/projects/exiv2/activity?from=2018-09-18">about 3 years</a> ago
+      <span id="journal-6255-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>exif</i> to <i>metadata</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Closed</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-6255-notes" class="wiki"><p>Issue is no longer present on 'master' for Exiv2 v0.27 RC1</p>
+
+
+	<p>Normal build: <pre>708 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ bin/exiv2 ~/Downloads/02-Invalid-mem-def.dms 
+Exiv2 exception in print action for file /Users/rmills/Downloads/02-Invalid-mem-def.dms:
+corrupted image metadata
+709 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ bin/exiv2 -pa ~/Downloads/02-Invalid-mem-def.dms 
+Exiv2 exception in print action for file /Users/rmills/Downloads/02-Invalid-mem-def.dms:
+corrupted image metadata
+710 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ bin/exiv2 -pR ~/Downloads/02-Invalid-mem-def.dms 
+STRUCTURE OF JPEG FILE: /Users/rmills/Downloads/02-Invalid-mem-def.dms
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xff30      
+      20 | 0xffe1 APP1  |   21019 | Exif..II*...............00.....
+  STRUCTURE OF TIFF FILE (II): MemIo
+   address |    tag                              |      type |    count |    offset | value
+        10 | 0x010e ImageDescription             |     ASCII |       11 |     12336 | 00000000000
+        22 | 0x010f Make                         |     ASCII |        6 |       158 | NIKON
+        34 | 0x0110 Model                        |     ASCII |        6 |       164 | 00000
+        46 | 0x0112 Orientation                  |     SHORT |        1 |           | 12336
+        58 | 0x011a XResolution                  |  RATIONAL |        1 |     12336 | 808464432/808464432
+        70 | 0x011b YResolution                  |  RATIONAL |        1 |     12336 | 808464432/808464432
+        82 | 0x0128 ResolutionUnit               |     SHORT |        1 |           | 12336
+        94 | 0x0131 Software                     |     ASCII |    12336 |        48 | ......0000........00..........00 ...
+       106 | 0x0132 DateTime                     |     ASCII |    12336 |        48 | ......0000........00..........00 ...
+       118 | 0x0213 YCbCrPositioning             |     SHORT |        1 |           | 12336
+       130 | 0x8769 ExifTag                      |      LONG |        1 |           | 236
+    STRUCTURE OF TIFF FILE (II): MemIo
+     address |    tag                              |      type |    count |    offset | value
+         238 | 0x829a ExposureTime                 |  RATIONAL |        1 |       304 | 34209792/2416181248
+         250 | 0x829d FNumber                      |  RATIONAL |        1 |     12336 | 808464432/808464432
+         262 | 0x8822 ExposureProgram              |     SHORT |        1 |           | 2
+         274 | 0x8827 ISOSpeedRatings              |     SHORT |        1 |           | 12336
+         286 | 0x9000 ExifVersion                  | UNDEFINED |        4 |           | 0000
+         298 | 0x9003 DateTimeOriginal             |     ASCII |    12336 |       522 | 00000000000000000000000000000000 ...
+         310 | 0x9004 DateTimeDigitized            |     ASCII |    12336 |       560 | 00....00000000000000000000..... ...
+         322 | 0x9101 ComponentsConfiguration      | UNDEFINED |        4 |           | 0000
+         334 | 0x9204 ExposureBiasValue            | SRATIONAL |        1 |       562 | 0/808464432
+         346 | 0x9205 MaxApertureValue             |  RATIONAL |        1 |     12336 | 808464432/808464432
+         358 | 0x9207 MeteringMode                 |     SHORT |        1 |           | 3
+         370 | 0x9208 LightSource                  |     SHORT |        1 |           | 12336
+         382 | 0x9209 Flash                        |     SHORT |        1 |           | 16
+         394 | 0x920a FocalLength                  |  RATIONAL |        1 |     12336 | 808464432/808464432
+         406 | 0x927c MakerNote                    | UNDEFINED |    12336 |       712 | Nikon.0000II*...............0000 ...
+      STRUCTURE OF TIFF FILE (II): MemIo
+       address |    tag                              |      type |    count |    offset | value
+            10 | 0x0001 Version                      | UNDEFINED |        4 |           | 0000
+            22 | 0x0002 ISOSpeed                     |     SHORT |        2 |           | 12336 12336
+            34 | 0x0003 ColorMode                    |     ASCII |        6 |     12336 | 00...
+            46 | 0x0004 Quality                      |     ASCII |        8 |       368 | 00000=0
+            58 | 0x0005 WhiteBalance                 |     ASCII |       13 |       376 | 000000000000
+            70 | 0x0006 Sharpening                   |     ASCII |        7 |     12336 | 00....
+            82 | 0x0007 Focus                        |     ASCII |        7 |     12336 | 00....
+            94 | 0x000a 0x000a                       |  RATIONAL |        1 |     12336 | 12336/0
+           106 | 0x000f ISOSelection                 |     ASCII |        7 |     12336 | 00....
+           118 | 0x0011 GPSImgDirection              |      LONG |        1 |           | 568
+           130 | 0x0080 ImageAdjustment              |     ASCII |       14 |     12336 | 00...........
+           142 | 0x0082 AuxiliaryLens                |     ASCII |       13 |     12336 | 00..........
+           154 | 0x0086 DigitalZoom                  |  RATIONAL |        1 |4294967088 | 4294967088/0
+           166 | 0x0080 ImageAdjustment              | UNDEFINED |        4 |           | 0000
+Exiv2 exception in print action for file /Users/rmills/Downloads/02-Invalid-mem-def.dms:
+invalid memory allocation request
+711 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ 
+</pre></p>
+
+
+	<p>ASAN build:  <pre>As above.</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-6298" class="journal has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Oct 2018 09:28" href="/projects/exiv2/activity?from=2018-10-02">about 3 years</a> ago
+      <span id="journal-6298-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Subject</strong> changed from <i> Invalid memory address dereference in Exiv2::getULong(types.cpp:246) </i> to <i>Invalid memory address dereference in Exiv2::getULong(types.cpp:246) </i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1321.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1321.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

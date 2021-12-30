@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Setting meta data on a xmp sidecar image object (patch &amp; question) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="NOTUodv8OqSq0YCaPztmLkPHGvpvWSyRq4crC0MChXrWqX9OqYb2pP+1n5aA7GodfFVOg566jStWp7uDADtiFQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Setting meta data on a xmp sidecar image object (patch &amp; question)</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/1013">Matthias Baas</a> <a title="20 Feb 2011 02:05" href="/projects/exiv2/activity?from=2011-02-20">over 10 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>I tried to dump all the meta data from a jpg image into a xmp sidecar file using the API (rev 2461 from svn), but got an exception when I tried to set the meta data on the XmpSidecar object. The problem is that Image::setMetadata() always calls the setComment() method, but on the XmpSidecar class, this method will always trigger an exception, no matter if there actually is a comment or not.<br />I have attached a little patch that changes the XmpSidecar::setComment() method so that it only throws the exception when the comment is not empty.</p>
+
+
+	<p>With the above patch I could copy the data, but this raised another question. The meta data I was copying was from an image taken by a Canon camera, so it contained all that Canon-specific stuff. This extra data was not written into the xmp file which I think is ok as I assume this data is not standardized at all, but if the attempt at setting a comment triggers an error, shouldn't an attempt at setting other unsupported data like the Canon stuff then trigger an error as well? (on the other hand, if it would trigger an error, how would I go about copying just that data that is supported by xmp?)</p>
+
+
+	<p>Cheers,</p>
+
+
+	<p>- Matthias -</p>
+</div>
+<div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/239">setcomment_patch.diff</a>    <span class="size">(603 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/239/setcomment_patch.diff">setcomment_patch.diff</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (11)</h3>
+  <div class="message reply" id="message-820">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/818?r=820#message-820">RE: Setting meta data on a xmp sidecar image object (patch &amp; question)</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 Feb 2011 17:34" href="/projects/exiv2/activity?from=2011-02-20">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>It is current practice that set methods of Image subclasses throw an exception if the metadata type is not supported by the particular image. For your case, you could call the other set functions one by one instead of using Image::setMetadata().</p>
+
+
+	<p>Of course one can always discuss what is the <em>correct</em> behavior in such a situation. There are two possible extremes: 1) silently ignore the problem and 2) scream and shout. If I'm not sure I tend to go for 2) until it is clear why 1) (or something in between) is better.</p>
+
+
+	<p>Regarding Canon Makernote tags: your observation is correct, these are not converted to XML automatically. There exist suggestions to write an XMP property with a binary blob for this data, which is controversal and currently not implemented in Exiv2.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-823">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/818?r=823#message-823">RE: Setting meta data on a xmp sidecar image object (patch &amp; question)</a>
+    -
+    Added by <a class="user active" href="/users/1013">Matthias Baas</a> <a title="21 Feb 2011 14:32" href="/projects/exiv2/activity?from=2011-02-21">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>It is current practice that set methods of Image subclasses throw an exception if the metadata type is not supported by the particular image. For your case, you could call the other set functions one by one instead of using Image::setMetadata().</p>
+
+
+	<p>Of course one can always discuss what is the <em>correct</em> behavior in such a situation. There are two possible extremes: 1) silently ignore the problem and 2) scream and shout. If I'm not sure I tend to go for 2) until it is clear why 1) (or something in between) is better.</p>
+
+
+</blockquote>
+
+	<p>I absolutely agree with that. The only question left here might be whether calling setComment("") is an error as xmp files are actually capable of storing <strong>no</strong> comment. ;) But having it throw in all cases is fine by me as well. I would still argue though that calling setMetadata() should not throw an error if one called clearComment() beforehand on the source data. Especially when the source and target image are both XmpSidecar objects, it doesn't seem intuitive that setMetadata() still throws an error even though the source and target, obviously, are capable of storing exactly the same data.<br />(But as I can't store all meta data in the xmp file anyway, I have already switched to only store changes and having to merge that with the original data. Initially, I thought I could get away with just reading one single file for getting all the data. So I don't really need the changes from the patch anymore and the above are just my thoughts for getting a cleaner and consistent API in general)</p>
+
+
+<blockquote>
+
+	<p>Regarding Canon Makernote tags: your observation is correct, these are not converted to XML automatically. There exist suggestions to write an XMP property with a binary blob for this data, which is controversal and currently not implemented in Exiv2.</p>
+
+
+</blockquote>
+
+	<p>I'm fine with the data not being stored, I was only wondering whether this should throw an exception or not. According to what you said above, I take it this actually should throw an exception.</p>
+
+
+	<p>- Matthias -</p></div>
+  
+  </div>
+  <div class="message reply" id="message-824">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/818?r=824#message-824">RE: Setting meta data on a xmp sidecar image object (patch &amp; question)</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Feb 2011 17:03" href="/projects/exiv2/activity?from=2011-02-21">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>I absolutely agree with that. The only question left here might be whether calling setComment("") is an error as xmp files are actually capable of storing <strong>no</strong> comment. ;) But having it throw in all cases is fine by me as well. I would still argue though that calling setMetadata() should not throw an error if one called clearComment() beforehand on the source data. Especially when the source and target image are both XmpSidecar objects, it doesn't seem intuitive that setMetadata() still throws an error even though the source and target, obviously, are capable of storing exactly the same data.</p>
+
+
+</blockquote>
+
+	<p>You're right and the solution is quite simple: each image format should override the default Image::setMetadata() and implement its own version, depending on the supported metadata types. Or, probably better (easier to maintain), the default implementation in Image::setMetadata() should use Image::checkMode() to make sure it sets only supported metadata.</p>
+
+
+<blockquote><blockquote>
+
+	<p>Regarding Canon Makernote tags: your observation is correct, these are not converted to XML automatically. There exist suggestions to write an XMP property with a binary blob for this data, which is controversal and currently not implemented in Exiv2.</p>
+
+
+</blockquote>
+
+	<p>I'm fine with the data not being stored, I was only wondering whether this should throw an exception or not. According to what you said above, I take it this actually should throw an exception.</p>
+
+
+</blockquote>
+
+	<p>This is different. Here it depends much more on the data (tags) present in a particular image whether the API works, whereas above it is the programmer calling an API which is not supported for a particular type of metadata (If I disregard the suggestion about empty comments). I think it would be tedious for a programmer to remove all the unsupported tags before writing a sidecar and exiv2 doesn't have any functionality to tell you which tags those are.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-827">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/818?r=827#message-827">RE: Setting meta data on a xmp sidecar image object (patch &amp; question)</a>
+    -
+    Added by <a class="user active" href="/users/1013">Matthias Baas</a> <a title="22 Feb 2011 15:46" href="/projects/exiv2/activity?from=2011-02-22">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>You're right and the solution is quite simple: each image format should override the default Image::setMetadata() and implement its own version, depending on the supported metadata types. Or, probably better (easier to maintain), the default implementation in Image::setMetadata() should use Image::checkMode() to make sure it sets only supported metadata.</p>
+
+
+</blockquote>
+
+	<p>Ah, I have overlooked checkMode(). Yes, I think this would already be an improvement.</p>
+
+
+<blockquote>
+
+	<p>This is different. Here it depends much more on the data (tags) present in a particular image whether the API works, whereas above it is the programmer calling an API which is not supported for a particular type of metadata (If I disregard the suggestion about empty comments). I think it would be tedious for a programmer to remove all the unsupported tags before writing a sidecar and exiv2 doesn't have any functionality to tell you which tags those are.</p>
+
+
+</blockquote>
+
+	<p>ok, I see. And yes, I agree, it would be tedious having to remove unsupported tags manually. On the other hand, the current implementation doesn't give the application a chance to handle unsupported tags in an appropriate way. I think it should be the application's choice whether it wants to ignore them, to issue a warning to the user or even treat this as an error. At the moment, the library silently ignores those tags and the application doesn't get notified about this at all. So ideally, there should be a way for the application to query whether a write operation really has succeeded in writing <strong>all</strong> data or, alternatively, there could be a query function that the application could call to check whether a particular format supports all the tags the application is going to write. This function could be called before the actual write operation if the application wants to make sure the data will really be stored in the file.<br />(I haven't had a closer look at the code yet if this could be easily supported or not...)</p>
+
+
+	<p>- Matthias -</p></div>
+  
+  </div>
+  <div class="message reply" id="message-828">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/818?r=828#message-828">RE: Setting meta data on a xmp sidecar image object (patch &amp; question)</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="22 Feb 2011 17:20" href="/projects/exiv2/activity?from=2011-02-22">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Created feature <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Setting metadata on an image should always succeed (Closed)" href="/issues/761">#761</a> for the first issue. If you want to do this, I'd be happy.</p>
+
+
+	<p>I'll think a bit more about the second one and maybe also create an issue for it. Letting an application decide whether to ignore, warn about or raise an exception for unsupported tags is a good point, as is the idea to allow an application to query which tags were actually written. The issue does not only occur with XMP sidecars.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-835">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/818?r=835#message-835">RE: Setting meta data on a xmp sidecar image object (patch &amp; question)</a>
+    -
+    Added by <a class="user active" href="/users/1013">Matthias Baas</a> <a title="23 Feb 2011 14:37" href="/projects/exiv2/activity?from=2011-02-23">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>Created feature <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Setting metadata on an image should always succeed (Closed)" href="/issues/761">#761</a> for the first issue. If you want to do this, I'd be happy.</p>
+
+
+</blockquote>
+
+	<p>Well, adding the checks to setMetadata() looks straightforward, but I also had a look at what checkMode() actually returns and in the registry array all access modes for the xmp sidecar file are set to amNone except for the xmp mode. This means, setMetadata() would then only set xmp data and exif and iptc data would get ignored. But it's not quite true that the xmp sidecar class does not support exif and iptc as it calls those conversion functions to convert the data into xmp data (and vice versa when reading), so in a way, it does support exif and iptc. Wouldn't it then be more appropriate to set the access modes for exif and iptc to amReadWrite in the case of xmp sidecar files, even though it doesn't support all tags?</p>
+
+
+	<p>- Matthias -</p></div>
+  
+  </div>
+  <div class="message reply" id="message-836">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/818?r=836#message-836">RE: Setting meta data on a xmp sidecar image object (patch &amp; question)</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 Feb 2011 15:52" href="/projects/exiv2/activity?from=2011-02-23">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes I agree, they should marked as supported.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-837">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/818?r=837#message-837">RE: Setting meta data on a xmp sidecar image object (patch &amp; question)</a>
+    -
+    Added by <a class="user active" href="/users/1013">Matthias Baas</a> <a title="27 Feb 2011 07:37" href="/projects/exiv2/activity?from=2011-02-27">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I have attached a patch that changes Image::setMetadata() and the access mode flags of the xmp sidecar file. In setMetadata() I'm explicitly testing for amWrite and amReadWrite instead of just testing a single bit. The access mode is given as an enum so I thought it's probably not meant to be used as a bit field.</p>
+
+
+	<p>As to the other issue with reporting unsupported tags, I think this is probably better done in writeMetadata() and not in setMetadata(). writeMetadata() could either return information about what it has written and what it has not written or it could set that data internally and the Image class could have some methods to query that data after writeMetadata() has been called. A new method to check the tags could still be useful though. Such a method could take an output iterator as argument which could receive all tags that are not supported by the image object. The caller can then either report these to the user or remove them before writing the file.</p>
+
+
+	<p>- Matthias -</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/243">setmetadata_patch.diff</a>    <span class="size">(2.01 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/243/setmetadata_patch.diff">setmetadata_patch.diff</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-838">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/818?r=838#message-838">RE: Setting meta data on a xmp sidecar image object (patch &amp; question)</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="03 Mar 2011 18:35" href="/projects/exiv2/activity?from=2011-03-03">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Matthias,</p>
+
+
+	<p>Thanks for the patch and sorry for the late reply. I have checked in the patch (<a class="changeset" title="#761: Changed Image::setMetadata() to check if writing is supported (Matthias Baas)." href="/projects/exiv2/repository/exiv2/revisions/2466">r2466</a>).</p>
+
+
+<blockquote>
+
+	<p>The access mode is given as an enum so I thought it's probably not meant to be used as a bit field.</p>
+
+
+</blockquote>
+
+	<p>A comment would have been in order I guess. Since each of the access modes has an explicitly assigned value I must have thought of using this as a bit field, otherwise my enums just contain names. I modified your patch accordingly; it's more concise that way.</p>
+
+
+	<p>As for the unsupported tags: Yes, this shouldn't be done in setMetadata. In general it would happen in XyzParser::encode, which are responsible for the serialization of the different metadata lists (see e.g., <a href="http://exiv2.org/doc/classExiv2_1_1ExifParser.html#296a8f2aa49297103667cc882450d1c2" class="external">ExifParser::encode</a> in exif.cpp). In addition, it also happens in the XMP conversion functions. All of these are used in writeMetadata. So as you say, these functions could remember which tags were not set and Image could have a method to query this information.</p>
+
+
+	<p>On the other hand, for Exif data, a function to check which tags can be written to a JPEG image would need to call ExifParser::encode, i.e., be very expensive (XyzParser::encode is the most expensive operation in the entire library). I'm not keen to introduce this - library users would use it without realizing what the impact is.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-840">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/818?r=840#message-840">RE: Setting meta data on a xmp sidecar image object (patch &amp; question)</a>
+    -
+    Added by <a class="user active" href="/users/1013">Matthias Baas</a> <a title="06 Mar 2011 09:07" href="/projects/exiv2/activity?from=2011-03-06">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>A comment would have been in order I guess. Since each of the access modes has an explicitly assigned value I must have thought of using this as a bit field, otherwise my enums just contain names. I modified your patch accordingly; it's more concise that way.</p>
+
+
+</blockquote>
+
+	<p>ok, thanks! I also prefer the bit test, but I just wasn't sure whether it was meant to be used that way or not.</p>
+
+
+<blockquote>
+
+	<p>As for the unsupported tags: Yes, this shouldn't be done in setMetadata. In general it would happen in XyzParser::encode, which are responsible for the serialization of the different metadata lists (see e.g., <a href="http://exiv2.org/doc/classExiv2_1_1ExifParser.html#296a8f2aa49297103667cc882450d1c2" class="external">ExifParser::encode</a> in exif.cpp). In addition, it also happens in the XMP conversion functions. All of these are used in writeMetadata. So as you say, these functions could remember which tags were not set and Image could have a method to query this information.</p>
+
+
+</blockquote>
+
+	<p>Can it really happen that ExifParser::encode() would drop values? After a quick glance at the code, it does drop some values, but at least from those I know, these only seem to be values that would have to be set by an application anyway because they describe some aspects of how the image data is stored (such as StripOffsets and RowsPerStrip).<br />So isn't it only the XMP conversion functions that almost always drop data (all the makernotes, for example)?</p>
+
+
+<blockquote>
+
+	<p>On the other hand, for Exif data, a function to check which tags can be written to a JPEG image would need to call ExifParser::encode, i.e., be very expensive (XyzParser::encode is the most expensive operation in the entire library). I'm not keen to introduce this - library users would use it without realizing what the impact is.</p>
+
+
+</blockquote>
+
+	<p>What is it that makes the encode() function that expensive? I noticed that in ExifParser::encode() the first thing that happens is that all the data is copied (I suppose that's because some items may get removed and the input is supposed to be const) and the data may get encoded twice. I haven't had a look at TiffParserWorker::encode() yet... <br />But anyway, wouldn't the actual bottleneck rather be the disk access instead of the encoding of the data? And also, wouldn't that only be an issue when large amounts of files get batch processed? (so far, I'm still mainly concerned with reading metadata but once writing works as well, I'll do some benchmarks)</p>
+
+
+	<p>- Matthias -</p></div>
+  
+  </div>
+  <div class="message reply" id="message-845">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/818?r=845#message-845">RE: Setting meta data on a xmp sidecar image object (patch &amp; question)</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="08 Mar 2011 19:02" href="/projects/exiv2/activity?from=2011-03-08">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>Can it really happen that ExifParser::encode() would drop values? After a quick glance at the code, it does drop some values, but at least from those I know, these only seem to be values that would have to be set by an application anyway because they describe some aspects of how the image data is stored (such as StripOffsets and RowsPerStrip).</p>
+
+
+</blockquote>
+
+	<p>In this context, Exiv2 treats all tags the same. So yes, it does happen, esp. if Exif data from another image format is copied to a JPEG image.</p>
+
+
+<blockquote>
+
+	<p>What is it that makes the encode() function that expensive? I noticed that in ExifParser::encode() the first thing that happens is that all the data is copied (I suppose that's because some items may get removed and the input is supposed to be const) and the data may get encoded twice. I haven't had a look at TiffParserWorker::encode() yet... <br />But anyway, wouldn't the actual bottleneck rather be the disk access instead of the encoding of the data? And also, wouldn't that only be an issue when large amounts of files get batch processed? (so far, I'm still mainly concerned with reading metadata but once writing works as well, I'll do some benchmarks)</p>
+
+
+</blockquote>
+
+	<p>I should have said writeMetadata() and everything that is called from it is the expensive portion. Eventually it's the disk access that is expensive, as you suspected. In the case of JPEG images that is done in doWriteMetadata(), for TIFF-like images, it's done in the parser (in TiffParserWorker::encode). TIFF-like images are more critical as they tend to be larger than JPEGs and have their metadata "all over the place", not only in a 64k block near the start of the file.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-11/11)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

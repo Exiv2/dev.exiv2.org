@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #647: Seg fault with Olympus E-P1 orf - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="dY+5bcBbiq4F7+bcgYQ3+k0AWQ7Ujjaa5tRmFZfWpdWXwhKCsiFGrlCL+dA+UzvJcpINdyVtlyAb9Pad1O9Cug==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #647: Seg fault with Olympus E-P1 orf" href="https://dev.exiv2.org/issues/647.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #647</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Seg fault with Olympus E-P1 orf</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/132">Udi Fuchs</a> <a title="31 Aug 2009 14:19" href="/projects/exiv2/activity?from=2009-08-31">about 12 years</a> ago.
+        Updated <a title="30 Dec 2009 07:50" href="/projects/exiv2/activity?from=2009-12-30">almost 12 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/53">Andreas Huggel</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">tiff parser</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="30 Dec 2009" href="/versions/44">0.19</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">31 Aug 2009</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>exiv2 crashes when trying to read these sample orf files.<br />Here are two testfiles:<br /><a class="external" href="http://rapidshare.com/files/271068787/p8010009.orf.html">http://rapidshare.com/files/271068787/p8010009.orf.html</a><br /><a class="external" href="http://rapidshare.com/files/271067347/p8010019.orf.html">http://rapidshare.com/files/271067347/p8010019.orf.html</a></p>
+
+
+	<p>(Forwarded from ufraw's bug tracker)</p>
+
+
+	<p>Udi</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/647" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="ByKCGfyolCbqdY9PRQOfTwuuFRF/cZnPY4iF7ma64tzlbyn2jtJYJr8RkEP61JN8NDxBaI6SOHWeqBVmJYMFsw==" />
+  <table class="list issues odd-even"><tr id="relation-47" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="660" /></td><td class="subject" style="width: 50%">Has duplicate Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/660">Bug #660</a>: Exiv2 segfault with OLYMPUS E-P1 .ORF file.</td><td class="status">Closed</td><td class="start_date">16 Dec 2009</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/647/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=647&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 1897" href="/projects/exiv2/repository/exiv2/revisions/1897">Revision 1897</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/1897/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="02 Sep 2009 06:33" href="/projects/exiv2/activity?from=2009-09-02">about 12 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Seg fault with Olympus E-P1 orf (Closed)" href="/issues/647">#647</a>: Fixed type of offset which may be negative.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 1898" href="/projects/exiv2/repository/exiv2/revisions/1898">Revision 1898</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/1898/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="06 Sep 2009 08:44" href="/projects/exiv2/activity?from=2009-09-06">about 12 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Seg fault with Olympus E-P1 orf (Closed)" href="/issues/647">#647</a>: Extended range check.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1344" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Sep 2009 06:30" href="/projects/exiv2/activity?from=2009-09-01">about 12 years</a> ago
+      <span id="journal-1344-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1344-notes" class="wiki"><p>A simple check with the exiv2 command line tool is fine.<br />How do I reproduce the problem?</p>
+
+
+	<p>Andreas</p>
+
+
+<pre>
+ahuggel@mowgli&gt; valgrind exiv2-0.18.2 -pa ../../pic/p8010009.orf
+==20500== Memcheck, a memory error detector.
+==20500== Copyright (C) 2002-2008, and GNU GPL'd, by Julian Seward et al.
+==20500== Using LibVEX rev 1884, a library for dynamic binary translation.
+==20500== Copyright (C) 2004-2008, and GNU GPL'd, by OpenWorks LLP.
+==20500== Using valgrind-3.4.1-Debian, a dynamic binary instrumentation framework.
+==20500== Copyright (C) 2000-2008, and GNU GPL'd, by Julian Seward et al.
+==20500== For more details, rerun with: -v
+==20500== 
+Exif.Image.ImageWidth                        Long        1  4100
+Exif.Image.ImageLength                       Long        1  3084
+Exif.Image.BitsPerSample                     Short       1  16
+Exif.Image.Compression                       Short       1  Uncompressed
+Exif.Image.PhotometricInterpretation         Short       1  Black Is Zero
+Exif.Image.ImageDescription                  Ascii      32  OLYMPUS DIGITAL CAMERA         
+Exif.Image.Make                              Ascii      24  OLYMPUS IMAGING CORP.  
+Exif.Image.Model                             Ascii      17  E-P1            
+Exif.Image.StripOffsets                      Long        1  1449472
+Exif.Image.Orientation                       Short       1  top, left
+Exif.Image.SamplesPerPixel                   Short       1  1
+Exif.Image.RowsPerStrip                      Long        1  3084
+Exif.Image.StripByteCounts                   Long        1  10330357
+Exif.Image.XResolution                       Rational    1  314
+Exif.Image.YResolution                       Rational    1  314
+Exif.Image.PlanarConfiguration               Short       1  1
+Exif.Image.ResolutionUnit                    Short       1  inch
+Exif.Image.Software                          Ascii      32  Version 1.0                    
+Exif.Image.DateTime                          Ascii      20  2009:08:01 14:00:26
+Exif.Image.ExifTag                           Long        1  266
+Exif.Photo.ExposureTime                      Rational    1  1/2000 s
+Exif.Photo.FNumber                           Rational    1  F5.4
+Exif.Photo.ExposureProgram                   Short       1  Aperture priority
+Exif.Photo.ISOSpeedRatings                   Short       1  200
+Exif.Photo.ExifVersion                       Undefined   4  2.21
+Exif.Photo.DateTimeOriginal                  Ascii      20  2009:08:01 14:00:26
+Exif.Photo.DateTimeDigitized                 Ascii      20  2009:08:01 14:00:26
+Exif.Photo.ExposureBiasValue                 SRational   1  0 EV
+Exif.Photo.MaxApertureValue                  Rational    1  F3.5
+Exif.Photo.MeteringMode                      Short       1  Multi-segment
+Exif.Photo.LightSource                       Short       1  Unknown
+Exif.Photo.Flash                             Short       1  No, auto
+Exif.Photo.FocalLength                       Rational    1  38.0 mm
+Exif.Photo.MakerNote                         Undefined 1446464  (Binary value suppressed)
+Exif.MakerNote.Offset                        Long        1  3008
+Exif.MakerNote.ByteOrder                     Ascii       3  II
+Exif.Olympus2.ThumbnailImage                 Undefined 6328  (Binary value suppressed)
+Exif.Olympus2.SpecialMode                    Long        3  Normal
+Exif.Olympus2.CameraID                       Undefined  32  79 76 89 77 80 85 83 32 68 73 71 73 84 65 76 32 67 65 77 69 82 65 32 32 32 32 32 32 32 32 32 0 
+Exif.Olympus2.Equipment                      Long        1  114
+Exif.OlympusEq.EquipmentVersion              Undefined   4  1.00
+Exif.OlympusEq.CameraType                    Ascii       6  S0019
+Exif.OlympusEq.SerialNumber                  Ascii      32  H46511887                      
+Exif.OlympusEq.InternalSerialNumber          Ascii      32  4087907009228001               
+Exif.OlympusEq.FocalPlaneDiagonal            Rational    1  2160/100
+Exif.OlympusEq.BodyFirmwareVersion           Long        1  4100
+Exif.OlympusEq.LensType                      Byte        6  0 0 1 16 0 0 
+Exif.OlympusEq.LensSerialNumber              Ascii      32  AAB222884
+Exif.OlympusEq.0x0203                        Ascii      32  OLYMPUS M.14-42mm F3.5-5.6
+Exif.OlympusEq.LensFirmwareVersion           Long        1  4101
+Exif.OlympusEq.MaxApertureAtMinFocal         Short       1  925
+Exif.OlympusEq.MaxApertureAtMaxFocal         Short       1  1273
+Exif.OlympusEq.MinFocalLength                Short       1  14
+Exif.OlympusEq.MaxFocalLength                Short       1  42
+Exif.OlympusEq.MaxApertureAtCurrentFocal     Short       1  1257
+Exif.OlympusEq.LensProperties                Short       1  49488
+
+[... many more tags ...]
+
+Exif.OlympusFi.InternalFlash                 Short       1  Off
+Exif.OlympusFi.ManualFlash                   Short       2  0 1
+Exif.OlympusFi.0x120a                        Short       1  0
+Exif.OlympusFi.SensorTemperature             SShort      1  360
+Exif.OlympusFi.0x1501                        Long        2  1612963726 1612963734
+Exif.OlympusFi.0x1502                        Short       1  0
+Exif.OlympusFi.ImageStabilization            Undefined  53  33 49 49 0 0 107 5 122 2 122 2 64 1 143 1 122 120 23 0 46 0 1 1 0 0 23 0 46 0 23 0 46 0 0 0 0 0 0 0 0 0 3 0 0 0 0 35 0 34 0 0 0 0 
+Exif.OlympusFi.0x1700                        Byte        4  0 0 0 0 
+Exif.Photo.UserComment                       Undefined 125  (Binary value suppressed)
+Exif.Photo.FlashpixVersion                   Undefined   4  1.00
+Exif.Photo.ColorSpace                        Short       1  sRGB
+Exif.Photo.FileSource                        Undefined   1  Digital still camera
+Exif.Photo.CFAPattern                        Undefined   8  2 0 2 0 0 1 1 2 
+Exif.Photo.CustomRendered                    Short       1  Normal process
+Exif.Photo.ExposureMode                      Short       1  Auto
+Exif.Photo.WhiteBalance                      Short       1  Auto
+Exif.Photo.DigitalZoomRatio                  Rational    1  1.0
+Exif.Photo.SceneCaptureType                  Short       1  Standard
+Exif.Photo.GainControl                       Short       1  Low gain up
+Exif.Photo.Contrast                          Short       1  Normal
+Exif.Photo.Saturation                        Short       1  Normal
+Exif.Photo.Sharpness                         Short       1  Normal
+Exif.Image.PrintImageMatching                Undefined 528  (Binary value suppressed)
+==20500== 
+==20500== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 23 from 1)
+==20500== malloc/free: in use at exit: 0 bytes in 0 blocks.
+==20500== malloc/free: 13,409 allocs, 13,409 frees, 9,827,735 bytes allocated.
+==20500== For counts of detected errors, rerun with: -v
+==20500== All heap blocks were freed -- no leaks are possible.
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-1345" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/132">Udi Fuchs</a> <a title="01 Sep 2009 08:29" href="/projects/exiv2/activity?from=2009-09-01">about 12 years</a> ago
+      <span id="journal-1345-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1345-notes" class="wiki"><p>For me it crashes with both 0.18 (from Ubuntu 9.04 x86-64) and SVN trunk.</p>
+
+
+	<p>Maybe it is a 64 bit issue?</p>
+
+
+	<p>Here is the valgrind output for SVN:</p>
+
+
+	<p>valgrind .libs/lt-exiv2 p8010009.orf<br />1151 Memcheck, a memory error detector.<br />1151 Copyright (C) 2002-2008, and GNU GPL'd, by Julian Seward et al.<br />1151 Using LibVEX rev 1884, a library for dynamic binary translation.<br />1151 Copyright (C) 2004-2008, and GNU GPL'd, by OpenWorks LLP.<br />1151 Using valgrind-3.4.1-Debian, a dynamic binary instrumentation framework.<br />1151 Copyright (C) 2000-2008, and GNU GPL'd, by Julian Seward et al.<br />1151 For more details, rerun with: -v<br />1151 <br />1151 Invalid read of size 1<br />1151    at 0x4C28F20: memmove (mc_replace_strmem.c:517)<br />1151    by 0x4F1CE28: void std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; >::_M_assign_aux&lt;unsigned char const*&gt;(unsigned char const*, unsigned char const*, std::forward_iterator_tag) (in /home/udi/sf/exiv2/src/.libs/libexiv2.so.5.3.1)<br />1151    by 0x4F185A4: Exiv2::DataValue::read(unsigned char const*, long, Exiv2::ByteOrder) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F12843: Exiv2::Internal::TiffReader::readTiffEntry(Exiv2::Internal::TiffEntryBase*) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CF3: Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CA0: Exiv2::Internal::TiffSubIfd::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CF3: Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4EC049B: Exiv2::Internal::TiffIfdMakernote::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02C18: Exiv2::Internal::TiffMnEntry::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CF3: Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CA0: Exiv2::Internal::TiffSubIfd::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CF3: Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151  Address 0x10676a000 is not stack'd, malloc'd or (recently) free'd<br />1151 <br />1151 Process terminating with default action of signal 11 (SIGSEGV)<br />1151  Access not within mapped region at address 0x10676A000<br />1151    at 0x4C28F20: memmove (mc_replace_strmem.c:517)<br />1151    by 0x4F1CE28: void std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; >::_M_assign_aux&lt;unsigned char const*&gt;(unsigned char const*, unsigned char const*, std::forward_iterator_tag) (in /home/udi/sf/exiv2/src/.libs/libexiv2.so.5.3.1)<br />1151    by 0x4F185A4: Exiv2::DataValue::read(unsigned char const*, long, Exiv2::ByteOrder) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F12843: Exiv2::Internal::TiffReader::readTiffEntry(Exiv2::Internal::TiffEntryBase*) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CF3: Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CA0: Exiv2::Internal::TiffSubIfd::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CF3: Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4EC049B: Exiv2::Internal::TiffIfdMakernote::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02C18: Exiv2::Internal::TiffMnEntry::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CF3: Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CA0: Exiv2::Internal::TiffSubIfd::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151    by 0x4F02CF3: Exiv2::Internal::TiffDirectory::doAccept(Exiv2::Internal::TiffVisitor&#38;) (in .libs/libexiv2.so.5.3.1)<br />1151  If you believe this happened as a result of a stack overflow in your<br />1151  program's main thread (unlikely but possible), you can try to increase<br />1151  the size of the main thread stack using the --main-stacksize= flag.<br />1151  The main thread stack size used in this run was 8388608.<br />1151 <br />1151 ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 8 from 1)<br />1151 malloc/free: in use at exit: 1,650,045 bytes in 995 blocks.<br />1151 malloc/free: 2,812 allocs, 1,817 frees, 1,734,769 bytes allocated.<br />1151 For counts of detected errors, rerun with: -v<br />1151 searching for pointers to 995 not-freed blocks.<br />1151 checked 1,914,168 bytes.<br />1151 <br />1151 LEAK SUMMARY:<br />1151    definitely lost: 4,608 bytes in 1 blocks.<br />1151      possibly lost: 1,136 bytes in 25 blocks.<br />1151    still reachable: 1,644,301 bytes in 969 blocks.<br />1151         suppressed: 0 bytes in 0 blocks.<br />1151 Rerun with --leak-check=full to see details of leaked memory.<br />Segmentation fault</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1346" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/134">Niels Kristian Bech Jensen</a> <a title="01 Sep 2009 09:25" href="/projects/exiv2/activity?from=2009-09-01">about 12 years</a> ago
+      <span id="journal-1346-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1346-notes" class="wiki"><p>I don't have any problems on the 32-bit (i386) version of Ubuntu 9.04 so it seems likely to be a 64-bit problem.</p>
+
+
+	<p>Regards,<br />Niels Kristian</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1347" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="02 Sep 2009 05:00" href="/projects/exiv2/activity?from=2009-09-02">about 12 years</a> ago
+      <span id="journal-1347-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> set to <i>Andreas Huggel</i></li>
+    </ul>
+    <div id="journal-1347-notes" class="wiki"><p>Indeed. I can reproduce it now, on an amd64 machine.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1348" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="02 Sep 2009 06:36" href="/projects/exiv2/activity?from=2009-09-02">about 12 years</a> ago
+      <span id="journal-1348-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1348-notes" class="wiki"><p><a class="changeset" title="#647: Fixed type of offset which may be negative." href="/projects/exiv2/repository/exiv2/revisions/1897">r1897</a> is a quick fix for this issue, but there may be more with 64 bit systems.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1349" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/132">Udi Fuchs</a> <a title="04 Sep 2009 12:12" href="/projects/exiv2/activity?from=2009-09-04">about 12 years</a> ago
+      <span id="journal-1349-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1349-notes" class="wiki"><p><a class="changeset" title="#647: Fixed type of offset which may be negative." href="/projects/exiv2/repository/exiv2/revisions/1897">r1897</a> solves the crash with the Olympus E-P1.</p>
+
+
+	<p>Udi</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1350" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="06 Sep 2009 08:48" href="/projects/exiv2/activity?from=2009-09-06">about 12 years</a> ago
+      <span id="journal-1350-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>tiff parser</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+       <li><strong>Target version</strong> set to <i>0.19</i></li>
+    </ul>
+    <div id="journal-1350-notes" class="wiki"><p>Thanks for the feedback. With the extended the range check considered done.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1351" class="journal has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="06 Sep 2009 08:48" href="/projects/exiv2/activity?from=2009-09-06">about 12 years</a> ago
+      <span id="journal-1351-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-1457" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="30 Dec 2009 07:50" href="/projects/exiv2/activity?from=2009-12-30">almost 12 years</a> ago
+      <span id="journal-1457-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/647.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/647.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+Index: iptc.cpp
+===================================================================
+--- iptc.cpp	(revision 1898)
++++ iptc.cpp	(working copy)
+@@ -229,6 +229,60 @@
+         return iptcMetadata_.erase(pos);
+     }
+ 
++    const char *IptcData::detectCharset() const
++    {
++        const_iterator pos = findKey(IptcKey("Iptc.Envelope.CharacterSet"));
++        if (pos != end()) {
++            const std::string value = pos->toString();
++            if (!pos->value().ok()) {
++                if (value == "\033%G")
++                    return "UTF-8";
++                // other values are probably not practically relevant
++            }
++        }
++
++        bool ascii = true;
++        bool utf8 = true;
++
++        for (pos = begin(); pos != end(); ++pos) {
++            std::string value = pos->toString();
++            if (pos->value().ok()) {
++                int seqCount = 0;
++                std::string::iterator i;
++                for (i = value.begin(); i != value.end(); ++i) {
++                    char c = *i;
++                    if (seqCount) {
++                        if ((c & 0xc0) != 0x80) {
++                            utf8 = false;
++                            break;
++                        }
++                        --seqCount;
++                    }
++                    else {
++                        if (c & 0x80) ascii = false;
++                        else continue; // ascii character
++
++                        if      ((c & 0xe0) == 0xc0) seqCount = 1;
++                        else if ((c & 0xf0) == 0xe0) seqCount = 2;
++                        else if ((c & 0xf8) == 0xf0) seqCount = 3;
++                        else if ((c & 0xfc) == 0xf8) seqCount = 4;
++                        else if ((c & 0xfe) == 0xfc) seqCount = 5;
++                        else {
++                            utf8 = false;
++                            break;
++                        }
++                    }
++                }
++                if (seqCount) utf8 = false; // unterminated seq
++                if (!utf8) break;
++            }
++        }
++
++        if (ascii) return "ASCII";
++        if (utf8) return "UTF-8";
++        return NULL;
++    }
++    
+     const byte IptcParser::marker_ = 0x1C;          // Dataset marker
+ 
+     int IptcParser::decode(
+Index: convert.hpp
+===================================================================
+--- convert.hpp	(revision 1898)
++++ convert.hpp	(working copy)
+@@ -69,9 +69,9 @@
+     EXIV2API void syncExifWithXmp(ExifData& exifData, XmpData& xmpData);
+ 
+     //! Convert (copy) IPTC datasets to XMP properties.
+-    EXIV2API void copyIptcToXmp(const IptcData& iptcData, XmpData& xmpData);
++    EXIV2API void copyIptcToXmp(const IptcData& iptcData, XmpData& xmpData, const char *iptcCharset = 0);
+     //! Convert (move) IPTC datasets to XMP properties, remove converted IPTC datasets.
+-    EXIV2API void moveIptcToXmp(IptcData& iptcData, XmpData& xmpData);
++    EXIV2API void moveIptcToXmp(IptcData& iptcData, XmpData& xmpData, const char *iptcCharset = 0);
+ 
+     //! Convert (copy) XMP properties to IPTC datasets.
+     EXIV2API void copyXmpToIptc(const XmpData& xmpData, IptcData& iptcData);
+Index: iptc.hpp
+===================================================================
+--- iptc.hpp	(revision 1898)
++++ iptc.hpp	(working copy)
+@@ -304,6 +304,10 @@
+           @brief Return the exact size of all contained IPTC metadata
+          */
+         long size() const;
++        /*!
++          @brief Return the metadata charset name or 0
++         */
++        const char *detectCharset() const;
+         //@}
+ 
+     private:
+Index: convert.cpp
+===================================================================
+--- convert.cpp	(revision 1898)
++++ convert.cpp	(working copy)
+@@ -36,6 +36,7 @@
+ #include "exif.hpp"
+ #include "iptc.hpp"
+ #include "xmp.hpp"
++#include "futils.hpp"
+ #include "convert.hpp"
+ 
+ // + standard includes
+@@ -47,6 +48,11 @@
+ # define snprintf _snprintf
+ #endif
+ 
++#ifdef EXV_HAVE_ICONV
++# include <iconv.h>
++# include <errno.h>
++#endif
++
+ // Adobe XMP Toolkit
+ #ifdef EXV_HAVE_XMP_TOOLKIT
+ # define TXMP_STRING_TYPE std::string
+@@ -66,6 +72,12 @@
+       The return code indicates if the operation was successful.
+      */
+     bool getTextValue(std::string& value, const Exiv2::XmpData::iterator& pos);
++
++    /*!
++      @brief Convert string charset with iconv.
++     */
++    bool convertStringCharset(std::string &str, const char* from, const char* to);
++
+ }
+ 
+ // *****************************************************************************
+@@ -97,7 +109,7 @@
+         //! Constructor for Exif tags and XMP properties.
+         Converter(ExifData& exifData, XmpData& xmpData);
+         //! Constructor for Iptc tags and XMP properties.
+-        Converter(IptcData& iptcData, XmpData& xmpData);
++        Converter(IptcData& iptcData, XmpData& xmpData, const char *iptcCharset = 0);
+         //@}
+ 
+         //! @name Manipulators
+@@ -277,6 +289,7 @@
+         ExifData *exifData_;
+         IptcData *iptcData_;
+         XmpData  *xmpData_;
++        const char *iptcCharset_;
+ 
+     }; // class Converter
+ 
+@@ -411,12 +424,12 @@
+     };
+ 
+     Converter::Converter(ExifData& exifData, XmpData& xmpData)
+-        : erase_(false), overwrite_(true), exifData_(&exifData), iptcData_(0), xmpData_(&xmpData)
++        : erase_(false), overwrite_(true), exifData_(&exifData), iptcData_(0), xmpData_(&xmpData), iptcCharset_(0)
+     {
+     }
+ 
+-    Converter::Converter(IptcData& iptcData, XmpData& xmpData)
+-        : erase_(false), overwrite_(true), exifData_(0), iptcData_(&iptcData), xmpData_(&xmpData)
++    Converter::Converter(IptcData& iptcData, XmpData& xmpData, const char *iptcCharset)
++        : erase_(false), overwrite_(true), exifData_(0), iptcData_(&iptcData), xmpData_(&xmpData), iptcCharset_(iptcCharset)
+     {
+     }
+ 
+@@ -1056,6 +1069,7 @@
+                     ++pos;
+                     continue;
+                 }
++                if (iptcCharset_) convertStringCharset(value, iptcCharset_, "UTF-8");
+                 (*xmpData_)[to] = value;
+                 if (erase_) {
+                     pos = iptcData_->erase(pos);
+@@ -1208,6 +1222,7 @@
+ #endif
+     }
+ 
++
+     // *************************************************************************
+     // free functions
+     void copyExifToXmp(const ExifData& exifData, XmpData& xmpData)
+@@ -1242,15 +1257,20 @@
+         converter.syncExifWithXmp();
+     }
+ 
+-    void copyIptcToXmp(const IptcData& iptcData, XmpData& xmpData)
++    void copyIptcToXmp(const IptcData& iptcData, XmpData& xmpData, const char *iptcCharset)
+     {
+-        Converter converter(const_cast<IptcData&>(iptcData), xmpData);
++        if (!iptcCharset) iptcCharset = iptcData.detectCharset();
++        if (!iptcCharset) iptcCharset = "ISO-8859-1";
++
++        Converter converter(const_cast<IptcData&>(iptcData), xmpData, iptcCharset);
+         converter.cnvToXmp();
+     }
+ 
+-    void moveIptcToXmp(IptcData& iptcData, XmpData& xmpData)
++    void moveIptcToXmp(IptcData& iptcData, XmpData& xmpData, const char *iptcCharset)
+     {
+-        Converter converter(const_cast<IptcData&>(iptcData), xmpData);
++        if (!iptcCharset) iptcCharset = iptcData.detectCharset();
++        if (!iptcCharset) iptcCharset = "ISO-8859-1";
++        Converter converter(const_cast<IptcData&>(iptcData), xmpData, iptcCharset);
+         converter.setErase();
+         converter.cnvToXmp();
+     }
+@@ -1259,6 +1279,7 @@
+     {
+         Converter converter(iptcData, const_cast<XmpData&>(xmpData));
+         converter.cnvFromXmp();
++        iptcData["Iptc.Envelope.CharacterSet"] = "\033%G"; // indicate UTF-8 encoding
+     }
+ 
+     void moveXmpToIptc(XmpData& xmpData, IptcData& iptcData)
+@@ -1266,6 +1287,7 @@
+         Converter converter(iptcData, const_cast<XmpData&>(xmpData));
+         converter.setErase();
+         converter.cnvFromXmp();
++        iptcData["Iptc.Envelope.CharacterSet"] = "\033%G"; // indicate UTF-8 encoding
+     }
+ 
+ }                                       // namespace Exiv2
+@@ -1301,4 +1323,53 @@
+         return pos->value().ok();
+     }
+ 
++    bool convertStringCharset(std::string &str, const char* from, const char* to)
++    {
++        if (std::string(from) == to) return true; // nothing to do
++#if defined EXV_HAVE_ICONV
++        bool ret = true;
++        iconv_t cd;
++        cd = iconv_open(to, from);
++        if (cd == (iconv_t)(-1)) {
++#ifndef SUPPRESS_WARNINGS
++            std::cerr << "Warning: iconv_open: " << Exiv2::strError() << "\n";
++#endif
++            return false;
++        }
++        std::string outstr;
++        char *inptr = const_cast<char *>(str.c_str());
++        size_t inbytesleft = str.length();
++        
++        while (inbytesleft) {
++            char outbuf[100];
++            char *outptr = outbuf;
++            size_t outbytesleft = sizeof(outbuf) - 1;
++            size_t rc = iconv(cd,
++                              &inptr,
++                              &inbytesleft,
++                              &outptr,
++                              &outbytesleft);
++            if (rc == size_t(-1) && errno != E2BIG) {
++#ifndef SUPPRESS_WARNINGS
++                std::cerr << "Warning: iconv: "
++                          << Exiv2::strError()
++                          << " inbytesleft = " << inbytesleft << "\n";
++#endif
++                ret = false;
++                break;
++            }
++            *outptr = '\0';
++            outstr.append(outbuf);
++        }
++        if (cd != (iconv_t)(-1)) {
++            iconv_close(cd);
++        }
++        
++        if (ret) str = outstr;
++        return ret;
++#else // !EXV_HAVE_ICONV
++        return false;
++#endif // EXV_HAVE_ICONV
++    }
++
+ }
+Index: datasets.cpp
+===================================================================
+--- datasets.cpp	(revision 1898)
++++ datasets.cpp	(working copy)
+@@ -141,7 +141,7 @@
+                 "invocation or designation of coded character sets. The control functions follow "
+                 "the ISO 2022 standard and may consist of the escape control "
+                 "character and one or more graphic characters."),
+-                false, false, 0, 32, Exiv2::undefined, IptcDataSets::envelope, ""),
++                false, false, 0, 32, Exiv2::string, IptcDataSets::envelope, ""),
+         DataSet(IptcDataSets::UNO, "UNO", N_("Unique Name Object"),
+                 N_("This tag provide a globally unique "
+                 "identification for objects as specified in the IIM, independent of "

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Exiv2::ExifData.clear() crashes in Release configuration - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="Uoh2DkPSS3xZkON7ZMfzBSmmO1H6Gr6z2iAlJJVOYtqwxd3hMaiHfAz0/HfbEP82FjRvKAv5HwknALWs1neFtQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Exiv2::ExifData.clear() crashes in Release configuration</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4464">Harry McKame</a> <a title="19 Aug 2015 17:46" href="/projects/exiv2/activity?from=2015-08-19">over 6 years</a> ago</span></p>
+<div class="wiki">
+<p>I'm using version 0.25 with Visual Studio 2008 and have written a simple DLL for accessing image metadata.<br />Everything works perfectly well when using the DebugDLL configuration.<br />However, when using the ReleaseDLL configuration, my DLL crashes immediately.</p>
+
+
+	<p>All I'm doing is :</p>
+
+
+	<p>static  Exiv2::ExifData gexifData;<br />...<br />gexifData.clear();</p>
+
+
+	<p>If I try the functions Exiv2::XmpData:clear() and Exiv2::IptcData:clear(), they execute with no problem.<br />If I skip the gexifData.clear() call, I get other aborts of other kinds when using iterators, so this seems to be a general problem.</p>
+
+
+	<p>The crash is happening in the call of exifMetadata_.clear() inside the Microsoft file "c:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include\list" (an std file).<br />The line being executed is :</p>
+	<pre><code>#if _HAS_ITERATOR_DEBUGGING<br />        this-&gt;_Orphan_ptr(<strong>this, 0);<br /> #endif /</strong> _HAS_ITERATOR_DEBUGGING */</code></pre>
+
+
+	<p>The function _Orphan_ptr() crashes because it tries to work with a pointer containing a zero.</p>
+
+
+	<p>I tried to add the following preprocessor definition :<br />  _HAS_ITERATOR_DEBUGGING=0<br />to all the projects of exiv2 and to recompile everything, but that failed because of compilation errors.</p>
+
+
+	<p>For the moment I'm using the DebugDLL configuration where everything works, but I would like to use ReleaseDLL, if somebody can help.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (8)</h3>
+  <div class="message reply" id="message-2193">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2192?r=2193#message-2193">RE: Exiv2::ExifData.clear() crashes in Release configuration</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Aug 2015 08:20" href="/projects/exiv2/activity?from=2015-08-20">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Harry</p>
+
+
+	<p>I think the issue is with <em>static</em>.  That your code runs with the debug build is good fortune.  The normal use of Exiv2::ExifData is demonstrated in samples/exifprint.cpp:<pre>Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(argv[1]);
+image-&gt;readMetadata();
+Exiv2::ExifData&#38; exifData = image-&gt;exifData();
+for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != exifData.end(); ++i) {
+  ...
+}
+</pre>That code creates an ExifData <em>reference</em> on the stack from the image.  The ExifData itself is something brought to life by image->readMetadata().  When you create <em>static ExivData gexifData;</em> it has to be initialized by program startup (or your DLL loader).  Initialised to what?  This is vague.  What is the purpose of gexifData?  The API expects you to create a reference as needed and not to have it sitting permanently in memory in an undefined state.  I suspect that if you close the image (or allow it to go out of scope), any use of gexifData will also crash.</p>
+
+
+	<p>To make progress with this issue, we need to get "on the same page".  Can you strip your code to the minimum required and send me the project files so I can build and reproduce your situation?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2194">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2192?r=2194#message-2194">RE: Exiv2::ExifData.clear() crashes in Release configuration</a>
+    -
+    Added by <a class="user active" href="/users/4464">Harry McKame</a> <a title="20 Aug 2015 09:01" href="/projects/exiv2/activity?from=2015-08-20">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Removing the static has no effect on the crash.<br />To answer your question: The purpose of gexifData is to accumulate meta tags for storing into future images, needing to be cleared between batches.</p>
+
+
+	<p>If I skip this initialization and try to open an image, this code immediately crashes in the for statement :</p>
+
+
+<pre>
+  Exiv2::XmpData &#38;xmpData = image-&gt;xmpData();
+  if (!xmpData.empty()) {
+    Exiv2::XmpData::const_iterator end = xmpData.end();
+    for (Exiv2::XmpData::const_iterator i = xmpData.begin(); i != end; ++i)
+      func(pvar, i-&gt;key().c_str(), i-&gt;toString().c_str());
+  }
+</pre>
+
+	<p>It crashes in the for initialization step (<code>"i ="</code>), when a runtime check calls _invalid_parameter_noinfo(), which itself exists only when the <code>_SECURE_SCL</code> preprocessor tag is defined.<br />(see <a class="external" href="http://cowboyprogramming.com/2007/02/22/what-is-_invalid_parameter_noinfo-and-how-do-i-get-rid-of-it/">http://cowboyprogramming.com/2007/02/22/what-is-_invalid_parameter_noinfo-and-how-do-i-get-rid-of-it/</a>).</p>
+
+
+	<p>Something basic is very wrong with the ReleaseDLL configuration, since both <code>_HAS_ITERATOR_DEBUGGING</code> and <code>_SECURE_SCL</code> should be off in a release build.<br />I don't think it has anything to do with my code, which is really quite simple.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2195">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2192?r=2195#message-2195">RE: Exiv2::ExifData.clear() crashes in Release configuration</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Aug 2015 09:15" href="/projects/exiv2/activity?from=2015-08-20">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm going to build and run the test suite on VS2008 (our build-server builds/tests VS2005/ReleaseDLL by default).  Can you confirm the version of Exiv2 you are using?  (exiv2 --version --verbose).</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2196">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2192?r=2196#message-2196">RE: Exiv2::ExifData.clear() crashes in Release configuration</a>
+    -
+    Added by <a class="user active" href="/users/4464">Harry McKame</a> <a title="20 Aug 2015 10:23" href="/projects/exiv2/activity?from=2015-08-20">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Attached are the output files for <code>exiv2 --version --verbose</code> for both DebugDLL and ReleaseDLL.<br />If you compile on VS2008 and everything works on your end, I would be very thankful if I could receive a complete copy of your project.</p>
+
+
+	<p>Suggestion: When releasing, add to the downloads a release that includes the complete compiled versions of the DLLs with object files and browse info (for all configs) etc.<br />That way you can be assured that the release will not be affected by special conditions on the user's computer, and also get better bug reports.</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/815">version.DebugDLL.txt</a>    <span class="size">(2.47 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/815/version.DebugDLL.txt">version.DebugDLL.txt</a>  </td>
+  <td>version info, config DebugDLL</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/816">version.ReleaseDLL.txt</a>    <span class="size">(2.47 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/816/version.ReleaseDLL.txt">version.ReleaseDLL.txt</a>  </td>
+  <td>version info, config ReleaseDLL</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-2197">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2192?r=2197#message-2197">RE: Exiv2::ExifData.clear() crashes in Release configuration</a>
+    -
+    Added by <a class="user active" href="/users/4464">Harry McKame</a> <a title="20 Aug 2015 11:47" href="/projects/exiv2/activity?from=2015-08-20">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Stop - this was caused by a mixup of DLLs.<br />There is no problem, so don't spend time on this.</p>
+
+
+	<p>However, I still stand by my above suggestion of making a complete release that does not require compilation by the user.<br />This way I would have avoided the error.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2198">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2192?r=2198#message-2198">RE: Exiv2::ExifData.clear() crashes in Release configuration</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Aug 2015 12:31" href="/projects/exiv2/activity?from=2015-08-20">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Harry</p>
+
+
+	<p>Thanks for your suggestion about publishing the builds.  Regrettably, I don't believe that is practical because of the size of the build matrix.  Exiv2 supports a lot of platforms, compilers and build environments multiplied by 8 configurations (32/64bit, static/shared, release/debug).   So, as this is <em>open source</em> we publish source and it is the user's responsibility to build the code.  We provide the forum for users to request further assistance.</p>
+
+
+	<p>The Exiv2 build server arrived with v0.25 and at present you can inspect builds and test output.  <a class="external" href="http://exiv2.dyndns.org:8080">http://exiv2.dyndns.org:8080</a>  The build server can build almost any configuration and a future project is to enable users to request a build from which they can collect logs and artefacts.  This project is currently not resourced which means <em>we need a volunteer</em>.  The hard work for this project is complete, however it needs more testing before it can be made available for anybody to use.</p>
+
+
+	<p>Thanks for the exiv2 --verbose --version output.  You've built a vanilla v0.25 release.  I've built the trunk, however it's almost the same.  ReleaseDLL/Win32/VS2008 passes the test suite.</p>
+
+
+	<p>I've munged your code into exifprint.cpp and built that:<pre>int main(int argc, char* const argv[])
+try {
+
+    if (argc != 2) {
+        std::cout &lt;&lt; "Usage: " &lt;&lt; argv[0] &lt;&lt; " file\n";
+        return 1;
+    }
+
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(argv[1]);
+    assert(image.get() != 0);
+    image-&gt;readMetadata();
+
+    Exiv2::XmpData &#38;xmpData = image-&gt;xmpData();
+    if (!xmpData.empty()) {
+      Exiv2::XmpData::const_iterator end = xmpData.end();
+      for (Exiv2::XmpData::const_iterator i = xmpData.begin(); i != end; ++i)
+        // func(pvar, i-&gt;key().c_str(), i-&gt;toString().c_str());
+        std::cout &lt;&lt; i-&gt;key() &lt;&lt; " -&gt; " &lt;&lt; i-&gt;value() &lt;&lt; std::endl;
+    }
+    return 0;
+}</pre>Here's the output:<pre> Directory of C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\Win32\ReleaseDLL
+
+08/20/2015  12:31 PM            21,504 exifprint.exe
+               1 File(s)         21,504 bytes
+               0 Dir(s)  11,989,237,760 bytes free
+
+...ReleaseDLL&gt;exifprint.exe http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg
+Xmp.xmp.Rating -&gt; 0
+Xmp.xmp.ModifyDate -&gt; 2015-07-16T20:25:28+01:00
+Xmp.dc.description -&gt; lang="x-default" Classic View
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\Win32\ReleaseDLL&gt;</pre>Here's my build-tree: (400mb zip 382,799,313 bytes): <a class="external" href="http://clanmills.com/files/ForHarry.zip">http://clanmills.com/files/ForHarry.zip</a></p>
+
+
+	<p>If you are unable to reproduce my success with this, a possible step forward is for us to have a 1-to-1 on Skype.  I'm in England and busy this afternoon, however it's possible this evening, some of Friday and almost anytime at the weekend.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2199">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2192?r=2199#message-2199">RE: Exiv2::ExifData.clear() crashes in Release configuration</a>
+    -
+    Added by <a class="user active" href="/users/4464">Harry McKame</a> <a title="20 Aug 2015 14:20" href="/projects/exiv2/activity?from=2015-08-20">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>My problem was only human error, but I have learned much from our discussion.<br />I have successfully downloaded the zip file and will take it from here.<br />Thanks for your outstanding support (and outstanding product).</p>
+
+
+	<p>I have recommended your product to the maintainer of the GraphicsMagick project, Bob Friesenhahn, as their metadata support is very rudimentary and they are currently thinking of rewriting themselves a similar package to yours. I think that's a pity, as it would mean a delay of several years before their package reaches maturity, while your package already exists, not mentioning the duplicated human resources.<br />It would be nice if two such outstanding open-source products could unify instead of compete.</p>
+
+
+	<p>For Bob, the major problem involved is your using the GPLv2 license while GraphicsMagick uses the much less-restrictive MIT/X11 license and not wishing to use any license more restrictive than LGPL. Another problem is your use of C++ while they use C, but I think that can be solved by writing an shared-library/dll as interface/bridge for C-to-C++.</p>
+
+
+	<p>I cannot speak for him or for you, just mentioning that here in passing, and the rest is up to you both.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2200">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2192?r=2200#message-2200">RE: Exiv2::ExifData.clear() crashes in Release configuration</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Aug 2015 15:44" href="/projects/exiv2/activity?from=2015-08-20">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your compliments.  The credit for the quality of Exiv2 belongs to Andreas, Gilles, Brad and Volker for writing the core code.  I contribute build and user support.  Writing code to read and write exif (and other meta data) is non-trivial.  It doesn't make sense to do it yourself when Exiv2 provides a robust cross-platform solution which is mature, documented and tested.  It doesn't make much sense for a commercial product and makes even less for an Open Source project such as GraphicsMagick.  Exiv2 is used by Gimp, DigiKam and many other products.</p>
+
+
+	<p>For sure I don't see any difficulty mixing C and C++ other than name mangling which can be solved, as you've suggested, with a thin wrapper/interface.</p>
+
+
+	<p>I'm a software engineer and don't know anything about licensing.  If a bridge is used, it can sniff for libexiv2 and take advantage when available.  The bridge can provide simple/basic metadata support (reading Exif tags) when libexiv2 is not available.   With such a strategy, I don't believe GrapicsMagick has to defer to GPLv2.  If an installer is provided, libexiv2 can be optional and subject to a different user consent/agreement.  However, Bob should seek legal advice.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-8/8)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

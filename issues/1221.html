@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1221: Export DNG to JPEG issues - missing metadata - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="dkYyjQj5+zvRZavCbQSRZ+I3y30/BqwCdLDTz0E5+p+UC5lieoM3O4QBtM7S051U3aWfBM7lDbiJkENHAgAd8A==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1221: Export DNG to JPEG issues - missing metadata" href="https://dev.exiv2.org/issues/1221.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1221</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Export DNG to JPEG issues - missing metadata</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4748">Wil Cowb</a> <a title="05 Sep 2016 18:41" href="/projects/exiv2/activity?from=2016-09-05">about 5 years</a> ago.
+        Updated <a title="26 Sep 2016 19:35" href="/projects/exiv2/activity?from=2016-09-26">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">not-a-bug</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">05 Sep 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>JPEGs created from DNGs have no metadata from the original file. Camera, date taken, shutter speed, aperture, exposure, ISO, etc. everything is gone.</p>
+
+
+	<p>Sample files can be downloaded here:<br />Raw - <a class="external" href="https://drive.google.com/file/d/0B5_iknSPeSNBMVBIT0wxNXowRE0/view?usp=sharing">https://drive.google.com/file/d/0B5_iknSPeSNBMVBIT0wxNXowRE0/view?usp=sharing</a><br />JPEG with the problem - <a class="external" href="https://drive.google.com/file/d/0B5_iknSPeSNBUkJ0VmNadmhMT1k/view?usp=sharing">https://drive.google.com/file/d/0B5_iknSPeSNBUkJ0VmNadmhMT1k/view?usp=sharing</a><br />XMP - <a class="external" href="https://drive.google.com/file/d/0B5_iknSPeSNBTkcteUlsV2ZHM2M/view?usp=sharing">https://drive.google.com/file/d/0B5_iknSPeSNBTkcteUlsV2ZHM2M/view?usp=sharing</a></p>
+
+
+	<p>Tested with two versions of Exiv2:</p>
+
+
+	<p>1:<br />dpkg -l | grep -i exiv2<br />ii exiv2 0.25-xenial~ppa2 amd64 EXIF/IPTC metadata manipulation tool<br />ii libexiv2-14:amd64 0.25-xenial~ppa2 amd64 EXIF/IPTC metadata manipulation library<br />ii libgexiv2-2:amd64 0.10.3-2 amd64 GObject-based wrapper around the Exiv2 library<br />ii python-pyexiv2 0.3.2-5ubuntu4build2 amd64 Python binding to Exiv2<br />ii python-pyexiv2-doc 0.3.2-5ubuntu4build2 all Documentation for Python binding to Exiv2</p>
+
+
+	<p>2:<br />dpkg -l | grep -i exiv2<br />ii exiv2 0.25-2.1pmjdebruijn1~xenial amd64 EXIF/IPTC metadata manipulation tool<br />ii libexiv2-14:amd64 0.25-2.1pmjdebruijn1~xenial amd64 EXIF/IPTC metadata manipulation library<br />ii libgexiv2-2:amd64 0.10.3-2 amd64 GObject-based wrapper around the Exiv2 library<br />ii python-pyexiv2 0.3.2-5ubuntu4build2 amd64 Python binding to Exiv2<br />ii python-pyexiv2-doc 0.3.2-5ubuntu4build2 all Documentation for Python binding to Exiv2</p>
+
+
+	<p>Tested with two types of DNG files:<br />1. CR2/PEF converted to DNG via Adobe DNG converter<br />2. DNG created by Pentax camera itself</p>
+
+
+	<p>Software package used - darktable 2.0.5</p>
+
+
+	<p>Similar thread on the darktable bug report platform:<br /><a class="external" href="https://redmine.darktable.org/issues/11130">https://redmine.darktable.org/issues/11130</a></p>
+
+
+	<p>No errors can be seen in the terminal on opening darktable or exporting to JPEG</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1071">XmpPart3-2016-page13.png</a>    <span class="size">(142 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1071/XmpPart3-2016-page13.png">XmpPart3-2016-page13.png</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 26 Sep 2016 19:35</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5537" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="05 Sep 2016 20:40" href="/projects/exiv2/activity?from=2016-09-05">about 5 years</a> ago
+      <span id="journal-5537-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>not-a-bug</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-5537-notes" class="wiki"><p>Andrey</p>
+
+
+	<p>Thank you for report this.  I like the dog in the image.</p>
+
+
+	<p>I don't believe this is an Exiv2 issue.  Exiv2 does not have code to convert DNG to JPEG.  And you've said that you are using <em><strong>darktable</strong></em> (which uses libexiv2 to do many things).   So my speculation is that you have used <em><strong>darktable</strong></em> to successfully create a JPEG.  The resulting JPG contains an image with no metadata.</p>
+
+
+	<p>The exiv2 command-line tool can copy metadata from a DNG to a JPEG.  However when I run the command to extract the metadata, there is an error message:<pre>1320 rmills@rmillsmbp:~/Downloads $ exiv2 -ea --verbose --force IMGP0385.dng 
+File 1/1: IMGP0385.dng
+Writing Exif data from IMGP0385.dng to ./IMGP0385.exv
+Writing XMP data from IMGP0385.dng to ./IMGP0385.exv
+Warning: Exif tag Exif.Image.DNGPrivateData not encoded
+Warning: Exif tag Exif.Image.ProfileLookTableData not encoded
+./IMGP0385.exv: Could not write metadata to file: Size of Exif JPEG segment is larger than 65535 bytes</pre></p>
+
+
+	<p>The reason for the message is because there is too much Exif data to be stored in the JPEG.  No JPEG can ever store more than 64k of Exif metadata because of the design of the JPEG container.  All Exif data must reside within a single APP1 segment which is limited to 64k bytes.</p>
+
+
+	<p>Your DNG seems to contain too much Exif metadata to be stored in a JPEG.  DNGs are Tiff files and have a limit of 1g of Exif data.</p>
+
+
+	<p>How can this be solved?  Some application (such as DNG Creator or <em><strong>darktable</strong></em>) has to filter the metadata to a limited subset in the JPEG.  <em><strong>darktable</strong></em> can use the APIs in libexiv2 to delete uninteresting metadata to obtain a subset that fits into a 64k segment.</p>
+
+
+	<p>There is something that can be quickly and easily done on the command-line, or by <em><strong>darktable</strong></em>.  The DNG does contain XMP metadata.  The XMP can be extracted from the DNG using the command <em><strong><code> $ exiv2 -pX foo.dng &gt; foo.xmp </code></strong></em>  The XMP can be inserted into a JPEG use the exiv2 v0.26 command <em><strong><code>$ exiv2 -iXX foo.jpg</code></strong></em></p>
+
+
+	<p>Putting the whole thing together with your files:<pre>1344 rmills@rmillsmbp:~/Downloads $ exiv2 -pa IMGP0385_01.jpg
+1345 rmills@rmillsmbp:~/Downloads $                                           # empty
+1345 rmills@rmillsmbp:~/Downloads $                                           # no metadata
+1345 rmills@rmillsmbp:~/Downloads $ exiv2 -pX IMGP0385.dng &gt; IMGP0385_01.xmp  # extract the XMP from the DNG
+1346 rmills@rmillsmbp:~/Downloads $ exiv2 -iXX IMGP0385_01.jpg                # put the XMP into the JPG 
+1347 rmills@rmillsmbp:~/Downloads $ exiv2 -pa IMGP0385_01.jpg                 # a little happiness
+Xmp.xmp.CreatorTool                          XmpText    33  Adobe DNG Converter 9.5 (Windows)
+Xmp.xmp.ModifyDate                           XmpText    25  2016-03-26T10:20:43-06:00
+Xmp.xmp.CreateDate                           XmpText    19  2016-02-13T05:03:45
+Xmp.xmp.MetadataDate                         XmpText    25  2016-03-26T10:20:43-06:00
+Xmp.aux.LensInfo                             XmpText    25  180/10 550/10 35/10 56/10
+Xmp.aux.Lens                                 XmpText    35  smc PENTAX-DA L 18-55mm F3.5-5.6 AL
+Xmp.aux.LensID                               XmpText     5  7 222
+Xmp.aux.ApproximateFocusDistance             XmpText     7  200/100
+Xmp.photoshop.DateCreated                    XmpText    19  2016-02-13T05:03:45
+Xmp.xmpMM.DocumentID                         XmpText    44  xmp.did:a00face5-8d33-ea44-ad2e-565ea608fd60
+Xmp.xmpMM.OriginalDocumentID                 XmpText    32  3332781E8A87190381750F32CF4AD870
+Xmp.xmpMM.InstanceID                         XmpText    44  xmp.iid:a00face5-8d33-ea44-ad2e-565ea608fd60
+Xmp.xmpMM.History                            XmpText     0  type="Seq" 
+Xmp.xmpMM.History[1]                         XmpText     0  type="Struct" 
+Xmp.xmpMM.History[1]/stEvt:action            XmpText     7  derived
+Xmp.xmpMM.History[1]/stEvt:parameters        XmpText    69  converted from image/x-pentax-raw to image/dng, saved to new location
+Xmp.xmpMM.History[2]                         XmpText     0  type="Struct" 
+Xmp.xmpMM.History[2]/stEvt:action            XmpText     5  saved
+Xmp.xmpMM.History[2]/stEvt:instanceID        XmpText    44  xmp.iid:a00face5-8d33-ea44-ad2e-565ea608fd60
+Xmp.xmpMM.History[2]/stEvt:when              XmpText    25  2016-03-26T10:20:43-06:00
+Xmp.xmpMM.History[2]/stEvt:softwareAgent     XmpText    33  Adobe DNG Converter 9.5 (Windows)
+Xmp.xmpMM.History[2]/stEvt:changed           XmpText     1  /
+Xmp.xmpMM.DerivedFrom                        XmpText     0  type="Struct" 
+Xmp.xmpMM.DerivedFrom/stRef:documentID       XmpText    32  3332781E8A87190381750F32CF4AD870
+Xmp.xmpMM.DerivedFrom/stRef:originalDocumentID XmpText    32  3332781E8A87190381750F32CF4AD870
+Xmp.dc.format                                XmpText     9  image/dng
+1348 rmills@rmillsmbp:~/Downloads $ </pre>Regretfully, I do not believe Team Exiv2 can be of further help to you in this matter.  I won't close this issue as you may wish to discuss it further.</p>
+
+
+	<p>When you discuss this matter with <em><strong>darktable</strong></em>, can I bring to your attention that XMP is also limited to 64k bytes.  I see that <em><strong>darktable</strong></em> is storing the file revision history in the XMP.  That could quickly challenge the 64k XMP limit.  Adobe have added a mechanism called "ExtendedXMP" to enable XMP to exceed that limit.  Support for "ExtendedXMP" is limited in Exiv2 v0.26.  It is also limited in many other applications.  Editing an image in many editors will ignore and delete "ExtendedXMP".</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5538" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3771">Roman Lebedev</a> <a title="05 Sep 2016 20:58" href="/projects/exiv2/activity?from=2016-09-05">about 5 years</a> ago
+      <span id="journal-5538-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5538-notes" class="wiki"><p>Robin Mills wrote:<br />Not commenting on the content right now, but <em>please</em> don't call darktable as DarkTable, dark table, Dark Table, etc.<br />It's darktable.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5539" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="05 Sep 2016 22:23" href="/projects/exiv2/activity?from=2016-09-05">about 5 years</a> ago
+      <span id="journal-5539-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5539-notes" class="wiki"><p>I've edited the post to consistently say <em><strong>darktable</strong></em>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5543" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3826">Matthieu Volat</a> <a title="06 Sep 2016 16:38" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+      <span id="journal-5543-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5543-notes" class="wiki"><p>After a quick discussion with Roman where this issue was mentionned: I believe the issue is the file is already heavily loaded with exif data, and with the one darktable try to add, size grows too large(66706 bytes using git version) and darktable throw away the exif data when exporting.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5544" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2016 17:43" href="/projects/exiv2/activity?from=2016-09-06">about 5 years</a> ago
+      <span id="journal-5544-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5563" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3771">Roman Lebedev</a> <a title="11 Sep 2016 10:07" href="/projects/exiv2/activity?from=2016-09-11">about 5 years</a> ago
+      <span id="journal-5563-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5563-notes" class="wiki"><p>Thanks to Matthieu Volat, darktable now filters a bit more tags:<br /><a class="external" href="https://github.com/darktable-org/darktable/pull/1256">https://github.com/darktable-org/darktable/pull/1256</a><br /><a class="external" href="https://github.com/darktable-org/darktable/pull/1259">https://github.com/darktable-org/darktable/pull/1259</a></p>
+
+
+	<p>For now it did fix this particular issue, but i bet there are more cases.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5564" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Sep 2016 10:49" href="/projects/exiv2/activity?from=2016-09-11">about 5 years</a> ago
+      <span id="journal-5564-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5564-notes" class="wiki"><p>Roman</p>
+
+
+	<p>Yes.  Thanks for giving me an update on this.  Well done <em><strong>Matthieu</strong></em> for filtering out the junk from the DNG that can't fit into the 64k Exif/JPEG restriction.   I suspect there will be more of these.</p>
+
+
+	<p>I think libexiv2 image->writeMetadata() throws an exception when the 64k limit is exceeded.  <em><strong>darktable</strong></em> could catch that and do one of a couple of things:</p>
+
+
+	<ol>
+	<li>Warn the user that the metadata has been lost (not useless, however not very helpful)</li>
+		<li>Remove more and more metadata until what remains fits</li>
+	</ol>
+
+
+	<p>To implement this second concept,  <em><strong>darktable</strong></em> requires a list of <em>deplorable</em> keys and keeps removing these <em>deplorables</em> until writeMetadata() succeeds.</p>
+
+
+	<p>This result is better than the current behaviour of removing all Exif metadata.  An unpleasant side effect is that some deplorables_ will be sometimes written and sometimes not - it depends on the company they keep!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5632" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Sep 2016 19:35" href="/projects/exiv2/activity?from=2016-09-26">about 5 years</a> ago
+      <span id="journal-5632-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1071">XmpPart3-2016-page13.png</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1071/XmpPart3-2016-page13.png">XmpPart3-2016-page13.png</a> added</li>
+    </ul>
+    <div id="journal-5632-notes" class="wiki"><p>Folks:</p>
+
+
+	<p>I've made a discovery about this!</p>
+
+
+	<p>Adobe published a new Edition of the XMPsdk on 30 July 2016.  The latest version of this document XMP-Toolkit-SDK-CC201607/docs/XMPSpecificationPart3.pdf contains this statement on page 13.  This statement was not in the 2010 Edition of that document.</p>
+
+
+<blockquote>
+
+	<p>The JPEG standard does not prescribe ordering among APPn segments, but some related standards do. For example, Exif requires that Exif APP1 segment be immediately after the SOI. Also, some applications improperly assume that the segments are in a particular order. For compatibility, it is best to put the Exif APP1 first, the XMP APP1 next, the PSIR APP13 next, followed by all other marker segments.</p>
+
+
+	<p><em><strong>NOTE</strong></em> If the size of the Exif APP1 marker or the PSIR APP13 marker exceeds 64KB, the marker is split into multiple blocks of 64KB size each.</p>
+
+
+</blockquote>
+
+	<p><img src="/attachments/download/1071/XmpPart3-2016-page13.png" alt="" /></p>
+
+
+	<p>If this is true, we can indeed store huge blobs of Exif metadata.  If the metadata exceeds 64k, we can simply divide it into multiple segments.  However, I would want to see a reliable example of such a file.  By "reliable", I mean it has a blue-chip pedigree (such as PhotoShop).  And I'd like to see a specification which is focused on this matter.  The statement in this spec doesn't feel definitive and doesn't address APP1 continuation block signatures.</p>
+
+
+	<p>A typical JPEG structure is as follow:<pre>696 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pS test/data/Reagan.jpg 
+STRUCTURE OF JPEG FILE: test/data/Reagan.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe1 APP1  |    5718 | Exif..MM.*......................     &lt;---- This is the Exif data (Tiff Encoded)
+    5722 | 0xffed APP13 |    3038 | Photoshop 3.0.8BIM..........Z...
+    8762 | 0xffe1 APP1  |    5329 | http://ns.adobe.com/xap/1.0/.&lt;?x
+   14093 | 0xffe2 APP2  |     576 | ICC_PROFILE......0ADBE....mntrRG chunk 1/1
+   14671 | 0xffee APP14 |      14 | Adobe.d@......
+   14687 | 0xffdb DQT   |     132 
+   14821 | 0xffc0 SOF0  |      17 
+   14840 | 0xffdd DRI   |       4 
+   14846 | 0xffc4 DHT   |     418 
+   15266 | 0xffda SOS  
+697 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I think Adobe are saying that if you follow an APP1 segment with one or more APP1 segments of <em><strong>exactly</strong></em> 64k bytes you should consider it to be a "segmented" continuation of its predecessor.  That seems reasonable to me.  However it's quite different from the "chunk" mechanism used to allow ICC profiles to exceed a single APP2 segment.  Additionally, APP1 segments begin with a <em><strong>signature</strong></em> such as "Exif\0\0" to identify them to readers.</p>
+
+
+	<p>I've hunted through Phil (of ExifTool fames) repository of 7000 JPG files.  Not one has Exif data encoded in this way.</p>
+
+
+	<p>AGFA have files with multiple segments of length 65535.  However they are not APP1 segment.  Here's the evidence: <pre>702 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pS /mmHD/Users/rmills/Jenkins/testfiles/Phils/Agfa/AgfaOPTIMA1338mT.jpg 
+STRUCTURE OF JPEG FILE: /mmHD/Users/rmills/Jenkins/testfiles/Phils/Agfa/AgfaOPTIMA1338mT.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe1 APP1  |   46459 | Exif..II*......................
+   46463 | 0xffe3 APP3  |   65535 | ................................   &lt;--- what is this?
+  112000 | 0xffe4 APP4  |   65535 | ..Hc..w .8&lt;...z..M.77.h...{.....   &lt;--- or this?
+  177537 | 0xffe5 APP5  |    7243 | .U......K..u=).pl.W.F...B.$.3...
+  184782 | 0xffdb DQT   |     132 
+  184916 | 0xffc0 SOF0  |      17 
+  184935 | 0xffc4 DHT   |      75 
+  185012 | 0xffda SOS  
+703 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I'm willing to implement "Exif data exceeds 64k" feature in the future <em><strong>provided</strong></em> we have a more substantial specification and good pedigree test files.</p>
+
+
+	<p>I've opened a new Exiv2 v1.0 Feature Request for this:  <a class="issue tracker-2 status-1 priority-4 priority-default" title="Feature: Support JPEGs encoding and decoding in which the Exif data exceeds 64k bytes (New)" href="/issues/1232">#1232</a>.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1221.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1221.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

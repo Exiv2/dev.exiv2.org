@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Patch #1233: Bugfixes in samples/geotag.cpp - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="s/hz799+jtEfndN6ePYQO7tI4FP03snL2sq200lCFClRtdgArQRC0Ur5zHbHIRwIhNq0KgU9aHEn6iZbCnvzRg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Patch #1233: Bugfixes in samples/geotag.cpp" href="https://dev.exiv2.org/issues/1233.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Patch #1233</h2>
+
+<div class="issue tracker-4 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Bugfixes in samples/geotag.cpp</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4765">Anton Keks</a> <a title="26 Sep 2016 19:40" href="/projects/exiv2/activity?from=2016-09-26">about 5 years</a> ago.
+        Updated <a title="07 May 2017 19:20" href="/projects/exiv2/activity?from=2017-05-07">over 4 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">samples</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">26 Sep 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">6.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I have found a fixed a couple of bugs in geotag.cpp sample, here is the diff:</p>
+
+
+	<p>$ diff geotag-orig.cpp geotag.cpp <br />352c352<br /><         if ( me->bEle &#38;&#38; len > 5 ) {<br />---</p>
+
+
+<blockquote>
+
+	<p>if ( me->bEle &#38;&#38; len > 2 ) {</p>
+
+
+</blockquote>
+
+	<p>405a406</p>
+
+
+<blockquote>
+
+	<p>T.tm_isdst = -1 ; // determine value automatically (otherwise hour may shift)</p>
+
+
+</blockquote>
+
+	<p>855c856<br /><             printf("tz,dsl,adjust = %d,%d,%d total = %dsecs (= %d:%d:%d)\n",t,d,a,A,h,m,s);<br />---</p>
+
+
+<blockquote>
+
+	<p>printf("tz,dst,adjust = %d,%d,%d total = %dsecs (= %d:%d:%d)\n",t,d,a,A,h,m,s);</p>
+
+
+</blockquote>
+
+	<p>1. First change fixes parsing of shorter elevations, e.g. '25.0', which is only four chars.<br />2. Second change makes sure times are parsed correctly our of GPX file if DST is currently active (passing tm_isdst==0 to mktime adjusts time by +1 hour, at least on Linux, probably because it thinks it needs to assume timezone of <abbr title="0">GMT</abbr> plus <abbr title="1">DST</abbr>)<br />3. Third change was just a typo</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1073">geotag.cpp</a>    <span class="size">(28.6 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1073/geotag.cpp">geotag.cpp</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Anton Keks, 26 Sep 2016 21:29</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1158">MissionPeak.zip</a>    <span class="size">(2.02 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1158/MissionPeak.zip">MissionPeak.zip</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 07 May 2017 19:20</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4568" href="/projects/exiv2/repository/exiv2/revisions/4568">Revision 4568</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4568/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Sep 2016 22:53" href="/projects/exiv2/activity?from=2016-09-26">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Bugfixes in samples/geotag.cpp (Closed)" href="/issues/1233">#1233</a> Thank You to Anton for reporting this and providing a patch.  I've updated the test suite.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4569" href="/projects/exiv2/repository/exiv2/revisions/4569">Revision 4569</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4569/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Sep 2016 08:53" href="/projects/exiv2/activity?from=2016-09-27">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Bugfixes in samples/geotag.cpp (Closed)" href="/issues/1233">#1233</a> Changes to geotag-test to avoid full paths.  Added make geotag-test.  Sanitized geotag.cpp code</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4571" href="/projects/exiv2/repository/exiv2/revisions/4571">Revision 4571</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4571/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Sep 2016 13:56" href="/projects/exiv2/activity?from=2016-09-27">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Bugfixes in samples/geotag.cpp (Closed)" href="/issues/1233">#1233</a> geotag.cpp added option -ascii.  The degree sign in the output was upsetting test harness on some platforms.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4572" href="/projects/exiv2/repository/exiv2/revisions/4572">Revision 4572</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4572/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Sep 2016 17:31" href="/projects/exiv2/activity?from=2016-09-27">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Bugfixes in samples/geotag.cpp (Closed)" href="/issues/1233">#1233</a> Fixes for the test suite on msvc.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4573" href="/projects/exiv2/repository/exiv2/revisions/4573">Revision 4573</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4573/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Sep 2016 18:47" href="/projects/exiv2/activity?from=2016-09-27">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Bugfixes in samples/geotag.cpp (Closed)" href="/issues/1233">#1233</a> Fixed issue on MacOS-X 10.4 (32 big big-endian PPC, 2003 OS) with realpath() and added additional images for future testing.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4574" href="/projects/exiv2/repository/exiv2/revisions/4574">Revision 4574</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4574/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Sep 2016 18:52" href="/projects/exiv2/activity?from=2016-09-27">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Bugfixes in samples/geotag.cpp (Closed)" href="/issues/1233">#1233</a> Correction to <a class="changeset" title="#1233 Fixed issue on MacOS-X 10.4 (32 big big-endian PPC, 2003 OS) with realpath() and added addi..." href="/projects/exiv2/repository/exiv2/revisions/4573">r4573</a></p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5634" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Sep 2016 19:50" href="/projects/exiv2/activity?from=2016-09-26">about 5 years</a> ago
+      <span id="journal-5634-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>samples</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    <div id="journal-5634-notes" class="wiki"><p>Anton</p>
+
+
+	<p>Thanks for reporting this and providing changes.  Can you attach your copy of geotag.cpp and I'll submit to the repository.</p>
+
+
+	<p>I wrote that sample in 2012 and <em>I never finished it</em>.  I've been so busy with other matters, that I have never got round to working on it again.  If you'd like to work on a little test script for geotag, I'd be delight to accept your contribution!  I can mentor you about writing test scripts - it's painless.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5635" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4765">Anton Keks</a> <a title="26 Sep 2016 21:29" href="/projects/exiv2/activity?from=2016-09-26">about 5 years</a> ago
+      <span id="journal-5635-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1073">geotag.cpp</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1073/geotag.cpp">geotag.cpp</a> added</li>
+    </ul>
+    <div id="journal-5635-notes" class="wiki"><p>Thanks for the quick response!<br />Here is my copy.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5636" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Sep 2016 22:56" href="/projects/exiv2/activity?from=2016-09-26">about 5 years</a> ago
+      <span id="journal-5636-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Tracker</strong> changed from <i>Bug</i> to <i>Patch</i></li>
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-5636-notes" class="wiki"><p>Anton: Thank You for reporting this and providing a patch.  I've submitted your code and added a simple test script. <a class="changeset" title="#1233 Thank You to Anton for reporting this and providing a patch.  I&#39;ve updated the test suite." href="/projects/exiv2/repository/exiv2/revisions/4568">r4568</a></p>
+
+
+	<p>I'm sure there are subtle things wrong with this such as handling of time-zones.  Anyway, it worked first time on some GPX/JPG data I have from a trip to Death Valley California in 2008.  If you find issue with this, please provide your GPX and images.  We can extract the .exv metadata from your images to keep down the size of the test suite - and it's useful to chop irrelevant data from the GPX.  For example, my GPX was 1.5mb which I chopped to 6k.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5637" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Sep 2016 18:57" href="/projects/exiv2/activity?from=2016-09-27">about 5 years</a> ago
+      <span id="journal-5637-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>2.00 h</i> to <i>6.00 h</i></li>
+    </ul>
+    <div id="journal-5637-notes" class="wiki"><p>This is taken up more time that expected.  However the code is now being tested.  And I discovered an interesting bug on MacOS-X 10.4 (testing is a good thing!).  I still feel this can be best described as "experimental - use at your own risk".  I now have a camera with a built-in GPS (Nikon 5300), so I don't have a reason to use this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6002" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 May 2017 19:20" href="/projects/exiv2/activity?from=2017-05-07">over 4 years</a> ago
+      <span id="journal-6002-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1158">MissionPeak.zip</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1158/MissionPeak.zip">MissionPeak.zip</a> added</li>
+    </ul>
+    <div id="journal-6002-notes" class="wiki"><p>Tobias Jakobs wrote to me on 2017-04-29 about an article on clanmills.com<pre>Hello Robin,
+
+I found your article about GPS Exif Tags:
+http://clanmills.com/articles/gpsexiftags/
+
+Sadly I had some problems with the links in the article.
+1. The link to http://tilloy.net/dev/pyexiv2/ goes to http://www.exiv2.org/
+2. http://picasaweb.google.com/robinwmills/GPSTesting shows a 404
+3. http://tilloy.net/dev/pyexiv2/developers.htm is a 404
+4. http://jbrout.python-hosting.com/ does no longer exist
+
+Perhaps you can update the article or write a new one, how you use
+GPS data in images.
+
+Kind regards,
+Tobias</pre>I rewrote the article and referred him to using geotag(.exe) in Exiv2 v0.26.  I did some testing and discovered it's a little buggy.  The issue is with the cache code.  You can only use the shipping version on one file at a time.   The work around is: <pre>$ for i in *.jpg; do exiv2 -M'set ..GPS...' $i *.gpx; done</pre></p>
+
+
+	<p>I've fixed the bug and submitted the fix to GitHub.<pre>628 rmills@rmillsmbp:~/Pictures/2012/MissionPeak $ for tag in $(exiv2 -Pk -g GPS IMG_0199.jpg); do exiv2 -M"del $tag" *.jpg; done 
+629 rmills@rmillsmbp:~/Pictures/2012/MissionPeak $ ./geotag -verbose -tz -8:00 *
+IMG_0176.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0176.jpg 1339021084 Wed Jun  6 23:18:04 2012
+IMG_0177.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0177.jpg 1339021088 Wed Jun  6 23:18:08 2012
+IMG_0178.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0178.jpg 1339021340 Wed Jun  6 23:22:20 2012
+IMG_0179.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0179.jpg 1339021344 Wed Jun  6 23:22:24 2012
+IMG_0180.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0180.jpg 1339021501 Wed Jun  6 23:25:01 2012
+IMG_0181.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0181.jpg 1339022017 Wed Jun  6 23:33:37 2012
+IMG_0182.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0182.jpg 1339022070 Wed Jun  6 23:34:30 2012
+IMG_0183.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0183.jpg 1339022301 Wed Jun  6 23:38:21 2012
+IMG_0184.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0184.jpg 1339022527 Wed Jun  6 23:42:07 2012
+IMG_0185.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0185.jpg 1339022820 Wed Jun  6 23:47:00 2012
+IMG_0186.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0186.jpg 1339023215 Wed Jun  6 23:53:35 2012
+IMG_0187.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0187.jpg 1339023407 Wed Jun  6 23:56:47 2012
+IMG_0188.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0188.jpg 1339023544 Wed Jun  6 23:59:04 2012
+IMG_0189.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0189.jpg 1339023569 Wed Jun  6 23:59:29 2012
+IMG_0190.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0190.jpg 1339024776 Thu Jun  7 00:19:36 2012
+IMG_0191.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0191.jpg 1339025004 Thu Jun  7 00:23:24 2012
+IMG_0192.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0192.jpg 1339025103 Thu Jun  7 00:25:03 2012
+IMG_0193.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0193.jpg 1339025142 Thu Jun  7 00:25:42 2012
+IMG_0194.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0194.jpg 1339025155 Thu Jun  7 00:25:55 2012
+IMG_0195.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0195.jpg 1339025298 Thu Jun  7 00:28:18 2012
+IMG_0196.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0196.jpg 1339025338 Thu Jun  7 00:28:58 2012
+IMG_0197.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0197.jpg 1339026307 Thu Jun  7 00:45:07 2012
+IMG_0198.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0198.jpg 1339026971 Thu Jun  7 00:56:11 2012
+IMG_0199.jpg image /Users/rmills/Pictures/2012/MissionPeak/IMG_0199.jpg 1339027018 Thu Jun  7 00:56:58 2012
+trkseg 2012-05-19 02:21:37 begin 2012-05-19 14:40:59 end
+2012-05-20 18:35:26 end
+2012-06-02 17:58:27 end
+2012-06-07 00:57:55 end
+MissionPeak.gpx xml geotag file tz,dst,adjust = -28800,0,0 total = -28800secs (= -8:0:0)
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0176.jpg 121°53'21"W 037°30'51"N 530.785  -1
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0177.jpg 121°53'21"W 037°30'50"N 531.746   3
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0178.jpg 121°53'15"W 037°30'51"N 550.973  -4
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0179.jpg 121°53'15"W 037°30'51"N 552.415   1
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0180.jpg 121°53'17"W 037°30'56"N 580.774  -2
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0181.jpg 121°53'16"W 037°31'00"N 595.193   2
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0182.jpg 121°53'14"W 037°31'00"N 605.287   2
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0183.jpg 121°53'09"W 037°31'00"N 640.856   2
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0184.jpg 121°53'05"W 037°30'58"N 662.005  -1
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0185.jpg 121°53'01"W 037°30'50"N 703.342  -1
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0186.jpg 121°52'56"W 037°30'48"N 724.971  -1
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0187.jpg 121°52'53"W 037°30'46"N 761.021   2
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0188.jpg 121°52'53"W 037°30'45"N 756.214  -2
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0189.jpg 121°52'53"W 037°30'45"N 752.850   4
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0190.jpg 121°53'27"W 037°30'53"N 525.498  -2
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0191.jpg 121°53'29"W 037°30'48"N 489.448  -1
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0192.jpg 121°53'29"W 037°30'46"N 467.338   2
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0193.jpg 121°53'31"W 037°30'46"N 458.686   2
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0194.jpg 121°53'32"W 037°30'46"N 456.283  -2
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0195.jpg 121°53'35"W 037°30'43"N 421.195  -3
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0196.jpg 121°53'37"W 037°30'43"N 408.698  -5
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0197.jpg 121°54'05"W 037°30'23"N 177.981   0
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0198.jpg 121°54'31"W 037°30'15"N 112.612  -1
+/Users/rmills/Pictures/2012/MissionPeak/IMG_0199.jpg 121°54'31"W 037°30'15"N 121.744   1
+630 rmills@rmillsmbp:~/Pictures/2012/MissionPeak $ exiv2 -Pk -g GPS IMG_0199.jpg
+Exif.Image.GPSTag                           
+Exif.GPSInfo.GPSVersionID                   
+Exif.GPSInfo.GPSLatitudeRef                 
+Exif.GPSInfo.GPSLatitude                    
+Exif.GPSInfo.GPSLongitudeRef                
+Exif.GPSInfo.GPSLongitude                   
+Exif.GPSInfo.GPSAltitudeRef                 
+Exif.GPSInfo.GPSAltitude                    
+Exif.GPSInfo.GPSTimeStamp                   
+Exif.GPSInfo.GPSMapDatum                    
+Exif.GPSInfo.GPSProcessingMethod            
+Exif.GPSInfo.GPSDateStamp                   
+631 rmills@rmillsmbp:~/Pictures/2012/MissionPeak $ for tag in $(exiv2 -Pk -g GPS IMG_0199.jpg); do exiv2 -M"del $tag" *.jpg; done 
+632 rmills@rmillsmbp:~/Pictures/2012/MissionPeak $ 
+632 rmills@rmillsmbp:~/Pictures/2012/MissionPeak $</pre>I attach the test directory.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1233.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1233.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+--- src/basicio.cpp.orig	2015-03-30 18:17:33.272916391 +0200
++++ src/basicio.cpp	2015-03-30 20:13:48.483504567 +0200
+@@ -368,40 +368,78 @@
+ 
+     int FileIo::munmap()
+     {
++        std::cout << "fileio::munmap\n";
++/* #if defined EXV_HAVE_MMAP
++        std::cout << " … compiled w/ EXV_HAVE_MMAP\n";
++#else
++        std::cout << " … compiled w/o EXV_HAVE_MMAP\n";
++#endif
++#if defined EXV_HAVE_MUNMAP
++        std::cout << " … compiled w/ EXV_HAVE_MUNMAP\n";
++#else
++        std::cout << " … compiled w/o EXV_HAVE_MUNMAP\n";
++#endif
++*/
+         int rc = 0;
++        // compiler won't allow this
++        // byte foo = 0;
++        // foo = p_->pMappedArea_;
++        // std::cout << " … mappedarea: " << foo << "\n";
++        //
++        // if this is commented in, the rest of the method is not being
++        //   executed (it seems to exit immediately), and the hang occurs
++        // std::cout << " … mappedarea: " << p_->pMappedArea_ << "\n";
+         if (p_->pMappedArea_ != 0) {
+ #if defined EXV_HAVE_MMAP && defined EXV_HAVE_MUNMAP
++            // this block is never, ever being called. the relevant compiler
++            // macros are definitely defined, see the tests above and below
++            std::cout << " … about to enter munmap\n";
++            std::cout << " … mappedArea: " << p_->pMappedArea_ << "\n";
+             if (::munmap(p_->pMappedArea_, p_->mappedLength_) != 0) {
++                std::cout << "   … inside munmap\n";
++                std::cout << "   … mappedLength: " << p_->mappedLength_ << "\n";
+                 rc = 1;
+             }
+ #elif defined WIN32 && !defined __CYGWIN__
++            std::cout << "win32 w/o cygwin\n"
+             UnmapViewOfFile(p_->pMappedArea_);
+             CloseHandle(p_->hMap_);
+             p_->hMap_ = 0;
+             CloseHandle(p_->hFile_);
+             p_->hFile_ = 0;
+ #else
++            std::cout << "!EXV_HAVE_MMAP && !EXV_HAVE_MUNMAP\n";
+             if (p_->isWriteable_) {
++                std::cout " … iswriteable\n"
+                 seek(0, BasicIo::beg);
+                 write(p_->pMappedArea_, p_->mappedLength_);
+             }
+             if (p_->isMalloced_) {
++                std::cout " … ismalloced\n"
+                 delete[] p_->pMappedArea_;
+                 p_->isMalloced_ = false;
+             }
+ #endif
+         }
++        std::cout << " … common block\n";
++        std::cout << "   … iswriteable: " << p_->isWriteable_ << "\n";
+         if (p_->isWriteable_) {
+-            if (p_->fp_ != 0) p_->switchMode(Impl::opRead);
++            std::cout << "   … is writeable.\n";
++            if (p_->fp_ != 0) {
++                p_->switchMode(Impl::opRead);
++                std::cout << "   … fp != 0\n";
++            }
+             p_->isWriteable_ = false;
+         }
+         p_->pMappedArea_ = 0;
+         p_->mappedLength_ = 0;
++        std::cout << " … return value: " << rc << "\n";
+         return rc;
+     }
+ 
+     byte* FileIo::mmap(bool isWriteable)
+     {
++        std::cout << "fileio::mmap\n";
+         assert(p_->fp_ != 0);
+         if (munmap() != 0) {
+ #ifdef EXV_UNICODE_PATH

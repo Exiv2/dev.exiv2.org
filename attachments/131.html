@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>exiv2-exifcomment-unicode.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="xiRtdPGHvWd3zOxQG7lCi9bCCJuUFuqlTzzsszeLsNgkacabg/1xZyKo81ykbk646VBc4mX1Sx+yHHw7dLJXtw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/131/exiv2-exifcomment-unicode.patch">Download (6.64 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Incorrect Unicode encoding of Exif UserComment tag" href="/issues/662">Bug #662</a> » exiv2-exifcomment-unicode.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/311">Leo Sutic</a>, 12 Jan 2010 10:09</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/131" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/actions.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">625</th>
+  <th class="line-num">625</th>
+  <td class="line-code ">
+    <pre>                &amp;&amp; (   md.typeId() == Exiv2::undefined</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">626</th>
+  <th class="line-num">626</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::unsignedByte</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">627</th>
+  <th class="line-num">627</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::signedByte)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">628</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                &amp;&amp; md.size() &gt; 1<span>00</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">628</th>
+  <td class="line-code diff_in">
+    <pre>                &amp;&amp; md.size() &gt; 1<span>28</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">629</th>
+  <th class="line-num">629</th>
+  <td class="line-code ">
+    <pre>                std::cout &lt;&lt; _(&quot;(Binary value suppressed)&quot;) &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">630</th>
+  <th class="line-num">630</th>
+  <td class="line-code ">
+    <pre>                return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">631</th>
+  <th class="line-num">631</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">638</th>
+  <th class="line-num">638</th>
+  <td class="line-code ">
+    <pre>                &amp;&amp; (   md.typeId() == Exiv2::undefined</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">639</th>
+  <th class="line-num">639</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::unsignedByte</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">640</th>
+  <th class="line-num">640</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::signedByte)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">641</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                &amp;&amp; md.size() &gt; 1<span>00</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">641</th>
+  <td class="line-code diff_in">
+    <pre>                &amp;&amp; md.size() &gt; 1<span>28</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">642</th>
+  <th class="line-num">642</th>
+  <td class="line-code ">
+    <pre>                std::cout &lt;&lt; _(&quot;(Binary value suppressed)&quot;) &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">643</th>
+  <th class="line-num">643</th>
+  <td class="line-code ">
+    <pre>                return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">644</th>
+  <th class="line-num">644</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">651</th>
+  <th class="line-num">651</th>
+  <td class="line-code ">
+    <pre>                &amp;&amp; (   md.typeId() == Exiv2::undefined</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">652</th>
+  <th class="line-num">652</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::unsignedByte</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">653</th>
+  <th class="line-num">653</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::signedByte)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">654</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                &amp;&amp; md.size() &gt; 1<span>00</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">654</th>
+  <td class="line-code diff_in">
+    <pre>                &amp;&amp; md.size() &gt; 1<span>28</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">655</th>
+  <th class="line-num">655</th>
+  <td class="line-code ">
+    <pre>                std::cout &lt;&lt; _(&quot;(Binary value suppressed)&quot;) &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">656</th>
+  <th class="line-num">656</th>
+  <td class="line-code ">
+    <pre>                return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">657</th>
+  <th class="line-num">657</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/convert.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">508</th>
+  <th class="line-num">508</th>
+  <td class="line-code ">
+    <pre>            return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">509</th>
+  <th class="line-num">509</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">510</th>
+  <th class="line-num">510</th>
+  <td class="line-code ">
+    <pre>        // Todo: Convert to UTF-8 if necessary</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">511</th>
+  <td class="line-code diff_in">
+    <pre>		</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">511</th>
+  <th class="line-num">512</th>
+  <td class="line-code ">
+    <pre>        (*xmpData_)[to] = cv-&gt;comment();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">512</th>
+  <th class="line-num">513</th>
+  <td class="line-code ">
+    <pre>        if (erase_) exifData_-&gt;erase(pos);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">513</th>
+  <th class="line-num">514</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1325</th>
+  <th class="line-num">1326</th>
+  <td class="line-code ">
+    <pre>        std::string outstr;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1326</th>
+  <th class="line-num">1327</th>
+  <td class="line-code ">
+    <pre>        EXV_ICONV_CONST char *inptr = const_cast&lt;char *&gt;(str.c_str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1327</th>
+  <th class="line-num">1328</th>
+  <td class="line-code ">
+    <pre>        size_t inbytesleft = str.length();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1328</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        int outbytesProduced = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1329</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1329</th>
+  <th class="line-num">1330</th>
+  <td class="line-code ">
+    <pre>        while (inbytesleft) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1330</th>
+  <th class="line-num">1331</th>
+  <td class="line-code ">
+    <pre>            char outbuf[100];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1331</th>
+  <th class="line-num">1332</th>
+  <td class="line-code ">
+    <pre>            char *outptr = outbuf;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1335</th>
+  <th class="line-num">1336</th>
+  <td class="line-code ">
+    <pre>                              &amp;inbytesleft,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1336</th>
+  <th class="line-num">1337</th>
+  <td class="line-code ">
+    <pre>                              &amp;outptr,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1337</th>
+  <th class="line-num">1338</th>
+  <td class="line-code ">
+    <pre>                              &amp;outbytesleft);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1338</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            outbytesProduced += sizeof(outbuf) - 1 - outbytesleft;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1339</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1340</th>
+  <td class="line-code diff_in">
+    <pre>			int outbytesProduced = sizeof(outbuf) - 1 - outbytesleft;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1339</th>
+  <th class="line-num">1341</th>
+  <td class="line-code ">
+    <pre>            if (rc == size_t(-1) &amp;&amp; errno != E2BIG) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1340</th>
+  <th class="line-num">1342</th>
+  <td class="line-code ">
+    <pre>#ifndef SUPPRESS_WARNINGS</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1341</th>
+  <th class="line-num">1343</th>
+  <td class="line-code ">
+    <pre>                std::cerr &lt;&lt; &quot;Warning: iconv: &quot;</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/tags.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">2515</th>
+  <th class="line-num">2515</th>
+  <td class="line-code ">
+    <pre>        return os;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2516</th>
+  <th class="line-num">2516</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2517</th>
+  <th class="line-num">2517</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2518</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    // Todo: Implement this properly</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2519</th>
+  <th class="line-num">2518</th>
+  <td class="line-code ">
+    <pre>    std::ostream&amp; print0x9286(std::ostream&amp; os, const Value&amp; value, const ExifData*)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2520</th>
+  <th class="line-num">2519</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2521</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (value.size() &gt; 8) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2522</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            DataBuf buf(value.size());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2523</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            value.copy(buf.pData_, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2524</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            // Hack: Skip the leading 8-Byte character code, truncate</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2525</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            // trailing &#39;\0&#39;s and let the stream take care of the remainder</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2526</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            std::string userComment(reinterpret_cast&lt;char*&gt;(buf.pData_) + 8, buf.size_ - 8);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2527</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            std::string::size_type pos = userComment.find_last_not_of(&#39;\0&#39;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2528</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            os &lt;&lt; userComment.substr(0, pos + 1);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2529</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2520</th>
+  <td class="line-code diff_in">
+    <pre>		os &lt;&lt; dynamic_cast&lt;const CommentValue*&gt; (&amp;value)-&gt;value_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2530</th>
+  <th class="line-num">2521</th>
+  <td class="line-code ">
+    <pre>        return os;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2531</th>
+  <th class="line-num">2522</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2532</th>
+  <th class="line-num">2523</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      test/conversions.sh	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">217</th>
+  <th class="line-num">217</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">218</th>
+  <th class="line-num">218</th>
+  <td class="line-code ">
+    <pre># ----------------------------------------------------------------------</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">219</th>
+  <th class="line-num">219</th>
+  <td class="line-code ">
+    <pre># Evaluate results</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">220</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>cat $results | sed &#39;s/\x0d$//&#39; <span></span>&gt; $results-stripped</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">220</th>
+  <td class="line-code diff_in">
+    <pre>cat $results | sed &#39;s/\x0d$//&#39; <span>| sed &#39;s/\x1b/$/g&#39; </span>&gt; $results-stripped</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">221</th>
+  <th class="line-num">221</th>
+  <td class="line-code ">
+    <pre>diff -q $results-stripped $good</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">222</th>
+  <th class="line-num">222</th>
+  <td class="line-code ">
+    <pre>rc=$?</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">223</th>
+  <th class="line-num">223</th>
+  <td class="line-code ">
+    <pre>if [ $rc -eq 0 ] ; then</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      test/exifcomment-encoding-test.sh	(revision 0)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1</th>
+  <td class="line-code diff_in">
+    <pre>#! /bin/sh</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2</th>
+  <td class="line-code diff_in">
+    <pre># Test driver for exiv2 Exif.Photo.UserComment character encoding tests</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">3</th>
+  <td class="line-code diff_in">
+    <pre>scriptdir=`dirname $0`</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">4</th>
+  <td class="line-code diff_in">
+    <pre>cd $scriptdir</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">5</th>
+  <td class="line-code diff_in">
+    <pre>exiv2=&quot;../src/exiv2&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">6</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">7</th>
+  <td class="line-code diff_in">
+    <pre># Function takes two parameters</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">8</th>
+  <td class="line-code diff_in">
+    <pre>#</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">9</th>
+  <td class="line-code diff_in">
+    <pre># 1. A exiv2 comment spec</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">10</th>
+  <td class="line-code diff_in">
+    <pre># 2. The expected exiv2 hex dump of the UserComment value</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">11</th>
+  <td class="line-code diff_in">
+    <pre>#</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">12</th>
+  <td class="line-code diff_in">
+    <pre>function writeComment {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">13</th>
+  <td class="line-code diff_in">
+    <pre>    cp ./data/exiv2-bug662.jpg ./tmp/exiv2-bug662.jpg</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">14</th>
+  <td class="line-code diff_in">
+    <pre>    $exiv2 mo &quot;-Mset Exif.Photo.UserComment $1&quot; ./tmp/exiv2-bug662.jpg</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">15</th>
+  <td class="line-code diff_in">
+    <pre>    res=`$exiv2 pr -PEnh ./tmp/exiv2-bug662.jpg | grep --after-context=200 UserComment`</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">16</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">17</th>
+  <td class="line-code diff_in">
+    <pre>    # remove newlines and the tag name</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">18</th>
+  <td class="line-code diff_in">
+    <pre>    res=`echo $res | colrm 1 12 | sed -e &#39;s/&quot;//g&#39;`</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">19</th>
+  <td class="line-code diff_in">
+    <pre>    if [ &quot;$res&quot; != &quot;$2&quot; ] ; then</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">20</th>
+  <td class="line-code diff_in">
+    <pre>        echo &quot;Expected:&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">21</th>
+  <td class="line-code diff_in">
+    <pre>        echo $2</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">22</th>
+  <td class="line-code diff_in">
+    <pre>        echo &quot;Got:&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">23</th>
+  <td class="line-code diff_in">
+    <pre>        echo $res</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">24</th>
+  <td class="line-code diff_in">
+    <pre>        return 1</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">25</th>
+  <td class="line-code diff_in">
+    <pre>    fi</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">26</th>
+  <td class="line-code diff_in">
+    <pre>}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">27</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">28</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Ascii An ascii comment&quot; &quot;0000 41 53 43 49 49 00 00 00 41 6e 20 61 73 63 69 69 ASCII...An ascii 0010 20 63 6f 6d 6d 65 6e 74 comment&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">29</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Ascii A\\nnewline&quot; &quot;0000 41 53 43 49 49 00 00 00 41 0a 6e 65 77 6c 69 6e ASCII...A.newlin 0010 65 e&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">30</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode A Unicode comment&quot; &quot;0000 55 4e 49 43 4f 44 45 00 41 00 20 00 55 00 6e 00 UNICODE.A. .U.n. 0010 69 00 63 00 6f 00 64 00 65 00 20 00 63 00 6f 00 i.c.o.d.e. .c.o. 0020 6d 00 6d 00 65 00 6e 00 74 00 m.m.e.n.t.&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">31</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode \\u01c4&quot; &quot;0000 55 4e 49 43 4f 44 45 00 c4 01 UNICODE...&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">32</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode A\\u01c4C&quot; &quot;0000 55 4e 49 43 4f 44 45 00 41 00 c4 01 43 00 UNICODE.A...C.&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">33</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode With\\nNewline&quot; &quot;0000 55 4e 49 43 4f 44 45 00 57 00 69 00 74 00 68 00 UNICODE.W.i.t.h. 0010 0a 00 4e 00 65 00 77 00 6c 00 69 00 6e 00 65 00 ..N.e.w.l.i.n.e.&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">34</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode With\\tTab&quot; &quot;0000 55 4e 49 43 4f 44 45 00 57 00 69 00 74 00 68 00 UNICODE.W.i.t.h. 0010 09 00 54 00 61 00 62 00 ..T.a.b.&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">35</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">36</th>
+  <td class="line-code diff_in">
+    <pre># Test invalid escape sequences</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">37</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode \\ugggg&quot; &quot;0000 55 4e 49 43 4f 44 45 00 5c 00 75 00 67 00 67 00 UNICODE.\.u.g.g. 0010 67 00 67 00 g.g.&quot;</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      test/Makefile	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">61</th>
+  <th class="line-num">61</th>
+  <td class="line-code ">
+    <pre>        bugfixes-test.sh  \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">62</th>
+  <th class="line-num">62</th>
+  <td class="line-code ">
+    <pre>        exifdata-test.sh  \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">63</th>
+  <th class="line-num">63</th>
+  <td class="line-code ">
+    <pre>        exiv2-test.sh     \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">64</th>
+  <td class="line-code diff_in">
+    <pre>        exifcomment-encoding-test.sh \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">64</th>
+  <th class="line-num">65</th>
+  <td class="line-code ">
+    <pre>        imagetest.sh      \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">65</th>
+  <th class="line-num">66</th>
+  <td class="line-code ">
+    <pre>        iotest.sh         \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">66</th>
+  <th class="line-num">67</th>
+  <td class="line-code ">
+    <pre>        iptctest.sh       \</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"><li class="previous page"><a href="/attachments/130/convert_bug.patch">« Previous</a></li><li class="page"><a href="/attachments/127/unicode_support.patch">1</a></li><li class="spacer"><span>&hellip;</span></li><li class="page"><a href="/attachments/129/exiv2-bug662.jpg">3</a></li><li class="page"><a href="/attachments/130/convert_bug.patch">4</a></li><li class="current"><span>5</span></li><li class="next"><span>Next »</span></li></ul><span><span class="items">(5-5/5)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

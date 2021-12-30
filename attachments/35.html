@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>fix_jpg_parser.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="XI31gqHSje3B4oQ5TE4i1vPJD0IcI0zuVXp73SmY2BK+wF5t06hB7ZSGmzXzmS7lzFtbO+3A7VSoWutVaqE/fQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/35/fix_jpg_parser.patch">Download (9.78 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Support multiple APP13 Photoshop 3.0 segments in a JPEG" href="/issues/533">Bug #533</a> » fix_jpg_parser.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author">Redmine Admin, 10 Oct 2008 17:43</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/35" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      exiv2-svn/src/jpgimage.hpp	(Arbeitskopie)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">95</th>
+  <th class="line-num">95</th>
+  <td class="line-code ">
+    <pre>                                 uint32_t *const sizeHdr,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">96</th>
+  <th class="line-num">96</th>
+  <td class="line-code ">
+    <pre>                                 uint32_t *const sizeData);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">97</th>
+  <th class="line-num">97</th>
+  <td class="line-code ">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">98</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>          @brief Set the new IPTC IRB, keeps existing IRBs but removes the</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">99</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                 IPTC block if there is no new IPTC data to write.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">98</th>
+  <td class="line-code diff_in">
+    <pre>          @brief Set the new IPTC IRB, keeps existing IRBs</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">100</th>
+  <th class="line-num">99</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">101</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>          @param pPsData    Existing IRB buffer</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">102</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>          @param sizePsData Size of the IRB buffer, may be 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">103</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>          @param iptcData   Iptc data to embed, may be empty</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">100</th>
+  <td class="line-code diff_in">
+    <pre>          @param pPsData        Existing IRB buffer</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">101</th>
+  <td class="line-code diff_in">
+    <pre>          @param sizePsData     Size of the IRB buffer, may be 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">102</th>
+  <td class="line-code diff_in">
+    <pre>          @param iptcData       Iptc data to embed, may be empty</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">103</th>
+  <td class="line-code diff_in">
+    <pre>          @param keepEmptyBlock Whether to keep the IPTC block even</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">104</th>
+  <td class="line-code diff_in">
+    <pre>                                when there is no new IPTC data to write</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">104</th>
+  <th class="line-num">105</th>
+  <td class="line-code ">
+    <pre>          @return A data buffer containing the new IRB buffer, may have 0 size</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">105</th>
+  <th class="line-num">106</th>
+  <td class="line-code ">
+    <pre>        */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">106</th>
+  <th class="line-num">107</th>
+  <td class="line-code ">
+    <pre>        static DataBuf setIptcIrb(const byte*     pPsData,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">107</th>
+  <th class="line-num">108</th>
+  <td class="line-code ">
+    <pre>                                  long            sizePsData,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">108</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                                  const IptcData&amp; iptcData);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">109</th>
+  <td class="line-code diff_in">
+    <pre>                                  const IptcData&amp; iptcData,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">110</th>
+  <td class="line-code diff_in">
+    <pre>                                  bool            keepEmptyBlock=false);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">109</th>
+  <th class="line-num">111</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">110</th>
+  <th class="line-num">112</th>
+  <td class="line-code ">
+    <pre>    }; // class Photoshop</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">111</th>
+  <th class="line-num">113</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      exiv2-svn/src/jpgimage.cpp	(Arbeitskopie)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">106</th>
+  <th class="line-num">106</th>
+  <td class="line-code ">
+    <pre>        std::cerr &lt;&lt; &quot;Photoshop::locateIrb: &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">107</th>
+  <th class="line-num">107</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">108</th>
+  <th class="line-num">108</th>
+  <td class="line-code ">
+    <pre>        // Data should follow Photoshop format, if not exit</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">109</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        while (   position &lt;= sizePsData - 1<span>4</span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">109</th>
+  <td class="line-code diff_in">
+    <pre>        while (   position &lt;= sizePsData - 1<span>2</span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">110</th>
+  <th class="line-num">110</th>
+  <td class="line-code ">
+    <pre>               &amp;&amp; memcmp(pPsData + position, Photoshop::bimId_, 4) == 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">111</th>
+  <th class="line-num">111</th>
+  <td class="line-code ">
+    <pre>            const byte *hrd = pPsData + position;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">112</th>
+  <th class="line-num">112</th>
+  <td class="line-code ">
+    <pre>            position += 4;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">173</th>
+  <th class="line-num">173</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">174</th>
+  <th class="line-num">174</th>
+  <td class="line-code ">
+    <pre>    DataBuf Photoshop::setIptcIrb(const byte*     pPsData,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">175</th>
+  <th class="line-num">175</th>
+  <td class="line-code ">
+    <pre>                                  long            sizePsData,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">176</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                                  const IptcData&amp; iptcData)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">176</th>
+  <td class="line-code diff_in">
+    <pre>                                  const IptcData&amp; iptcData,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">177</th>
+  <td class="line-code diff_in">
+    <pre>                                  bool            keepEmptyBlock)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">177</th>
+  <th class="line-num">178</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">178</th>
+  <th class="line-num">179</th>
+  <td class="line-code ">
+    <pre>        if (sizePsData &gt; 0) assert(pPsData);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">179</th>
+  <th class="line-num">180</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">198</th>
+  <th class="line-num">199</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">199</th>
+  <th class="line-num">200</th>
+  <td class="line-code ">
+    <pre>        // Write new iptc record if we have it</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">200</th>
+  <th class="line-num">201</th>
+  <td class="line-code ">
+    <pre>        DataBuf rawIptc = IptcParser::encode(iptcData);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">201</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (rawIptc.size_ &gt; 0<span></span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">202</th>
+  <td class="line-code diff_in">
+    <pre>        if (rawIptc.size_ &gt; 0<span> || keepEmptyBlock</span>) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">202</th>
+  <th class="line-num">203</th>
+  <td class="line-code ">
+    <pre>            byte tmpBuf[12];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">203</th>
+  <th class="line-num">204</th>
+  <td class="line-code ">
+    <pre>            std::memcpy(tmpBuf, Photoshop::bimId_, 4);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">204</th>
+  <th class="line-num">205</th>
+  <td class="line-code ">
+    <pre>            us2Data(tmpBuf + 4, iptc_, bigEndian);</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">281</th>
+  <th class="line-num">282</th>
+  <td class="line-code ">
+    <pre>        const long bufMinSize = 36;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">282</th>
+  <th class="line-num">283</th>
+  <td class="line-code ">
+    <pre>        long bufRead = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">283</th>
+  <th class="line-num">284</th>
+  <td class="line-code ">
+    <pre>        DataBuf buf(bufMinSize);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">284</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        Blob iptcBlob;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">285</th>
+  <th class="line-num">285</th>
+  <td class="line-code ">
+    <pre>        bool foundPsData = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">286</th>
+  <th class="line-num">286</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">287</th>
+  <th class="line-num">287</th>
+  <td class="line-code ">
+    <pre>        // Read section marker</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">296</th>
+  <th class="line-num">296</th>
+  <td class="line-code ">
+    <pre>            if (bufRead &lt; 2) throw Error(15);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">297</th>
+  <th class="line-num">297</th>
+  <td class="line-code ">
+    <pre>            uint16_t size = getUShort(buf.pData_, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">298</th>
+  <th class="line-num">298</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">299</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (foundPsData &amp;&amp; marker != app13_) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">300</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                // For IPTC, decrement search only after all app13 segments are</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">301</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                // loaded, assuming they all appear in sequence. But decode IPTC</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">302</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                // data after the loop, in case an app13 is the last segment</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">303</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                // before sos or eoi.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">304</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                foundPsData = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">305</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                if (--search == 0) break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">306</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">307</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">308</th>
+  <th class="line-num">299</th>
+  <td class="line-code ">
+    <pre>            if (marker == app1_ &amp;&amp; memcmp(buf.pData_ + 2, exifId_, 6) == 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">309</th>
+  <th class="line-num">300</th>
+  <td class="line-code ">
+    <pre>                if (size &lt; 8) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">310</th>
+  <th class="line-num">301</th>
+  <td class="line-code ">
+    <pre>                    rc = 1;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">344</th>
+  <th class="line-num">335</th>
+  <td class="line-code ">
+    <pre>                --search;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">345</th>
+  <th class="line-num">336</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">346</th>
+  <th class="line-num">337</th>
+  <td class="line-code ">
+    <pre>            else if (   marker == app13_</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">338</th>
+  <td class="line-code diff_in">
+    <pre>                     &amp;&amp; !foundPsData</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">347</th>
+  <th class="line-num">339</th>
+  <td class="line-code ">
+    <pre>                     &amp;&amp; memcmp(buf.pData_ + 2, Photoshop::ps3Id_, 14) == 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">348</th>
+  <th class="line-num">340</th>
+  <td class="line-code ">
+    <pre>                if (size &lt; 16) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">349</th>
+  <th class="line-num">341</th>
+  <td class="line-code ">
+    <pre>                    rc = 2;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">354</th>
+  <th class="line-num">346</th>
+  <td class="line-code ">
+    <pre>                DataBuf psData(size - 16);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">355</th>
+  <th class="line-num">347</th>
+  <td class="line-code ">
+    <pre>                io_-&gt;read(psData.pData_, psData.size_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">356</th>
+  <th class="line-num">348</th>
+  <td class="line-code ">
+    <pre>                if (io_-&gt;error() || io_-&gt;eof()) throw Error(14);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">349</th>
+  <td class="line-code diff_in">
+    <pre>                Blob iptcBlob;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">357</th>
+  <th class="line-num">350</th>
+  <td class="line-code ">
+    <pre>                const byte *record = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">358</th>
+  <th class="line-num">351</th>
+  <td class="line-code ">
+    <pre>                uint32_t sizeIptc = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">359</th>
+  <th class="line-num">352</th>
+  <td class="line-code ">
+    <pre>                uint32_t sizeHdr = 0;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">370</th>
+  <th class="line-num">363</th>
+  <td class="line-code ">
+    <pre>                                                        &amp;record,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">371</th>
+  <th class="line-num">364</th>
+  <td class="line-code ">
+    <pre>                                                        &amp;sizeHdr,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">372</th>
+  <th class="line-num">365</th>
+  <td class="line-code ">
+    <pre>                                                        &amp;sizeIptc)) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">373</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    if (sizeIptc) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">374</th>
+  <th class="line-num">366</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">375</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    <span>    </span>std::cerr &lt;&lt; &quot;Found IPTC IRB, size = &quot; &lt;&lt; sizeIptc &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">367</th>
+  <td class="line-code diff_in">
+    <pre>                    <span></span>std::cerr &lt;&lt; &quot;Found IPTC IRB, size = &quot; &lt;&lt; sizeIptc &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">376</th>
+  <th class="line-num">368</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">369</th>
+  <td class="line-code diff_in">
+    <pre>                    if (sizeIptc) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">377</th>
+  <th class="line-num">370</th>
+  <td class="line-code ">
+    <pre>                        append(iptcBlob, record + sizeHdr, sizeIptc);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">378</th>
+  <th class="line-num">371</th>
+  <td class="line-code ">
+    <pre>                    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">379</th>
+  <th class="line-num">372</th>
+  <td class="line-code ">
+    <pre>                    pCur = record + sizeHdr + sizeIptc;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">380</th>
+  <th class="line-num">373</th>
+  <td class="line-code ">
+    <pre>                    pCur += (sizeIptc &amp; 1);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">381</th>
+  <th class="line-num">374</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">375</th>
+  <td class="line-code diff_in">
+    <pre>                if (   iptcBlob.size() &gt; 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">376</th>
+  <td class="line-code diff_in">
+    <pre>                    &amp;&amp; IptcParser::decode(iptcData_,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">377</th>
+  <td class="line-code diff_in">
+    <pre>                                          &amp;iptcBlob[0],</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">378</th>
+  <td class="line-code diff_in">
+    <pre>                                          static_cast&lt;uint32_t&gt;(iptcBlob.size()))) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">379</th>
+  <td class="line-code diff_in">
+    <pre>#ifndef SUPPRESS_WARNINGS</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">380</th>
+  <td class="line-code diff_in">
+    <pre>                    std::cerr &lt;&lt; &quot;Warning: Failed to decode IPTC metadata.\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">381</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">382</th>
+  <td class="line-code diff_in">
+    <pre>                    iptcData_.clear();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">383</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">382</th>
+  <th class="line-num">384</th>
+  <td class="line-code ">
+    <pre>                foundPsData = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">385</th>
+  <td class="line-code diff_in">
+    <pre>                --search;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">383</th>
+  <th class="line-num">386</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">384</th>
+  <th class="line-num">387</th>
+  <td class="line-code ">
+    <pre>            else if (marker == com_ &amp;&amp; comment_.empty())</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">385</th>
+  <th class="line-num">388</th>
+  <td class="line-code ">
+    <pre>            {</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">434</th>
+  <th class="line-num">437</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">435</th>
+  <th class="line-num">438</th>
+  <td class="line-code ">
+    <pre>        } // while there are segments to process</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">436</th>
+  <th class="line-num">439</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">437</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (   iptcBlob.size() &gt; 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">438</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            &amp;&amp; IptcParser::decode(iptcData_,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">439</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                                  &amp;iptcBlob[0],</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">440</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                                  static_cast&lt;uint32_t&gt;(iptcBlob.size()))) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">441</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>#ifndef SUPPRESS_WARNINGS</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">442</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            std::cerr &lt;&lt; &quot;Warning: Failed to decode IPTC metadata.\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">443</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">444</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            iptcData_.clear();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">445</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">446</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">447</th>
+  <th class="line-num">440</th>
+  <td class="line-code ">
+    <pre>        if (rc != 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">448</th>
+  <th class="line-num">441</th>
+  <td class="line-code ">
+    <pre>#ifndef SUPPRESS_WARNINGS</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">449</th>
+  <th class="line-num">442</th>
+  <td class="line-code ">
+    <pre>            std::cerr &lt;&lt; &quot;Warning: JPEG format error, rc = &quot; &lt;&lt; rc &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">487</th>
+  <th class="line-num">480</th>
+  <td class="line-code ">
+    <pre>        int skipApp1Xmp = -1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">488</th>
+  <th class="line-num">481</th>
+  <td class="line-code ">
+    <pre>        int skipApp13Ps3 = -1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">489</th>
+  <th class="line-num">482</th>
+  <td class="line-code ">
+    <pre>        int skipCom = -1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">483</th>
+  <td class="line-code diff_in">
+    <pre>        bool multipleApp13Ps3 = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">490</th>
+  <th class="line-num">484</th>
+  <td class="line-code ">
+    <pre>        DataBuf psData;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">491</th>
+  <th class="line-num">485</th>
+  <td class="line-code ">
+    <pre>        DataBuf rawExif;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">492</th>
+  <th class="line-num">486</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">511</th>
+  <th class="line-num">505</th>
+  <td class="line-code ">
+    <pre>                insertPos = count + 1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">512</th>
+  <th class="line-num">506</th>
+  <td class="line-code ">
+    <pre>                if (io_-&gt;seek(size-bufRead, BasicIo::cur)) throw Error(22);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">513</th>
+  <th class="line-num">507</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">514</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            else if (marker == app1_ &amp;&amp; memcmp(buf.pData_ + 2, exifId_, 6) == 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">508</th>
+  <td class="line-code diff_in">
+    <pre>            else if (marker == app1_ &amp;&amp; skipApp1Exif == -1</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">509</th>
+  <td class="line-code diff_in">
+    <pre>                     &amp;&amp; memcmp(buf.pData_ + 2, exifId_, 6) == 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">515</th>
+  <th class="line-num">510</th>
+  <td class="line-code ">
+    <pre>                if (size &lt; 8) throw Error(22);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">516</th>
+  <th class="line-num">511</th>
+  <td class="line-code ">
+    <pre>                skipApp1Exif = count;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">517</th>
+  <th class="line-num">512</th>
+  <td class="line-code ">
+    <pre>                ++search;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">521</th>
+  <th class="line-num">516</th>
+  <td class="line-code ">
+    <pre>                io_-&gt;read(rawExif.pData_, rawExif.size_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">522</th>
+  <th class="line-num">517</th>
+  <td class="line-code ">
+    <pre>                if (io_-&gt;error() || io_-&gt;eof()) throw Error(22);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">523</th>
+  <th class="line-num">518</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">524</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            else if (marker == app1_ &amp;&amp; memcmp(buf.pData_ + 2, xmpId_, 29) == 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">519</th>
+  <td class="line-code diff_in">
+    <pre>            else if (marker == app1_ &amp;&amp; skipApp1Xmp == -1</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">520</th>
+  <td class="line-code diff_in">
+    <pre>                     &amp;&amp; memcmp(buf.pData_ + 2, xmpId_, 29) == 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">525</th>
+  <th class="line-num">521</th>
+  <td class="line-code ">
+    <pre>                if (size &lt; 31) throw Error(22);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">526</th>
+  <th class="line-num">522</th>
+  <td class="line-code ">
+    <pre>                skipApp1Xmp = count;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">527</th>
+  <th class="line-num">523</th>
+  <td class="line-code ">
+    <pre>                ++search;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">528</th>
+  <th class="line-num">524</th>
+  <td class="line-code ">
+    <pre>                if (io_-&gt;seek(size-bufRead, BasicIo::cur)) throw Error(22);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">529</th>
+  <th class="line-num">525</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">530</th>
+  <th class="line-num">526</th>
+  <td class="line-code ">
+    <pre>            else if (marker == app13_ &amp;&amp; memcmp(buf.pData_ + 2, Photoshop::ps3Id_, 14) == 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">527</th>
+  <td class="line-code diff_in">
+    <pre>                if (skipApp13Ps3 == -1) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">531</th>
+  <th class="line-num">528</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">532</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                <span></span>std::cerr &lt;&lt; &quot;Found APP13 Photoshop PS3 segment\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">529</th>
+  <td class="line-code diff_in">
+    <pre>                <span>    </span>std::cerr &lt;&lt; &quot;Found APP13 Photoshop PS3 segment\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">533</th>
+  <th class="line-num">530</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">534</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                if (size &lt; 16) throw Error(22);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">535</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                skipApp13Ps3 = count;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">536</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                ++search;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">537</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                io_-&gt;seek(16 - bufRead, BasicIo::cur);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">538</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                psData.alloc(size - 16);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">539</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                // Load PS data now to allow reinsertion at any point</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">540</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                io_-&gt;read(psData.pData_, size - 16);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">541</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                if (io_-&gt;error() || io_-&gt;eof()) throw Error(20);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">531</th>
+  <td class="line-code diff_in">
+    <pre>                    if (size &lt; 16) throw Error(22);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">532</th>
+  <td class="line-code diff_in">
+    <pre>                    skipApp13Ps3 = count;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">533</th>
+  <td class="line-code diff_in">
+    <pre>                    ++search;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">534</th>
+  <td class="line-code diff_in">
+    <pre>                    io_-&gt;seek(16 - bufRead, BasicIo::cur);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">535</th>
+  <td class="line-code diff_in">
+    <pre>                    psData.alloc(size - 16);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">536</th>
+  <td class="line-code diff_in">
+    <pre>                    // Load PS data now to allow reinsertion at any point</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">537</th>
+  <td class="line-code diff_in">
+    <pre>                    io_-&gt;read(psData.pData_, size - 16);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">538</th>
+  <td class="line-code diff_in">
+    <pre>                    if (io_-&gt;error() || io_-&gt;eof()) throw Error(20);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">539</th>
+  <td class="line-code diff_in">
+    <pre>                } else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">540</th>
+  <td class="line-code diff_in">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">541</th>
+  <td class="line-code diff_in">
+    <pre>                    std::cerr &lt;&lt; &quot;Found another APP13 Photoshop PS3 segment\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">542</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">543</th>
+  <td class="line-code diff_in">
+    <pre>                    multipleApp13Ps3 = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">544</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">542</th>
+  <th class="line-num">545</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">543</th>
+  <th class="line-num">546</th>
+  <td class="line-code ">
+    <pre>            else if (marker == com_ &amp;&amp; skipCom == -1) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">544</th>
+  <th class="line-num">547</th>
+  <td class="line-code ">
+    <pre>                if (size &lt; 2) throw Error(22);</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">658</th>
+  <th class="line-num">661</th>
+  <td class="line-code ">
+    <pre>                if (psData.size_ &gt; 0 || iptcData_.count() &gt; 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">659</th>
+  <th class="line-num">662</th>
+  <td class="line-code ">
+    <pre>                    // Set the new IPTC IRB, keeps existing IRBs but removes the</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">660</th>
+  <th class="line-num">663</th>
+  <td class="line-code ">
+    <pre>                    // IPTC block if there is no new IPTC data to write</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">664</th>
+  <td class="line-code diff_in">
+    <pre>                    // and no other IPTC IRBs are following</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">661</th>
+  <th class="line-num">665</th>
+  <td class="line-code ">
+    <pre>                    DataBuf newPsData = Photoshop::setIptcIrb(psData.pData_,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">662</th>
+  <th class="line-num">666</th>
+  <td class="line-code ">
+    <pre>                                                              psData.size_,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">663</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                                                              iptcData_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">667</th>
+  <td class="line-code diff_in">
+    <pre>                                                              iptcData_,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">668</th>
+  <td class="line-code diff_in">
+    <pre>                                                              multipleApp13Ps3);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">664</th>
+  <th class="line-num">669</th>
+  <td class="line-code ">
+    <pre>                    if (newPsData.size_ &gt; 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">665</th>
+  <th class="line-num">670</th>
+  <td class="line-code ">
+    <pre>                        // Write APP13 marker, new size, and ps3Id</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">666</th>
+  <th class="line-num">671</th>
+  <td class="line-code ">
+    <pre>                        tmpBuf[0] = 0xff;</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"><li class="previous"><span>« Previous</span></li><li class="current"><span>1</span></li><li class="page"><a href="/attachments/97/kde_bug_152210_fixed.jpg">2</a></li><li class="page"><a href="/attachments/98/exiv2_jpg_patches_version5.tgz">3</a></li><li class="page"><a href="/attachments/100/change_Photoshop_IRB_warning_to_debug.patch">4</a></li><li class="next page"><a href="/attachments/97/kde_bug_152210_fixed.jpg">Next »</a></li></ul><span><span class="items">(1-1/4)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

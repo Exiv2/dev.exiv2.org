@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1353: Segmentation fault in the software exiv2 when the function Exiv2::tEXtToDataBuf() is finished - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="DNsWvEineYOjqVAx3qShHMSelObW+pbpyBhEH9wwTcPulr1TOt21g/bNTz1hc60v+wzAnycZN1M1ONSXnwmqrA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1353: Segmentation fault in the software exiv2 when the function Exiv2::tEXtToDataBuf() is finished" href="https://dev.exiv2.org/issues/1353.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1353</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Segmentation fault in the software exiv2 when the function Exiv2::tEXtToDataBuf() is finished</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/7143">chung-yi lin</a> <a title="22 May 2018 05:53" href="/projects/exiv2/activity?from=2018-05-22">over 3 years</a> ago.
+        Updated <a title="22 May 2018 08:24" href="/projects/exiv2/activity?from=2018-05-22">over 3 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">image format</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Dec 2018" href="/versions/55">0.27</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">22 May 2018</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Triggered by ./exiv2 -pR POC</p>
+
+
+	<p>Description of problem:</p>
+
+
+	<p>Version-Release number of selected component (if applicable):</p>
+
+
+	<p>0.26</p>
+
+
+	<p>How reproducible:</p>
+
+
+	<p>./exiv2 -pR POC</p>
+
+
+	<p>Steps to Reproduce:</p>
+
+
+	<p>The output information is as follows:<br />$ ./exiv2 -pR POC<br />STRUCTURE OF PNG FILE: POC<br /> address | chunk |  length | data                           | checksum<br />       8 | IHDR  |      13 | ... ... ....                   | 0x44a48ac6<br />      33 | QEXt  |      25 | Software.Adobe ImageReady      | 0x71c9653c<br />      70 | PL    |      15 | ..... ... ....                 | 0x44a48ac6<br />      97 | tEXt  |      25 | Software.Adobe IpHYsReady      | 0x71c9653c<br />Segmentation fault (core dumped)</p>
+
+
+	<p>GDB debugging information is as follows:<br />(gdb) set args -pR POC<br />(gdb) r<br />STRUCTURE OF PNG FILE: POC<br /> address | chunk |  length | data                           | checksum<br />       8 | IHDR  |      13 | ... ... ....                   | 0x44a48ac6<br />      33 | QEXt  |      25 | Software.Adobe ImageReady      | 0x71c9653c<br />      70 | PL    |      15 | ..... ... ....                 | 0x44a48ac6<br />      97 | tEXt  |      25 | Software.Adobe IpHYsReady      | 0x71c9653c</p>
+
+
+	<p>Program received signal SIGSEGV, Segmentation fault.<br />0x00000000008031f9 in Exiv2::tEXtToDataBuf (result=..., length=4294967295, bytes=0xec140a "    ")<br />    at pngimage.cpp:164</p>
+
+
+	<p>164                    if ( value[p[i]] )<br />(gdb) bt<br />#0  0x00000000008031f9 in Exiv2::tEXtToDataBuf (result=..., length=4294967295, bytes=0xec140a "    ")<br />    at pngimage.cpp:164<br />#1  Exiv2::PngImage::printStructure (this=0xec0aa0, out=..., option=Exiv2::kpsRecursive, depth=0)<br />    at pngimage.cpp:306<br />#2  0x000000000046bdc5 in Action::Print::printStructure (this=this@entry=0xec1bd0, out=..., <br />    option=option@entry=Exiv2::kpsRecursive) at actions.cpp:283<br />#3  0x0000000000486d52 in Action::Print::run (this=0xec1bd0, path="POC") at actions.cpp:247<br />#4  0x000000000040772d in main (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at exiv2.cpp:166</p>
+
+
+	<p>(gdb) list<br />159            // header is \nsomething\n number\n hex<br />160            while ( count < 3 )<br />161                if ( *p++ == '\n' )<br />162                    count++;<br />163            for ( long i = 0 ; i < length ; i++ ){<br />164                    if ( value[p[i]] )<br />165                        ++count;<br />166            }<br />167            result.alloc((count+1)/2) ;<br />168</p>
+
+
+	<p>(gdb) info all-registers <br />rax            0x69    105<br />rbx            0xec13f0    15471600<br />rcx            0x1d3c7    119751<br />rdx            0x0    0<br />rsi            0x0    0<br />rdi            0x69    105<br />rbp            0xec1c36    0xec1c36<br />rsp            0x7fffffffe070    0x7fffffffe070<br /><a class="changeset" title="More code" href="/projects/exiv2/repository/exiv2/revisions/8">r8</a>             0x69    105<br /><a class="changeset" title="Added Value et al." href="/projects/exiv2/repository/exiv2/revisions/9">r9</a>             0x0    0<br /><a class="changeset" title="Values implemented" href="/projects/exiv2/repository/exiv2/revisions/10">r10</a>            0xffffffffffffffff    -1<br /><a class="changeset" title="More code..." href="/projects/exiv2/repository/exiv2/revisions/11">r11</a>            0x0    0<br /><a class="changeset" title="added license blabla" href="/projects/exiv2/repository/exiv2/revisions/12">r12</a>            0x7fffffffe230    140737488347696<br /><a class="changeset" title="Metadatum interface, Ifd::Entry" href="/projects/exiv2/repository/exiv2/revisions/13">r13</a>            0xec0aa0    15469216<br /><a class="changeset" title="Fix in the docu" href="/projects/exiv2/repository/exiv2/revisions/14">r14</a>            0xffffffff    4294967295<br /><a class="changeset" title="Rewrote Thumbnail::read(), added ExifData::findKey, cleanup" href="/projects/exiv2/repository/exiv2/revisions/15">r15</a>            0xec0c60    15469664<br />rip            0x8031f9    0x8031f9 &lt;Exiv2::PngImage::printStructure(std::ostream&#38;, Exiv2::PrintStructureOption, int)+16057&gt;<br />eflags         0x10297    [ CF PF AF SF IF RF ]<br />cs             0x33    51<br />ss             0x2b    43<br />ds             0x0    0<br />es             0x0    0<br />fs             0x0    0<br />gs             0x0    0<br />st0            0    (raw 0x00000000000000000000)<br />st1            0    (raw 0x00000000000000000000)<br />st2            0    (raw 0x00000000000000000000)<br />st3            0    (raw 0x00000000000000000000)<br />st4            0    (raw 0x00000000000000000000)<br />st5            0    (raw 0x00000000000000000000)<br />st6            0    (raw 0x00000000000000000000)<br />st7            0    (raw 0x00000000000000000000)<br />fctrl          0x37f    895<br />fstat          0x0    0<br />ftag           0xffff    65535<br />fiseg          0x0    0<br />fioff          0x0    0<br />foseg          0x0    0<br />fooff          0x0    0<br />fop            0x0    0<br />mxcsr          0x1f80    [ IM DM ZM OM UM PM ]</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1228">POC</a>    <span class="size">(266 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1228/POC">POC</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">chung-yi lin, 22 May 2018 05:53</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-6204" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 May 2018 08:24" href="/projects/exiv2/activity?from=2018-05-22">over 3 years</a> ago
+      <span id="journal-6204-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-6204-notes" class="wiki"><p>We will not accept bug reports which use the option -pR.  That option is provided for debugging only.  In v0.27, it will only be provided on builds with the DEBUG flag.  And even then, we will not accept bug reports about it.  Exiv2 is a library.  The command-line program exiv2(.exe) is a test harness and should never be deployed for production purposes.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1353.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1353.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

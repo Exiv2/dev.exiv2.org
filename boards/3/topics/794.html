@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Extracting raw ICC profile data that&#39;s embedded in the Exif? - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="07G8Ap34/VFGseyicVP9smI4AvOFVAV8cDimgKpGn8Qx/Bft74IxURPV867OhPGBXapWinS3pMaNGDYI6X94qw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Extracting raw ICC profile data that&#39;s embedded in the Exif?</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/1818">Ray NA</a> <a title="01 Feb 2011 15:23" href="/projects/exiv2/activity?from=2011-02-01">almost 11 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>Is there a way to extract the ICC profile from an image file that has it embedded as part of the Exif, in the IFD0 structure?  I just need to get at this data from the Exiv2 API - the API does NOT need to interpret the data.</p>
+
+
+	<p>Looking through the output from exiftool on images, it appears that Capture NX2 2.2.5 will embed the ICC profile in the Exif data.  I only know the simplest things about the exif structures and not what is valid etc.</p>
+
+
+	<p>With that said, exiftool tells me that the ICC_Profile has a tag 0x8773, contained with the IFD0 directory<br /><pre>
+  JPEG APP1 (41806 bytes):
+  ExifByteOrder = II
+  + [IFD0 directory with 23 entries]
+  | 0)  SubfileType = 1
+  | 1)  ImageWidth = 320
+  | 2)  ImageHeight = 212
+  | 3)  BitsPerSample = 8 8 8
+  | 4)  Compression = 1
+  | 5)  Make = NIKON CORPORATION
+  | 6)  Model = NIKON D300
+  | 7)  Orientation = 1
+  | 8)  SamplesPerPixel = 3
+  | 9)  XResolution = 300 (300/1)
+  | 10) YResolution = 300 (300/1)
+  | 11) PlanarConfiguration = 1
+  | 12) ResolutionUnit = 2
+  | 13) Software = Capture NX 2.2.5 W
+  | 14) ModifyDate = 2011:01:05 12:30:16
+  | 15) Artist =
+  | 16) ReferenceBlackWhite = 0 255 0 255 0 255 (0/1 255/1 0/1 255/1 0/1 255/1)
+  | 17) Copyright =
+  | 18) ExifOffset (SubDirectory) --&gt;
+... snip ...
+  | 19) ICC_Profile (SubDirectory) --&gt;
+  |     - Tag 0x8773 (532 bytes, undef[532]):
+  |         0218: 00 00 21 ec 4e 4b 4f 4e 02 20 00 00 6d 6e 74 72 [..!.NKON. ..mntr]
+  |         0228: 52 47 42 20 58 59 5a 20 07 d9 00 02 00 14 00 11 [RGB XYZ ........]
+  |         0238: 00 07 00 0a 61 63 73 70 41 50 50 4c 00 00 00 00 [....acspAPPL....]
+  |         0248: 6e 6f 6e 65 00 00 00 01 00 00 00 00 00 00 00 00 [none............]
+  |         0258: 00 00 00 00 00 00 f6 d6 00 01 00 00 00 00 d3 2d [...............-]
+  |         [snip 452 bytes]
+  | + [ICC_Profile directory with 9 entries]
+  | | ProfileHeader (SubDirectory) --&gt;
+  | | + [BinaryData directory, 128 bytes]
+  | | | ProfileCMMType = NKON
+  | | | - Tag 0x0004 (4 bytes, string[4]):
+  | | |     0210: 4e 4b 4f 4e                                     [NKON]
+  | | | ProfileVersion = 544
+  | | | - Tag 0x0008 (2 bytes, int16s[1]):
+  | | |     0214: 02 20                                           [. ]
+  | | | ProfileClass = mntr
+  | | | - Tag 0x000c (4 bytes, string[4]):
+  | | |     0218: 6d 6e 74 72                                     [mntr]
+  | | | ColorSpaceData = RGB 
+  | | | - Tag 0x0010 (4 bytes, string[4]):
+  | | |     021c: 52 47 42 20                                     [RGB ]
+  | | | ProfileConnectionSpace = XYZ 
+  | | | - Tag 0x0014 (4 bytes, string[4]):
+  | | |     0220: 58 59 5a 20                                     [XYZ ]
+  | | | ProfileDateTime = 2009 2 20 17 7 10
+  | | | - Tag 0x0018 (12 bytes, int16u[6]):
+  | | |     0224: 07 d9 00 02 00 14 00 11 00 07 00 0a             [............]
+  | | | ProfileFileSignature = acsp
+  | | | - Tag 0x0024 (4 bytes, string[4]):
+  | | |     0230: 61 63 73 70                                     [acsp]
+  | | | PrimaryPlatform = APPL
+  | | | - Tag 0x0028 (4 bytes, string[4]):
+  | | |     0234: 41 50 50 4c                                     [APPL]
+  | | | CMMFlags = 0
+  | | | - Tag 0x002c (4 bytes, int32u[1]):
+  | | |     0238: 00 00 00 00                                     [....]
+  | | | DeviceManufacturer = none
+  | | | - Tag 0x0030 (4 bytes, string[4]):
+  | | |     023c: 6e 6f 6e 65                                     [none]
+  | | | DeviceModel = 
+  | | | - Tag 0x0034 (4 bytes, string[4]):
+  | | |     0240: 00 00 00 01                                     [....]
+  | | | DeviceAttributes = 0 0
+  | | | - Tag 0x0038 (8 bytes, int32u[2]):
+  | | |     0244: 00 00 00 00 00 00 00 00                         [........]
+  | | | RenderingIntent = 0
+  | | | - Tag 0x0040 (4 bytes, int32u[1]):
+  | | |     024c: 00 00 00 00                                     [....]
+  | | | ConnectionSpaceIlluminant = 0.9642 1 0.82491
+  | | | - Tag 0x0044 (12 bytes, fixed32s[3]):
+  | | |     0250: 00 00 f6 d6 00 01 00 00 00 00 d3 2d             [...........-]
+  | | | ProfileCreator = 
+  | | | - Tag 0x0050 (4 bytes, string[4]):
+  | | |     025c: 00 00 00 00                                     [....]
+  | | | ProfileID = 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+  | | | - Tag 0x0054 (16 bytes, int8u[16]):
+  | | |     0260: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [................]
+  | | 0)  ProfileDescription = Nikon Adobe RGB 4.0.0.3001
+  | |     - Tag 'desc' (118 bytes, type 'desc'):
+  | |         037c: 64 65 73 63 00 00 00 00 00 00 00 1b 4e 69 6b 6f [desc........Niko]
+  | |         038c: 6e 20 41 64 6f 62 65 20 52 47 42 20 34 2e 30 2e [n Adobe RGB 4.0.]
+  | |         039c: 30 2e 33 30 30 31 00 00 00 00 00 00 00 00 00 00 [0.3001..........]
+  | |         03ac: 00 1b 4e 69 6b 6f 6e 20 41 64 6f 62 65 20 52 47 [..Nikon Adobe RG]
+  | |         03bc: 42 20 34 2e 30 2e 30 2e 33 30 30 31 00 00 00 00 [B 4.0.0.3001....]
+  | |         [snip 38 bytes]
+... snip ...
+</pre></p>
+
+
+	<p>I have been extracting preview images from Nikon NEFs via the Exiv2 API.  However, if I use aRGB color space when processing of the NEF, the preview (jpeg) image is also in aRGB.</p>
+
+
+	<p>Once I have the preview image, I'd like to grab the embedded ICC profile such that I can ask ImageMagick's C API to perform the conversion to the standard sRGB color space such that any extracted preview image can be uploaded to the web/viewed in any browser (hence the sRGB color space requirement).</p>
+
+
+	<p>I've asked the IM boards and at the moment they also do not provide a way to grab the (uninterpretted) ICC profile if its in the Exif data.</p>
+
+
+	<p>Thanks</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (8)</h3>
+  <div class="message reply" id="message-796">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/794?r=796#message-796">RE: Extracting raw ICC profile data that&#39;s embedded in the Exif?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Feb 2011 18:01" href="/projects/exiv2/activity?from=2011-02-01">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>If "uninterpreted" means you just need the 532 bytes of data in the above example (00 00 21 ec 4e 4b 4f 4e 02 20 ...), then you should easily be able to get that: It's the value of Exif.Image.0x8773 if I understand the sample correctly.</p>
+
+
+	<p>For Exiv2 to decode that ICC sub-directory, it will need to become aware of this structure, which requires configuration along the lines of <a href="http://dev.exiv2.org/projects/exiv2/wiki/How_to_add_support_for_a_new_makernote" class="external">this slightly outdated tutorial</a> in the wiki.</p>
+
+
+	<p>Can you please create an issue for this feature and attach a sample image with such a tag?</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-797">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/794?r=797#message-797">RE: Extracting raw ICC profile data that&#39;s embedded in the Exif?</a>
+    -
+    Added by <a class="user active" href="/users/1818">Ray NA</a> <a title="02 Feb 2011 05:40" href="/projects/exiv2/activity?from=2011-02-02">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks, yes the 532 bytes is exactly what I need, although different ICC Profiles will be different sizes of course.</p>
+
+
+	<p>I will log an issue/feature request along with suitable image over the wkend (currently working at client site).</p>
+
+
+	<p>Having a look around, I found: [[<a class="external" href="http://www.color.org/ICC_Minor_Revision_for_Web.pdf">http://www.color.org/ICC_Minor_Revision_for_Web.pdf</a>]] which states the the <strong>0x8773</strong> tag is used to identify the embedded ICC profile within the IFD structure for a given tiff/jpeg etc.</p>
+
+
+	<p>The section, "B.3 Embedding ICC profiles in TIFF files" p73 if you need this reference.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-798">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/794?r=798#message-798">RE: Extracting raw ICC profile data that&#39;s embedded in the Exif?</a>
+    -
+    Added by <a class="user active" href="/users/1818">Ray NA</a> <a title="04 Feb 2011 15:22" href="/projects/exiv2/activity?from=2011-02-04">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Issue created as requested:<br />[[<a class="external" href="http://dev.exiv2.org/issues/756">http://dev.exiv2.org/issues/756</a>]]</p></div>
+  
+  </div>
+  <div class="message reply" id="message-799">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/794?r=799#message-799">RE: Extracting raw ICC profile data that&#39;s embedded in the Exif?</a>
+    -
+    Added by <a class="user active" href="/users/1818">Ray NA</a> <a title="04 Feb 2011 16:23" href="/projects/exiv2/activity?from=2011-02-04">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>"you should easily be able to get that: It's the value of Exif.Image.0x8773"</p>
+
+
+	<p>Can I ask if I am using the i/f correctly?<br /><pre>
+ Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename);
+ image-&gt;readMetadata();
+ const Exiv2::ExifData&#38;  ed = image-&gt;exifData();
+ Exiv2::ExifData::const_iterator  d;
+
+ const char*  iccproftag = "Exif.Image.0x8773";
+ if ( (d = ed.findKey(Exiv2::ExifKey(iccproftag)) ) == ed.end()) {
+     std::cout &lt;&lt; "unable to find ICC profile" &lt;&lt; std::endl;
+ }
+ else
+ {
+     // COUNT and SIZE report the size of the data (ie 536 bytes)
+     std::cout &lt;&lt; "lookup=" &lt;&lt; iccproftag &lt;&lt; " =&gt; " &lt;&lt; d-&gt;key() &lt;&lt; "=&gt;  @" &lt;&lt; d-&gt;idx() &lt;&lt; " count=" &lt;&lt; d-&gt;count() &lt;&lt; " size=" &lt;&lt; d-&gt;size() &lt;&lt; std::endl;
+
+*     // BUT the dataArea() size_ is 0!!!*
+     Exiv2::DataBuf  buf = d-&gt;dataArea();
+
+     if (buf.size_ &gt; 0)
+     {
+         char path[PATH_MAX];
+         strcpy(path, filename);
+         strcpy(path, basename(path));
+         strcat(path, ".icc");
+         std::cout &lt;&lt; "  dumping ICC to " &lt;&lt; path &lt;&lt; std::endl;
+
+         int fd;
+         if ( (fd = open(path, O_CREAT | O_TRUNC | O_WRONLY, 0666 &#38; ~msk))) {
+             write(fd, buf.pData_, buf.size_);
+             close(fd);
+         }
+     }
+     else
+     {
+         const Exiv2::Value&#38;  val = d-&gt;value();
+         Exiv2::DataBuf  vbuf =  val.dataArea();
+         std::cout &lt;&lt; "  empty dataArea() ???  value size=" &lt;&lt; val.size() &lt;&lt; ", dataArea().size=" &lt;&lt; vbuf.size_ &lt;&lt; std::endl;
+     }
+</pre></p>
+
+
+	<p>Running this, I have:<br /><pre>
+lookup=Exif.Image.0x8773 =&gt; Exif.Image.InterColorProfile=&gt;  @26 count=532 size=532
+  empty dataArea() ???  value size=532, dataArea().size=0
+</pre></p>
+
+
+	<p>so the dataArea() is always empty even though the reported size is 532 bytes??</p></div>
+  
+  </div>
+  <div class="message reply" id="message-800">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/794?r=800#message-800">RE: Extracting raw ICC profile data that&#39;s embedded in the Exif?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="05 Feb 2011 00:42" href="/projects/exiv2/activity?from=2011-02-05">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>I noticed that tag already has a name; it's called <strong>Exif.Image.InterColorProfile</strong>. Something like this is how its value can be extracted and stored in a file:</p>
+
+
+<pre>
+    Exiv2::Exifdatum&#38; md = exifData["Exif.Image.InterColorProfile"];
+    if (md.size() &gt; 0) {
+        Exiv2::DataBuf buf(md.size());
+        md.copy(buf.pData_, Exiv2::invalidByteOrder);
+        Exiv2::writeFile(buf, "iccprofile");
+    }
+</pre>
+
+	<p>Note that while the exifData[...] notation is shorter, it creates an entry if it doesn't exist yet, so it may be better to use ExifData::findKey().</p>
+
+
+	<p>The data area on the other hand is a somewhat obscure (and not very well documented) feature, which is used e.g., for the image data of thumbnail tags, where the actual tag value is only an offset that points to the area where the image data is found.</p>
+
+
+	<p>BTW, the NEF image you posted in <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Access to ICC Profile (TAG: 0x8773) data in Exif as uninterpretted binary (Closed)" href="/issues/756">#756</a> also contains the ICC profile in <strong>Exif.Nikon3.ICCProfile</strong>. (Unfortunately, the JPG doesn't have this tag either.)</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2342">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/794?r=2342#message-2342">RE: Extracting raw ICC profile data that&#39;s embedded in the Exif?</a>
+    -
+    Added by <a class="user active" href="/users/4507">evan pan</a> <a title="07 Feb 2016 04:32" href="/projects/exiv2/activity?from=2016-02-07">almost 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi, Andreas.     <br />Thanks for sharing your problem. As for me, I have seldom tried to deal with that kind of problem before. Have you ever worked it out? I wonder whether you have any exprience about <a href="http://www.pqscan.com/extract-text/from-pdf-csharp.html" class="external">pdf extraction</a> process. Because there is something wrong with my pdf reader. I need <a href="http://www.pqscan.com/pdf-to-text/" class="external">convert pdf into text</a> or other formats. Any suggestion will be appreciated. Thanks in advance.</p>
+
+
+	<p>Best regards,     <br />Pan</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2343">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/794?r=2343#message-2343">RE: Extracting raw ICC profile data that&#39;s embedded in the Exif?</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Feb 2016 06:36" href="/projects/exiv2/activity?from=2016-02-07">almost 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I was unaware of this conversation.  However, I have good news:  <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: ICC Profile in APP2 segment. (Closed)" href="/issues/1074">#1074</a> will provide support for ICC profiles in v0.26.  v0.26 will be ready later this year.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2344">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/794?r=2344#message-2344">RE: Extracting raw ICC profile data that&#39;s embedded in the Exif?</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Feb 2016 07:58" href="/projects/exiv2/activity?from=2016-02-07">almost 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>The linux utility <strong>pdftotext</strong> appears to do a good job of converting PDF to ascii.  If you're looking for a library to perform <em><strong>PDF</strong></em> to <em>TXT</em> conversion, the utility pdftotext uses libpoppler.so.52 about which I know nothing at all.</p>
+
+
+	<p>I know a great deal about PDF because I was a Senior Computer Scientist at Adobe Systems in San Jose, California for more than 10 years.  I intended to add PDF metadata support in v0.26 <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Support for PDF metadata will be provided in samples/exiv2json.cpp	 (Assigned)" href="/issues/1138">#1138</a>.  However it's been deferred to make the schedule.  It's quite unlikely that Exiv2 would support extracting text from a PDF file.  The scope of Exiv2 is metadata.  Reading content isn't metadata.</p>
+
+
+	<p>Adobe have excellent libraries for PDF support, however I don't know the licensing arrangements.  I'm an engineer and not a business guy.  I intended to add PDF support to Exiv2 using podofo.  I know very little about podofo and <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Support for PDF metadata will be provided in samples/exiv2json.cpp	 (Assigned)" href="/issues/1138">#1138</a> would give me a much better feel for that library.  podofo has a number of sample applications including podofoextracttxt.   Extracting an ascii document from a PDF is non trivial because PDFs are usually generated by printer drivers which can break lines of text into many little strings.  The reassembly of those strings into simple words and spaces is a clever trick.  I've tried podofoextracttxt and, although it reports all the strings, it doesn't appear to perform the reassembly.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-8/8)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

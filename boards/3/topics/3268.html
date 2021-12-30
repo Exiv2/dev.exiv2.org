@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Get interpreted value for a tag-value without saving it - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="he35oM1/0aPGt8+SxNvSe0+dSI5n1qkgIC5zelPlaY1noFJPvwUdo5PT0J57DN5IcA8c95Y1CJrdDuPyENyO4g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Get interpreted value for a tag-value without saving it</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/251">Norbert Wagner</a> <a title="20 Dec 2018 18:03" href="/projects/exiv2/activity?from=2018-12-20">almost 3 years</a> ago</span></p>
+<div class="wiki">
+<p>I want to get the interpreted value of a tag after entering the "original" value, but without saving the image (as a preview for the user). E.g. after entering "53/10", writing the image and reading again, I get as interpreted value "F5.3".</p>
+
+
+	<p>This is my code:<br />    Exiv2::Value::AutoPtr v = Exiv2::Value::create(Exiv2::asciiString);<br />    v->read("53/10");<br />    Exiv2::ExifKey key("Exif.Photo.FNumber");<br />    Exiv2::Exifdatum datum = Exiv2::Exifdatum(key, v.get());<br />    std::cout << "key=" << datum.key().c_str() << "   value=" << datum.toString().c_str() << "   interpreted=" << datum.print().c_str() << "\n";</p>
+
+
+	<p>The result is:<br />    key=Exif.Photo.FNumber   value=53/10   interpreted=F53</p>
+
+
+	<p>When saving this value, F5.3 is returned.</p>
+
+
+	<p>When I try the value "800/10" with Exif.Photo.FocalLength, the returned interpreted value is "56.0 mm", really strange number.</p>
+
+
+	<p>Obviously the interpreted value in both cases is formated based on the tag (F for FNumber, mm for focal length), but the values do not fit.</p>
+
+
+	<p>Any idea how I can get the correct interpreted value?</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (4)</h3>
+  <div class="message reply" id="message-3269">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3268?r=3269#message-3269">RE: Get interpreted value for a tag-value without saving it</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Dec 2018 19:49" href="/projects/exiv2/activity?from=2018-12-20">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Norbert</p>
+
+
+	<p>Seasons Greetings.  Hope you're good.  We released Exiv2 v0.27 today on <a class="external" href="http://exiv2.org">http://exiv2.org</a></p>
+
+
+	<p>I think the "interpreted" value is returned by <code>item.print()</code> and the ascii representation of the "raw" data by <code>item.value().toString()</code>.    I've modified my copy of sample/exifprint.cpp<br /><pre>
+    for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {
+        /*
+        const char* tn = i-&gt;typeName();
+        std::cout &lt;&lt; std::setw(44) &lt;&lt; std::setfill(' ') &lt;&lt; std::left
+                  &lt;&lt; i-&gt;key() &lt;&lt; " " 
+                  &lt;&lt; "0x" &lt;&lt; std::setw(4) &lt;&lt; std::setfill('0') &lt;&lt; std::right
+                  &lt;&lt; std::hex &lt;&lt; i-&gt;tag() &lt;&lt; " " 
+                  &lt;&lt; std::setw(9) &lt;&lt; std::setfill(' ') &lt;&lt; std::left
+                  &lt;&lt; (tn ? tn : "Unknown") &lt;&lt; " " 
+                  &lt;&lt; std::dec &lt;&lt; std::setw(3)
+                  &lt;&lt; std::setfill(' ') &lt;&lt; std::right
+                  &lt;&lt; i-&gt;count() &lt;&lt; "  " 
+                  &lt;&lt; std::dec &lt;&lt; i-&gt;value()
+                  &lt;&lt; "\n" 
+          */
+        std::cout &lt;&lt; i-&gt;key() &lt;&lt; "t,v = " &lt;&lt; i-&gt;print() &lt;&lt; "," &lt;&lt; i-&gt;value().toString() &lt;&lt; std::endl;
+    }
+</pre></p>
+
+
+	<p>Fnumbers is the mysterious "APEX" number.  Phil explains this here:  <a class="external" href="http://dev.exiv2.org/issues/1039#note-8">http://dev.exiv2.org/issues/1039#note-8</a></p>
+
+
+	<p>There are metadata items which are "protected".  They are declared in src/tiffimage_int.cpp and considered part of the Image and can't be modified.    Exif.Photo.FocalLength doesn't seem to one of them, although I can't change it in my favourite test image Stonehenge.jpg (which you can download).</p>
+
+
+<pre>552 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ curl -O http://clanmills.com/Stonehenge.jpg
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 6599k  100 6599k    0     0   304k      0  0:00:21  0:00:21 --:--:--  729k
+553 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ bin/exifprint Stonehenge.jpg | grep -i foc
+Exif.Photo.FocalLength t,v = 44.0 mm,440/10
+Exif.Nikon3.Focus t,v = Automatic,AF-A  
+Exif.NikonLd3.FocusPosition t,v = 148,148
+Exif.NikonLd3.FocusDistance t,v = 31.62 m,140
+Exif.NikonLd3.FocalLength t,v = 43.6 mm,75
+Exif.NikonLd3.MinFocalLength t,v = 18.3 mm,45
+Exif.NikonLd3.MaxFocalLength t,v = 254.0 mm,136
+Exif.NikonLd3.MaxApertureAtMinFocal t,v = F3.6,44
+Exif.NikonLd3.MaxApertureAtMaxFocal t,v = F6.3,64
+Exif.NikonAf2.ContrastDetectAFInFocus t,v = 0,0
+Exif.Photo.FocalLengthIn35mmFilm t,v = 66.0 mm,66
+554 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ </pre>
+
+	<p>There are "convertors" in Exiv2 which synchronise metadata between Exif, IPTC and XMP.   I see Exif.NikonLd3.FocalLength is 43.6,75.  I think the convertor is "forcing" the value of 44 into Exif.Photo.FocalLength.</p>
+
+
+	<p>I'm sure we'll be discussing this more in the next few days.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3270">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3268?r=3270#message-3270">RE: Get interpreted value for a tag-value without saving it</a>
+    -
+    Added by <a class="user active" href="/users/251">Norbert Wagner</a> <a title="21 Dec 2018 21:18" href="/projects/exiv2/activity?from=2018-12-21">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robert,</p>
+
+
+	<p>Seasons Greetings and hoping you're good as well.</p>
+
+
+	<p>Thanks for your really fast response. As I noticed that my question seemed not to be clear enough, I wanted to enhance my example. And when I copied code from other places, I found the reason, why this was not working as I expected: using "Exiv2::asciiString" when initialising Exiv2::Value::AutoPtr was wrong. Here the code which gives the expected results:</p>
+
+
+	<p>Exiv2::ExifKey key("Exif.Photo.FNumber");<br />Exiv2::Value::AutoPtr v = Exiv2::Value::create(key.defaultTypeId());<br />v->read("53/10");<br />Exiv2::Exifdatum datum = Exiv2::Exifdatum(key, v.get());<br />std::cout << "key=" << datum.key().c_str() << "   value=" << datum.toString().c_str() << "   interpreted=" << datum.print().c_str() << "\"\n";</p>
+
+
+	<p>I downloaded your favourite test image (it's really nice) and was able to change Exif.Photo.FocalLength with my program.</p>
+
+
+	<p>Norbert</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3271">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3268?r=3271#message-3271">RE: Get interpreted value for a tag-value without saving it</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Dec 2018 21:42" href="/projects/exiv2/activity?from=2018-12-21">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the update.  It sounds as though this has a happy ending.</p>
+
+
+	<p>I've just pulled down a fresh copy of Stonehenge.jpg and I can edit FocalLength.  I have no idea why it wouldn't cooperate yesterday.  <pre>$ curl -O http://clanmills.com/Stonehenge.jpg
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 6599k  100 6599k    0     0  1131k      0  0:00:05  0:00:05 --:--:-- 1484k
+$ exiv2 --version | grep 27
+exiv2 0.27.0
+$ exiv2 --key Exif.Photo.FocalLength Stonehenge.jpg 
+Exif.Photo.FocalLength                       Rational    1  44.0 mm
+$ exiv2 -M'set Exif.Photo.FocalLength 100/1' Stonehenge.jpg 
+$ exiv2 --key Exif.Photo.FocalLength Stonehenge.jpg 
+Exif.Photo.FocalLength                       Rational    1  100.0 mm
+$</pre></p>
+
+
+	<p>I live 90km from Stonehenge and there's nothing special/unusual about that photo.  However, when I answer questions about Exiv2 on the forum, I like to use that image.  Exiv2 can read (and write) images using http.  Of course, you don't have write access to clanmills.com, so that's why I recommended to pull down the image with curl.  However when only reading the image, exiv2's http I/O is fine:</p>
+
+
+<pre>$ exiv2 --key Exif.Photo.FocalLength http://clanmills.com/Stonehenge.jpg
+Exif.Photo.FocalLength                       Rational    1  44.0 mm
+$ </pre>
+
+	<p>I hope you've been able to build exiv2 v0.27 from the source 'bundle' with CMake.  Happy to help if you're in difficulty.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3273">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3268?r=3273#message-3273">RE: Get interpreted value for a tag-value without saving it</a>
+    -
+    Added by <a class="user active" href="/users/251">Norbert Wagner</a> <a title="22 Dec 2018 20:04" href="/projects/exiv2/activity?from=2018-12-22">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Today I made some more detailed tests with a set of images. In general the solution works fine, I found just one tag, where it is not giving the interpreted value: Exif.NikonSi02xx.Version. But I believe nobody has the intention to change it, and if he has to accept that the interpreted value is shown correct only after saving.</p>
+
+
+	<p>I did not yet start with CMake, need to get familiar with it first. Will contact you if I need help, thanks a lot for your offer.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-4/4)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

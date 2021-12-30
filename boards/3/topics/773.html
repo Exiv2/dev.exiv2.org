@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Newbie - build/link problem - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="i8XF1Lvq8c4SeFS7G+5L5AFxodrGaCaStz0/EyzkyRlpiG47yZA9zkccS7ekOUfXPuP1ozeLhyhKHa+bb90udg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Newbie - build/link problem</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/1971">hugh dixon</a> <a title="26 Jan 2011 00:39" href="/projects/exiv2/activity?from=2011-01-26">almost 11 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,<br />I'm reasonably experienced with C/C++ on MSWindows but have found a problem using exiv2 in a QT project on Mandriva Linux.  (An environment in which I do not have much knowledge)<br />I have added exiv2 to my qt project, and have copied the first few lines of sample code from exifprint.cpp.<br />Stepping through the code everything appears to work until it reaches the exifData::count function.  The problem appears to be in the iterator, where it seems to access a bad pointer.</p>
+
+
+	<p>I suspect there must be something wrong with the way I have set the project up, or I do not have some other required package installed.<br />I am hoping someone may have seen this before and can point me in the direction of a fix.</p>
+
+
+	<p>With thanks</p>
+
+
+	<p>H</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (11)</h3>
+  <div class="message reply" id="message-774">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/773?r=774#message-774">RE: Newbie - build/link problem</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="26 Jan 2011 01:28" href="/projects/exiv2/activity?from=2011-01-26">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>Stepping through the code</p>
+
+
+</blockquote>
+
+	<p>If you can debug it, you must have successfully compiled and linked your program.<br />Can show the Exiv2 related code?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-775">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/773?r=775#message-775">RE: Newbie - build/link problem</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Jan 2011 01:46" href="/projects/exiv2/activity?from=2011-01-26">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hugh</p>
+
+
+	<p>I've just tried that on using QtCreator 2.0.1 which uses Qt 4.7.1 on Ubuntu 10.10.  Worked effortlessly for me.  I used the project wizard to create a command-line program and pasted in the code from exiv2/samples/exifprint.cpp.  I added LIBS += -L/usr/local/lib -lexiv2 to the .pro file.  It built, linked and ran first time.</p>
+
+
+	<p>How are you building and linking the code?  Are you using QtCreator and qmake?  I don't know if you've downloaded or built the exiv2 libraries from source.  I have the libraries built from source.</p>
+
+
+	<p>If you're still stuck, zip up your project and send it to me and I'll investigate on Wednesday (I'm in California - so I'm off to bed now).</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-776">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/773?r=776#message-776">RE: Newbie - build/link problem (code)</a>
+    -
+    Added by <a class="user active" href="/users/1971">hugh dixon</a> <a title="26 Jan 2011 03:20" href="/projects/exiv2/activity?from=2011-01-26">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>The code that causes the problem is:</p>
+
+
+	<p>void exifGUI::on_readFile_clicked()
+{<br />    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(ui->fileName->text().toStdString());<br />    Exiv2::Image* iNum = image.get();<br />    image->readMetadata();<br />    Exiv2::ExifData &#38;exifData = iNum->exifData();<br />    if (exifData.empty()) {<br />        std::cout << "no good";<br />    }</p>
+
+
+	<p>It dies in the iterator in the exifData.empty90 function.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-777">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/773?r=777#message-777">RE: Newbie - build/link problem</a>
+    -
+    Added by <a class="user active" href="/users/1971">hugh dixon</a> <a title="26 Jan 2011 03:23" href="/projects/exiv2/activity?from=2011-01-26">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin,<br />I have set up a console app and it will not compile.<br />I will investigate this further.  I believe there is a problem with my installation.</p>
+
+
+	<p>Thanks all for the fast replys</p>
+
+
+	<p>Hugh</p></div>
+  
+  </div>
+  <div class="message reply" id="message-778">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/773?r=778#message-778">RE: Newbie - build/link problem</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Jan 2011 07:49" href="/projects/exiv2/activity?from=2011-01-26">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hugh</p>
+
+
+	<p>The command-line exifprint.cpp code passes argv<sup><a href="#fn1">1</a></sup> to open.  Can you try:</p>
+
+
+	<p>Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(ui->fileName->text().toAscii());</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-806">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/773?r=806#message-806">RE: Newbie - build/link problem</a>
+    -
+    Added by <a class="user active" href="/users/1971">hugh dixon</a> <a title="15 Feb 2011 17:09" href="/projects/exiv2/activity?from=2011-02-15">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi,<br />Sorry to have been off line for so long, but have been looking at options.<br />It appears the mandriva version of exiv2 isv 0.19 and does not include the file exiv2.hpp<br />I think I was running/linking against different versions (0.21 and 0.19)<br />I think I have now sorted out version and am using 0.21.1.<br />I now get a link error as below:</p>
+
+
+*<strong><b></strong>*</b>**<strong>**</strong>*******<br />make: Entering directory `/home/hugh/code/exifConsole-build-desktop'<br />g++ -c -pipe -g -Wall -W -D_REENTRANT -DQT_PHONON_LIB -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/lib/qt4/mkspecs/linux-g++ -I../exifConsole -I/usr/lib/qt4/include/QtCore -I/usr/lib/qt4/include/QtGui -I/usr/lib/qt4/include/QtXml -I/usr/lib/qt4/include/QtXmlPatterns -I/usr/lib/qt4/include/phonon -I/usr/lib/qt4/include -I/usr/local/include/exiv2 -I/usr/lib/qt4/include/phonon_compat -I. -I../exifConsole -I. -o main.o ../exifConsole/main.cpp<br />g++ -Wl,--as-needed -Wl,--no-undefined -Wl,-z,relro -Wl,-O1 -Wl,--build-id -o exifConsole main.o    -L/usr/lib -L/usr/local/lib -lexiv2 -lphonon -lQtXmlPatterns -L/usr/lib -lQtNetwork -lQtXml -lQtGui -lQtCore -lpthread <br />main.o: In function `BasicError&lt;std::string&gt;':<br />make: Leaving directory `/home/hugh/code/exifConsole-build-desktop'<br />/usr/local/include/exiv2/error.hpp:268: undefined reference to `Exiv2::BasicError&lt;char&gt;::setMsg()'<br />collect2: ld returned 1 exit status<br />make: *** [exifConsole] Error 1<br />The process "/usr/bin/make" exited with code %2.
+<hr />
+
+
+	<p>nm on the lib gives:</p>
+
+
+<b>**</b><br />00102c10 T <em>ZN5Exiv210AsciiValueC2Ev<br />001064a0 T _ZN5Exiv210AsciiValueD0Ev<br />001064e0 T _ZN5Exiv210AsciiValueD1Ev<br />00106510 T _ZN5Exiv210AsciiValueD2Ev<br />0005eef0 T _ZN5Exiv210BasicErrorIcE6setMsgEv<br />00055e00 t _ZN5Exiv210BasicErrorIcEC1Ei<br />0005d6a0 t _ZN5Exiv210BasicErrorIcEC1ISsEEiRKT</em><br />00118630 t <em>ZN5Exiv210BasicErrorIcEC1ISsPKcEEiRKT_RKT0</em><br />00034710 t <em>ZN5Exiv210BasicErrorIcEC1ISsSsEEiRKT_RKT0</em><br />00118710 t <em>ZN5Exiv210BasicErrorIcEC1ISsmEEiRKT_RKT0</em><br />00033470 t _ZN5Exiv210BasicErrorIcED0Ev<br />00033740 t _ZN5Exiv210BasicErrorIcED1Ev
+<hr />
+
+
+	<p>so setMsg is there.  What I am wondering about is "What is a charT" and where is this defined?  Am I mixing ASCII and unicode?</p>
+
+
+	<p>Can you help again please?</p>
+
+
+	<p>Thanks,<br />Hugh</p></div>
+  
+  </div>
+  <div class="message reply" id="message-807">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/773?r=807#message-807">RE: Newbie - build/link problem</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Feb 2011 17:43" href="/projects/exiv2/activity?from=2011-02-15">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hugh</p>
+
+
+	<p>Did you install the library after you built it?  sudo make install  ?  Your library seems to be OK:</p>
+
+
+	<p>1194 /home/rmills $ nm -g /usr/local/lib/libexiv2.so.10.0.1 | grep setMsg<br />0005dac0 T _ZN5Exiv210BasicErrorIcE6setMsgEv<br />1195 /home/rmills $ c++filt _ZN5Exiv210BasicErrorIcE6setMsgEv<br />Exiv2::BasicError&lt;char&gt;::setMsg()<br />1196 /home/rmills $</p>
+
+
+	<p>I attach a Qt project using the code from exifprint.  I've added a line of code to report the library version.</p>
+
+
+	<p>1181 /home/rmills/Projects/exifprint-build-desktop $ exifprint ~/R.jpg | grep version<br />package version = exiv2 0.21.1<br />1182 /home/rmills/Projects/exifprint-build-desktop $</p>
+
+
+	<p>Here are the libraries which I have build (from the 0.21.1 archive on the downloads page).<br />1190 /home/rmills $ ls <del>alt /usr/local/lib/*exiv*<br />-rw-r--r-</del> 1 root root 3695494 2011-02-15 17:24 /usr/local/lib/libexiv2.a<br /><del>rw-r--r-</del> 1 root root    1020 2011-02-15 17:24 /usr/local/lib/libexiv2.la<br />lrwxrwxrwx 1 root root      18 2011-02-15 17:24 /usr/local/lib/libexiv2.so <del>> libexiv2.so.10.0.1<br />lrwxrwxrwx 1 root root      18 2011-02-15 17:24 /usr/local/lib/libexiv2.so.10 -> libexiv2.so.10.0.1<br />-rw-r--r-</del> 1 root root 2228257 2011-02-15 17:24 /usr/local/lib/libexiv2.so.10.0.1<br />1191 /home/rmills $ ^C</p>
+
+
+	<p>If you're still stuck, please zip and send me your code:  <a class="email" href="mailto:robin@clanmills.com">robin@clanmills.com</a></p>
+
+
+	<p>Robin</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/238">exifprint.tar.gz</a>    <span class="size">(1.93 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/238/exifprint.tar.gz">exifprint.tar.gz</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-812">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/773?r=812#message-812">RE: Newbie - build/link problem</a>
+    -
+    Added by <a class="user active" href="/users/1971">hugh dixon</a> <a title="17 Feb 2011 03:43" href="/projects/exiv2/activity?from=2011-02-17">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi,<br />Yes I ran make install as root, and I can see no errors (I still have the terminal open)<br />I have unzipped your sample and I get the same link error with it as I had previously with my other sample code.<br />I have not included my code sample, as I am convinced the problem is  with my installation.<br />The qt environment shows EXV_PACKAGE_STRING as exiv2 0.21.1</p>
+
+
+	<p>ls <del>l in /usr/local/lib gives:<br />total 7152<br />-rw-r--r-</del> 1 root root  288751 2011-02-12 19:32 blah.txt<br /><del>rwxrwxrwx 1 root root  598970 2011-01-16 18:38 libexif.a*<br />-rwxrwxrwx 1 root root     951 2011-01-16 18:38 libexif.la*<br />lrwxrwxrwx 1 root root      17 2011-01-16 18:38 libexif.so -> libexif.so.12.3.2*<br />lrwxrwxrwx 1 root root      17 2011-01-16 18:38 libexif.so.12 -> libexif.so.12.3.2*<br />-rwxrwxrwx 1 root root  397262 2011-01-16 18:38 libexif.so.12.3.2*<br />-rw-r--r-</del> 1 root root 3761088 2011-02-16 11:21 libexiv2.a<br /><del>rw-r--r-</del> 1 root root    1018 2011-02-16 11:21 libexiv2.la<br />lrwxrwxrwx 1 root root      18 2011-02-16 11:21 libexiv2.so <del>> libexiv2.so.10.0.1<br />lrwxrwxrwx 1 root root      18 2011-02-16 11:21 libexiv2.so.10 -> libexiv2.so.10.0.1<br />-rw-r--r-</del> 1 root root 2254919 2011-02-16 11:21 libexiv2.so.10.0.1<br />drwxrwxrwx 2 root root    4096 2011-02-16 11:21 pkgconfig/</p>
+
+
+	<p>I use to have regular problems with linker errors on strings using different string types, and still feel that is the problem here.</p>
+
+
+	<p>Thanks again for all the help<br />Hugh</p></div>
+  
+  </div>
+  <div class="message reply" id="message-813">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/773?r=813#message-813">RE: Newbie - build/link problem</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="17 Feb 2011 09:15" href="/projects/exiv2/activity?from=2011-02-17">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hugh</p>
+
+
+	<p>I don't know what's wrong.  I've done away with QtCreator and boiled this down to little script "builder.sh":</p>
+
+
+	<p>#!/bin/bash<br />CODE=/home/rmills/Projects/exifprint<br />g++ -c -pipe -g -Wall -W -D_REENTRANT -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++ -I../exifprint -I/usr/include/qt4/QtCore -I/usr/include/qt4 -I"$CODE" "$CODE/main.cpp" -o main.o <br />g++ -o exifprint main.o -L/usr/lib -L/usr/local/lib -lexiv2 -lQtCore -lpthread</p>
+
+
+	<p>Ignore the browser folding the code, you should have 4 lines which start: #! , CODE=, g++ -c , g++ -o</p>
+
+
+	<p>Here's what happens when I run it.</p>
+
+
+	<p>1349 /home/rmills/temp/hugh $ chmod +x builder.sh<br />1350 /home/rmills/temp/hugh $ ./builder.sh<br />1351 /home/rmills/temp/hugh $ ./exifprint ~/R.jpg | egrep -e version -e Date<br />package version = exiv2 0.21.1<br />Exif.Image.DateTime                          0x0132 Ascii      20  2010:09:05 11:52:15<br />Exif.Photo.DateTimeOriginal                  0x9003 Ascii      20  2010:09:05 11:52:15<br />Exif.Photo.DateTimeDigitized                 0x9004 Ascii      20  2010:09:05 11:52:15<br />1352 /home/rmills/temp/hugh $</p>
+
+
+	<p>Obviously, you'll need to set CODE for your environment.  main.cpp is the one I posted before in the exifprint.pro project.</p>
+
+
+	<p>If your unable to get this to work, I suggest you ask on a forum which deals with Mandriva.  For example: LinuxQuestions.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-814">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/773?r=814#message-814">RE: Newbie - build/link problem</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="17 Feb 2011 16:54" href="/projects/exiv2/activity?from=2011-02-17">almost 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hugh,</p>
+
+
+	<p>Could it be that you have another, older, libexiv2 on your system a, e.g., in /usr/lib and gcc links with that instead of /usr/local/lib/libexiv2* ?</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-826">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/773?r=826#message-826">RE: Newbie - build/link problem</a>
+    -
+    Added by <a class="user active" href="/users/1971">hugh dixon</a> <a title="22 Feb 2011 03:22" href="/projects/exiv2/activity?from=2011-02-22">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>yes!!!</p>
+
+
+	<p>I have found libexiv2.so.6.0.0   in /usr/lib.<br />The above builder.sh does not work, but if I put</p>
+
+
+	<p>g++ -o exifprint main.o  -L/usr/local/lib -L/usr/lib -lexiv2 -lQtCore -lpthread</p>
+
+
+	<p>it is fine.</p>
+
+
+	<p>Thank you all for your patience!!!<br />Hugh</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-11/11)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(Revision 4308)
++++ CMakeLists.txt	(Arbeitskopie)
+@@ -18,7 +18,7 @@
+ endif()
+ ##
+ 
+-CMAKE_MINIMUM_REQUIRED( VERSION 2.8.11 )
++CMAKE_MINIMUM_REQUIRED( VERSION 3.1 )
+ PROJECT( exiv2 )
+ 
+ if( POLICY CMP0042 )
+@@ -61,7 +61,13 @@
+     OPTION( EXIV2_ENABLE_SSH           "USE Libssh for SshIo"                              ON  )
+ 
+ ENDIF()
++OPTION( EXIV2_ENABLE_CXX11         "Build in C++11 mode of compiler"                       OFF )
+ 
++IF(EXIV2_ENABLE_CXX11)
++  SET(CMAKE_CXX_STANDARD 11)
++  SET(CMAKE_CXX_STANDARD_REQUIRED ON)
++ENDIF()
++
+ # set include path for FindXXX.cmake files
+ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/config/")
+ 
+Index: config/CMakeChecks.txt
+===================================================================
+--- config/CMakeChecks.txt	(Revision 4308)
++++ config/CMakeChecks.txt	(Arbeitskopie)
+@@ -339,4 +339,5 @@
+ IF (WIN32)
+ OptionOutput( "Unicode paths (wstring):            " EXIV2_ENABLE_WIN_UNICODE        )
+ ENDIF()
++OptionOutput( "Building in C++11 mode:             " EXIV2_ENABLE_CXX11              )
+ MESSAGE( STATUS "------------------------------------------------------------------" )

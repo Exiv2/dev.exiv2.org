@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #983: Fix Compiler Warnings when using GCC 4.8.1-4 - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="eip55aIv/V+67MZkiU0UkhGbgnndLXeRSUxsdPCAXd6YZ9IK0FUxX++I2Wg2mhihLgnWACzO1iu0bPz8s7m6sQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #983: Fix Compiler Warnings when using GCC 4.8.1-4" href="https://dev.exiv2.org/issues/983.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #983</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Fix Compiler Warnings when using GCC 4.8.1-4</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3762">Nehal J Wani</a> <a title="17 Aug 2014 13:33" href="/projects/exiv2/activity?from=2014-08-17">over 7 years</a> ago.
+        Updated <a title="21 Jun 2015 16:41" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/3762">Nehal J Wani</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">17 Aug 2014</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>When trying to build exiv2 on Windows using gcc-4.8.1-4, the compiler throws certain warnings during the build:<br /><pre>
+$ make
+[...]
+libtool: compile:  g++ -O2 -Wall -Wcast-align -Wpointer-arith -Wformat-security -Wmissing-format-attribute -Woverloaded-virtual -W -MMD
+ -I. -DEXV_LOCALEDIR=\"/usr/local/share/locale\" -I../xmpsdk/include -c -DEXV_BUILDING_LIB=1 basicio.cpp  -DDLL_EXPORT -DPIC -o .libs/basicio.o
+basicio.cpp: In member function 'DWORD Exiv2::FileIo::Impl::winNumberOfLinks() const':
+basicio.cpp:322:55: warning: missing initializer for member '_BY_HANDLE_FILE_INFORMATION::ftCreationTime' [-Wmissing-field-initializers]
+                     BY_HANDLE_FILE_INFORMATION fi = {0};
+                                                       ^   
+basicio.cpp:322:55: warning: missing initializer for member '_BY_HANDLE_FILE_INFORMATION::ftLastAccessTime' [-Wmissing-field-initializers]
+basicio.cpp:322:55: warning: missing initializer for member '_BY_HANDLE_FILE_INFORMATION::ftLastWriteTime' [-Wmissing-field-initializers]
+basicio.cpp:322:55: warning: missing initializer for member '_BY_HANDLE_FILE_INFORMATION::dwVolumeSerialNumber' [-Wmissing-field-initializers]
+basicio.cpp:322:55: warning: missing initializer for member '_BY_HANDLE_FILE_INFORMATION::nFileSizeHigh' [-Wmissing-field-initializers]
+basicio.cpp:322:55: warning: missing initializer for member '_BY_HANDLE_FILE_INFORMATION::nFileSizeLow' [-Wmissing-field-initializers]
+basicio.cpp:322:55: warning: missing initializer for member '_BY_HANDLE_FILE_INFORMATION::nNumberOfLinks' [-Wmissing-field-initializers]
+basicio.cpp:322:55: warning: missing initializer for member '_BY_HANDLE_FILE_INFORMATION::nFileIndexHigh' [-Wmissing-field-initializers]
+basicio.cpp:322:55: warning: missing initializer for member '_BY_HANDLE_FILE_INFORMATION::nFileIndexLow' [-Wmissing-field-initializers]
+[...]
+V_BUILDING_LIB=1 pentaxmn.cpp  -DDLL_EXPORT -DPIC -o .libs/pentaxmn.o
+pentaxmn.cpp:668:5: warning: narrowing conversion of '4278190080u' from 'unsigned int' to 'long int' inside { } is ill-formed in C++11 [-Wnarrowing]
+     };
+     ^
+[...]
+libtool: compile:  gcc -O2 -Wall -MMD -I. -DEXV_LOCALEDIR=\"/usr/local/share/locale\" -I../xmpsdk/include -c -DEXV_BUILDING_LIB=1 localtime.c  -DDLL_EXPORT -DPIC -o .libs/localtime.o
+localtime.c: In function 'time2sub':
+localtime.c:1126:29: warning: assuming signed overflow does not occur when assuming that (X + c) &lt; X is always false [-Wstrict-overflow]
+  return (*number &lt; number0) != (delta &lt; 0);
+                             ^
+localtime.c:1126:29: warning: assuming signed overflow does not occur when assuming that (X + c) &lt; X is always false [-Wstrict-overflow]
+  return (*number &lt; number0) != (delta &lt; 0);
+                             ^
+localtime.c:1126:29: warning: assuming signed overflow does not occur when assuming that (X + c) &lt; X is always false [-Wstrict-overflow]
+  return (*number &lt; number0) != (delta &lt; 0);
+                             ^
+localtime.c:1126:29: warning: assuming signed overflow does not occur when assuming that (X - c) &gt; X is always false [-Wstrict-overflow]
+  return (*number &lt; number0) != (delta &lt; 0);
+                             ^
+localtime.c:1126:29: warning: assuming signed overflow does not occur when assuming that (X - c) &gt; X is always false [-Wstrict-overflow]
+  return (*number &lt; number0) != (delta &lt; 0);
+                             ^
+[...]
+$ gcc -v
+Using built-in specs.
+COLLECT_GCC=c:\mingw\bin\gcc.exe
+COLLECT_LTO_WRAPPER=c:/mingw/bin/../libexec/gcc/mingw32/4.8.1/lto-wrapper.exe
+Target: mingw32
+Configured with: ../gcc-4.8.1/configure --prefix=/mingw --host=mingw32 --build=m
+ingw32 --without-pic --enable-shared --enable-static --with-gnu-ld --enable-lto
+--enable-libssp --disable-multilib --enable-languages=c,c++,fortran,objc,obj-c++
+,ada --disable-sjlj-exceptions --with-dwarf2 --disable-win32-registry --enable-l
+ibstdcxx-debug --enable-version-specific-runtime-libs --with-gmp=/usr/src/pkg/gm
+p-5.1.2-1-mingw32-src/bld --with-mpc=/usr/src/pkg/mpc-1.0.1-1-mingw32-src/bld --
+with-mpfr= --with-system-zlib --with-gnu-as --enable-decimal-float=yes --enable-
+libgomp --enable-threads --with-libiconv-prefix=/mingw32 --with-libintl-prefix=/
+mingw --disable-bootstrap LDFLAGS=-s CFLAGS=-D_USE_32BIT_TIME_T
+Thread model: win32
+gcc version 4.8.1 (GCC)
+</pre><br />Package Name: mingw32-gcc 4.8.1-4</p>
+
+
+	<p>The number of compiler warnings differs with different versions of gcc-4.8.1-x, where x ∈ {1,2,3,4}</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/664">MinGW.txt</a>    <span class="size">(46 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/664/MinGW.txt">MinGW.txt</a>  </td>
+  <td>MinGW Compilation after curbing compilation warnings (#gcc-4.8.1-4)</td>
+  <td>
+      <span class="author">Nehal J Wani, 19 Aug 2014 07:33</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/665">Make_GCC_4.8.1-4_Happy.diff</a>    <span class="size">(2 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/665/Make_GCC_4.8.1-4_Happy.diff">Make_GCC_4.8.1-4_Happy.diff</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Nehal J Wani, 19 Aug 2014 07:41</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2838" class="journal has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3762">Nehal J Wani</a> <a title="17 Aug 2014 13:36" href="/projects/exiv2/activity?from=2014-08-17">over 7 years</a> ago
+      <span id="journal-2838-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Subject</strong> changed from <i>Fix Compiler Warning when using GCC 4.8.1-4</i> to <i>Fix Compiler Warnings when using GCC 4.8.1-4</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2839" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Aug 2014 14:46" href="/projects/exiv2/activity?from=2014-08-17">over 7 years</a> ago
+      <span id="journal-2839-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>build</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Nehal J Wani</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-2839-notes" class="wiki"><p>Thanks for reporting this, Nehal.  i'm going to assign this one for you to fix.</p>
+
+
+	<p>I suggest you update <a class="external" href="https://cocoatutorials.googlecode.com/svn/exiv2">https://cocoatutorials.googlecode.com/svn/exiv2</a> to the current trunk and submit your changes there.  This branch is monitored and built by the exiv2.dyndns.org.  It's compiling fine on Cygwin and Ubuntu with 4.8.2.  It's not linking and running the tests, however I'll probably fix that on Monday.  Curiously, 4.8.2 is not getting those messages.  So please take care that when you fix this for 4.8.1x, you don't upset 4.8.2.</p>
+
+
+	<p>If your write access to the trunk isn't setup when your fixes are ready, I'll integrate from cocoa-exiv2 to trunk on your behalf and credit you with the fix.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2843" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3762">Nehal J Wani</a> <a title="18 Aug 2014 08:34" href="/projects/exiv2/activity?from=2014-08-18">over 7 years</a> ago
+      <span id="journal-2843-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2843-notes" class="wiki"><p>The first compiler warning can be taken care of by replacing <br /><pre>
+BY_HANDLE_FILE_INFORMATION fi = {0}
+</pre><br />with<br /><pre>
+BY_HANDLE_FILE_INFORMATION fi;
+</pre><br />gcc-4.8.1-4 thinks that only the last element is being initialized, which is probably not what we wanted. Anyway, initialization of all the members of the struct  <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa363788%28v=vs.85%29.aspx" class="external">_BY_HANDLE_FILE_INFORMATION</a> is taken care of by the function <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa364952%28v=vs.85%29.aspx" class="external">GetFileInformationByHandle</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-2844" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3762">Nehal J Wani</a> <a title="19 Aug 2014 05:21" href="/projects/exiv2/activity?from=2014-08-19">over 7 years</a> ago
+      <span id="journal-2844-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2844-notes" class="wiki"><p>The second compiler warning is due to the numeric value of the tag<br /><pre>
+{ 0xff000000, N_("Video") },
+</pre><br />in <em>src/pentaxmn.cpp</em>, line 652</p>
+
+
+	<p>It is a member of the array pentaxDriveMode[] which is of type TagDetails.<br /><pre>
+struct TagDetails {
+    long val_;                              //!&lt; Tag value
+    const char* label_;                     //!&lt; Translation ofthe tag value
+
+    //! Comparison operator for use with the find template
+    bool operator==(long key) const { return val_ == key; }
+}; // struct TagDetails
+</pre></p>
+
+
+	<p>For x86 compilation, gcc-4.8.1-4 throws:<br /><pre>
+pentaxmn.cpp:668:5: warning: narrowing conversion of '4278190080u'
+from 'unsigned int' to 'long int' inside { } is ill-formed in C++11 [-Wnarrowing]
+</pre></p>
+
+
+	<p>The reason is that the compiler interprets 0xff000000 as 4278190080, which doesn't fit in long (4bytes) on a x86 platform.</p>
+
+
+	<ul>
+	<li>Solution 1: Change line 187 of <em>/src/tags_int.hpp</em><br /><pre>
+long val_;                              //!&lt; Tag value
+</pre><br />to<br /><pre>
+int64_t val_;                           //!&lt; Tag value
+</pre><br />so that we forcefully increase the size of variable val_ from 4bytes to 8bytes on x86 platform.</li>
+	</ul>
+
+
+	<ul>
+	<li>Solution 2: Change the value of from <em>0xff000000</em> to something which fits under 32 bits signed integer. I tried changing it to <em>0x7FFFFFFF</em> which is <em>2147483647</em> in decimal.</li>
+	</ul>
+
+
+	<p>Both solution 1 and solution 2 work. Which one should should I be applying?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2845" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Aug 2014 05:36" href="/projects/exiv2/activity?from=2014-08-19">over 7 years</a> ago
+      <span id="journal-2845-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2845-notes" class="wiki"><p>Solution 1 seems better.   Have you tried it on a 32 bit build?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2846" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3762">Nehal J Wani</a> <a title="19 Aug 2014 05:48" href="/projects/exiv2/activity?from=2014-08-19">over 7 years</a> ago
+      <span id="journal-2846-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2846-notes" class="wiki"><p>I have tried both solutions on <code>MinGW+gcc-4.8.1-4</code> and both seem to be working fine with respect to compilation.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2847" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3762">Nehal J Wani</a> <a title="19 Aug 2014 06:00" href="/projects/exiv2/activity?from=2014-08-19">over 7 years</a> ago
+      <span id="journal-2847-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2847-notes" class="wiki"><p><code>MinGW</code> builds for <code>win32</code> (So I guess, x86 platform has been tested)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2848" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3762">Nehal J Wani</a> <a title="19 Aug 2014 07:33" href="/projects/exiv2/activity?from=2014-08-19">over 7 years</a> ago
+      <span id="journal-2848-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/664">MinGW.txt</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/664/MinGW.txt">MinGW.txt</a> added</li>
+    </ul>
+    <div id="journal-2848-notes" class="wiki"><p>The third compiler warning comes from the function <code>increment_overflow</code> in <code>src/localtime.c</code>. This seems to be a standard file being used by many open source programs around the world. So, if I change the body of the function with the body of a different version of the same function from <a href="https://www.ietf.org/timezones/code/localtime.c" class="external">localtime.c</a> , then <code>gcc-4.8.1-4</code> is happy. See <img src="MinGW.txt" alt="" /> for the compiler's happiness.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2849" class="journal has-notes has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3762">Nehal J Wani</a> <a title="19 Aug 2014 07:41" href="/projects/exiv2/activity?from=2014-08-19">over 7 years</a> ago
+      <span id="journal-2849-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/665">Make_GCC_4.8.1-4_Happy.diff</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/665/Make_GCC_4.8.1-4_Happy.diff">Make_GCC_4.8.1-4_Happy.diff</a> added</li>
+    </ul>
+    <div id="journal-2849-notes" class="wiki"><p>Diff solving these three compiler warnings attached.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2850" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Aug 2014 14:45" href="/projects/exiv2/activity?from=2014-08-26">about 7 years</a> ago
+      <span id="journal-2850-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2850-notes" class="wiki"><p>Patch submitted: <a class="changeset" title="Issue# 983.  Thank You, Nehal for the patch." href="/projects/exiv2/repository/exiv2/revisions/3303">r3303</a>.  Thank You, Nehal for your work on this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2892" class="journal has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Sep 2014 12:32" href="/projects/exiv2/activity?from=2014-09-04">about 7 years</a> ago
+      <span id="journal-2892-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3883" class="journal has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:41" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3883-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/983.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/983.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>API change: Removing makernote classes and pretty-print functions from the published interface - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="McZuG/x/3FnV7Z5PQlMv9i1+0gjYWAAslbiFNrq6bM7Ti8X0jgUQWYCJgUP9hCPFEuyGcSm7oZZomBW++YOLoQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>API change: Removing makernote classes and pretty-print functions from the published interface</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="09 Aug 2010 03:01" href="/projects/exiv2/activity?from=2010-08-09">over 11 years</a> ago</span></p>
+<div class="wiki">
+<p>The API needs some further modifications to eventually be more stable. The goal is to be able to make changes to the makernotes without touching the Exiv2 API. That's currently not possible, mainly because the IfdId list, makernote classes and pretty-print functions are all part of the API and they tend to change whenever a makernote is updated.</p>
+
+
+	<p>Feature <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Remove makernote classes and pretty-print functions from the published interface (Closed)" href="/issues/719">#719</a> addresses the simpler part of this: makernote classes and pretty-print functions become internal objects and are not part of the API anymore. Please read the feature description for details.</p>
+
+
+	<p>These objects were never meant for use by applications anyway and most applications won't be affected by this change. However, in order to find out if there are any additional use-cases to consider, I'm implementing this change slowly and invite you to test your applications with Exiv2 from SVN and reply here or at <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Remove makernote classes and pretty-print functions from the published interface (Closed)" href="/issues/719">#719</a> in case it causes problems. Currently only the Nikon makernote has been changed.</p>
+
+
+	<p>Andreas</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (6)</h3>
+  <div class="message reply" id="message-584">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/583?r=584#message-584">RE: API change: Removing makernote classes and pretty-print functions from the published interface</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="12 Aug 2010 18:51" href="/projects/exiv2/activity?from=2010-08-12">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>With <a class="changeset" title="#719: Added new ExifTags::tagList() function which returns the taglist for an Exif group." href="/projects/exiv2/repository/exiv2/revisions/2310">r2310</a> I've added a new method to access any taglist by its group name. This method should be used to access taglists, including Makernote taglists, going forward.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-592">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/583?r=592#message-592">RE: API change: Removing makernote classes and pretty-print functions from the published interface</a>
+    -
+    Added by <a class="user active" href="/users/1013">Matthias Baas</a> <a title="18 Aug 2010 14:00" href="/projects/exiv2/activity?from=2010-08-18">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Looks good, I was already wondering how to get to the makernote tag lists.<br />Is there also a way to query all group names the library knows about (so that the application doesn't actually need any prior knowledge about what groups are available)?</p>
+
+
+	<p>- Matthias -</p></div>
+  
+  </div>
+  <div class="message reply" id="message-597">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/583?r=597#message-597">RE: API change: Removing makernote classes and pretty-print functions from the published interface</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="18 Aug 2010 23:19" href="/projects/exiv2/activity?from=2010-08-18">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, ExifTags::groupList(), added shortly before your post with <a class="changeset" title="#719: Added ExifTags::groupList() to access the list of all Exif groups." href="/projects/exiv2/repository/exiv2/revisions/2325">r2325</a>. It can be used as shown below. With this <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Remove makernote classes and pretty-print functions from the published interface (Closed)" href="/issues/719">#719</a> is done and I'll embark on the next part, removing <code>IfdId</code> from the API. That will result in API changes in class ExifTags and some others.</p>
+
+
+<pre>
+#include &lt;iostream&gt;
+#include &lt;iostream&gt;
+#include "exiv2.hpp" 
+
+using namespace Exiv2;
+
+int main()
+{
+    std::cout &lt;&lt; "List all MakerNote groups defined in Exiv2:\n\n" 
+              &lt;&lt; "Group name      Number of tags\n" 
+              &lt;&lt; "--------------- --------------\n";
+    const GroupInfo* gi = ExifTags::groupList();
+    while (gi-&gt;ifdId_ != lastIfdId) {
+        if (strcmp(gi-&gt;name_, "Makernote") == 0) {
+            TagListFct tl = gi-&gt;tagList_;
+            const TagInfo* ti = tl();
+            int cnt = 0;
+            while (ti-&gt;tag_ != 0xffff) {
+                ++cnt;
+                ++ti;
+            }
+            std::cout &lt;&lt; std::setw(15) &lt;&lt; std::left
+                      &lt;&lt; gi-&gt;item_ &lt;&lt; " " &lt;&lt; cnt &lt;&lt; "\n";
+        }
+        ++gi;
+    }
+
+    return 0;
+}
+</pre>
+
+	<p>The output of this sample program is</p>
+
+
+<pre>
+List all MakerNote groups defined in Exiv2:
+
+Group name      Number of tags
+--------------- --------------
+MakerNote       2
+Canon           34
+CanonCs         43
+CanonSi         26
+CanonCf         15
+CanonPi         6
+CanonFi         15
+CanonPa         2
+CanonPr         13
+Fujifilm        33
+Minolta         28
+MinoltaCs5D     30
+[...]
+</pre></div>
+  
+  </div>
+  <div class="message reply" id="message-601">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/583?r=601#message-601">RE: API change: Removing makernote classes and pretty-print functions from the published interface</a>
+    -
+    Added by <a class="user active" href="/users/1013">Matthias Baas</a> <a title="22 Aug 2010 08:05" href="/projects/exiv2/activity?from=2010-08-22">about 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ah, that's what I was looking for! Thanks! :)</p>
+
+
+	<p>- Matthias -</p></div>
+  
+  </div>
+  <div class="message reply" id="message-626">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/583?r=626#message-626">RE: API change: Removing makernote classes and pretty-print functions from the published interface</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="02 Sep 2010 09:28" href="/projects/exiv2/activity?from=2010-09-02">about 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>As <code>lastIfdId</code> is not published anymore, the loop in the above example should now read</p>
+
+
+<pre>
+while (gi-&gt;tagList_ != 0) {
+</pre>
+
+	<p>Thanks to Gilles for pointing this out.</p>
+
+
+	<p>I also have to reopen <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Remove IfdId from the published interface (Closed)" href="/issues/721">#721</a> and remove the Exif tag data reference methods from ExifKey after realizing that they won't work with the "unified Key" that is needed for <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Unified metadata container (Assigned)" href="/issues/585">#585</a>.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-661">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/583?r=661#message-661">RE: API change: Removing makernote classes and pretty-print functions from the published interface</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="19 Sep 2010 08:54" href="/projects/exiv2/activity?from=2010-09-19">about 11 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>I also have to reopen <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Remove IfdId from the published interface (Closed)" href="/issues/721">#721</a> and remove the Exif tag data reference methods from ExifKey after realizing that they won't work with the "unified Key" that is needed for <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Unified metadata container (Assigned)" href="/issues/585">#585</a>.</p>
+
+
+</blockquote>
+
+	<p>This is done and I've switched to the unstable branch for the next steps.</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-6/6)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

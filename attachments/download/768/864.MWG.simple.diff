@@ -1,0 +1,145 @@
+Index: src/convert.cpp
+===================================================================
+--- src/convert.cpp	(revision 3708)
++++ src/convert.cpp	(working copy)
+@@ -144,6 +144,12 @@
+         //! @name Conversion functions (manipulators)
+         //@{
+         /*!
++          @brief Do nothing conversion function.
++
++          Use when, for example, a one-way conversion is needed.
++         */
++        void cnvNone(const char*, const char*);
++        /*!
+           @brief Simple Exif to XMP conversion function.
+ 
+           Sets the XMP property to an XmpText value containing the Exif value string.
+@@ -322,7 +328,7 @@
+         { mdExif, "Exif.Image.PrimaryChromaticities",     "Xmp.tiff.PrimaryChromaticities",     &Converter::cnvExifValue, &Converter::cnvXmpValue },
+         { mdExif, "Exif.Image.YCbCrCoefficients",         "Xmp.tiff.YCbCrCoefficients",         &Converter::cnvExifValue, &Converter::cnvXmpValue },
+         { mdExif, "Exif.Image.ReferenceBlackWhite",       "Xmp.tiff.ReferenceBlackWhite",       &Converter::cnvExifValue, &Converter::cnvXmpValue },
+-        { mdExif, "Exif.Image.DateTime",                  "Xmp.tiff.DateTime",                  &Converter::cnvExifDate , &Converter::cnvXmpDate  },
++        { mdExif, "Exif.Image.DateTime",                  "Xmp.xmp.ModifyDate",                 &Converter::cnvExifDate , &Converter::cnvXmpDate  }, // MWG Guidelines
+         { mdExif, "Exif.Image.ImageDescription",          "Xmp.dc.description",                 &Converter::cnvExifValue, &Converter::cnvXmpValue },
+         { mdExif, "Exif.Image.Make",                      "Xmp.tiff.Make",                      &Converter::cnvExifValue, &Converter::cnvXmpValue },
+         { mdExif, "Exif.Image.Model",                     "Xmp.tiff.Model",                     &Converter::cnvExifValue, &Converter::cnvXmpValue },
+@@ -339,8 +345,8 @@
+         { mdExif, "Exif.Photo.PixelYDimension",           "Xmp.exif.PixelYDimension",           &Converter::cnvExifValue, &Converter::cnvXmpValue },
+         { mdExif, "Exif.Photo.UserComment",               "Xmp.exif.UserComment",               &Converter::cnvExifComment, &Converter::cnvXmpComment },
+         { mdExif, "Exif.Photo.RelatedSoundFile",          "Xmp.exif.RelatedSoundFile",          &Converter::cnvExifValue, &Converter::cnvXmpValue },
+-        { mdExif, "Exif.Photo.DateTimeOriginal",          "Xmp.exif.DateTimeOriginal",          &Converter::cnvExifDate,  &Converter::cnvXmpDate  },
+-        { mdExif, "Exif.Photo.DateTimeDigitized",         "Xmp.exif.DateTimeDigitized",         &Converter::cnvExifDate,  &Converter::cnvXmpDate  },
++        { mdExif, "Exif.Photo.DateTimeOriginal",          "Xmp.photoshop.DateCreated",          &Converter::cnvExifDate,  &Converter::cnvXmpDate  }, // MWG Guidelines
++        { mdExif, "Exif.Photo.DateTimeDigitized",         "Xmp.xmp.CreateDate",                 &Converter::cnvExifDate,  &Converter::cnvXmpDate  }, // MWG Guidelines
+         { mdExif, "Exif.Photo.ExposureTime",              "Xmp.exif.ExposureTime",              &Converter::cnvExifValue, &Converter::cnvXmpValue },
+         { mdExif, "Exif.Photo.FNumber",                   "Xmp.exif.FNumber",                   &Converter::cnvExifValue, &Converter::cnvXmpValue },
+         { mdExif, "Exif.Photo.ExposureProgram",           "Xmp.exif.ExposureProgram",           &Converter::cnvExifValue, &Converter::cnvXmpValue },
+@@ -417,7 +423,8 @@
+         { mdIptc, "Iptc.Application2.Keywords",           "Xmp.dc.subject",                     &Converter::cnvIptcValue, &Converter::cnvXmpValueToIptc },
+         { mdIptc, "Iptc.Application2.SubLocation",        "Xmp.iptc.Location",                  &Converter::cnvIptcValue, &Converter::cnvXmpValueToIptc },
+         { mdIptc, "Iptc.Application2.SpecialInstructions","Xmp.photoshop.Instructions",         &Converter::cnvIptcValue, &Converter::cnvXmpValueToIptc },
+-        { mdIptc, "Iptc.Application2.DateCreated",        "Xmp.photoshop.DateCreated",          &Converter::cnvIptcValue, &Converter::cnvXmpValueToIptc },
++        { mdIptc, "Iptc.Application2.DateCreated",        "Xmp.photoshop.DateCreated",          &Converter::cnvNone, &Converter::cnvXmpValueToIptc }, // FIXME to IPTC Date and IPTC Time
++        { mdIptc, "Iptc.Application2.DigitizationDate",   "Xmp.xmp.CreateDate",                 &Converter::cnvNone, &Converter::cnvXmpValueToIptc }, // FIXME to IPTC Date and IPTC Time
+         { mdIptc, "Iptc.Application2.Byline",             "Xmp.dc.creator",                     &Converter::cnvIptcValue, &Converter::cnvXmpValueToIptc },
+         { mdIptc, "Iptc.Application2.BylineTitle",        "Xmp.photoshop.AuthorsPosition",      &Converter::cnvIptcValue, &Converter::cnvXmpValueToIptc },
+         { mdIptc, "Iptc.Application2.City",               "Xmp.photoshop.City",                 &Converter::cnvIptcValue, &Converter::cnvXmpValueToIptc },
+@@ -466,6 +473,11 @@
+         }
+     }
+ 
++    void Converter::cnvNone(const char*, const char*)
++    {
++        return;
++    }
++
+     bool Converter::prepareExifTarget(const char* to, bool force)
+     {
+         Exiv2::ExifData::iterator pos = exifData_->findKey(ExifKey(to));
+Index: test/conversions.sh
+===================================================================
+--- test/conversions.sh	(revision 3708)
++++ test/conversions.sh	(working copy)
+@@ -185,7 +185,6 @@
+ 	runTest exiv2 -M'set Exif.GPSInfo.GPSLatitudeRef N' u.jpg
+ 	runTest exiv2 -M'set Exif.GPSInfo.GPSVersionID 2 2 0 1' u.jpg
+ 	runTest exiv2 -M'set Exif.GPSInfo.GPSTimeStamp 1/1 2/1 999999999/1000000000' u.jpg
+-	runTest exiv2 -M'set Iptc.Application2.DateCreated 2007-05-09' u.jpg
+ 	
+ 	runTest exiv2 -PEkycv u.jpg
+ 	runTest exiv2 -pi u.jpg
+@@ -201,7 +200,7 @@
+ 	echo ===========
+ 	copyTestFile $IMG v.jpg
+ 	copy u.xmp v.xmp
+-	runTest exiv2 -M'set Xmp.tiff.DateTime 2003-12-14T12:01:44Z' v.xmp
++	runTest exiv2 -M'set Xmp.xmp.ModifyDate 2015-04-17T18:10:22Z' v.xmp
+ 	TZ=GMT-8 runTest exiv2 -iX v.jpg
+ 	runTest exiv2 -px v.jpg
+ 	runTest exiv2 -PEkycv v.jpg
+@@ -215,4 +214,4 @@
+ reportTest $results-stripped $good
+ 
+ # That's all Folks!
+-##
+\ No newline at end of file
++##
+Index: test/data/conversions.out
+===================================================================
+--- test/data/conversions.out	(revision 3708)
++++ test/data/conversions.out	(working copy)
+@@ -124,9 +124,8 @@
+ Exif.GPSInfo.GPSLatitudeRef                  Ascii       2  N
+ Exif.GPSInfo.GPSLatitude                     Rational    3  3/1 8/1 29734512/1000000
+ Exif.GPSInfo.GPSTimeStamp                    Rational    3  1/1 2/1 999999999/1000000000
+-Iptc.Application2.DateCreated                Date        8  2007-05-09
++u.jpg: (No IPTC data found in the file)
+ Xmp.exif.ExifVersion                         XmpText     4  2.21
+-Xmp.exif.DateTimeOriginal                    XmpText    29  2003-12-14T12:01:44.999999999
+ Xmp.exif.GPSVersionID                        XmpText     7  2.2.0.1
+ Xmp.exif.GPSLatitude                         XmpText    12  3,8.4955752N
+ Xmp.exif.GPSTimeStamp                        XmpText    29  2003-12-14T01:02:00.999999999
+@@ -137,7 +136,7 @@
+ Xmp.exif.Flash/exif:Mode                     XmpText     1  1
+ Xmp.exif.Flash/exif:Function                 XmpText     5  False
+ Xmp.exif.Flash/exif:RedEyeMode               XmpText     4  True
+-Xmp.photoshop.DateCreated                    XmpText    10  2007-05-09
++Xmp.photoshop.DateCreated                    XmpText    29  2003-12-14T12:01:44.999999999
+ Exif.Photo.ExifVersion                       Undefined   4  48 50 50 49
+ Exif.Photo.ComponentsConfiguration           Undefined   4  1 2 3 0
+ Exif.Photo.DateTimeOriginal                  Ascii      20  2003:12:14 12:01:44
+@@ -148,13 +147,12 @@
+ Exif.GPSInfo.GPSLatitudeRef                  Ascii       2  N
+ Exif.GPSInfo.GPSTimeStamp                    Rational    3  1/1 2/1 999999999/1000000000
+ Exif.GPSInfo.GPSDateStamp                    Ascii      11  2003:12:14
+-Iptc.Application2.DateCreated                Date        8  2007-05-09
++Iptc.Application2.DateCreated                Date        8  2003-12-14
+ Iptc.Envelope.CharacterSet                   String      3  $%G
+ 
+ Testcase 15
+ ===========
+ Xmp.exif.ExifVersion                         XmpText     4  2.21
+-Xmp.exif.DateTimeOriginal                    XmpText    29  2003-12-14T12:01:44.999999999
+ Xmp.exif.GPSVersionID                        XmpText     7  2.2.0.1
+ Xmp.exif.GPSLatitude                         XmpText    12  3,8.4955752N
+ Xmp.exif.GPSTimeStamp                        XmpText    29  2003-12-14T01:02:00.999999999
+@@ -165,9 +163,9 @@
+ Xmp.exif.Flash/exif:Function                 XmpText     5  False
+ Xmp.exif.Flash/exif:RedEyeMode               XmpText     4  True
+ Xmp.exif.ComponentsConfiguration             XmpSeq      4  YCbCr
+-Xmp.tiff.DateTime                            XmpText    20  2003-12-14T12:01:44Z
+-Xmp.photoshop.DateCreated                    XmpText    10  2007-05-09
+-Exif.Image.DateTime                          Ascii      20  2003:12:14 20:01:44
++Xmp.xmp.ModifyDate                           XmpText    20  2015-04-17T18:10:22Z
++Xmp.photoshop.DateCreated                    XmpText    29  2003-12-14T12:01:44.999999999
++Exif.Image.DateTime                          Ascii      20  2015:04:18 02:10:22
+ Exif.Image.ExifTag                           Long        1  70
+ Exif.Photo.ExifVersion                       Undefined   4  48 50 50 49
+ Exif.Photo.DateTimeOriginal                  Ascii      20  2003:12:14 12:01:44
+@@ -181,4 +179,4 @@
+ Exif.GPSInfo.GPSTimeStamp                    Rational    3  1/1 2/1 999999999/1000000000
+ Exif.GPSInfo.GPSDateStamp                    Ascii      11  2003:12:14
+ Iptc.Envelope.CharacterSet                   String      3  $%G
+-Iptc.Application2.DateCreated                Date        8  2007-05-09
++Iptc.Application2.DateCreated                Date        8  2003-12-14

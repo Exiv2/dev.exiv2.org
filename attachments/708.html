@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>0917_supportregexp.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="hWtaJ9ek2C06VPLrDxzEG2EhBaQwQaMzVjaqR9Ubq85nJvHIpd4ULW8w7eewy8goXrNR3cGiAomrFjrPliJMoQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/708/0917_supportregexp.patch">Download (3.76 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Modify exiv2/actions.cpp return -3/253 when no metadata h..." href="/issues/917">Feature #917</a> » 0917_supportregexp.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/4313">Thomas Schmidt</a>, 09 Jan 2015 22:49</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/708" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/actions.cpp	(Arbeitskopie)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">558</th>
+  <th class="line-num">558</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">559</th>
+  <th class="line-num">559</th>
+  <td class="line-code ">
+    <pre>    bool Print::grepTag(const std::string&amp; key)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">560</th>
+  <th class="line-num">560</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">561</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        bool result=Params::instance().keys_.empty();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">562</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (!result) </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">563</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            for (Params::Keys::const_iterator k = Params::instance().keys_.begin();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">564</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                !result &amp;&amp; k != Params::instance().keys_.end(); ++k) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">565</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    result = key.find(*k) != std::string::npos;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">561</th>
+  <td class="line-code diff_in">
+    <pre>        if( Params::instance().keys_.empty())</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">562</th>
+  <td class="line-code diff_in">
+    <pre>          return true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">563</th>
+  <td class="line-code diff_in">
+    <pre>          </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">564</th>
+  <td class="line-code diff_in">
+    <pre>        for( Params::Keys::const_iterator k = Params::instance().keys_.begin();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">565</th>
+  <td class="line-code diff_in">
+    <pre>			 k != Params::instance().keys_.end(); ++k)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">566</th>
+  <td class="line-code diff_in">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">567</th>
+  <td class="line-code diff_in">
+    <pre>		    if( 0 == regexec( &amp;(*k), key.c_str(), 0, NULL, REG_NOTBOL | REG_NOTEOL))</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">568</th>
+  <td class="line-code diff_in">
+    <pre>		        return true;	   </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">569</th>
+  <td class="line-code diff_in">
+    <pre>			// result = key.find(*k) != std::string::npos;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">566</th>
+  <th class="line-num">570</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">567</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return <span>result </span>;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">571</th>
+  <td class="line-code diff_in">
+    <pre>        return <span>false</span>;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">568</th>
+  <th class="line-num">572</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">569</th>
+  <th class="line-num">573</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">570</th>
+  <th class="line-num">574</th>
+  <td class="line-code ">
+    <pre>    void Print::printMetadatum(const Exiv2::Metadatum&amp; md, const Exiv2::Image* pImage)</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/exiv2.cpp	(Arbeitskopie)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">47</th>
+  <th class="line-num">47</th>
+  <td class="line-code ">
+    <pre>#include &lt;cstring&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">48</th>
+  <th class="line-num">48</th>
+  <td class="line-code ">
+    <pre>#include &lt;cassert&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">49</th>
+  <th class="line-num">49</th>
+  <td class="line-code ">
+    <pre>#include &lt;cctype&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">50</th>
+  <td class="line-code diff_in">
+    <pre>#include &lt;regex.h&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">50</th>
+  <th class="line-num">51</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">51</th>
+  <th class="line-num">52</th>
+  <td class="line-code ">
+    <pre>#if defined(__MINGW32__) || defined(__MINGW64__)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">52</th>
+  <th class="line-num">53</th>
+  <td class="line-code ">
+    <pre># ifndef  __MINGW__</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">352</th>
+  <th class="line-num">353</th>
+  <td class="line-code ">
+    <pre>    case &#39;u&#39;: unknown_ = false; break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">353</th>
+  <th class="line-num">354</th>
+  <td class="line-code ">
+    <pre>    case &#39;f&#39;: force_ = true; fileExistsPolicy_ = overwritePolicy; break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">354</th>
+  <th class="line-num">355</th>
+  <td class="line-code ">
+    <pre>    case &#39;F&#39;: force_ = true; fileExistsPolicy_ = renamePolicy; break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">355</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    case &#39;g&#39;: <span>keys_.push_back</span>(optarg); printMode_ = pmList; break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">356</th>
+  <td class="line-code diff_in">
+    <pre>    case &#39;g&#39;: <span>rc = evalKey</span>(optarg); printMode_ = pmList; break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">356</th>
+  <th class="line-num">357</th>
+  <td class="line-code ">
+    <pre>    case &#39;n&#39;: charset_ = optarg; break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">357</th>
+  <th class="line-num">358</th>
+  <td class="line-code ">
+    <pre>    case &#39;r&#39;: rc = evalRename(opt, optarg); break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">358</th>
+  <th class="line-num">359</th>
+  <td class="line-code ">
+    <pre>    case &#39;t&#39;: rc = evalRename(opt, optarg); break;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">410</th>
+  <th class="line-num">411</th>
+  <td class="line-code ">
+    <pre>    return rc;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">411</th>
+  <th class="line-num">412</th>
+  <td class="line-code ">
+    <pre>} // Params::setLogLevel</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">412</th>
+  <th class="line-num">413</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">414</th>
+  <td class="line-code diff_in">
+    <pre>int Params::evalKey( const std::string&amp; optarg)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">415</th>
+  <td class="line-code diff_in">
+    <pre>{</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">416</th>
+  <td class="line-code diff_in">
+    <pre>	// try to compile a reg-exp from the input argument and store it in the vector</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">417</th>
+  <td class="line-code diff_in">
+    <pre>	const size_t i = keys_.size();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">418</th>
+  <td class="line-code diff_in">
+    <pre>	keys_.resize(i + 1);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">419</th>
+  <td class="line-code diff_in">
+    <pre>	regex_t *pRegex = &amp;keys_[i];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">420</th>
+  <td class="line-code diff_in">
+    <pre>	int errcode = regcomp( pRegex, optarg.c_str(), REG_NOSUB);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">421</th>
+  <td class="line-code diff_in">
+    <pre>	if( 0 == errcode)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">422</th>
+  <td class="line-code diff_in">
+    <pre>	   return 0; // no error</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">423</th>
+  <td class="line-code diff_in">
+    <pre>	   </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">424</th>
+  <td class="line-code diff_in">
+    <pre>	// there was an error compiling the regexp</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">425</th>
+  <td class="line-code diff_in">
+    <pre>    size_t length = regerror (errcode, pRegex, NULL, 0);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">426</th>
+  <td class="line-code diff_in">
+    <pre>    char *buffer = new char[ length];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">427</th>
+  <td class="line-code diff_in">
+    <pre>    regerror (errcode, pRegex, buffer, length);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">428</th>
+  <td class="line-code diff_in">
+    <pre>    std::cerr &lt;&lt; progname()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">429</th>
+  <td class="line-code diff_in">
+    <pre>              &lt;&lt; &quot;: &quot; &lt;&lt; _(&quot;Option&quot;) &lt;&lt; &quot; -g: &quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">430</th>
+  <td class="line-code diff_in">
+    <pre>              &lt;&lt; _(&quot;Invalid regexp&quot;) &lt;&lt; &quot; \&quot;&quot; &lt;&lt; optarg &lt;&lt; &quot;\&quot;: &quot; &lt;&lt; buffer &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">431</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">432</th>
+  <td class="line-code diff_in">
+    <pre>    // free the memory and drop the regexp</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">433</th>
+  <td class="line-code diff_in">
+    <pre>    delete[] buffer;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">434</th>
+  <td class="line-code diff_in">
+    <pre>    regfree( pRegex);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">435</th>
+  <td class="line-code diff_in">
+    <pre>    keys_.resize(i);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">436</th>
+  <td class="line-code diff_in">
+    <pre>    return 1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">437</th>
+  <td class="line-code diff_in">
+    <pre>} // Params::evalKey</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">438</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">413</th>
+  <th class="line-num">439</th>
+  <td class="line-code ">
+    <pre>int Params::evalRename(int opt, const std::string&amp; optarg)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">414</th>
+  <th class="line-num">440</th>
+  <td class="line-code ">
+    <pre>{</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">415</th>
+  <th class="line-num">441</th>
+  <td class="line-code ">
+    <pre>    int rc = 0;</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/exiv2app.hpp	(Arbeitskopie)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">39</th>
+  <th class="line-num">39</th>
+  <td class="line-code ">
+    <pre>#include &lt;vector&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">40</th>
+  <th class="line-num">40</th>
+  <td class="line-code ">
+    <pre>#include &lt;set&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">41</th>
+  <th class="line-num">41</th>
+  <td class="line-code ">
+    <pre>#include &lt;iostream&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">42</th>
+  <td class="line-code diff_in">
+    <pre>#include &lt;regex.h&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">42</th>
+  <th class="line-num">43</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">43</th>
+  <th class="line-num">44</th>
+  <td class="line-code ">
+    <pre>// *****************************************************************************</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">44</th>
+  <th class="line-num">45</th>
+  <td class="line-code ">
+    <pre>// class definitions</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">125</th>
+  <th class="line-num">126</th>
+  <td class="line-code ">
+    <pre>    //! Container for preview image numbers</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">126</th>
+  <th class="line-num">127</th>
+  <td class="line-code ">
+    <pre>    typedef std::set&lt;int&gt; PreviewNumbers;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">127</th>
+  <th class="line-num">128</th>
+  <td class="line-code ">
+    <pre>    //! Container for keys</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">128</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    typedef std::vector&lt;<span>std::string</span>&gt; Keys;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">129</th>
+  <td class="line-code diff_in">
+    <pre>    typedef std::vector&lt;<span>regex_t</span>&gt; Keys;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">129</th>
+  <th class="line-num">130</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">130</th>
+  <th class="line-num">131</th>
+  <td class="line-code ">
+    <pre>    /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">131</th>
+  <th class="line-num">132</th>
+  <td class="line-code ">
+    <pre>      @brief Controls all access to the global Params instance.</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">261</th>
+  <th class="line-num">262</th>
+  <td class="line-code ">
+    <pre>    //! @name Helpers</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">262</th>
+  <th class="line-num">263</th>
+  <td class="line-code ">
+    <pre>    //@{</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">263</th>
+  <th class="line-num">264</th>
+  <td class="line-code ">
+    <pre>    int setLogLevel(const std::string&amp; optarg);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">265</th>
+  <td class="line-code diff_in">
+    <pre>    int evalKey( const std::string&amp; optarg);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">264</th>
+  <th class="line-num">266</th>
+  <td class="line-code ">
+    <pre>    int evalRename(int opt, const std::string&amp; optarg);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">265</th>
+  <th class="line-num">267</th>
+  <td class="line-code ">
+    <pre>    int evalAdjust(const std::string&amp; optarg);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">266</th>
+  <th class="line-num">268</th>
+  <td class="line-code ">
+    <pre>    int evalYodAdjust(const Yod&amp; yod, const std::string&amp; optarg);</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"><li class="previous"><span>« Previous</span></li><li class="current"><span>1</span></li><li class="page"><a href="/attachments/709/0917_returnvaluesanderror.patch">2</a></li><li class="next page"><a href="/attachments/709/0917_returnvaluesanderror.patch">Next »</a></li></ul><span><span class="items">(1-1/2)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

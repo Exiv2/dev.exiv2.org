@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Patch #856: CMAke: building tests and refactoring on msvc - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="WsZMqRXqekHhtXLve9Ed8WB9oG7vuPd2Bg0bnvr7xl+4i+dGZ5C2QbTRbePEBhHCX+/0Fx5bVsz7LYsWucIhMA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Patch #856: CMAke: building tests and refactoring on msvc" href="https://dev.exiv2.org/issues/856.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Patch #856</h2>
+
+<div class="issue tracker-4 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>CMAke: building tests and refactoring on msvc</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/2456">Daniel Kaneider</a> <a title="07 Oct 2012 04:36" href="/projects/exiv2/activity?from=2012-10-07">about 9 years</a> ago.
+        Updated <a title="24 Jul 2013 15:20" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Jul 2013" href="/versions/50">0.24</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">07 Oct 2012</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-90"><tr><td style="width: 90%;" class="closed" title="90%"></td><td style="width: 10%;" class="todo"></td></tr></table><p class="percent">90%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hi Robin,</p>
+
+
+	<p>I did some other changes to the scripts.</p>
+
+
+	<p>I added the include dir for the tests. In this way the directory can be found. Since this line was absent, and the testsuites built and ran under Unix, this could just mean that the installed exiv2 library is used for the tests. I have seen Gilles' comment in TODO-CMAKE stating, that "They should use the <strong>installed</strong> version  of libexiv2, not some temporary version in the src or build tree.". <br />But IMHO they should use the includes from the current sources, and not from the installed version. How else are you supposed to test a new version of exiv with a new header file?</p>
+
+
+	<p>I have seen a description in README-CMAKE how to build exiv2 out of source. Some remarks for this:</p>
+
+
+	<ul>
+	<li>Out of source doesn't imply to create a directory 'build' INSIDE the sources. What I would consider OOS is to have<br /><pre>exiv2
+  src
+  ...
+exiv2.build
+</pre><br />The build directory could be anywhere. There must not be any limitations for a working OOS build. From my tests OOS builds don't work at the moment. This is mainly due to some 'SolutionDir/../' uses in various points.</li>
+	</ul>
+
+
+	<ul>
+	<li>Moreover there was a usage of a OUT_OF_SOURCE variable inside the CMake scripts. Such variables are also very evil.</li>
+	</ul>
+
+
+What I did in patch is the following:
+	<ul>
+	<li>Fixed the tests under windows. If it causes problems on Unix platforms, move the include_dirs to the IF-MSVC.</li>
+		<li>Removed uses of OUT_OF_SOURCE, using CMAKE_SOURCE_DIR. There is just one point left, which could be converted to a simple CMAKE Copy without having to create a pre-build event. Similarly SolutionDir should be replaced by CMAKE_BINARY_DIR.</li>
+		<li>Fixed the post-build event, copying the depended .dll files. I simply missed this in my previous patch.</li>
+	</ul>
+
+
+	<p>I hope this helped a bit.</p>
+
+
+	<p>Best,<br />Daniel</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/401">exiv2Tests.patch</a>    <span class="size">(3.64 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/401/exiv2Tests.patch">exiv2Tests.patch</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Daniel Kaneider, 07 Oct 2012 04:36</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2895" href="/projects/exiv2/repository/exiv2/revisions/2895">Revision 2895</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2895/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Oct 2012 09:45" href="/projects/exiv2/activity?from=2012-10-07">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Fix.  Issue: <a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: CMAke: building tests and refactoring on msvc (Closed)" href="/issues/856">#856</a>. Refactoring msvc/CMake code. Thanks to Daniel for this patch.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2260" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/133">Robin Mills</a> <a title="07 Oct 2012 09:46" href="/projects/exiv2/activity?from=2012-10-07">about 9 years</a> ago
+      <span id="journal-2260-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2260-notes" class="wiki"><p>Daniel.</p>
+
+
+	<p>You said "I hope this helped a bit", and my response is:  "You've helped a lot".  It's very good to get some feedback and even better to get a patch, another pair of hands and most importantly - another brain working on the job.  Thanks very much indeed.</p>
+
+
+	<p>I've submitted your patch because it looks good to me.  I've built on the Mac and the test suite passes.  I'm out of town for a couple of days.  I'll build everything later in the week and see if that reveals anything, review/update README-CMAKE and TODO-CMAKE.</p>
+
+
+	<p>About the tests:<br />Shawn and I are considering generating output all the executables in a single 'bin' directory and also adding ctest instructions to the CMakeLists.txt files (issue <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: test harness does not run on CMake builds (Closed)" href="/issues/850">#850</a>).  I agree with you (apologies to Gilles), and we should build/link/test the fresh build to the local sources.  We can install/test to /usr/....exiv2 tree.  Shawn and I are working on this for <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: test harness does not run on CMake builds (Closed)" href="/issues/850">#850</a>.</p>
+
+
+	<p>Thanks very much for contributing to exiv2.  This is very much appreciated.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2261" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/2456">Daniel Kaneider</a> <a title="07 Oct 2012 11:04" href="/projects/exiv2/activity?from=2012-10-07">about 9 years</a> ago
+      <span id="journal-2261-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2261-notes" class="wiki"><p>Thanks Robin for your fast response. CMake is pretty much the way to go!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2262" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/133">Robin Mills</a> <a title="07 Oct 2012 11:20" href="/projects/exiv2/activity?from=2012-10-07">about 9 years</a> ago
+      <span id="journal-2262-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2262-notes" class="wiki"><p>Daniel</p>
+
+
+	<p>Yes.  Andreas and I agree that our plan is to only support CMake.  Gilles contributed most of the existing CMake scripts and I agreed in June to take on CMake/msvc.  One day we'll be there.</p>
+
+
+	<p>For sure CMake works fine on Cygwin/Linux/Mac at generating Makefiles.  I've played with Eclipse (on Windows and Linux) and Xcode.</p>
+
+
+	<p>One day our CMake support will be strong enough to discontinue support for config/msvc/msvc64.  Your contribution is helping us reach that goal.  Thanks very much.</p>
+
+
+	<p>You are of course welcome to join the team.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2263" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Oct 2012 17:44" href="/projects/exiv2/activity?from=2012-10-09">about 9 years</a> ago
+      <span id="journal-2263-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>build</i></li>
+       <li><strong>Priority</strong> changed from <i>High</i> to <i>Normal</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2272" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Oct 2012 23:15" href="/projects/exiv2/activity?from=2012-10-13">about 9 years</a> ago
+      <span id="journal-2272-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>90</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2532" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 15:20" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2532-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-2532-notes" class="wiki"><p>Fixed in 0.24.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/856.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/856.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

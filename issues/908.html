@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #908: strerror_r gives no error message back - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="Nyrk2pIJqjzb8N9Xr+DPc4K1Lx/7owscOJqq4CZiKGTVZ0814HNmPI6UwFsQN8NAvSd7ZgpAqqbFujpoZVvPCw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #908: strerror_r gives no error message back" href="https://dev.exiv2.org/issues/908.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #908</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>strerror_r gives no error message back</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3851">Ákos Szőts</a> <a title="18 Jun 2013 00:26" href="/projects/exiv2/activity?from=2013-06-18">over 8 years</a> ago.
+        Updated <a title="24 Jul 2013 15:02" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">api</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Jul 2013" href="/versions/50">0.24</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">18 Jun 2013</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I tried to open a file which doesn't exist, but exiv2 doesn't gave a proper error message.<br />Here is what I saw in the console:<br />"/windows/Users/[...]/IMG_1734.JPG: Failed to open the data source:  (errno = 2) "</p>
+
+
+	<p>As you can see, there's nothing before the "(errno=2)" string. I debugged a bit and I saw that the execution goes from futils.cpp:104 (strerror_r(error, buf, n);) to :106 (os << buf;), but the buf is full of zeroes all the time.</p>
+
+
+	<p>System: openSUSE 12.3, GCC 4.7.2, x64.</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3061" href="/projects/exiv2/repository/exiv2/revisions/3061">Revision 3061</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3061/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Jun 2013 07:53" href="/projects/exiv2/activity?from=2013-06-19">over 8 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Issue: <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: strerror_r gives no error message back (Closed)" href="/issues/908">#908</a>.  futils.cpp strError() does not report correct error string.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2493" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Jun 2013 07:41" href="/projects/exiv2/activity?from=2013-06-18">over 8 years</a> ago
+      <span id="journal-2493-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.24</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-2493-notes" class="wiki"><p>Can you help me to understand this issue, please?  I'm not convinced that this is an Exiv2 issue - as it concerns the library function strerror_r.  I've run the following little test on Kubuntu 13.04<br /><pre>
+#include &lt;error.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main(int argc,const char* argv[])
+{
+    const size_t n = 1024;
+    char  buf[n];
+    int   e = 2;
+    strerror_r(e,buf,n-1);
+    printf("strerror_r e=%d,l=%lu,%s\n",e,strlen(buf),buf);
+
+    strcpy(buf,strerror(e));
+    printf("strerror_r e=%d,l=%lu,%s\n",e,strlen(buf),buf);
+
+    return 0;
+
+    // unused
+    argc;
+    argv;
+}
+</pre><br />And the output is:<br /><pre>
+842 rmills@rmills-ubuntu:~/temp $ ./foo
+strerror_r e=2,l=0,
+strerror_r e=2,l=25,No such file or directory
+</pre></p>
+
+
+	<p>In your linux example, the filename has been reported.  I've done something similar on Windows (and Kubuntu) and again the error and the filename have been reported.</p>
+
+
+	<p>I understand that you are expecting strerror_r to return a string, The man page says:<br /><pre>
+DESCRIPTION
+       `strerror_r' converts the error number ERRNUM into a string and copies the result into the supplied BUFFER for
+       a length up to N, including the NUL terminator. The value of ERRNUM is usually a copy of `errno'.  If `errnum'
+       is not a known error number, the result is the empty string.
+</pre></p>
+
+
+	<p>I agree that it is strange that strerror_r returns an empty string when errno=2(ENOENT in ./include/asm-generic/errno-base.h) and strerror reports in a reasonable manner.</p>
+
+
+<pre>
+
+C:\Users\rmills\Downloads&gt;exiv2 ..\Pictures\SummerTrip\RockyMountainNP\IMG_2167.jpg
+File name       : ..\Pictures\SummerTrip\RockyMountainNP\IMG_2167.jpg
+File size       : 4287016 Bytes
+MIME type       : image/jpeg
+Image size      : 3264 x 2448
+Camera make     : Canon
+Camera model    : Canon PowerShot S5 IS
+Image timestamp : 2013:06:17 10:00:20
+Image number    : 104-2167
+Exposure time   : 1/500 s
+Aperture        : F4
+Exposure bias   : 0 EV
+Flash           : No, compulsory
+Flash bias      : 0 EV
+Focal length    : 9.7 mm
+Subject distance: 2358
+ISO speed       : 80
+Exposure mode   : Easy shooting (Auto)
+Metering mode   : Multi-segment
+Macro mode      : Off
+Image quality   : Superfine
+Exif Resolution : 3264 x 2448
+White balance   : Auto
+Thumbnail       : image/jpeg, 5369 Bytes
+Copyright       :
+Exif comment    :
+
+C:\Users\rmills\Downloads&gt;exiv2 ..\Pictures\SummerTrip\RockyMountainNP\IMG_2167.jpgxx
+..\Pictures\SummerTrip\RockyMountainNP\IMG_2167.jpgxx: Failed to open the file
+
+C:\Users\rmills\Downloads&gt;
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-2494" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3851">Ákos Szőts</a> <a title="18 Jun 2013 08:12" href="/projects/exiv2/activity?from=2013-06-18">over 8 years</a> ago
+      <span id="journal-2494-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2494-notes" class="wiki"><p>For me the example runs great, producing the same output.</p>
+
+
+	<p>The problem is with the API. Here is the strError() implementation from futils.cpp:<br /><pre><code class="cpp syntaxhl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">strError</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="n">errno</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">os</span><span class="p">;</span>
+<span class="cp">#ifdef EXV_HAVE_STRERROR_R
+</span>        <span class="k">const</span> <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
+<span class="c1">// _GNU_SOURCE: See Debian bug #485135</span>
+<span class="cp"># if defined EXV_STRERROR_R_CHAR_P &amp;&amp; defined _GNU_SOURCE
+</span>        <span class="kt">char</span> <span class="o">*</span><span class="n">buf</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">buf2</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">memset</span><span class="p">(</span><span class="n">buf2</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="n">strerror_r</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">buf2</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="cp"># else
+</span>        <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">memset</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+        <span class="n">strerror_r</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="cp"># endif
+</span>        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">buf</span><span class="p">;</span>
+<span class="cp">#else
+</span>        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">strerror</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="cp">#endif
+</span>        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">" (errno = "</span> <span class="o">&lt;&lt;</span> <span class="n">error</span> <span class="o">&lt;&lt;</span> <span class="s">")"</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+    <span class="p">}</span> <span class="c1">// strError</span>
+</code></pre></p>
+
+
+	<p>On a "File not found" error the "errno" is 2 (in line 3). After that the execution goes to line 14, 15 and 16. When I was „inside” the strerror_r function I saw that the error number was converted somehow to the "File not found" string; but I didn't observe whether it was copied back to the buffer also.<br />Then in line 18 the "buf" variable is full of zeroes again.</p>
+
+
+	<p>If you try to run the following, do you get the error message?<br /><pre><code class="cpp syntaxhl"><span class="n">Exiv2</span><span class="o">::</span><span class="n">ImageFactory</span><span class="o">::</span><span class="n">open</span><span class="p">(</span><span class="s">"wrong_path.jpg"</span><span class="p">);</span>
+</code></pre><br />For me it says:<br /><pre>
+wrong_path.jpg: Failed to open the data source:  (errno = 2) 
+</pre><br />The right one would be:<br /><pre>
+wrong_path.jpg: Failed to open the data source: No such file or directory (errno = 2) 
+</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-2495" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Jun 2013 08:59" href="/projects/exiv2/activity?from=2013-06-18">over 8 years</a> ago
+      <span id="journal-2495-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2495-notes" class="wiki"><p>Thanks for clarifying this so quickly.</p>
+
+
+	<p>It's easy to become confused here because:<br />1) my strerror_r appears to be behaving in an unexpected way (and different from you).<br />2) there's a maze involving EXV_HAVE_STRERROR_R EXV_STRERROR_R_CHAR_P and _GNU_SOURCE<br />3) I didn't write the code and haven't looked at this before today!</p>
+
+
+	<p>Can you try adding a line following 106:<br />    os << buf;<br />    if ( !buf<sup><a href="#fn0">0</a></sup> ) os << strerror(error); // report strerror() if strerror_r() returns empty</p>
+
+
+	<p>If that doesn't fix it, can you add cout statements to determine which route you are taking through the maze!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2496" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Jun 2013 09:00" href="/projects/exiv2/activity?from=2013-06-18">over 8 years</a> ago
+      <span id="journal-2496-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2496-notes" class="wiki"><p>The formatting gods are angry:</p>
+
+
+<pre>
+os &lt;&lt; buf;
+if ( !buf[0] ) os &lt;&lt; strerror(error); // report strerror() if strerror_r() returns empty
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-2497" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3851">Ákos Szőts</a> <a title="18 Jun 2013 09:20" href="/projects/exiv2/activity?from=2013-06-18">over 8 years</a> ago
+      <span id="journal-2497-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2497-notes" class="wiki"><p>Without the patch:<br /><pre>
+LD_LIBRARY_PATH=/home/aki/[...]/exiv2-0.23/src/.libs/ ./a.out  wrong_path
+Caught Exiv2 exception 'wrong_path: Failed to open the data source:  (errno = 2)'
+</pre></p>
+
+
+	<p>With the patch:<br /><pre>
+LD_LIBRARY_PATH=/home/aki/[...]/exiv2-0.23/src/.libs/ ./a.out  wrong_path
+Caught Exiv2 exception 'wrong_path: Failed to open the data source: No such file or directory (errno = 2)'
+</pre></p>
+
+
+	<p>So, it works :)</p>
+
+
+	<p>As far as I can tell "buf" is zero, but I don't know why. Just a wild hint, but maybe we use different versions of strerror_r. From its manual:<br /><pre>
+       The XSI-compliant version of strerror_r() is provided if:
+       (_POSIX_C_SOURCE &gt;= 200112L || _XOPEN_SOURCE &gt;= 600) &#38;&#38; ! _GNU_SOURCE
+       Otherwise, the GNU-specific version is provided.
+</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-2500" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Jun 2013 07:54" href="/projects/exiv2/activity?from=2013-06-19">over 8 years</a> ago
+      <span id="journal-2500-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-2500-notes" class="wiki"><p>Ákos:</p>
+
+
+	<p>You have the right idea here concerning the version of strerror_r.  The maze is determined by ./configure (and CMake) to compile the code that matches the version of strerror_r on the build machine.</p>
+
+
+	<p>Anyway, I've submitted the fix: <a class="changeset" title="Issue: #908.  futils.cpp strError() does not report correct error string." href="/projects/exiv2/repository/exiv2/revisions/3061">r3061</a> and marked this "resolved".  If you discover anything about this, please update this issue report.  This issue will eventually be "closed" when all issues are reviewed for the 0.24 release (expected about the end of 2013).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2502" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 15:02" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2502-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-2502-notes" class="wiki"><p>Fixed in 0.24.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/908.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/908.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>MSVC &amp; Unicode - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="DSbbp98BcAje//fZXWDoKZ/04YcsVdb4re6YPh0RroHva3BIrXu8CIub6NXit+QaoGa1/t22d0JQzgi2XihJ7g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>MSVC &amp; Unicode</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="18 Mar 2016 19:05" href="/projects/exiv2/activity?from=2016-03-18">over 5 years</a> ago</span></p>
+<div class="wiki">
+<p>From a brief look through this forum, it seems that Unicode is a problem for exiv2.<br />Is that correct?<br />I am trying to integrate exiv2 into an application created by someone else (vvvP) and am running into a number of issues, without much of a good idea (yet) as to whether they originate with the old application (supposedly compiled with CMake using exiv2 and Unicode).<br />Not being a CMake guy, and preferring MSVC, I can compile both the app and exiv2 under MSVC 2013, using Unicode strings and the multi-threaded debug dll (/MTd)<br /> - just now using only the debug version.<br />The both compiles ( app &#38; exiv2 lib) go well, but I am running into unresolved externals in the link step.<br />So, the first real question is: is exiv2 known to work with Unicode?</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (38)</h3>
+  <div class="message reply" id="message-2438">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2438#message-2438">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="18 Mar 2016 19:33" href="/projects/exiv2/activity?from=2016-03-18">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>My assertion of a good Unicode compile was inaccurate.<br />I get a number of errors and will have to try and sort those out.<br />(Does this forum not allow editing my own post?? )</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2439">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2439#message-2439">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Mar 2016 19:40" href="/projects/exiv2/activity?from=2016-03-18">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>As an Forum Admin, I can edit posts.  I don't believe that permission is granted to users.  I can't grant you permission to edit posts.</p>
+
+
+	<p>I believe you can build this with msvc2005/exiv2.sln using Visual Studio 2005/8/10/12/13/15.</p>
+
+
+	<p>Edit include/exiv2/exv_msvc.h to set the EXV_UNICODE_PATH build switch.</p>
+
+
+	<p>Change:<pre><code class="cplusplus syntaxhl"><span class="cm">/* Windows unicode path support */</span>
+<span class="c1">// #define EXV_UNICODE_PATH 1</span></code></pre>To:<pre><code class="cplusplus syntaxhl"><span class="cm">/* Windows unicode path support */</span>
+<span class="cp">#define EXV_UNICODE_PATH 1</span></code></pre>Open msvc2005/exiv2.sln in Visual Studio, select your target { Static|Dynamic Win32|x64 Debug|Release) and build!</p>
+
+
+	<p>I've never actually built or tested the EXV_UNICODE_PATH configuration, however I believe it works.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2440">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2440#message-2440">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Mar 2016 20:33" href="/projects/exiv2/activity?from=2016-03-18">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've setup this and it builds and (mostly) passes the test suite.  I've opened an issue report to validate all of this.  <a class="issue tracker-3 status-5 priority-4 priority-default closed" title="Support: Validate flag EXV_UNICODE_PATH/msvc2005 builds and passes the test suite (Closed)" href="/issues/1169">#1169</a>.</p>
+
+
+	<p>At the moment, part of our test suite is failing - however I suspect this is because some sample/test applications don't respect EXV_UNICODE_PATH.  Our most important test script <em>test/bugfixes.sh</em> passes.  It uses exiv2.exe, so the build is basically sound.</p>
+
+
+	<p>I found and fixed a compilation unsigned/signed mismatch error in src/actions.cpp which is part of exiv2.exe (and not the library).  I've also updated msvc2005/ReadMe.txt to discuss EXV_UNICODE_PATH. <a class="changeset" title="#1169.  Fixing issues concerning msvc2005/EXV_UNICODE_PATH" href="/projects/exiv2/repository/exiv2/revisions/4235">r4235</a></p>
+
+
+	<p>Thank You for using Exiv2<br /><img src="http://exiv2.org/Exiv2Logo.png" alt="" /></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2441">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2441#message-2441">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="18 Mar 2016 22:56" href="/projects/exiv2/activity?from=2016-03-18">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I have now been able to build a more or less clean Unicode debug library of exiv2.</p>
+
+
+	<p>Setting the #define EXV_UNICODE_PATH 1 made no difference to my results, but then I have not tested any of the exiv2 executables as I am only interested in the library.<br />There I am stuck now with two unresolved externals which I have to sort out:</p>
+
+
+	<p>1>image_preview.obj : error LNK2019: unresolved external symbol "public: static class std::auto_ptr&lt;class Exiv2::Image&gt; __cdecl Exiv2::ImageFactory::open(class std::basic_string&lt;char,struct std::char_traits&lt;char&gt;,class std::allocator&lt;char&gt; > const &#38;)" (?open@ImageFactory@Exiv2@<code>SA?AV?$auto_ptr@VImage@Exiv2</code>@<code>std</code>@ABV?$basic_string@DU?$char_traits@D@std@<code>V?$allocator@D@2</code>@4@<code>Z) referenced in function "public: static enum CImagePreview::ReturnValue __cdecl CImagePreview::ExtractImagePreview(class wxString const &#38;,int,class wxImage &#38;,class CMemoryChunk &#38;,enum CMetadata::ColorSpace &#38;)" (?ExtractImagePreview@CImagePreview</code>@SA?AW4ReturnValue@1@ABVwxString@<code>HAAVwxImage</code>@AAVCMemoryChunk@<code>AAW4ColorSpace@CMetadata</code>@@Z)</p>
+
+
+	<p>1>metadata.obj : error LNK2001: unresolved external symbol "public: static class std::auto_ptr&lt;class Exiv2::Image&gt; __cdecl Exiv2::ImageFactory::open(class std::basic_string&lt;char,struct std::char_traits&lt;char&gt;,class std::allocator&lt;char&gt; > const &#38;)" (?open@ImageFactory@Exiv2@<code>SA?AV?$auto_ptr@VImage@Exiv2</code>@<code>std</code>@ABV?$basic_string@DU?$char_traits@D@std@<code>V?$allocator@D@2</code>@4@@Z)</p>
+
+
+	<p>1>uuidwrapper.obj : error LNK2019: unresolved external symbol _uuid_create referenced in function "public: static class wxString __cdecl CUUIDWrapper::ComputeUUID(void)" (?ComputeUUID@CUUIDWrapper@<code>SA?AVwxString</code>@XZ)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2442">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2442#message-2442">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="18 Mar 2016 23:15" href="/projects/exiv2/activity?from=2016-03-18">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>OK, got rid of the second unresolved symbol _uuid_create (an existing file was not part of the project files list), so now I am left only with the one(s) from Exiv2</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2443">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2443#message-2443">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="18 Mar 2016 23:57" href="/projects/exiv2/activity?from=2016-03-18">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>The unresolved external persists with or without the #define EXV_UNICODE_PATH 1<br />Probably will have to revise the calling args by the app to be consistent with Exiv2</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2444">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2444#message-2444">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Mar 2016 00:10" href="/projects/exiv2/activity?from=2016-03-19">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'll look at this tomorrow.  I didn't write Exiv2.  We will fix this together.  I notice you haven't said "Thank You" for my support.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2445">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2445#message-2445">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="19 Mar 2016 02:37" href="/projects/exiv2/activity?from=2016-03-19">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, I agree, I was i bit preoccupied with trying to master the compile for Unicode.<br />My apologies and "thank you" for your comments.</p>
+
+
+	<p>Though, I am not sure there is anything that is not working with exiv2.<br />The code I am trying to resurrect is several years old and I have no idea which version of exiv2 it was originally compiled with.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2447">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2447#message-2447">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Mar 2016 11:17" href="/projects/exiv2/activity?from=2016-03-19">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Good idea to bring your code up to date with the current trunk.  When we're both "on the same page" we'll fix everything quickly.  ImageFactory::open() was changed in 2013 for the Web Ready project to enable URLs as a path.  From memory, I believe it was changed from: <pre><code class="cplusplus syntaxhl"><span class="n">open</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">path</span><span class="p">);</span></code></pre>to: <pre><code class="cplusplus syntaxhl"><span class="n">open</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">path</span><span class="p">,</span><span class="kt">bool</span> <span class="n">bUseCurl</span><span class="o">=</span><span class="nb">false</span><span class="p">);</span></code></pre>I'm not bothered by the test suite failures as I am quite certain they are issues concerning the sample applications not respecting EXV_UNICODE_PATH.</p>
+
+
+	<p>Looking after an open source project is a lot of <em>unpaid</em> work.  The build matrix of 64/32/static/dynamic/release/debug is huge.  MSVC 2003/5/8/10/12/13/15 all have to be built and tested in addition to cygwin/mingw/linux/macosx.  Different compilers:  gcc/clang/cl.  Build options such as EXV_UNICODE_PATH, with/without curl/expat/zlib/libssh/openssl.  Build environments: CMake/MSVC/Autotools.  User correspondence: issues/forum/email.  After that comes the on-going development of the library itself.  A few words of appreciation for this effort are appreciated and seldom received.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2449">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2449#message-2449">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="19 Mar 2016 18:57" href="/projects/exiv2/activity?from=2016-03-19">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>It is good to see you've taken on the job of maintenance for Exiv2. It certainly is and was appreciated that there is someone who will take the time to answer newb questions - thank you.<br />I am very new to it so I have no idea at all about its history or the people who were and/or are involved.<br />As far as I can tell, my code ought to be up-to-date, as I have down loaded the latest? 0.25 tarball.<br />Also, as I mentioned, I don't see where there is a problem - at least for me - with the exicv2 code.</p>
+
+
+	<p>In fact, I am not even familiar enough yet, as to how or where that app I am trying to resurrect is using Exiv2. :-)<br />I have commented out the calls which cause me trouble and it still does all I have been able to do (or rather all I have had a chance to test to this point).<br />From what I see, the issue I have to resolve is to translate a wxWidgets string to one of the acceptable std:: strings - which hopefully won't be too hard. <br />At present the issue only shows up at link time when the munged function name is not found instead at compile time, though for all I can tell, the proper headers are included.</p>
+
+
+	<p>As well, I am new to MSVC 2013 and find it way more temperamental than 2010, which I have been using mostly up to now.<br />I am sure to try 2015 ASAP to see if it is more reliable.</p>
+
+
+	<p>As for testing, I have not even tried any of the command line utilities that come with the library.</p>
+
+
+	<p>All I need is the library, though I may well have to dig deeper if I really want to use the facilities provided by exiv2. My main interest for resurrecting the old app is to be able to use more of the metadata facilities of graphics formats &#38; files</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2451">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2451#message-2451">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="19 Mar 2016 20:10" href="/projects/exiv2/activity?from=2016-03-19">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>OK, got all my compile issues for the old app sorted out.<br />The old all had included some - evidently obsolete - exiv2 headers.<br />Pointing the compiler to the current headers  - part of the exiv2 package - cleared it all up.</p>
+
+
+	<p>Expanding the exiv2 based capabilities of the app, will no doubt have me back asking more questions. :-)</p>
+
+
+	<p>Again, thank you for your help.<br />If I can help in any way, let me know.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2454">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2454#message-2454">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Mar 2016 20:44" href="/projects/exiv2/activity?from=2016-03-19">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I would really like to recruit somebody to help with the C++ code.  Have a look in the news, and you'll see what's on my plate.  If you can help with any of the outstanding stuff for v0.26, let me know.  I'm very happy to mentor as you get to understand the code.  <a class="external" href="http://dev.exiv2.org/projects/exiv2/news">http://dev.exiv2.org/projects/exiv2/news</a></p>
+
+
+	<p>Another time-sink for me is Forum/Issue Correspondence.  If you can answer anything, please answer it.  Don't worry about making mistakes.  I make mistakes all the time.  I always try to give the correct answer - however to err is human.  Some of the correspondence is very simple.  Somebody's asking about exiv2/exiftool today.  You don't need to know much about Exiv2 to answer those questions.</p>
+
+
+	<p>Thanks for using Exiv2.  I will happily help you if you encounter issues with Exiv2 in your project.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2460">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2460#message-2460">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="20 Mar 2016 02:26" href="/projects/exiv2/activity?from=2016-03-20">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I had a brief look at the link you gave, in particular for issue # 1121</p>
+
+
+	<p>I am curious why you still want to support back to MSVC 2003. From my perspective that is so ancient that it seems close to looking for support for DOS 6.2 :-)</p>
+
+
+	<p>Is there any particular need for anything before even MSVC 2010? Aside from the fact that it can be done</p>
+
+
+	<p>While I am no CMake guru or fan, my experience being almost exclusively MSVC, I would be interested in running some test in the MSVC environment. I believe you mentioned that you had something along those lines working at some time in the past?</p>
+
+
+	<p>Presently my experience in testing is rather limited, though I have played with and  used cppunit for a couple of my projects.</p>
+
+
+	<p>My own plate is also quite full, but I am hoping that I can always squeeze a bit of time for things such as exiv2, which I am hoping will also help me with my own projects. ;-)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2461">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2461#message-2461">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Mar 2016 11:04" href="/projects/exiv2/activity?from=2016-03-20">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've been working with Exiv2 since 2008.  I started on the project by developing the msvc2003 projects and they built with Visual Studio 2003 and 2005 because those systems were in use everywhere at that time.  The code cannot build with DevStudio6.0 because it doesn't support STL.  Later, I added msvc2005 to build 64 and/or 32 bit.  I've kept msvc2003 and msvc2005 alive as Microsoft have shipped new versions of Visual Studio.  Support for msvc2003 will be dropped after v0.26.  Significant new features such as webready are not supported by msvc2003.</p>
+
+
+	<p>I put 200 hours into our CMake/VisualStudio support last fall.  I believe it's working well for Visual Studio 2005/8/10/12/13/15 &lt;exiv2dir&gt;/contrib/cmake/msvc</p>
+
+
+	<p>I don't like CMake much for MSVC.  I much prefer the solution/project files.  Daniel thinks we should dump the solution/project files.  However Daniel is a real Linux guy.  I think most Windows/Visual Studio users will not like CMake.  If you have some time, you could take a look at CMake/Visual Studio and give me feedback.  Don't be surprised if you discover it's broken.  I haven't looked at it since before Christmas and you may discover there is something horribly wrong.  I will revisit this before we ship v0.26 in the summer.</p>
+
+
+	<p>Our test suite is written in bash and requires cygwin to run the test suite.  On Windows, the suite can test msvc builds as well as Cygwin and MinGW builds.  I've thought about rewriting the test suite in python to avoid the dependency on cygwin.  I will never have time to do that.  <a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/How_do_I_run_the_test_suite_for_Exiv2">http://dev.exiv2.org/projects/exiv2/wiki/How_do_I_run_the_test_suite_for_Exiv2</a></p>
+
+
+	<p>I have quite a lot of things I would like to do for Visual Studio in v0.26 <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Visual Studio support for v0.27 (Closed)" href="/issues/1121">#1121</a></p>
+
+
+	<p>I'm quite enthusiastic to retain MSVC support for ancient old systems like Visual Studio 2005.  These things are free downloads today, so students in India can get them for nothing and learn about Windows (they don't, but they could).  I was a contractor at a small company in Silicon Valley.  They had a lot of legacy code that built with DevStudio 6.0.  I think you'd be surprised at how much ancient stuff is still used around the world.  You've probably discovered that I am a retired Adobe Engineer.  Adobe do maintain their code in pristine shape on current platforms.  Smaller companies struggle with their legacy code.</p>
+
+
+	<p>One aspect of working on open-source is that I have no idea how many people use Exiv2 and for what purposes.  I only hear from folks when something is broken!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2462">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2462#message-2462">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="20 Mar 2016 17:15" href="/projects/exiv2/activity?from=2016-03-20">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Whether I'll be able to help with CMake will have to be seen. I don't have it installed at the moment and don't know if I can climb that hill ;-)<br />It so happens I do have cygwin64 installed already and so I tried a couple of things following the instructions on the wiki link you sent.</p>
+
+
+	<p>The first problem I ran into:<br /><em>$ ./configure<br />....<br />checking whether to compile with video support... no<br />checking whether to compile with webready support... no<br />checking expat.h usability... no<br />checking expat.h presence... no<br />checking for expat.h... no<br />configure: error: either specify a valid expat installation with --with-expat=DIR or disable XMP support with --disable-xmp</em><br />To fix this, I looked for expat code within the package &#38; found at least 3 in msvc2005, all containing only a project file<br />To get my compile to work I installed expat-2.1.0 in the project root and used it, but have had no luck pointing the --with-expat to the right directory; it gives me the same error as above.</p>
+
+
+	<p>$ ./configure --disable-xmp<br />runs to completion, but gives me:<br /><em>arnold@Hummer /cygdrive/d/pkg/wx/MSVC2015/exiv2-0.25<br />$ make<br />if test "x" = "x1"; then cd xmpsdk/src &#38;&#38; C:/gnuwin32/bin/make xmpsdk; fi;<br />cd src &#38;&#38; C:/gnuwin32/bin/make<br />make<sup><a href="#fn1">1</a></sup>: Entering directory `D:/pkg/wx/MSVC2015/exiv2-0.25/src'<br />Xlocale" <del>c -DEXV_BUILDING_LIB=1 -o basicio.o basicio.lo<br />D:\pkg\wx\MSVC2015\exiv2-0.25\libtool: compile: warning: libobj name `locale" -c -DEXV_BUILDING_LIB=1 -o basicio.o basicio.lo' may not contain shell special characters.<br />rm: unknown option -</del> c<br />Try 'rm --help' for more information.<br />D:\pkg\wx\MSVC2015\exiv2-0.25\libtool: compile:  g++ -O2 -Wall -Wcast-align -Wpointer-arith -Wformat-security -Wmissing-format-attribute -Woverloaded-virtual -W -Wundef -pedantic -MMD -I../src -I../include/ -I../include/exiv2 "-DEXV_LOCALEDIR=\\/usr/local/share/locale\" -c -DEXV_BUILDING_LIB=1 -o basicio.o basicio.cpp"  -DDLL_EXPORT -DPIC -o .libs/locale" -c -DEXV_BUILDING_LIB=1 -o basicio.o basicio.o<br />D:\pkg\wx\MSVC2015\exiv2-0.25\libtool: eval: line 991: unexpected EOF while looking for matching `"'<br />D:\pkg\wx\MSVC2015\exiv2-0.25\libtool: eval: line 992: syntax error: unexpected end of file<br />make<sup><a href="#fn1">1</a></sup>: <b>* [basicio.o] Error 2<br />make<sup><a href="#fn1">1</a></sup>: Leaving directory `D:/pkg/wx/MSVC2015/exiv2-0.25/src'<br />make: *</b> [all] Error 2<br /></em></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2463">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2463#message-2463">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Mar 2016 17:38" href="/projects/exiv2/activity?from=2016-03-20">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ah.  Build expat 2.1.0 and zlib 1.2.8 from the public tar-balls and install them.<pre>521 rmills@rmillsmbp:~/gnu $ dirs | grep -e exiv2 -e zlib -e expat 
+drwxr-xr-x+ 20 rmills  staff      680 28 Feb 20:45 exiv2/
+drwxr-xr-x+ 36 rmills  staff     1224 12 Nov 17:16 gexiv2/
+drwxr-xr-x+  5 rmills  staff      170  5 Oct 08:53 py3exiv2/
+drwxr-xr-x+  3 rmills  staff      102  5 Aug  2013 zlib/
+drwxr-xr-x+  3 rmills  staff      102  5 Aug  2013 expat/</pre><pre>$ cd ~/gnu/expat/expat-2.1.0 ; ./configure ; make ; sudo make install</pre>Do the same in <code> ~/gnu/zlib/zlib-1.2.8 </code>.  Then go to ~/gnu/exiv2/trunk and <pre> $ make config ; ./configure ; make ; sudo make install ; make samples ; make tests</pre>It'll work.  Trust me!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2464">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2464#message-2464">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="20 Mar 2016 19:06" href="/projects/exiv2/activity?from=2016-03-20">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Reinstalled cygwin 64 just to be sure, but I get an error from make after ./configure completes<br /><pre>
+...
+config.status: expat_config.h is unchanged
+config.status: executing libtool commands
+
+arnold@Hummer /cygdrive/d/pkg/wx/MSVC2015/exiv2-0.25/expat-2.1.0
+$ make
+C:/cygwin64/bin/sh.exe ./libtool --silent --mode=link gcc -std=gnu99 -I./lib -I. -g -O2 -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions  -DHAVE_EXPAT_CONFIG_H -no-undefined -version-info 7:0:6 -rpath /usr/local/lib  -o libexpat.la lib/xmlparse.lo lib/xmltok.lo lib/xmlrole.lo
+/usr/lib/gcc/x86_64-pc-msys/4.9.2/../../../../x86_64-pc-msys/bin/ld: cannot find -link
+collect2: error: ld returned 1 exit status
+make: *** [libexpat.la] Error 1
+
+arnold@Hummer /cygdrive/d/pkg/wx/MSVC2015/exiv2-0.25/expat-2.1.0
+</pre></p>
+
+
+	<p>The zlib part (testing with 1.2.7) gives<br /><pre>
+....
+gcc -O3  -o example.exe example.o -L. libz.a
+gcc -O3  -I. -c -o minigzip.o test/minigzip.c
+gcc -O3  -o minigzip.exe minigzip.o -L. libz.a
+
+arnold@Hummer /cygdrive/d/pkg/wx/MSVC2015/exiv2-0.25/zlib-1.2.7
+$ sudo make install
+-bash: sudo: command not found
+
+arnold@Hummer /cygdrive/d/pkg/wx/MSVC2015/exiv2-0.25/zlib-1.2.7
+$ make install
+cp libz.a /usr/local/lib
+cp: cannot create regular file `/usr/local/lib': No such file or directory
+make: *** [install-libs] Error 1
+
+arnold@Hummer /cygdrive/d/pkg/wx/MSVC2015/exiv2-0.25/zlib-1.2.7
+
+</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2465">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2465#message-2465">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Mar 2016 19:21" href="/projects/exiv2/activity?from=2016-03-20">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>I think you might need to delete the files config.log and config.status.  These files "remember" what happened last time you ran ./configure.</p>
+
+
+	<p>It's odd that you don't have a directory /usr/local, you better create it.  And create cousins bin and include: <pre>$ mkdir -p /usr/local/lib; mkdir -p /usr/local/bin ; mkdir -p /usr/local/include</pre></p>
+
+
+	<p>sudo is a Linux/MacOS-X command "Super User Do".  You don't need it on cygwin.  Now that you've created /usr/local/lib, just do <pre>$ make install</pre>I've got a script /usr/local/bin/sudo<pre>#!/bin/bash
+
+## sudo - dummy script
+"$@" 
+
+# That's all Folks
+##</pre>This saves me thinking "do I need sudo on this platform or not?".  It's just there.  On Linux/MacOS-X sudo elevates the user permissions for a single command.  My home-made script simply executes the arguments you pass.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2503">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2503#message-2503">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="22 Mar 2016 16:41" href="/projects/exiv2/activity?from=2016-03-22">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the sudo script.<br />(At one point I did dabble with Linux and still do if I have to, as well I spent a few years working with Solaris as part of one of my jobs, so sudo is not really a mystery for me; I had just assumed that perhaps cygwin might have a Win substitute, which also might elevate permissions if needed)</p>
+
+
+	<p>After all the issues I had, I tried for a clean start &#38; reinstalled cygwin64, Then I realized I needed more than just the basic shell, because after the initial install, the scripts could not even find any compiler.<br />Then, to be safe I reinstalled the exiv2 package into a directory separate from my working copy for my app, just to avoid any interference.</p>
+
+
+	<p>At that point, it looked like <em>./configure</em> ran to completion as did <em>make install</em>, but make samples does not.<br />Lots of:</p>
+
+
+	<p>....</p>
+
+
+	<p>ExifData::add(Exiv2::ExifKey const&#38;, Exiv2::Value const*)'<br />addmoddel.o:addmoddel.cpp:(.text.startup+0x39b): undefined reference to `Exiv2::Value::Value(Exiv2::TypeId)'</p>
+
+
+	<p>....</p>
+
+
+	<p>So now I am still stuck with a number of questions:<br />does it matter which drive the exiv2 package is installed on?<br />Currently cygwin is on C: with my development code, including exiv2 on D:<br />Or would the exiv2 code have to be on within cygdrive C?<br />What sort of cygwin packages are essential for this job?<br />(Installing 'all' just takes up too much time and disk space :-) )</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2504">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2504#message-2504">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Mar 2016 16:46" href="/projects/exiv2/activity?from=2016-03-22">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>There's very little wrong here.  However software is a kind of dog.  If you don't understand him, when you go to stroke him, he'll bite your hand off!</p>
+
+
+	<p>Is it possible screenshare on Skype 'clanmills' and I'll "talk you down"  <em>"(don't call her striker)"</em></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2505">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2505#message-2505">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Mar 2016 17:16" href="/projects/exiv2/activity?from=2016-03-22">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>You shouldn't really need to worry about drive letters.  Cygwin has a filesystem which starts at /    c:\ => /cygdrive/c d:\ => /cygdrive/d  and so on.</p>
+
+
+	<p>The messages you are getting are from the linker and effectively say "I cannot find the Exiv2 library when I'm linking the sample program addmoddel". (addmoddel means: <em><strong>add mod del</strong></em> which means <em><strong>add modify delete</strong></em>)  addmoddel is used by our test suite.</p>
+
+
+	<p>The library should be build and installed in /usr/local/lib/libexiv*, the dlls and .exes in /usr/local/bin/exiv2.exe. <pre>503 rmills@rmillsmbp-w7:/usr/local/lib $ dir | grep exiv2
+-rw----r--  1 rmills rmills 5.7M Jan  7 21:43 libexiv2.a
+-rw----r--  1 rmills rmills 1019 Jan  7 21:43 libexiv2.la
+-rw-r--r--  1 rmills None   6.7M Dec 13 12:57 libexiv2.dll.a
+504 rmills@rmillsmbp-w7:/usr/local/lib $ cd ../bin
+505 rmills@rmillsmbp-w7:/usr/local/bin $ dir | grep exiv2
+-rwx---r-x 1 rmills rmills 3.4M Jan  7 21:43 exiv2.exe*
+-rwxr-xr-x 1 rmills None   448K Dec 13 12:57 exiv2json.exe*
+-rwxr-xr-x 1 rmills None   5.0M Dec 13 12:57 cygexiv2-14.dll*
+506 rmills@rmillsmbp-w7:/usr/local/bin $</pre></p>
+
+
+	<p>If the library is there, then set a couple of environment strings and try again:<pre>$ export LD_LIBRARY_PATH=/usr/local/lib
+$ export PATH=$PATH:/usr/local/bin
+$ make samples</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2506">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2506#message-2506">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="22 Mar 2016 17:18" href="/projects/exiv2/activity?from=2016-03-22">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Never skyped - don't have a mic nor a camera :-)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2507">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2507#message-2507">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="22 Mar 2016 17:38" href="/projects/exiv2/activity?from=2016-03-22">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Here is what I get:</p>
+
+
+<blockquote>
+
+	<p>arnold@Hummer ~<br />$ cd /usr/local/lib</p>
+
+
+	<p>arnold@Hummer /usr/local/lib<br />$ dir |grep exiv2<br />libexiv2.a  libexiv2.la  pkgconfig</p>
+
+
+	<p>arnold@Hummer /usr/local/lib<br />$ cd ../bin</p>
+
+
+	<p>arnold@Hummer /usr/local/bin<br />$ dir |grep exiv2<br />exiv2.exe</p>
+
+
+	<p>arnold@Hummer /usr/local/bin<br />$ export LD_LIBRARY_PATH=/usr/local/lib</p>
+
+
+	<p>arnold@Hummer /usr/local/bin<br />$ export PATH=$PATH:/usr/local/bin</p>
+
+
+</blockquote>
+
+	<p>./configure<br />make<br />make install<br />make samples<br />Then we're back to the same errors</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2508">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2508#message-2508">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="22 Mar 2016 17:56" href="/projects/exiv2/activity?from=2016-03-22">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Had to also <em>export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig</em><br />Now <em>make samples</em> seems to be compiling a bunch of code</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2509">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2437?r=2509#message-2509">RE: MSVC &amp; Unicode</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="22 Mar 2016 17:59" href="/projects/exiv2/activity?from=2016-03-22">over 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>But:</p>
+
+
+<blockquote>
+
+	<p>arnold@Hummer /cygdrive/d/pkg/c++/exiv/exiv2-0.25<br />$ make tests<br />cd test &#38;&#38; make test<br />/bin/sh: line 0: cd: test: No such file or directory<br />Makefile:74: recipe for target 'tests' failed<br />make: *** [tests] Error 1__</p>
+
+
+</blockquote></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"><li class="previous"><span>« Previous</span></li><li class="current"><span>1</span></li><li class="page"><a href="/boards/3/topics/2437?page=2">2</a></li><li class="next page"><a accesskey="n" href="/boards/3/topics/2437?page=2">Next »</a></li></ul><span><span class="items">(1-25/38)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

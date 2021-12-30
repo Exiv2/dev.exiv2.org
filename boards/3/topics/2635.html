@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Extracting/reading PNG iTXt chunks with Exiv2 - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="acbxDWb8sJwP4+BApprlAO3ty05BitUljysy5lsFQ4WLi1riFIZ8nFqH/0wZTekz0n+fN7BpdJ9yC6JuGDyk6g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Extracting/reading PNG iTXt chunks with Exiv2</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="21 Aug 2016 20:12" href="/projects/exiv2/activity?from=2016-08-21">about 5 years</a> ago</span></p>
+<div class="wiki">
+<p>Being a newb to Exiv2, I have been trying to find a way to check for and extract or read the various chunks, particularly the iTXt chunks, in a PNG, file using the current Exiv2 library.<br />Any comments or pointer will much appreciated.<br />TIA</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (4)</h3>
+  <div class="message reply" id="message-2636">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2635?r=2636#message-2636">RE: Extracting/reading PNG iTXt chunks with Exiv2</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Aug 2016 20:31" href="/projects/exiv2/activity?from=2016-08-21">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Arnold</p>
+
+
+	<p>Yes, you can do this with the -pS (printStructure in v0.25) and -pR (printRecursive in trunk/v0.26) options. <pre>951 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pS test/data/imagemagick.png 
+STRUCTURE OF PNG FILE: test/data/imagemagick.png
+ address | index | chunk_type |  length | data
+       8 |     0 |       IHDR |      13 | ...@........
+      33 |     1 |       iCCP |    1404 | icc..x...i8.......af\...w_3...+
+    1449 |     2 |       sBIT |       3 | ...
+    1464 |     3 |       zTXt |      87 | Software..x...A.. ......B....}.N
+    1563 |     4 |       tEXt |   24482 | Raw profile type exif..exif.   1
+   26057 |     5 |       tEXt |     471 | Raw profile type iptc..iptc.    
+   26540 |     6 |       IDAT |    8192 | x...Y.$Wv&#38;v.{.{l.T.......[w.=m$G
+   34744 |     7 |       IDAT |    8192 | .4X.y.AR...4....:Ue..U.|1..:..D.
+   42948 |     8 |       IDAT |    8192 | 'g.!... ...n...s..Jdz.........6.
+   51152 |     9 |       IDAT |    8192 | ........k....CY/75I..u;.. .z...}
+   59356 |    10 |       IDAT |    8192 | .f&gt;..]....UKqD2s.(.q....=x.l.\V.
+   67560 |    11 |       IDAT |    8192 | .i.{!!B0...C!4.p..`D g`.........
+   75764 |    12 |       IDAT |    8192 | .*.].4..Q..}(9...S0&#38;.......T.9.+
+   83968 |    13 |       IDAT |    8192 | ..k...6....g.1..}.].&#38;.H........
+   92172 |    14 |       IDAT |    8192 | .j..S.........z..!U.G0*.m%..09&lt;,
+  100376 |    15 |       IDAT |    8192 | .....t.&gt;!.....6^.&lt;..;..?$I..M.9
+  108580 |    16 |       IDAT |    8192 | W.&#38;5.5J........FW`....3.N.9Pk;.s
+  116784 |    17 |       IDAT |    8192 | .....d.z".`...v=g-..-.c8...Z.5.x
+  124988 |    18 |       IDAT |    8192 | .."...o&lt;&#38;."....1M....1&#38;. ..5....
+  133192 |    19 |       IDAT |    8192 | k........!..B*.....\*.(!..0.s..B
+  141396 |    20 |       IDAT |    3346 | .Y.L@I$M.Z[.0A ...K#.t.0+.G(.jX.
+  144754 |    21 |       IEND |       0 | 
+952 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I don't know for which purpose you are interested in the iTXt chunks.  Some can be extracted by exiv2.  For example, the following command will extract an ICC profile to stdout.<pre>$ exiv2 -pC foo.png</pre>The following command will extract XMP (xml) to stdout: <pre>$ exiv2 -pX foo.png</pre>If you have other chunks of interest, you can write a script to parse the output of <strong><code>$ exiv2 -pS foo.png</code></strong> to obtain the offset and length of a chunk which can then be extracted with dd.  This is discussed in relation to TIFF files in this article: <a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/The_Metadata_in_TIFF_files">http://dev.exiv2.org/projects/exiv2/wiki/The_Metadata_in_TIFF_files</a></p>
+
+
+	<p>Print Recursive <strong><code>-pR</code></strong> <em>on the trunk and heading for v0.26</em> shows the same information and descends into data structures it recognises.<pre>953 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pR test/data/imagemagick.pngSTRUCTURE OF PNG FILE: test/data/imagemagick.png
+ address | index | chunk_type |  length | data
+       8 |     0 |       IHDR |      13 | ...@........
+      33 |     1 |       iCCP |    1404 | icc..x...i8.......af\...w_3...+
+    1449 |     2 |       sBIT |       3 | ...
+    1464 |     3 |       zTXt |      87 | Software..x...A.. ......B....}.N
+Software: digiKam 0.9.0-svn ( libpng version 1.2.8 - December 3, 2004 (header) )
+    1563 |     4 |       tEXt |   24482 | Raw profile type exif..exif.   1
+  STRUCTURE OF TIFF FILE (MM): MemIo
+   address |    tag                           |      type |    count |    offset | value
+        10 | 0x0100 ImageWidth                |     SLONG |        1 |       320 | 320
+        22 | 0x0101 ImageLength               |     SLONG |        1 |       211 | 211
+        34 | 0x010f Make                      |     ASCII |       18 |       146 | NIKON CORPORATION
+        46 | 0x0110 Model                     |     ASCII |       10 |       164 | NIKON D70
+        58 | 0x0112 Orientation               |     SHORT |        1 |     65536 | 1
+        70 | 0x011a XResolution               |  RATIONAL |        1 |       174 | 174/0
+        82 | 0x011b YResolution               |  RATIONAL |        1 |       182 | 182/0
+        94 | 0x0128 ResolutionUnit            |     SHORT |        1 |    131072 | 2
+       106 | 0x0131 Software                  |     ASCII |       18 |       190 | digiKam-0.9.0-svn
+       118 | 0x0132 DateTime                  |     ASCII |       20 |       208 | 2006:02:04 16:09:30
+       130 | 0x8769 ExifTag                   |      LONG |        1 |       228 | 228
+    STRUCTURE OF TIFF FILE (MM): MemIo
+     address |    tag                           |      type |    count |    offset | value
+         230 | 0x829a ExposureTime              |  RATIONAL |        1 |       546 | 546/0
+         242 | 0x829d FNumber                   |  RATIONAL |        1 |       554 | 554/0
+         254 | 0x8822 ExposureProgram           |     SHORT |        1 |    262144 | 4
+         266 | 0x8827 ISOSpeedRatings           |     SHORT |        1 |  13107200 | 200
+         278 | 0x9003 DateTimeOriginal          |     ASCII |       20 |       562 | 2006:02:04 16:09:30
+         290 | 0x9004 DateTimeDigitized         |     ASCII |       20 |       582 | 2006:02:04 16:09:30
+         302 | 0x9201 ShutterSpeedValue         |  RATIONAL |        1 |       602 | 602/0
+         314 | 0x9202 ApertureValue             |  RATIONAL |        1 |       610 | 610/0
+         326 | 0x9204 ExposureBiasValue         |  RATIONAL |        1 |       618 | 618/0
+         338 | 0x9205 MaxApertureValue          |  RATIONAL |        1 |       626 | 626/0
+         350 | 0x9208 LightSource               |     SHORT |        1 |         0 | 0
+         362 | 0x9209 Flash                     |     SHORT |        1 |         0 | 0
+         374 | 0x920a FocalLength               |  RATIONAL |        1 |       634 | 634/0
+         386 | 0x927c MakerNote                 | UNDEFINED |     6989 |       642 | Nikon.....MM.*.....+........0210 ...
+      STRUCTURE OF TIFF FILE (MM): MemIo
+       address |    tag                           |      type |    count |    offset | value
+            10 | 0x0001 Version                   | UNDEFINED |        4 | 808595760 | 0210
+            22 | 0x0002 ISOSpeed                  |     SHORT |        2 |       200 | 0 200
+            34 | 0x0004 Quality                   |     ASCII |        8 |       530 | RAW    
+            46 | 0x0005 WhiteBalance              |     ASCII |       13 |       538 | AUTO        
+            58 | 0x0006 Sharpening                |     ASCII |        7 |       551 | NORMAL
+            70 | 0x0007 Focus                     |     ASCII |        7 |       558 | AF-S  
+            82 | 0x0008 FlashSetting              |     ASCII |       13 |       565 | NORMAL      
+            94 | 0x0009 GPSStatus                 |     ASCII |       13 |       578 |             
+           106 | 0x000b ProcessingSoftware        |    SSHORT |        1 |         0 | 0
+           118 | 0x000d GPSSpeed                  | UNDEFINED |        4 |     67072 | ...
+           130 | 0x000e GPSTrackRef               | UNDEFINED |        4 |     68608 | ...
+           142 | 0x0011 GPSImgDirection           |      LONG |        1 |      7006 | 7006
+           154 | 0x0012 GPSMapDatum               | UNDEFINED |        4 |     67072 | ...
+           166 | 0x0013 GPSDestLatitudeRef        |     SHORT |        2 |       200 | 0 200
+           178 | 0x0017 GPSDestBearingRef         | UNDEFINED |        4 |     67072 | ...
+           190 | 0x0018 GPSDestBearing            | UNDEFINED |        4 |     67072 | ...
+           202 | 0x0019 GPSDestDistanceRef        | SRATIONAL |        1 |       591 | 591/0
+           214 | 0x0081                           |     ASCII |        9 |       599 | NORMAL  
+           226 | 0x0083                           |      BYTE |        1 | 100663296 | .
+           238 | 0x0084                           |  RATIONAL |        4 |       608 | 180/0 10/0 500/0 10/0
+           250 | 0x0087                           |      BYTE |        1 |         0 | 
+           262 | 0x0088 AFFocusPos                | UNDEFINED |        4 |  16777217 | ....
+           274 | 0x0089                           |     SHORT |        1 |         0 | 0
+           286 | 0x008b                           | UNDEFINED |        4 |1208028160 | H..
+           298 | 0x008c                           | UNDEFINED |     4160 |       640 | I.............................. ...
+           310 | 0x008d                           |     ASCII |        9 |      4800 | MODE2   
+           322 | 0x0090                           |     ASCII |       12 |      4809 | NATURAL    
+           334 | 0x0091                           | UNDEFINED |      465 |      4821 | 0103........................... ...
+           346 | 0x0092                           |    SSHORT |        1 |         0 | 0
+           358 | 0x0093                           |     SHORT |        1 |     65536 | 1
+           370 | 0x0095                           |     ASCII |        5 |      5286 | OFF 
+           382 | 0x0096                           | UNDEFINED |     1412 |      5291 | D..H.H.H.H...................... ...
+           394 | 0x0097                           | UNDEFINED |      140 |      6703 | 0103.................:...z...... ...
+           406 | 0x0098                           | UNDEFINED |       31 |      6843 | ...............................
+           418 | 0x0099                           |     SHORT |        2 |  99615728 | 1520 1008
+           430 | 0x009a                           |  RATIONAL |        2 |      6874 | 3/296 1/0
+           442 | 0x00a0                           |     ASCII |       21 |      6890 | .........2...........
+           454 | 0x00a4                           | UNDEFINED |        4 | 808595504 | 0200
+           466 | 0x00a7                           |      LONG |        1 |      5670 | 5670
+           478 | 0x00a8                           | UNDEFINED |       20 |      6911 | ..........a~NIKON CO
+           490 | 0x00a9                           |     ASCII |       16 |      6931 | RPORATION.NIKON 
+           502 | 0x00aa                           |     ASCII |       16 |      6947 | D70....,.......,
+           514 | 0x00ab                           |     ASCII |       16 |      6963 | ....Bibble 4.5.
+      END MemIo
+         398 | 0xa002 PixelXDimension           |     SLONG |        1 |       320 | 320
+         410 | 0xa003 PixelYDimension           |     SLONG |        1 |       211 | 211
+         422 | 0xa217 SensingMethod             |      BYTE |        1 |  33554432 | .
+         434 | 0xa301 SceneType                 |      BYTE |        1 |  16777216 | .
+         446 | 0xa402 ExposureMode              |     SHORT |        1 |         0 | 0
+         458 | 0xa403 WhiteBalance              |     SHORT |        1 |         0 | 0
+         470 | 0xa405 FocalLengthIn35mmFilm     |     SHORT |        1 |   4915200 | 75
+         482 | 0xa406 SceneCaptureType          |     SHORT |        1 |         0 | 0
+         494 | 0xa408 Contrast                  |     SHORT |        1 |         0 | 0
+         506 | 0xa409 Saturation                |     SHORT |        1 |         0 | 0
+         518 | 0xa40a Sharpness                 |     SHORT |        1 |         0 | 0
+         530 | 0xa40c SubjectDistanceRange      |     SHORT |        1 |         0 | 0
+    END MemIo
+      7633 | 0x0103 Compression               |     SHORT |        1 |    393216 | 6
+      7645 | 0x0201 JPEGInterchangeFormat     |      LONG |        1 |      7673 | 7673
+      7657 | 0x0202 JPEGInterchangeFormatLeng |      LONG |        1 |      4376 | 4376
+  END MemIo
+   26057 |     5 |       tEXt |     471 | Raw profile type iptc..iptc.    
+  Record | DataSet | Name                     | Length | Data
+       2 |       5 | ObjectName               |      4 | ovni
+       2 |      10 | Urgency                  |      1 | 0
+       2 |      15 | Category                 |      3 | I -
+       2 |      20 | SuppCategory             |     13 | SPCL Specials
+       2 |     116 | Copyright                |      4 | E.T.
+       2 |     110 | Credit                   |      9 | Spielberg
+       2 |     122 | Writer                   |     21 | L'ovni de la Bastille
+       2 |      90 | City                     |      5 | Paris
+       2 |      95 | ProvinceState            |     13 | ..le de Franc
+       2 |     101 | CountryName              |     12 | FRA - France
+       2 |     100 | CountryCode              |      3 | 750
+       2 |      40 | SpecialInstructions      |     10 | Y'en a pas
+       2 |     103 | TransmissionReference    |      2 | 36
+       2 |     115 | Source                   |      8 | Chez moi
+       2 |      55 | DateCreated              |      8 | 20060204
+       2 |      60 | TimeCreated              |     11 | 160930+0000
+       2 |       0 | RecordVersion            |      2 | ..
+   26540 |     6 |       IDAT |    8192 | x...Y.$Wv&#38;v.{.{l.T.......[w.=m$G
+   34744 |     7 |       IDAT |    8192 | .4X.y.AR...4....:Ue..U.|1..:..D.
+   42948 |     8 |       IDAT |    8192 | 'g.!... ...n...s..Jdz.........6.
+   51152 |     9 |       IDAT |    8192 | ........k....CY/75I..u;.. .z...}
+   59356 |    10 |       IDAT |    8192 | .f&gt;..]....UKqD2s.(.q....=x.l.\V.
+   67560 |    11 |       IDAT |    8192 | .i.{!!B0...C!4.p..`D g`.........
+   75764 |    12 |       IDAT |    8192 | .*.].4..Q..}(9...S0&#38;.......T.9.+
+   83968 |    13 |       IDAT |    8192 | ..k...6....g.1..}.].&#38;.H........
+   92172 |    14 |       IDAT |    8192 | .j..S.........z..!U.G0*.m%..09&lt;,
+  100376 |    15 |       IDAT |    8192 | .....t.&gt;!.....6^.&lt;..;..?$I..M.9
+  108580 |    16 |       IDAT |    8192 | W.&#38;5.5J........FW`....3.N.9Pk;.s
+  116784 |    17 |       IDAT |    8192 | .....d.z".`...v=g-..-.c8...Z.5.x
+  124988 |    18 |       IDAT |    8192 | .."...o&lt;&#38;."....1M....1&#38;. ..5....
+  133192 |    19 |       IDAT |    8192 | k........!..B*.....\*.(!..0.s..B
+  141396 |    20 |       IDAT |    3346 | .Y.L@I$M.Z[.0A ...K#.t.0+.G(.jX.
+  144754 |    21 |       IEND |       0 | 
+
+STRUCTURE OF PNG FILE: test/data/imagemagick.png
+ address | index | chunk_type |  length | data
+       8 |     0 |       IHDR |      13 | ...@........
+      33 |     1 |       iCCP |    1404 | icc..x...i8.......af\...w_3...+
+    1449 |     2 |       sBIT |       3 | ...
+    1464 |     3 |       zTXt |      87 | Software..x...A.. ......B....}.N
+Software: digiKam 0.9.0-svn ( libpng version 1.2.8 - December 3, 2004 (header) )
+    1563 |     4 |       tEXt |   24482 | Raw profile type exif..exif.   1
+  STRUCTURE OF TIFF FILE (MM): MemIo
+   address |    tag                           |      type |    count |    offset | value
+        10 | 0x0100 ImageWidth                |     SLONG |        1 |       320 | 320
+        22 | 0x0101 ImageLength               |     SLONG |        1 |       211 | 211
+        34 | 0x010f Make                      |     ASCII |       18 |       146 | NIKON CORPORATION
+        46 | 0x0110 Model                     |     ASCII |       10 |       164 | NIKON D70
+        58 | 0x0112 Orientation               |     SHORT |        1 |     65536 | 1
+        70 | 0x011a XResolution               |  RATIONAL |        1 |       174 | 174/0
+        82 | 0x011b YResolution               |  RATIONAL |        1 |       182 | 182/0
+        94 | 0x0128 ResolutionUnit            |     SHORT |        1 |    131072 | 2
+       106 | 0x0131 Software                  |     ASCII |       18 |       190 | digiKam-0.9.0-svn
+       118 | 0x0132 DateTime                  |     ASCII |       20 |       208 | 2006:02:04 16:09:30
+       130 | 0x8769 ExifTag                   |      LONG |        1 |       228 | 228
+    STRUCTURE OF TIFF FILE (MM): MemIo
+     address |    tag                           |      type |    count |    offset | value
+         230 | 0x829a ExposureTime              |  RATIONAL |        1 |       546 | 546/0
+         242 | 0x829d FNumber                   |  RATIONAL |        1 |       554 | 554/0
+         254 | 0x8822 ExposureProgram           |     SHORT |        1 |    262144 | 4
+         266 | 0x8827 ISOSpeedRatings           |     SHORT |        1 |  13107200 | 200
+         278 | 0x9003 DateTimeOriginal          |     ASCII |       20 |       562 | 2006:02:04 16:09:30
+         290 | 0x9004 DateTimeDigitized         |     ASCII |       20 |       582 | 2006:02:04 16:09:30
+         302 | 0x9201 ShutterSpeedValue         |  RATIONAL |        1 |       602 | 602/0
+         314 | 0x9202 ApertureValue             |  RATIONAL |        1 |       610 | 610/0
+         326 | 0x9204 ExposureBiasValue         |  RATIONAL |        1 |       618 | 618/0
+         338 | 0x9205 MaxApertureValue          |  RATIONAL |        1 |       626 | 626/0
+         350 | 0x9208 LightSource               |     SHORT |        1 |         0 | 0
+         362 | 0x9209 Flash                     |     SHORT |        1 |         0 | 0
+         374 | 0x920a FocalLength               |  RATIONAL |        1 |       634 | 634/0
+         386 | 0x927c MakerNote                 | UNDEFINED |     6989 |       642 | Nikon.....MM.*.....+........0210 ...
+      STRUCTURE OF TIFF FILE (MM): MemIo
+       address |    tag                           |      type |    count |    offset | value
+            10 | 0x0001 Version                   | UNDEFINED |        4 | 808595760 | 0210
+            22 | 0x0002 ISOSpeed                  |     SHORT |        2 |       200 | 0 200
+            34 | 0x0004 Quality                   |     ASCII |        8 |       530 | RAW    
+            46 | 0x0005 WhiteBalance              |     ASCII |       13 |       538 | AUTO        
+            58 | 0x0006 Sharpening                |     ASCII |        7 |       551 | NORMAL
+            70 | 0x0007 Focus                     |     ASCII |        7 |       558 | AF-S  
+            82 | 0x0008 FlashSetting              |     ASCII |       13 |       565 | NORMAL      
+            94 | 0x0009 GPSStatus                 |     ASCII |       13 |       578 |             
+           106 | 0x000b ProcessingSoftware        |    SSHORT |        1 |         0 | 0
+           118 | 0x000d GPSSpeed                  | UNDEFINED |        4 |     67072 | ...
+           130 | 0x000e GPSTrackRef               | UNDEFINED |        4 |     68608 | ...
+           142 | 0x0011 GPSImgDirection           |      LONG |        1 |      7006 | 7006
+           154 | 0x0012 GPSMapDatum               | UNDEFINED |        4 |     67072 | ...
+           166 | 0x0013 GPSDestLatitudeRef        |     SHORT |        2 |       200 | 0 200
+           178 | 0x0017 GPSDestBearingRef         | UNDEFINED |        4 |     67072 | ...
+           190 | 0x0018 GPSDestBearing            | UNDEFINED |        4 |     67072 | ...
+           202 | 0x0019 GPSDestDistanceRef        | SRATIONAL |        1 |       591 | 591/0
+           214 | 0x0081                           |     ASCII |        9 |       599 | NORMAL  
+           226 | 0x0083                           |      BYTE |        1 | 100663296 | .
+           238 | 0x0084                           |  RATIONAL |        4 |       608 | 180/0 10/0 500/0 10/0
+           250 | 0x0087                           |      BYTE |        1 |         0 | 
+           262 | 0x0088 AFFocusPos                | UNDEFINED |        4 |  16777217 | ....
+           274 | 0x0089                           |     SHORT |        1 |         0 | 0
+           286 | 0x008b                           | UNDEFINED |        4 |1208028160 | H..
+           298 | 0x008c                           | UNDEFINED |     4160 |       640 | I.............................. ...
+           310 | 0x008d                           |     ASCII |        9 |      4800 | MODE2   
+           322 | 0x0090                           |     ASCII |       12 |      4809 | NATURAL    
+           334 | 0x0091                           | UNDEFINED |      465 |      4821 | 0103........................... ...
+           346 | 0x0092                           |    SSHORT |        1 |         0 | 0
+           358 | 0x0093                           |     SHORT |        1 |     65536 | 1
+           370 | 0x0095                           |     ASCII |        5 |      5286 | OFF 
+           382 | 0x0096                           | UNDEFINED |     1412 |      5291 | D..H.H.H.H...................... ...
+           394 | 0x0097                           | UNDEFINED |      140 |      6703 | 0103.................:...z...... ...
+           406 | 0x0098                           | UNDEFINED |       31 |      6843 | ...............................
+           418 | 0x0099                           |     SHORT |        2 |  99615728 | 1520 1008
+           430 | 0x009a                           |  RATIONAL |        2 |      6874 | 3/296 1/0
+           442 | 0x00a0                           |     ASCII |       21 |      6890 | .........2...........
+           454 | 0x00a4                           | UNDEFINED |        4 | 808595504 | 0200
+           466 | 0x00a7                           |      LONG |        1 |      5670 | 5670
+           478 | 0x00a8                           | UNDEFINED |       20 |      6911 | ..........a~NIKON CO
+           490 | 0x00a9                           |     ASCII |       16 |      6931 | RPORATION.NIKON 
+           502 | 0x00aa                           |     ASCII |       16 |      6947 | D70....,.......,
+           514 | 0x00ab                           |     ASCII |       16 |      6963 | ....Bibble 4.5.
+      END MemIo
+         398 | 0xa002 PixelXDimension           |     SLONG |        1 |       320 | 320
+         410 | 0xa003 PixelYDimension           |     SLONG |        1 |       211 | 211
+         422 | 0xa217 SensingMethod             |      BYTE |        1 |  33554432 | .
+         434 | 0xa301 SceneType                 |      BYTE |        1 |  16777216 | .
+         446 | 0xa402 ExposureMode              |     SHORT |        1 |         0 | 0
+         458 | 0xa403 WhiteBalance              |     SHORT |        1 |         0 | 0
+         470 | 0xa405 FocalLengthIn35mmFilm     |     SHORT |        1 |   4915200 | 75
+         482 | 0xa406 SceneCaptureType          |     SHORT |        1 |         0 | 0
+         494 | 0xa408 Contrast                  |     SHORT |        1 |         0 | 0
+         506 | 0xa409 Saturation                |     SHORT |        1 |         0 | 0
+         518 | 0xa40a Sharpness                 |     SHORT |        1 |         0 | 0
+         530 | 0xa40c SubjectDistanceRange      |     SHORT |        1 |         0 | 0
+    END MemIo
+      7633 | 0x0103 Compression               |     SHORT |        1 |    393216 | 6
+      7645 | 0x0201 JPEGInterchangeFormat     |      LONG |        1 |      7673 | 7673
+      7657 | 0x0202 JPEGInterchangeFormatLeng |      LONG |        1 |      4376 | 4376
+  END MemIo
+   26057 |     5 |       tEXt |     471 | Raw profile type iptc..iptc.    
+  Record | DataSet | Name                     | Length | Data
+       2 |       5 | ObjectName               |      4 | ovni
+       2 |      10 | Urgency                  |      1 | 0
+       2 |      15 | Category                 |      3 | I -
+       2 |      20 | SuppCategory             |     13 | SPCL Specials
+       2 |     116 | Copyright                |      4 | E.T.
+       2 |     110 | Credit                   |      9 | Spielberg
+       2 |     122 | Writer                   |     21 | L'ovni de la Bastille
+       2 |      90 | City                     |      5 | Paris
+       2 |      95 | ProvinceState            |     13 | ..le de Franc
+       2 |     101 | CountryName              |     12 | FRA - France
+       2 |     100 | CountryCode              |      3 | 750
+       2 |      40 | SpecialInstructions      |     10 | Y'en a pas
+       2 |     103 | TransmissionReference    |      2 | 36
+       2 |     115 | Source                   |      8 | Chez moi
+       2 |      55 | DateCreated              |      8 | 20060204
+       2 |      60 | TimeCreated              |     11 | 160930+0000
+       2 |       0 | RecordVersion            |      2 | ..
+   26540 |     6 |       IDAT |    8192 | x...Y.$Wv&#38;v.{.{l.T.......[w.=m$G
+   34744 |     7 |       IDAT |    8192 | .4X.y.AR...4....:Ue..U.|1..:..D.
+   42948 |     8 |       IDAT |    8192 | 'g.!... ...n...s..Jdz.........6.
+   51152 |     9 |       IDAT |    8192 | ........k....CY/75I..u;.. .z...}
+   59356 |    10 |       IDAT |    8192 | .f&gt;..]....UKqD2s.(.q....=x.l.\V.
+   67560 |    11 |       IDAT |    8192 | .i.{!!B0...C!4.p..`D g`.........
+   75764 |    12 |       IDAT |    8192 | .*.].4..Q..}(9...S0&#38;.......T.9.+
+   83968 |    13 |       IDAT |    8192 | ..k...6....g.1..}.].&#38;.H........
+   92172 |    14 |       IDAT |    8192 | .j..S.........z..!U.G0*.m%..09&lt;,
+  100376 |    15 |       IDAT |    8192 | .....t.&gt;!.....6^.&lt;..;..?$I..M.9
+  108580 |    16 |       IDAT |    8192 | W.&#38;5.5J........FW`....3.N.9Pk;.s
+  116784 |    17 |       IDAT |    8192 | .....d.z".`...v=g-..-.c8...Z.5.x
+  124988 |    18 |       IDAT |    8192 | .."...o&lt;&#38;."....1M....1&#38;. ..5....
+  133192 |    19 |       IDAT |    8192 | k........!..B*.....\*.(!..0.s..B
+  141396 |    20 |       IDAT |    3346 | .Y.L@I$M.Z[.0A ...K#.t.0+.G(.jX.
+  144754 |    21 |       IEND |       0 | </pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2637">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2635?r=2637#message-2637">RE: Extracting/reading PNG iTXt chunks with Exiv2</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="21 Aug 2016 20:54" href="/projects/exiv2/activity?from=2016-08-21">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you, Robin,<br />but I should have been clearer, I want to do this from within C_++ code, not the command line.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2638">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2635?r=2638#message-2638">RE: Extracting/reading PNG iTXt chumnks with Exiv2</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Aug 2016 21:11" href="/projects/exiv2/activity?from=2016-08-21">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>The API that performs this work in <strong><code>PngImage::printStructure()</code></strong>.  The output of -pS is captured in a stream which you can easily parse.  If you wish to process the chunks in some complex way, you may wish to copy the code from printStructure() to your application.<pre><code class="cplusplus syntaxhl">   <span class="kt">void</span> <span class="n">PngImage</span><span class="o">::</span><span class="n">printStructure</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="n">PrintStructureOption</span> <span class="n">option</span><span class="p">,</span> <span class="kt">int</span> <span class="n">depth</span><span class="p">)</span>
+   <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">io_</span><span class="o">-&gt;</span><span class="n">open</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="n">Error</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">io_</span><span class="o">-&gt;</span><span class="n">path</span><span class="p">(),</span> <span class="n">strError</span><span class="p">());</span>
+        <span class="p">}</span>
+        <span class="n">IoCloser</span> <span class="n">closer</span><span class="p">(</span><span class="o">*</span><span class="n">io_</span><span class="p">);</span>
+        <span class="c1">// Ensure that this is the correct image type</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isPngType</span><span class="p">(</span><span class="o">*</span><span class="n">io_</span><span class="p">,</span> <span class="nb">true</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">io_</span><span class="o">-&gt;</span><span class="n">error</span><span class="p">()</span> <span class="o">||</span> <span class="n">io_</span><span class="o">-&gt;</span><span class="n">eof</span><span class="p">())</span> <span class="k">throw</span> <span class="n">Error</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+            <span class="k">throw</span> <span class="n">Error</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">"PNG"</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kt">char</span>    <span class="n">chType</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+        <span class="n">chType</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="n">chType</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsBasic</span> <span class="o">||</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsXMP</span> <span class="o">||</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsIccProfile</span> <span class="o">||</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsRecursive</span> <span class="p">)</span> <span class="p">{</span>
+
+            <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">xmpKey</span>  <span class="o">=</span> <span class="s">"XML:com.adobe.xmp"</span><span class="p">;</span>
+            <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">exifKey</span> <span class="o">=</span> <span class="s">"Raw profile type exif"</span><span class="p">;</span>
+            <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">iptcKey</span> <span class="o">=</span> <span class="s">"Raw profile type iptc"</span><span class="p">;</span>
+            <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">iccKey</span>  <span class="o">=</span> <span class="s">"icc"</span><span class="p">;</span>
+            <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">softKey</span> <span class="o">=</span> <span class="s">"Software"</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsBasic</span> <span class="o">||</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsRecursive</span> <span class="p">)</span> <span class="p">{</span>
+                <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="s">"STRUCTURE OF PNG FILE: "</span> <span class="o">&lt;&lt;</span> <span class="n">io_</span><span class="o">-&gt;</span><span class="n">path</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+                <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="s">" address | index | chunk_type |  length | data"</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="kt">long</span>       <span class="n">index</span>   <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">const</span> <span class="kt">long</span> <span class="n">imgSize</span> <span class="o">=</span> <span class="n">io_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+            <span class="n">DataBuf</span>    <span class="n">cheaderBuf</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+
+            <span class="k">while</span><span class="p">(</span> <span class="o">!</span><span class="n">io_</span><span class="o">-&gt;</span><span class="n">eof</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">::</span><span class="n">strcmp</span><span class="p">(</span><span class="n">chType</span><span class="p">,</span><span class="s">"IEND"</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+                <span class="kt">size_t</span> <span class="n">address</span> <span class="o">=</span> <span class="n">io_</span><span class="o">-&gt;</span><span class="n">tell</span><span class="p">();</span>
+
+                <span class="n">std</span><span class="o">::</span><span class="n">memset</span><span class="p">(</span><span class="n">cheaderBuf</span><span class="p">.</span><span class="n">pData_</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">,</span> <span class="n">cheaderBuf</span><span class="p">.</span><span class="n">size_</span><span class="p">);</span>
+                <span class="kt">long</span> <span class="n">bufRead</span> <span class="o">=</span> <span class="n">io_</span><span class="o">-&gt;</span><span class="n">read</span><span class="p">(</span><span class="n">cheaderBuf</span><span class="p">.</span><span class="n">pData_</span><span class="p">,</span> <span class="n">cheaderBuf</span><span class="p">.</span><span class="n">size_</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">io_</span><span class="o">-&gt;</span><span class="n">error</span><span class="p">())</span> <span class="k">throw</span> <span class="n">Error</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">bufRead</span> <span class="o">!=</span> <span class="n">cheaderBuf</span><span class="p">.</span><span class="n">size_</span><span class="p">)</span> <span class="k">throw</span> <span class="n">Error</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+
+                <span class="c1">// Decode chunk data length.</span>
+                <span class="kt">uint32_t</span> <span class="n">dataOffset</span> <span class="o">=</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">getULong</span><span class="p">(</span><span class="n">cheaderBuf</span><span class="p">.</span><span class="n">pData_</span><span class="p">,</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">bigEndian</span><span class="p">);</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">chType</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="n">cheaderBuf</span><span class="p">.</span><span class="n">pData_</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="p">}</span>
+
+                <span class="c1">// test that we haven't hit EOF, or wanting to read excessive data</span>
+                <span class="kt">long</span> <span class="n">restore</span> <span class="o">=</span> <span class="n">io_</span><span class="o">-&gt;</span><span class="n">tell</span><span class="p">();</span>
+                <span class="k">if</span><span class="p">(</span>  <span class="n">restore</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="o">||</span>  <span class="n">dataOffset</span> <span class="o">&gt;</span> <span class="kt">uint32_t</span><span class="p">(</span><span class="mh">0x7FFFFFFF</span><span class="p">)</span>
+                <span class="o">||</span>  <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dataOffset</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">imgSize</span> <span class="o">-</span> <span class="n">restore</span>
+                <span class="p">){</span>
+                    <span class="k">throw</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">Error</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="c1">// format output</span>
+                <span class="kt">uint32_t</span>    <span class="n">blen</span> <span class="o">=</span> <span class="n">dataOffset</span> <span class="o">&gt;</span> <span class="mi">32</span> <span class="o">?</span> <span class="mi">32</span> <span class="o">:</span> <span class="n">dataOffset</span> <span class="p">;</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">dataString</span> <span class="p">;</span>
+                <span class="n">DataBuf</span> <span class="n">buff</span><span class="p">(</span><span class="n">blen</span><span class="p">);</span>
+                <span class="n">io_</span><span class="o">-&gt;</span><span class="n">read</span><span class="p">(</span><span class="n">buff</span><span class="p">.</span><span class="n">pData_</span><span class="p">,</span><span class="n">blen</span><span class="p">);</span>
+                <span class="n">io_</span><span class="o">-&gt;</span><span class="n">seek</span><span class="p">(</span><span class="n">restore</span><span class="p">,</span> <span class="n">BasicIo</span><span class="o">::</span><span class="n">beg</span><span class="p">);</span>
+                <span class="n">dataString</span>  <span class="o">=</span> <span class="n">Internal</span><span class="o">::</span><span class="n">binaryToString</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span> <span class="n">blen</span><span class="p">);</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsBasic</span> <span class="o">||</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsRecursive</span> <span class="p">)</span>
+                    <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">Internal</span><span class="o">::</span><span class="n">stringFormat</span><span class="p">(</span><span class="s">"%8d | %5d | %10s |%8d | "</span> 
+                              <span class="p">,(</span><span class="kt">uint32_t</span><span class="p">)</span><span class="n">address</span><span class="p">,</span> <span class="n">index</span><span class="o">++</span><span class="p">,</span><span class="n">chType</span><span class="p">,</span><span class="n">dataOffset</span><span class="p">)</span>
+                                    <span class="o">&lt;&lt;</span> <span class="n">dataString</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+                <span class="c1">// chunk type</span>
+                <span class="kt">bool</span> <span class="n">tEXt</span>  <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">strcmp</span><span class="p">(</span><span class="n">chType</span><span class="p">,</span><span class="s">"tEXt"</span><span class="p">)</span><span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="kt">bool</span> <span class="n">zTXt</span>  <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">strcmp</span><span class="p">(</span><span class="n">chType</span><span class="p">,</span><span class="s">"zTXt"</span><span class="p">)</span><span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="kt">bool</span> <span class="n">iCCP</span>  <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">strcmp</span><span class="p">(</span><span class="n">chType</span><span class="p">,</span><span class="s">"iCCP"</span><span class="p">)</span><span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="kt">bool</span> <span class="n">iTXt</span>  <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">strcmp</span><span class="p">(</span><span class="n">chType</span><span class="p">,</span><span class="s">"iTXt"</span><span class="p">)</span><span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+
+                <span class="c1">// for XMP, ICC etc: read and format data</span>
+                <span class="kt">bool</span> <span class="n">bXMP</span>  <span class="o">=</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsXMP</span>        <span class="o">&amp;&amp;</span> <span class="n">findi</span><span class="p">(</span><span class="n">dataString</span><span class="p">,</span><span class="n">xmpKey</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">;</span>
+                <span class="kt">bool</span> <span class="n">bICC</span>  <span class="o">=</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsIccProfile</span> <span class="o">&amp;&amp;</span> <span class="n">findi</span><span class="p">(</span><span class="n">dataString</span><span class="p">,</span><span class="n">iccKey</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">;</span>
+                <span class="kt">bool</span> <span class="n">bExif</span> <span class="o">=</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsRecursive</span>  <span class="o">&amp;&amp;</span> <span class="n">findi</span><span class="p">(</span><span class="n">dataString</span><span class="p">,</span><span class="n">exifKey</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">;</span>
+                <span class="kt">bool</span> <span class="n">bIptc</span> <span class="o">=</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsRecursive</span>  <span class="o">&amp;&amp;</span> <span class="n">findi</span><span class="p">(</span><span class="n">dataString</span><span class="p">,</span><span class="n">iptcKey</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">;</span>
+                <span class="kt">bool</span> <span class="n">bSoft</span> <span class="o">=</span> <span class="n">option</span> <span class="o">==</span> <span class="n">kpsRecursive</span>  <span class="o">&amp;&amp;</span> <span class="n">findi</span><span class="p">(</span><span class="n">dataString</span><span class="p">,</span><span class="n">softKey</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">;</span>
+                <span class="kt">bool</span> <span class="n">bDump</span> <span class="o">=</span> <span class="n">bXMP</span> <span class="o">||</span> <span class="n">bICC</span> <span class="o">||</span> <span class="n">bExif</span> <span class="o">||</span> <span class="n">bIptc</span> <span class="o">||</span> <span class="n">bSoft</span> <span class="p">;</span>
+
+                <span class="k">if</span><span class="p">(</span> <span class="n">bDump</span> <span class="p">)</span> <span class="p">{</span>
+                    <span class="n">DataBuf</span>   <span class="n">dataBuf</span><span class="p">;</span>
+                    <span class="n">byte</span><span class="o">*</span>     <span class="n">data</span>     <span class="o">=</span> <span class="k">new</span> <span class="n">byte</span><span class="p">[</span><span class="n">dataOffset</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">dataOffset</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+                    <span class="n">io_</span><span class="o">-&gt;</span><span class="n">read</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">dataOffset</span><span class="p">);</span>
+                    <span class="n">io_</span><span class="o">-&gt;</span><span class="n">seek</span><span class="p">(</span><span class="n">restore</span><span class="p">,</span> <span class="n">BasicIo</span><span class="o">::</span><span class="n">beg</span><span class="p">);</span>
+                    <span class="kt">uint32_t</span>    <span class="n">name_l</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)</span> <span class="n">std</span><span class="o">::</span><span class="n">strlen</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// leading string length</span>
+                    <span class="kt">uint32_t</span>     <span class="n">start</span> <span class="o">=</span> <span class="n">name_l</span><span class="p">;</span>
+
+                    <span class="c1">// decode the chunk</span>
+                    <span class="kt">bool</span> <span class="n">bGood</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="n">tEXt</span> <span class="p">)</span> <span class="p">{</span>
+                        <span class="n">bGood</span> <span class="o">=</span> <span class="n">tEXtToDataBuf</span><span class="p">(</span><span class="n">data</span><span class="o">+</span><span class="n">name_l</span><span class="p">,</span><span class="n">dataOffset</span><span class="o">-</span><span class="n">name_l</span><span class="p">,</span><span class="n">dataBuf</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="n">zTXt</span> <span class="o">||</span> <span class="n">iCCP</span> <span class="p">)</span> <span class="p">{</span>
+                        <span class="n">name_l</span><span class="o">++</span> <span class="p">;</span> <span class="c1">// +1 = 'compressed' flag</span>
+                        <span class="n">bGood</span> <span class="o">=</span> <span class="n">zlibToDataBuf</span><span class="p">(</span><span class="n">data</span><span class="o">+</span><span class="n">name_l</span><span class="p">,</span><span class="n">dataOffset</span><span class="o">-</span><span class="n">name_l</span><span class="p">,</span><span class="n">dataBuf</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="n">iTXt</span> <span class="p">)</span> <span class="p">{</span>
+                        <span class="k">while</span> <span class="p">(</span> <span class="n">data</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">dataOffset</span> <span class="p">)</span> <span class="n">start</span><span class="o">++</span><span class="p">;</span> <span class="c1">// crawl over the '\0' bytes between XML:....\0\0&lt;xml stuff</span>
+                        <span class="n">data</span><span class="p">[</span><span class="n">dataOffset</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>                 <span class="c1">// ensure the XML is nul terminated</span>
+                        <span class="n">bGood</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">dataOffset</span> <span class="p">;</span>    <span class="c1">// good if not a nul chunk</span>
+                    <span class="p">}</span>
+
+                    <span class="c1">// format is content dependent</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="n">bGood</span> <span class="p">)</span> <span class="p">{</span>
+                        <span class="k">if</span> <span class="p">(</span> <span class="n">bXMP</span> <span class="p">)</span> <span class="p">{</span>
+                            <span class="n">out</span> <span class="o">&lt;&lt;</span>  <span class="n">data</span><span class="o">+</span><span class="n">start</span><span class="p">;</span>             <span class="c1">// output the xml</span>
+                        <span class="p">}</span>
+                        <span class="k">if</span> <span class="p">(</span> <span class="n">bExif</span> <span class="p">)</span> <span class="p">{</span>
+                            <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">bytes</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">dataBuf</span><span class="p">.</span><span class="n">pData_</span><span class="p">;</span>
+                            <span class="kt">uint32_t</span>    <span class="n">l</span>     <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)</span> <span class="n">std</span><span class="o">::</span><span class="n">strlen</span><span class="p">(</span><span class="n">bytes</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+                            <span class="c1">// create a copy on write memio object with the data, then print the structure</span>
+                            <span class="n">BasicIo</span><span class="o">::</span><span class="n">AutoPtr</span> <span class="n">p</span> <span class="o">=</span> <span class="n">BasicIo</span><span class="o">::</span><span class="n">AutoPtr</span><span class="p">(</span><span class="k">new</span> <span class="n">MemIo</span><span class="p">(</span><span class="n">dataBuf</span><span class="p">.</span><span class="n">pData_</span><span class="o">+</span><span class="n">l</span><span class="p">,</span><span class="n">dataBuf</span><span class="p">.</span><span class="n">size_</span><span class="o">-</span><span class="n">l</span><span class="p">));</span>
+                            <span class="n">TiffImage</span><span class="o">::</span><span class="n">printTiffStructure</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="n">out</span><span class="p">,</span><span class="n">option</span><span class="p">,</span><span class="n">depth</span><span class="p">);</span>
+                        <span class="p">}</span>
+
+                        <span class="k">if</span> <span class="p">(</span> <span class="n">bSoft</span> <span class="p">)</span> <span class="p">{</span>
+                            <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">bytes</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">dataBuf</span><span class="p">.</span><span class="n">pData_</span><span class="p">;</span>
+                            <span class="kt">uint32_t</span>    <span class="n">l</span>     <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)</span> <span class="n">std</span><span class="o">::</span><span class="n">strlen</span><span class="p">(</span><span class="n">bytes</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+                            <span class="c1">// create a copy on write memio object with the data, then print the structure</span>
+                            <span class="n">BasicIo</span><span class="o">::</span><span class="n">AutoPtr</span> <span class="n">p</span> <span class="o">=</span> <span class="n">BasicIo</span><span class="o">::</span><span class="n">AutoPtr</span><span class="p">(</span><span class="k">new</span> <span class="n">MemIo</span><span class="p">(</span><span class="n">dataBuf</span><span class="p">.</span><span class="n">pData_</span><span class="o">+</span><span class="n">l</span><span class="p">,</span><span class="n">dataBuf</span><span class="p">.</span><span class="n">size_</span><span class="o">-</span><span class="n">l</span><span class="p">));</span>
+                            <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">Internal</span><span class="o">::</span><span class="n">indent</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">buff</span><span class="p">.</span><span class="n">pData_</span> <span class="o">&lt;&lt;</span> <span class="s">": "</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">dataBuf</span><span class="p">.</span><span class="n">pData_</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+                        <span class="p">}</span>
+
+                        <span class="k">if</span> <span class="p">(</span> <span class="n">bICC</span> <span class="p">)</span> <span class="p">{</span>
+                            <span class="n">out</span><span class="p">.</span><span class="n">write</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">dataBuf</span><span class="p">.</span><span class="n">pData_</span><span class="p">,</span><span class="n">dataBuf</span><span class="p">.</span><span class="n">size_</span><span class="p">);</span>
+                        <span class="p">}</span>
+
+                        <span class="k">if</span> <span class="p">(</span> <span class="n">bIptc</span> <span class="p">)</span> <span class="p">{</span>
+                            <span class="n">IptcData</span><span class="o">::</span><span class="n">printStructure</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="n">dataBuf</span><span class="p">.</span><span class="n">pData_</span><span class="p">,</span><span class="n">dataBuf</span><span class="p">.</span><span class="n">size_</span><span class="p">,</span><span class="n">depth</span><span class="p">);</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                    <span class="k">delete</span><span class="p">[]</span> <span class="n">data</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="n">io_</span><span class="o">-&gt;</span><span class="n">seek</span><span class="p">(</span><span class="n">dataOffset</span> <span class="o">+</span> <span class="mi">4</span> <span class="p">,</span> <span class="n">BasicIo</span><span class="o">::</span><span class="n">cur</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">io_</span><span class="o">-&gt;</span><span class="n">error</span><span class="p">())</span> <span class="k">throw</span> <span class="n">Error</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span></code></pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2639">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2635?r=2639#message-2639">RE: Extracting/reading PNG iTXt chunks with Exiv2</a>
+    -
+    Added by <a class="user active" href="/users/4647">Arnold Wiegert</a> <a title="21 Aug 2016 21:16" href="/projects/exiv2/activity?from=2016-08-21">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Again, many thanks for this clarification.<br />For some reason I had expected to find this metadata under metadata in the Exiv2 code :-)<br />I'll give this sample code a try.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-4/4)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

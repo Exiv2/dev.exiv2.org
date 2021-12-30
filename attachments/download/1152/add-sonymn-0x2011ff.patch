@@ -1,0 +1,34 @@
+Index: src/sonymn.cpp
+===================================================================
+--- src/sonymn.cpp	(Revision 4753)
++++ src/sonymn.cpp	(Arbeitskopie)
+@@ -299,6 +299,13 @@
+         { 65535, N_("n/a") }
+     };
+ 
++    //! Lookup table to translate Sony Correction settings to readable labels
++    extern const TagDetails sonyCorrection[] = {
++        { 0,     N_("Off") },
++        { 2,     N_("Auto") },
++        { 4294967295, N_("n/a") }
++    };
++
+     std::ostream& SonyMakerNote::print0xb000(std::ostream& os, const Value& value, const ExifData*)
+     {
+         if (value.count() != 4)
+@@ -404,6 +411,15 @@
+         TagInfo(0x200A, "AutoHDR", N_("Auto HDR"),
+                 N_("High Definition Range Mode"),
+                 sony1Id, makerTags, unsignedLong, -1, EXV_PRINT_TAG(sonyHDRMode)),
++        TagInfo(0x2011, "VignettingCorrection", N_("VignettingCorrection"),
++                N_("Vignetting Correction"),
++                sony1Id, makerTags, unsignedLong, -1, EXV_PRINT_TAG(sonyCorrection)),
++        TagInfo(0x2012, "LateralChromaticAberration", N_("LateralChromaticAberration"),
++                N_("Lateral Chromatic Aberration Correction"),
++                sony1Id, makerTags, unsignedLong, -1, EXV_PRINT_TAG(sonyCorrection)),
++        TagInfo(0x2013, "DistortionCorrection", N_("DistortionCorrection"),
++                N_("Distortion Correction"),
++                sony1Id, makerTags, unsignedLong, -1, EXV_PRINT_TAG(sonyCorrection)),
+         // TODO : Implement Shot Info tags decoding.
+         TagInfo(0x3000, "ShotInfo", N_("Shot Info"),
+                 N_("Shot Information"),

@@ -1,0 +1,52 @@
+Index: src/image.cpp
+===================================================================
+--- src/image.cpp	(Revision 2465)
++++ src/image.cpp	(Arbeitskopie)
+@@ -119,7 +119,7 @@
+ #endif // EXV_HAVE_LIBZ
+         { ImageType::pgf,  newPgfInstance,  isPgfType,  amReadWrite, amReadWrite, amReadWrite, amReadWrite },
+         { ImageType::raf,  newRafInstance,  isRafType,  amRead,      amRead,      amRead,      amNone      },
+-        { ImageType::xmp,  newXmpInstance,  isXmpType,  amNone,      amNone,      amReadWrite, amNone      },
++        { ImageType::xmp,  newXmpInstance,  isXmpType,  amReadWrite, amReadWrite, amReadWrite, amNone      },
+         { ImageType::gif,  newGifInstance,  isGifType,  amNone,      amNone,      amNone,      amNone      },
+         { ImageType::psd,  newPsdInstance,  isPsdType,  amRead,      amRead,      amRead,      amNone      },
+         { ImageType::tga,  newTgaInstance,  isTgaType,  amNone,      amNone,      amNone,      amNone      },
+@@ -187,11 +187,33 @@
+ 
+     void Image::setMetadata(const Image& image)
+     {
+-        setExifData(image.exifData());
+-        setIptcData(image.iptcData());
+-        setXmpPacket(image.xmpPacket());
+-        setXmpData(image.xmpData());
+-        setComment(image.comment());
++        AccessMode am;
++
++        // Set exif data...
++        am = checkMode(mdExif);
++        if (am==amWrite || am==amReadWrite)
++        {
++            setExifData(image.exifData());
++        }
++        // Set iptc data...
++        am = checkMode(mdIptc);
++        if (am==amWrite || am==amReadWrite)
++        {
++            setIptcData(image.iptcData());
++        }
++        // Set xmp data...
++        am = checkMode(mdXmp);
++        if (am==amWrite || am==amReadWrite)
++        {
++            setXmpPacket(image.xmpPacket());
++            setXmpData(image.xmpData());
++        }
++        // Set the comment...
++        am = checkMode(mdComment);
++        if (am==amWrite || am==amReadWrite)
++        {
++            setComment(image.comment());
++        }
+     }
+ 
+     void Image::clearExifData()

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>PErformance bei Ermittlung eines PreviewImages / EXIF Thumbnails - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="c+rLpgX9dtEAlLWUCkzBYSFyRgRYGhYKMOxwxIYX/l2Rp2BJd4e60VXwqpi1m81SHuASfan5t7DNzOBMxS4ZMg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>PErformance bei Ermittlung eines PreviewImages / EXIF Thumbnails</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/155">Andreas Kolbow</a> <a title="23 Mar 2009 02:54" href="/projects/exiv2/activity?from=2009-03-23">over 12 years</a> ago</span></p>
+<div class="wiki">
+<p>Hallo!</p>
+
+
+	<p>Gibt es eine Möglichkeit die Ermittlung eines EXIF Thumbnails zu beschleunigen?</p>
+
+
+	<p>Was ich mache ist folgendes:<br /><pre>
+  Exiv2::PreviewPropertiesList PreviewImagesList;
+  Exiv2::Image::AutoPtr FullImage = Exiv2::ImageFactory::open(Filename);
+  FullImage-&gt;readMetadata();
+  Exiv2::PreviewManager PreviewImageManager(*FullImage);
+  Exiv2::PreviewPropertiesList PreviewImagesList = PreviewImageManager.getPreviewProperties();
+  Exiv2::PreviewImage Thumbnail = PreviewImageManager.getPreviewImage(PreviewImagesList[0]);
+  hHeapMemoryBlock = HeapAlloc(GetProcessHeap(), 0, Thumbnail.size());
+  memcpy(hHeapMemoryBlock, Thumbnail.pData(),  Thumbnail.size());
+</pre></p>
+
+
+	<p>Das dauert im Schnitt 106ms. Getestet mit 260 Bildern die auch tatsächlich ein EXIF Thumbnail enthielten.</p>
+
+
+	<p>Wenn ich das gleiche mit GDI+ mache, also einfach eine Image Instanz erzeuge und anhand der property liste die thumbnail daten in einen Speicherblock kopiere benötige ich im Schnitt nur ~2ms pro Bild um das Thumbnail zu ermitteln. (Das ist auch ca 2.5 - 3 mal schneller als die GDI+ GetThumbnail methode auf meinem Rechner benötigt, das aber nur am Rande.)</p>
+
+
+	<p>Ich habe zum Vergleich auch noch die EXIV2 1.17 ausprobiert, dort mußte ich natürlich anderen Code zum ermitteln des Thumbnails verwenden:</p>
+
+
+<pre>
+  Exiv2::Image::AutoPtr FullImage = Exiv2::ImageFactory::open(Filename);
+  FullImage-&gt;readMetadata();
+  Exiv2::ExifData &#38;exifData = FullImage-&gt;exifData();
+  Exiv2::DataBuf Thumbnail = exifData.copyThumbnail();
+  hHeapMemoryBlock = HeapAlloc(GetProcessHeap(), 0, Thumbnail.size_);
+  memcpy(hHeapMemoryBlock, Thumbnail.pData_,  Thumbnail.size_);
+</pre>
+
+	<p>Das dauert bei mir im Schnitt 38 ms pro Bild.</p>
+
+
+	<p>Hat jemand evtl. eine Idee wie man das auslesen des Thumbnails mit EXIV2 schneller gestalten könnte?</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (6)</h3>
+  <div class="message reply" id="message-120">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/119?r=120#message-120">RE: PErformance bei Ermittlung eines PreviewImages / EXIF Thumbnails</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 Mar 2009 03:46" href="/projects/exiv2/activity?from=2009-03-23">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Andreas,</p>
+
+
+	<p>I'll answer in English, the post is interesting also for those who don't understand German.</p>
+
+
+	<p>PreviewImageManager.getPreviewProperties() checks for the existence of any known preview image. For that, it performs several searches on the Exif metadata. (Can you provide profiling info to verify where in your sample the time is spent?)</p>
+
+
+	<p>Instead, try with <a href="http://www.exiv2.org/doc/classExiv2_1_1ExifThumbC.html#525866c326d9a6ef37e70a2bb644b207" class="external">ExifThumbC::copy()</a>, which is specialized for the Exif thumbnail. It's functionality is the same as that of the old ExifData::copyThumbnail(). The performance may still be very different, as the whole TIFF parser was replaced in 0.18, it will be interesting to see.</p>
+
+
+	<p>For the comparison with GDI+ (which I am not familiar with): the sample Exiv2 code includes reading the metadata from the file and decoding it. That would also need to be the case for comparable GDI+ code.</p>
+
+
+	<p>General questions (maybe I can run a comparable test on Linux): what images are you running this on? JPEG? If they are not JPEG, how large are they on average? Note that reading TIFF-like images on Windows is not optimized (on Linux it uses a memory-mapped file, on Windows the whole file is read. If you're familiar with memory mapping on Windows, it would probably be a small task to add this to Exiv2).</p>
+
+
+	<p>Andreas</p>
+
+
+	<p>PS: Why do you need to copy the Thumbnail again in the last two lines of both examples? DataBuf already owns a copy of the thumbnail and belongs to the caller.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-121">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/119?r=121#message-121">RE: Performance bei Ermittlung eines PreviewImages / EXIF Thumbnails</a>
+    -
+    Added by <a class="user active" href="/users/155">Andreas Kolbow</a> <a title="23 Mar 2009 06:10" href="/projects/exiv2/activity?from=2009-03-23">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>First of all, sorry for posting my initial question in german.</p>
+
+
+	<p>Let mey explain my situation:</p>
+
+
+	<p>We code a windows application written in Delphi. In order to use EXIV2 we built a small C++ DLL. We started using exiv2 with version 0.16 where no native windows dll was present and we don't really need the full functionality so we just wrote our own dll. This is also the reason why I copy the thumbnail data onto the heap afterwards as I have to make the data persistent and pass it back to the delphi application.</p>
+
+
+	<p>About the GDI+ comparison: I am not really sure how Microsoft accomplishes this but I don't have to explicitly parse the file. I just load it and ask GDI+ about the property item containing the EXIF thumbnail data. The whole process takes about ~2ms on my computer and i am puzzeled how it can be that fast. But fact is, i can run the test mutiple times, even after a fresh reboot and it always comes out as ~2ms per file.</p>
+
+
+	<p>Unfortunately i can't add profiling info because my performance measuring routines are written in delphi and I just measure the time it takes the DLL method to return.</p>
+
+
+	<p>I just tested the following code:</p>
+
+
+	<p>FullImage = Exiv2::ImageFactory::open(lpszFilename);<br />FullImage->readMetadata();<br />Exiv2::ExifData &#38;exifData = FullImage->exifData();<br />Exiv2::ExifThumbC ExifThumb(exifData);<br />Exiv2::DataBuf DataBuffer = ExifThumb.copy();<br />hHeapMemoryBlock = HeapAlloc(GetProcessHeap(), 0, DataBuffer.size_);<br />memcpy(hHeapMemoryBlock, DataBuffer.pData_,  DataBuffer.size_);</p>
+
+
+	<p>This is taking about 84ms per Image in average on my computer. So it's faster than using the PreviewManager in 1.18 but slower than the old functionality in 1.17.</p>
+
+
+	<p>I am running this test on 260 JPEG images that were made by different digital cameras, Casio EX-Z1000, Sony DSC-T30, Nikon E3200, Canon Digital IXUS 50, Pentax Optio S, Panasonic DMC-FX9 &#38; Canon EOS 20D. The average size is 6 Megapixel.</p>
+
+
+	<p>So far it seems, GDI+ is unbeatable in speed regarding the retrieval of exif thumbnails but is far inferior to EXIV2 if one has to manipulate the EXIF informations somehow. I will probably end up using both, GDI+ and EXIV2 and use both for the parts they are best in. Since I need GDI+ for drawing operations anyway this is no problem for me. I was just curious if i could speed up the EXIV2 thumbnail retrieval in some way.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-122">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/119?r=122#message-122">RE: PErformance bei Ermittlung eines PreviewImages / EXIF Thumbnails</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 Mar 2009 08:28" href="/projects/exiv2/activity?from=2009-03-23">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>FullImage = Exiv2::ImageFactory::open(lpszFilename);<br />FullImage->readMetadata();<br />Exiv2::ExifData &#38;exifData = FullImage->exifData();<br />Exiv2::ExifThumbC ExifThumb(exifData);<br />Exiv2::DataBuf DataBuffer = ExifThumb.copy();<br />hHeapMemoryBlock = HeapAlloc(GetProcessHeap(), 0, DataBuffer.size_);<br />memcpy(hHeapMemoryBlock, DataBuffer.pData_,  DataBuffer.size_);</p>
+
+
+	<p>This is taking about 84ms per Image in average on my computer. So it's faster than using the PreviewManager in 1.18 but slower than the old functionality in 1.17.</p>
+
+
+</blockquote>
+
+	<p>This is about as fast as it gets with Exiv2 without tuning the library itself and even then I believe it will always remain many times slower than GDI+. 2ms sounds really fast, although of course in order to get just the thumbnail, one can bypass all of the decoding complexities. Exiv2 on the other hand will always parse the whole Exif block incl. IFD0 and its sub-IFDs and the Makernote.</p>
+
+
+	<p>I'll build a similar experiment on Linux and get some profiling data to see if there is any potential for a quick improvement, but it will only be later this week.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-126">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/119?r=126#message-126">RE: PErformance bei Ermittlung eines PreviewImages / EXIF Thumbnails</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="24 Mar 2009 19:47" href="/projects/exiv2/activity?from=2009-03-24">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've run a similar test on Linux, using Exiv2 from SVN (<a class="changeset" title="#623: Removed class TiffPrinter and tiffparse.cpp." href="/projects/exiv2/repository/exiv2/revisions/1773">r1773</a>). It extracts the Exif thumbnail using <code>ExifThumbC</code> and copies it into a <code>DataBuf</code>, just like the code above (without the last two lines) for all test files in a loop. The test was run on a 3.5 year old Dell Dimension 9100 PC with a 3GHz Pentium D processor, 3GB of memory and 2 mirrored SATA disks (Linux software RAID), running Debian Linux.</p>
+
+
+	<p>The test data consisted of 208 JPEG images (43 Canon PowerShot A430, 52 Canon PowerShot S40, 34 Panasonic DMC-FZ7, 27 Sony DSC-W7, 52 NIKON D70), average image size is 2GB, all have an Exif thumbnail.</p>
+
+
+	<p>The results are very different from those reported from Windows. The good news is that the performance on Linux is much better. But it's not clear why there is such a large difference between Windows and Linux.</p>
+
+
+	<p>In this test, thumbnail extraction on average took <strong>16ms per image</strong>. 80% of the time was spent reading the file from the disk: subsequent runs without flushing the filesystem cache took only 3ms per image. After flushing, the time reproducably is back to about 16ms.</p>
+
+
+	<p>Note: Exiv2 reads JPEG files only up to the Exif APP segment. It doesn't read the image data. The Exif segment is usually located within the first 100kB of the image. So for reading JPEG images, the image size is not relevant.</p>
+
+
+	<p>Profiling data is attached (use eg kcachegrind to view it). A considerable amount of time is spent to allocate and free small amounts of heap memory. Is memory management slower on Windows? Or is the Delphi overhead causing the difference?</p>
+
+
+	<p>-ahu.</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/87">callgrind.out.20740.gz</a>    <span class="size">(145 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/87/callgrind.out.20740.gz">callgrind.out.20740.gz</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-127">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/119?r=127#message-127">RE: PErformance bei Ermittlung eines PreviewImages / EXIF Thumbnails</a>
+    -
+    Added by <a class="user active" href="/users/155">Andreas Kolbow</a> <a title="26 Mar 2009 03:18" href="/projects/exiv2/activity?from=2009-03-26">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks a lot for your feedback. Your tests seem to confirm the the thumbnail extraction per se is quite fast but the filesystem overhead on windows seems quite high. 3ms is about the time I got with the GDI+ method on my computer. Well still 1ms difference but that may be because of hardware differences.</p>
+
+
+	<p>My tests were done on a Lenovo 3000 N200 (Intel Core2Duo T7300 @ 2.00GHz, 3GB RAM, SATA (no raid) HDD, Windows Vista)</p>
+
+
+	<p>Unfortunately I have some other tasks I need to finish this week so I can't really test any further but I'll try if I can do some more evaluation on the weekend as I am interested in the reason for the difference as well.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-128">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/119?r=128#message-128">RE: PErformance bei Ermittlung eines PreviewImages / EXIF Thumbnails</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="26 Mar 2009 05:32" href="/projects/exiv2/activity?from=2009-03-26">over 12 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>Your tests seem to confirm the the thumbnail extraction per se is quite fast but the filesystem overhead on windows seems quite high.</p>
+
+
+</blockquote>
+
+	<p>Yes, that's also the conclusion I arrived at in the meantime. I've re-run the same experiment on a new laptop running Windows Vista and the results really seem to indicate that</p>
+
+
+	<ol>
+	<li>parsing the metadata and extracting the thumbnail is fast</li>
+		<li>most of the time is spent reading the file, if it is not in the filesystem cache yet</li>
+		<li>Windows NTFS is much slower than Linux EXT3</li>
+	</ol>
+
+
+	<table>
+		<tr>
+			<td> Environment                      </td>
+			<td> First run (ms) </td>
+			<td> Subsequent runs (ms) </td>
+		</tr>
+		<tr>
+			<td> old PC / Linux / g++             </td>
+			<td> 16             </td>
+			<td> 3 </td>
+		</tr>
+		<tr>
+			<td> new Laptop / Vista / g++ (MinGw) </td>
+			<td> 94             </td>
+			<td> 2 </td>
+		</tr>
+		<tr>
+			<td> new Laptop / Vista / MSVC 9      </td>
+			<td> 91             </td>
+			<td> 4 </td>
+		</tr>
+	</table>
+
+
+
+
+	<p>"First run" is the first time the test program was run after re-booting (Windows) / clearing the filesystem cache (Linux), subsequent runs obviously don't read the files from the disk anymore.</p>
+
+
+	<p>As far as the GDI+ methods are concerned, they must also be using the filesystem cache and then the results are similar and make sense.</p>
+
+
+	<p>If you have any ideas how reading from the file could be optimized, particularly for Windows filesystems, I'd be interested to hear.</p>
+
+
+	<p>Andreas</p>
+
+
+	<p>Just for the record, this is the test program I used:</p>
+
+
+<pre>
+// ***************************************************************** -*- C++ -*-
+// thumbs.cpp, $Rev$
+// JPEG parsing and thumbnail retrieval performance testing
+
+#include &lt;exiv2/image.hpp&gt;
+#include &lt;exiv2/exif.hpp&gt;
+#include &lt;iostream&gt;
+
+int main(int argc, char* const argv[])
+try {
+
+    if (argc &lt; 2) {
+        std::cout &lt;&lt; "Usage: " &lt;&lt; argv[0] &lt;&lt; " file [...]\n";
+        return 1;
+    }
+
+    for (int i = 1; i &lt; argc; ++i) {
+
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(argv[i]);
+        image-&gt;readMetadata();
+        Exiv2::ExifThumbC exifThumb(image-&gt;exifData());
+        Exiv2::DataBuf thumb = exifThumb.copy();
+
+//        Exiv2::writeFile(thumb, std::string(argv[i]) + "-thumb.jpg");
+
+    }
+
+    return 0;
+}
+catch (Exiv2::AnyError&#38; e) {
+    std::cout &lt;&lt; "Caught Exiv2 exception '" &lt;&lt; e &lt;&lt; "'\n";
+    return -1;
+}
+</pre></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-6/6)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

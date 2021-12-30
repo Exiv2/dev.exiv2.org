@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #743: Inconsistent XMP reads - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="Q1v/EK5sW3gsj3cORRcHy6AODqLje/fowFRnZQP/WN+hFlT/3BaXeHnraAL6wAv4n5xa2xKYVlI9dPftQMa/sA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #743: Inconsistent XMP reads" href="https://dev.exiv2.org/issues/743.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #743</h2>
+
+<div class="issue tracker-1 status-6 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Inconsistent XMP reads</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/124">Michael Ulbrich</a> <a title="30 Nov 2010 15:28" href="/projects/exiv2/activity?from=2010-11-30">almost 11 years</a> ago.
+        Updated <a title="01 Jul 2011 21:16" href="/projects/exiv2/activity?from=2011-07-01">over 10 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Rejected</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">xmp</div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">30 Nov 2010</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>A JPEG image contains - among others - the following metadata tags (command line utility exiv2-0.20, option -pa):</p>
+
+
+	<p>Iptc.Application2.Copyright                  String     14  ||ABC 123.00||<br />...<br />Xmp.dc.rights                                LangAlt     1  lang="x-default" Hans Muster</p>
+
+
+	<p>When extracting XMP data from this image, results are inconsistent:</p>
+
+
+	<p>A. option -ex -> image.exv:</p>
+
+
+	<p>...<br />&lt;dc:rights&gt;<br />    &lt;rdf:Alt&gt;<br />        &lt;rdf:li xml:lang="x-default"&gt;Hans Muster&lt;/rdf:li&gt;<br />    &lt;/rdf:Alt&gt;<br />&lt;/dc:rights&gt;<br />...</p>
+
+
+	<p>B. option -eX -> image.xmp:</p>
+
+
+	<p>...<br />&lt;dc:rights&gt;<br />    &lt;rdf:Alt&gt;<br />        &lt;rdf:li xml:lang="x-default"&gt;||ABC 123.00||&lt;/rdf:li&gt;<br />    &lt;/rdf:Alt&gt;<br />&lt;/dc:rights&gt;<br />...</p>
+
+
+	<p>From my opinion A. shows correct behaviour, B. is considered a bug.</p>
+
+
+	<p>According to the IPTC4XMPCore spec IPTC CopyrightNotice (2:116) should be kept in sync with Xmp.dc.rights, but should dc.rights be overwritten from IPTC, if they are out of sync as in this case?</p>
+
+
+	<p>And why is the output different beween options -ex and -eX?</p>
+
+
+	<p>Any info whether this should actually be considered a bug and if yes, where to start de-bugging is greatly appreciated. Could the XMPSDK be the culprit ...?</p>
+
+
+	<p>A test image may be provided, but has to be constructed from scratch since the original is copyrighted material.</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1826" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Dec 2010 18:10" href="/projects/exiv2/activity?from=2010-12-01">almost 11 years</a> ago
+      <span id="journal-1826-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1826-notes" class="wiki">There are two differences in your examples
+	<ol>
+	<li>-ex extracts only XMP data whereas -eX extracts all metadata.</li>
+		<li>Reading/writing XMP sidecars automatically invokes conversions from XMP to IPTC and Exif and vice versa. It's the only format for which metadata conversions are automatically applied.</li>
+	</ol>
+
+
+	<p>For 1. the corresponding flags are:</p>
+
+
+	<ul>
+	<li>To extract only XMP data: -ex and -exX</li>
+		<li>To extract all metadata:<br />  exiv2 extract img.jpg and exiv2 -eX img.jpg<br />  which is equivalent to<br />  exiv2 -ea img.jpg and exiv2 -eaX img.jpg</li>
+	</ul>
+
+
+	<p>For 2. the conversions apparently give the IPTC copyright higher precedence (-eaX results in an XMP with the IPTC copyright in the XMP dc:rights property). I'm not sure if that's correct. It should be defined in the XMP specs or the <a href="http://www.metadataworkinggroup.org/pdf/mwg_guidance.pdf" class="external">guidelines</a> from the Metadata Working Group. There are existing bugs/discussions about the Exiv2 metadata conversions, in particular <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Metadata conversion enhancements  (Closed)" href="/issues/601">#601</a>, but it is an area that has been dormant for quite a while.</p>
+
+
+	<p>If you want to look this up in the code, see XmpSidecar::readMetadata and XmpSidecar::writeMetadata in xmpsidecar.cpp and note the calls of the various copy*To*() functions. These and all conversion logic are in convert.cpp.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1931" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="01 Jul 2011 21:16" href="/projects/exiv2/activity?from=2011-07-01">over 10 years</a> ago
+      <span id="journal-1931-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Rejected</i></li>
+    </ul>
+    <div id="journal-1931-notes" class="wiki"><p>Rejecting this as "not a bug". If you feel there is any work needed here, please speak up.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/743.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/743.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

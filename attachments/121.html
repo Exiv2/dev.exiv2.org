@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>bug664.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="lYj4hcF2fV+ar0AGe/s1xnq83nxvDINxS/AmEO7+Iqh3xVNqswyxX8/LXwrELDn1RS6KBZ7vIsu20LaYrcfFxw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/121/bug664.patch">Download (8.98 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Crash when reading PNG image" href="/issues/664">Bug #664</a> » bug664.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/53">Andreas Huggel</a>, 28 Dec 2009 18:43</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/121" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      trunk-bug664/src/pngchunk.cpp	2009-12-29 10:17:19.000000000 +0800
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">103</th>
+  <th class="line-num">103</th>
+  <td class="line-code ">
+    <pre>        std::cout &lt;&lt; &quot;Exiv2::PngChunk::decodeTXTChunk: TXT chunk data: &quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">104</th>
+  <th class="line-num">104</th>
+  <td class="line-code ">
+    <pre>                  &lt;&lt; std::string((const char*)arr.pData_, 32) &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">105</th>
+  <th class="line-num">105</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">106</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        parseChunkContent(pImage, key.pData_, <span></span>arr);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">106</th>
+  <td class="line-code diff_in">
+    <pre>        parseChunkContent(pImage, key.pData_, <span>key.size_, </span>arr);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">107</th>
+  <th class="line-num">107</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">108</th>
+  <th class="line-num">108</th>
+  <td class="line-code ">
+    <pre>    } // PngChunk::decodeTXTChunk</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">109</th>
+  <th class="line-num">109</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">111</th>
+  <th class="line-num">111</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">112</th>
+  <th class="line-num">112</th>
+  <td class="line-code ">
+    <pre>        // From a tEXt, zTXt, or iTXt chunk,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">113</th>
+  <th class="line-num">113</th>
+  <td class="line-code ">
+    <pre>        // we get the key, it&#39;s a null terminated string at the chunk start</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">114</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">114</th>
+  <td class="line-code diff_in">
+    <pre>        if (data.size_ &lt;= (stripHeader ? 8 : 0)) throw Error(14);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">115</th>
+  <th class="line-num">115</th>
+  <td class="line-code ">
+    <pre>        const byte *key = data.pData_ + (stripHeader ? 8 : 0);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">116</th>
+  <th class="line-num">116</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">117</th>
+  <th class="line-num">117</th>
+  <td class="line-code ">
+    <pre>        // Find null string at end of key.</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">162</th>
+  <th class="line-num">162</th>
+  <td class="line-code ">
+    <pre>            const byte* text = data.pData_ + keysize + 1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">163</th>
+  <th class="line-num">163</th>
+  <td class="line-code ">
+    <pre>            long textsize    = data.size_  - keysize - 1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">164</th>
+  <th class="line-num">164</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">165</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            arr.alloc(textsize);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">166</th>
+  <th class="line-num">165</th>
+  <td class="line-code ">
+    <pre>            arr = DataBuf(text, textsize);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">167</th>
+  <th class="line-num">166</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">168</th>
+  <th class="line-num">167</th>
+  <td class="line-code ">
+    <pre>        else if(type == iTXt_Chunk)</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">228</th>
+  <th class="line-num">227</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">229</th>
+  <th class="line-num">228</th>
+  <td class="line-code ">
+    <pre>    } // PngChunk::parsePngChunk</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">230</th>
+  <th class="line-num">229</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">231</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    void PngChunk::parseChunkContent(Image* pImage, const byte *key, const DataBuf arr)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">230</th>
+  <td class="line-code diff_in">
+    <pre>    void PngChunk::parseChunkContent(      Image*  pImage,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">231</th>
+  <td class="line-code diff_in">
+    <pre>                                     const byte*   key,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">232</th>
+  <td class="line-code diff_in">
+    <pre>                                           long    keySize,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">233</th>
+  <td class="line-code diff_in">
+    <pre>                                     const DataBuf arr)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">232</th>
+  <th class="line-num">234</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">233</th>
+  <th class="line-num">235</th>
+  <td class="line-code ">
+    <pre>        // We look if an ImageMagick EXIF raw profile exist.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">234</th>
+  <th class="line-num">236</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">235</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if ( (memcmp(&quot;Raw profile type exif&quot;, key, 21) == 0 ||</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">236</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>              memcmp(&quot;Raw profile type APP1&quot;, key, 21) == 0) &amp;&amp;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">237</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>             pImage-&gt;exifData().empty())</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">237</th>
+  <td class="line-code diff_in">
+    <pre>        if (   keySize &gt;= 21 </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">238</th>
+  <td class="line-code diff_in">
+    <pre>            &amp;&amp; (   memcmp(&quot;Raw profile type exif&quot;, key, 21) == 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">239</th>
+  <td class="line-code diff_in">
+    <pre>                || memcmp(&quot;Raw profile type APP1&quot;, key, 21) == 0)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">240</th>
+  <td class="line-code diff_in">
+    <pre>            &amp;&amp; pImage-&gt;exifData().empty())</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">238</th>
+  <th class="line-num">241</th>
+  <td class="line-code ">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">239</th>
+  <th class="line-num">242</th>
+  <td class="line-code ">
+    <pre>            DataBuf exifData = readRawProfile(arr);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">240</th>
+  <th class="line-num">243</th>
+  <td class="line-code ">
+    <pre>            long length      = exifData.size_;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">282</th>
+  <th class="line-num">285</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">283</th>
+  <th class="line-num">286</th>
+  <td class="line-code ">
+    <pre>        // We look if an ImageMagick IPTC raw profile exist.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">284</th>
+  <th class="line-num">287</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">285</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (   memcmp(&quot;Raw profile type iptc&quot;, key, 21) == 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">288</th>
+  <td class="line-code diff_in">
+    <pre>        if (   keySize &gt;= 21</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">289</th>
+  <td class="line-code diff_in">
+    <pre>            &amp;&amp; memcmp(&quot;Raw profile type iptc&quot;, key, 21) == 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">286</th>
+  <th class="line-num">290</th>
+  <td class="line-code ">
+    <pre>            &amp;&amp; pImage-&gt;iptcData().empty()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">287</th>
+  <th class="line-num">291</th>
+  <td class="line-code ">
+    <pre>            DataBuf psData = readRawProfile(arr);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">288</th>
+  <th class="line-num">292</th>
+  <td class="line-code ">
+    <pre>            if (psData.size_ &gt; 0) {</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">332</th>
+  <th class="line-num">336</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">333</th>
+  <th class="line-num">337</th>
+  <td class="line-code ">
+    <pre>        // We look if an ImageMagick XMP raw profile exist.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">334</th>
+  <th class="line-num">338</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">335</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if ( memcmp(&quot;Raw profile type xmp&quot;, key, 20) == 0 &amp;&amp;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">336</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>             pImage-&gt;xmpData().empty())</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">339</th>
+  <td class="line-code diff_in">
+    <pre>        if (   keySize &gt;= 20</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">340</th>
+  <td class="line-code diff_in">
+    <pre>            &amp;&amp; memcmp(&quot;Raw profile type xmp&quot;, key, 20) == 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">341</th>
+  <td class="line-code diff_in">
+    <pre>            &amp;&amp; pImage-&gt;xmpData().empty()) </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">337</th>
+  <th class="line-num">342</th>
+  <td class="line-code ">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">338</th>
+  <th class="line-num">343</th>
+  <td class="line-code ">
+    <pre>            DataBuf xmpBuf = readRawProfile(arr);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">339</th>
+  <th class="line-num">344</th>
+  <td class="line-code ">
+    <pre>            long length    = xmpBuf.size_;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">362</th>
+  <th class="line-num">367</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">363</th>
+  <th class="line-num">368</th>
+  <td class="line-code ">
+    <pre>        // We look if an Adobe XMP string exist.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">364</th>
+  <th class="line-num">369</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">365</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if ( memcmp(&quot;XML:com.adobe.xmp&quot;, key, 17) == 0 &amp;&amp;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">366</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>             pImage-&gt;xmpData().empty())</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">370</th>
+  <td class="line-code diff_in">
+    <pre>        if (   keySize &gt;= 17</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">371</th>
+  <td class="line-code diff_in">
+    <pre>            &amp;&amp; memcmp(&quot;XML:com.adobe.xmp&quot;, key, 17) == 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">372</th>
+  <td class="line-code diff_in">
+    <pre>            &amp;&amp; pImage-&gt;xmpData().empty())</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">367</th>
+  <th class="line-num">373</th>
+  <td class="line-code ">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">368</th>
+  <th class="line-num">374</th>
+  <td class="line-code ">
+    <pre>            if (arr.size_ &gt; 0)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">369</th>
+  <th class="line-num">375</th>
+  <td class="line-code ">
+    <pre>            {</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">390</th>
+  <th class="line-num">396</th>
+  <td class="line-code ">
+    <pre>        // We look if a comments string exist. Note than we use only &#39;Description&#39; keyword which</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">391</th>
+  <th class="line-num">397</th>
+  <td class="line-code ">
+    <pre>        // is dedicaced to store long comments. &#39;Comment&#39; keyword is ignored.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">392</th>
+  <th class="line-num">398</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">393</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if ( memcmp(&quot;Description&quot;, key, 11) == 0 &amp;&amp;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">394</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>             pImage-&gt;comment().empty())</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">399</th>
+  <td class="line-code diff_in">
+    <pre>        if (   keySize &gt;= 11</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">400</th>
+  <td class="line-code diff_in">
+    <pre>            &amp;&amp; memcmp(&quot;Description&quot;, key, 11) == 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">401</th>
+  <td class="line-code diff_in">
+    <pre>            &amp;&amp; pImage-&gt;comment().empty())</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">395</th>
+  <th class="line-num">402</th>
+  <td class="line-code ">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">396</th>
+  <th class="line-num">403</th>
+  <td class="line-code ">
+    <pre>            pImage-&gt;comment().assign(reinterpret_cast&lt;char*&gt;(arr.pData_), arr.size_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">397</th>
+  <th class="line-num">404</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      trunk-bug664/src/pngchunk_int.hpp	2009-12-29 10:16:40.000000000 +0800
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">134</th>
+  <th class="line-num">134</th>
+  <td class="line-code ">
+    <pre>                    Xmp  packet generated by Adobe                 ==&gt; Image Xmp metadata.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">135</th>
+  <th class="line-num">135</th>
+  <td class="line-code ">
+    <pre>                    Description string                             ==&gt; Image Comments.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">136</th>
+  <th class="line-num">136</th>
+  <td class="line-code ">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">137</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        static void parseChunkContent(<span>Image*      </span>  pImage,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">137</th>
+  <td class="line-code diff_in">
+    <pre>        static void parseChunkContent(<span>      Image*</span>  pImage,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">138</th>
+  <th class="line-num">138</th>
+  <td class="line-code ">
+    <pre>                                      const byte*   key,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">139</th>
+  <td class="line-code diff_in">
+    <pre>                                            long    keySize,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">139</th>
+  <th class="line-num">140</th>
+  <td class="line-code ">
+    <pre>                                      const DataBuf arr);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">140</th>
+  <th class="line-num">141</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">141</th>
+  <th class="line-num">142</th>
+  <td class="line-code ">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      trunk-bug664/src/pngimage.cpp	2009-12-29 10:34:48.000000000 +0800
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">132</th>
+  <th class="line-num">132</th>
+  <td class="line-code ">
+    <pre>            if (io_-&gt;error()) throw Error(14);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">133</th>
+  <th class="line-num">133</th>
+  <td class="line-code ">
+    <pre>            if (bufRead != cheaderBuf.size_) throw Error(20);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">134</th>
+  <th class="line-num">134</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">135</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">136</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            std::cout &lt;&lt; &quot;Exiv2::PngImage::readMetadata: Next Chunk: &quot; &lt;&lt; cheaderBuf.pData_ + 4 &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">137</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">138</th>
+  <th class="line-num">135</th>
+  <td class="line-code ">
+    <pre>            // Decode chunk data length.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">139</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">140</th>
+  <th class="line-num">136</th>
+  <td class="line-code ">
+    <pre>            uint32_t dataOffset = Exiv2::getULong(cheaderBuf.pData_, Exiv2::bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">141</th>
+  <th class="line-num">137</th>
+  <td class="line-code ">
+    <pre>            if (dataOffset &gt; 0x7FFFFFFF) throw Exiv2::Error(14);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">142</th>
+  <th class="line-num">138</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">159</th>
+  <th class="line-num">155</th>
+  <td class="line-code ">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">160</th>
+  <th class="line-num">156</th>
+  <td class="line-code ">
+    <pre>                    // Last chunk found: we stop parsing.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">161</th>
+  <th class="line-num">157</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">162</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    std::cout &lt;&lt; &quot;Exiv2::PngImage::readMetadata: Found IEND chunk (leng<span>ht</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">158</th>
+  <td class="line-code diff_in">
+    <pre>                    std::cout &lt;&lt; &quot;Exiv2::PngImage::readMetadata: Found IEND chunk (leng<span>th</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">163</th>
+  <th class="line-num">159</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">164</th>
+  <th class="line-num">160</th>
+  <td class="line-code ">
+    <pre>                    return;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">165</th>
+  <th class="line-num">161</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">166</th>
+  <th class="line-num">162</th>
+  <td class="line-code ">
+    <pre>                else if (!memcmp(cheaderBuf.pData_ + 4, &quot;IHDR&quot;, 4))</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">167</th>
+  <th class="line-num">163</th>
+  <td class="line-code ">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">168</th>
+  <th class="line-num">164</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">169</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    std::cout &lt;&lt; &quot;Exiv2::PngImage::readMetadata: Found IHDR chunk (leng<span>ht</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">165</th>
+  <td class="line-code diff_in">
+    <pre>                    std::cout &lt;&lt; &quot;Exiv2::PngImage::readMetadata: Found IHDR chunk (leng<span>th</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">170</th>
+  <th class="line-num">166</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">171</th>
+  <th class="line-num">167</th>
+  <td class="line-code ">
+    <pre>                    PngChunk::decodeIHDRChunk(cdataBuf, &amp;pixelWidth_, &amp;pixelHeight_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">172</th>
+  <th class="line-num">168</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">173</th>
+  <th class="line-num">169</th>
+  <td class="line-code ">
+    <pre>                else if (!memcmp(cheaderBuf.pData_ + 4, &quot;tEXt&quot;, 4))</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">174</th>
+  <th class="line-num">170</th>
+  <td class="line-code ">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">175</th>
+  <th class="line-num">171</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">176</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    std::cout &lt;&lt; &quot;Exiv2::PngImage::readMetadata: Found tEXt chunk (leng<span>ht</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">172</th>
+  <td class="line-code diff_in">
+    <pre>                    std::cout &lt;&lt; &quot;Exiv2::PngImage::readMetadata: Found tEXt chunk (leng<span>th</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">177</th>
+  <th class="line-num">173</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">178</th>
+  <th class="line-num">174</th>
+  <td class="line-code ">
+    <pre>                    PngChunk::decodeTXTChunk(this, cdataBuf, PngChunk::tEXt_Chunk);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">179</th>
+  <th class="line-num">175</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">180</th>
+  <th class="line-num">176</th>
+  <td class="line-code ">
+    <pre>                else if (!memcmp(cheaderBuf.pData_ + 4, &quot;zTXt&quot;, 4))</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">181</th>
+  <th class="line-num">177</th>
+  <td class="line-code ">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">182</th>
+  <th class="line-num">178</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">183</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    std::cout &lt;&lt; &quot;Exiv2::PngImage::readMetadata: Found zTXt chunk (leng<span>ht</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">179</th>
+  <td class="line-code diff_in">
+    <pre>                    std::cout &lt;&lt; &quot;Exiv2::PngImage::readMetadata: Found zTXt chunk (leng<span>th</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">184</th>
+  <th class="line-num">180</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">185</th>
+  <th class="line-num">181</th>
+  <td class="line-code ">
+    <pre>                    PngChunk::decodeTXTChunk(this, cdataBuf, PngChunk::zTXt_Chunk);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">186</th>
+  <th class="line-num">182</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">187</th>
+  <th class="line-num">183</th>
+  <td class="line-code ">
+    <pre>                else if (!memcmp(cheaderBuf.pData_ + 4, &quot;iTXt&quot;, 4))</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">188</th>
+  <th class="line-num">184</th>
+  <td class="line-code ">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">189</th>
+  <th class="line-num">185</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">190</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    std::cout &lt;&lt; &quot;Exiv2::PngImage::readMetadata: Found iTXt chunk (leng<span>ht</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">186</th>
+  <td class="line-code diff_in">
+    <pre>                    std::cout &lt;&lt; &quot;Exiv2::PngImage::readMetadata: Found iTXt chunk (leng<span>th</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">191</th>
+  <th class="line-num">187</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">192</th>
+  <th class="line-num">188</th>
+  <td class="line-code ">
+    <pre>                    PngChunk::decodeTXTChunk(this, cdataBuf, PngChunk::iTXt_Chunk);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">193</th>
+  <th class="line-num">189</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">270</th>
+  <th class="line-num">266</th>
+  <td class="line-code ">
+    <pre>            {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">271</th>
+  <th class="line-num">267</th>
+  <td class="line-code ">
+    <pre>                // Last chunk found: we write it and done.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">272</th>
+  <th class="line-num">268</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">273</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                std::cout &lt;&lt; &quot;Exiv2::PngImage::doWriteMetadata: Write IEND chunk (leng<span>ht</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">269</th>
+  <td class="line-code diff_in">
+    <pre>                std::cout &lt;&lt; &quot;Exiv2::PngImage::doWriteMetadata: Write IEND chunk (leng<span>th</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">274</th>
+  <th class="line-num">270</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">275</th>
+  <th class="line-num">271</th>
+  <td class="line-code ">
+    <pre>                if (outIo.write(chunkBuf.pData_, chunkBuf.size_) != chunkBuf.size_) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">276</th>
+  <th class="line-num">272</th>
+  <td class="line-code ">
+    <pre>                return;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">278</th>
+  <th class="line-num">274</th>
+  <td class="line-code ">
+    <pre>            else if (!memcmp(cheaderBuf.pData_ + 4, &quot;IHDR&quot;, 4))</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">279</th>
+  <th class="line-num">275</th>
+  <td class="line-code ">
+    <pre>            {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">280</th>
+  <th class="line-num">276</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">281</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                std::cout &lt;&lt; &quot;Exiv2::PngImage::doWriteMetadata: Write IHDR chunk (leng<span>ht</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">277</th>
+  <td class="line-code diff_in">
+    <pre>                std::cout &lt;&lt; &quot;Exiv2::PngImage::doWriteMetadata: Write IHDR chunk (leng<span>th</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">282</th>
+  <th class="line-num">278</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">283</th>
+  <th class="line-num">279</th>
+  <td class="line-code ">
+    <pre>                if (outIo.write(chunkBuf.pData_, chunkBuf.size_) != chunkBuf.size_) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">284</th>
+  <th class="line-num">280</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">362</th>
+  <th class="line-num">358</th>
+  <td class="line-code ">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">363</th>
+  <th class="line-num">359</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">364</th>
+  <th class="line-num">360</th>
+  <td class="line-code ">
+    <pre>                    std::cout &lt;&lt; &quot;Exiv2::PngImage::doWriteMetadata: write &quot; &lt;&lt; cheaderBuf.pData_ + 4</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">365</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                              &lt;&lt; &quot; chunk (leng<span>ht</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">361</th>
+  <td class="line-code diff_in">
+    <pre>                              &lt;&lt; &quot; chunk (leng<span>th</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">366</th>
+  <th class="line-num">362</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">367</th>
+  <th class="line-num">363</th>
+  <td class="line-code ">
+    <pre>                    if (outIo.write(chunkBuf.pData_, chunkBuf.size_) != chunkBuf.size_) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">368</th>
+  <th class="line-num">364</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">372</th>
+  <th class="line-num">368</th>
+  <td class="line-code ">
+    <pre>                // Write all others chunk as well.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">373</th>
+  <th class="line-num">369</th>
+  <td class="line-code ">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">374</th>
+  <th class="line-num">370</th>
+  <td class="line-code ">
+    <pre>                std::cout &lt;&lt; &quot;Exiv2::PngImage::doWriteMetadata: write &quot; &lt;&lt; cheaderBuf.pData_ + 4</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">375</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                          &lt;&lt; &quot; chunk (leng<span>ht</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">371</th>
+  <td class="line-code diff_in">
+    <pre>                          &lt;&lt; &quot; chunk (leng<span>th</span>: &quot; &lt;&lt; dataOffset &lt;&lt; &quot;)\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">376</th>
+  <th class="line-num">372</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">377</th>
+  <th class="line-num">373</th>
+  <td class="line-code ">
+    <pre>                if (outIo.write(chunkBuf.pData_, chunkBuf.size_) != chunkBuf.size_) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">378</th>
+  <th class="line-num">374</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"></ul><span><span class="items">(1-1/1)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

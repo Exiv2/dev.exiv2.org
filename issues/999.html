@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #999: Arithmetic exception in QuickTimeVideo::mediaHeaderDecoder - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="Ag4rzOHIUW17xHbtW7iEaHwzIo3uwaa5NgnY6Ay1T+rgQ4Ajk7KdbS6gaeHkb4hbQ6F29B8iBwPLKUhgT4yohQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #999: Arithmetic exception in QuickTimeVideo::mediaHeaderDecoder" href="https://dev.exiv2.org/issues/999.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #999</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Arithmetic exception in QuickTimeVideo::mediaHeaderDecoder</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4270">Luca Carlon</a> <a title="17 Nov 2014 23:40" href="/projects/exiv2/activity?from=2014-11-17">about 7 years</a> ago.
+        Updated <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/3290">Abhinav Badola</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">video</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">17 Nov 2014</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>When parsing my collection it seems that some mp4's (which were transcoded with ffmpeg) are making libexiv2 crash because of an arithmetic exception in QuickTimeVideo::mediaHeaderDecoder. In particular it seems that time_scale is found to be 0 resulting in a crash when diving. Simply</p>
+
+
+	<p>xmpData_["Xmp.video.MediaDuration"] = time_scale ? returnBufValue(buf)/time_scale : 0;</p>
+
+
+	<p>fixes the crash (same for audio). But this result of course in duration 0.<br />However, it seems that exiv2 returns 16000 once (no crash), and then 0 (causing the crash) for the same file. exiftool instead returns:</p>
+
+
+	<p>Time Scale: 1000<br />Media Time Scale: 16000</p>
+
+
+	<p>Also, don't know if this is relevant, but video is mp4, while exiv2 returns quicktime video.<br />So is it possible that, in addition to the check for time_scale == 0, there is also something else to fix in the determination of the time_scale?</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/999" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="+4SnEpWPT8syNW/RBsyMxbr9WBwlrGLKy6AtSKXPdGMZyQz95/WDy2dRcN25G4D2hW8MZdRPw3A2gL3A5vaTDA==" />
+  <table class="list issues odd-even"><tr id="relation-116" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1017" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1017">Bug #1017</a>: Arithmetic exception in QuickTimeVideo::mediaHeaderDecoder</td><td class="status">Closed</td><td class="start_date">04 Jan 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/999/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=999&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2971" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Nov 2014 22:24" href="/projects/exiv2/activity?from=2014-11-19">about 7 years</a> ago
+      <span id="journal-2971-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>video</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Abhinav Badola</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-2971-notes" class="wiki"><p>I've submitted a this fix you have suggested to quicktimevideo.cpp#1461  <a class="changeset" title="Issue: 999 .  Fix divide by zero exception." href="/projects/exiv2/repository/exiv2/revisions/3390">r3390</a></p>
+
+
+<pre>
+                if(currentStream_ == Video)
+                    xmpData_["Xmp.video.MediaDuration"] = time_scale ? returnBufValue(buf)/time_scale : 0 ;
+                else if (currentStream_ == Audio)
+                    xmpData_["Xmp.audio.MediaDuration"] = time_scale ? returnBufValue(buf)/time_scale : 0;
+                break;
+</pre>
+
+	<p>I've assigned this issue to Abhinav as he wrote and supports our video code.  Can I ask you to clarify a couple of statements in your description:</p>
+
+
+<blockquote>
+
+	<p>Also, don't know if this is relevant, but video is mp4, while exiv2 returns quicktime video.</p>
+
+
+</blockquote>
+
+	<p>I'm not sure what you've said.  Do you have an exiftool and exiv2 command (and video file) to illustrate this point.</p>
+
+
+<blockquote>
+
+	<p>However, it seems that exiv2 returns 16000 once (no crash), and then 0 (causing the crash) for the same file. exiftool instead returns:</p>
+
+
+	<p>Time Scale: 1000 <br />Media Time Scale: 16000</p>
+
+
+</blockquote>
+
+	<p>Do you have test files (and exiftool and exiv2 command lines) to demonstrate this?</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2972" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4270">Luca Carlon</a> <a title="19 Nov 2014 23:06" href="/projects/exiv2/activity?from=2014-11-19">about 7 years</a> ago
+      <span id="journal-2972-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2972-notes" class="wiki"><p>As for the first statement, I mean that, AFAIK, video/quicktime is not the same as video/mp4. I commonly refer to the first as mov container. The files for which I'm experiencing the crash are mp4 files. exiv2 returns video/quicktime. If I do not apply my patch, exiv2 crashes and no output is provided. If I do apply the patch I get:</p>
+
+
+	<p>File name       : ...<br />File size       : 37590208 Bytes<br />MIME type       : video/quicktime<br />Image size      : 0 x 0<br />...: No Exif data found in the file</p>
+
+
+	<p>But this is the output of exiftool:</p>
+
+
+	<p>ExifTool Version Number         : 9.69<br />File Name                       : ...<br />Directory                       : ...<br />File Size                       : 36 MB<br />File Modification Date/Time     : 2014:07:06 15:06:35+02:00<br />File Access Date/Time           : 2014:11:08 13:01:34+01:00<br />File Inode Change Date/Time     : 2014:10:05 20:32:37+02:00<br />File Permissions                : rw-------<br />File Type                       : MP4<br />MIME Type                       : video/mp4<br />Major Brand                     : MP4  Base Media v1 [IS0 14496-12:2003]<br />Minor Version                   : 0.2.0<br />Compatible Brands               : isom, iso2, avc1, mp41<br />Movie Data Size                 : 37543089<br />Movie Data Offset               : 48<br />Movie Header Version            : 0<br />Create Date                     : 0000:00:00 00:00:00<br />Modify Date                     : 0000:00:00 00:00:00<br />Time Scale                      : 1000<br />Duration                        : 0:01:59<br />Preferred Rate                  : 1<br />Preferred Volume                : 100.00%<br />Preview Time                    : 0 s<br />Preview Duration                : 0 s<br />Poster Time                     : 0 s<br />Selection Time                  : 0 s<br />Selection Duration              : 0 s<br />Current Time                    : 0 s<br />Next Track ID                   : 3<br />Track Header Version            : 0<br />Track Create Date               : 0000:00:00 00:00:00<br />Track Modify Date               : 0000:00:00 00:00:00<br />Track ID                        : 1<br />Track Duration                  : 0:01:58<br />Track Layer                     : 0<br />Track Volume                    : 0.00%<br />Image Width                     : 1280<br />Image Height                    : 720<br />Graphics Mode                   : srcCopy<br />Op Color                        : 0 0 0<br />Compressor ID                   : avc1<br />Source Image Width              : 1280<br />Source Image Height             : 720<br />X Resolution                    : 72<br />Y Resolution                    : 72<br />Bit Depth                       : 24<br />Video Frame Rate                : 23.588<br />Matrix Structure                : 1 0 0 0 1 0 0 0 1<br />Media Header Version            : 0<br />Media Create Date               : 0000:00:00 00:00:00<br />Media Modify Date               : 0000:00:00 00:00:00<br />Media Time Scale                : 16000<br />Media Duration                  : 0:01:59<br />Media Language Code             : eng<br />Handler Description             : SoundHandler<br />Balance                         : 0<br />Audio Channels                  : 2<br />Audio Bits Per Sample           : 16<br />Audio Sample Rate               : 16000<br />Handler Type                    : Metadata<br />Handler Vendor ID               : Apple<br />Encoder                         : Lavf55.33.100<br />Avg Bitrate                     : 2.52 Mbps<br />Image Size                      : 1280x720<br />Rotation                        : 0</p>
+
+
+	<p>As you can see, far more data is extracted, mime type is not video/quicktime but video/mp4 and there are two time scales: one is 16000, the other one is 1000. exiv2 correctly extracts 16000 (I see that by debugging), but extracts 0 instead of 1000. The crash seems more an effect of something else (although I'd keep the patch anyway).</p>
+
+
+	<p>If you want, I can provide this file (~36MB).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2973" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4270">Luca Carlon</a> <a title="20 Nov 2014 08:32" href="/projects/exiv2/activity?from=2014-11-20">about 7 years</a> ago
+      <span id="journal-2973-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2973-notes" class="wiki"><p>Here is a link from where to download the file: <a class="external" href="https://drive.google.com/file/d/0B5VttTNsGwvKYTk1OE42azJ6Yjg/view?usp=sharing">https://drive.google.com/file/d/0B5VttTNsGwvKYTk1OE42azJ6Yjg/view?usp=sharing</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2974" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Nov 2014 08:40" href="/projects/exiv2/activity?from=2014-11-20">about 7 years</a> ago
+      <span id="journal-2974-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2974-notes" class="wiki"><p>Luca:<br />Thanks for all this information and the test file.  I'm going to leave Abhinav to respond to this.</p>
+
+
+	<p>Abhinav:<br />I know you're busy at college.  If you don't have time to dig into this, assign the issue to me and I'll do my best.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2998" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="30 Nov 2014 20:54" href="/projects/exiv2/activity?from=2014-11-30">almost 7 years</a> ago
+      <span id="journal-2998-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2998-notes" class="wiki"><p>Hi Luca, Robin,</p>
+
+
+	<p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>Luca:<br />Thanks for all this information and the test file.  I'm going to leave Abhinav to respond to this.</p>
+
+
+	<p>Abhinav:<br />I know you're busy at college.  If you don't have time to dig into this, assign the issue to me and I'll do my best.</p>
+
+
+	<p>Robin</p>
+
+
+</blockquote>
+
+	<p>We have tried our best to provide as much information as exiftool. It is an awesome tool written in perl and I use it many a times to verify the results fetched by exiv2.</p>
+
+
+	<p>The <strong>MP4</strong> file comes under the class of Quicktime.<br />Thats why it shows <strong>video/quicktime</strong></p>
+
+
+	<p>To quote from the official website of Exiftool - <br /><a class="external" href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/QuickTime.html">http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/QuickTime.html</a></p>
+
+
+<pre>
+QuickTime Tags
+
+The QuickTime format is used for many different types of audio, video and image files (most commonly, MOV and MP4 videos).
+</pre>
+
+	<p>The differentiation has been based on the types of tags they use, and not on the extension of the file format.<br />Internally, they all (MOV, MP4, 3GP....and many more..) have almost the same structure, and they all use the standards defined by QuickTime format specified by Apple Developers' website.</p>
+
+
+	<p>See <a class="external" href="http://developer.apple.com/mac/library/documentation/QuickTime/QTFF/QTFFChap1/qtff1.html">http://developer.apple.com/mac/library/documentation/QuickTime/QTFF/QTFFChap1/qtff1.html</a> for the official specification.</p>
+
+
+	<p>Also if you may have noticed, the tag where it specifies it as <strong>video/quicktime</strong> is <strong>Xmp.video.MimeType</strong><br />When I was designing these tags, I tried to incorporate as much information as provided by exiftool.<br />Even most of the tags have been inspired from Exiftool.</p>
+
+
+	<p>The tags are pretty much generic, so that they can incorporate any video file that may come up in the future.<br />But if you have some better solution, then please do suggest it. After all, this is an ever improving project.</p>
+
+
+	<p>Robin has already fixed the bug, and that must be why the file is not crashing anymore.</p>
+
+
+	<p>The command to view all tags of the file is -<br /><strong>./bin/exiv2 -pa</strong> ../../VID_20140118_173927_high.mp4</p>
+
+
+	<p>The command <strong>exiv2 &lt;videofile&gt;</strong> wont fetch results as the pretty print function of exiv2 needs to be modified to retrieve all tags of video files. Currently it has been designed to extract Exif tags only, which are found in images.</p>
+
+
+	<p>The below is the output of tags that I achieved through exiv2.<br />Please feel free to ask any doubts, or suggest any recommendation. :)<br /><pre>
+[badola@XPS:~/exiv2/trunk/build]$./bin/exiv2 -pa ../../VID_20140118_173927_high.mp4 
+Xmp.video.FileSize                           XmpText     7  35.8488
+Xmp.video.FileName                           XmpText    34  ../../VID_20140118_173927_high.mp4
+Xmp.video.MimeType                           XmpText    15  video/quicktime
+Xmp.video.MajorBrand                         XmpText    37  MP4 Base Media v1 [IS0 14496-12:2003]
+Xmp.video.MinorVersion                       XmpText     3  512
+Xmp.video.CompatibleBrands                   XmpSeq      4  MP4 Base Media v1 [IS0 14496-12:2003], MP4 Base Media v2 [ISO 14496-12:2005], MP4 Base w/ AVC ext [ISO 14496-12:2005], MP4 v1 [ISO 14496-1:ch13]
+Xmp.video.MovieHeaderVersion                 XmpText     1  0
+Xmp.video.DateUTC                            XmpText     1  0
+Xmp.video.ModificationDate                   XmpText     1  0
+Xmp.video.TimeScale                          XmpText     4  1000
+Xmp.video.Duration                           XmpText     6  119232
+Xmp.video.PreferredRate                      XmpText     1  1
+Xmp.video.PreferredVolume                    XmpText     3  100
+Xmp.video.PreviewTime                        XmpText     1  0
+Xmp.video.PreviewDuration                    XmpText     1  0
+Xmp.video.PosterTime                         XmpText     1  0
+Xmp.video.SelectionTime                      XmpText     1  0
+Xmp.video.SelectionDuration                  XmpText     1  0
+Xmp.video.CurrentTime                        XmpText     1  0
+Xmp.video.NextTrackID                        XmpText     1  3
+Xmp.video.TrackHeaderVersion                 XmpText     1  0
+Xmp.video.TrackCreateDate                    XmpText     1  0
+Xmp.video.TrackModifyDate                    XmpText     1  0
+Xmp.video.TrackID                            XmpText     1  1
+Xmp.video.TrackDuration                      XmpText     3  118
+Xmp.video.TrackLayer                         XmpText     1  0
+Xmp.video.TrackVolume                        XmpText     3  100
+Xmp.video.Width                              XmpText     4  1280
+Xmp.video.Height                             XmpText     3  720
+Xmp.video.MediaHeaderVersion                 XmpText     1  1
+Xmp.video.MediaCreateDate                    XmpText     1  0
+Xmp.video.MediaModifyDate                    XmpText     1  0
+Xmp.video.MediaTimeScale                     XmpText     1  0
+Xmp.video.MediaDuration                      XmpText     1  0
+Xmp.video.MediaLangCode                      XmpText     3  426
+Xmp.video.HandlerType                        XmpText    11  Video Track
+Xmp.video.GraphicsMode                       XmpText     7  srcCopy
+Xmp.video.OpColor                            XmpText     1  0
+Xmp.video.URL                                XmpText     0  
+Xmp.video.Codec                              XmpText    39  MP4 Base w/ AVC ext [ISO 14496-12:2005]
+Xmp.video.SourceImageWidth                   XmpText     4  1280
+Xmp.video.SourceImageHeight                  XmpText     3  720
+Xmp.video.XResolution                        XmpText     2  72
+Xmp.video.YResolution                        XmpText     2  72
+Xmp.video.Compressor                         XmpText     0  
+Xmp.video.BitDepth                           XmpText     2  24
+Xmp.video.FrameRate                          XmpText    10  0.00084302
+Xmp.audio.TrackHeaderVersion                 XmpText     1  0
+Xmp.audio.TrackCreateDate                    XmpText     1  0
+Xmp.audio.TrackModifyDate                    XmpText     1  0
+Xmp.audio.TrackID                            XmpText     1  2
+Xmp.audio.TrackDuration                      XmpText     3  119
+Xmp.audio.TrackLayer                         XmpText     1  0
+Xmp.audio.MediaHeaderVersion                 XmpText     1  0
+Xmp.audio.MediaCreateDate                    XmpText     1  0
+Xmp.audio.MediaModifyDate                    XmpText     1  0
+Xmp.audio.MediaTimeScale                     XmpText     5  16000
+Xmp.audio.MediaDuration                      XmpText     3  119
+Xmp.audio.MediaLangCode                      XmpText     4  5575
+Xmp.audio.HandlerType                        XmpText    11  Audio Track
+Xmp.audio.Balance                            XmpText     1  0
+Xmp.audio.URL                                XmpText     0  
+Xmp.audio.Compressor                         XmpText     4  ac-3
+Xmp.audio.ChannelType                        XmpText     1  2
+Xmp.audio.BitsPerSample                      XmpText     2  16
+Xmp.audio.SampleRate                         XmpText     5  16000
+Xmp.video.AspectRatio                        XmpText     4  16:9
+
+</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3009" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4270">Luca Carlon</a> <a title="03 Dec 2014 22:12" href="/projects/exiv2/activity?from=2014-12-03">almost 7 years</a> ago
+      <span id="journal-3009-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3009-notes" class="wiki"><p>I checked the output using the -pa param and yes, it seems everything is working correctly. Sorry, I didn't know that was necessary to get all the data. I suppose the report can be closed now.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3010" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="04 Dec 2014 04:32" href="/projects/exiv2/activity?from=2014-12-04">almost 7 years</a> ago
+      <span id="journal-3010-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-3010-notes" class="wiki"><p>Thanks Luca, for helping us fix this bug. :)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3043" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4308">Mathieu Clabaut</a> <a title="04 Jan 2015 09:15" href="/projects/exiv2/activity?from=2015-01-04">almost 7 years</a> ago
+      <span id="journal-3043-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3043-notes" class="wiki"><p>I've stumbled upon almost the same problem with exiv2 0.24 on Arch Linux for x86_64.<br />But two variables are concerned by a division by zero : time_scale and timeScale_.<br />You can download (for a limited period of time) the problematic file on <a class="external" href="http://dl.free.fr/rrfsuOUdn">http://dl.free.fr/rrfsuOUdn</a></p>
+
+
+	<p>The backtrace was:<br />The backtrace is : <br />#0  0x00007ffff7a396d5 in Exiv2::QuickTimeVideo::movieHeaderDecoder (this=this@entry=0x62c930, size=0x60, size@entry=0x70) at /tmp_dsk/makepkg/exiv2/src/exiv2-0.24/src/quicktimevideo.cpp:1576<br />#1  0x00007ffff7a3e49b in Exiv2::QuickTimeVideo::tagDecoder (this=this@entry=0x62c930, buf=..., size=size@entry=0x70) at /tmp_dsk/makepkg/exiv2/src/exiv2-0.24/src/quicktimevideo.cpp:690<br />#2  0x00007ffff7a3e8d0 in Exiv2::QuickTimeVideo::decodeBlock (this=this@entry=0x62c930) at /tmp_dsk/makepkg/exiv2/src/exiv2-0.24/src/quicktimevideo.cpp:672<br />#3  0x00007ffff7a3e438 in Exiv2::QuickTimeVideo::tagDecoder (this=this@entry=0x62c930, buf=..., size=size@entry=0x56fd) at /tmp_dsk/makepkg/exiv2/src/exiv2-0.24/src/quicktimevideo.cpp:681<br />#4  0x00007ffff7a3e8d0 in Exiv2::QuickTimeVideo::decodeBlock (this=0x62c930) at /tmp_dsk/makepkg/exiv2/src/exiv2-0.24/src/quicktimevideo.cpp:672<br />#5  0x00007ffff7a3eb45 in Exiv2::QuickTimeVideo::readMetadata (this=0x62c930) at /tmp_dsk/makepkg/exiv2/src/exiv2-0.24/src/quicktimevideo.cpp:645<br />#6  0x0000000000418f62 in Action::Print::printSummary (this=this@entry=0x62c570) at /tmp_dsk/makepkg/exiv2/src/exiv2-0.24/src/actions.cpp:258<br />#7  0x000000000041b71c in Action::Print::run (this=0x62c570, path="/home/clabaut/Pictures/2014/téléphone_Cécile/VID_20120911_182743.mp4") at /tmp_dsk/makepkg/exiv2/src/exiv2-0.24/src/actions.cpp:236<br />#8  0x00000000004088c6 in main (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at /tmp_dsk/makepkg/exiv2/src/exiv2-0.24/src/exiv2.cpp:171</p>
+
+
+	<p>And a possible correcting patch is:</p>
+
+
+	<p>diff --git a/src/quicktimevideo.cpp.orig b/src/quicktimevideo.cpp<br />index 15d4482..5d4835a 100644<br />--- a/src/quicktimevideo.cpp.orig<br />+<ins>+ b/src/quicktimevideo.cpp<br /><code>@ -1456,6 +1456,7 </code>@ namespace Exiv2 {<br />                 else if (currentStream_ == Audio)<br />                     xmpData_["Xmp.audio.MediaTimeScale"] = returnBufValue(buf);<br />                 time_scale = returnBufValue(buf);<br /></ins>        if (time_scale == 0) {time_scale = 1;}<br />                 break;<br />             case MediaDuration:<br />                 if(currentStream_ == Video)<br /><code>@ -1571,7 +1572,9 </code>@ namespace Exiv2 {<br />                 xmpData_["Xmp.video.ModificationDate"] = returnUnsignedBufValue(buf); break;<br />             case TimeScale:<br />                 xmpData_["Xmp.video.TimeScale"] = returnBufValue(buf);<br />-                timeScale_ = returnBufValue(buf); break;<br />+                timeScale_ = returnBufValue(buf);<br />+        if (timeScale_ == 0) { timeScale_ = 1;}<br />+        break;<br />             case Duration:<br />                 xmpData_["Xmp.video.Duration"] = returnBufValue(buf) * 1000 / timeScale_; break;<br />             case PreferredRate:</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3044" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4308">Mathieu Clabaut</a> <a title="04 Jan 2015 10:09" href="/projects/exiv2/activity?from=2015-01-04">almost 7 years</a> ago
+      <span id="journal-3044-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3044-notes" class="wiki"><p>Attached is a patch against last HEAD with the same spirit as the first correction.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3045" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4308">Mathieu Clabaut</a> <a title="04 Jan 2015 10:16" href="/projects/exiv2/activity?from=2015-01-04">almost 7 years</a> ago
+      <span id="journal-3045-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3045-notes" class="wiki"><p>Below the output of the corrected exiv2 :<br /><pre>
+Xmp.video.FileSize                           XmpText     7  54.7469
+Xmp.video.FileName                           XmpText    60  /home/photo/2014/téléphone_Cécile/VID_20120911_182743.mp4
+Xmp.video.MimeType                           XmpText    15  video/quicktime
+Xmp.video.MajorBrand                         XmpText    37  MP4 Base Media v1 [IS0 14496-12:2003]
+Xmp.video.MinorVersion                       XmpText     1  0
+Xmp.video.CompatibleBrands                   XmpSeq      2  MP4 Base Media v1 [IS0 14496-12:2003], 3GPP Media (.3GP) Release 4
+Xmp.video.MovieHeaderVersion                 XmpText     1  1
+Xmp.video.DateUTC                            XmpText     1  0
+Xmp.video.ModificationDate                   XmpText    10  3430225701
+Xmp.video.TimeScale                          XmpText     1  0
+Xmp.video.PreferredRate                      XmpText     2  10
+Xmp.video.PreferredVolume                    XmpText     1  0
+Xmp.video.PreviewTime                        XmpText     1  0
+Xmp.video.PreviewDuration                    XmpText     1  0
+Xmp.video.PosterTime                         XmpText    10  1073741824
+Xmp.video.SelectionTime                      XmpText     1  0
+Xmp.video.SelectionDuration                  XmpText     1  0
+Xmp.video.CurrentTime                        XmpText     1  0
+Xmp.video.NextTrackID                        XmpText     1  0
+Xmp.video.TrackHeaderVersion                 XmpText     1  1
+Xmp.video.TrackCreateDate                    XmpText     1  0
+Xmp.video.TrackModifyDate                    XmpText    10  3430225701
+Xmp.video.TrackID                            XmpText     1  0
+Xmp.video.TrackDuration                      XmpText     1  0
+Xmp.video.TrackLayer                         XmpText     1  0
+Xmp.video.TrackVolume                        XmpText     1  0
+Xmp.video.Width                              XmpText     1  0
+Xmp.video.Height                             XmpText     1  0
+Xmp.video.MediaHeaderVersion                 XmpText     1  1
+Xmp.video.MediaCreateDate                    XmpText     1  0
+Xmp.video.MediaModifyDate                    XmpText    10  3430225701
+Xmp.video.MediaTimeScale                     XmpText     1  0
+Xmp.video.MediaDuration                      XmpText     1  0
+Xmp.video.MediaLangCode                      XmpText     1  1
+Xmp.video.HandlerType                        XmpText    11  Video Track
+Xmp.video.GraphicsMode                       XmpText     7  srcCopy
+Xmp.video.OpColor                            XmpText     1  0
+Xmp.video.URL                                XmpText     0  
+Xmp.video.Codec                              XmpText    39  MP4 Base w/ AVC ext [ISO 14496-12:2005]
+Xmp.video.SourceImageWidth                   XmpText     4  1280
+Xmp.video.SourceImageHeight                  XmpText     3  720
+Xmp.video.XResolution                        XmpText     2  72
+Xmp.video.YResolution                        XmpText     2  72
+Xmp.video.Compressor                         XmpText    31                                 
+Xmp.video.BitDepth                           XmpText     2  24
+Xmp.video.FrameRate                          XmpText     1  0
+Xmp.audio.TrackHeaderVersion                 XmpText     1  1
+Xmp.audio.TrackCreateDate                    XmpText     1  0
+Xmp.audio.TrackModifyDate                    XmpText    10  3430225701
+Xmp.audio.TrackID                            XmpText     1  0
+Xmp.audio.TrackDuration                      XmpText     1  0
+Xmp.audio.TrackLayer                         XmpText     1  0
+Xmp.audio.MediaHeaderVersion                 XmpText     1  1
+Xmp.audio.MediaCreateDate                    XmpText     1  0
+Xmp.audio.MediaModifyDate                    XmpText    10  3430225701
+Xmp.audio.MediaTimeScale                     XmpText     1  0
+Xmp.audio.MediaDuration                      XmpText     1  0
+Xmp.audio.MediaLangCode                      XmpText     1  0
+Xmp.audio.HandlerType                        XmpText    11  Audio Track
+Xmp.audio.Balance                            XmpText     1  0
+Xmp.audio.URL                                XmpText     0  
+Xmp.audio.Compressor                         XmpText     4  mp4a
+Xmp.audio.ChannelType                        XmpText     1  1
+Xmp.audio.BitsPerSample                      XmpText     2  16
+Xmp.audio.SampleRate                         XmpText     5  48000
+Xmp.video.AspectRatio                        XmpText     4  -nan
+</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3896" class="journal has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:41" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3896-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/999.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/999.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

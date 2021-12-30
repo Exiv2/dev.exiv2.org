@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #890: ASF: heap overflow - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="jbBZQN0ShIHCkn4+za5rMB6aQ4QibPqH6hdFDgYolRtv/fKvr2hIgZf2YTJyeWcDIQgX/dOPWz0XN9WGRRFydA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #890: ASF: heap overflow" href="https://dev.exiv2.org/issues/890.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #890</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>ASF: heap overflow</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3772">Alyssa Milburn</a> <a title="11 Mar 2013 07:49" href="/projects/exiv2/activity?from=2013-03-11">over 8 years</a> ago.
+        Updated <a title="24 Jul 2013 15:08" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/3290">Abhinav Badola</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">-</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Jul 2013" href="/versions/50">0.24</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">11 Mar 2013</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>asfvideo.cpp:624 reads dataLength amount of data into a buffer of size 500, causing a heap overflow if dataLength>500. Testcase attached.</p>
+
+
+	<p>At a glance lines 617, 630, 638 probably also have similar problems. Also quicktimevideo.cpp:1059/1066/1077/1095?</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/463">heap-overflow.asf</a>    <span class="size">(64.1 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/463/heap-overflow.asf">heap-overflow.asf</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Alyssa Milburn, 11 Mar 2013 07:49</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/465">overflow2.mov</a>    <span class="size">(288 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/465/overflow2.mov">overflow2.mov</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Alyssa Milburn, 13 Mar 2013 16:16</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2996" href="/projects/exiv2/repository/exiv2/revisions/2996">Revision 2996</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2996/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="13 Mar 2013 13:52" href="/projects/exiv2/activity?from=2013-03-13">over 8 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: ASF: heap overflow (Closed)" href="/issues/890">#890</a>: Corrected the case of Infinite loop in RiffVideo::nikonTagsHandler()</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2997" href="/projects/exiv2/repository/exiv2/revisions/2997">Revision 2997</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2997/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="13 Mar 2013 14:45" href="/projects/exiv2/activity?from=2013-03-13">over 8 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: ASF: heap overflow (Closed)" href="/issues/890">#890</a>: Corrected the case of heap overflow if dataLength>500 in asfvideo.cpp, quicktimevideo.cpp</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2999" href="/projects/exiv2/repository/exiv2/revisions/2999">Revision 2999</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2999/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="26 Mar 2013 01:36" href="/projects/exiv2/activity?from=2013-03-26">over 8 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: ASF: heap overflow (Closed)" href="/issues/890">#890</a>: Fixed some possible issues of crashing due to in-efficient management of buffers in riffvideo.cpp</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3000" href="/projects/exiv2/repository/exiv2/revisions/3000">Revision 3000</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3000/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="26 Mar 2013 02:14" href="/projects/exiv2/activity?from=2013-03-26">over 8 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: ASF: heap overflow (Closed)" href="/issues/890">#890</a>: Fixed some possible issues of crashing due to in-efficient management of buffers in asfvideo.cpp</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3001" href="/projects/exiv2/repository/exiv2/revisions/3001">Revision 3001</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3001/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="26 Mar 2013 14:11" href="/projects/exiv2/activity?from=2013-03-26">over 8 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: ASF: heap overflow (Closed)" href="/issues/890">#890</a>: Fixed some possible issues of crashing due to underflow in buffers in quicktimevideo.cpp</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2420" class="journal has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="11 Mar 2013 08:22" href="/projects/exiv2/activity?from=2013-03-11">over 8 years</a> ago
+      <span id="journal-2420-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> set to <i>Abhinav Badola</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2427" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="13 Mar 2013 14:56" href="/projects/exiv2/activity?from=2013-03-13">over 8 years</a> ago
+      <span id="journal-2427-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>50</i></li>
+    </ul>
+    <div id="journal-2427-notes" class="wiki"><p>Hi Alyssa,</p>
+
+
+	<p>Please test and confirm if this bug is also solved at your end.</p>
+
+
+	<p>Thanking you in anticipation.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2428" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3772">Alyssa Milburn</a> <a title="13 Mar 2013 15:35" href="/projects/exiv2/activity?from=2013-03-13">over 8 years</a> ago
+      <span id="journal-2428-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2428-notes" class="wiki"><p>That certainly fixes my testcase. I'll check the other cases, thanks for the quick response.</p>
+
+
+	<p>Unfortunately (sorry!) I didn't look carefully enough the first time. Here's some more possible issues:</p>
+
+
+	<p>asfvideo.cpp:560/570/580, riffvideo.cpp:764/786/856 might have the same problem. riffvideo.cpp:654 also looks unsafe (the size comes from line 572?).</p>
+
+
+	<p>riffvideo.cpp:927 might be unsafe in 32-bit builds because the allocation on riffvideo.cpp:868 looks like it can be overflowed (if I provide a size of -1).</p>
+
+
+	<p>Obviously I'm not very familiar with the exiv2 code, but a lot of the other code uses a separate buffer and passes that buf.size_ to the io_->read calls, so there's no chance of a heap overflow. Perhaps it might be worth doing that in some of these cases.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2429" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3772">Alyssa Milburn</a> <a title="13 Mar 2013 16:16" href="/projects/exiv2/activity?from=2013-03-13">over 8 years</a> ago
+      <span id="journal-2429-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/465">overflow2.mov</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/465/overflow2.mov">overflow2.mov</a> added</li>
+    </ul>
+    <div id="journal-2429-notes" class="wiki"><p>You need to also check for dataLength being too low in your new checks on quicktimevideo.cpp:1082/1100/1119/1138, because you subtract a constant from it during the actual read(). Another (manually constructed) testcase attached.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2430" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="14 Mar 2013 05:41" href="/projects/exiv2/activity?from=2013-03-14">over 8 years</a> ago
+      <span id="journal-2430-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2430-notes" class="wiki"><p>Alyssa Milburn wrote:</p>
+
+
+<blockquote>
+
+	<p>That certainly fixes my testcase. I'll check the other cases, thanks for the quick response.</p>
+
+
+	<p>Unfortunately (sorry!) I didn't look carefully enough the first time. Here's some more possible issues:</p>
+
+
+</blockquote>
+
+	<p>Don't worry. We are happy to have you here, reporting these issues.<br />Lets keep this issue open till all the bugs are solved.</p>
+
+
+	<p>It is better that we take some more time on analyzing and fixing bugs right now, than having major program crashes later.<br />Thank you for analyzing Exiv2, and helping in making it more sturdy and robust.</p>
+
+
+	<p>I will keep on patching the issues that you may find, meanwhile I will expect you to find more.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2431" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Mar 2013 10:30" href="/projects/exiv2/activity?from=2013-03-14">over 8 years</a> ago
+      <span id="journal-2431-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2431-notes" class="wiki"><p>I'd like to thank both of you for working on this stuff.  Fuzzing and hardening the code is good for everybody.  Thank you both for working on this.</p>
+
+
+	<p>A couple of questions for Alyssa:<br />1) Would it help you if we grant you write access to the depot?<br />2) There's a corrupted file being discussed in Forum topic 1477<br /><a class="external" href="http://dev.exiv2.org/boards/3/topics/1477">http://dev.exiv2.org/boards/3/topics/1477</a></p>
+
+
+	<p>I'm going to take a look at  Aleksandr's file this evening.  If you have time and interest to investigate, I would very much appreciate your analysis.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2432" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3772">Alyssa Milburn</a> <a title="14 Mar 2013 15:06" href="/projects/exiv2/activity?from=2013-03-14">over 8 years</a> ago
+      <span id="journal-2432-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2432-notes" class="wiki"><p>If Abhinav or others familiar with the project can find the time to fix these bugs, then I think it's a much better idea for them to make the fixes, since they're in a much better position to test the code (and are presumably going to be maintaining it in the long-term). If you need suggested patches for any of these issues then I can make an attempt, though.</p>
+
+
+	<p>Beware that I'm not running an actual fuzzer, and there might well be other obvious bugs which would be caught by one; my filed bugs are just the result of my glancing through the source code and seeing if I spot any suspicious-looking code.</p>
+
+
+	<p>(The file in the forum post seems to be corrupt/truncated as diagnosed; I don't think I can add anything to what's already been said.)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2433" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Mar 2013 15:09" href="/projects/exiv2/activity?from=2013-03-14">over 8 years</a> ago
+      <span id="journal-2433-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+    </ul>
+    <div id="journal-2433-notes" class="wiki"><p>Thanks for updating us, Alyssa.  I'm glad you have the time to just "glance through the code".  You're spotting good things.  I haven't looked at that corrupted file in Topic 1477, however I'll have a look at it this evening.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2441" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="26 Mar 2013 14:16" href="/projects/exiv2/activity?from=2013-03-26">over 8 years</a> ago
+      <span id="journal-2441-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2441-notes" class="wiki"><p>Hi Alyssa,<br />I have submitted some new commits. Please ensure that the bugs that you noticed before have been taken care off.<br />If you think there are some more vulnerable issues, then please inform us whenever you get time.</p>
+
+
+	<p>Else I would like to close both the issue <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: ASF: heap overflow (Closed)" href="/issues/890">#890</a> and <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: (near-)infinite loop in video decoders (Closed)" href="/issues/888">#888</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2471" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3290">Abhinav Badola</a> <a title="05 May 2013 04:45" href="/projects/exiv2/activity?from=2013-05-05">over 8 years</a> ago
+      <span id="journal-2471-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2510" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 15:08" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2510-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+       <li><strong>Target version</strong> set to <i>0.24</i></li>
+    </ul>
+    <div id="journal-2510-notes" class="wiki"><p>Fixed in 0.24.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/890.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/890.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

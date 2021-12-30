@@ -1,0 +1,534 @@
+Index: src/actions.cpp
+===================================================================
+--- src/actions.cpp	(revision 4048)
++++ src/actions.cpp	(working copy)
+@@ -528,7 +528,7 @@
+         return printMetadata(image.get());
+     } // Print::printList
+ 
+-    int Print::printMetadata(const Exiv2::Image* image)
++    int Print::printMetadata(const Exiv2::Image* image,std::ostream& out /*=std::cout*/)
+     {
+         bool ret = false;
+         bool noExif = false;
+@@ -536,7 +536,7 @@
+             const Exiv2::ExifData& exifData = image->exifData();
+             for (Exiv2::ExifData::const_iterator md = exifData.begin();
+                  md != exifData.end(); ++md) {
+-                ret |= printMetadatum(*md, image);
++                ret |= printMetadatum(*md, image,out);
+             }
+             if (exifData.empty()) noExif = true;
+         }
+@@ -546,7 +546,7 @@
+             const Exiv2::IptcData& iptcData = image->iptcData();
+             for (Exiv2::IptcData::const_iterator md = iptcData.begin();
+                  md != iptcData.end(); ++md) {
+-                ret |= printMetadatum(*md, image);
++                ret |= printMetadatum(*md, image,out);
+             }
+             if (iptcData.empty()) noIptc = true;
+         }
+@@ -556,7 +556,7 @@
+             const Exiv2::XmpData& xmpData = image->xmpData();
+             for (Exiv2::XmpData::const_iterator md = xmpData.begin();
+                  md != xmpData.end(); ++md) {
+-                ret |= printMetadatum(*md, image);
++                ret |= printMetadatum(*md, image,out);
+             }
+             if (xmpData.empty()) noXmp = true;
+         }
+@@ -601,7 +601,7 @@
+         return result ;
+     }
+ 
+-    bool Print::printMetadatum(const Exiv2::Metadatum& md, const Exiv2::Image* pImage)
++    bool Print::printMetadatum(const Exiv2::Metadatum& md, const Exiv2::Image* pImage,std::ostream& out /*=std::cout*/)
+     {
+         if (!grepTag(md.key())) return false;
+         if (!keyTag (md.key())) return false;
+@@ -612,76 +612,76 @@
+         }
+         bool const manyFiles = Params::instance().files_.size() > 1;
+         if (manyFiles) {
+-            std::cout << std::setfill(' ') << std::left << std::setw(20)
++            out << std::setfill(' ') << std::left << std::setw(20)
+                       << path_ << "  ";
+         }
+         bool first = true;
+         if (Params::instance().printItems_ & Params::prTag) {
+-            if (!first) std::cout << " ";
++            if (!first) out << " ";
+             first = false;
+-            std::cout << "0x" << std::setw(4) << std::setfill('0')
++            out << "0x" << std::setw(4) << std::setfill('0')
+                       << std::right << std::hex
+                       << md.tag();
+         }
+         if (Params::instance().printItems_ & Params::prSet) {
+-            if (!first) std::cout << " ";
++            if (!first) out << " ";
+             first = false;
+-            std::cout << "set" ;
++            out << "set" ;
+         }
+         if (Params::instance().printItems_ & Params::prGroup) {
+-            if (!first) std::cout << " ";
++            if (!first) out << " ";
+             first = false;
+-            std::cout << std::setw(12) << std::setfill(' ') << std::left
++            out << std::setw(12) << std::setfill(' ') << std::left
+                       << md.groupName();
+         }
+         if (Params::instance().printItems_ & Params::prKey) {
+-            if (!first) std::cout << " ";
++            if (!first) out << " ";
+             first = false;
+-            std::cout << std::setfill(' ') << std::left << std::setw(44)
++            out << std::setfill(' ') << std::left << std::setw(44)
+                       << md.key();
+         }
+         if (Params::instance().printItems_ & Params::prName) {
+-            if (!first) std::cout << " ";
++            if (!first) out << " ";
+             first = false;
+-            std::cout << std::setw(27) << std::setfill(' ') << std::left
++            out << std::setw(27) << std::setfill(' ') << std::left
+                       << md.tagName();
+         }
+         if (Params::instance().printItems_ & Params::prLabel) {
+-            if (!first) std::cout << " ";
++            if (!first) out << " ";
+             first = false;
+-            std::cout << std::setw(30) << std::setfill(' ') << std::left
++            out << std::setw(30) << std::setfill(' ') << std::left
+                       << md.tagLabel();
+         }
+         if (Params::instance().printItems_ & Params::prType) {
+-            if (!first) std::cout << " ";
++            if (!first) out << " ";
+             first = false;
+-            std::cout << std::setw(9) << std::setfill(' ') << std::left;
++            out << std::setw(9) << std::setfill(' ') << std::left;
+             const char* tn = md.typeName();
+             if (tn) {
+-                std::cout << tn;
++                out << tn;
+             }
+             else {
+                 std::ostringstream os;
+                 os << "0x" << std::setw(4) << std::setfill('0') << std::hex << md.typeId();
+-                std::cout << os.str();
++                out << os.str();
+             }
+         }
+         if (Params::instance().printItems_ & Params::prCount) {
+-            if (!first) std::cout << " ";
++            if (!first) out << " ";
+             first = false;
+-            std::cout << std::dec << std::setw(3)
++            out << std::dec << std::setw(3)
+                       << std::setfill(' ') << std::right
+                       << md.count();
+         }
+         if (Params::instance().printItems_ & Params::prSize) {
+-            if (!first) std::cout << " ";
++            if (!first) out << " ";
+             first = false;
+-            std::cout << std::dec << std::setw(3)
++            out << std::dec << std::setw(3)
+                       << std::setfill(' ') << std::right
+                       << md.size();
+         }
+         if (Params::instance().printItems_ & Params::prValue) {
+-            if (!first) std::cout << "  ";
++            if (!first) out << "  ";
+             first = false;
+             if (   Params::instance().binary_
+                 && (   md.typeId() == Exiv2::undefined
+@@ -688,7 +688,7 @@
+                     || md.typeId() == Exiv2::unsignedByte
+                     || md.typeId() == Exiv2::signedByte)
+                 && md.size() > 128) {
+-                std::cout << _("(Binary value suppressed)") << std::endl;
++                out << _("(Binary value suppressed)") << std::endl;
+                 return true;
+             }
+             bool done = false;
+@@ -697,9 +697,9 @@
+                 if (pcv) {
+                     Exiv2::CommentValue::CharsetId csId = pcv->charsetId();
+                     if (csId != Exiv2::CommentValue::undefined) {
+-                        std::cout << "charset=\"" << Exiv2::CommentValue::CharsetInfo::name(csId) << "\" ";
++                        out << "charset=\"" << Exiv2::CommentValue::CharsetInfo::name(csId) << "\" ";
+                     }
+-                    std::cout << pcv->comment(Params::instance().charset_.c_str());
++                    out << pcv->comment(Params::instance().charset_.c_str());
+                     done = true;
+                 }
+             }
+@@ -706,15 +706,15 @@
+             if (!done) {
+                 // #1114 - show negative values for SByte
+                 if (md.typeId() != Exiv2::signedByte){
+-                    std::cout << std::dec << md.value();
++                    out << std::dec << md.value();
+                 } else {
+                     int value = md.value().toLong();
+-                    std::cout << std::dec << (value<128?value:value-256);
++                    out << std::dec << (value<128?value:value-256);
+                 }
+             }
+         }
+         if (Params::instance().printItems_ & Params::prTrans) {
+-            if (!first) std::cout << "  ";
++            if (!first) out << "  ";
+             first = false;
+             if (   Params::instance().binary_
+                 && (   md.typeId() == Exiv2::undefined
+@@ -721,7 +721,7 @@
+                     || md.typeId() == Exiv2::unsignedByte
+                     || md.typeId() == Exiv2::signedByte)
+                 && md.size() > 128) {
+-                std::cout << _("(Binary value suppressed)") << std::endl;
++                out << _("(Binary value suppressed)") << std::endl;
+                 return true;
+             }
+             bool done = false;
+@@ -728,14 +728,14 @@
+             if (0 == strcmp(md.key().c_str(), "Exif.Photo.UserComment")) {
+                 const Exiv2::CommentValue* pcv = dynamic_cast<const Exiv2::CommentValue*>(&md.value());
+                 if (pcv) {
+-                    std::cout << pcv->comment(Params::instance().charset_.c_str());
++                    out << pcv->comment(Params::instance().charset_.c_str());
+                     done = true;
+                 }
+             }
+-            if (!done) std::cout << std::dec << md.print(&pImage->exifData());
++            if (!done) out << std::dec << md.print(&pImage->exifData());
+         }
+         if (Params::instance().printItems_ & Params::prHex) {
+-            if (!first) std::cout << std::endl;
++            if (!first) out << std::endl;
+             first = false;
+             if (   Params::instance().binary_
+                 && (   md.typeId() == Exiv2::undefined
+@@ -742,14 +742,14 @@
+                     || md.typeId() == Exiv2::unsignedByte
+                     || md.typeId() == Exiv2::signedByte)
+                 && md.size() > 128) {
+-                std::cout << _("(Binary value suppressed)") << std::endl;
++                out << _("(Binary value suppressed)") << std::endl;
+                 return true;
+             }
+             Exiv2::DataBuf buf(md.size());
+             md.copy(buf.pData_, pImage->byteOrder());
+-            Exiv2::hexdump(std::cout, buf.pData_, buf.size_);
++            Exiv2::hexdump(out, buf.pData_, buf.size_);
+         }
+-        std::cout << std::endl;
++        out << std::endl;
+         return true;
+     } // Print::printMetadatum
+ 
+Index: src/actions.hpp
+===================================================================
+--- src/actions.hpp	(revision 4048)
++++ src/actions.hpp	(working copy)
+@@ -175,9 +175,9 @@
+         //! Return true if key should be printed, else false
+         bool keyTag(const std::string& key);
+         //! Print all metadata in a user defined format
+-        int printMetadata(const Exiv2::Image* image);
++        int printMetadata(const Exiv2::Image* images,std::ostream& out=std::cout);
+         //! Print a metadatum in a user defined format, return true if something was printed
+-        bool printMetadatum(const Exiv2::Metadatum& md, const Exiv2::Image* image);
++        bool printMetadatum(const Exiv2::Metadatum& md, const Exiv2::Image* image,std::ostream& out);
+         //! Print the label for a summary line
+         void printLabel(const std::string& label) const;
+         //! Print image Structure information
+Index: src/exiv2.cpp
+===================================================================
+--- src/exiv2.cpp	(revision 4048)
++++ src/exiv2.cpp	(working copy)
+@@ -94,6 +94,16 @@
+                             int j);
+ 
+     /*!
++      @brief Parse metadata modification commands from a steam
++      @param modifyCmds Reference to a structure to store the parsed commands
++      @param is input stream
++      @param filename path to input stream
++     */
++    bool parseCmdStream(ModifyCmds& modifyCmds,
++                        std::istream& is,
++                        const std::string& filename);
++
++    /*!
+       @brief Parse metadata modification commands from multiple files
+       @param modifyCmds Reference to a structure to store the parsed commands
+       @param cmdFiles Container with the file names
+@@ -610,7 +620,8 @@
+             case 'v': printItems_ |= prValue; break;
+             case 't': printItems_ |= prTrans; break;
+             case 'h': printItems_ |= prHex;   break;
+-            case 'V': printItems_ |= prSet|prValue;break;
++            case 'V': printItems_ |= prSet|prValue|prKey;break;
++            case '1': printItems_ |= prFirst; break;
+             default:
+                 std::cerr << progname() << ": " << _("Unrecognized print item") << " `"
+                           << optarg[i] << "'\n";
+@@ -846,50 +857,50 @@
+ 
+ int Params::getopt(int argc, char* const Argv[])
+ {
+-	char** argv = new char* [argc+1];
+-	argv[argc] = NULL;
+-	long_t longs;
++    char** argv = new char* [argc+1];
++    argv[argc] = NULL;
++    long_t longs;
+ 
+-	longs["--adjust"   ] = "-a";
+-	longs["--binary"   ] = "-b";
+-	longs["--comment"  ] = "-c";
+-	longs["--delete"   ] = "-d";
+-	longs["--days"     ] = "-D";
+-	longs["--force"    ] = "-f";
+-	longs["--Force"    ] = "-F";
+-	longs["--grep"     ] = "-g";
+-	longs["--help"     ] = "-h";
+-	longs["--insert"   ] = "-i";
+-	longs["--keep"     ] = "-k";
+-	longs["--key"      ] = "-K";
+-	longs["--location" ] = "-l";
+-	longs["--modify"   ] = "-m";
+-	longs["--Modify"   ] = "-M";
+-	longs["--encode"   ] = "-n";
+-	longs["--months"   ] = "-O";
+-	longs["--print"    ] = "-p";
+-	longs["--Print"    ] = "-P";
+-	longs["--quiet"    ] = "-q";
+-	longs["--log"      ] = "-Q";
+-	longs["--rename"   ] = "-r";
+-	longs["--suffix"   ] = "-S";
+-	longs["--timestamp"] = "-t";
+-	longs["--Timestamp"] = "-T";
+-	longs["--unknown"  ] = "-u";
+-	longs["--verbose"  ] = "-v";
+-	longs["--Version"  ] = "-V";
+-	longs["--version"  ] = "-V";
+-	longs["--years"    ] = "-Y";
++    longs["--adjust"   ] = "-a";
++    longs["--binary"   ] = "-b";
++    longs["--comment"  ] = "-c";
++    longs["--delete"   ] = "-d";
++    longs["--days"     ] = "-D";
++    longs["--force"    ] = "-f";
++    longs["--Force"    ] = "-F";
++    longs["--grep"     ] = "-g";
++    longs["--help"     ] = "-h";
++    longs["--insert"   ] = "-i";
++    longs["--keep"     ] = "-k";
++    longs["--key"      ] = "-K";
++    longs["--location" ] = "-l";
++    longs["--modify"   ] = "-m";
++    longs["--Modify"   ] = "-M";
++    longs["--encode"   ] = "-n";
++    longs["--months"   ] = "-O";
++    longs["--print"    ] = "-p";
++    longs["--Print"    ] = "-P";
++    longs["--quiet"    ] = "-q";
++    longs["--log"      ] = "-Q";
++    longs["--rename"   ] = "-r";
++    longs["--suffix"   ] = "-S";
++    longs["--timestamp"] = "-t";
++    longs["--Timestamp"] = "-T";
++    longs["--unknown"  ] = "-u";
++    longs["--verbose"  ] = "-v";
++    longs["--Version"  ] = "-V";
++    longs["--version"  ] = "-V";
++    longs["--years"    ] = "-Y";
+ 
+-	for ( int i = 0 ; i < argc ; i++ ) {
+-		std::string* arg = new std::string(Argv[i]);
+-		if (longs.find(*arg) != longs.end() ) {
+-			argv[i] = ::strdup(longs[*arg].c_str());
+-		} else {
+-			argv[i] = ::strdup(Argv[i]);
+-		}
+-		delete arg;
+-	}
++    for ( int i = 0 ; i < argc ; i++ ) {
++        std::string* arg = new std::string(Argv[i]);
++        if (longs.find(*arg) != longs.end() ) {
++            argv[i] = ::strdup(longs[*arg].c_str());
++        } else {
++            argv[i] = ::strdup(Argv[i]);
++        }
++        delete arg;
++    }
+ 
+     int rc = Util::Getopt::getopt(argc, argv, optstring_);
+     // Further consistency checks
+@@ -914,6 +925,36 @@
+                   << _("Modify action requires at least one -c, -m or -M option\n");
+         rc = 1;
+     }
++    // #1137
++    // when -P1 is set (prFirst), pop the first file, print the metadata to stream and parse
++    // set the action to modify to read the generated commands
++    //
++    // implementing the -P+ (prPair) feature is a simple variation of this code
++    // to read (and subsequently remove) every other file in params->files_ to stream
++    if (rc == 0 && Params::instance().printItems_ & Params::prFirst ) {
++        Params& params = Params::instance();
++        // Cancel prFirst
++        params.printItems_ |= !Params::prFirst;
++
++        std::string           file  = params.files_[0];
++        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(file);
++        assert(image.get() != 0);
++        image->readMetadata();
++
++        params.printTags_ |= Exiv2::mdExif | Exiv2::mdIptc | Exiv2::mdXmp;
++        params.files_.erase (Params::instance().files_.begin());
++
++        Action::Print* printAction = new Action::Print();
++
++        std::ostringstream    os ;
++        printAction->printMetadata(image.get(),os);
++        delete printAction;
++
++        std::istringstream is(os.str());
++        parseCmdStream(modifyCmds_,is,file);
++        params.action_ = Action::modify;
++    }
++
+     if (0 == files_.size()) {
+         std::cerr << progname() << ": " << _("At least one file is required\n");
+         rc = 1;
+@@ -958,8 +999,8 @@
+         rc = 1;
+     }
+ 
+-	// cleanup the argument vector
+-	for ( int i = 0 ; i < argc ; i++ ) ::free((void*)argv[i]);
++    // cleanup the argument vector
++    for ( int i = 0 ; i < argc ; i++ ) ::free((void*)argv[i]);
+     delete [] argv;
+ 
+     return rc;
+@@ -1089,35 +1130,43 @@
+         return (int) (k - j);
+     } // parsePreviewNumbers
+ 
++    bool parseCmdStream(ModifyCmds& modifyCmds,std::istream& is, const std::string& filename)
++    {
++        bool result = true;
++        try {
++            int num = 0;
++            std::string line;
++            while (std::getline(is, line)) {
++                ModifyCmd modifyCmd;
++                if (parseLine(modifyCmd, line, ++num)) {
++                    modifyCmds.push_back(modifyCmd);
++                }
++            }
++        }
++        catch (const Exiv2::AnyError& error) {
++            std::cerr << filename << ", " << _("line") << " " << error << "\n";
++            result = false;
++        }
++        return result;
++    }
++
+     bool parseCmdFiles(ModifyCmds& modifyCmds,
+                        const Params::CmdFiles& cmdFiles)
+     {
++        bool result = true ;
+         Params::CmdFiles::const_iterator end = cmdFiles.end();
+         Params::CmdFiles::const_iterator filename = cmdFiles.begin();
+-        for ( ; filename != end; ++filename) {
+-            try {
+-                std::ifstream file(filename->c_str());
+-                bool bStdin = filename->compare("-")== 0;
+-                if (!file && !bStdin) {
+-                    std::cerr << *filename << ": "
+-                              << _("Failed to open command file for reading\n");
+-                    return false;
+-                }
+-                int num = 0;
+-                std::string line;
+-                while (std::getline(bStdin? std::cin : file, line)) {
+-                    ModifyCmd modifyCmd;
+-                    if (parseLine(modifyCmd, line, ++num)) {
+-                        modifyCmds.push_back(modifyCmd);
+-                    }
+-                }
+-            }
+-            catch (const Exiv2::AnyError& error) {
+-                std::cerr << *filename << ", " << _("line") << " " << error << "\n";
++        for ( ; result && filename != end; ++filename) {
++            std::ifstream file(filename->c_str());
++            bool bStdin = filename->compare("-")== 0;
++            if (!file && !bStdin) {
++                std::cerr << *filename << ": "
++                          << _("Failed to open command file for reading\n");
+                 return false;
+             }
++            result = parseCmdStream(modifyCmds,bStdin?std::cin:file, *filename);
+         }
+-        return true;
++        return result;
+     } // parseCmdFile
+ 
+     bool parseCmdLines(ModifyCmds& modifyCmds,
+Index: src/exiv2app.hpp
+===================================================================
+--- src/exiv2app.hpp	(revision 4048)
++++ src/exiv2app.hpp	(working copy)
+@@ -147,26 +147,27 @@
+         pmList,
+         pmComment,
+         pmPreview,
+-		pmStructure,
+-		pmXMP,
+-		pmIccProfile,
+-		pmRecursive
++        pmStructure,
++        pmXMP,
++        pmIccProfile,
++        pmRecursive
+     };
+ 
+     //! Individual items to print, bitmap
+     enum PrintItem {
+-        prTag   =    1,
+-        prGroup =    2,
+-        prKey   =    4,
+-        prName  =    8,
+-        prLabel =   16,
+-        prType  =   32,
+-        prCount =   64,
+-        prSize  =  128,
+-        prValue =  256,
+-        prTrans =  512,
+-        prHex   = 1024,
+-        prSet   = 2048
++        prTag   =   0x01,
++        prGroup =   0x02,
++        prKey   =   0x04,
++        prName  =   0x08,
++        prLabel =   0x10,
++        prType  =   0x20,
++        prCount =   0x40,
++        prSize  =   0x80,
++        prValue =  0x100,
++        prTrans =  0x200,
++        prHex   =  0x400,
++        prSet   =  0x800,
++        prFirst = 0x1000
+     };
+ 
+     //! Enumerates common targets, bitmap

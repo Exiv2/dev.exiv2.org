@@ -1,0 +1,2753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>exiv2-exifcomment-unicode.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="iz/zDyl1Hrs5oBrHl9xrJdKLNvAYaLtD4sgsbKXbmsNpcljgWw/Su2zEBcsoC2cW7RliiemLGvkf6Lzk5uJ9rA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/versions.html">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/128/exiv2-exifcomment-unicode.patch">Download (14.8 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Incorrect Unicode encoding of Exif UserComment tag" href="/issues/662">Bug #662</a> » exiv2-exifcomment-unicode.patch
+</h2>
+
+<div class="attachments">
+<p>The patch. - 
+   <span class="author"><a class="user active" href="/users/311">Leo Sutic</a>, 11 Jan 2010 15:09</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/128/exiv2-exifcomment-unicode.patch" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/convert.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">1325</th>
+  <th class="line-num">1325</th>
+  <td class="line-code ">
+    <pre>        std::string outstr;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1326</th>
+  <th class="line-num">1326</th>
+  <td class="line-code ">
+    <pre>        EXV_ICONV_CONST char *inptr = const_cast&lt;char *&gt;(str.c_str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1327</th>
+  <th class="line-num">1327</th>
+  <td class="line-code ">
+    <pre>        size_t inbytesleft = str.length();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1328</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1328</th>
+  <td class="line-code diff_in">
+    <pre>        int outbytesProduced = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1329</th>
+  <th class="line-num">1329</th>
+  <td class="line-code ">
+    <pre>        while (inbytesleft) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1330</th>
+  <th class="line-num">1330</th>
+  <td class="line-code ">
+    <pre>            char outbuf[100];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1331</th>
+  <th class="line-num">1331</th>
+  <td class="line-code ">
+    <pre>            char *outptr = outbuf;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1335</th>
+  <th class="line-num">1335</th>
+  <td class="line-code ">
+    <pre>                              &amp;inbytesleft,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1336</th>
+  <th class="line-num">1336</th>
+  <td class="line-code ">
+    <pre>                              &amp;outptr,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1337</th>
+  <th class="line-num">1337</th>
+  <td class="line-code ">
+    <pre>                              &amp;outbytesleft);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1338</th>
+  <td class="line-code diff_in">
+    <pre>            outbytesProduced += sizeof(outbuf) - 1 - outbytesleft;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1338</th>
+  <th class="line-num">1339</th>
+  <td class="line-code ">
+    <pre>            if (rc == size_t(-1) &amp;&amp; errno != E2BIG) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1339</th>
+  <th class="line-num">1340</th>
+  <td class="line-code ">
+    <pre>#ifndef SUPPRESS_WARNINGS</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1340</th>
+  <th class="line-num">1341</th>
+  <td class="line-code ">
+    <pre>                std::cerr &lt;&lt; &quot;Warning: iconv: &quot;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1345</th>
+  <th class="line-num">1346</th>
+  <td class="line-code ">
+    <pre>                break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1346</th>
+  <th class="line-num">1347</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1347</th>
+  <th class="line-num">1348</th>
+  <td class="line-code ">
+    <pre>            *outptr = &#39;\0&#39;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1348</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            outstr.append(<span>outbuf</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1349</th>
+  <td class="line-code diff_in">
+    <pre>            outstr.append(<span>std::string(outbuf, outbytesProduced)</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1349</th>
+  <th class="line-num">1350</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1350</th>
+  <th class="line-num">1351</th>
+  <td class="line-code ">
+    <pre>        if (cd != (iconv_t)(-1)) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1351</th>
+  <th class="line-num">1352</th>
+  <td class="line-code ">
+    <pre>            iconv_close(cd);</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/exiv2.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">41</th>
+  <th class="line-num">41</th>
+  <td class="line-code ">
+    <pre>#include &quot;exiv2.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">42</th>
+  <th class="line-num">42</th>
+  <td class="line-code ">
+    <pre>#include &quot;actions.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">43</th>
+  <th class="line-num">43</th>
+  <td class="line-code ">
+    <pre>#include &quot;utils.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">44</th>
+  <td class="line-code diff_in">
+    <pre>#include &quot;convert.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">44</th>
+  <th class="line-num">45</th>
+  <td class="line-code ">
+    <pre>#include &quot;i18n.h&quot;      // NLS support.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">45</th>
+  <th class="line-num">46</th>
+  <td class="line-code ">
+    <pre>#include &quot;xmp.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">46</th>
+  <th class="line-num">47</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">117</th>
+  <th class="line-num">118</th>
+  <td class="line-code ">
+    <pre>     */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">118</th>
+  <th class="line-num">119</th>
+  <td class="line-code ">
+    <pre>    bool parseLine(ModifyCmd&amp; modifyCmd,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">119</th>
+  <th class="line-num">120</th>
+  <td class="line-code ">
+    <pre>                   const std::string&amp; line, int num);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">120</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">121</th>
+  <td class="line-code diff_in">
+    <pre>    </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">122</th>
+  <td class="line-code diff_in">
+    <pre>    /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">123</th>
+  <td class="line-code diff_in">
+    <pre>      @brief Parses a string containing backslash-escapes</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">124</th>
+  <td class="line-code diff_in">
+    <pre>      @param input Input string, assumed to be UTF-8</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">125</th>
+  <td class="line-code diff_in">
+    <pre>     */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">126</th>
+  <td class="line-code diff_in">
+    <pre>    std::string parseEscapes(const std::string&amp; input);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">121</th>
+  <th class="line-num">127</th>
+  <td class="line-code ">
+    <pre>}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">122</th>
+  <th class="line-num">128</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">123</th>
+  <th class="line-num">129</th>
+  <td class="line-code ">
+    <pre>// *****************************************************************************</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1076</th>
+  <th class="line-num">1082</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1077</th>
+  <th class="line-num">1083</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1078</th>
+  <th class="line-num">1084</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1079</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            value = <span>line.substr(valStart, valEnd+1-valStart</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1085</th>
+  <td class="line-code diff_in">
+    <pre>            value = <span>parseEscapes(line.substr(valStart, valEnd+1-valStart)</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1080</th>
+  <th class="line-num">1086</th>
+  <td class="line-code ">
+    <pre>            std::string::size_type last = value.length()-1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1081</th>
+  <th class="line-num">1087</th>
+  <td class="line-code ">
+    <pre>            if (   (value[0] == &#39;&quot;&#39; &amp;&amp; value[last] == &#39;&quot;&#39;)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1082</th>
+  <th class="line-num">1088</th>
+  <td class="line-code ">
+    <pre>                || (value[0] == &#39;\&#39;&#39; &amp;&amp; value[last] == &#39;\&#39;&#39;)) {</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1108</th>
+  <th class="line-num">1114</th>
+  <td class="line-code ">
+    <pre>        return cmdIdAndString[i].cmdId_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1109</th>
+  <th class="line-num">1115</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1110</th>
+  <th class="line-num">1116</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1117</th>
+  <td class="line-code diff_in">
+    <pre>    std::string parseEscapes(const std::string&amp; input) </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1118</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1119</th>
+  <td class="line-code diff_in">
+    <pre>        std::string result = &quot;&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1120</th>
+  <td class="line-code diff_in">
+    <pre>        for (unsigned int i = 0; i &lt; input.length(); ++i) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1121</th>
+  <td class="line-code diff_in">
+    <pre>            char ch = input[i];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1122</th>
+  <td class="line-code diff_in">
+    <pre>            if (ch == &#39;\\&#39;) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1123</th>
+  <td class="line-code diff_in">
+    <pre>                int escapeStart = i;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1124</th>
+  <td class="line-code diff_in">
+    <pre>                if (input.length() - 1 &gt; i) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1125</th>
+  <td class="line-code diff_in">
+    <pre>                    ++i;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1126</th>
+  <td class="line-code diff_in">
+    <pre>                    ch = input[i];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1127</th>
+  <td class="line-code diff_in">
+    <pre>                    switch (ch) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1128</th>
+  <td class="line-code diff_in">
+    <pre>                        // Escaping of backslash</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1129</th>
+  <td class="line-code diff_in">
+    <pre>                        case &#39;\\&#39;:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1130</th>
+  <td class="line-code diff_in">
+    <pre>                        result.push_back(&#39;\\&#39;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1131</th>
+  <td class="line-code diff_in">
+    <pre>                        break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1132</th>
+  <td class="line-code diff_in">
+    <pre>                        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1133</th>
+  <td class="line-code diff_in">
+    <pre>                        // Escaping of newline</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1134</th>
+  <td class="line-code diff_in">
+    <pre>                        case &#39;n&#39;:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1135</th>
+  <td class="line-code diff_in">
+    <pre>                        result.push_back(&#39;\n&#39;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1136</th>
+  <td class="line-code diff_in">
+    <pre>                        break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1137</th>
+  <td class="line-code diff_in">
+    <pre>                        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1138</th>
+  <td class="line-code diff_in">
+    <pre>                        // Escaping of tab</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1139</th>
+  <td class="line-code diff_in">
+    <pre>                        case &#39;t&#39;:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1140</th>
+  <td class="line-code diff_in">
+    <pre>                        result.push_back(&#39;\t&#39;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1141</th>
+  <td class="line-code diff_in">
+    <pre>                        break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1142</th>
+  <td class="line-code diff_in">
+    <pre>                        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1143</th>
+  <td class="line-code diff_in">
+    <pre>                        // Escaping of unicode</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1144</th>
+  <td class="line-code diff_in">
+    <pre>                        case &#39;u&#39;:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1145</th>
+  <td class="line-code diff_in">
+    <pre>                        if (input.length() - 4 &gt; i) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1146</th>
+  <td class="line-code diff_in">
+    <pre>                            int acc = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1147</th>
+  <td class="line-code diff_in">
+    <pre>                            for (int j = 0; j &lt; 4; ++j) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1148</th>
+  <td class="line-code diff_in">
+    <pre>                                ++i;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1149</th>
+  <td class="line-code diff_in">
+    <pre>                                acc &lt;&lt;= 4;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1150</th>
+  <td class="line-code diff_in">
+    <pre>                                if (input[i] &gt;= &#39;0&#39; &amp;&amp; input[i] &lt;= &#39;9&#39;) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1151</th>
+  <td class="line-code diff_in">
+    <pre>                                    acc |= input[i] - &#39;0&#39;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1152</th>
+  <td class="line-code diff_in">
+    <pre>                                } else if (input[i] &gt;= &#39;a&#39; &amp;&amp; input[i] &lt;= &#39;f&#39;) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1153</th>
+  <td class="line-code diff_in">
+    <pre>                                    acc |= input[i] - &#39;a&#39; + 10;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1154</th>
+  <td class="line-code diff_in">
+    <pre>                                } else if (input[i] &gt;= &#39;A&#39; &amp;&amp; input[i] &lt;= &#39;F&#39;) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1155</th>
+  <td class="line-code diff_in">
+    <pre>                                    acc |= input[i] - &#39;A&#39; + 10;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1156</th>
+  <td class="line-code diff_in">
+    <pre>                                } else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1157</th>
+  <td class="line-code diff_in">
+    <pre>                                    acc = -1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1158</th>
+  <td class="line-code diff_in">
+    <pre>                                    break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1159</th>
+  <td class="line-code diff_in">
+    <pre>                                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1160</th>
+  <td class="line-code diff_in">
+    <pre>                            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1161</th>
+  <td class="line-code diff_in">
+    <pre>                            if (acc == -1) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1162</th>
+  <td class="line-code diff_in">
+    <pre>                                result.push_back(&#39;\\&#39;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1163</th>
+  <td class="line-code diff_in">
+    <pre>                                i = escapeStart;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1164</th>
+  <td class="line-code diff_in">
+    <pre>                                break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1165</th>
+  <td class="line-code diff_in">
+    <pre>                            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1166</th>
+  <td class="line-code diff_in">
+    <pre>                            </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1167</th>
+  <td class="line-code diff_in">
+    <pre>                            std::string ucs2toUtf8 = &quot;&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1168</th>
+  <td class="line-code diff_in">
+    <pre>                            ucs2toUtf8.push_back((char) ((acc &amp; 0xff00) &gt;&gt; 8));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1169</th>
+  <td class="line-code diff_in">
+    <pre>                            ucs2toUtf8.push_back((char) (acc &amp; 0x00ff));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1170</th>
+  <td class="line-code diff_in">
+    <pre>                            </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1171</th>
+  <td class="line-code diff_in">
+    <pre>                            if (Exiv2::convertStringCharset (ucs2toUtf8, &quot;UCS-2BE&quot;, &quot;UTF-8&quot;)) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1172</th>
+  <td class="line-code diff_in">
+    <pre>                                result.append (ucs2toUtf8);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1173</th>
+  <td class="line-code diff_in">
+    <pre>                            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1174</th>
+  <td class="line-code diff_in">
+    <pre>                        } else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1175</th>
+  <td class="line-code diff_in">
+    <pre>                            result.push_back(&#39;\\&#39;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1176</th>
+  <td class="line-code diff_in">
+    <pre>                            result.push_back(ch);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1177</th>
+  <td class="line-code diff_in">
+    <pre>                        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1178</th>
+  <td class="line-code diff_in">
+    <pre>                        break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1179</th>
+  <td class="line-code diff_in">
+    <pre>                        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1180</th>
+  <td class="line-code diff_in">
+    <pre>                        default:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1181</th>
+  <td class="line-code diff_in">
+    <pre>                        result.push_back(&#39;\\&#39;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1182</th>
+  <td class="line-code diff_in">
+    <pre>                        result.push_back(ch);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1183</th>
+  <td class="line-code diff_in">
+    <pre>                    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1184</th>
+  <td class="line-code diff_in">
+    <pre>                } else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1185</th>
+  <td class="line-code diff_in">
+    <pre>                    result.push_back(ch);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1186</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1187</th>
+  <td class="line-code diff_in">
+    <pre>            } else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1188</th>
+  <td class="line-code diff_in">
+    <pre>                result.push_back(ch);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1189</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1190</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1191</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1192</th>
+  <td class="line-code diff_in">
+    <pre>        return result;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1193</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1194</th>
+  <td class="line-code diff_in">
+    <pre>    </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1111</th>
+  <th class="line-num">1195</th>
+  <td class="line-code ">
+    <pre>}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1196</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/value.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">34</th>
+  <th class="line-num">34</th>
+  <td class="line-code ">
+    <pre>// included header files</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">35</th>
+  <th class="line-num">35</th>
+  <td class="line-code ">
+    <pre>#include &quot;value.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">36</th>
+  <th class="line-num">36</th>
+  <td class="line-code ">
+    <pre>#include &quot;types.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">37</th>
+  <td class="line-code diff_in">
+    <pre>#include &quot;convert.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">37</th>
+  <th class="line-num">38</th>
+  <td class="line-code ">
+    <pre>#include &quot;error.hpp&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">38</th>
+  <th class="line-num">39</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">39</th>
+  <th class="line-num">40</th>
+  <td class="line-code ">
+    <pre>// + standard includes</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">457</th>
+  <th class="line-num">458</th>
+  <td class="line-code ">
+    <pre>    int CommentValue::read(const std::string&amp; comment)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">458</th>
+  <th class="line-num">459</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">459</th>
+  <th class="line-num">460</th>
+  <td class="line-code ">
+    <pre>        std::string c = comment;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">460</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        <span>CharsetId charsetId</span> = undefined;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">461</th>
+  <td class="line-code diff_in">
+    <pre>        <span>charsetId_</span> = undefined;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">461</th>
+  <th class="line-num">462</th>
+  <td class="line-code ">
+    <pre>        if (comment.length() &gt; 8 &amp;&amp; comment.substr(0, 8) == &quot;charset=&quot;) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">462</th>
+  <th class="line-num">463</th>
+  <td class="line-code ">
+    <pre>            std::string::size_type pos = comment.find_first_of(&#39; &#39;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">463</th>
+  <th class="line-num">464</th>
+  <td class="line-code ">
+    <pre>            std::string name = comment.substr(8, pos-8);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">464</th>
+  <th class="line-num">465</th>
+  <td class="line-code ">
+    <pre>            // Strip quotes (so you can also specify the charset without quotes)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">465</th>
+  <th class="line-num">466</th>
+  <td class="line-code ">
+    <pre>            if (name[0] == &#39;&quot;&#39;) name = name.substr(1);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">466</th>
+  <th class="line-num">467</th>
+  <td class="line-code ">
+    <pre>            if (name[name.length()-1] == &#39;&quot;&#39;) name = name.substr(0, name.length()-1);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">467</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            charsetId<span></span> = CharsetInfo::charsetIdByName(name);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">468</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (charsetId<span></span> == invalidCharsetId) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">468</th>
+  <td class="line-code diff_in">
+    <pre>            charsetId<span>_</span> = CharsetInfo::charsetIdByName(name);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">469</th>
+  <td class="line-code diff_in">
+    <pre>            if (charsetId<span>_</span> == invalidCharsetId) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">469</th>
+  <th class="line-num">470</th>
+  <td class="line-code ">
+    <pre>#ifndef SUPPRESS_WARNINGS</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">470</th>
+  <th class="line-num">471</th>
+  <td class="line-code ">
+    <pre>                std::cerr &lt;&lt; &quot;Warning: &quot; &lt;&lt; Error(28, name) &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">471</th>
+  <th class="line-num">472</th>
+  <td class="line-code ">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">474</th>
+  <th class="line-num">475</th>
+  <td class="line-code ">
+    <pre>            c.clear();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">475</th>
+  <th class="line-num">476</th>
+  <td class="line-code ">
+    <pre>            if (pos != std::string::npos) c = comment.substr(pos+1);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">476</th>
+  <th class="line-num">477</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">477</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        const std::string code(CharsetInfo::code(charsetId), 8);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">478</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return StringValueBase::read(code + c);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">478</th>
+  <td class="line-code diff_in">
+    <pre>        value_ = c;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">479</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">480</th>
+  <td class="line-code diff_in">
+    <pre>        return 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">479</th>
+  <th class="line-num">481</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">482</th>
+  <td class="line-code diff_in">
+    <pre>    </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">483</th>
+  <td class="line-code diff_in">
+    <pre>    int CommentValue::read(const byte* buf, long len, ByteOrder byteOrder)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">484</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">485</th>
+  <td class="line-code diff_in">
+    <pre>        if (buf) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">486</th>
+  <td class="line-code diff_in">
+    <pre>            std::string rawValue = std::string(reinterpret_cast&lt;const char*&gt;(buf), len);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">487</th>
+  <td class="line-code diff_in">
+    <pre>            if (rawValue.length() &lt; 8) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">488</th>
+  <td class="line-code diff_in">
+    <pre>                return 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">489</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">490</th>
+  <td class="line-code diff_in">
+    <pre>            charsetId_ = CharsetInfo::charsetIdByCode(rawValue.substr(0, 8));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">491</th>
+  <td class="line-code diff_in">
+    <pre>            value_ = std::string(rawValue.substr(8));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">492</th>
+  <td class="line-code diff_in">
+    <pre>            switch (charsetId_) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">493</th>
+  <td class="line-code diff_in">
+    <pre>                case unicode:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">494</th>
+  <td class="line-code diff_in">
+    <pre>                if (byteOrder == littleEndian) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">495</th>
+  <td class="line-code diff_in">
+    <pre>                    Exiv2::convertStringCharset(value_, &quot;UCS-2LE&quot;, &quot;UTF-8&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">496</th>
+  <td class="line-code diff_in">
+    <pre>                } else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">497</th>
+  <td class="line-code diff_in">
+    <pre>                    Exiv2::convertStringCharset(value_, &quot;UCS-2BE&quot;, &quot;UTF-8&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">498</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">499</th>
+  <td class="line-code diff_in">
+    <pre>                break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">500</th>
+  <td class="line-code diff_in">
+    <pre>                </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">501</th>
+  <td class="line-code diff_in">
+    <pre>                case ascii:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">502</th>
+  <td class="line-code diff_in">
+    <pre>                break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">503</th>
+  <td class="line-code diff_in">
+    <pre>                </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">504</th>
+  <td class="line-code diff_in">
+    <pre>                case jis:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">505</th>
+  <td class="line-code diff_in">
+    <pre>                // The Exif 2.2 specification mentions JIS X 208-1990 as the</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">506</th>
+  <td class="line-code diff_in">
+    <pre>                // encoding for &quot;jis&quot;. The problem is that JIS X 208-1990 isn&#39;t</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">507</th>
+  <td class="line-code diff_in">
+    <pre>                // a character encoding - that is, it doesn&#39;t specify how to</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">508</th>
+  <td class="line-code diff_in">
+    <pre>                // encode a character set into bytes. Candidates (iconv names) are: </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">509</th>
+  <td class="line-code diff_in">
+    <pre>                // EUC-JP, SHIFT_JIS, CP932, ISO-2022-JP, ISO-2022-JP-2 and ISO-2022-JP-1. </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">510</th>
+  <td class="line-code diff_in">
+    <pre>                // Pending a definitive resolution to this, we&#39;ll just leave any JIS </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">511</th>
+  <td class="line-code diff_in">
+    <pre>                // comment as we found it.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">512</th>
+  <td class="line-code diff_in">
+    <pre>                break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">513</th>
+  <td class="line-code diff_in">
+    <pre>                </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">514</th>
+  <td class="line-code diff_in">
+    <pre>                default:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">515</th>
+  <td class="line-code diff_in">
+    <pre>                break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">516</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">517</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">518</th>
+  <td class="line-code diff_in">
+    <pre>        return 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">519</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">480</th>
+  <th class="line-num">520</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">481</th>
+  <th class="line-num">521</th>
+  <td class="line-code ">
+    <pre>    std::ostream&amp; CommentValue::write(std::ostream&amp; os) const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">482</th>
+  <th class="line-num">522</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">483</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        CharsetId charsetId = this-&gt;charsetId();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">484</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (charsetId != undefined) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">485</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            os &lt;&lt; &quot;charset=\&quot;&quot; &lt;&lt; CharsetInfo::name(charsetId) &lt;&lt; &quot;\&quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">523</th>
+  <td class="line-code diff_in">
+    <pre>        if (charsetId_ != undefined) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">524</th>
+  <td class="line-code diff_in">
+    <pre>            os &lt;&lt; &quot;charset=\&quot;&quot; &lt;&lt; CharsetInfo::name(charsetId_) &lt;&lt; &quot;\&quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">486</th>
+  <th class="line-num">525</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">487</th>
+  <th class="line-num">526</th>
+  <td class="line-code ">
+    <pre>        return os &lt;&lt; comment();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">488</th>
+  <th class="line-num">527</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">528</th>
+  <td class="line-code diff_in">
+    <pre>    </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">529</th>
+  <td class="line-code diff_in">
+    <pre>    long CommentValue::copy(byte* buf, ByteOrder byteOrder) const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">530</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">531</th>
+  <td class="line-code diff_in">
+    <pre>        std::string encoded = encode (byteOrder);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">532</th>
+  <td class="line-code diff_in">
+    <pre>        memcpy(buf, encoded.c_str(), encoded.length());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">533</th>
+  <td class="line-code diff_in">
+    <pre>        return encoded.length();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">534</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">535</th>
+  <td class="line-code diff_in">
+    <pre>    </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">536</th>
+  <td class="line-code diff_in">
+    <pre>    long CommentValue::count() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">537</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">538</th>
+  <td class="line-code diff_in">
+    <pre>        return encode(littleEndian).length();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">539</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">540</th>
+  <td class="line-code diff_in">
+    <pre>    </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">541</th>
+  <td class="line-code diff_in">
+    <pre>    long CommentValue::size() const </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">542</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">543</th>
+  <td class="line-code diff_in">
+    <pre>        return encode(littleEndian).length();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">544</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">545</th>
+  <td class="line-code diff_in">
+    <pre>    </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">546</th>
+  <td class="line-code diff_in">
+    <pre>    std::string CommentValue::encode(ByteOrder byteOrder) const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">547</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">548</th>
+  <td class="line-code diff_in">
+    <pre>        std::string result = &quot;&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">549</th>
+  <td class="line-code diff_in">
+    <pre>        result.append (std::string(CharsetInfo::code(charsetId()), 8));				</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">550</th>
+  <td class="line-code diff_in">
+    <pre>        switch (charsetId()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">551</th>
+  <td class="line-code diff_in">
+    <pre>            case unicode: {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">552</th>
+  <td class="line-code diff_in">
+    <pre>                std::string copyOfComment = std::string(comment());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">553</th>
+  <td class="line-code diff_in">
+    <pre>                if (byteOrder == littleEndian) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">554</th>
+  <td class="line-code diff_in">
+    <pre>                    Exiv2::convertStringCharset(copyOfComment, &quot;UTF-8&quot;, &quot;UCS-2LE&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">555</th>
+  <td class="line-code diff_in">
+    <pre>                } else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">556</th>
+  <td class="line-code diff_in">
+    <pre>                    Exiv2::convertStringCharset(copyOfComment, &quot;UTF-8&quot;, &quot;UCS-2BE&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">557</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">558</th>
+  <td class="line-code diff_in">
+    <pre>                </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">559</th>
+  <td class="line-code diff_in">
+    <pre>                result.append (copyOfComment);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">560</th>
+  <td class="line-code diff_in">
+    <pre>                return result;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">561</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">562</th>
+  <td class="line-code diff_in">
+    <pre>            </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">563</th>
+  <td class="line-code diff_in">
+    <pre>            default:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">564</th>
+  <td class="line-code diff_in">
+    <pre>                result.append (comment());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">565</th>
+  <td class="line-code diff_in">
+    <pre>                return result;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">566</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">567</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">568</th>
+  <td class="line-code diff_in">
+    <pre>        return result;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">569</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">489</th>
+  <th class="line-num">570</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">490</th>
+  <th class="line-num">571</th>
+  <td class="line-code ">
+    <pre>    std::string CommentValue::comment() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">491</th>
+  <th class="line-num">572</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">492</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (value_.length() &gt;= 8) return value_.substr(8);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">493</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return &quot;&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">573</th>
+  <td class="line-code diff_in">
+    <pre>        return value_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">494</th>
+  <th class="line-num">574</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">495</th>
+  <th class="line-num">575</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">496</th>
+  <th class="line-num">576</th>
+  <td class="line-code ">
+    <pre>    CommentValue::CharsetId CommentValue::charsetId() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">497</th>
+  <th class="line-num">577</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">498</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        CharsetId charsetId = undefined;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">499</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        if (value_.length() &gt;= 8) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">500</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            const std::string code = value_.substr(0, 8);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">501</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            charsetId = CharsetInfo::charsetIdByCode(code);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">502</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">503</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return charsetId;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">578</th>
+  <td class="line-code diff_in">
+    <pre>        return charsetId_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">504</th>
+  <th class="line-num">579</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">505</th>
+  <th class="line-num">580</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">506</th>
+  <th class="line-num">581</th>
+  <td class="line-code ">
+    <pre>    CommentValue* CommentValue::clone_() const</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/value.hpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">581</th>
+  <th class="line-num">581</th>
+  <td class="line-code ">
+    <pre>        */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">582</th>
+  <th class="line-num">582</th>
+  <td class="line-code ">
+    <pre>        int read(const std::string&amp; comment);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">583</th>
+  <th class="line-num">583</th>
+  <td class="line-code ">
+    <pre>        //@}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">584</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">585</th>
+  <td class="line-code diff_in">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">586</th>
+  <td class="line-code diff_in">
+    <pre>          @brief Read the value from a byte buffer</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">587</th>
+  <td class="line-code diff_in">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">588</th>
+  <td class="line-code diff_in">
+    <pre>        int read(const byte* buf, long len, ByteOrder /*byteOrder*/);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">584</th>
+  <th class="line-num">589</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">585</th>
+  <th class="line-num">590</th>
+  <td class="line-code ">
+    <pre>        //! @name Accessors</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">586</th>
+  <th class="line-num">591</th>
+  <td class="line-code ">
+    <pre>        //@{</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">590</th>
+  <th class="line-num">595</th>
+  <td class="line-code ">
+    <pre>          read(const std::string&amp; comment).</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">591</th>
+  <th class="line-num">596</th>
+  <td class="line-code ">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">592</th>
+  <th class="line-num">597</th>
+  <td class="line-code ">
+    <pre>        std::ostream&amp; write(std::ostream&amp; os) const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">598</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">599</th>
+  <td class="line-code diff_in">
+    <pre>        long copy(byte* buf, ByteOrder byteOrder) const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">600</th>
+  <td class="line-code diff_in">
+    <pre>        long count() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">601</th>
+  <td class="line-code diff_in">
+    <pre>        long size() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">602</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">593</th>
+  <th class="line-num">603</th>
+  <td class="line-code ">
+    <pre>        //! Return the comment (without a charset=&quot;...&quot; prefix)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">594</th>
+  <th class="line-num">604</th>
+  <td class="line-code ">
+    <pre>        std::string comment() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">595</th>
+  <th class="line-num">605</th>
+  <td class="line-code ">
+    <pre>        //! Return the charset id of the comment</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">597</th>
+  <th class="line-num">607</th>
+  <td class="line-code ">
+    <pre>        //@}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">598</th>
+  <th class="line-num">608</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">599</th>
+  <th class="line-num">609</th>
+  <td class="line-code ">
+    <pre>    private:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">610</th>
+  <td class="line-code diff_in">
+    <pre>        //! The character set of the comment string</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">611</th>
+  <td class="line-code diff_in">
+    <pre>        CharsetId charsetId_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">612</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">613</th>
+  <td class="line-code diff_in">
+    <pre>        //! Encodes this value as an EXIF-comment</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">614</th>
+  <td class="line-code diff_in">
+    <pre>        std::string encode(ByteOrder byteOrder) const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">615</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">600</th>
+  <th class="line-num">616</th>
+  <td class="line-code ">
+    <pre>        //! Internal virtual copy constructor.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">601</th>
+  <th class="line-num">617</th>
+  <td class="line-code ">
+    <pre>        EXV_DLLLOCAL virtual CommentValue* clone_() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">602</th>
+  <th class="line-num">618</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      test/exifcomment-encoding-test.sh	(revision 0)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1</th>
+  <td class="line-code diff_in">
+    <pre>#! /bin/sh</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">2</th>
+  <td class="line-code diff_in">
+    <pre># Test driver for exiv2 Exif.Photo.UserComment character encoding tests</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">3</th>
+  <td class="line-code diff_in">
+    <pre>scriptdir=`dirname $0`</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">4</th>
+  <td class="line-code diff_in">
+    <pre>cd $scriptdir</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">5</th>
+  <td class="line-code diff_in">
+    <pre>exiv2=&quot;../src/exiv2&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">6</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">7</th>
+  <td class="line-code diff_in">
+    <pre># Function takes two parameters</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">8</th>
+  <td class="line-code diff_in">
+    <pre>#</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">9</th>
+  <td class="line-code diff_in">
+    <pre># 1. A exiv2 comment spec</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">10</th>
+  <td class="line-code diff_in">
+    <pre># 2. The expected exiv2 hex dump of the UserComment value</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">11</th>
+  <td class="line-code diff_in">
+    <pre>#</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">12</th>
+  <td class="line-code diff_in">
+    <pre>function writeComment {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">13</th>
+  <td class="line-code diff_in">
+    <pre>    cp ./data/exiv2-bug662.jpg ./tmp/exiv2-bug662.jpg</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">14</th>
+  <td class="line-code diff_in">
+    <pre>    $exiv2 mo &quot;-Mset Exif.Photo.UserComment $1&quot; ./tmp/exiv2-bug662.jpg</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">15</th>
+  <td class="line-code diff_in">
+    <pre>    res=`$exiv2 pr -PEnh ./tmp/exiv2-bug662.jpg | grep --after-context=200 UserComment`</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">16</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">17</th>
+  <td class="line-code diff_in">
+    <pre>    # remove newlines and the tag name</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">18</th>
+  <td class="line-code diff_in">
+    <pre>    res=`echo $res | colrm 1 12 | sed -e &#39;s/&quot;//g&#39;`</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">19</th>
+  <td class="line-code diff_in">
+    <pre>    if [ &quot;$res&quot; != &quot;$2&quot; ] ; then</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">20</th>
+  <td class="line-code diff_in">
+    <pre>        echo &quot;Expected:&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">21</th>
+  <td class="line-code diff_in">
+    <pre>        echo $2</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">22</th>
+  <td class="line-code diff_in">
+    <pre>        echo &quot;Got:&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">23</th>
+  <td class="line-code diff_in">
+    <pre>        echo $res</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">24</th>
+  <td class="line-code diff_in">
+    <pre>        return 1</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">25</th>
+  <td class="line-code diff_in">
+    <pre>    fi</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">26</th>
+  <td class="line-code diff_in">
+    <pre>}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">27</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">28</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Ascii An ascii comment&quot; &quot;0000 41 53 43 49 49 00 00 00 41 6e 20 61 73 63 69 69 ASCII...An ascii 0010 20 63 6f 6d 6d 65 6e 74 comment&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">29</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Ascii A\\nnewline&quot; &quot;0000 41 53 43 49 49 00 00 00 41 0a 6e 65 77 6c 69 6e ASCII...A.newlin 0010 65 e&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">30</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode A Unicode comment&quot; &quot;0000 55 4e 49 43 4f 44 45 00 41 00 20 00 55 00 6e 00 UNICODE.A. .U.n. 0010 69 00 63 00 6f 00 64 00 65 00 20 00 63 00 6f 00 i.c.o.d.e. .c.o. 0020 6d 00 6d 00 65 00 6e 00 74 00 m.m.e.n.t.&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">31</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode \\u01c4&quot; &quot;0000 55 4e 49 43 4f 44 45 00 c4 01 UNICODE...&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">32</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode A\\u01c4C&quot; &quot;0000 55 4e 49 43 4f 44 45 00 41 00 c4 01 43 00 UNICODE.A...C.&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">33</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode With\\nNewline&quot; &quot;0000 55 4e 49 43 4f 44 45 00 57 00 69 00 74 00 68 00 UNICODE.W.i.t.h. 0010 0a 00 4e 00 65 00 77 00 6c 00 69 00 6e 00 65 00 ..N.e.w.l.i.n.e.&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">34</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode With\\tTab&quot; &quot;0000 55 4e 49 43 4f 44 45 00 57 00 69 00 74 00 68 00 UNICODE.W.i.t.h. 0010 09 00 54 00 61 00 62 00 ..T.a.b.&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">35</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">36</th>
+  <td class="line-code diff_in">
+    <pre># Test invalid escape sequences</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">37</th>
+  <td class="line-code diff_in">
+    <pre>writeComment &quot;charset=Unicode \\ugggg&quot; &quot;0000 55 4e 49 43 4f 44 45 00 5c 00 75 00 67 00 67 00 UNICODE.\.u.g.g. 0010 67 00 67 00 g.g.&quot;</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      test/Makefile	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">61</th>
+  <th class="line-num">61</th>
+  <td class="line-code ">
+    <pre>        bugfixes-test.sh  \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">62</th>
+  <th class="line-num">62</th>
+  <td class="line-code ">
+    <pre>        exifdata-test.sh  \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">63</th>
+  <th class="line-num">63</th>
+  <td class="line-code ">
+    <pre>        exiv2-test.sh     \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">64</th>
+  <td class="line-code diff_in">
+    <pre>        exifcomment-encoding-test.sh \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">64</th>
+  <th class="line-num">65</th>
+  <td class="line-code ">
+    <pre>        imagetest.sh      \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">65</th>
+  <th class="line-num">66</th>
+  <td class="line-code ">
+    <pre>        iotest.sh         \</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">66</th>
+  <th class="line-num">67</th>
+  <td class="line-code ">
+    <pre>        iptctest.sh       \</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"><li class="previous page"><a href="/attachments/127/unicode_support.patch">« Previous</a></li><li class="page"><a href="/attachments/127/unicode_support.patch">1</a></li><li class="current"><span>2</span></li><li class="page"><a href="/attachments/129/exiv2-bug662.jpg">3</a></li><li class="page"><a href="/attachments/130/convert_bug.patch">4</a></li><li class="page"><a href="/attachments/131/exiv2-exifcomment-unicode.patch">5</a></li><li class="next page"><a href="/attachments/129/exiv2-bug662.jpg">Next »</a></li></ul><span><span class="items">(2-2/5)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

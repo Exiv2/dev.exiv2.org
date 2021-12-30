@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Converting ACDSee Categories to LightRoom Hierarchical - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ZUMVf4OEJzSDDFnAbnJVrS7azGGfuWZVmVAE9+A+79GHDr6Q8f7rNNZoRszRpVmeEUiYGG5ax+9kcJR/owcIvg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Converting ACDSee Categories to LightRoom Hierarchical</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="10 Mar 2015 19:15" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago</span></p>
+<div class="wiki">
+<p>ACDSee uses it's own XMP format to store hierarchical keywords. Is there some programmable way for exiv2 to convert these to LR Hierarchical keywords?</p>
+
+
+	<p>I created a test image (attached) and used a trial version of ACDSee to create hierarchical categories. This is what exiv2 reports: <pre>
+Xmp.acdsee.categories  XmpText   137  &lt;Categories&gt;&lt;Category Assigned="0"&gt;ACDSee&lt;Category Assigned="0"&gt;Pro&lt;Category Assigned="1"&gt;8&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Categories&gt;
+</pre></p>
+
+
+	<p>An image with LR Hierarchical keywords has the following structure: <pre>
+Xmp.lr.hierarchicalSubject                   XmpBag      1  lr|hierarchical|tags
+</pre></p>
+</div>
+<div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/726">acdsee.test.jpg</a>    <span class="size">(16.8 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/726/acdsee.test.jpg">acdsee.test.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (14)</h3>
+  <div class="message reply" id="message-1913">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1913#message-1913">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Mar 2015 20:46" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Alan</p>
+
+
+	<p>Good to hear from you.  Andreas has accepted the challenge in 2015 to update the XMPsdk code in Exiv2 to the current offering from Adobe.  Do you think that will be able to deal with this, or is something else required?</p>
+
+
+	<p>To be honest, I don't know what hierarchical keywords are!  Are you expecting exiv2 to report keys such as (in your example):<pre>Xmp.acdsee.categories.ACDSee.Pro 8</pre>or something like that?</p>
+
+
+	<p>It's possible to post-process the tag with xmllint<pre>649 rmills@rmillsmbp:/ $ exiv2 -pa -g Xmp.acdsee.categories ~/Downloads/acdsee.test.jpg | sed -e 's/.* &lt;/&lt;/'  | xmllint --format --pretty 1 -
+&lt;?xml version="1.0"?&gt;
+&lt;Categories&gt;
+  &lt;Category Assigned="0"&gt;ACDSee&lt;Category Assigned="0"&gt;Pro&lt;Category Assigned="1"&gt;8&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;
+&lt;/Categories&gt;
+650 rmills@rmillsmbp:/ $ </pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-1914">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1914#message-1914">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="10 Mar 2015 20:59" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin, likewise!</p>
+
+
+	<p>I doubt that the XMPsdk will make a difference in this, as ACDSee is using it's own custom XMP for these fields.</p>
+
+
+	<p>What I am looking for is to change this: <pre>
+Xmp.acdsee.categories  XmpText   137  &lt;Categories&gt;&lt;Category Assigned="0"&gt;ACDSee&lt;Category Assigned="0"&gt;Pro&lt;Category Assigned="1"&gt;8&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Categories&gt;</pre>to: <pre>Xmp.lr.hierarchicalSubject                   XmpBag      1  ACDSee|Pro|8
+</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-1915">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1915#message-1915">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Mar 2015 22:50" href="/projects/exiv2/activity?from=2015-03-10">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Alan</p>
+
+
+	<p>I assume the 'likewise' is <em>Good to hear from you</em> !!</p>
+
+
+	<p>Right.  I think I understand.  When we see the tag "Xmp.acdsee.categories', we can parse the XML in the value into ACDSee|Pro|8 and change the "type" to XmpText (not too sure about your length of 1).  If it wasn't so late, I think I could write down the XPath for the transformation.  The library would use expat as it's already compiled and linked.</p>
+
+
+	<p>However, there's something missing in this puzzle.  How do we know to transform 'acdsee.categories' to lr.hierarchicalSubject ?  I can see three possibilities:</p>
+
+
+	<ol>
+	<li>If we see Xmp.foooooo.categories and the value has &lt;Categories&gt;..&lt;/Categories&gt; we do the transformation -> Xmp.lr.hierarchicalSubject</li>
+		<li>I recall you provided a patch last year about lr (lightroom) magic.  Is that part of this?  </li>
+		<li>Something else that you know and I don't!</li>
+	</ol>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1916">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1916#message-1916">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="11 Mar 2015 16:51" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, very nice to hear from you Robin! Is it spring yet in your corner of the planet?</p>
+
+
+	<p>What I had in mind was a way to do option 1, but manually, or in a script. It seems outside of the scope of exiv2 to internally convert tags from one form to another. The patch I provided allows exiv2 to write to lr.hierarchicalSubject, so that should make it possible.</p>
+
+
+	<p>So the question becomes, are there any script wizards out there that know how to use exiv2 to change acdsee.categories to lr.hierarchicalSubject?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1917">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1917#message-1917">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Mar 2015 17:37" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, it's a beautiful spring day in England.  We retired last year and returned from California in June to our 'old' house in England.  Very happy to be home after 14 happy years in California.  I'll always love California (and Scotland).</p>
+
+
+	<p>I am a script wizard (bash, Python, Perl, JavaScript and others).  I suspect this is an easy change to perform with expat inside the library.</p>
+
+
+Several questions:
+	<ol>
+	<li>Are all xml strings simple: &lt;Cs&gt;&lt;C&gt;.&lt;/C&gt;.&lt;/C&gt;&lt;/C&gt;&lt;/Cs&gt;, or can they be infinitely complicated?</li>
+		<li>What happens if there is a | in the child?  For example: &lt;Category&gt;in | dead | trouble&lt;/Category&gt;</li>
+		<li>What does "Assigned" mean?</li>
+	</ol>
+
+
+	<p>I could add option "-L" to exiv2(.exe) -L = perform Lightroom Category XML substitution or I can just do it (not an option, just do it).</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1918">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1918#message-1918">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="11 Mar 2015 19:33" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'll go back into ACDSee and create some more complex examples, and ask some regular users of the program to supply some samples as well.</p>
+
+
+	<p>I interpret the &lt;Category Assigned=" "&gt; to indicate the level of nesting. 0 is top level, 1 is below that, etc. Let's see what happens with the complex samples.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1919">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1919#message-1919">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Mar 2015 19:53" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>That's fine, Alan.  Let me know when you have your arms around this one.</p>
+
+
+	<p>I'm not very confident about your explanation of "Assigned".  The values in the example are 0,0,1.  The nesting is &lt;C&gt;&lt;C&gt;&lt;C&gt;&lt;/C&gt;&lt;/C&gt;&lt;/C&gt;.  XML intrinsically defines nesting - you don't need "Assigned" to confuse matters.  However - you go and find out more about this.</p>
+
+
+	<p>As always, can I ask about the business case here.  Why are you interested in this?  It's odd that Adobe's XMLsdk doesn't deal with this when it involves their application Lightroom.</p>
+
+
+	<p>Once we have this task defined, let's open an "Issue/feature" to track this.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1920">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1920#message-1920">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="11 Mar 2015 21:11" href="/projects/exiv2/activity?from=2015-03-11">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>You are right, the values in the example don't make sense, I'll have to look further into that. Once I have it figured out, I'll present the business case, assuming I can come up with one!</p>
+
+
+	<p>Categories is from the ACDSee program, not from Lightroom.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1921">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1921#message-1921">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="12 Mar 2015 22:40" href="/projects/exiv2/activity?from=2015-03-12">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I created a complex example, with 6 Categories with different levels of nested tags. See attached screenshot.</p>
+
+
+	<p>Exiv2 shows it as:</p>
+
+
+	<p>Xmp.acdsee.categories   XmpText   &lt;Categories&gt;&lt;Category Assigned="1"&gt;1 Level&lt;/Category&gt;&lt;Category Assigned="1"&gt;2 Level&lt;Category Assigned="1"&gt;2.2 Level&lt;/Category&gt;&lt;/Category&gt;&lt;Category Assigned="1"&gt;3 Level&lt;Category Assigned="1"&gt;3.2 Level&lt;Category Assigned="1"&gt;3.3 Level&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;Category Assigned="1"&gt;4 Level&lt;Category Assigned="1"&gt;4.2 Level&lt;Category Assigned="1"&gt;4.3 Level&lt;Category Assigned="1"&gt;4.4 Level&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;Category Assigned="1"&gt;5 Level&lt;Category Assigned="1"&gt;5.2 Level&lt;Category Assigned="1"&gt;5.3 Level&lt;Category Assigned="1"&gt;5.4 Level&lt;Category Assigned="1"&gt;5.5  Level&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;Category Assigned="1"&gt;6 Level&lt;Category Assigned="1"&gt;6.2 Level&lt;Category Assigned="1"&gt;6.3 Level&lt;Category Assigned="1"&gt;6.4 Level&lt;Category Assigned="1"&gt;6.5 Level&lt;Category Assigned="1"&gt;6.6  Level&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Categories&gt;</p>
+
+
+	<p>Converted to Xmp.lr.hierarchicalSubject, I believe would look like this:</p>
+
+
+	<p>1 Level, 2 Level|2.2 Level, 3 Level|3.2 Level|3.3 Level, 4 Level|4.2 Level|4.3 Level|4.4 Level, 5 Level|5.2 Level|5.3 Level|5.4 Level|5.5 Level, 6 Level|6.2 Level|6.3 Level|6.4 Level|6.5 Level|6.6 Level</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/729">ACDSee.ScreenShot.Categories.Clipped.png</a>    <span class="size">(8.67 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/729/ACDSee.ScreenShot.Categories.Clipped.png">ACDSee.ScreenShot.Categories.Clipped.png</a>  </td>
+  <td>Screenshot ACDSee Categories</td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-1922">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1922#message-1922">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="13 Mar 2015 14:33" href="/projects/exiv2/activity?from=2015-03-13">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I now realize what the Assigned values are in ACDSee. Kind of obvious when one looks at it ...</p>
+
+
+	<p>Assigned="1" means that the category is actually assigned to the image.</p>
+
+
+	<p>Assigned="0" indicates a category one level up. It exists in the hierarchy but is not assigned to this particular image.</p>
+
+
+	<p>Categories that might exist lower in the hierarchy but that are not assigned to this image are missing from Xmp.acdsee.categories.</p>
+
+
+	<p>For example, I tagged "5.4 Level" in a test image. The result is:<pre>&lt;Category Assigned="0"&gt;5 Level
+&lt;Category Assigned="0"&gt;5.2 Level
+&lt;Category Assigned="0"&gt;5.3 Level
+&lt;Category Assigned="1"&gt;5.4 Level
+</pre> In the ACDSee application, there is a "5.5 Level", but we cannot see this from the metadata written to the image.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1923">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1923#message-1923">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Mar 2015 15:11" href="/projects/exiv2/activity?from=2015-03-13">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Right.  I think I've understood that and I believe this is easy to implement using the expat XML library used by exiv2.</p>
+
+
+	<p>I am puzzled by this request as it involves ACDC and LightRoom.  Presumably a Lightroom Hierarchy is some kind of image tagging/searching feature.  And ACDC has this 'Category' feature of similar intent.  So you're asking for a feature to be added to convert ACDC tags to LR (we haven't discussed LR to ACDC).</p>
+
+
+	<p>I don't see what this has to do with Exiv2.  Our mission is to correctly read/write metadata in images.  I don't see an issue here for the Exiv2 Project.</p>
+
+
+	<p>Earlier in this discussion, I demonstrated that you can read the metadata from a tag in Exiv2 and process it with xmllint (or any utility of your choice).  I should have pointed out that the output of that utility can be used to create a new tag to be written to the image.</p>
+
+
+	<p>I've written some perl (listed below) to "filter" the ACDC XML into the LR and create a new tag for the image.  Something like:<pre>
+tag=$(exiv2 -pa -g Xmp.acdsee.categories ~/Downloads/acdsee.test.jpg | sed -e 's/.* &lt;/&lt;/'  |  perl ACDSee.pl)
+exiv2 -M"set Xmp.lr.hierarchicalSubject XmpBag '$tag'" ~/Downloads/acdsee.test.jpg</pre>A bash warrior will soon boil this done to a single <em>(incomprehensible)</em> one-liner!   And we could add an option -L (or something) to instruct the exiv2(.exe) application to perform this action.  However you'll have to convince me that this is a necessary feature of exiv2(.exe).</p>
+
+
+	<p>Here's the Perl script (which I called ACDSee.pl)<pre>
+#!/usr/bin/env perl
+
+use XML::Parser::Expat;
+
+my $recursion=0;
+my $comma=0;
+
+##
+# process an start-of-element event
+sub sh
+{
+    my ($expat, $el, %atts) = @_;
+    print( $recursion++ &gt; 0 ? '|' : $comma ++ &gt; 0 ? ', ' : '') if ( $el eq 'Category' ) ;
+}
+
+##
+# process a char (string) event
+sub ch
+{
+    my ($expat, $el, %atts) = @_;
+    print($el) if $recursion &gt; 0
+}
+
+##
+# process an end-of-element event
+sub eh {
+    my ($expat, $el) = @_;
+    $recursion -- if $el eq 'Category';
+}
+
+$parser = new XML::Parser::Expat;
+$parser-&gt;setHandlers('Start' =&gt; \&#38;sh,'End' =&gt; \&#38;eh,'Char'  =&gt; \&#38;ch) ;
+$parser-&gt;parse(*STDIN);
+print("\n");
+
+# That's all Folks!
+##</pre>I've tested it with your complicated XML string:<br /><pre>$ echo '&lt;Categories&gt;&lt;Category Assigned="1"&gt;1 Level&lt;/Category&gt;&lt;Category Assigned="1"&gt;2 Level&lt;Category Assigned="1"&gt;2.2 Level&lt;/Category&gt;&lt;/Category&gt;&lt;Category Assigned="1"&gt;3 Level&lt;Category Assigned="1"&gt;3.2 Level&lt;Category Assigned="1"&gt;3.3 Level&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;Category Assigned="1"&gt;4 Level&lt;Category Assigned="1"&gt;4.2 Level&lt;Category Assigned="1"&gt;4.3 Level&lt;Category Assigned="1"&gt;4.4 Level&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;Category Assigned="1"&gt;5 Level&lt;Category Assigned="1"&gt;5.2 Level&lt;Category Assigned="1"&gt;5.3 Level&lt;Category Assigned="1"&gt;5.4 Level&lt;Category Assigned="1"&gt;5.5  Level&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;Category Assigned="1"&gt;6 Level&lt;Category Assigned="1"&gt;6.2 Level&lt;Category Assigned="1"&gt;6.3 Level&lt;Category Assigned="1"&gt;6.4 Level&lt;Category Assigned="1"&gt;6.5 Level&lt;Category Assigned="1"&gt;6.6 Level&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Category&gt;&lt;/Categories&gt;' | perl ACDEsee.pl
+
+1 Level, 2 Level|2.2 Level, 3 Level|3.2 Level|3.3 Level, 4 Level|4.2 Level|4.3 Level|4.4 Level, 5 Level|5.2 Level|5.3 Level|5.4 Level|5.5  Level, 6 Level|6.2 Level|6.3 Level|6.4 Level|6.5 Level|6.6 Level
+$ </pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-1924">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1924#message-1924">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="13 Mar 2015 15:49" href="/projects/exiv2/activity?from=2015-03-13">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you very much, Robin. I appreciate all the time and effort you have put into my question. Not only has it resolved the issue for the most part but has also clarified my understanding of hierarchical keywords in image metadata.</p>
+
+
+	<p>I agree that this does not seem to be a good candidate for a new feature of exiv2(.exe) as it is more appropiate for higher level imaging applications to do these types of conversions internally.</p>
+
+
+	<p>Saludos,<br />Alan</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1925">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1925#message-1925">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Mar 2015 15:59" href="/projects/exiv2/activity?from=2015-03-13">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm happy that you're happy.  And thank you for saying thanks.  You'd be surprised at how seldom users bother with such pleasantries.  Right. Case closed.  Onwards to places unknown.....</p>
+
+
+	<p>Have a nice weekend.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1965">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1912?r=1965#message-1965">RE: Converting ACDSee Categories to LightRoom Hierarchical</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Mar 2015 13:37" href="/projects/exiv2/activity?from=2015-03-28">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>I have added a new option to exiv2(.exe) -pX to extract the XMP block from an image. With this option, you can easily extract the xml and process it with xmllint, perl, python, xslt or any external tool. <a class="changeset" title="#922.  Added options -pS and -pX to exiv2(.exe).   Still to deal with -dI" href="/projects/exiv2/repository/exiv2/revisions/3650">r3650</a> <pre>515 rmills@rmillsmbp:~/clanmills $ exiv2 -pX ~/Downloads/BabyGnuTux-BigWLPG.jpg  | xmllint --pretty 1 --noblanks -
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.0-c060 61.134777, 2010/02/12-17:32:00        "&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#" rdf:about="" xmp:CreatorTool="Adobe Photoshop CS5 Windows" xmp:CreateDate="2012-01-04T20:32:52+01:00" xmp:ModifyDate="2012-01-04T20:34:45+01:00" xmp:MetadataDate="2012-01-04T20:34:45+01:00" dc:format="image/jpeg" photoshop:ColorMode="3" photoshop:ICCProfile="sRGB IEC61966-2.1" xmpMM:InstanceID="xmp.iid:4E9C1E280B37E111A568FF94F417581A" xmpMM:DocumentID="xmp.did:4D9C1E280B37E111A568FF94F417581A" xmpMM:OriginalDocumentID="xmp.did:4D9C1E280B37E111A568FF94F417581A"&gt;
+      &lt;xmpMM:History&gt;
+        &lt;rdf:Seq&gt;
+          &lt;rdf:li stEvt:action="created" stEvt:instanceID="xmp.iid:4D9C1E280B37E111A568FF94F417581A" stEvt:when="2012-01-04T20:32:52+01:00" stEvt:softwareAgent="Adobe Photoshop CS5 Windows"/&gt;
+          &lt;rdf:li stEvt:action="converted" stEvt:parameters="from image/png to image/jpeg"/&gt;
+          &lt;rdf:li stEvt:action="saved" stEvt:instanceID="xmp.iid:4E9C1E280B37E111A568FF94F417581A" stEvt:when="2012-01-04T20:34:45+01:00" stEvt:softwareAgent="Adobe Photoshop CS5 Windows" stEvt:changed="/"/&gt;
+        &lt;/rdf:Seq&gt;
+      &lt;/xmpMM:History&gt;
+    &lt;/rdf:Description&gt;
+    &lt;rdf:Description xmlns:MP="http://ns.microsoft.com/photo/1.2/"&gt;
+      &lt;MP:RegionInfo&gt;
+        &lt;rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+          &lt;MPRI:Regions xmlns:MPRI="http://ns.microsoft.com/photo/1.2/t/RegionInfo#"&gt;
+            &lt;rdf:Bag xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+              &lt;rdf:li&gt;
+                &lt;rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+                  &lt;MPReg:Rectangle xmlns:MPReg="http://ns.microsoft.com/photo/1.2/t/Region#"&gt;0.661608, 0.244310, 0.130501, 0.261002&lt;/MPReg:Rectangle&gt;
+                  &lt;MPReg:PersonDisplayName xmlns:MPReg="http://ns.microsoft.com/photo/1.2/t/Region#"&gt;Baby Tux&lt;/MPReg:PersonDisplayName&gt;
+                &lt;/rdf:Description&gt;
+              &lt;/rdf:li&gt;
+              &lt;rdf:li&gt;
+                &lt;rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+                  &lt;MPReg:Rectangle xmlns:MPReg="http://ns.microsoft.com/photo/1.2/t/Region#"&gt;0.205615, 0.226100, 0.130501, 0.261002&lt;/MPReg:Rectangle&gt;
+                  &lt;MPReg:PersonDisplayName xmlns:MPReg="http://ns.microsoft.com/photo/1.2/t/Region#"&gt;Baby Gnu&lt;/MPReg:PersonDisplayName&gt;
+                &lt;/rdf:Description&gt;
+              &lt;/rdf:li&gt;
+            &lt;/rdf:Bag&gt;
+          &lt;/MPRI:Regions&gt;
+        &lt;/rdf:Description&gt;
+      &lt;/MP:RegionInfo&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end='w'?&gt;
+516 rmills@rmillsmbp:~/clanmills $ </pre></p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-14/14)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

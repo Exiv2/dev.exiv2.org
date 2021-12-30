@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1247: out of bounds read access in Exiv2::Image::setIccProfile - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="wiBj/fGJjAQlbTI+w1zWu997fuwV98nmMaqSWxByrwogbcgSg/NABHAJLTJ8i9qI4OkqleQUaFzMigLTU0tIZQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1247: out of bounds read access in Exiv2::Image::setIccProfile" href="https://dev.exiv2.org/issues/1247.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1247</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>out of bounds read access in Exiv2::Image::setIccProfile</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4430">Hanno Böck</a> <a title="21 Oct 2016 01:17" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago.
+        Updated <a title="22 Oct 2016 17:21" href="/projects/exiv2/activity?from=2016-10-22">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">image format</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">21 Oct 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">7.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>The attached file will cause an out of bounds read access of one byte, visible with address sanitizer (add "-fsanitize=address" to CFLAGS/CXXFLAGS/LDFLAGS). This bug was found with american fuzzy lop. Tested with the latest svn code.</p>
+
+
+	<p>Here's the asan error message:<br />6112ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000ec33 at pc 0x7f169de57b9b bp 0x7ffd9b30fa40 sp 0x7ffd9b30fa38<br />READ of size 1 at 0x60200000ec33 thread T0<br />    #0 0x7f169de57b9a in Exiv2::getULong(unsigned char const*, Exiv2::ByteOrder) /f/exiv2/trunk/src/types.cpp:246:28<br />    #1 0x7f169dbd2272 in Exiv2::Image::setIccProfile(Exiv2::DataBuf&#38;, bool) /f/exiv2/trunk/src/image.cpp:617:45<br />    #2 0x7f169dc218bd in Exiv2::JpegBase::readMetadata() /f/exiv2/trunk/src/jpgimage.cpp:487:21<br />    #3 0x54538c in Action::Print::printSummary() /f/exiv2/trunk/src/actions.cpp:289:9<br />    #4 0x544a58 in Action::Print::run(std::string const&#38;) /f/exiv2/trunk/src/actions.cpp:244:44<br />    #5 0x4fe07f in main /f/exiv2/trunk/src/exiv2.cpp:170:19<br />    #6 0x7f169c42a78f in __libc_start_main (/lib64/libc.so.6+0x2078f)<br />    #7 0x421eb8 in _start (/r/exiv2/exiv2+0x421eb8)</p>
+
+
+	<p>0x60200000ec33 is located 2 bytes to the right of 1-byte region [0x60200000ec30,0x60200000ec31)<br />allocated by thread T0 here:<br />    #0 0x4fab70 in operator new[](unsigned long) (/r/exiv2/exiv2+0x4fab70)<br />    #1 0x7f169dc212e0 in Exiv2::DataBuf::DataBuf(long) /f/exiv2/trunk/include/exiv2/types.hpp:204:46<br />    #2 0x7f169dc212e0 in Exiv2::JpegBase::readMetadata() /f/exiv2/trunk/src/jpgimage.cpp:483<br />    #3 0x54538c in Action::Print::printSummary() /f/exiv2/trunk/src/actions.cpp:289:9<br />    #4 0x544a58 in Action::Print::run(std::string const&#38;) /f/exiv2/trunk/src/actions.cpp:244:44<br />    #5 0x7f169c42a78f in __libc_start_main (/lib64/libc.so.6+0x2078f)</p>
+
+
+	<p>SUMMARY: AddressSanitizer: heap-buffer-overflow /f/exiv2/trunk/src/types.cpp:246:28 in Exiv2::getULong(unsigned char const*, Exiv2::ByteOrder)<br />Shadow bytes around the buggy address:<br />  0x0c047fff9d30: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa<br />  0x0c047fff9d40: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa<br />  0x0c047fff9d50: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa<br />  0x0c047fff9d60: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa<br />  0x0c047fff9d70: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa<br />=>0x0c047fff9d80: fa fa fa fa fa fa<sup><a href="#fn01">01</a></sup>fa fa fa 00 00 fa fa 00 00<br />  0x0c047fff9d90: fa fa 00 fa fa fa 00 fa fa fa 00 00 fa fa 00 00<br />  0x0c047fff9da0: fa fa 00 fa fa fa 00 fa fa fa fd fa fa fa fd fa<br />  0x0c047fff9db0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa<br />  0x0c047fff9dc0: fa fa 06 fa fa fa 00 04 fa fa 00 04 fa fa 00 04<br />  0x0c047fff9dd0: fa fa 00 04 fa fa 00 04 fa fa 00 04 fa fa 00 04<br />Shadow byte legend (one shadow byte represents 8 application bytes):<br />  Addressable:           00<br />  Partially addressable: 01 02 03 04 05 06 07 <br />  Heap left redzone:       fa<br />  Heap right redzone:      fb<br />  Freed heap region:       fd<br />  Stack left redzone:      f1<br />  Stack mid redzone:       f2<br />  Stack right redzone:     f3<br />  Stack partial redzone:   f4<br />  Stack after return:      f5<br />  Stack use after scope:   f8<br />  Global redzone:          f9<br />  Global init order:       f6<br />  Poisoned by user:        f7<br />  Container overflow:      fc<br />  Array cookie:            ac<br />  Intra object redzone:    bb<br />  ASan internal:           fe<br />  Left alloca redzone:     ca<br />  Right alloca redzone:    cb<br />6112ABORTING</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1087">exiv2-oob-heap-Exiv2__Image__setIccProfile.jpg</a>    <span class="size">(17 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1087/exiv2-oob-heap-Exiv2__Image__setIccProfile.jpg">exiv2-oob-heap-Exiv2__Image__setIccProfile.jpg</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Hanno Böck, 21 Oct 2016 01:17</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1088">exiv2-fix-oob-setIccProfile.diff</a>    <span class="size">(541 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1088/exiv2-fix-oob-setIccProfile.diff">exiv2-fix-oob-setIccProfile.diff</a>  </td>
+  <td>patch to fix out of bounds</td>
+  <td>
+      <span class="author">Hanno Böck, 21 Oct 2016 11:40</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1247" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="Gc+ym5/CHG47I/mmDbvJwb90ePuOffOGkJ9Av/H5RLL7ghl07bjQbm5H5qqybMXygOYsgn+eUjxtv9A3ssCj3Q==" />
+  <table class="list issues odd-even"><tr id="relation-255" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1248" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1248">Bug #1248</a>: floating point exception / crash on malformed input</td><td class="status">Closed</td><td class="start_date">21 Oct 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1247/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1247&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4651" href="/projects/exiv2/repository/exiv2/revisions/4651">Revision 4651</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4651/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Oct 2016 17:44" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: out of bounds read access in Exiv2::Image::setIccProfile (Closed)" href="/issues/1247">#1247</a>  Thank You Hanno for reporting this and providing a patch.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4653" href="/projects/exiv2/repository/exiv2/revisions/4653">Revision 4653</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4653/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Oct 2016 19:19" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: out of bounds read access in Exiv2::Image::setIccProfile (Closed)" href="/issues/1247">#1247</a> Fix Linux/GCC compilation warning.  Added Hanno's file to the test suite.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4655" href="/projects/exiv2/repository/exiv2/revisions/4655">Revision 4655</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4655/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Oct 2016 19:24" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: out of bounds read access in Exiv2::Image::setIccProfile (Closed)" href="/issues/1247">#1247</a> Restrict clang pragma to <i>APPLE</i></p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4666" href="/projects/exiv2/repository/exiv2/revisions/4666">Revision 4666</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4666/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Oct 2016 18:21" href="/projects/exiv2/activity?from=2016-10-31">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: out of bounds read access in Exiv2::Image::setIccProfile (Closed)" href="/issues/1247">#1247</a>.  Correction to <a class="changeset" title="#1247 Restrict clang pragma to __APPLE__" href="/projects/exiv2/repository/exiv2/revisions/4655">r4655</a> to handle clang on plaforms other than MacOS-X.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4667" href="/projects/exiv2/repository/exiv2/revisions/4667">Revision 4667</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4667/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Oct 2016 18:42" href="/projects/exiv2/activity?from=2016-10-31">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: out of bounds read access in Exiv2::Image::setIccProfile (Closed)" href="/issues/1247">#1247</a> Another correction to <a class="changeset" title="#1247 Restrict clang pragma to __APPLE__" href="/projects/exiv2/repository/exiv2/revisions/4655">r4655</a> concerning clang/apple.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5705" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Oct 2016 06:06" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago
+      <span id="journal-5705-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>not-a-bug</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Closed</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-5705-notes" class="wiki"><p>That is not a legal JPEG.  It is a deliberately corrupted file and we throw an exception.  Not a bug.<pre>501 rmills@rmillsmbp:~ $ exiv2 -pS http://dev.exiv2.org/attachments/download/1087/exiv2-oob-heap-Exiv2__Image__setIccProfile.jpg
+STRUCTURE OF JPEG FILE: http://dev.exiv2.org/attachments/download/1087/exiv2-oob-heap-Exiv2__Image__setIccProfile.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe2 APP2  |      16 | ICC_PROFILE.... chunk 0/0Exiv2 exception in print action for file http://dev.exiv2.org/attachments/download/1087/exiv2-oob-heap-Exiv2__Image__setIccProfile.jpg:
+Failed to read image data
+502 rmills@rmillsmbp:~ $ exiv2 -pa http://dev.exiv2.org/attachments/download/1087/exiv2-oob-heap-Exiv2__Image__setIccProfile.jpg
+Warning: JPEG format error, rc = 5
+http://dev.exiv2.org/attachments/download/1087/exiv2-oob-heap-Exiv2__Image__setIccProfile.jpg: (No XMP data found in the file)
+503 rmills@rmillsmbp:~ $</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5706" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4430">Hanno Böck</a> <a title="21 Oct 2016 11:40" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago
+      <span id="journal-5706-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1088">exiv2-fix-oob-setIccProfile.diff</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1088/exiv2-fix-oob-setIccProfile.diff">exiv2-fix-oob-setIccProfile.diff</a> added</li>
+    </ul>
+    <div id="journal-5706-notes" class="wiki"><p>Even with a corrupted JPEG you shouldn't read beyond the bounds of the allocated memory.</p>
+
+
+	<p>I've looked into the code, I think it's relatively trivial to fix, just have to check before the getULong that you can really read a long from that buffer. See attached patch.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5711" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Oct 2016 17:45" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago
+      <span id="journal-5711-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5711-notes" class="wiki"><p>Thanks.  I've submitted you patch. <a class="changeset" title="#1247  Thank You Hanno for reporting this and providing a patch." href="/projects/exiv2/repository/exiv2/revisions/4651">r4651</a></p>
+
+
+	<p>I doesn't crash on the Mac.  It throws an exception.  However it does crash on Linux.  Probably because the Mac uses clang and linux uses gcc.  What about msvc/cl?  I'll look into that this evening.</p>
+
+
+	<p>To make the code really robust and deal with ever possible file is non trivial.  We have a project scheduled for v0.27 (<a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Better raw file support and test (Assigned)" href="/issues/992">#992</a>) to stress and strengthen that part of the code.  It has been written in the (naive) assumption that all files conform to the standard.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5712" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Oct 2016 17:45" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago
+      <span id="journal-5712-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>not-a-bug</i> to <i>image format</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5713" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Oct 2016 17:55" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago
+      <span id="journal-5713-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5713-notes" class="wiki"><p>It seems sane on Windows:<pre>C:\Users\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\releasedll&gt;exiv2 -pa http://dev.exiv2.org/attachments/download/1087/exiv2-oob-h
+eap-Exiv2__Image__setIccProfile.jpg
+Warning: JPEG format error, rc = 5
+
+C:\Users\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\releasedll&gt;exiv2 -pR http://dev.exiv2.org/attachments/download/1087/exiv2-oob-h
+eap-Exiv2__Image__setIccProfile.jpg
+STRUCTURE OF JPEG FILE: http://dev.exiv2.org/attachments/download/1087/exiv2-oob-heap-Exiv2__Image__setIccProfile.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI
+       2 | 0xffe2 APP2  |      16 | ICC_PROFILE.... chunk 0/0Exiv2 exception in print action for file http://dev.exiv2.org/attac
+hments/download/1087/exiv2-oob-heap-Exiv2__Image__setIccProfile.jpg:
+Failed to read image data
+
+C:\Users\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\releasedll&gt;</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5714" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Oct 2016 19:28" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago
+      <span id="journal-5714-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-5714-notes" class="wiki"><p><a class="changeset" title="#1247 Fix Linux/GCC compilation warning.  Added Hanno&#39;s file to the test suite." href="/projects/exiv2/repository/exiv2/revisions/4653">r4653</a>.  Fixing GCC compiler warning.  Add Hanno's test file to the test suite.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5717" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Oct 2016 10:43" href="/projects/exiv2/activity?from=2016-10-22">about 5 years</a> ago
+      <span id="journal-5717-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>2.00 h</i> to <i>6.00 h</i></li>
+    </ul>
+    <div id="journal-5717-notes" class="wiki"><p>I've spent more time looking into this.  I discovered (to my horror) that the command: <em><strong><code>$ exiv2 -pR test/data/exiv2-bug1247.jpg</code></strong></em> crashes on Windows when I use Hanno's patch.  I could modify exiv2.cpp as follows:<pre>
+void signalHandler(int signal)
+{
+    const char* reason = "!Access Violation!"; 
+    std::cerr &lt;&lt; "signalHandler " &lt;&lt; signal &lt;&lt;" "&lt;&lt; reason &lt;&lt; std::endl;
+    throw std::exception(reason);
+}
+
+// *****************************************************************************
+// Main
+int main(int argc, char* const argv[])
+try {
+#ifdef EXV_ENABLE_NLS
+    setlocale(LC_ALL, "");
+    bindtextdomain(EXV_PACKAGE, EXV_LOCALEDIR);
+    textdomain(EXV_PACKAGE);
+#endif
+
+    typedef void (*signalHandlerPointer)(int);
+
+    signalHandlerPointer previousHandler = signal(SIGSEGV , signalHandler);
+
+    // Handle command line arguments
+   ... no changes to the rest of the code ...
+    // Return a positive one byte code for better consistency across platforms
+    return static_cast&lt;unsigned int&gt;(rc) % 256;
+} catch ( std::exception&#38; e ) {
+    std::cerr &lt;&lt; "std::exception " &lt;&lt; e.what() &lt;&lt; std::endl;
+    return 99;
+} // main</pre>When the code hits an access violation, a signal is emitted and that's what's being handled by signalHandler() where it is converted to an exception.</p>
+
+
+	<p>I'm not going to add this code to exiv2(.exe) and all the other sample applications at this time for 2 reasons:</p>
+
+
+	<p>1 It is very late in the Exiv2 v0.26 project.<br />2 This is a process mechanism.  Adding signal handlers inside functions such as image::printStructure() or image::readMetadata() is tricky.  We have to restore existing signal handlers when we return from those functions.</p>
+
+
+	<p>Perhaps a simpler approach is to write <em><strong><code>Image::lint()</code></strong></em> The function <em><strong><code>Image::lint()</code></strong></em> would call <em><strong><code>Image::readMetadata()</code></strong></em> and <em><strong><code>Image::printStructure()</code></strong></em> without modification.  <em><strong><code>Image::lint()</code></strong></em> can be called by the ImageFactory to review an image.  The function image::lint() can install/restore signal handlers.</p>
+
+
+	<p>I'm also wondering about a couple matters:</p>
+
+
+	<p>1) Why does the Mac/Clang report exceptions when cl/msvc signals?  Perhaps clang converts signals to exceptions by default.</p>
+
+
+	<p>2) When I run tests in the Terminal/console, Windows displays asserts and signals as a dialog box.  When I'm running the tests on the buildserver (jenkins), asserts and signals are reported in the transcript.  How does it do that?  Is there something we can set in a Windows process to cause this behaviour?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5721" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Oct 2016 17:21" href="/projects/exiv2/activity?from=2016-10-22">about 5 years</a> ago
+      <span id="journal-5721-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>6.00 h</i> to <i>7.00 h</i></li>
+    </ul>
+    <div id="journal-5721-notes" class="wiki"><p>There is a major difference in signal/exception handling between GCC and Clang.</p>
+
+
+	<p>Clang:<pre>1013 rmills@rmillsmbp-kubuntu:~/gnu/exiv2/trunk $ exiv2 -pa test/data/exiv2-bug1247.jpg 
+Exiv2 exception in print action for file test/data/exiv2-bug1247.jpg:
+Not a valid ICC Profile
+1014 rmills@rmillsmbp-kubuntu:~/gnu/exiv2/trunk $ exiv2 -pR test/data/exiv2-bug1247.jpg  
+STRUCTURE OF JPEG FILE: test/data/exiv2-bug1247.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe2 APP2  |      16 | ICC_PROFILE.... chunk 0/0
+      18 | 0xffffffffff (null)Exiv2 exception in print action for file test/data/exiv2-bug1247.jpg:
+This does not look like a JPEG image      &lt;---- This is an Exiv2 exception handler message
+1015 rmills@rmillsmbp-kubuntu:~/gnu/exiv2/trunk $ 
+1015 rmills@rmillsmbp-kubuntu:~/gnu/exiv2/trunk $ exiv2 -vVg svn -g compiler 
+exiv2 0.25 001900 (64 bit build)
+compiler=Clang
+svn=4655
+1016 rmills@rmillsmbp-kubuntu:~/gnu/exiv2/trunk $ grep "does not look" src/*.cpp
+src/error.cpp:        {  3, N_("This does not look like a %1 image") }, // %1=Image type
+src/error.cpp:        { 15, N_("This does not look like a JPEG image") },
+src/error.cpp:        { 33, N_("This does not look like a CRW image") },
+1017 rmills@rmillsmbp-kubuntu:~/gnu/exiv2/trunk $ </pre></p>
+
+
+	<p>GCC: <pre>1017 rmills@rmillsmbp-kubuntu:~/gnu/exiv2/trunk $ exiv2 -pa test/data/exiv2-bug1247.jpg 
+Exiv2 exception in print action for file test/data/exiv2-bug1247.jpg:                                                    
+Not a valid ICC Profile                                                                                                  
+1018 rmills@rmillsmbp-kubuntu:~/gnu/exiv2/trunk $ exiv2 -pR test/data/exiv2-bug1247.jpg                                  
+STRUCTURE OF JPEG FILE: test/data/exiv2-bug1247.jpg                                                                      
+ address | marker       |  length | data                                                                                 
+       0 | 0xffd8 SOI                                                                                                    
+       2 | 0xffe2 APP2  |      16 | ICC_PROFILE.... chunk 0/0                                                            
+Segmentation fault (core dumped)     &lt;--- segmentation fault                                                                                        
+1019 rmills@rmillsmbp-kubuntu:~/gnu/exiv2/trunk $ exiv2 -vVg svn -g compiler 
+exiv2 0.25 001900 (64 bit build)
+compiler=G++
+svn=4655
+1020 rmills@rmillsmbp-kubuntu:~/gnu/exiv2/trunk $ </pre></p>
+
+
+	<p>I also discovered (on Stackoverlow) that you can hook the CRT to install your own report handler <em><strong><code> _CrtSetReportHook()</code></strong></em>.  <a class="external" href="http://stackoverflow.com/questions/13943665/how-can-i-disable-the-debug-assertion-dialog-on-windows">http://stackoverflow.com/questions/13943665/how-can-i-disable-the-debug-assertion-dialog-on-windows</a></p>
+
+
+	<p>This is interesting - however it requires modifying the code of the host application.  That doesn't explain how Jenkins achieves this.  Perhaps Jenkins hooks the CRT before using CreateProcess() to start a sub-process which inherits the hook.  That doesn't seem likely to me.  I think there's something in the process itself.  Anyway, we don't need to solve this today.  A search of the Jenkins source will reveal the necessary magic.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1247.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1247.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Preventing conversion of tags from EXIF to XMP in a sidecar file - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="fW6GT8VWd5zYvaKSduC3u8YDwoYGYNbAGKd3kI+2HpefIy2gtyy7nI3ZvZ7JN7uI+ZGW//eDd3rlh+cYzI/5+A==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Preventing conversion of tags from EXIF to XMP in a sidecar file</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4412">Alberto Mardegan</a> <a title="25 Apr 2015 15:12" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi there!<br />  I have some code which updates the GPS tags of an image. In order to be as compatible as possible, I'm writing both the xmp.exif.GPS* tags and the Exif.GPSInfo.GPS* tags. This works fine, but I just noticed that if the target file is an XMP sidecar, only the xmp.exif.GPS* tags are saved into the file (unsurprisingly).<br />What I found surprising, instead, is that the data which ends up into the xmp.exif.GPS* tags is the one which I wrote to the Exif.GPSInfo.GPS* tags (I can tell that, because if I write different data to the exif and the xmp data, the ones which end into the XMP sidecar are those which I wrote as "Exif.GPSInfo.GPS*"). Since the coordinates I was writing to the Exif tags had a lower precision than those written as XMP, I found this behaviour undesirable.</p>
+
+
+	<p>So, my questions:<br />1) Is it possible to instruct libexiv2 to give higher priority to the data written into the xmp.exif.GPS* tags over the exif ones?<br />2) Is there some way to know from Exif::Image that I'm writing to a sidecar file? In that case, I could be careful not to write the exif info at all.</p>
+
+
+	<p>Thanks in advance,<br />  Alberto</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (7)</h3>
+  <div class="message reply" id="message-2033">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2032?r=2033#message-2033">RE: Preventing conversion of tags from EXIF to XMP in a sidecar file</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="25 Apr 2015 15:56" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Could you provide the code you have that is writing this data? Also, what is the purpose of storing lower precision corrdinates in the exif tags?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2034">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2032?r=2034#message-2034">RE: Preventing conversion of tags from EXIF to XMP in a sidecar file</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Apr 2015 16:10" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Alberto</p>
+
+
+	<p>I honestly don't know the answer to either question.  However, between us I think we can find the answer.</p>
+
+
+	<p>Before I got my Nikon 5300 with a built in GPS, I had a script to move the data from a GPX file into a JPG.  It sets the following tags:<pre>527 rmills@rmillsmbp:~/bin $ grep GPS gps.py | expand -t 4
+    then it reads all the photos and updates the GPS/EXIF data to give
+    The program has to guess the difference between GPS time and camera time.
+    GPS time is UTC (GMT) time.
+    """handleGPSX""" 
+                    image['Exif.GPSInfo.GPSAltitude'            ] = rele
+                    image['Exif.GPSInfo.GPSAltitudeRef'         ] = str(eleR)
+                    image['Exif.GPSInfo.GPSDateStamp'           ] = stamp
+                    image['Exif.GPSInfo.GPSLatitude'            ] = [R(d(lat)),R(m(lat)),R(s(lat))]
+                    image['Exif.GPSInfo.GPSLatitudeRef'         ] = str(latR)
+                    image['Exif.GPSInfo.GPSLongitude'           ] = [R(d(lon)),R(m(lon)),R(s(lon))]
+                    image['Exif.GPSInfo.GPSLongitudeRef'        ] = str(lonR)
+                    image['Exif.GPSInfo.GPSMapDatum'            ] = 'WGS-84'
+                    image['Exif.GPSInfo.GPSProcessingMethod'    ] = '65 83 67 73 73 0 0 0 72 89 66 82 73 68 45 70 73 88 ' 
+                    image['Exif.GPSInfo.GPSTimeStamp'           ] = [R(10),R(20),R(30)]
+                    image['Exif.GPSInfo.GPSVersionID'           ] = '2 2 0 0'
+528 rmills@rmillsmbp:~/bin $ </pre>I've never thought about storing GPS information in XMP, far less a side car.</p>
+
+
+	<p>So two questions:<br />1) Are you doing this with your own code?<br />2) What commands you are using?</p>
+
+
+	<p>To save me time recreating your environment, can I ask you to give me some code?  When we are both "on the same page", we'll get this resolved.</p>
+
+
+	<p>I'm surprised by your remarks about "precision".  Exif GPS coords are 3 rationals for Degrees/Minutes/Seconds.  If a rational has a resolution of about 1/65000 and a second of arc is about 30m, the accuracy is better than 1 mm.  However, accuracy is not the subject our discussion.  I think you wish to store GPS is either Xmp or Exif data as accurately as possible and wish to choose based on the destination of the data.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2035">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2032?r=2035#message-2035">RE: Preventing conversion of tags from EXIF to XMP in a sidecar file</a>
+    -
+    Added by <a class="user active" href="/users/4412">Alberto Mardegan</a> <a title="25 Apr 2015 20:17" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks guys for your answers. A snippet of the code is here:</p>
+
+
+	<p><a class="external" href="http://paste.ubuntu.com/10889992/">http://paste.ubuntu.com/10889992/</a></p>
+
+
+	<p>The code which I pasted works correctly. But it's because I added a "100" multiplier on lines 30 and 35, in order to get better precision in the seconds. Indeed, I will leave the code as it's now, because I've no interest in lowering the precision in the EXIF tags: the reason why it was initially imprecise is just because I didn't think much about it.</p>
+
+
+	<p>So, now the question is more of a curiosity, than about solving a real problem. :-)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2036">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2032?r=2036#message-2036">RE: Preventing conversion of tags from EXIF to XMP in a sidecar file</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="25 Apr 2015 20:49" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>convert.cpp maps Exif.GPSInfo.* tags to Xmp.exif.GPS* but you don't appear to be using those conversions.</p>
+
+
+	<p>It also has code to cnvExifGPSCoord</p>
+	<pre><code><a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/entry/trunk/src/convert.cpp#L738">http://dev.exiv2.org/projects/exiv2/repository/entry/trunk/src/convert.cpp#L738</a></code></pre>
+
+
+	<p>I can't see where the XMP sidecar is coming from in your code. Is there another chunk which doss that?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2037">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2032?r=2037#message-2037">RE: Preventing conversion of tags from EXIF to XMP in a sidecar file</a>
+    -
+    Added by <a class="user active" href="/users/4412">Alberto Mardegan</a> <a title="25 Apr 2015 21:00" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Indeed there is another chunk, I didn't post if because I thought it wouldn't be interesting.</p>
+
+
+<pre>
+{
+    QString destFile;
+    bool useSidecar;
+
+    changes-&gt;mutex.lock();
+    const QString &#38;fileName = changes-&gt;fileName;
+
+    if (embed &#38;&#38; imageIsWritable(fileName)) {
+        destFile = fileName;
+        useSidecar = false;
+    } else {
+        destFile = fileName + ".xmp";
+        useSidecar = true;
+    }
+
+    Exiv2::Image::AutoPtr image;
+
+    try {
+        image = Exiv2::ImageFactory::open(destFile.toUtf8().constData());
+        image-&gt;readMetadata();
+    } catch (Exiv2::AnyError &#38;e) {
+        if (useSidecar) {
+            // The sidecar could not be opened, create it from the image
+            try {
+                Exiv2::Image::AutoPtr source =
+                    Exiv2::ImageFactory::open(fileName.toUtf8().constData());
+                source-&gt;readMetadata();
+                image = Exiv2::ImageFactory::create(Exiv2::ImageType::xmp,
+                                                    destFile.toUtf8().constData());
+                image-&gt;setMetadata(*source);
+            } catch (Exiv2::AnyError &#38;e) {
+                qDebug() &lt;&lt; "Sidecar creation failed" &lt;&lt; e.what();
+                changes-&gt;mutex.unlock();
+                return false;
+            }
+        } else {
+            qDebug() &lt;&lt; "Exiv2 exception, code" &lt;&lt; e.what();
+            changes-&gt;mutex.unlock();
+            return false;
+        }
+    }
+
+    Exiv2::XmpData &#38;xmpData = image-&gt;xmpData();
+
+</pre>
+
+	<p>The sidecar is used only if the imae file is not writable (unix permission issues) or if the "embed" flag is false. If a sidecar does not exist already, it's created and populated with the data from the image file.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2038">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2032?r=2038#message-2038">RE: Preventing conversion of tags from EXIF to XMP in a sidecar file</a>
+    -
+    Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="25 Apr 2015 21:15" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>My coding skills are quite primitive, but it looks to me that you are hitting the mappings in convert.cpp via copyExifToXmp.</p>
+
+
+	<p>From <a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/entry/trunk/src/xmpsidecar.cpp#L114">http://dev.exiv2.org/projects/exiv2/repository/entry/trunk/src/xmpsidecar.cpp#L114</a><br /><pre>
+    void XmpSidecar::writeMetadata()
+    {
+        if (io_-&gt;open() != 0) {
+            throw Error(9, io_-&gt;path(), strError());
+        }
+        IoCloser closer(*io_);
+        if (writeXmpFromPacket() == false) {
+            copyExifToXmp(exifData_, xmpData_);
+</pre><br />The conversion table:<br /><pre>
+      { mdExif, "Exif.GPSInfo.GPSVersionID",            "Xmp.exif.GPSVersionID",              &#38;Converter::cnvExifGPSVersion, &#38;Converter::cnvXmpGPSVersion },
+      { mdExif, "Exif.GPSInfo.GPSLatitude",             "Xmp.exif.GPSLatitude",               &#38;Converter::cnvExifGPSCoord, &#38;Converter::cnvXmpGPSCoord },
+      { mdExif, "Exif.GPSInfo.GPSLongitude",            "Xmp.exif.GPSLongitude",              &#38;Converter::cnvExifGPSCoord, &#38;Converter::cnvXmpGPSCoord },
+      { mdExif, "Exif.GPSInfo.GPSAltitudeRef",          "Xmp.exif.GPSAltitudeRef",            &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSAltitude",             "Xmp.exif.GPSAltitude",               &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSTimeStamp",            "Xmp.exif.GPSTimeStamp",              &#38;Converter::cnvExifDate,  &#38;Converter::cnvXmpDate  }, // FIXME ?
+      { mdExif, "Exif.GPSInfo.GPSSatellites",           "Xmp.exif.GPSSatellites",             &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSStatus",               "Xmp.exif.GPSStatus",                 &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSMeasureMode",          "Xmp.exif.GPSMeasureMode",            &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSDOP",                  "Xmp.exif.GPSDOP",                    &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSSpeedRef",             "Xmp.exif.GPSSpeedRef",               &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSSpeed",                "Xmp.exif.GPSSpeed",                  &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSTrackRef",             "Xmp.exif.GPSTrackRef",               &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSTrack",                "Xmp.exif.GPSTrack",                  &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSImgDirectionRef",      "Xmp.exif.GPSImgDirectionRef",        &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSImgDirection",         "Xmp.exif.GPSImgDirection",           &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSMapDatum",             "Xmp.exif.GPSMapDatum",               &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSDestLatitude",         "Xmp.exif.GPSDestLatitude",           &#38;Converter::cnvExifGPSCoord, &#38;Converter::cnvXmpGPSCoord },
+      { mdExif, "Exif.GPSInfo.GPSDestLongitude",        "Xmp.exif.GPSDestLongitude",          &#38;Converter::cnvExifGPSCoord, &#38;Converter::cnvXmpGPSCoord },
+      { mdExif, "Exif.GPSInfo.GPSDestBearingRef",       "Xmp.exif.GPSDestBearingRef",         &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSDestBearing",          "Xmp.exif.GPSDestBearing",            &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSDestDistanceRef",      "Xmp.exif.GPSDestDistanceRef",        &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSDestDistance",         "Xmp.exif.GPSDestDistance",           &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+      { mdExif, "Exif.GPSInfo.GPSProcessingMethod",     "Xmp.exif.GPSProcessingMethod",       &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue }, // FIXME ?
+      { mdExif, "Exif.GPSInfo.GPSAreaInformation",      "Xmp.exif.GPSAreaInformation",        &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue }, // FIXME ?
+      { mdExif, "Exif.GPSInfo.GPSDifferential",         "Xmp.exif.GPSDifferential",           &#38;Converter::cnvExifValue, &#38;Converter::cnvXmpValue },
+</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-2039">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2032?r=2039#message-2039">RE: Preventing conversion of tags from EXIF to XMP in a sidecar file</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Apr 2015 11:29" href="/projects/exiv2/activity?from=2015-04-26">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Alberto</p>
+
+
+	<p>I am lost.  The details are killing my old brain cell.  What problem are we solving here?  When you open the file, you know if it's a sidecar or an image.  Can't you carry that information to writeGeoLocation and write xmpData or exifData as you prefer?</p>
+
+
+	<p>I discussed floats recently with Mikayel:  <a class="external" href="http://dev.exiv2.org/boards/3/topics/1898">http://dev.exiv2.org/boards/3/topics/1898</a>  Here's a way to cast a float (not a double) to a rational without messing with multipliers such as 100.  <pre>exifData["Exif.Photo.FNumber"] = Exiv2::floatToRationalCast(1.2f);</pre>Don't ask me how floatToRationalCast does the conversion.  Read the code.  Probably uses something like a recursive GCD or something.  I didn't write it and never bothered to look at the code.  Obviously calling that with a double needs a cast which we can easily hide in a new function: doubleToRationalCast(double).  I'll be happy to accept a patch if you write that.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-7/7)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Camera sensor Temperature (not color Temperature) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="N+PyqeDWBKg/9FWQF+2mByY+YVL5JmOflV74GlPm9QPVrllGkqzIqGqQSpyoOqo0Gaw1KwjFwiVofmiSEN8SbA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Camera sensor Temperature (not color Temperature)</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4745">Raphael Attie</a> <a title="31 Aug 2016 08:52" href="/projects/exiv2/activity?from=2016-08-31">about 5 years</a> ago</span></p>
+<div class="wiki">
+<p>Hello,</p>
+
+
+	<p>I'm just starting with Exiv2, which I try to implement in my project <strong>LightDrops</strong> in <a href="https://github.com/raphaelattie/LightDrops" class="external">Github</a>. I was hoping to extract the "camera temperature" of canon DSLRs. Using the "exifprint.cpp" example, I could not find it for Canon EOS 5D Mark iii, whereas I can get it with Exiftool, where it is listed as "Camera Temperature". The value was 27 C (degrees Celsius then). I believe this is different from "color temperature".</p>
+
+
+	<p>Does anyone know how to get this with Exiv2? I need this information to allow my software to characterise temperature vs noise, and to see temperature variation across the night (for astrophotography) for different exposure times.</p>
+
+
+	<p>So far my attempt is as follows (using Qt):</p>
+
+
+<pre>
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filePathStr);
+    assert(image.get() != 0);
+    image-&gt;readMetadata();
+    Exiv2::ExifData &#38;exifData = image-&gt;exifData();
+        if (exifData.empty())
+        {
+            std::string error(filePathStr);
+            error += ": No Exif data found in the file";
+            throw Exiv2::Error(1, error);
+        }
+
+   Exiv2::ExifData::const_iterator end = exifData.end();
+   for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i)
+   {
+       QString keyName = QString::fromStdString(i-&gt;key());
+       QString keyValue = QString::fromStdString(i-&gt;value().toString());
+       qDebug() &lt;&lt; keyName &lt;&lt; " : " &lt;&lt; keyValue;
+    }
+
+</pre>
+
+	<p>Here is the output of</p>
+
+
+	<p>"Exif.Image.ImageWidth"  :  "5760" <br />"Exif.Image.ImageLength"  :  "3840" <br />"Exif.Image.BitsPerSample"  :  "8 8 8" <br />"Exif.Image.Compression"  :  "6" <br />"Exif.Image.Make"  :  "Canon" <br />"Exif.Image.Model"  :  "Canon EOS 5D Mark III" <br />"Exif.Image.StripOffsets"  :  "84908" <br />"Exif.Image.Orientation"  :  "1" <br />"Exif.Image.StripByteCounts"  :  "2872535" <br />"Exif.Image.XResolution"  :  "72/1" <br />"Exif.Image.YResolution"  :  "72/1" <br />"Exif.Image.ResolutionUnit"  :  "2" <br />"Exif.Image.DateTime"  :  "2015:06:11 01:07:06" <br />"Exif.Image.Artist"  :  "" <br />"Exif.Image.XMLPacket"  :  "60 63 120 1 <strong>(truncated)</strong></p>
+
+
+	<p>"Exif.Image.Copyright"  :  "" <br />"Exif.Image.ExifTag"  :  "446" <br />"Exif.Photo.ExposureTime"  :  "20/1" <br />"Exif.Photo.FNumber"  :  "0/1" <br />"Exif.Photo.ExposureProgram"  :  "1" <br />"Exif.Photo.ISOSpeedRatings"  :  "3200" <br />"Exif.Photo.SensitivityType"  :  "2" <br />"Exif.Photo.RecommendedExposureIndex"  :  "3200" <br />"Exif.Photo.ExifVersion"  :  "48 50 51 48" <br />"Exif.Photo.DateTimeOriginal"  :  "2015:06:11 01:07:06" <br />"Exif.Photo.DateTimeDigitized"  :  "2015:06:11 01:07:06" <br />"Exif.Photo.ComponentsConfiguration"  :  "1 2 3 0" <br />"Exif.Photo.ShutterSpeedValue"  :  "-286720/65536" <br />"Exif.Photo.ApertureValue"  :  "2147483648/1" <br />"Exif.Photo.ExposureBiasValue"  :  "0/1" <br />"Exif.Photo.MeteringMode"  :  "5" <br />"Exif.Photo.Flash"  :  "16" <br />"Exif.Photo.FocalLength"  :  "0/1" <br />"Exif.Photo.MakerNote"  :  "42 0 1 0 <strong>(truncated)</strong></p>
+
+
+	<p>Any idea?</p>
+
+
+	<p>Thanks</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (8)</h3>
+  <div class="message reply" id="message-2689">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2688?r=2689#message-2689">RE: Camera sensor Temperature (not color Temperature)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Aug 2016 09:02" href="/projects/exiv2/activity?from=2016-08-31">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Please attach your image and I will investigate.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2690">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2688?r=2690#message-2690">RE: Camera sensor Temperature (not color Temperature)</a>
+    -
+    Added by <a class="user active" href="/users/4745">Raphael Attie</a> <a title="31 Aug 2016 09:07" href="/projects/exiv2/activity?from=2016-08-31">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Thank you for the help. The file is raw .CR2, too big to upload here. Here is a dropbox link: <a class="external" href="https://www.dropbox.com/s/34vj5u7aihd1vag/F36A7292.CR2?dl=0">https://www.dropbox.com/s/34vj5u7aihd1vag/F36A7292.CR2?dl=0</a><br />Let me know if you need this to be transferred to you differently.</p>
+
+
+	<p>Thanks</p>
+
+
+	<p>Raphael</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2691">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2688?r=2691#message-2691">RE: Camera sensor Temperature (not color Temperature)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Aug 2016 10:23" href="/projects/exiv2/activity?from=2016-08-31">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Rafael:</p>
+
+
+	<p>Thanks for your file.  You can remove it now from Dropbox.  Regrettably, we don't support that tag.  It is not listed here: <a class="external" href="http://www.exiv2.org/tags-canon.html">http://www.exiv2.org/tags-canon.html</a></p>
+
+
+	<p>Here's the color information in your file:<pre>554 rmills@rmillsmbp:~/Downloads $ exiv2 -Pkc --grep Color F36A7292.CR2 
+Exif.CanonCs.ColorTone                         1
+Exif.CanonPr.ColorTemperature                  1
+Exif.Canon.MeasuredColor                       6
+Exif.Canon.ColorSpace                          1
+Exif.Canon.ColorData                         1312
+Exif.Photo.ColorSpace                          1
+555 rmills@rmillsmbp:~/Downloads $ </pre>Is this stored in either MeasuredColor (6 bytes) or ColorData (1312 bytes)?  I don't see it listed by exiftool either.  <pre>555 rmills@rmillsmbp:~/Downloads $ exiftool -ver
+10.13
+556 rmills@rmillsmbp:~/Downloads $ exiftool F36A7292.CR2 | grep -i color
+Color Tone                      : Normal
+Color Tone Standard             : 0
+Color Tone Portrait             : 0
+Color Tone Landscape            : 0
+Color Tone Neutral              : 0
+Color Tone Faithful             : 0
+Color Tone Auto                 : 0
+Color Tone User Def 1           : 0
+Color Tone User Def 2           : 0
+Color Tone User Def 3           : 0
+Color Temperature               : 9000
+Color Data Version              : 10 (1DX/5DmkIII/6D/70D/100D/650D/700D/M)
+Color Temp As Shot              : 3973
+Color Temp Auto                 : 3973
+Color Temp Measured             : 3973
+Color Temp Daylight             : 5200
+Color Temp Shade                : 7000
+Color Temp Cloudy               : 6000
+Color Temp Tungsten             : 3200
+Color Temp Fluorescent          : 3714
+Color Temp Kelvin               : 9017
+Color Temp Flash                : 6326
+Color Space                     : sRGB
+556 rmills@rmillsmbp:~/Downloads $ </pre>I'm currently trying to reach "feature complete" on v0.26 and don't have time to research or implement support for this.</p>
+
+
+	<p>If you want this to be supported, you are welcome to raise an issue on Redmine.  It would be very helpful for you to do the research into how this information is stored in the metadata.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2692">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2688?r=2692#message-2692">RE: Camera sensor Temperature (not color Temperature)</a>
+    -
+    Added by <a class="user active" href="/users/4745">Raphael Attie</a> <a title="31 Aug 2016 11:06" href="/projects/exiv2/activity?from=2016-08-31">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin, thanks for helping out.</p>
+
+
+	<p>You won't see it in Exiftool under color-related tags, sensor temperature has nothing to do with color.</p>
+
+
+	<p>You will see it as "Camera temperature", see below the complete list, i've put it in bold letter.</p>
+
+
+	<p>ExifTool Version Number         : 10.10<br />File Name                       : F36A7292.CR2<br />Directory                       : /Users/raphaela/Pictures/Astrophotography/Joris/Andromede_iso3200_20s<br />File Size                       : 28 MB<br />File Modification Date/Time     : 2015:06:16 18:33:01+02:00<br />File Access Date/Time           : 2016:08:31 09:21:49+02:00<br />File Inode Change Date/Time     : 2016:02:01 09:13:07+01:00<br />File Permissions                : rw-r--r--<br />File Type                       : CR2<br />File Type Extension             : cr2<br />MIME Type                       : image/x-canon-cr2<br />Exif Byte Order                 : Little-endian (Intel, II)<br />Image Width                     : 5760<br />Image Height                    : 3840<br />Bits Per Sample                 : 8 8 8<br />Compression                     : JPEG (old-style)<br />Make                            : Canon<br />Camera Model Name               : Canon EOS 5D Mark III<br />Preview Image Start             : 84908<br />Orientation                     : Horizontal (normal)<br />Preview Image Length            : 2872535<br />X Resolution                    : 72<br />Y Resolution                    : 72<br />Resolution Unit                 : inches<br />Modify Date                     : 2015:06:11 01:07:06<br />Artist                          : <br />Rating                          : 0<br />Copyright                       : <br />Exposure Time                   : 20<br />F Number                        : 0<br />Exposure Program                : Manual<br />ISO                             : 3200<br />Sensitivity Type                : Recommended Exposure Index<br />Recommended Exposure Index      : 3200<br />Exif Version                    : 0230<br />Date/Time Original              : 2015:06:11 01:07:06<br />Create Date                     : 2015:06:11 01:07:06<br />Components Configuration        : Y, Cb, Cr, <del><br />Shutter Speed Value             : 20.7<br />Aperture Value                  : inf<br />Flash                           : Off, Did not fire<br />Focal Length                    : 0.0 mm<br />Macro Mode                      : Normal<br />Self Timer                      : Off<br />Quality                         : RAW<br />Canon Flash Mode                : Off<br />Continuous Drive                : Single, Silent<br />Focus Mode                      : Manual Focus (3)<br />Record Mode                     : CR2<br />Canon Image Size                : n/a<br />Easy Mode                       : Manual<br />Digital Zoom                    : None<br />Contrast                        : Normal<br />Saturation                      : Normal<br />Metering Mode                   : Evaluative<br />Focus Range                     : Not Known<br />Canon Exposure Mode             : Manual<br />Max Focal Length                : 0 mm<br />Min Focal Length                : 0 mm<br />Focal Units                     : 1/mm<br />Flash Activity                  : 0<br />Flash Bits                      : (none)<br />Zoom Source Width               : 0<br />Zoom Target Width               : 0<br />Manual Flash Output             : n/a<br />Color Tone                      : Normal<br />SRAW Quality                    : n/a<br />Auto ISO                        : 100<br />Base ISO                        : 3200<br />Measured EV                     : -4.12<br />Target Exposure Time            : 20.2<br />Exposure Compensation           : 0<br />White Balance                   : Auto<br />Slow Shutter                    : None<br />Shot Number In Continuous Burst : 0<br />Optical Zoom Code               : n/a<br /><strong>Camera Temperature              : 27 C</strong><br />Flash Guide Number              : 0<br />Flash Exposure Compensation     : 0<br />Auto Exposure Bracketing        : Off<br />AEB Bracket Value               : 0<br />Control Mode                    : Computer Remote Control<br />Measured EV 2                   : -4.25<br />Bulb Duration                   : 0<br />Camera Type                     : EOS High-end<br />ND Filter                       : n/a<br />Canon Image Type                : Canon EOS 5D Mark III<br />Canon Firmware Version          : Firmware Version 1.1.3<br />Camera Orientation              : Rotate 90 CW<br />Focus Distance Upper            : 0 m<br />Focus Distance Lower            : 0 m<br />Lens Type                       : Unknown (0)<br />Firmware Version                : 1.1.3<br />File Index                      : 7292<br />File Index 2                    : 7271<br />Directory Index                 : 100<br />Directory Index 2               : 100<br />Contrast Standard               : -4<br />Sharpness Standard              : 0<br />Saturation Standard             : -4<br />Color Tone Standard             : 0<br />Contrast Portrait               : 0<br />Sharpness Portrait              : 2<br />Saturation Portrait             : 0<br />Color Tone Portrait             : 0<br />Contrast Landscape              : 0<br />Sharpness Landscape             : 4<br />Saturation Landscape            : 0<br />Color Tone Landscape            : 0<br />Contrast Neutral                : 0<br />Sharpness Neutral               : 0<br />Saturation Neutral              : 0<br />Color Tone Neutral              : 0<br />Contrast Faithful               : 0<br />Sharpness Faithful              : 0<br />Saturation Faithful             : 0<br />Color Tone Faithful             : 0<br />Contrast Monochrome             : 0<br />Sharpness Monochrome            : 3<br />Filter Effect Monochrome        : None<br />Toning Effect Monochrome        : None<br />Contrast Auto                   : 0<br />Sharpness Auto                  : 3<br />Saturation Auto                 : 0<br />Color Tone Auto                 : 0<br />Filter Effect Auto              : n/a<br />Toning Effect Auto              : n/a<br />Contrast User Def 1             : -4<br />Sharpness User Def 1            : 0<br />Saturation User Def 1           : -2<br />Color Tone User Def 1           : 0<br />Filter Effect User Def 1        : None<br />Toning Effect User Def 1        : None<br />Contrast User Def 2             : 0<br />Sharpness User Def 2            : 3<br />Saturation User Def 2           : 0<br />Color Tone User Def 2           : 0<br />Filter Effect User Def 2        : None<br />Toning Effect User Def 2        : None<br />Contrast User Def 3             : 0<br />Sharpness User Def 3            : 3<br />Saturation User Def 3           : 0<br />Color Tone User Def 3           : 0<br />Filter Effect User Def 3        : None<br />Toning Effect User Def 3        : None<br />User Def 1 Picture Style        : PC 1<br />User Def 2 Picture Style        : Standard<br />User Def 3 Picture Style        : Standard<br />Canon Model ID                  : EOS 5D Mark III<br />Thumbnail Image Valid Area      : 0 159 7 112<br />AF Area Mode                    : Off (Manual Focus)<br />Num AF Points                   : 61<br />Valid AF Points                 : 1<br />Canon Image Width               : 5760<br />Canon Image Height              : 3840<br />AF Image Width                  : 5760<br />AF Image Height                 : 3840<br />AF Area Widths                  : 1152 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br />AF Area Heights                 : 768 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br />AF Area X Positions             : 1280 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br />AF Area Y Positions             : 320 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br />AF Points In Focus              : (none)<br />AF Points Selected              : 0<br />Time Zone                       : <ins>02:00<br />Time Zone City                  : Paris<br />Daylight Savings                : On<br />Bracket Mode                    : Off<br />Bracket Value                   : 0<br />Bracket Shot Number             : 0<br />Raw Jpg Size                    : Large<br />WB Bracket Mode                 : Off<br />WB Bracket Value AB             : 0<br />WB Bracket Value GM             : 0<br />Live View Shooting              : On<br />Flash Exposure Lock             : Off<br />Internal Serial Number          : <br />Dust Removal Data               : (Binary data 1024 bytes, use -b option to extract)<br />Crop Left Margin                : 0<br />Crop Right Margin               : 0<br />Crop Top Margin                 : 0<br />Crop Bottom Margin              : 0<br />Exposure Level Increments       : 1/3 Stop<br />ISO Speed Increments            : 1/3 Stop<br />AEB Auto Cancel                 : On<br />AEB Sequence                    : 0,</del>,</ins><br />AEB Shot Count                  : 3 shots<br />Safety Shift                    : Disable<br />Viewfinder Warnings             : Monochrome, WB corrected, One-touch image quality<br />LV Shooting Area Display        : Masked<br />Custom Controls                 : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 3<br />Dial Direction Tv Av            : Normal<br />Multi Function Lock             : Off; Quick control dial<br />Add Aspect Ratio Info           : Off<br />Default Erase Option            : Cancel selected<br />Aspect Ratio                    : 3:2<br />Cropped Image Width             : 5760<br />Cropped Image Height            : 3840<br />Cropped Image Left              : 0<br />Cropped Image Top               : 0<br />Tone Curve                      : Standard<br />Sharpness                       : 4<br />Sharpness Frequency             : n/a<br />Sensor Red Level                : 0<br />Sensor Blue Level               : 0<br />White Balance Red               : 0<br />White Balance Blue              : 0<br />Color Temperature               : 9000<br />Picture Style                   : Landscape<br />Digital Gain                    : 0<br />WB Shift AB                     : 0<br />WB Shift GM                     : 0<br />Measured RGGB                   : 745 1024 1024 477<br />VRD Offset                      : 0<br />Sensor Width                    : 5920<br />Sensor Height                   : 3950<br />Sensor Left Border              : 140<br />Sensor Top Border               : 96<br />Sensor Right Border             : 5899<br />Sensor Bottom Border            : 3935<br />Black Mask Left Border          : 0<br />Black Mask Top Border           : 0<br />Black Mask Right Border         : 0<br />Black Mask Bottom Border        : 0<br />Color Data Version              : 10 (1DX/5DmkIII/6D/70D/100D/650D/700D/M)<br />WB RGGB Levels As Shot          : 1736 1024 1024 1964<br />Color Temp As Shot              : 3973<br />WB RGGB Levels Auto             : 1736 1024 1024 1964<br />Color Temp Auto                 : 3973<br />WB RGGB Levels Measured         : 1736 1024 1024 1964<br />Color Temp Measured             : 3973<br />WB RGGB Levels Daylight         : 2085 1024 1024 1649<br />Color Temp Daylight             : 5200<br />WB RGGB Levels Shade            : 2389 1024 1024 1409<br />Color Temp Shade                : 7000<br />WB RGGB Levels Cloudy           : 2241 1024 1024 1522<br />Color Temp Cloudy               : 6000<br />WB RGGB Levels Tungsten         : 1507 1024 1024 2444<br />Color Temp Tungsten             : 3200<br />WB RGGB Levels Fluorescent      : 1833 1024 1024 2341<br />Color Temp Fluorescent          : 3714<br />WB RGGB Levels Kelvin           : 2608 1024 1024 1276<br />Color Temp Kelvin               : 9017<br />WB RGGB Levels Flash            : 2320 1024 1024 1496<br />Color Temp Flash                : 6326<br />Average Black Level             : 2049 2049 2049 2049<br />Raw Measured RGGB               : 30796 41989 41851 19541<br />Per Channel Black Level         : 2047 2048 2050 2050<br />Normal White Level              : 11995<br />Specular White Level            : 12507<br />Linearity Upper Margin          : 10000<br />Custom Picture Style File Name  : <br />AF Micro Adj Mode               : Disable<br />AF Micro Adj Value              : 0<br />Vignetting Corr Version         : 0<br />Peripheral Lighting             : Off<br />Chromatic Aberration Corr       : Off<br />Peripheral Lighting Value       : 0<br />Original Image Width            : 5760<br />Original Image Height           : 3840<br />Peripheral Lighting Setting     : Off<br />Chromatic Aberration Setting    : Off<br />Peripheral Illumination Corr    : Off<br />Auto Lighting Optimizer         : Off<br />Highlight Tone Priority         : Off<br />Long Exposure Noise Reduction   : Off<br />High ISO Noise Reduction        : Off<br />Multi Exposure                  : Off<br />Multi Exposure Control          : Additive<br />Multi Exposure Shots            : 0<br />HDR                             : Off<br />HDR Effect                      : Natural<br />AF Config Tool                  : Case 4<br />AF Tracking Sensitivity         : 0<br />AF Accel/Decel Tracking         : 1<br />AF Point Switching              : 0<br />User Comment                    : <br />Sub Sec Time                    : 35<br />Sub Sec Time Original           : 35<br />Sub Sec Time Digitized          : 35<br />Flashpix Version                : 0100<br />Color Space                     : sRGB<br />Exif Image Width                : 5760<br />Exif Image Height               : 3840<br />Interoperability Index          : R98 - DCF basic file (sRGB)<br />Interoperability Version        : 0100<br />Focal Plane X Resolution        : 3942.505133<br />Focal Plane Y Resolution        : 3950.617284<br />Focal Plane Resolution Unit     : inches<br />Custom Rendered                 : Normal<br />Exposure Mode                   : Manual<br />Scene Capture Type              : Standard<br />Owner Name                      : <br />Serial Number                   : 053024005436<br />Lens Info                       : 0mm f/0<br />Lens Model                      : <br />Lens Serial Number              : 0000000000<br />GPS Version ID                  : 2.3.0.0<br />Thumbnail Offset                : 79984<br />Thumbnail Length                : 4922<br />Photometric Interpretation      : RGB<br />Samples Per Pixel               : 3<br />Rows Per Strip                  : 395<br />Planar Configuration            : Chunky<br />Strip Offsets                   : 4694148<br />Strip Byte Counts               : 24276916<br />Raw Image Segmentation          : 1 2960 2960<br />SRaw Type                       : 1<br />Aperture                        : inf<br />Drive Mode                      : Continuous Shooting<br />File Number                     : 100-7292<br />Image Size                      : 5760x3840<br />Lens                            : 0.0 mm<br />Lens ID                         : Unknown (0)<br />Megapixels                      : 22.1<br />Preview Image                   : (Binary data 2872535 bytes, use -b option to extract)<br />Scale Factor To 35 mm Equivalent: 1.0<br />Shooting Mode                   : Manual<br />Shutter Speed                   : 20<br />Create Date                     : 2015:06:11 01:07:06.35<br />Date/Time Original              : 2015:06:11 01:07:06.35<br />Modify Date                     : 2015:06:11 01:07:06.35<br />Thumbnail Image                 : (Binary data 4922 bytes, use -b option to extract)<br />WB RGGB Levels                  : 1736 1024 1024 1964<br />Blue Balance                    : 1.917969<br />Circle Of Confusion             : 0.031 mm<br />Depth Of Field                  : inf (0.00 m - inf)<br />Focal Length                    : 0.0 mm (35 mm equivalent: 0.0 mm)<br />Hyperfocal Distance             : inf m<br />Lens                            : 0.0 mm (35 mm equivalent: 0.0 mm)<br />Red Balance                     : 1.695313</p>
+
+
+	<p>I would be glad to contribute and help extract that information for Exiv2, as I would like to support Canon, Nikon, and Sony camera, the 3 main brands used in astrophotography, but I have no idea where to start to decypher the metadata and look for the value of that parameter. Maybe you can show me where to begin and i'll work my way in. <br />The only idea I have to start with at the moment is to look for the actual temperature value seen in Exiftool (27 C), and look where that number appears as is, or as hexadecimal value, or binary. But again, I don't know where I should start looking, I'm still confused between Exif tags, XMP properties, etc...</p>
+
+
+	<p>Raphael</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2693">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2688?r=2693#message-2693">RE: Camera sensor Temperature (not color Temperature)</a>
+    -
+    Added by <a class="user active" href="/users/4745">Raphael Attie</a> <a title="31 Aug 2016 11:09" href="/projects/exiv2/activity?from=2016-08-31">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>not sure how those lines got struck through above. Not intended. You'll see the Camera Temperature as blod somewhere in the middlle.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2694">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2688?r=2694#message-2694">RE: Camera sensor Temperature (not color Temperature)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Aug 2016 11:35" href="/projects/exiv2/activity?from=2016-08-31">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ah, right.  Thanks for the clarification.  Yes, I believe the camera temperature is of great interest/importance in Astro Photography.  Exiftool does know about this, and Exiv2 does not.<pre>607 rmills@rmillsmbp:~/Downloads $ exiftool F36A7292.CR2 | grep -i temp
+Camera Temperature              : 27 C
+Color Temperature               : 9000
+Color Temp As Shot              : 3973
+Color Temp Auto                 : 3973
+Color Temp Measured             : 3973
+Color Temp Daylight             : 5200
+Color Temp Shade                : 7000
+Color Temp Cloudy               : 6000
+Color Temp Tungsten             : 3200
+Color Temp Fluorescent          : 3714
+Color Temp Kelvin               : 9017
+Color Temp Flash                : 6326
+608 rmills@rmillsmbp:~/Downloads $ exiv2 -pa --grep temp/i F36A7292.CR2 
+Exif.CanonPr.ColorTemperature                SShort      1  9000
+609 rmills@rmillsmbp:~/Downloads $ exiv2 -pa --grep cam/i F36A7292.CR2 
+Exif.Canon.CameraInfo                        Undefined 1536  (Binary value suppressed)
+Exif.Photo.CameraOwnerName                   Ascii       1  
+610 rmills@rmillsmbp:~/Downloads $ </pre>I've never worked on the MakerNote encoder/decoders.  There is an article on the Wiki:  <a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/How_to_add_support_for_a_new_makernote">http://dev.exiv2.org/projects/exiv2/wiki/How_to_add_support_for_a_new_makernote</a></p>
+
+
+	<p>There is a handler for every camera manufacturer: <pre>
+613 rmills@rmillsmbp:~/gnu/exiv2/trunk $ ls -1 src/*mn.cpp
+src/canonmn.cpp
+src/casiomn.cpp
+src/fujimn.cpp
+src/minoltamn.cpp
+src/nikonmn.cpp
+src/olympusmn.cpp
+src/panasonicmn.cpp
+src/pentaxmn.cpp
+src/samsungmn.cpp
+src/sigmamn.cpp
+src/sonymn.cpp
+614 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>And an image handlers for each image format:<pre>614 rmills@rmillsmbp:~/gnu/exiv2/trunk $ ls -1 src/*image.cpp
+src/bmpimage.cpp
+src/cr2image.cpp
+src/crwimage.cpp
+src/epsimage.cpp
+src/gifimage.cpp
+src/image.cpp
+src/jp2image.cpp
+src/jpgimage.cpp
+src/mrwimage.cpp
+src/orfimage.cpp
+src/pgfimage.cpp
+src/pngimage.cpp
+src/psdimage.cpp
+src/rafimage.cpp
+src/rw2image.cpp
+src/tgaimage.cpp
+src/tiffimage.cpp
+src/webpimage.cpp
+615 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>Most of the manufacturers use TIFF structures to manage their raw formats.</p>
+
+
+	<p>In v0.25, I add the option -pS to print the structure of an image.<pre>616 rmills@rmillsmbp:~/Downloads $ exiv2 -pS F36A7292.CR2 
+STRUCTURE OF TIFF FILE (II): F36A7292.CR2
+ address |    tag                           |      type |    count |    offset | value
+      18 | 0x0100 ImageWidth                |     SHORT |        1 |      5760 | 5760
+      30 | 0x0101 ImageLength               |     SHORT |        1 |      3840 | 3840
+      42 | 0x0102 BitsPerSample             |     SHORT |        3 |       238 | 8 8 8
+      54 | 0x0103 Compression               |     SHORT |        1 |         6 | 6
+      66 | 0x010f Make                      |     ASCII |        6 |       244 | Canon
+      78 | 0x0110 Model                     |     ASCII |       22 |       250 | Canon EOS 5D Mark III
+      90 | 0x0111 StripOffsets              |      LONG |        1 |     84908 | 84908
+     102 | 0x0112 Orientation               |     SHORT |        1 |         1 | 1
+     114 | 0x0117 StripByteCounts           |      LONG |        1 |   2872535 | 2872535
+     126 | 0x011a XResolution               |  RATIONAL |        1 |       282 | 282/0
+     138 | 0x011b YResolution               |  RATIONAL |        1 |       290 | 290/0
+     150 | 0x0128 ResolutionUnit            |     SHORT |        1 |         2 | 2
+     162 | 0x0132 DateTime                  |     ASCII |       20 |       298 | 2015:06:11 01:07:06
+     174 | 0x013b Artist                    |     ASCII |        1 |         0 | 
+     186 | 0x02bc XMLPacket                 |      BYTE |     8192 |     71792 | &lt;?xpacket begin='...' id='W5M0Mp ...
+     198 | 0x8298 Copyright                 |     ASCII |        1 |         0 | 
+     210 | 0x8769 ExifTag                   |      LONG |        1 |       446 | 446
+     222 | 0x8825 GPSTag                    |      LONG |        1 |     69688 | 69688
+   71484 | 0x0201 JPEGInterchangeFormat     |      LONG |        1 |     79984 | 79984
+   71496 | 0x0202 JPEGInterchangeFormatLeng |      LONG |        1 |      4922 | 4922
+   71514 | 0x0100 ImageWidth                |     SHORT |        1 |       592 | 592
+   71526 | 0x0101 ImageLength               |     SHORT |        1 |       395 | 395
+   71538 | 0x0102 BitsPerSample             |     SHORT |        3 |     71674 | 16 16 16
+   71550 | 0x0103 Compression               |     SHORT |        1 |         1 | 1
+   71562 | 0x0106 PhotometricInterpretation |     SHORT |        1 |         2 | 2
+   71574 | 0x0111 StripOffsets              |      LONG |        1 |   2957444 | 2957444
+   71586 | 0x0115 SamplesPerPixel           |     SHORT |        1 |         3 | 3
+   71598 | 0x0116 RowsPerStrip              |     SHORT |        1 |       395 | 395
+   71610 | 0x0117 StripByteCounts           |      LONG |        1 |   1403040 | 1403040
+   71622 | 0x011c PlanarConfiguration       |     SHORT |        1 |         1 | 1
+   71634 | 0xc5d9                           |      LONG |        1 |         2 | 2
+   71646 | 0xc6c5                           |      LONG |        1 |         3 | 3
+   71658 | 0xc6dc                           |      LONG |        4 |     71680 | 577 386 14 9
+   71698 | 0x0103 Compression               |     SHORT |        1 |         6 | 6
+   71710 | 0x0111 StripOffsets              |      LONG |        1 |   4694148 | 4694148
+   71722 | 0x0117 StripByteCounts           |      LONG |        1 |  24276916 | 24276916
+   71734 | 0xc5d8                           |      LONG |        1 |         1 | 1
+   71746 | 0xc5e0                           |      LONG |        1 |         1 | 1
+   71758 | 0xc640                           |     SHORT |        3 |     71786 | 1 2960 2960
+   71770 | 0xc6c5                           |      LONG |        1 |         1 | 1
+END F36A7292.CR2
+617 rmills@rmillsmbp:~/Downloads $ </pre>This has been enhanced in v0.26 with the -pR option to recursively print the structure (structures within structures).  <pre>618 rmills@rmillsmbp:~/Downloads $ exiv2 -pR F36A7292.CR2
+STRUCTURE OF TIFF FILE (II): F36A7292.CR2
+ address |    tag                           |      type |    count |    offset | value
+      18 | 0x0100 ImageWidth                |     SHORT |        1 |      5760 | 5760
+      30 | 0x0101 ImageLength               |     SHORT |        1 |      3840 | 3840
+      42 | 0x0102 BitsPerSample             |     SHORT |        3 |       238 | 8 8 8
+      54 | 0x0103 Compression               |     SHORT |        1 |         6 | 6
+      66 | 0x010f Make                      |     ASCII |        6 |       244 | Canon
+      78 | 0x0110 Model                     |     ASCII |       22 |       250 | Canon EOS 5D Mark III
+      90 | 0x0111 StripOffsets              |      LONG |        1 |     84908 | 84908
+     102 | 0x0112 Orientation               |     SHORT |        1 |         1 | 1
+     114 | 0x0117 StripByteCounts           |      LONG |        1 |   2872535 | 2872535
+     126 | 0x011a XResolution               |  RATIONAL |        1 |       282 | 282/0
+     138 | 0x011b YResolution               |  RATIONAL |        1 |       290 | 290/0
+     150 | 0x0128 ResolutionUnit            |     SHORT |        1 |         2 | 2
+     162 | 0x0132 DateTime                  |     ASCII |       20 |       298 | 2015:06:11 01:07:06
+     174 | 0x013b Artist                    |     ASCII |        1 |         0 | 
+     186 | 0x02bc XMLPacket                 |      BYTE |     8192 |     71792 | &lt;?xpacket begin='...' id='W5M0Mp ...
+     198 | 0x8298 Copyright                 |     ASCII |        1 |         0 | 
+     210 | 0x8769 ExifTag                   |      LONG |        1 |       446 | 446
+  STRUCTURE OF TIFF FILE (II): F36A7292.CR2
+   address |    tag                           |      type |    count |    offset | value
+       448 | 0x829a ExposureTime              |  RATIONAL |        1 |       908 | 908/0
+       460 | 0x829d FNumber                   |  RATIONAL |        1 |       916 | 916/0
+       472 | 0x8822 ExposureProgram           |     SHORT |        1 |         1 | 1
+       484 | 0x8827 ISOSpeedRatings           |     SHORT |        1 |      3200 | 3200
+       496 | 0x8830 SensitivityType           |     SHORT |        1 |         2 | 2
+       508 | 0x8832 RecommendedExposureIndex  |      LONG |        1 |      3200 | 3200
+       520 | 0x9000 ExifVersion               | UNDEFINED |        4 | 808661552 | 0230
+       532 | 0x9003 DateTimeOriginal          |     ASCII |       20 |       924 | 2015:06:11 01:07:06
+       544 | 0x9004 DateTimeDigitized         |     ASCII |       20 |       944 | 2015:06:11 01:07:06
+       556 | 0x9101 ComponentsConfiguration   | UNDEFINED |        4 |    197121 | ...
+       568 | 0x9201 ShutterSpeedValue         | SRATIONAL |        1 |       964 | 964/0
+       580 | 0x9202 ApertureValue             |  RATIONAL |        1 |       972 | 972/0
+       592 | 0x9204 ExposureBiasValue         | SRATIONAL |        1 |       980 | 980/0
+       604 | 0x9207 MeteringMode              |     SHORT |        1 |         5 | 5
+       616 | 0x9209 Flash                     |     SHORT |        1 |        16 | 16
+       628 | 0x920a FocalLength               |  RATIONAL |        1 |       988 | 988/0
+       640 | 0x927c MakerNote                 | UNDEFINED |    68200 |       996 | *.....1...............D........ ...
+       652 | 0x9286 UserComment               | UNDEFINED |      264 |     69196 | ............................... ...
+       664 | 0x9290 SubSecTime                |     ASCII |        3 |     13619 | 35
+       676 | 0x9291 SubSecTimeOriginal        |     ASCII |        3 |     13619 | 35
+       688 | 0x9292 SubSecTimeDigitized       |     ASCII |        3 |     13619 | 35
+       700 | 0xa000 FlashpixVersion           | UNDEFINED |        4 | 808464688 | 0100
+       712 | 0xa001 ColorSpace                |     SHORT |        1 |         1 | 1
+       724 | 0xa002 PixelXDimension           |     SHORT |        1 |      5760 | 5760
+       736 | 0xa003 PixelYDimension           |     SHORT |        1 |      3840 | 3840
+       748 | 0xa005 InteroperabilityTag       |      LONG |        1 |     69460 | 69460
+       760 | 0xa20e FocalPlaneXResolution     |  RATIONAL |        1 |     69490 | 3954/1
+       772 | 0xa20f FocalPlaneYResolution     |  RATIONAL |        1 |     69498 | 3962/1
+       784 | 0xa210 FocalPlaneResolutionUnit  |     SHORT |        1 |         2 | 2
+       796 | 0xa401 CustomRendered            |     SHORT |        1 |         0 | 0
+       808 | 0xa402 ExposureMode              |     SHORT |        1 |         1 | 1
+       820 | 0xa403 WhiteBalance              |     SHORT |        1 |         0 | 0
+       832 | 0xa406 SceneCaptureType          |     SHORT |        1 |         0 | 0
+       844 | 0xa430 CameraOwnerName           |     ASCII |        1 |     69376 | 
+       856 | 0xa431 BodySerialNumber          |     ASCII |       13 |     69538 | 053024005436
+       868 | 0xa432 LensSpecification         |  RATIONAL |        4 |     69570 | 0/0 1/0 0/0 1/0
+       880 | 0xa434 LensModel                 |     ASCII |        1 |     69376 | 
+       892 | 0xa435 LensSerialNumber          |     ASCII |       11 |     69676 | 0000000000
+  END F36A7292.CR2
+     222 | 0x8825 GPSTag                    |      LONG |        1 |     69688 | 69688
+   71484 | 0x0201 JPEGInterchangeFormat     |      LONG |        1 |     79984 | 79984
+   71496 | 0x0202 JPEGInterchangeFormatLeng |      LONG |        1 |      4922 | 4922
+   71514 | 0x0100 ImageWidth                |     SHORT |        1 |       592 | 592
+   71526 | 0x0101 ImageLength               |     SHORT |        1 |       395 | 395
+   71538 | 0x0102 BitsPerSample             |     SHORT |        3 |     71674 | 16 16 16
+   71550 | 0x0103 Compression               |     SHORT |        1 |         1 | 1
+   71562 | 0x0106 PhotometricInterpretation |     SHORT |        1 |         2 | 2
+   71574 | 0x0111 StripOffsets              |      LONG |        1 |   2957444 | 2957444
+   71586 | 0x0115 SamplesPerPixel           |     SHORT |        1 |         3 | 3
+   71598 | 0x0116 RowsPerStrip              |     SHORT |        1 |       395 | 395
+   71610 | 0x0117 StripByteCounts           |      LONG |        1 |   1403040 | 1403040
+   71622 | 0x011c PlanarConfiguration       |     SHORT |        1 |         1 | 1
+   71634 | 0xc5d9                           |      LONG |        1 |         2 | 2
+   71646 | 0xc6c5                           |      LONG |        1 |         3 | 3
+   71658 | 0xc6dc                           |      LONG |        4 |     71680 | 577 386 14 9
+   71698 | 0x0103 Compression               |     SHORT |        1 |         6 | 6
+   71710 | 0x0111 StripOffsets              |      LONG |        1 |   4694148 | 4694148
+   71722 | 0x0117 StripByteCounts           |      LONG |        1 |  24276916 | 24276916
+   71734 | 0xc5d8                           |      LONG |        1 |         1 | 1
+   71746 | 0xc5e0                           |      LONG |        1 |         1 | 1
+   71758 | 0xc640                           |     SHORT |        3 |     71786 | 1 2960 2960
+   71770 | 0xc6c5                           |      LONG |        1 |         1 | 1
+END F36A7292.CR2
+619 rmills@rmillsmbp:~/Downloads $</pre>You'll notice the MakerNote tag hidden in a sub image as:<pre>       640 | 0x927c MakerNote                 | UNDEFINED |    68200 |       996 | *.....1...............D........ ...</pre>I wanted to add a MakerNote decoder to -pR, however I've been too busy to undertake that tasks.</p>
+
+
+	<p>Because I'm working very hard to reach "feature complete" on v0.26 at the moment, I don't want to be drawn further into a discussion about this matter.</p>
+
+
+	<p>I recommend that you open an Feature Issue in Redmine to support "Camera Temperature" in v0.27.  May I ask you to search on the Exiftool website to discover how this is stored and put that information into the Issue.</p>
+
+
+	<p>I'll be happy to work with you to implement this when v0.26 has safely arrived at "feature complete" and I am less busy than now.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2695">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2688?r=2695#message-2695">RE: Camera sensor Temperature (not color Temperature)</a>
+    -
+    Added by <a class="user active" href="/users/4745">Raphael Attie</a> <a title="31 Aug 2016 11:45" href="/projects/exiv2/activity?from=2016-08-31">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin, thank you very much for your time and for providing these detailed information. I'll open a Feature Issue, and will try to work my way in, looking also into Exiftool to see how they do it. I don't know much about Perl though but maybe the documentation and/or the C++ implementation will help. I'll let you know, although I don't promise on the timeline... busy busy as well.</p>
+
+
+	<p>Again, thanks a lot.</p>
+
+
+	<p>Raphael</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2696">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2688?r=2696#message-2696">RE: Camera sensor Temperature (not color Temperature)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Aug 2016 11:48" href="/projects/exiv2/activity?from=2016-08-31">about 5 years</a> ago
+  </h4>
+  <div class="wiki"><p>If you want something done, <em><strong>give it to a busy man</strong> (or woman)</em>.  I'm looking forward to working with you.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-8/8)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

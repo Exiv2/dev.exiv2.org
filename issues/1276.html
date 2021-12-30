@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1276: fails to read any XMP metadata when duplicates present - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="YUH8tRmdp67iUwkDppAN8SRoWlk478SbHOd38FxFldKDDFdaa+drrrc3Fg8ZRwHCG/oOIMkMZSHhx+d4H3xyvQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1276: fails to read any XMP metadata when duplicates present" href="https://dev.exiv2.org/issues/1276.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1276</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>fails to read any XMP metadata when duplicates present</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4962">Aerilius .</a> <a title="08 Feb 2017 14:40" href="/projects/exiv2/activity?from=2017-02-08">almost 5 years</a> ago.
+        Updated <a title="08 Feb 2017 17:59" href="/projects/exiv2/activity?from=2017-02-08">almost 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">xmp</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">08 Feb 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>When reading XMP metadata from image files with duplicate tags, exiv2 (and gexiv2) does not give any metadata output, although metadata is present.</p>
+
+
+	<p>As a consequence, features in applications using exiv2 are rendered disfunctioning if they rely on reading a specific XMP tag (even if that single tag is consistent and not duplicate). In real-world scenarios, some users do have image files with duplicate tags and they experience expected features not working although they could work.</p>
+
+
+	<p>Observation:</p>
+
+
+<pre>
+$ exiv2 -px example_duplicate_tags.jpg
+Error: XMP Toolkit error 203: Duplicate property or field node
+Warning: Failed to decode XMP metadata.
+example_duplicate_tags.jpg: (No XMP data found in the file)
+</pre>
+
+	<p>By contrast, `exiftool example_duplicate_tags.jpg` prints all metadata and ignores duplicates.</p>
+
+
+	<p>Expectation:</p>
+
+
+	<p>exiv2 should give access to all readable tags. If some XMP tags are inconsistent, it should only be indicated by a warning but not a denial of operation. In case of duplicates the question is open whether to return the last occuring value or the first.</p>
+
+
+	<p>Ubuntu 16.10<br />exiv2 0.25-3<br />libexiv2-14 0.25-3</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1132">example_duplicate_tags.jpg.zip</a>    <span class="size">(21 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1132/example_duplicate_tags.jpg.zip">example_duplicate_tags.jpg.zip</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Aerilius ., 08 Feb 2017 14:40</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5818" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Feb 2017 16:00" href="/projects/exiv2/activity?from=2017-02-08">almost 5 years</a> ago
+      <span id="journal-5818-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>xmp</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Closed</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-5818-notes" class="wiki"><p>Thank you for reporting this and providing a test file.  I have recreated your issue with Exiv2 v0.26rc1 (current trunk).</p>
+
+
+	<p>The issue is caused by duplicated keys in the XMP and this causes the embedded XMPsdk in exiv2 to panic and throw an exception.  This may be valid XML, however I believe it is invalid XMP and the exception is correctly thrown.  However, Adobe seem to allow this in the latest XMPsdk (XMP-Toolkit-SDK-CC201607) which we hope to support in exiv2 v0.27.</p>
+
+
+<pre>$ exiv2 -pX ~/Downloads/example_duplicate_tags.jpg | xmllint --format - | grep GPano: | wc
+     20      20    1368
+$ exiv2 -pX ~/Downloads/example_duplicate_tags.jpg | xmllint --format - | grep GPano: | sort | uniq | wc
+     10      10     684
+$ exiv2 -pX ~/Downloads/example_duplicate_tags.jpg | xmllint --format - | grep GPano: | sort | uniq 
+      &lt;GPano:CroppedAreaImageHeightPixels&gt;3127&lt;/GPano:CroppedAreaImageHeightPixels&gt;
+      &lt;GPano:CroppedAreaImageWidthPixels&gt;6288&lt;/GPano:CroppedAreaImageWidthPixels&gt;
+      &lt;GPano:CroppedAreaLeftPixels&gt;0&lt;/GPano:CroppedAreaLeftPixels&gt;
+      &lt;GPano:CroppedAreaTopPixels&gt;8&lt;/GPano:CroppedAreaTopPixels&gt;
+      &lt;GPano:FullPanoHeightPixels&gt;3144&lt;/GPano:FullPanoHeightPixels&gt;
+      &lt;GPano:FullPanoWidthPixels&gt;6288&lt;/GPano:FullPanoWidthPixels&gt;
+      &lt;GPano:ProjectionType&gt;equirectangular&lt;/GPano:ProjectionType&gt;
+      &lt;GPano:SourcePhotosCount&gt;42&lt;/GPano:SourcePhotosCount&gt;
+      &lt;GPano:StitchingSoftware&gt;Hugin&lt;/GPano:StitchingSoftware&gt;
+      &lt;GPano:UsePanoramaViewer&gt;True&lt;/GPano:UsePanoramaViewer&gt;
+$ </pre>Examining your test file with XMP-Toolkit-SDK-CC201607:<pre>$ ~/gnu/xmpsdk/XMP-Toolkit-SDK-CC201607/samples/target/macintosh/intel_64/Release/ReadingXMP ~/Downloads/example_duplicate_tags.jpg 
+
+/Users/rmills/Downloads/example_duplicate_tags.jpg is opened successfully
+CreatorTool = GIMP 2.8.18
+dc:title in English = 
+dc:title in French = 
+
+XMP dumped to XMPDump.txt
+$ cat XMPDump.txt 
+Dumping XMPMeta object ""  (0x0)
+
+   GPano:  http://ns.google.com/photos/1.0/panorama/  (0x80000000 : schema)
+      GPano:CroppedAreaImageHeightPixels = "3127" 
+      GPano:CroppedAreaImageWidthPixels = "6288" 
+      GPano:CroppedAreaLeftPixels = "0" 
+      GPano:CroppedAreaTopPixels = "8" 
+      GPano:FullPanoHeightPixels = "3144" 
+      GPano:FullPanoWidthPixels = "6288" 
+      GPano:ProjectionType = "equirectangular" 
+      GPano:SourcePhotosCount = "42" 
+      GPano:StitchingSoftware = "Hugin" 
+      GPano:UsePanoramaViewer = "True" 
+
+   xmp:  http://ns.adobe.com/xap/1.0/  (0x80000000 : schema)
+      xmp:CreateDate = "2017:01:06 15:58:33" 
+      xmp:CreatorTool = "GIMP 2.8.18" 
+      xmp:ModifyDate = "2017-02-06T16:20:57" 
+
+   exif:  http://ns.adobe.com/exif/1.0/  (0x80000000 : schema)
+      exif:DateTimeOriginal = "2017:01:06 15:58:33" 
+      exif:GPSLongitude = "8,2.7893E" 
+      exif:GPSTimeStamp = "2017-01-06T14:58:07Z" 
+      exif:GPSAltitude = "550/1" 
+      exif:GPSAltitudeRef = "0" 
+      exif:ColorSpace = "1" 
+      exif:ExifVersion = "0230" 
+      exif:FlashpixVersion = "0100" 
+      exif:ComponentsConfiguration  (0x600 : isOrdered isArray)
+         [1] = "1" 
+         [2] = "2" 
+         [3] = "3" 
+         [4] = "0" 
+      exif:UserComment  (0x1E00 : isLangAlt isAlt isOrdered isArray)
+         [1] = "-
+Projection: Equirectangular (2)
+FOV: 360 x 179
+Ev: 11,73"  (0x50 : hasLang hasQual)
+               ? xml:lang = "x-default"  (0x20 : isQual)
+      exif:GPSVersionID = "2.2.0.0" 
+      exif:GPSLatitude = "49,25.5675N" 
+      exif:GPSProcessingMethod = "GPS" 
+
+   tiff:  http://ns.adobe.com/tiff/1.0/  (0x80000000 : schema)
+      tiff:XResolution = "1/1" 
+      tiff:YResolution = "1/1" 
+      tiff:ResolutionUnit = "0" 
+      tiff:YCbCrPositioning = "1" 
+      tiff:Make = "Xiaomi" 
+      tiff:Model = "Redmi Note 2" 
+
+   photoshop:  http://ns.adobe.com/photoshop/1.0/  (0x80000000 : schema)
+      photoshop:DateCreated = "2017:01:06 15:58:33" 
+$ </pre>The workaround is to extract the XMP, fix it, replace it in the file.  Something like this:<pre>$ exiv2 -pX ~/Downloads/example_duplicate_tags.jpg | xsltproc magic.xslt | exiv2 -iX- ~/Downloads/example_duplicate_tags.jpg</pre>The code in magic.xslt is discussed here: <a class="external" href="http://stackoverflow.com/questions/10912544/removing-duplicate-elements-with-xslt">http://stackoverflow.com/questions/10912544/removing-duplicate-elements-with-xslt</a>
+
+	<p>I am very reluctant to submit a fix for this issue in Exiv2 at this time in our release cycle.  I believe this will be resolved when we upgrade the version of XMPsdk (<a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Upgrade xmpsdk source to Adobe&#39;s current version (Closed)" href="/issues/941">#941</a>) which is likely to be available in 2017.</p>
+
+
+	<p>I have investigated how "duplicated" keys/values are handled in XMP-Toolkit-SDK-CC201607 by modifying one of the CroppedAreaImageHeightPixels values in your file.  The first value defined is used and no warning is issued when the second (and different) value is encountered.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5821" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Feb 2017 17:18" href="/projects/exiv2/activity?from=2017-02-08">almost 5 years</a> ago
+      <span id="journal-5821-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5821-notes" class="wiki"><p>I've done more work on this.  Maybe it's easy to fix (but it isn't).  The exception comes from xmpsdk/src/RDFParse.cpp line 396.<pre>    // Make sure that this is not a duplicate of a named node.
+    if ( ! (isArrayItem | isValueNode) ) {
+        if ( FindChildNode ( xmpParent, childName, kXMP_ExistingOnly ) != 0 ) {
+            XMP_Throw ( "Duplicate property or field node", kXMPErr_BadXMP );
+        }
+    }</pre>I've changed this to:<pre>    if ( ! (isArrayItem | isValueNode) ) {
+        if ( FindChildNode ( xmpParent, childName, kXMP_ExistingOnly ) != 0 ) {
+            // #1276, don't throw
+            // XMP_Throw ( "Duplicate property or field node", kXMPErr_BadXMP );
+            return FindChildNode ( xmpParent, childName, kXMP_ExistingOnly )
+        }
+    }</pre>And no more exception.  <em><strong>BUT</strong></em> the second value of CroppedAreaImageHeightPixels is being appended to the first:<pre> Xmp.GPano.CroppedAreaImageHeightPixels       XmpText     8  31283127</pre>I tried to fix that and ran into new exceptions.  I know very little about the XMPsdk code and I'm very reluctant to change it.  This is dangerous country.  As Captain Kirk would say "We're surrounded by aliens.  Beam me up, Scotty".  I feel I must defer this and when we upgrade XMPsdk in v0.27, this issue will be resolved.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5823" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4962">Aerilius .</a> <a title="08 Feb 2017 17:59" href="/projects/exiv2/activity?from=2017-02-08">almost 5 years</a> ago
+      <span id="journal-5823-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5823-notes" class="wiki"><p>Thanks for your effort and commitment!</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1276.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1276.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

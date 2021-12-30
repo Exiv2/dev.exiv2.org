@@ -1,0 +1,22 @@
+#From XMP Modify Date (exiv2 stdout grepped and trimmed to HR value)
+#to a new Modify Date for the actual file --
+#all in pure BASH (or as "pure" as you're likely to get it)
+#
+#
+#Not a script, just glorified 'notes.'
+#You're welcome to build your own scripts around this code, however.
+
+dated=$(exiv2 -g Xmp.xmp.ModifyDate -Pv 1199.jpg) # In this case, '2006-05-28T00:30:27-04:00
+'
+rdate=${dated%-*}
+notee=${rdate/T/ }
+sdate=${notee//-/:}
+read date time<<<"$sdate"
+SAVEIFS=$IFS
+IFS=":" read year month day<<<"$date"
+a=$(echo ${sdate//:/}) ; b=$(echo ${a/ /})
+d=$(echo ".${b:(-2)}")
+clocktime=${b:0:12}
+nasa="$clocktime$d"
+echo $nasa # Should return '200605280030.27', which is fine for any "touch -t" variation you care to use.
+IFS=$SAVEIFS

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #885: Exif read/write on HDR images - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="6SJsMUWCjqOGPQRmzi2PtQR5QulD5IH0jraPCyvSfDwLb8feN/hCo9NZG2px+oOGO+sWkLIHIE5zlh+DaOubUw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #885: Exif read/write on HDR images" href="https://dev.exiv2.org/issues/885.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #885</h2>
+
+<div class="issue tracker-2 status-1 priority-4 priority-default details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Exif read/write on HDR images</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/2456">Daniel Kaneider</a> <a title="01 Mar 2013 10:35" href="/projects/exiv2/activity?from=2013-03-01">over 8 years</a> ago.
+        Updated <a title="04 Jun 2018 12:49" href="/projects/exiv2/activity?from=2018-06-04">over 3 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">New</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">image format</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a href="/versions/31">1.0</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">01 Mar 2013</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hi,</p>
+
+
+	<p>it would be nice if exiv2 could read/write information on HDR image file formats. Both RadianceHDR (.pic, .hdr) and OpenExr (.exr) seem to support a kind of custom data to store along with the image.</p>
+
+
+	<p>The use case for such a feature would be to store camera information from the original raw/jpeg files into the created hdr file. In such a way it would be possible to open the Hdr file and still have all exif information, which then could be stored into the newly created tonemapped (jpeg) image.</p>
+
+
+Additional information:
+	<ul>
+	<li>Radiance HDR - <a class="external" href="http://paulbourke.net/dataformats/pic/">http://paulbourke.net/dataformats/pic/</a></li>
+		<li>OpenEXR Technical Intro - <a class="external" href="http://www.openexr.com/TechnicalIntroduction.pdf">http://www.openexr.com/TechnicalIntroduction.pdf</a></li>
+	</ul>
+
+
+	<p>Thanks,</p>
+
+
+	<p>Daniel<br />Luminance HDR Team</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2408" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Mar 2013 18:54" href="/projects/exiv2/activity?from=2013-03-01">over 8 years</a> ago
+      <span id="journal-2408-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>1.0</i></li>
+    </ul>
+    <div id="journal-2408-notes" class="wiki"><p>Daniel</p>
+
+
+	<p>I agree.  This is a very good idea.</p>
+
+
+	<p>Last summer we had a GSoC (Google Summer of Code) student work on the video code and he did a very good job.  We've proposed two projects this year and one of them is to provide support for more formats. We didn't list HDR as a goal,  because nobody on the Exiv2 team mentioned it!  <a class="external" href="http://community.kde.org/GSoC/2013/Ideas#Project:_Video_Metadata_Support_Improvements">http://community.kde.org/GSoC/2013/Ideas#Project:_Video_Metadata_Support_Improvements</a></p>
+
+
+	<p>I'll assign this issue to me and perhaps it'll be dealt with this summer.</p>
+
+
+	<p>I'm the project mentor for our other proposal (to make Exiv2 "Cloud Ready").  However I'll assign this issue to myself for now, however the intention is to find a volunteer.</p>
+
+
+	<p>Thank you for suggesting this.  It's always nice to hear from you.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2576" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 15:54" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2576-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2576-notes" class="wiki"><p>Deferred.  This was discussed as a possible project to be undertaken by Google Summer of Code 2013 students.  In the end, it lost out to the "Video Write" and "Cloud Ready".  Perhaps it will be undertaken in GSoC2014.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2578" class="journal has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 15:57" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2578-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>1.0</i> to <i>0.25</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3687" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 May 2015 08:22" href="/projects/exiv2/activity?from=2015-05-09">over 6 years</a> ago
+      <span id="journal-3687-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.25</i> to <i>0.26</i></li>
+    </ul>
+    <div id="journal-3687-notes" class="wiki"><p>Deferred to v0.26. Insufficient time to deal with this for v0.25.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3771" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 May 2015 08:44" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+      <span id="journal-3771-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> deleted (<del><i>Robin Mills</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4629" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Jan 2016 09:26" href="/projects/exiv2/activity?from=2016-01-04">almost 6 years</a> ago
+      <span id="journal-4629-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>1.0</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5086" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3663">Tobias E.</a> <a title="30 May 2016 15:35" href="/projects/exiv2/activity?from=2016-05-30">over 5 years</a> ago
+      <span id="journal-5086-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5086-notes" class="wiki"><p>darktable and GIMP support EXIF+XMP in EXR files by using a non-standard tag. IPTC could be added the same way, it's just not done at the moment. It would be great if this was made into the "standard" way to add metadata to EXR files.</p>
+
+
+	<p>You can see the sample code here:</p>
+
+
+	<p>darktable:</p>
+
+
+	<p>writing: <a class="external" href="https://github.com/darktable-org/darktable/blob/master/src/imageio/format/exr.cc#L112-L126">https://github.com/darktable-org/darktable/blob/master/src/imageio/format/exr.cc#L112-L126</a><br />reading: <a class="external" href="https://github.com/darktable-org/darktable/blob/master/src/common/imageio_exr.cc#L121-L125">https://github.com/darktable-org/darktable/blob/master/src/common/imageio_exr.cc#L121-L125</a></p>
+
+
+	<p>GIMP:</p>
+
+
+	<p>reading: <a class="external" href="https://git.gnome.org/browse/gimp/tree/plug-ins/file-exr/openexr-wrapper.cc#n303">https://git.gnome.org/browse/gimp/tree/plug-ins/file-exr/openexr-wrapper.cc#n303</a></p>
+
+
+	<p>and shared by both the blob type: <a class="external" href="https://github.com/darktable-org/darktable/blob/master/src/common/imageio_exr.hh">https://github.com/darktable-org/darktable/blob/master/src/common/imageio_exr.hh</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5088" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 May 2016 17:36" href="/projects/exiv2/activity?from=2016-05-30">over 5 years</a> ago
+      <span id="journal-5088-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5088-notes" class="wiki"><p>I've started to prepare the plan for v0.27 and that will include support for more image formats.  I've add HDR to that list:  <a class="external" href="http://dev.exiv2.org/news/3">http://dev.exiv2.org/news/3</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5130" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="01 Jun 2016 15:05" href="/projects/exiv2/activity?from=2016-06-01">over 5 years</a> ago
+      <span id="journal-5130-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5130-notes" class="wiki"><p>Tobias E. wrote:</p>
+
+
+<blockquote>
+
+	<p>darktable and GIMP support EXIF+XMP in EXR files</p>
+
+
+</blockquote>
+
+	<p>Perhaps they could be convinced to take on the task of adding this support to exiv2? As they both use exiv2 and already have knowledge of the openEXR format, would that not be better then everyone reinventing the wheel in possibly incompatible ways?</p>
+
+
+<blockquote>
+
+	<p>by using a non-standard tag.</p>
+
+
+</blockquote>
+
+	<p>That sounds dangerous.</p>
+
+
+<blockquote>
+
+	<p>IPTC could be added the same way, it's just not done at the moment.</p>
+
+
+</blockquote>
+
+	<p>Sure, why not?</p>
+
+
+<blockquote>
+
+	<p>It would be great if this was made into the "standard" way to add metadata to EXR files.</p>
+
+
+</blockquote>
+
+	<p>If it is already a defacto standard, it could be supported. If not, a proper standard could be developed, agreed upon and documented.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5158" class="journal has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Jun 2016 11:47" href="/projects/exiv2/activity?from=2016-06-13">over 5 years</a> ago
+      <span id="journal-5158-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> changed from <i>1.0</i> to <i>0.28</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-6210" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/7150">Nicolas Parisse</a> <a title="04 Jun 2018 12:09" href="/projects/exiv2/activity?from=2018-06-04">over 3 years</a> ago
+      <span id="journal-6210-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6210-notes" class="wiki"><p>Hi,</p>
+
+
+	<p>Is there any progression about supporting the OpenEXR format in exiv2 ?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6211" class="journal has-notes has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Jun 2018 12:49" href="/projects/exiv2/activity?from=2018-06-04">over 3 years</a> ago
+      <span id="journal-6211-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>New</i></li>
+       <li><strong>Target version</strong> changed from <i>0.28</i> to <i>1.0</i></li>
+    </ul>
+    <div id="journal-6211-notes" class="wiki"><p>No progress has been made on this.  In May, we had a team meeting at my home in England.  We discussed v0.27 (later this year) and v0.28 (2019).  HDR wasn't discussed.</p>
+
+
+	<p>I'm sure you can appreciate that the team is small (3 active contributors) and there are many requests.  We cannot undertake every request.  Last July, the Linux security people began fuzzing our code and pushed their demands to the top of our priority.  Their unexpected arrival has consumed about 1000 hours of effort in the last 9 months.  In addition, we have made build/test enhancements, modernisation of the code to C++11 and many other requests.  These new features will appear in v0.27 and v0.28.</p>
+
+
+	<p>In some ways, there's only one way for anybody to be certain of getting a feature implemented and that's to volunteer.  However that's not to say that we are lazy or ignore requests.  Daniel brought up this topic a few years ago.  He also requested stronger CMake support.  I've put more than 200 hours into CMake.  Luis joined Team Exiv2 in 2017 and has also put lots of effort into CMake.  Daniel wasn't alone in requesting CMake and that project has been done.</p>
+
+
+	<p>Regrettably, without a volunteer to deal with HDR, I don't know when this can be achieved.  I've been hoping to retire from Exiv2 for at least a year (I was 67 in January).  I'm going to unassign myself from this request and set the target to v1.0.  That doesn't mean "never", it means "eventually".</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/885.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/885.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

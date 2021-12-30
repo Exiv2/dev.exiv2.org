@@ -1,0 +1,720 @@
+Index: include/exiv2/asfvideo.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/asfvideo.hpp b/trunk/include/exiv2/asfvideo.hpp
+--- a/trunk/include/exiv2/asfvideo.hpp	(revision 4698)
++++ b/trunk/include/exiv2/asfvideo.hpp	(working copy)
+@@ -75,6 +75,7 @@
+         //@{
+         void readMetadata();
+         void writeMetadata();
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         //@}
+ 
+         //! @name Accessors
+Index: include/exiv2/bmpimage.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/bmpimage.hpp b/trunk/include/exiv2/bmpimage.hpp
+--- a/trunk/include/exiv2/bmpimage.hpp	(revision 4698)
++++ b/trunk/include/exiv2/bmpimage.hpp	(working copy)
+@@ -85,6 +85,7 @@
+         //! @name Manipulators
+         //@{
+         void readMetadata();
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         /*!
+           @brief Todo: Write metadata back to the image. This method is not
+               yet(?) implemented. Calling it will throw an Error(31).
+Index: include/exiv2/crwimage.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/crwimage.hpp b/trunk/include/exiv2/crwimage.hpp
+--- a/trunk/include/exiv2/crwimage.hpp	(revision 4698)
++++ b/trunk/include/exiv2/crwimage.hpp	(working copy)
+@@ -88,6 +88,7 @@
+         //@{
+         void readMetadata();
+         void writeMetadata();
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         /*!
+           @brief Not supported. CRW format does not contain IPTC metadata.
+               Calling this function will throw an Error(32).
+Index: include/exiv2/epsimage.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/epsimage.hpp b/trunk/include/exiv2/epsimage.hpp
+--- a/trunk/include/exiv2/epsimage.hpp	(revision 4698)
++++ b/trunk/include/exiv2/epsimage.hpp	(working copy)
+@@ -84,6 +84,7 @@
+         //! @name Manipulators
+         //@{
+         void readMetadata();
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void writeMetadata();
+         /*!
+           @brief Not supported.
+Index: include/exiv2/gifimage.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/gifimage.hpp b/trunk/include/exiv2/gifimage.hpp
+--- a/trunk/include/exiv2/gifimage.hpp	(revision 4698)
++++ b/trunk/include/exiv2/gifimage.hpp	(working copy)
+@@ -86,6 +86,7 @@
+         //! @name Manipulators
+         //@{
+         void readMetadata();
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         /*!
+           @brief Todo: Write metadata back to the image. This method is not
+               yet(?) implemented. Calling it will throw an Error(31).
+Index: include/exiv2/matroskavideo.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/matroskavideo.hpp b/trunk/include/exiv2/matroskavideo.hpp
+--- a/trunk/include/exiv2/matroskavideo.hpp	(revision 4698)
++++ b/trunk/include/exiv2/matroskavideo.hpp	(working copy)
+@@ -84,6 +84,7 @@
+         //@{
+         void readMetadata();
+         void writeMetadata();
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         //@}
+ 
+         //! @name Accessors
+Index: include/exiv2/mrwimage.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/mrwimage.hpp b/trunk/include/exiv2/mrwimage.hpp
+--- a/trunk/include/exiv2/mrwimage.hpp	(revision 4698)
++++ b/trunk/include/exiv2/mrwimage.hpp	(working copy)
+@@ -79,6 +79,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         /*!
+           @brief Todo: Write metadata back to the image. This method is not
+Index: include/exiv2/orfimage.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/orfimage.hpp b/trunk/include/exiv2/orfimage.hpp
+--- a/trunk/include/exiv2/orfimage.hpp	(revision 4698)
++++ b/trunk/include/exiv2/orfimage.hpp	(working copy)
+@@ -79,6 +79,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         void writeMetadata();
+         /*!
+Index: include/exiv2/pgfimage.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/pgfimage.hpp b/trunk/include/exiv2/pgfimage.hpp
+--- a/trunk/include/exiv2/pgfimage.hpp	(revision 4698)
++++ b/trunk/include/exiv2/pgfimage.hpp	(working copy)
+@@ -83,6 +83,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         void writeMetadata();
+         //@}
+Index: include/exiv2/psdimage.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/psdimage.hpp b/trunk/include/exiv2/psdimage.hpp
+--- a/trunk/include/exiv2/psdimage.hpp	(revision 4698)
++++ b/trunk/include/exiv2/psdimage.hpp	(working copy)
+@@ -86,6 +86,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         void writeMetadata();
+         /*!
+Index: include/exiv2/quicktimevideo.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/quicktimevideo.hpp b/trunk/include/exiv2/quicktimevideo.hpp
+--- a/trunk/include/exiv2/quicktimevideo.hpp	(revision 4698)
++++ b/trunk/include/exiv2/quicktimevideo.hpp	(working copy)
+@@ -71,6 +71,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         void writeMetadata();
+         //@}
+Index: include/exiv2/rafimage.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/rafimage.hpp b/trunk/include/exiv2/rafimage.hpp
+--- a/trunk/include/exiv2/rafimage.hpp	(revision 4698)
++++ b/trunk/include/exiv2/rafimage.hpp	(working copy)
+@@ -78,6 +78,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         /*!
+           @brief Todo: Write metadata back to the image. This method is not
+Index: include/exiv2/riffvideo.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/riffvideo.hpp b/trunk/include/exiv2/riffvideo.hpp
+--- a/trunk/include/exiv2/riffvideo.hpp	(revision 4698)
++++ b/trunk/include/exiv2/riffvideo.hpp	(working copy)
+@@ -71,6 +71,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         void writeMetadata();
+         //@}
+@@ -185,9 +186,14 @@
+         RiffVideo(const RiffVideo& rhs);
+         //! Assignment operator
+         RiffVideo& operator=(const RiffVideo& rhs);
++        bool equalsRiffTag(Exiv2::DataBuf& buf ,const char* str);
+         //@}
+ 
+     private:
++        const static int RIFF_TAG_SIZE;
++        const static char* RIFF_CHUNK_HEADER_ICCP;
++        const static char* RIFF_CHUNK_HEADER_EXIF;
++        const static char* RIFF_CHUNK_HEADER_XMP;
+         //! Variable to check the end of metadata traversing.
+         bool continueTraversing_;
+         //! Variable which stores current stream being processsed.
+Index: include/exiv2/rw2image.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/rw2image.hpp b/trunk/include/exiv2/rw2image.hpp
+--- a/trunk/include/exiv2/rw2image.hpp	(revision 4698)
++++ b/trunk/include/exiv2/rw2image.hpp	(working copy)
+@@ -76,6 +76,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         /*!
+           @brief Todo: Write metadata back to the image. This method is not
+Index: include/exiv2/tgaimage.hpp
+===================================================================
+diff --git a/trunk/include/exiv2/tgaimage.hpp b/trunk/include/exiv2/tgaimage.hpp
+--- a/trunk/include/exiv2/tgaimage.hpp	(revision 4698)
++++ b/trunk/include/exiv2/tgaimage.hpp	(working copy)
+@@ -86,6 +86,7 @@
+ 
+         //! @name Manipulators
+         //@{
++        void printStructure(std::ostream& out, PrintStructureOption option,int depth);
+         void readMetadata();
+         /*!
+           @brief Todo: Write metadata back to the image. This method is not
+Index: src/asfvideo.cpp
+===================================================================
+diff --git a/trunk/src/asfvideo.cpp b/trunk/src/asfvideo.cpp
+--- a/trunk/src/asfvideo.cpp	(revision 4698)
++++ b/trunk/src/asfvideo.cpp	(working copy)
+@@ -310,6 +310,16 @@
+     {
+     }
+ 
++    void AsfVideo::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isAsfType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "ASF");
++        }
++    } // AsfVideo::printStructure
++
+     void AsfVideo::readMetadata()
+     {
+         if (io_->open() != 0) throw Error(9, io_->path(), strError());
+Index: src/basicio.cpp
+===================================================================
+diff --git a/trunk/src/basicio.cpp b/trunk/src/basicio.cpp
+--- a/trunk/src/basicio.cpp	(revision 4698)
++++ b/trunk/src/basicio.cpp	(working copy)
+@@ -2151,6 +2151,93 @@
+     }
+ #endif
+ 
++    //! Internal Pimpl structure of class LocalNetFileIo.
++    class LocalNetFileIo::LocalNetFileImpl : public Impl  {
++    public:
++        //! Constructor
++        LocalNetFileImpl(const std::string&  path,  size_t blockSize);
++#ifdef EXV_UNICODE_PATH
++        //! Constructor accepting a unicode path in an std::wstring
++        LocalNetFileImpl(const std::wstring& wpath, size_t blockSize);
++#endif
++        Exiv2::Uri hostInfo_; //!< the host information extracted from the path
++
++        // METHODS
++        /*!
++          @brief Get the length (in bytes) of the remote file.
++          @return Return -1 if the size is unknown. Otherwise it returns the length of remote file (in bytes).
++          @throw Error if the server returns the error code.
++         */
++        long getFileLength();
++        /*!
++          @brief Get the data by range.
++          @param lowBlock The start block index.
++          @param highBlock The end block index.
++          @param response The data from the server.
++          @throw Error if the server returns the error code.
++          @note Set lowBlock = -1 and highBlock = -1 to get the whole file content.
++         */
++        void getDataByRange(long lowBlock, long highBlock, std::string& response);
++        /*!
++          @brief Submit the data to the remote machine. The data replace a part of the remote file.
++                The replaced part of remote file is indicated by from and to parameters.
++          @param data The data are submitted to the remote machine.
++          @param size The size of data.
++          @param from The start position in the remote file where the data replace.
++          @param to The end position in the remote file where the data replace.
++          @note The data are submitted to the remote machine via POST. This requires the script file
++                on the remote machine to receive the data and edit the remote file. The server-side
++                script may be specified with the environment string EXIV2_HTTP_POST. The default value is
++                "/exiv2.php". More info is available at http://dev.exiv2.org/wiki/exiv2
++          @throw Error if it fails.
++         */
++        void writeRemote(const byte* data, size_t size, long from, long to);
++    protected:
++        // NOT IMPLEMENTED
++        LocalNetFileImpl(const LocalNetFileImpl& rhs); //!< Copy constructor
++        LocalNetFileImpl& operator=(const LocalNetFileImpl& rhs); //!< Assignment
++    }; // class LocalNetFileIo::LocalNetFileImpl
++
++    LocalNetFileIo::LocalNetFileImpl::LocalNetFileImpl(const std::string& url, size_t blockSize):Impl(url, blockSize)
++    {
++        hostInfo_ = Exiv2::Uri::Parse(url);
++        Exiv2::Uri::Decode(hostInfo_);
++    }
++#ifdef EXV_UNICODE_PATH
++    LocalNetFileIo::LocalNetFileImpl::LocalNetFileImpl(const std::wstring& wurl, size_t blockSize):Impl(wurl, blockSize)
++    {
++        std::string url;
++        url.assign(wurl.begin(), wurl.end());
++        path_ = url;
++
++        hostInfo_ = Exiv2::Uri::Parse(url);
++        Exiv2::Uri::Decode(hostInfo_);
++    }
++#endif
++
++    long LocalNetFileIo::LocalNetFileImpl::getFileLength()
++    {
++        return 0L;
++    }
++
++    void LocalNetFileIo::LocalNetFileImpl::getDataByRange(long lowBlock, long highBlock, std::string& response)
++    {
++    }
++
++    void LocalNetFileIo::LocalNetFileImpl::writeRemote(const byte* data, size_t size, long from, long to)
++    {
++    }
++    LocalNetFileIo::LocalNetFileIo(const std::string& url, size_t blockSize)
++    {
++        p_ = new LocalNetFileImpl(url, blockSize);
++    }
++#ifdef EXV_UNICODE_PATH
++    LocalNetFileIo::LocalNetFileIo(const std::wstring& wurl, size_t blockSize)
++    {
++         p_ = new LocalNetFileImpl(wurl, blockSize);
++    }
++#endif
++
+ #if EXV_USE_CURL == 1
+     //! Internal Pimpl structure of class RemoteIo.
+     class CurlIo::CurlImpl : public Impl  {
+Index: src/bmpimage.cpp
+===================================================================
+diff --git a/trunk/src/bmpimage.cpp b/trunk/src/bmpimage.cpp
+--- a/trunk/src/bmpimage.cpp	(revision 4698)
++++ b/trunk/src/bmpimage.cpp	(working copy)
+@@ -121,6 +121,16 @@
+         }
+     } // BmpImage::readMetadata
+ 
++    void BmpImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isBmpType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "BMP");
++        }
++    } // BmpImage::printStructure
++
+     void BmpImage::writeMetadata()
+     {
+         // Todo: implement me!
+Index: src/crwimage.cpp
+===================================================================
+diff --git a/trunk/src/crwimage.cpp b/trunk/src/crwimage.cpp
+--- a/trunk/src/crwimage.cpp	(revision 4698)
++++ b/trunk/src/crwimage.cpp	(working copy)
+@@ -145,6 +145,16 @@
+ 
+     } // CrwImage::readMetadata
+ 
++    void CrwImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isCrwType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "CRW");
++        }
++    } // CrwImage::printStructure
++
+     void CrwImage::writeMetadata()
+     {
+ #ifdef DEBUG
+Index: src/epsimage.cpp
+===================================================================
+diff --git a/trunk/src/epsimage.cpp b/trunk/src/epsimage.cpp
+--- a/trunk/src/epsimage.cpp	(revision 4698)
++++ b/trunk/src/epsimage.cpp	(working copy)
+@@ -1109,6 +1109,16 @@
+         throw Error(32, "Image comment", "EPS");
+     }
+ 
++    void EpsImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isEpsType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "EPS");
++        }
++    } // EpsImage::printStructure
++
+     void EpsImage::readMetadata()
+     {
+         #ifdef DEBUG
+Index: src/gifimage.cpp
+===================================================================
+diff --git a/trunk/src/gifimage.cpp b/trunk/src/gifimage.cpp
+--- a/trunk/src/gifimage.cpp	(revision 4698)
++++ b/trunk/src/gifimage.cpp	(working copy)
+@@ -75,6 +75,16 @@
+         throw(Error(32, "Image comment", "GIF"));
+     }
+ 
++    void GifImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isGifType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "GIF");
++        }
++    } // GifImage::printStructure
++
+     void GifImage::readMetadata()
+     {
+ #ifdef DEBUG
+Index: src/matroskavideo.cpp
+===================================================================
+diff --git a/trunk/src/matroskavideo.cpp b/trunk/src/matroskavideo.cpp
+--- a/trunk/src/matroskavideo.cpp	(revision 4698)
++++ b/trunk/src/matroskavideo.cpp	(working copy)
+@@ -496,6 +496,16 @@
+     {
+     }
+ 
++    void MatroskaVideo::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isMkvType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "MKV");
++        }
++    } // MatroskaVideo::printStructure
++
+     void MatroskaVideo::readMetadata()
+     {
+         if (io_->open() != 0) throw Error(9, io_->path(), strError());
+Index: src/mrwimage.cpp
+===================================================================
+diff --git a/trunk/src/mrwimage.cpp b/trunk/src/mrwimage.cpp
+--- a/trunk/src/mrwimage.cpp	(revision 4698)
++++ b/trunk/src/mrwimage.cpp	(working copy)
+@@ -95,6 +95,16 @@
+         throw(Error(32, "Image comment", "MRW"));
+     }
+ 
++    void MrwImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isMrwType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "MRW");
++        }
++    } // MrwImage::printStructure
++
+     void MrwImage::readMetadata()
+     {
+ #ifdef DEBUG
+Index: src/orfimage.cpp
+===================================================================
+diff --git a/trunk/src/orfimage.cpp b/trunk/src/orfimage.cpp
+--- a/trunk/src/orfimage.cpp	(revision 4698)
++++ b/trunk/src/orfimage.cpp	(working copy)
+@@ -89,6 +89,19 @@
+         throw(Error(32, "Image comment", "ORF"));
+     }
+ 
++    void OrfImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        std::cout << "ORF IMAGE" << std::endl;
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isOrfType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "ORF");
++        }
++        io_->seek(0,BasicIo::beg);
++        printTiffStructure(io(),out,option,depth-1);
++    } // OrfImage::printStructure
++
+     void OrfImage::readMetadata()
+     {
+ #ifdef DEBUG
+Index: src/pgfimage.cpp
+===================================================================
+diff --git a/trunk/src/pgfimage.cpp b/trunk/src/pgfimage.cpp
+--- a/trunk/src/pgfimage.cpp	(revision 4698)
++++ b/trunk/src/pgfimage.cpp	(working copy)
+@@ -108,6 +108,16 @@
+         }
+     } // PgfImage::PgfImage
+ 
++    void PgfImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isPgfType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "PGF");
++        }
++    } // PgfImage::printStructure
++
+     void PgfImage::readMetadata()
+     {
+ #ifdef DEBUG
+Index: src/psdimage.cpp
+===================================================================
+diff --git a/trunk/src/psdimage.cpp b/trunk/src/psdimage.cpp
+--- a/trunk/src/psdimage.cpp	(revision 4698)
++++ b/trunk/src/psdimage.cpp	(working copy)
+@@ -141,6 +141,16 @@
+         throw(Error(32, "Image comment", "Photoshop"));
+     }
+ 
++    void PsdImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isPsdType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "PSD");
++        }
++    } // PsdImage::printStructure
++
+     void PsdImage::readMetadata()
+     {
+ #ifdef DEBUG
+Index: src/quicktimevideo.cpp
+===================================================================
+diff --git a/trunk/src/quicktimevideo.cpp b/trunk/src/quicktimevideo.cpp
+--- a/trunk/src/quicktimevideo.cpp	(revision 4698)
++++ b/trunk/src/quicktimevideo.cpp	(working copy)
+@@ -626,6 +626,15 @@
+     {
+     }
+ 
++    void QuickTimeVideo::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isQTimeType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "QT");
++        }
++    } // QuickTimeVideo::printStructure
+ 
+     void QuickTimeVideo::readMetadata()
+     {
+Index: src/rafimage.cpp
+===================================================================
+diff --git a/trunk/src/rafimage.cpp b/trunk/src/rafimage.cpp
+--- a/trunk/src/rafimage.cpp	(revision 4698)
++++ b/trunk/src/rafimage.cpp	(working copy)
+@@ -95,6 +95,16 @@
+         throw(Error(32, "Image comment", "RAF"));
+     }
+ 
++    void RafImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isRafType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "RAF");
++        }
++    } // RafImage::printStructure
++
+     void RafImage::readMetadata()
+     {
+ #ifdef DEBUG
+Index: src/riffvideo.cpp
+===================================================================
+diff --git a/trunk/src/riffvideo.cpp b/trunk/src/riffvideo.cpp
+--- a/trunk/src/riffvideo.cpp	(revision 4698)
++++ b/trunk/src/riffvideo.cpp	(working copy)
+@@ -41,6 +41,7 @@
+ #include "tags_int.hpp"
+ #include "types.hpp"
+ #include "tiffimage_int.hpp"
++#include "image_int.hpp"
+ // + standard includes
+ #include <cmath>
+ 
+@@ -516,6 +517,87 @@
+         return "video/riff";
+     }
+ 
++    const int RiffVideo::RIFF_TAG_SIZE = 0x4;
++    const char* RiffVideo::RIFF_CHUNK_HEADER_ICCP = "ICCP";
++    const char* RiffVideo::RIFF_CHUNK_HEADER_EXIF = "EXIF";
++    const char* RiffVideo::RIFF_CHUNK_HEADER_XMP  = "XMP ";
++
++    /*!
++     @brief Function used to check equality of a Tags with a
++     particular string (ignores case while comparing).
++     @param buf Data buffer that will contain Tag to compare
++     @param str char* Pointer to string
++     @return Returns true if the buffer value is equal to string.
++     */
++    bool RiffVideo::equalsRiffTag(Exiv2::DataBuf& buf, const char* str) {
++        for(int i = 0; i < 4; i++ )
++            if(toupper(buf.pData_[i]) != str[i])
++                return false;
++        return true;
++    }
++
++    void RiffVideo::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isRiffType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "RIFF");
++        }
++
++        bool bPrint  = option==kpsBasic || option==kpsRecursive;
++        if ( bPrint || option == kpsXMP || option == kpsIccProfile || option == kpsIptcErase ) {
++            byte      data [RIFF_TAG_SIZE * 2];
++            io_->read(data, RIFF_TAG_SIZE * 2);
++            uint64_t filesize = Exiv2::getULong(data + RIFF_TAG_SIZE, littleEndian);
++            DataBuf  chunkId(5)      ;
++            chunkId.pData_[4] = '\0' ;
++
++            if ( bPrint ) {
++                out << Internal::indent(depth)
++                    << "STRUCTURE OF RIFF FILE: "
++                    << io().path()
++                    << std::endl;
++                out << Internal::indent(depth)
++                    << Internal::stringFormat(" Chunk |       Length |       Offset | Payload")
++                    << std::endl;
++            }
++
++            io_->seek(0,BasicIo::beg); // rewind
++            while ( !io_->eof() && (uint64_t) io_->tell() < filesize) {
++                uint64_t offset = (uint64_t) io_->tell();
++                byte     size_buff[RIFF_TAG_SIZE];
++                io_->read(chunkId.pData_, RIFF_TAG_SIZE);
++                io_->read(size_buff, RIFF_TAG_SIZE);
++                long size = Exiv2::getULong(size_buff, littleEndian);
++                DataBuf payload(offset?size:RIFF_TAG_SIZE); // header is different from chunks
++                io_->read(payload.pData_, payload.size_);
++
++                if ( bPrint ) {
++                    out << Internal::indent(depth)
++                        << Internal::stringFormat("  %s | %12u | %12u | ", (const char*)chunkId.pData_,size,(uint32_t)offset)
++                        << Internal::binaryToString(payload,payload.size_>32?32:payload.size_)
++                        << std::endl;
++                }
++
++                if ( equalsRiffTag(chunkId, RIFF_CHUNK_HEADER_EXIF) && option==kpsRecursive ) {
++                    // create memio object with the payload, then print the structure
++                    BasicIo::AutoPtr p = BasicIo::AutoPtr(new MemIo(payload.pData_,payload.size_));
++                    printTiffStructure(*p,out,option,depth);
++                }
++
++                bool bPrintPayload = (equalsRiffTag(chunkId, RIFF_CHUNK_HEADER_XMP) && option==kpsXMP)
++                                     || (equalsRiffTag(chunkId, RIFF_CHUNK_HEADER_ICCP) && option==kpsIccProfile)
++                ;
++                if ( bPrintPayload ) {
++                    out.write((const char*) payload.pData_,payload.size_);
++                }
++
++                if ( offset && io_->tell() % 2 ) io_->seek(+1, BasicIo::cur); // skip padding byte on sub-chunks
++            }
++        }
++    } // RiffVideo::printStructure
++
+     void RiffVideo::writeMetadata()
+     {
+     } // RiffVideo::writeMetadata
+Index: src/rw2image.cpp
+===================================================================
+diff --git a/trunk/src/rw2image.cpp b/trunk/src/rw2image.cpp
+--- a/trunk/src/rw2image.cpp	(revision 4698)
++++ b/trunk/src/rw2image.cpp	(working copy)
+@@ -100,6 +100,16 @@
+         throw(Error(32, "Image comment", "RW2"));
+     }
+ 
++    void Rw2Image::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isRw2Type(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "RW2");
++        }
++    } // Rw2Image::printStructure
++
+     void Rw2Image::readMetadata()
+     {
+ #ifdef DEBUG
+Index: src/tgaimage.cpp
+===================================================================
+diff --git a/trunk/src/tgaimage.cpp b/trunk/src/tgaimage.cpp
+--- a/trunk/src/tgaimage.cpp	(revision 4698)
++++ b/trunk/src/tgaimage.cpp	(working copy)
+@@ -74,6 +74,16 @@
+         throw(Error(32, "Image comment", "TGA"));
+     }
+ 
++    void TgaImage::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
++        if (io_->open() != 0) throw Error(9, io_->path(), strError());
++        IoCloser closer(*io_);
++        // Ensure this is the correct image type
++        if (!isTgaType(*io_, true)) {
++            if (io_->error() || io_->eof()) throw Error(14);
++            throw Error(3, "TGA");
++        }
++    } // TgaImage::printStructure
++
+     void TgaImage::readMetadata()
+     {
+ #ifdef DEBUG

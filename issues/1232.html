@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #1232: Support JPEGs encoding and decoding in which the Exif data exceeds 64k bytes - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="r/vxgwkhzSDQrlPlxdBcjLRJzpM8Ot8M3ekMtYjp8qJNtlpse1sBIIXKTOl6B1C/i9ua6s3ZfrYgyZw9y9AVzQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #1232: Support JPEGs encoding and decoding in which the Exif data exceeds 64k bytes" href="https://dev.exiv2.org/issues/1232.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #1232</h2>
+
+<div class="issue tracker-2 status-1 priority-4 priority-default details">
+    <div class="next-prev-links contextual">
+      <a title="#1379" accesskey="p" href="/issues/1379">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;op%5Bstatus_id%5D=o&amp;page=1&amp;per_page=25&amp;set_filter=1&amp;sort=updated_on%3Adesc%2Cid%3Adesc&amp;v%5Bstatus_id%5D%5B%5D=">3 of 78</a>
+        </span> |
+      <a title="#1357" accesskey="n" href="/issues/1357">Next »</a>
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Support JPEGs encoding and decoding in which the Exif data exceeds 64k bytes</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Sep 2016 19:38" href="/projects/exiv2/activity?from=2016-09-26">about 5 years</a> ago.
+        Updated <a title="13 Mar 2019 11:33" href="/projects/exiv2/activity?from=2019-03-13">over 2 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">New</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">metadata</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Dec 2020" href="/versions/54">0.28</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">26 Sep 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p><a class="external" href="http://dev.exiv2.org/issues/1221#note-8">http://dev.exiv2.org/issues/1221#note-8</a></p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1072">XmpPart3-2016-page13.png</a>    <span class="size">(142 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1072/XmpPart3-2016-page13.png">XmpPart3-2016-page13.png</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 26 Sep 2016 19:44</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1258">multi-segment_exif.jpg</a>    <span class="size">(4.9 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1258/multi-segment_exif.jpg">multi-segment_exif.jpg</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 18 Dec 2018 17:57</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1259">cs4_extended_exif.jpg</a>    <span class="size">(378 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1259/cs4_extended_exif.jpg">cs4_extended_exif.jpg</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Phil Harvey, 19 Dec 2018 12:48</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5633" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Sep 2016 19:44" href="/projects/exiv2/activity?from=2016-09-26">about 5 years</a> ago
+      <span id="journal-5633-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1072">XmpPart3-2016-page13.png</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1072/XmpPart3-2016-page13.png">XmpPart3-2016-page13.png</a> added</li>
+    </ul>
+    <div id="journal-5633-notes" class="wiki"><p>Adobe published a new Edition of the XMPsdk on 30 July 2016.  The latest version of this document XMP-Toolkit-SDK-CC201607/docs/XMPSpecificationPart3.pdf contains this statement on page 13.  This statement was not in the 2010 Edition of that document.</p>
+
+
+<blockquote>
+
+	<p>The JPEG standard does not prescribe ordering among APPn segments, but some related standards do. For example, Exif requires that Exif APP1 segment be immediately after the SOI. Also, some applications improperly assume that the segments are in a particular order. For compatibility, it is best to put the Exif APP1 first, the XMP APP1 next, the PSIR APP13 next, followed by all other marker segments.</p>
+
+
+	<p><em><strong>NOTE</strong></em> If the size of the Exif APP1 marker or the PSIR APP13 marker exceeds 64KB, the marker is split into multiple blocks of 64KB size each.</p>
+
+
+</blockquote>
+
+	<p><img src="/attachments/download/1072/XmpPart3-2016-page13.png" alt="" /></p>
+
+
+	<p>If this is true, we can indeed store huge blobs of Exif metadata.  If the metadata exceeds 64k, we can simply divide it into multiple segments.  However, I would want to see a reliable example of such a file.  By "reliable", I mean it has a blue-chip pedigree (such as PhotoShop).  And I'd like to see a specification which is focused on this matter.  The statement in this spec doesn't feel definitive and doesn't address APP1 continuation block signatures.</p>
+
+
+	<p>A typical JPEG structure is as follow:<pre>696 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pS test/data/Reagan.jpg 
+STRUCTURE OF JPEG FILE: test/data/Reagan.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe1 APP1  |    5718 | Exif..MM.*......................     &lt;---- This is the Exif data (Tiff Encoded)
+    5722 | 0xffed APP13 |    3038 | Photoshop 3.0.8BIM..........Z...
+    8762 | 0xffe1 APP1  |    5329 | http://ns.adobe.com/xap/1.0/.&lt;?x
+   14093 | 0xffe2 APP2  |     576 | ICC_PROFILE......0ADBE....mntrRG chunk 1/1
+   14671 | 0xffee APP14 |      14 | Adobe.d@......
+   14687 | 0xffdb DQT   |     132 
+   14821 | 0xffc0 SOF0  |      17 
+   14840 | 0xffdd DRI   |       4 
+   14846 | 0xffc4 DHT   |     418 
+   15266 | 0xffda SOS  
+697 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I think Adobe are saying that if you follow an APP1 segment with one or more APP1 segments of <em><strong>exactly</strong></em> 64k bytes you should consider it to be a "segmented" continuation of its predecessor.  That seems reasonable to me.  However it's quite different from the "chunk" mechanism used to allow ICC profiles to exceed a single APP2 segment.  Additionally, APP1 segments begin with a <em><strong>signature</strong></em> such as "Exif\0\0" to identify them to readers.</p>
+
+
+	<p>I've hunted through Phil (of ExifTool fames) repository of 7000 JPG files.  Not one has Exif data encoded in this way.</p>
+
+
+	<p>AGFA have files with multiple segments of length 65535.  However they are not APP1 segment.  Here's the evidence: <pre>702 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pS /mmHD/Users/rmills/Jenkins/testfiles/Phils/Agfa/AgfaOPTIMA1338mT.jpg 
+STRUCTURE OF JPEG FILE: /mmHD/Users/rmills/Jenkins/testfiles/Phils/Agfa/AgfaOPTIMA1338mT.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe1 APP1  |   46459 | Exif..II*......................
+   46463 | 0xffe3 APP3  |   65535 | ................................   &lt;--- what is this?
+  112000 | 0xffe4 APP4  |   65535 | ..Hc..w .8&lt;...z..M.77.h...{.....   &lt;--- or this?
+  177537 | 0xffe5 APP5  |    7243 | .U......K..u=).pl.W.F...B.$.3...
+  184782 | 0xffdb DQT   |     132 
+  184916 | 0xffc0 SOF0  |      17 
+  184935 | 0xffc4 DHT   |      75 
+  185012 | 0xffda SOS  
+703 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I'm willing to implement "Exif data exceeds 64k" feature in the future <em><strong>provided</strong></em> we have a more substantial specification and good pedigree test files.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6340" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="13 Dec 2018 13:00" href="/projects/exiv2/activity?from=2018-12-13">almost 3 years</a> ago
+      <span id="journal-6340-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6340-notes" class="wiki"><p>I've looked at the following page:  <a class="external" href="https://www.sno.phy.queensu.ca/~phil/exiftool/standards.html">https://www.sno.phy.queensu.ca/~phil/exiftool/standards.html</a></p>
+
+
+	<p>Phil says: <em>Allow EXIF to span multiple JPEG segments. Multiple consecutive EXIF segments are simply concatenated into a single data block when reading. [Apparently Adobe has been doing this for years<sup><a href="#fn11">11</a></sup>, and this ability was added to ExifTool in version 10.97.]</em></p>
+
+
+	<p>[11] = XMP Specification part 3 November 2014, p. 13</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6341" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="18 Dec 2018 14:50" href="/projects/exiv2/activity?from=2018-12-18">almost 3 years</a> ago
+      <span id="journal-6341-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6341-notes" class="wiki"><p>Hi Robin,</p>
+
+
+	<p>ExifTool will combine the data from adjacent EXIF segments unless subsequent segments start with a valid TIFF header ("MM\0\x2a" or "II\x2a\0") after the EXIF header ("Exif\0\0").  In case there is a TIFF header, I assume that we are dealing with multiple separate EXIF segments (which shouldn't happen, but I have seen it in the past).  Due to this, ExifTool will write an EXIF segment which is one byte smaller if it would otherwise divide a >64kB EXIF block at a boundary where there just happens to be a TIFF header byte sequence.  So, at least for ExifTool-written multi-segment EXIF, you can't just check that the first EXIF segment is the maximum size when deciding if it is multi-segment EXIF.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6342" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Dec 2018 17:57" href="/projects/exiv2/activity?from=2018-12-18">almost 3 years</a> ago
+      <span id="journal-6342-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1258">multi-segment_exif.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1258/multi-segment_exif.jpg">multi-segment_exif.jpg</a> added</li>
+       <li><strong>Target version</strong> changed from <i>1.0</i> to <i>0.28</i></li>
+    </ul>
+    <div id="journal-6342-notes" class="wiki"><p>This looks like straightforward to implement and we'll add this early in v0.28.  I've copied your test file  <pre>794 rmills@rmillsmbp:~/temp $ exiv2 -pS http://exiv2.dyndns.org:8080/userContent/testfiles/1232/multi-segment_exif.jpg 
+STRUCTURE OF JPEG FILE: http://exiv2.dyndns.org:8080/userContent/testfiles/1232/multi-segment_exif.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe1 APP1  |   65535 | Exif..II*......................
+   65539 | 0xffe1 APP1  |    5603 | Exif............................
+   71144 | 0xffdb DQT   |     132 
+   71278 | 0xffc4 DHT   |     418 
+   71698 | 0xffc0 SOF0  |      17 
+   71717 | 0xffda SOS  
+795 rmills@rmillsmbp:~/temp $ </pre>I think I've understood what you've said about 2^16-1 to ensure that a tag doesn't straddle the jpeg chunks.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6343" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="19 Dec 2018 12:48" href="/projects/exiv2/activity?from=2018-12-19">almost 3 years</a> ago
+      <span id="journal-6343-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1259">cs4_extended_exif.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1259/cs4_extended_exif.jpg">cs4_extended_exif.jpg</a> added</li>
+    </ul>
+    <div id="journal-6343-notes" class="wiki"><p>Hi Robin,</p>
+
+
+	<p>You requested a "reliable example" of multi-segment Exif.  The "multi-segment_exif.jpg" I gave you was written by ExifTool.  I have also attached a "cs4_extended_exif.jpg" sample written by Photoshop CS4.  To generate this sample I filled the Exif ImageDescription with a very long bit of text (the exiftool source code).  Unfortunately, as you can see, the Adobe software is buggy and writes an incorrect count for this tag, but at least it shows you how they intended to split the Exif into multiple segments.</p>
+
+
+	<p>The most difficult thing about adding support for this in ExifTool was in patching the -htmlDump feature to allow for gaps in the middle of the Exif due to the JPEG segment headers.  Other than this, it was a fairly trivial addition.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6344" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="19 Dec 2018 12:49" href="/projects/exiv2/activity?from=2018-12-19">almost 3 years</a> ago
+      <span id="journal-6344-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6344-notes" class="wiki"><p>Phil Harvey wrote:</p>
+
+
+<blockquote>
+
+	<p>Hi Robin,</p>
+
+
+	<p>You requested a "reliable example" of multi-segment Exif.  The "multi-segment_exif.jpg" I gave you was written by ExifTool.  I have also attached a "cs4_extended_exif.jpg" sample written by Photoshop CS4.  To generate this sample I filled the Exif ImageDescription with a very long bit of text (the exiftool source code).  Unfortunately, as you can see, the Adobe software is buggy and writes an incorrect count for this tag, but at least it shows you how they intended to split the Exif into multiple segments.</p>
+
+
+	<p>The most difficult thing about adding support for this in ExifTool was in patching the -htmlDump feature to allow for gaps in the middle of the Exif due to the JPEG segment headers.  Other than this, it was a fairly trivial addition.</p>
+
+
+</blockquote></div>
+    </div>
+  </div>
+  
+  <div id="change-6345" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="19 Dec 2018 12:50" href="/projects/exiv2/activity?from=2018-12-19">almost 3 years</a> ago
+      <span id="journal-6345-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6345-notes" class="wiki"><p>(so much for my attempt to fix a typo in my original post)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6346" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Dec 2018 13:59" href="/projects/exiv2/activity?from=2018-12-19">almost 3 years</a> ago
+      <span id="journal-6346-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6346-notes" class="wiki"><p>Thanks, Phil.  Looks interesting.  I see you're also using extended XMP which is another item on our "one day" list.<pre>829 rmills@rmillsmbp:~/Google Drive $ exiv2 -pS http://dev.exiv2.org/attachments/download/1259/cs4_extended_exif.jpg
+STRUCTURE OF JPEG FILE: http://dev.exiv2.org/attachments/download/1259/cs4_extended_exif.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe0 APP0  |      16 | JFIF............
+      20 | 0xffe1 APP1  |   65498 | Exif..MM.*.................n....
+   65520 | 0xffe1 APP1  |   65498 | Exif..g keys we require'd       
+  131020 | 0xffe1 APP1  |   52820 | Exif..)            if ($$segData
+  183842 | 0xffed APP13 |    4440 | Photoshop 3.0.8BIM.............
+  188284 | 0xffe1 APP1  |    4323 | http://ns.adobe.com/xap/1.0/.&lt;?x
+  192609 | 0xffe1 APP1  |   65477 | http://ns.adobe.com/xmp/extensio
+  258088 | 0xffe1 APP1  |   65477 | http://ns.adobe.com/xmp/extensio
+  323567 | 0xffe1 APP1  |   56466 | http://ns.adobe.com/xmp/extensio
+  380035 | 0xffe2 APP2  |    3160 | ICC_PROFILE......HLino....mntrRG chunk 1/1
+  383197 | 0xffee APP14 |      14 | Adobe.d.......
+  383213 | 0xffdb DQT   |     132 
+  383347 | 0xffc0 SOF0  |      17 
+  383366 | 0xffdd DRI   |       4 
+  383372 | 0xffc4 DHT   |     319 
+  383693 | 0xffda SOS  
+830 rmills@rmillsmbp:~/Google Drive $ </pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-6347" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="19 Dec 2018 14:56" href="/projects/exiv2/activity?from=2018-12-19">almost 3 years</a> ago
+      <span id="journal-6347-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6347-notes" class="wiki"><p>Yes.  I generated this test file way back in 2008 by using Photoshop CS4 to write long values for IPTC:Caption-Abstract, EXIF:ImageDescription and XMP-dc:Description.  This file was from when I added the ability for ExifTool to handle multi-segment XMP.  Adobe was also writing multi-segment EXIF way back then, but I didn't notice it at the time because it didn't write the correct count for ImageDescription.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6348" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="19 Dec 2018 15:00" href="/projects/exiv2/activity?from=2018-12-19">almost 3 years</a> ago
+      <span id="journal-6348-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6348-notes" class="wiki"><p>I should mention that I don't remember ever seeing multi-segment EXIF in the wild.  However, I have seen multi-segment XMP on a number of occasions.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1232.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1232.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

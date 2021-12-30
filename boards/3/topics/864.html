@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Recognizing xmp sidecar files - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="xJWrScjy2TK/VQ0UGelJbfJ0uf3KIfFbxifJfOC+0Z0m2ACmuogVMuoxEhimPkVezebthDvCUOE7B1n0o4c28g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Recognizing xmp sidecar files</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/1013">Matthias Baas</a> <a title="03 Apr 2011 02:55" href="/projects/exiv2/activity?from=2011-04-03">over 10 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>a while back, the code for recognizing xmp sidecar files has changed. The current version of libexiv2 requires the file to contain either a xpacket processing instruction or a xmpmeta tag, but according to the xmp specification both of these are optional and don't have to be present on a serialized packet. Before the more restrictive xmp check, libexiv2 processed those files without the optional data just fine but the current version throws an error saying the file contains an unknown image type.</p>
+
+
+	<p>Is there any chance the test could be relaxed again, so that those minimal xmp files can be read again? (alternatively, the isXmpType() function could also check for the rdf:RDF tag, even though an application could even put other data before the actual xmp data. See section 7.3.1 in the xmp spec: "Other XML data may appear around the rdf:RDF element.")<br />Or maybe the decision what handler to pick could also take the file suffix into account. I think when the file has a ".xmp" suffix and it contains something that looks like xml, then it's really the xmp handler that should take care of it and no other handler.</p>
+
+
+	<p>Thanks,</p>
+
+
+	<p>- Matthias -</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (5)</h3>
+  <div class="message reply" id="message-865">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/864?r=865#message-865">RE: Recognizing xmp sidecar files</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="03 Apr 2011 07:31" href="/projects/exiv2/activity?from=2011-04-03">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, this was changed because of a complaint that Exiv2 attempted to parse large GPX files and almost choked on them. The related discussion is here <a class="external" href="http://dev.exiv2.org/boards/3/topics/682#message-691">http://dev.exiv2.org/boards/3/topics/682#message-691</a> and the change here <a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/revisions/2372">http://dev.exiv2.org/projects/exiv2/repository/revisions/2372</a></p>
+
+
+	<p>Can we do something that makes everybody happy?</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-866">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/864?r=866#message-866">RE: Recognizing xmp sidecar files</a>
+    -
+    Added by <a class="user active" href="/users/1013">Matthias Baas</a> <a title="03 Apr 2011 10:29" href="/projects/exiv2/activity?from=2011-04-03">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I tried running exiv2 (the version from MacPorts) on that gpx file that was posted in that other thread. Reading that file takes about 2 seconds (which doesn't sound too bad to me), but it's true, memory consumption steadily goes up to around 100MB which seems a bit excessive.<br />The library uses expat to parse the xml file, doesn't it? In that case, I don't see why reading a large xml file should result in such a memory pattern. expat is just streaming the data to handler functions and as long as no xmp data is encountered, I would expect that nothing really happens and memory usage should just stay the same. So it seems we actually have two separate issues here: 1) finding that memory bug and 2) making the xmp sidecar file detection more robust. Would 2) actually still be an issue if 1) was fixed?</p>
+
+
+	<p>From what I gathered from the xmp specs, the xmp packet could be part of any xml document and there could also be other information surrounding the packet. In practice though, I think it's fair enough to assume that xmp sidecar files really only contain an xmp packet and nothing else. If it's ok for the library to make this assumption, then it should probably scan for the rdf:RDF tag or even the rdf:Description tag as these ones must be present in the file. An additional obstacle is that the file may not be UTF-8, but UTF-16 or UTF-32. I didn't check if libexiv2 currently supports this or not, but at least I didn't see any checks for the byte order markers in the code (except for the UTF-8 BOM) and string comparisons seemed to be using 8-bit strings.<br />But frankly, I think I would rather examine the file suffix and simply check if it's ".xmp" (case-insensitive) or not. I'm not aware of any software that uses a different suffix for the xmp sidecar files. Then you could leave it up to expat to do all the decoding and error checking.</p>
+
+
+	<p>- Matthias -</p></div>
+  
+  </div>
+  <div class="message reply" id="message-877">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/864?r=877#message-877">RE: Recognizing xmp sidecar files</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="07 Apr 2011 04:45" href="/projects/exiv2/activity?from=2011-04-07">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>The library uses expat to parse the xml file, doesn't it?</p>
+
+
+</blockquote>
+
+	<p>It uses the Adobe XMP-SDK which uses expat, yes.</p>
+
+
+<blockquote>
+
+	<p>So it seems we actually have two separate issues here: 1) finding that memory bug and 2) making the xmp sidecar file detection more robust. Would 2) actually still be an issue if 1) was fixed?</p>
+
+
+</blockquote>
+
+	<p>Right. Probably not as nobody would notice :)</p>
+
+
+<blockquote>
+
+	<p>From what I gathered from the xmp specs, the xmp packet could be part of any xml document and there could also be other information surrounding the packet. In practice though, I think it's fair enough to assume that xmp sidecar files really only contain an xmp packet and nothing else. If it's ok for the library to make this assumption, then it should probably scan for the rdf:RDF tag or even the rdf:Description tag as these ones must be present in the file. An additional obstacle is that the file may not be UTF-8, but UTF-16 or UTF-32. I didn't check if libexiv2 currently supports this or not, but at least I didn't see any checks for the byte order markers in the code (except for the UTF-8 BOM) and string comparisons seemed to be using 8-bit strings.</p>
+
+
+</blockquote>
+
+	<p>Assuming there is only XMP data in a sidecar is fine, we're probably doing that now. Chances are Exiv2 can't handle UTF-16 or 32 sidecars, I've never seen one. XMP-SDK supposedly converts all strings to UTF-8, so comparisons should be fine though.</p>
+
+
+	<p>Each Exiv2 image format (incl. the XMP sidecar "image" format) comes with a small function to test if a given image is of the particular format. That's also where the recent change was implemented. In this case the function is isXmpType() at the end of xmpsidecar.cpp. Any change to this function is simple, especially compared to messing with the XMP-SDK blackbox.</p>
+
+
+<blockquote>
+
+	<p>But frankly, I think I would rather examine the file suffix and simply check if it's ".xmp" (case-insensitive) or not. I'm not aware of any software that uses a different suffix for the xmp sidecar files.</p>
+
+
+</blockquote>
+
+	<p>That's not an option as the input may not be a file. Exiv2 can also parse an image in memory, the check must be done based on the image contents, preferably it is sufficient to look at a few bytes near the start.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-895">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/864?r=895#message-895">RE: Recognizing xmp sidecar files</a>
+    -
+    Added by <a class="user active" href="/users/1013">Matthias Baas</a> <a title="17 Apr 2011 09:35" href="/projects/exiv2/activity?from=2011-04-17">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I finally had some more time looking into this...</p>
+
+
+	<p>Andreas Huggel wrote:</p>
+
+
+<blockquote>
+
+	<p>Assuming there is only XMP data in a sidecar is fine, we're probably doing that now. Chances are Exiv2 can't handle UTF-16 or 32 sidecars, I've never seen one. XMP-SDK supposedly converts all strings to UTF-8, so comparisons should be fine though.</p>
+
+
+</blockquote>
+
+	<p>I did a quick test where I always returned true in isXmpType() and passed an UTF-16 sidecar file to the library. It did read the file just fine, so it would actually be supported if isXmpType() would let it through.</p>
+
+
+<blockquote><blockquote>
+
+	<p>But frankly, I think I would rather examine the file suffix and simply check if it's ".xmp" (case-insensitive) or not. I'm not aware of any software that uses a different suffix for the xmp sidecar files.</p>
+
+
+</blockquote>
+
+	<p>That's not an option as the input may not be a file. Exiv2 can also parse an image in memory, the check must be done based on the image contents, preferably it is sufficient to look at a few bytes near the start.</p>
+
+
+</blockquote>
+
+	<p>I see.</p>
+
+
+	<p>Personally, I think the isXmpType() should really just check if the data is xml data or not (to keep the check simple and to avoid rejecting valid data). In the ideal case, the data would get streamed to the xml parser which would either trigger an error early on if it's not valid xml/xmp or it would just scan through the file without doing much else if it's a xml file without xmp data in it. Unfortunately, as I saw in the code, the entire file is read into memory first before it's being processed. But the really big memory hit happened in the constructor of the SXMPMeta class which is part of Adobe's xmp toolkit, so it seems it's the Adobe code that either has a bug or is just really inefficient. I noticed that the xmp toolkit version shipping with libexiv2 is 4.4.0, but on the Adobe site there is a version 5.1.2. Maybe it would be worth upgrading? (hoping they have fixed that memory problem)</p>
+
+
+	<p>Trying to detect more in isXmpType() is actually not as straightforward as it seems. You would have to start a proper xml decoding pass and check if you get some valid tags back and then scan the first few tags to see if there's anything that looks like xmp.</p>
+
+
+	<p>- Matthias -</p></div>
+  
+  </div>
+  <div class="message reply" id="message-896">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/864?r=896#message-896">RE: Recognizing xmp sidecar files</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="17 Apr 2011 17:18" href="/projects/exiv2/activity?from=2011-04-17">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote><blockquote>
+
+	<p>Assuming there is only XMP data in a sidecar is fine, we're probably doing that now. Chances are Exiv2 can't handle UTF-16 or 32 sidecars, I've never seen one. XMP-SDK supposedly converts all strings to UTF-8, so comparisons should be fine though.</p>
+
+
+</blockquote>
+
+	<p>I did a quick test where I always returned true in isXmpType() and passed an UTF-16 sidecar file to the library. It did read the file just fine, so it would actually be supported if isXmpType() would let it through.</p>
+
+
+</blockquote>
+
+	<p>Great! :)</p>
+
+
+<blockquote>
+
+	<p>I noticed that the xmp toolkit version shipping with libexiv2 is 4.4.0, but on the Adobe site there is a version 5.1.2. Maybe it would be worth upgrading? (hoping they have fixed that memory problem)</p>
+
+
+</blockquote>
+
+	<p>Yes, absolutely. The issue for this upgrade (<a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: External XMPSDK and/or XMPSDK 2014.12 (Closed)" href="/issues/742">#742</a>) has been open for too long.</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-5/5)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

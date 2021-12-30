@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>exiv2node issue with PhaseOne IIQ files - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="FY5z2Nh8lXh7RyXVKeSehfMsrIBrhvVJDguRosfEpTb3w9g3qgZZeC4jOtmWM5K2zL74+ZplVPPzKwEqhP1CWQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>exiv2node issue with PhaseOne IIQ files</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/6174">Michael Estigoy</a> <a title="02 Aug 2017 05:44" href="/projects/exiv2/activity?from=2017-08-02">over 4 years</a> ago</span></p>
+<div class="wiki">
+<p>I'm building an electron app and am working with Phase One IIQ images.</p>
+
+
+	<p>From the command line, extracting specific exif data works fine using exiv2 ... e.g. 'exiv2 -px -g GPSLatitude SkyIMD_20692.IIQ'<br />response: 'Xmp.exif.GPSLatitude                         XmpText    13  37,23.716896N'</p>
+
+
+	<p>Using node.js-electron-npm install, the getImageTags() function fails to do anything and I am unable to parse any exif data. I am following the examples here/GitHub</p>
+
+
+	<p>Image file is here: ﻿﻿﻿https://www.dropbox.com/s/vaaduxlr4u07zgo/SkyIMD_20692.IIQ?dl=0</p>
+
+
+	<p>If I run the same code on a group of JPG images from a Canon camera, everything is fine.  If I run the same code on IIQ images converted to JPG's, everything is fine.</p>
+
+
+	<p>The issue is: I can use the command line to use exiv2 to retrieve specific exif tags, but not exiv2node to do the same.</p>
+
+
+	<p>Any help would be appreciated.</p>
+
+
+	<p>thanks.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (10)</h3>
+  <div class="message reply" id="message-2892">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2891?r=2892#message-2892">RE: exiv2node issue with PhaseOne IIQ files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Aug 2017 08:36" href="/projects/exiv2/activity?from=2017-08-02">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Michael</p>
+
+
+	<p>37.23N.  Sounds like San Jose to me!</p>
+
+
+	<p>I don't have anything solid to say about this as I know nothing about exiv2node.  This sounds like a bug in exiv2node code and not exiv2.  You could raise an issue with them on GitHub:  <a class="external" href="https://github.com/dberesford/exiv2node/issues">https://github.com/dberesford/exiv2node/issues</a></p>
+
+
+	<p>If no data is being returned from exiv2node, there are a couple of possibilities:<br />1) exiv2node isn't passing the pathname correctly to Exiv2<br />The most likely reason that node isn't passing the pathname is a unicode conversion error.  I believe strings in JavaScript are unicode and should be converted to UTF8 when passed to Exiv2.  You could instrument Exiv2::ImageFactory::Open() to see what's being passed from the node environment to the library.</p>
+
+
+	<p>2) exiv2node hasn't serialised the data correctly when copying it from Exiv2 into node objects or arrays or whatever is being used.<br />If the files have been correctly opened, you'll have to read the node2exiv2 code to see how the data is handled.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2893">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2891?r=2893#message-2893">RE: exiv2node issue with PhaseOne IIQ files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Aug 2017 08:40" href="/projects/exiv2/activity?from=2017-08-02">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've had another thought.  There is a sample application exiv2json which serialises metadata into JSON.  The current version is read-only.  As an alternative to node2exiv2, you may be able to  execute that application to retrieve the metadata.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2894">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2891?r=2894#message-2894">RE: exiv2node issue with PhaseOne IIQ files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Aug 2017 08:45" href="/projects/exiv2/activity?from=2017-08-02">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>One third thought.  The code involve in getImageTags() is discussed here:  <a class="external" href="https://github.com/dberesford/exiv2node/pull/27">https://github.com/dberesford/exiv2node/pull/27</a></p>
+
+
+	<p>I'm suspicious about UNICODE/UTF8 conversion of <strong><code>thread_data-&gt;fileName</code></strong>  Perhaps that works OK on Windows and not on Linux (or something like that).</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2895">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2891?r=2895#message-2895">RE: exiv2node issue with PhaseOne IIQ files</a>
+    -
+    Added by <a class="user active" href="/users/6174">Michael Estigoy</a> <a title="03 Aug 2017 04:31" href="/projects/exiv2/activity?from=2017-08-03">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Wow, thanks for all three replies.  I will dive back into this project on the weekend and also post on GitHub.</p>
+
+
+	<p>Yes, San Jose, specifically Great America Park.  I'll be back in the air capturing more of the park this week.</p>
+
+
+	<p>Aerial of Gold Striker roller coaster - <a class="external" href="http://imgur.com/kNStKQy">http://imgur.com/kNStKQy</a></p>
+
+
+	<p>Exiv2 is amazing by the way. I just found out about it not too long ago.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2896">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2891?r=2896#message-2896">RE: exiv2node issue with PhaseOne IIQ files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Aug 2017 07:03" href="/projects/exiv2/activity?from=2017-08-03">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your kind words about Exiv2.  The credit of creating Exiv2 (and most of the code) goes to Andreas.  I maintain the code and encourage people to use it.</p>
+
+
+	<p>Nice Photo at Great America.  I lived in San Jose for 14 years and worked in the GPS business - that's why I recognised your Latitude. Longitude is 121W.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2899">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2891?r=2899#message-2899">RE: exiv2node issue with PhaseOne IIQ files</a>
+    -
+    Added by <a class="user active" href="/users/6176">Damian  Beresford</a> <a title="07 Aug 2017 18:43" href="/projects/exiv2/activity?from=2017-08-07">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>I did some digging on this (<a class="external" href="https://github.com/dberesford/exiv2node/issues/51">https://github.com/dberesford/exiv2node/issues/51</a>) and see that's it due to an unknown makernote (Phase One/iiq files don't look to be supported yet).</p>
+
+
+	<p>The command line exiv2 detects this, e.g.</p>
+
+
+	<p>```<br />$ exiv2 -pa test/images/sky.iiq |grep -i maker<br />Exif.Photo.MakerNote                         Undefined 116821540  (Binary value suppressed)<br />```</p>
+
+
+	<p>However from the value of the  MakerNote returned from the c++ library is a seemingly endless stream as follows:</p>
+
+
+	<p>```<br />Exif.Photo.LightSource - 1<br />Exif.Photo.MakerNote - 73 73 73 73 67 119 97 82 76 136 246 6 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204 204........<br />```</p>
+
+
+	<p>So just looking for some help here, how would you recommend we detect the MakerNote is unsupported from the c++ api?</p>
+
+
+	<p>Thanks - and continued thanks for the development work on exiv2, it's a fantastic tool :-)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2900">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2891?r=2900#message-2900">RE: exiv2node issue with PhaseOne IIQ files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Aug 2017 19:23" href="/projects/exiv2/activity?from=2017-08-07">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, there's a MakeNote in there with 116 821 540 bytes (116mb tiff structure with 17000 tags).  I think it's going to be quite an undertaking to support this MakerNote.  The code to decode (and encode) MakerNotes is in tiffvisitor.cpp  I don't believe there is an API to say "unsupported MakerNote".  I don't have a solution and don't have time to look at what's involved because I have a promised a dot release in September.   You could ask Phase One to develop Exiv2 support for their format.  I'll be happy to work with them.  If they write the patch (and test harness), I'll be happy to review and submit their code.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2901">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2891?r=2901#message-2901">RE: exiv2node issue with PhaseOne IIQ files</a>
+    -
+    Added by <a class="user active" href="/users/6174">Michael Estigoy</a> <a title="07 Aug 2017 20:22" href="/projects/exiv2/activity?from=2017-08-07">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the research Damian Beresford.</p>
+
+
+	<p>Robin, we are partners with Phase One.  I'll send a note to their Chief Scientist, Dr. Yuri R., referencing this thread and request to support Exiv2.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2902">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2891?r=2902#message-2902">RE: exiv2node issue with PhaseOne IIQ files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Aug 2017 20:23" href="/projects/exiv2/activity?from=2017-08-07">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks.  I'll be interested to hear their response.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2903">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2891?r=2903#message-2903">RE: exiv2node issue with PhaseOne IIQ files</a>
+    -
+    Added by <a class="user active" href="/users/6174">Michael Estigoy</a> <a title="07 Aug 2017 20:46" href="/projects/exiv2/activity?from=2017-08-07">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>I copied you on the email.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-10/10)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

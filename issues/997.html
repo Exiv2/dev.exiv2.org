@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #997: exiv2 causing digikam to crash on .mp3, .ogg, and .xcf files - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="raY2bCP23Ls02zBteoVa+iR8p0KG4eBesYRzL9wxZN5P652DUYwQu2G/L2HFUlbJG+7zO3cCQeRMpOOnnwiDsQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #997: exiv2 causing digikam to crash on .mp3, .ogg, and .xcf files" href="https://dev.exiv2.org/issues/997.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #997</h2>
+
+<div class="issue tracker-1 status-6 priority-7 priority-highest closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>exiv2 causing digikam to crash on .mp3, .ogg, and .xcf files</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4266">Kenneth Ingham</a> <a title="16 Nov 2014 21:38" href="/projects/exiv2/activity?from=2014-11-16">about 7 years</a> ago.
+        Updated <a title="18 Nov 2014 02:23" href="/projects/exiv2/activity?from=2014-11-18">about 7 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Rejected</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Immediate</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">-</div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">16 Nov 2014</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>See the following bugs:<br /><a class="external" href="https://bugs.kde.org/show_bug.cgi?id=341024">https://bugs.kde.org/show_bug.cgi?id=341024</a><br /><a class="external" href="https://bugs.kde.org/show_bug.cgi?id=340696">https://bugs.kde.org/show_bug.cgi?id=340696</a><br /><a class="external" href="https://bugzilla.opensuse.org/show_bug.cgi?id=904446">https://bugzilla.opensuse.org/show_bug.cgi?id=904446</a></p>
+
+
+	<p>Short summary is that digikam is crashing in exiv2 all the time.  I moved all photos away and ran tests with individual files and identified that .xcf and .mp3 files both would cause digikam to crash.  Given that Gimp is my primary image editor, this bug makes digikam completely unusable.</p>
+
+
+	<p>I can run tests if you need them.</p>
+
+
+	<p>I am using libexiv2-13-0.24-4.1.9.x86_64 from the OpenSUSE 13.2 repository.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/683">bensound-theelevatorbossanova.mp3</a>    <span class="size">(3.4 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/683/bensound-theelevatorbossanova.mp3">bensound-theelevatorbossanova.mp3</a>  </td>
+  <td>Sample mp3 file that causes an exception in exiv2</td>
+  <td>
+      <span class="author">Kenneth Ingham, 17 Nov 2014 02:13</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/684">waterfall-1355.xcf</a>    <span class="size">(1.25 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/684/waterfall-1355.xcf">waterfall-1355.xcf</a>  </td>
+  <td>Simple gimp file that causes exiv2 exception</td>
+  <td>
+      <span class="author">Kenneth Ingham, 17 Nov 2014 02:17</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/685">dk</a>    <span class="size">(15.6 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/685/dk">dk</a>  </td>
+  <td>Output of ldd on digikam and libkexiv2</td>
+  <td>
+      <span class="author">Kenneth Ingham, 18 Nov 2014 02:23</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2957" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4266">Kenneth Ingham</a> <a title="16 Nov 2014 21:54" href="/projects/exiv2/activity?from=2014-11-16">about 7 years</a> ago
+      <span id="journal-2957-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2957-notes" class="wiki"><p>I just built libexiv2 from the latest sources from svn and digikam still crashes.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2958" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="17 Nov 2014 02:02" href="/projects/exiv2/activity?from=2014-11-17">about 7 years</a> ago
+      <span id="journal-2958-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2958-notes" class="wiki"><p>Kenneth,<br />Can you provide a (small) sample file that triggers a crash?<br />Can you re-create the crash with the exiv2 command line tool alone?</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2959" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4266">Kenneth Ingham</a> <a title="17 Nov 2014 02:13" href="/projects/exiv2/activity?from=2014-11-17">about 7 years</a> ago
+      <span id="journal-2959-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/683">bensound-theelevatorbossanova.mp3</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/683/bensound-theelevatorbossanova.mp3">bensound-theelevatorbossanova.mp3</a> added</li>
+    </ul>
+    <div id="journal-2959-notes" class="wiki"><p>I tried this command:<br />exiv2 Southwind.mp3 <br />Exiv2 exception in print action for file Southwind.mp3:<br />Southwind.mp3: The file contains data of an unknown image type</p>
+
+
+	<p>This happened for every mp3 file I tried, including the attached one which I just got from <a class="external" href="http://www.bensound.com">http://www.bensound.com</a>.  I have no affiliation with that web site other than grabbing a creative commons licensed music file.</p>
+
+
+	<p>I do not know if the exception mentioned is the one that is killing digikam.  According to Gilles Caulier in<br /><a class="external" href="https://bugs.kde.org/show_bug.cgi?id=341024">https://bugs.kde.org/show_bug.cgi?id=341024</a><br />what killed digikam was an exception.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2960" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4266">Kenneth Ingham</a> <a title="17 Nov 2014 02:17" href="/projects/exiv2/activity?from=2014-11-17">about 7 years</a> ago
+      <span id="journal-2960-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/684">waterfall-1355.xcf</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/684/waterfall-1355.xcf">waterfall-1355.xcf</a> added</li>
+    </ul>
+    <div id="journal-2960-notes" class="wiki"><p>I get a similar response when asking it about a Gimp file:</p>
+
+
+	<p>ingham@socrates:tmp$ exiv2 waterfall-1355.xcf <br />Exiv2 exception in print action for file waterfall-1355.xcf:<br />waterfall-1355.xcf: The file contains data of an unknown image type</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2961" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="17 Nov 2014 06:21" href="/projects/exiv2/activity?from=2014-11-17">about 7 years</a> ago
+      <span id="journal-2961-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Rejected</i></li>
+    </ul>
+    <div id="journal-2961-notes" class="wiki"><p>The Exiv2 library throws an exception if finds that the input file format is not supported. This is the standard Exiv2 error handling procedure. The application that uses the Exiv2 library has to catch this exception and deal with it, as the Exiv2 command line tool demonstrates.</p>
+
+
+	<p>Apparently for files of certain formats, the exception is not caught in digiKam yet.</p>
+
+
+	<p>I'm closing this bug, it is an issue that needs to be fixed in digiKam.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2962" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="17 Nov 2014 08:04" href="/projects/exiv2/activity?from=2014-11-17">about 7 years</a> ago
+      <span id="journal-2962-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2962-notes" class="wiki"><p>libkexiv2 already catch all Exiv2 and C++ exceptions in current implementation.</p>
+
+
+	<p>This must prevent a crash in digiKam in all cases.</p>
+
+
+	<p>perhaps user do not have a recent libkexiv2 in computer.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2963" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="17 Nov 2014 08:05" href="/projects/exiv2/activity?from=2014-11-17">about 7 years</a> ago
+      <span id="journal-2963-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2963-notes" class="wiki"><p>Note : here with current implementation, digiKam do not crash with XCF, OGG, or MP3 files.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2964" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4269">Raymond  Wooninck</a> <a title="17 Nov 2014 19:33" href="/projects/exiv2/activity?from=2014-11-17">about 7 years</a> ago
+      <span id="journal-2964-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2964-notes" class="wiki"><p>@Gilles,</p>
+
+
+	<p>The user is using the libkexiv2 that was shipped with KDE 4.14.2. As far as I can see there are not many commits after.  openSUSE 13.2 should receive soon the update to KDE 4.14.3, but if you could pinpoint a particular a particular commit that should fix this then we can test it.</p>
+
+
+	<p>Thanks</p>
+
+
+	<p>Raymond</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2965" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="17 Nov 2014 19:38" href="/projects/exiv2/activity?from=2014-11-17">about 7 years</a> ago
+      <span id="journal-2965-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2965-notes" class="wiki"><p>Raymond,</p>
+
+
+	<p>Look this commit :</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/kde/kdegraphics/libs/libkexiv2/repository/revisions/8a8dc535d504b70776677b933ac761bba0f7a4ae">https://projects.kde.org/projects/kde/kdegraphics/libs/libkexiv2/repository/revisions/8a8dc535d504b70776677b933ac761bba0f7a4ae</a></p>
+
+
+	<p>Andreas,</p>
+
+
+	<p>Can you check if this commit is enough to handle all Exiv2 exception ?</p>
+
+
+	<p>Gilles</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2966" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="18 Nov 2014 01:01" href="/projects/exiv2/activity?from=2014-11-18">about 7 years</a> ago
+      <span id="journal-2966-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2966-notes" class="wiki"><p>Yes, a catch-all should work of course. Provided the exception occurs within a try-catch block.</p>
+
+
+	<p>If so, it could be due to more obscure issues with exceptions across library boundaries. Similarly if the exception happens in a plugin (loaded with dlopen).</p>
+
+
+	<p>Kenneth, assuming you are on Linux, can you show the output of <code>ldd `which digikam`</code> and the same for your <code>libkexiv2</code>?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2967" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4266">Kenneth Ingham</a> <a title="18 Nov 2014 02:23" href="/projects/exiv2/activity?from=2014-11-18">about 7 years</a> ago
+      <span id="journal-2967-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/685">dk</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/685/dk">dk</a> added</li>
+    </ul>
+    <div id="journal-2967-notes" class="wiki"><p>Here it is.  Thanks.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/997.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/997.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

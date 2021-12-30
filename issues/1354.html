@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1354: Inconsistency with long XMP namespaces (e.g. &#39;Iptc4xmpExt&#39;) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="5ALLUvTfP9plepYSU7kj2D6RFyC2xbMoBzEO0CoVYHUGT2C9hqXz2jAeiR7sbi/rAQNDWUcmEpL6EZ5YaSyHGg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1354: Inconsistency with long XMP namespaces (e.g. &#39;Iptc4xmpExt&#39;)" href="https://dev.exiv2.org/issues/1354.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1354</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Inconsistency with long XMP namespaces (e.g. &#39;Iptc4xmpExt&#39;)</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/7146">Jens Georg</a> <a title="23 May 2018 08:09" href="/projects/exiv2/activity?from=2018-05-23">over 3 years</a> ago.
+        Updated <a title="23 May 2018 13:05" href="/projects/exiv2/activity?from=2018-05-23">over 3 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">xmp</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Dec 2018" href="/versions/55">0.27</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">23 May 2018</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I have an upstream ticket at GExiv2 that deals with problems registering the Iptc4xmpExt namespace. The user found out that there is some issue with how the namespaces are written:</p>
+
+
+	<p>Quoting from the bug:</p>
+
+
+	<p>There is an inconsistency in how Exiv2 writes XMP data.</p>
+
+
+	<ol>
+	<li>Create an empty XMP file:<br /><code>echo "&lt;x:xmpmeta x:xmptk='XMP Core 4.4.0-Exiv2' xmlns:x='adobe:ns:meta/'&gt;&lt;/x:xmpmeta&gt;" >test.xmp</code></li>
+		<li>Write some tags:<br /><code>exiv2 -M"set Xmp.iptc.Location  XmpText  West Wallaby St" test.xmp</code><br /><code>exiv2 -M"set Xmp.iptcExt.DigitalSourcefileType  XmpText  camerajpeg" test.xmp</code></li>
+		<li>Look at the file:<br /><pre>
+more test.xmp
+&lt;?xpacket begin="" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+&lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+&lt;rdf:Description rdf:about="" 
+xmlns:iptcExt="http://iptc.org/std/Iptc4xmpExt/2008-02-29/" 
+xmlns:Iptc4xmpCore="http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/" 
+iptcExt:DigitalSourcefileType="camerajpeg" 
+Iptc4xmpCore:Location="West Wallaby St"/&gt;
+&lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+</pre></li>
+	</ol>
+
+
+	<p>Note that the Xmp.iptc tag uses the proper Iptc4xmpCore namespace but the Xmp.iptcExt tag does not use the proper Iptc4xmpExt namespace. I'm not enough of an XMP expert to say if this is a bug or not.</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-6205" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/7146">Jens Georg</a> <a title="23 May 2018 08:09" href="/projects/exiv2/activity?from=2018-05-23">over 3 years</a> ago
+      <span id="journal-6205-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6205-notes" class="wiki"><p>Forgot the link to the original ticket: [[<a class="external" href="https://gitlab.gnome.org/GNOME/gexiv2/issues/24">https://gitlab.gnome.org/GNOME/gexiv2/issues/24</a>]]</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6206" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4190">Jim Easterbrook</a> <a title="23 May 2018 08:30" href="/projects/exiv2/activity?from=2018-05-23">over 3 years</a> ago
+      <span id="journal-6206-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6206-notes" class="wiki"><p>As the author of the original bug report I should point out that recent versions of exiv2 seem to be a bit more fussy about XMP syntax. To create a usable empty XMP file I now need to do this:<br /><pre>
+echo '&lt;?xpacket begin="" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;&lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;&lt;rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmp:CreatorTool="{}"/&gt;&lt;/rdf:RDF&gt;&lt;/x:xmpmeta&gt;&lt;?xpacket end="w"?&gt;' &gt;test.xmp
+</pre></p>
+
+
+	<p>I have a workaround for my original problem, and this report is only about an apparent inconsistency in the handling of XMP namespaces, so it's not a high priority.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6207" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 May 2018 11:02" href="/projects/exiv2/activity?from=2018-05-23">over 3 years</a> ago
+      <span id="journal-6207-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>xmp</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.27</i></li>
+    </ul>
+    <div id="journal-6207-notes" class="wiki"><p>Jim and Jens:</p>
+
+
+	<p>There has been very few changes (if any) to the XMP code in Exiv2 during the 10 years in which I have been contributing to Exiv2.</p>
+
+
+	<p>We have a "work-in-progress" project to enable Exiv2 to be build with Adobe's 2016 Edition of XMPsdk and expect that to be part of Exiv2 v0.27 which we hope will reach RC1 in September 2018 and be released at the end of 2018.</p>
+
+
+	<p>I haven't understood the bug report as the XML looks correct to me.  Exiv2 has about 50 predefined namespaces.  Specifically for Iptc:<pre>530 rmills@rmillsmbp:~/clanmills $ exiv2 -vV --grep xmlns | grep -i Iptc
+xmlns=Iptc4xmpCore:http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/
+xmlns=Iptc4xmpExt:http://iptc.org/std/Iptc4xmpExt/2008-02-29/
+xmlns=acdsee:http://ns.acdsee.com/iptc/1.0/
+531 rmills@rmillsmbp:~/clanmills $ </pre>So the out XML/XMP correctly declares/uses the namespaces Iptc4xmpCore and Iptc4xmpExt<br /><pre>&lt;rdf:Description
+     xmlns:iptcExt="http://iptc.org/std/Iptc4xmpExt/2008-02-29/" 
+     xmlns:Iptc4xmpCore="http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/" 
+     rdf:about="" 
+     iptcExt:DigitalSourcefileType="camerajpeg" 
+     Iptc4xmpCore:Location="West Wallaby St" 
+/&gt;</pre>I'm a little surprised that the command:<pre>exiv2 -M"set Xmp.iptc.Location XmpText West Wallaby St" test.xmp</pre>becomes the tags:<pre>xmlns:Iptc4xmpCore="http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/" 
+Iptc4xmpCore:Location="West Wallaby St"</pre>However it doesn't seem wrong either!</p>
+
+
+	<p>I believe there have been changes to the predefined namespaces in the library.  Perhaps the namespace "iptc" has morphed into Iptc4xmpCore over the years.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6208" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="23 May 2018 12:33" href="/projects/exiv2/activity?from=2018-05-23">over 3 years</a> ago
+      <span id="journal-6208-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6208-notes" class="wiki"><p>The odd thing is that "iptcExt" is being written as the namespace prefix, while Robin shows that "Iptc4xmpExt" is the prefix defined in Exiv2.  I don't understand this, but technically you can use any namespace prefix you want provided the URI is correct in the xmlns definition.</p>
+
+
+	<p>So I don't think this should count as a bug.  However, having said this, it is nice to use the recommended prefixes for maximum compatibility with stupid apps that may not properly use the prefixes to look up the URI.</p>
+
+
+	<p>- Phil</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6209" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 May 2018 13:05" href="/projects/exiv2/activity?from=2018-05-23">over 3 years</a> ago
+      <span id="journal-6209-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-6209-notes" class="wiki"><p>Phil.  Thanks for contributing to this discussion.  I think the capitalisation here is bizarre.  I've run commands above on exiv2 v0.26:<br /><pre>
+913 rmills@rmillsmm:~/gnu/github/piponazo/exiv2/build $ cp ~/Stonehenge.jpg .
+914 rmills@rmillsmm:~/gnu/github/piponazo/exiv2/build $ exiv2 -M"set Xmp.iptc.Location  XmpText  West Wallaby St" Stonehenge.jpg 
+915 rmills@rmillsmm:~/gnu/github/piponazo/exiv2/build $ exiv2 -M"set Xmp.iptcExt.DigitalSourcefileType  XmpText  camerajpeg" Stonehenge.jpg 
+916 rmills@rmillsmm:~/gnu/github/piponazo/exiv2/build $ exiv2 -pX Stonehenge.jpg | xmllint --format -
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description
+      xmlns:Iptc4xmpCore="http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/" 
+      xmlns:iptcExt="http://iptc.org/std/Iptc4xmpExt/2008-02-29/" 
+      rdf:about="" 
+      Iptc4xmpCore:Location="West Wallaby St" 
+      iptcExt:DigitalSourcefileType="camerajpeg"/&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;</pre><br />And on the Work-in-progress version with Adobe's 2016 XMPsdk:<pre>917 rmills@rmillsmm:~/gnu/github/piponazo/exiv2/build $ $ bin/exiv2 --verbose --version --grep adobe_xmp
+exiv2 0.26 001a00 (64 bit build)
+adobe_xmpsdk=2016
+918 rmills@rmillsmm:~/gnu/github/piponazo/exiv2/build $ cp ~/Stonehenge.jpg .
+919 rmills@rmillsmm:~/gnu/github/piponazo/exiv2/build $ bin/exiv2 -M"set Xmp.iptc.Location  XmpText  West Wallaby St" Stonehenge.jpg 
+920 rmills@rmillsmm:~/gnu/github/piponazo/exiv2/build $ bin/exiv2 -M"set Xmp.iptcExt.DigitalSourcefileType  XmpText  camerajpeg" Stonehenge.jpg 
+921 rmills@rmillsmm:~/gnu/github/piponazo/exiv2/build $ bin/exiv2 -pX Stonehenge.jpg | xmllint --format -
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 5.6.0"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description 
+      xmlns:Iptc4xmpCore="http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/" 
+      xmlns:Iptc4xmpExt="http://iptc.org/std/Iptc4xmpExt/2008-02-29/" 
+      rdf:about="" 
+      Iptc4xmpCore:Location="West Wallaby St" 
+      Iptc4xmpExt:DigitalSourcefileType="camerajpeg" 
+    /&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+922 rmills@rmillsmm:~/gnu/github/piponazo/exiv2/build $ </pre>You'll notice that the XMP/xml was written by XMP Core 5.6.0 and the mysterious capitalisation has been rectified.</p>
+
+
+	<p>We intend to retain the existing xmpsdk/ code in Exiv2 for version v.027 and to offer an option to build with Adobe XMPsdk 2016.  We're not going to change the default build as it adds build complexity for limited gain. For sure, the existing code has provided solid service for many years.  The motivation for offering Adobe XMPsdk 2016 is to enable applications to link and use Adobe's library from their application.</p>
+
+
+	<p>I'm going to mark this "closed".  The behaviour is strange, however it's not wrong!</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1354.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1354.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

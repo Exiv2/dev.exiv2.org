@@ -1,0 +1,3720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>1173.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="u/Z6jygvZAbhIBN6acMoEJUC/ka8PCoXIgvH5BhEL+VZu9FgWlWoBrREDHbWFCQjqpCqP03fi63fK1dsW33Iig==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/863/1173.patch">Download (20.1 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Enable piping of selective copy of metadata between images " href="/issues/1137">Feature #1137</a> » 1173.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/119">Robin Mills</a>, 24 Nov 2015 18:27</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/863" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/actions.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">528</th>
+  <th class="line-num">528</th>
+  <td class="line-code ">
+    <pre>        return printMetadata(image.get());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">529</th>
+  <th class="line-num">529</th>
+  <td class="line-code ">
+    <pre>    } // Print::printList</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">530</th>
+  <th class="line-num">530</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">531</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    int Print::printMetadata(const Exiv2::Image* image<span></span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">531</th>
+  <td class="line-code diff_in">
+    <pre>    int Print::printMetadata(const Exiv2::Image* image<span>,std::ostream&amp; out /*=std::cout*/</span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">532</th>
+  <th class="line-num">532</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">533</th>
+  <th class="line-num">533</th>
+  <td class="line-code ">
+    <pre>        bool ret = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">534</th>
+  <th class="line-num">534</th>
+  <td class="line-code ">
+    <pre>        bool noExif = false;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">536</th>
+  <th class="line-num">536</th>
+  <td class="line-code ">
+    <pre>            const Exiv2::ExifData&amp; exifData = image-&gt;exifData();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">537</th>
+  <th class="line-num">537</th>
+  <td class="line-code ">
+    <pre>            for (Exiv2::ExifData::const_iterator md = exifData.begin();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">538</th>
+  <th class="line-num">538</th>
+  <td class="line-code ">
+    <pre>                 md != exifData.end(); ++md) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">539</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                ret |= printMetadatum(*md, image<span></span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">539</th>
+  <td class="line-code diff_in">
+    <pre>                ret |= printMetadatum(*md, image<span>,out</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">540</th>
+  <th class="line-num">540</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">541</th>
+  <th class="line-num">541</th>
+  <td class="line-code ">
+    <pre>            if (exifData.empty()) noExif = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">542</th>
+  <th class="line-num">542</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">546</th>
+  <th class="line-num">546</th>
+  <td class="line-code ">
+    <pre>            const Exiv2::IptcData&amp; iptcData = image-&gt;iptcData();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">547</th>
+  <th class="line-num">547</th>
+  <td class="line-code ">
+    <pre>            for (Exiv2::IptcData::const_iterator md = iptcData.begin();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">548</th>
+  <th class="line-num">548</th>
+  <td class="line-code ">
+    <pre>                 md != iptcData.end(); ++md) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">549</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                ret |= printMetadatum(*md, image<span></span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">549</th>
+  <td class="line-code diff_in">
+    <pre>                ret |= printMetadatum(*md, image<span>,out</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">550</th>
+  <th class="line-num">550</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">551</th>
+  <th class="line-num">551</th>
+  <td class="line-code ">
+    <pre>            if (iptcData.empty()) noIptc = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">552</th>
+  <th class="line-num">552</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">556</th>
+  <th class="line-num">556</th>
+  <td class="line-code ">
+    <pre>            const Exiv2::XmpData&amp; xmpData = image-&gt;xmpData();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">557</th>
+  <th class="line-num">557</th>
+  <td class="line-code ">
+    <pre>            for (Exiv2::XmpData::const_iterator md = xmpData.begin();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">558</th>
+  <th class="line-num">558</th>
+  <td class="line-code ">
+    <pre>                 md != xmpData.end(); ++md) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">559</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                ret |= printMetadatum(*md, image<span></span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">559</th>
+  <td class="line-code diff_in">
+    <pre>                ret |= printMetadatum(*md, image<span>,out</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">560</th>
+  <th class="line-num">560</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">561</th>
+  <th class="line-num">561</th>
+  <td class="line-code ">
+    <pre>            if (xmpData.empty()) noXmp = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">562</th>
+  <th class="line-num">562</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">601</th>
+  <th class="line-num">601</th>
+  <td class="line-code ">
+    <pre>        return result ;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">602</th>
+  <th class="line-num">602</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">603</th>
+  <th class="line-num">603</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">604</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    bool Print::printMetadatum(const Exiv2::Metadatum&amp; md, const Exiv2::Image* pImage<span></span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">604</th>
+  <td class="line-code diff_in">
+    <pre>    bool Print::printMetadatum(const Exiv2::Metadatum&amp; md, const Exiv2::Image* pImage<span>,std::ostream&amp; out /*=std::cout*/</span>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">605</th>
+  <th class="line-num">605</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">606</th>
+  <th class="line-num">606</th>
+  <td class="line-code ">
+    <pre>        if (!grepTag(md.key())) return false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">607</th>
+  <th class="line-num">607</th>
+  <td class="line-code ">
+    <pre>        if (!keyTag (md.key())) return false;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">612</th>
+  <th class="line-num">612</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">613</th>
+  <th class="line-num">613</th>
+  <td class="line-code ">
+    <pre>        bool const manyFiles = Params::instance().files_.size() &gt; 1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">614</th>
+  <th class="line-num">614</th>
+  <td class="line-code ">
+    <pre>        if (manyFiles) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">615</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            <span>std::c</span>out &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left &lt;&lt; std::setw(20)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">615</th>
+  <td class="line-code diff_in">
+    <pre>            <span></span>out &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left &lt;&lt; std::setw(20)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">616</th>
+  <th class="line-num">616</th>
+  <td class="line-code ">
+    <pre>                      &lt;&lt; path_ &lt;&lt; &quot;  &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">617</th>
+  <th class="line-num">617</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">618</th>
+  <th class="line-num">618</th>
+  <td class="line-code ">
+    <pre>        bool first = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">619</th>
+  <th class="line-num">619</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prTag) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">620</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">620</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">621</th>
+  <th class="line-num">621</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">622</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            <span>std::c</span>out &lt;&lt; &quot;0x&quot; &lt;&lt; std::setw(4) &lt;&lt; std::setfill(&#39;0&#39;)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">622</th>
+  <td class="line-code diff_in">
+    <pre>            <span></span>out &lt;&lt; &quot;0x&quot; &lt;&lt; std::setw(4) &lt;&lt; std::setfill(&#39;0&#39;)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">623</th>
+  <th class="line-num">623</th>
+  <td class="line-code ">
+    <pre>                      &lt;&lt; std::right &lt;&lt; std::hex</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">624</th>
+  <th class="line-num">624</th>
+  <td class="line-code ">
+    <pre>                      &lt;&lt; md.tag();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">625</th>
+  <th class="line-num">625</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">626</th>
+  <th class="line-num">626</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prSet) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">627</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">627</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">628</th>
+  <th class="line-num">628</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">629</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            <span>std::c</span>out &lt;&lt; &quot;set&quot; ;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">629</th>
+  <td class="line-code diff_in">
+    <pre>            <span></span>out &lt;&lt; &quot;set&quot; ;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">630</th>
+  <th class="line-num">630</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">631</th>
+  <th class="line-num">631</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prGroup) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">632</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">632</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">633</th>
+  <th class="line-num">633</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">634</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            <span>std::c</span>out &lt;&lt; std::setw(12) &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">634</th>
+  <td class="line-code diff_in">
+    <pre>            <span></span>out &lt;&lt; std::setw(12) &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">635</th>
+  <th class="line-num">635</th>
+  <td class="line-code ">
+    <pre>                      &lt;&lt; md.groupName();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">636</th>
+  <th class="line-num">636</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">637</th>
+  <th class="line-num">637</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prKey) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">638</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">638</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">639</th>
+  <th class="line-num">639</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">640</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            <span>std::c</span>out &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left &lt;&lt; std::setw(44)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">640</th>
+  <td class="line-code diff_in">
+    <pre>            <span></span>out &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left &lt;&lt; std::setw(44)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">641</th>
+  <th class="line-num">641</th>
+  <td class="line-code ">
+    <pre>                      &lt;&lt; md.key();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">642</th>
+  <th class="line-num">642</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">643</th>
+  <th class="line-num">643</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prName) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">644</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">644</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">645</th>
+  <th class="line-num">645</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">646</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            <span>std::c</span>out &lt;&lt; std::setw(27) &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">646</th>
+  <td class="line-code diff_in">
+    <pre>            <span></span>out &lt;&lt; std::setw(27) &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">647</th>
+  <th class="line-num">647</th>
+  <td class="line-code ">
+    <pre>                      &lt;&lt; md.tagName();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">648</th>
+  <th class="line-num">648</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">649</th>
+  <th class="line-num">649</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prLabel) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">650</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">650</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">651</th>
+  <th class="line-num">651</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">652</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            <span>std::c</span>out &lt;&lt; std::setw(30) &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">652</th>
+  <td class="line-code diff_in">
+    <pre>            <span></span>out &lt;&lt; std::setw(30) &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">653</th>
+  <th class="line-num">653</th>
+  <td class="line-code ">
+    <pre>                      &lt;&lt; md.tagLabel();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">654</th>
+  <th class="line-num">654</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">655</th>
+  <th class="line-num">655</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prType) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">656</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">656</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">657</th>
+  <th class="line-num">657</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">658</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            <span>std::c</span>out &lt;&lt; std::setw(9) &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">658</th>
+  <td class="line-code diff_in">
+    <pre>            <span></span>out &lt;&lt; std::setw(9) &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::left;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">659</th>
+  <th class="line-num">659</th>
+  <td class="line-code ">
+    <pre>            const char* tn = md.typeName();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">660</th>
+  <th class="line-num">660</th>
+  <td class="line-code ">
+    <pre>            if (tn) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">661</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                <span>std::c</span>out &lt;&lt; tn;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">661</th>
+  <td class="line-code diff_in">
+    <pre>                <span></span>out &lt;&lt; tn;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">662</th>
+  <th class="line-num">662</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">663</th>
+  <th class="line-num">663</th>
+  <td class="line-code ">
+    <pre>            else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">664</th>
+  <th class="line-num">664</th>
+  <td class="line-code ">
+    <pre>                std::ostringstream os;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">665</th>
+  <th class="line-num">665</th>
+  <td class="line-code ">
+    <pre>                os &lt;&lt; &quot;0x&quot; &lt;&lt; std::setw(4) &lt;&lt; std::setfill(&#39;0&#39;) &lt;&lt; std::hex &lt;&lt; md.typeId();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">666</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                <span>std::c</span>out &lt;&lt; os.str();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">666</th>
+  <td class="line-code diff_in">
+    <pre>                <span></span>out &lt;&lt; os.str();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">667</th>
+  <th class="line-num">667</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">668</th>
+  <th class="line-num">668</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">669</th>
+  <th class="line-num">669</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prCount) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">670</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">670</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">671</th>
+  <th class="line-num">671</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">672</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            <span>std::c</span>out &lt;&lt; std::dec &lt;&lt; std::setw(3)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">672</th>
+  <td class="line-code diff_in">
+    <pre>            <span></span>out &lt;&lt; std::dec &lt;&lt; std::setw(3)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">673</th>
+  <th class="line-num">673</th>
+  <td class="line-code ">
+    <pre>                      &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::right</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">674</th>
+  <th class="line-num">674</th>
+  <td class="line-code ">
+    <pre>                      &lt;&lt; md.count();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">675</th>
+  <th class="line-num">675</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">676</th>
+  <th class="line-num">676</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prSize) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">677</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">677</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; &quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">678</th>
+  <th class="line-num">678</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">679</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            <span>std::c</span>out &lt;&lt; std::dec &lt;&lt; std::setw(3)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">679</th>
+  <td class="line-code diff_in">
+    <pre>            <span></span>out &lt;&lt; std::dec &lt;&lt; std::setw(3)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">680</th>
+  <th class="line-num">680</th>
+  <td class="line-code ">
+    <pre>                      &lt;&lt; std::setfill(&#39; &#39;) &lt;&lt; std::right</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">681</th>
+  <th class="line-num">681</th>
+  <td class="line-code ">
+    <pre>                      &lt;&lt; md.size();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">682</th>
+  <th class="line-num">682</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">683</th>
+  <th class="line-num">683</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prValue) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">684</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; &quot;  &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">684</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; &quot;  &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">685</th>
+  <th class="line-num">685</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">686</th>
+  <th class="line-num">686</th>
+  <td class="line-code ">
+    <pre>            if (   Params::instance().binary_</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">687</th>
+  <th class="line-num">687</th>
+  <td class="line-code ">
+    <pre>                &amp;&amp; (   md.typeId() == Exiv2::undefined</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">688</th>
+  <th class="line-num">688</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::unsignedByte</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">689</th>
+  <th class="line-num">689</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::signedByte)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">690</th>
+  <th class="line-num">690</th>
+  <td class="line-code ">
+    <pre>                &amp;&amp; md.size() &gt; 128) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">691</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                <span>std::c</span>out &lt;&lt; _(&quot;(Binary value suppressed)&quot;) &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">691</th>
+  <td class="line-code diff_in">
+    <pre>                <span></span>out &lt;&lt; _(&quot;(Binary value suppressed)&quot;) &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">692</th>
+  <th class="line-num">692</th>
+  <td class="line-code ">
+    <pre>                return true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">693</th>
+  <th class="line-num">693</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">694</th>
+  <th class="line-num">694</th>
+  <td class="line-code ">
+    <pre>            bool done = false;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">697</th>
+  <th class="line-num">697</th>
+  <td class="line-code ">
+    <pre>                if (pcv) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">698</th>
+  <th class="line-num">698</th>
+  <td class="line-code ">
+    <pre>                    Exiv2::CommentValue::CharsetId csId = pcv-&gt;charsetId();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">699</th>
+  <th class="line-num">699</th>
+  <td class="line-code ">
+    <pre>                    if (csId != Exiv2::CommentValue::undefined) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">700</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                        <span>std::c</span>out &lt;&lt; &quot;charset=\&quot;&quot; &lt;&lt; Exiv2::CommentValue::CharsetInfo::name(csId) &lt;&lt; &quot;\&quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">700</th>
+  <td class="line-code diff_in">
+    <pre>                        <span></span>out &lt;&lt; &quot;charset=\&quot;&quot; &lt;&lt; Exiv2::CommentValue::CharsetInfo::name(csId) &lt;&lt; &quot;\&quot; &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">701</th>
+  <th class="line-num">701</th>
+  <td class="line-code ">
+    <pre>                    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">702</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    <span>std::c</span>out &lt;&lt; pcv-&gt;comment(Params::instance().charset_.c_str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">702</th>
+  <td class="line-code diff_in">
+    <pre>                    <span></span>out &lt;&lt; pcv-&gt;comment(Params::instance().charset_.c_str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">703</th>
+  <th class="line-num">703</th>
+  <td class="line-code ">
+    <pre>                    done = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">704</th>
+  <th class="line-num">704</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">705</th>
+  <th class="line-num">705</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">706</th>
+  <th class="line-num">706</th>
+  <td class="line-code ">
+    <pre>            if (!done) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">707</th>
+  <th class="line-num">707</th>
+  <td class="line-code ">
+    <pre>                // #1114 - show negative values for SByte</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">708</th>
+  <th class="line-num">708</th>
+  <td class="line-code ">
+    <pre>                if (md.typeId() != Exiv2::signedByte){</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">709</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    <span>std::c</span>out &lt;&lt; std::dec &lt;&lt; md.value();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">709</th>
+  <td class="line-code diff_in">
+    <pre>                    <span></span>out &lt;&lt; std::dec &lt;&lt; md.value();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">710</th>
+  <th class="line-num">710</th>
+  <td class="line-code ">
+    <pre>                } else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">711</th>
+  <th class="line-num">711</th>
+  <td class="line-code ">
+    <pre>                    int value = md.value().toLong();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">712</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    <span>std::c</span>out &lt;&lt; std::dec &lt;&lt; (value&lt;128?value:value-256);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">712</th>
+  <td class="line-code diff_in">
+    <pre>                    <span></span>out &lt;&lt; std::dec &lt;&lt; (value&lt;128?value:value-256);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">713</th>
+  <th class="line-num">713</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">714</th>
+  <th class="line-num">714</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">715</th>
+  <th class="line-num">715</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">716</th>
+  <th class="line-num">716</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prTrans) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">717</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; &quot;  &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">717</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; &quot;  &quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">718</th>
+  <th class="line-num">718</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">719</th>
+  <th class="line-num">719</th>
+  <td class="line-code ">
+    <pre>            if (   Params::instance().binary_</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">720</th>
+  <th class="line-num">720</th>
+  <td class="line-code ">
+    <pre>                &amp;&amp; (   md.typeId() == Exiv2::undefined</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">721</th>
+  <th class="line-num">721</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::unsignedByte</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">722</th>
+  <th class="line-num">722</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::signedByte)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">723</th>
+  <th class="line-num">723</th>
+  <td class="line-code ">
+    <pre>                &amp;&amp; md.size() &gt; 128) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">724</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                <span>std::c</span>out &lt;&lt; _(&quot;(Binary value suppressed)&quot;) &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">724</th>
+  <td class="line-code diff_in">
+    <pre>                <span></span>out &lt;&lt; _(&quot;(Binary value suppressed)&quot;) &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">725</th>
+  <th class="line-num">725</th>
+  <td class="line-code ">
+    <pre>                return true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">726</th>
+  <th class="line-num">726</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">727</th>
+  <th class="line-num">727</th>
+  <td class="line-code ">
+    <pre>            bool done = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">728</th>
+  <th class="line-num">728</th>
+  <td class="line-code ">
+    <pre>            if (0 == strcmp(md.key().c_str(), &quot;Exif.Photo.UserComment&quot;)) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">729</th>
+  <th class="line-num">729</th>
+  <td class="line-code ">
+    <pre>                const Exiv2::CommentValue* pcv = dynamic_cast&lt;const Exiv2::CommentValue*&gt;(&amp;md.value());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">730</th>
+  <th class="line-num">730</th>
+  <td class="line-code ">
+    <pre>                if (pcv) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">731</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    <span>std::c</span>out &lt;&lt; pcv-&gt;comment(Params::instance().charset_.c_str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">731</th>
+  <td class="line-code diff_in">
+    <pre>                    <span></span>out &lt;&lt; pcv-&gt;comment(Params::instance().charset_.c_str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">732</th>
+  <th class="line-num">732</th>
+  <td class="line-code ">
+    <pre>                    done = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">733</th>
+  <th class="line-num">733</th>
+  <td class="line-code ">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">734</th>
+  <th class="line-num">734</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">735</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!done) <span>std::c</span>out &lt;&lt; std::dec &lt;&lt; md.print(&amp;pImage-&gt;exifData());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">735</th>
+  <td class="line-code diff_in">
+    <pre>            if (!done) <span></span>out &lt;&lt; std::dec &lt;&lt; md.print(&amp;pImage-&gt;exifData());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">736</th>
+  <th class="line-num">736</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">737</th>
+  <th class="line-num">737</th>
+  <td class="line-code ">
+    <pre>        if (Params::instance().printItems_ &amp; Params::prHex) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">738</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            if (!first) <span>std::c</span>out &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">738</th>
+  <td class="line-code diff_in">
+    <pre>            if (!first) <span></span>out &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">739</th>
+  <th class="line-num">739</th>
+  <td class="line-code ">
+    <pre>            first = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">740</th>
+  <th class="line-num">740</th>
+  <td class="line-code ">
+    <pre>            if (   Params::instance().binary_</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">741</th>
+  <th class="line-num">741</th>
+  <td class="line-code ">
+    <pre>                &amp;&amp; (   md.typeId() == Exiv2::undefined</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">742</th>
+  <th class="line-num">742</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::unsignedByte</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">743</th>
+  <th class="line-num">743</th>
+  <td class="line-code ">
+    <pre>                    || md.typeId() == Exiv2::signedByte)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">744</th>
+  <th class="line-num">744</th>
+  <td class="line-code ">
+    <pre>                &amp;&amp; md.size() &gt; 128) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">745</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                <span>std::c</span>out &lt;&lt; _(&quot;(Binary value suppressed)&quot;) &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">745</th>
+  <td class="line-code diff_in">
+    <pre>                <span></span>out &lt;&lt; _(&quot;(Binary value suppressed)&quot;) &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">746</th>
+  <th class="line-num">746</th>
+  <td class="line-code ">
+    <pre>                return true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">747</th>
+  <th class="line-num">747</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">748</th>
+  <th class="line-num">748</th>
+  <td class="line-code ">
+    <pre>            Exiv2::DataBuf buf(md.size());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">749</th>
+  <th class="line-num">749</th>
+  <td class="line-code ">
+    <pre>            md.copy(buf.pData_, pImage-&gt;byteOrder());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">750</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            Exiv2::hexdump(<span>std::c</span>out, buf.pData_, buf.size_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">750</th>
+  <td class="line-code diff_in">
+    <pre>            Exiv2::hexdump(<span></span>out, buf.pData_, buf.size_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">751</th>
+  <th class="line-num">751</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">752</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        <span>std::c</span>out &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">752</th>
+  <td class="line-code diff_in">
+    <pre>        <span></span>out &lt;&lt; std::endl;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">753</th>
+  <th class="line-num">753</th>
+  <td class="line-code ">
+    <pre>        return true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">754</th>
+  <th class="line-num">754</th>
+  <td class="line-code ">
+    <pre>    } // Print::printMetadatum</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">755</th>
+  <th class="line-num">755</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/actions.hpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">175</th>
+  <th class="line-num">175</th>
+  <td class="line-code ">
+    <pre>        //! Return true if key should be printed, else false</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">176</th>
+  <th class="line-num">176</th>
+  <td class="line-code ">
+    <pre>        bool keyTag(const std::string&amp; key);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">177</th>
+  <th class="line-num">177</th>
+  <td class="line-code ">
+    <pre>        //! Print all metadata in a user defined format</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">178</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        int printMetadata(const Exiv2::Image* image<span></span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">178</th>
+  <td class="line-code diff_in">
+    <pre>        int printMetadata(const Exiv2::Image* image<span>s,std::ostream&amp; out=std::cout</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">179</th>
+  <th class="line-num">179</th>
+  <td class="line-code ">
+    <pre>        //! Print a metadatum in a user defined format, return true if something was printed</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">180</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        bool printMetadatum(const Exiv2::Metadatum&amp; md, const Exiv2::Image* image<span></span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">180</th>
+  <td class="line-code diff_in">
+    <pre>        bool printMetadatum(const Exiv2::Metadatum&amp; md, const Exiv2::Image* image<span>,std::ostream&amp; out</span>);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">181</th>
+  <th class="line-num">181</th>
+  <td class="line-code ">
+    <pre>        //! Print the label for a summary line</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">182</th>
+  <th class="line-num">182</th>
+  <td class="line-code ">
+    <pre>        void printLabel(const std::string&amp; label) const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">183</th>
+  <th class="line-num">183</th>
+  <td class="line-code ">
+    <pre>        //! Print image Structure information</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/exiv2.cpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">94</th>
+  <th class="line-num">94</th>
+  <td class="line-code ">
+    <pre>                            int j);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">95</th>
+  <th class="line-num">95</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">96</th>
+  <th class="line-num">96</th>
+  <td class="line-code ">
+    <pre>    /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">97</th>
+  <td class="line-code diff_in">
+    <pre>      @brief Parse metadata modification commands from a steam</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">98</th>
+  <td class="line-code diff_in">
+    <pre>      @param modifyCmds Reference to a structure to store the parsed commands</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">99</th>
+  <td class="line-code diff_in">
+    <pre>      @param is input stream</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">100</th>
+  <td class="line-code diff_in">
+    <pre>      @param filename path to input stream</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">101</th>
+  <td class="line-code diff_in">
+    <pre>     */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">102</th>
+  <td class="line-code diff_in">
+    <pre>    bool parseCmdStream(ModifyCmds&amp; modifyCmds,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">103</th>
+  <td class="line-code diff_in">
+    <pre>                        std::istream&amp; is,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">104</th>
+  <td class="line-code diff_in">
+    <pre>                        const std::string&amp; filename);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">105</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">106</th>
+  <td class="line-code diff_in">
+    <pre>    /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">97</th>
+  <th class="line-num">107</th>
+  <td class="line-code ">
+    <pre>      @brief Parse metadata modification commands from multiple files</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">98</th>
+  <th class="line-num">108</th>
+  <td class="line-code ">
+    <pre>      @param modifyCmds Reference to a structure to store the parsed commands</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">99</th>
+  <th class="line-num">109</th>
+  <td class="line-code ">
+    <pre>      @param cmdFiles Container with the file names</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">610</th>
+  <th class="line-num">620</th>
+  <td class="line-code ">
+    <pre>            case &#39;v&#39;: printItems_ |= prValue; break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">611</th>
+  <th class="line-num">621</th>
+  <td class="line-code ">
+    <pre>            case &#39;t&#39;: printItems_ |= prTrans; break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">612</th>
+  <th class="line-num">622</th>
+  <td class="line-code ">
+    <pre>            case &#39;h&#39;: printItems_ |= prHex;   break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">613</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            case &#39;V&#39;: printItems_ |= prSet|prValue;break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">623</th>
+  <td class="line-code diff_in">
+    <pre>            case &#39;V&#39;: printItems_ |= prSet|prValue|prKey;break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">624</th>
+  <td class="line-code diff_in">
+    <pre>            case &#39;1&#39;: printItems_ |= prFirst; break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">614</th>
+  <th class="line-num">625</th>
+  <td class="line-code ">
+    <pre>            default:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">615</th>
+  <th class="line-num">626</th>
+  <td class="line-code ">
+    <pre>                std::cerr &lt;&lt; progname() &lt;&lt; &quot;: &quot; &lt;&lt; _(&quot;Unrecognized print item&quot;) &lt;&lt; &quot; `&quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">616</th>
+  <th class="line-num">627</th>
+  <td class="line-code ">
+    <pre>                          &lt;&lt; optarg[i] &lt;&lt; &quot;&#39;\n&quot;;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">846</th>
+  <th class="line-num">857</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">847</th>
+  <th class="line-num">858</th>
+  <td class="line-code ">
+    <pre>int Params::getopt(int argc, char* const Argv[])</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">848</th>
+  <th class="line-num">859</th>
+  <td class="line-code ">
+    <pre>{</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">849</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>char** argv = new char* [argc+1];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">850</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>argv[argc] = NULL;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">851</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>long_t longs;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">860</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>char** argv = new char* [argc+1];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">861</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>argv[argc] = NULL;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">862</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>long_t longs;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">852</th>
+  <th class="line-num">863</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">853</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--adjust&quot;   ] = &quot;-a&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">854</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--binary&quot;   ] = &quot;-b&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">855</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--comment&quot;  ] = &quot;-c&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">856</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--delete&quot;   ] = &quot;-d&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">857</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--days&quot;     ] = &quot;-D&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">858</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--force&quot;    ] = &quot;-f&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">859</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--Force&quot;    ] = &quot;-F&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">860</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--grep&quot;     ] = &quot;-g&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">861</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--help&quot;     ] = &quot;-h&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">862</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--insert&quot;   ] = &quot;-i&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">863</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--keep&quot;     ] = &quot;-k&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">864</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--key&quot;      ] = &quot;-K&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">865</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--location&quot; ] = &quot;-l&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">866</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--modify&quot;   ] = &quot;-m&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">867</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--Modify&quot;   ] = &quot;-M&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">868</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--encode&quot;   ] = &quot;-n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">869</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--months&quot;   ] = &quot;-O&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">870</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--print&quot;    ] = &quot;-p&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">871</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--Print&quot;    ] = &quot;-P&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">872</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--quiet&quot;    ] = &quot;-q&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">873</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--log&quot;      ] = &quot;-Q&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">874</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--rename&quot;   ] = &quot;-r&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">875</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--suffix&quot;   ] = &quot;-S&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">876</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--timestamp&quot;] = &quot;-t&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">877</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--Timestamp&quot;] = &quot;-T&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">878</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--unknown&quot;  ] = &quot;-u&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">879</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--verbose&quot;  ] = &quot;-v&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">880</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--Version&quot;  ] = &quot;-V&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">881</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--version&quot;  ] = &quot;-V&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">882</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>longs[&quot;--years&quot;    ] = &quot;-Y&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">864</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--adjust&quot;   ] = &quot;-a&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">865</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--binary&quot;   ] = &quot;-b&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">866</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--comment&quot;  ] = &quot;-c&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">867</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--delete&quot;   ] = &quot;-d&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">868</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--days&quot;     ] = &quot;-D&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">869</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--force&quot;    ] = &quot;-f&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">870</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--Force&quot;    ] = &quot;-F&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">871</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--grep&quot;     ] = &quot;-g&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">872</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--help&quot;     ] = &quot;-h&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">873</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--insert&quot;   ] = &quot;-i&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">874</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--keep&quot;     ] = &quot;-k&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">875</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--key&quot;      ] = &quot;-K&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">876</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--location&quot; ] = &quot;-l&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">877</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--modify&quot;   ] = &quot;-m&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">878</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--Modify&quot;   ] = &quot;-M&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">879</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--encode&quot;   ] = &quot;-n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">880</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--months&quot;   ] = &quot;-O&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">881</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--print&quot;    ] = &quot;-p&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">882</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--Print&quot;    ] = &quot;-P&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">883</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--quiet&quot;    ] = &quot;-q&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">884</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--log&quot;      ] = &quot;-Q&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">885</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--rename&quot;   ] = &quot;-r&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">886</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--suffix&quot;   ] = &quot;-S&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">887</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--timestamp&quot;] = &quot;-t&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">888</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--Timestamp&quot;] = &quot;-T&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">889</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--unknown&quot;  ] = &quot;-u&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">890</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--verbose&quot;  ] = &quot;-v&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">891</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--Version&quot;  ] = &quot;-V&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">892</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--version&quot;  ] = &quot;-V&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">893</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>longs[&quot;--years&quot;    ] = &quot;-Y&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">883</th>
+  <th class="line-num">894</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">884</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>for ( int i = 0 ; i &lt; argc ; i++ ) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">885</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>		</span>std::string* arg = new std::string(Argv[i]);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">886</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>		</span>if (longs.find(*arg) != longs.end() ) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">887</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>			</span>argv[i] = ::strdup(longs[*arg].c_str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">888</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>		</span>} else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">889</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>			</span>argv[i] = ::strdup(Argv[i]);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">890</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>		</span>}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">891</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>		</span>delete arg;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">892</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">895</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>for ( int i = 0 ; i &lt; argc ; i++ ) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">896</th>
+  <td class="line-code diff_in">
+    <pre><span>        </span>std::string* arg = new std::string(Argv[i]);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">897</th>
+  <td class="line-code diff_in">
+    <pre><span>        </span>if (longs.find(*arg) != longs.end() ) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">898</th>
+  <td class="line-code diff_in">
+    <pre><span>            </span>argv[i] = ::strdup(longs[*arg].c_str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">899</th>
+  <td class="line-code diff_in">
+    <pre><span>        </span>} else {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">900</th>
+  <td class="line-code diff_in">
+    <pre><span>            </span>argv[i] = ::strdup(Argv[i]);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">901</th>
+  <td class="line-code diff_in">
+    <pre><span>        </span>}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">902</th>
+  <td class="line-code diff_in">
+    <pre><span>        </span>delete arg;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">903</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">893</th>
+  <th class="line-num">904</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">894</th>
+  <th class="line-num">905</th>
+  <td class="line-code ">
+    <pre>    int rc = Util::Getopt::getopt(argc, argv, optstring_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">895</th>
+  <th class="line-num">906</th>
+  <td class="line-code ">
+    <pre>    // Further consistency checks</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">914</th>
+  <th class="line-num">925</th>
+  <td class="line-code ">
+    <pre>                  &lt;&lt; _(&quot;Modify action requires at least one -c, -m or -M option\n&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">915</th>
+  <th class="line-num">926</th>
+  <td class="line-code ">
+    <pre>        rc = 1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">916</th>
+  <th class="line-num">927</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">928</th>
+  <td class="line-code diff_in">
+    <pre>    // #1137</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">929</th>
+  <td class="line-code diff_in">
+    <pre>    // when -P1 is set (prFirst), pop the first file, print the metadata to stream and parse</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">930</th>
+  <td class="line-code diff_in">
+    <pre>    // set the action to modify to read the generated commands</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">931</th>
+  <td class="line-code diff_in">
+    <pre>    //</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">932</th>
+  <td class="line-code diff_in">
+    <pre>    // implementing the -P+ (prPair) feature is a simple variation of this code</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">933</th>
+  <td class="line-code diff_in">
+    <pre>    // to read (and subsequently remove) every other file in params-&gt;files_ to stream</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">934</th>
+  <td class="line-code diff_in">
+    <pre>    if (rc == 0 &amp;&amp; Params::instance().printItems_ &amp; Params::prFirst ) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">935</th>
+  <td class="line-code diff_in">
+    <pre>        Params&amp; params = Params::instance();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">936</th>
+  <td class="line-code diff_in">
+    <pre>        // Cancel prFirst</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">937</th>
+  <td class="line-code diff_in">
+    <pre>        params.printItems_ |= !Params::prFirst;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">938</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">939</th>
+  <td class="line-code diff_in">
+    <pre>        std::string           file  = params.files_[0];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">940</th>
+  <td class="line-code diff_in">
+    <pre>        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(file);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">941</th>
+  <td class="line-code diff_in">
+    <pre>        assert(image.get() != 0);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">942</th>
+  <td class="line-code diff_in">
+    <pre>        image-&gt;readMetadata();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">943</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">944</th>
+  <td class="line-code diff_in">
+    <pre>        params.printTags_ |= Exiv2::mdExif | Exiv2::mdIptc | Exiv2::mdXmp;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">945</th>
+  <td class="line-code diff_in">
+    <pre>        params.files_.erase (Params::instance().files_.begin());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">946</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">947</th>
+  <td class="line-code diff_in">
+    <pre>        Action::Print* printAction = new Action::Print();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">948</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">949</th>
+  <td class="line-code diff_in">
+    <pre>        std::ostringstream    os ;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">950</th>
+  <td class="line-code diff_in">
+    <pre>        printAction-&gt;printMetadata(image.get(),os);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">951</th>
+  <td class="line-code diff_in">
+    <pre>        delete printAction;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">952</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">953</th>
+  <td class="line-code diff_in">
+    <pre>        std::istringstream is(os.str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">954</th>
+  <td class="line-code diff_in">
+    <pre>        parseCmdStream(modifyCmds_,is,file);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">955</th>
+  <td class="line-code diff_in">
+    <pre>        params.action_ = Action::modify;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">956</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">957</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">917</th>
+  <th class="line-num">958</th>
+  <td class="line-code ">
+    <pre>    if (0 == files_.size()) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">918</th>
+  <th class="line-num">959</th>
+  <td class="line-code ">
+    <pre>        std::cerr &lt;&lt; progname() &lt;&lt; &quot;: &quot; &lt;&lt; _(&quot;At least one file is required\n&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">919</th>
+  <th class="line-num">960</th>
+  <td class="line-code ">
+    <pre>        rc = 1;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">958</th>
+  <th class="line-num">999</th>
+  <td class="line-code ">
+    <pre>        rc = 1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">959</th>
+  <th class="line-num">1000</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">960</th>
+  <th class="line-num">1001</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">961</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>// cleanup the argument vector</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">962</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>	</span>for ( int i = 0 ; i &lt; argc ; i++ ) ::free((void*)argv[i]);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1002</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>// cleanup the argument vector</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1003</th>
+  <td class="line-code diff_in">
+    <pre><span>    </span>for ( int i = 0 ; i &lt; argc ; i++ ) ::free((void*)argv[i]);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">963</th>
+  <th class="line-num">1004</th>
+  <td class="line-code ">
+    <pre>    delete [] argv;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">964</th>
+  <th class="line-num">1005</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">965</th>
+  <th class="line-num">1006</th>
+  <td class="line-code ">
+    <pre>    return rc;</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">1089</th>
+  <th class="line-num">1130</th>
+  <td class="line-code ">
+    <pre>        return (int) (k - j);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1090</th>
+  <th class="line-num">1131</th>
+  <td class="line-code ">
+    <pre>    } // parsePreviewNumbers</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1091</th>
+  <th class="line-num">1132</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1133</th>
+  <td class="line-code diff_in">
+    <pre>    bool parseCmdStream(ModifyCmds&amp; modifyCmds,std::istream&amp; is, const std::string&amp; filename)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1134</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1135</th>
+  <td class="line-code diff_in">
+    <pre>        bool result = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1136</th>
+  <td class="line-code diff_in">
+    <pre>        try {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1137</th>
+  <td class="line-code diff_in">
+    <pre>            int num = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1138</th>
+  <td class="line-code diff_in">
+    <pre>            std::string line;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1139</th>
+  <td class="line-code diff_in">
+    <pre>            while (std::getline(is, line)) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1140</th>
+  <td class="line-code diff_in">
+    <pre>                ModifyCmd modifyCmd;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1141</th>
+  <td class="line-code diff_in">
+    <pre>                if (parseLine(modifyCmd, line, ++num)) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1142</th>
+  <td class="line-code diff_in">
+    <pre>                    modifyCmds.push_back(modifyCmd);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1143</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1144</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1145</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1146</th>
+  <td class="line-code diff_in">
+    <pre>        catch (const Exiv2::AnyError&amp; error) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1147</th>
+  <td class="line-code diff_in">
+    <pre>            std::cerr &lt;&lt; filename &lt;&lt; &quot;, &quot; &lt;&lt; _(&quot;line&quot;) &lt;&lt; &quot; &quot; &lt;&lt; error &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1148</th>
+  <td class="line-code diff_in">
+    <pre>            result = false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1149</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1150</th>
+  <td class="line-code diff_in">
+    <pre>        return result;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1151</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1152</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1092</th>
+  <th class="line-num">1153</th>
+  <td class="line-code ">
+    <pre>    bool parseCmdFiles(ModifyCmds&amp; modifyCmds,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1093</th>
+  <th class="line-num">1154</th>
+  <td class="line-code ">
+    <pre>                       const Params::CmdFiles&amp; cmdFiles)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1094</th>
+  <th class="line-num">1155</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1156</th>
+  <td class="line-code diff_in">
+    <pre>        bool result = true ;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1095</th>
+  <th class="line-num">1157</th>
+  <td class="line-code ">
+    <pre>        Params::CmdFiles::const_iterator end = cmdFiles.end();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1096</th>
+  <th class="line-num">1158</th>
+  <td class="line-code ">
+    <pre>        Params::CmdFiles::const_iterator filename = cmdFiles.begin();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1097</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        for ( ; filename != end; ++filename) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1098</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            try {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1099</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                std::ifstream file(filename-&gt;c_str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1100</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                bool bStdin = filename-&gt;compare(&quot;-&quot;)== 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1101</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                if (!file &amp;&amp; !bStdin) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1102</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    std::cerr &lt;&lt; *filename &lt;&lt; &quot;: &quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1103</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                              &lt;&lt; _(&quot;Failed to open command file for reading\n&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1104</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    return false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1105</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1106</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                int num = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1107</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                std::string line;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1108</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                while (std::getline(bStdin? std::cin : file, line)) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1109</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    ModifyCmd modifyCmd;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1110</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    if (parseLine(modifyCmd, line, ++num)) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1111</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                        modifyCmds.push_back(modifyCmd);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1112</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1113</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1114</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1115</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>            catch (const Exiv2::AnyError&amp; error) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1116</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                std::cerr &lt;&lt; *filename &lt;&lt; &quot;, &quot; &lt;&lt; _(&quot;line&quot;) &lt;&lt; &quot; &quot; &lt;&lt; error &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1159</th>
+  <td class="line-code diff_in">
+    <pre>        for ( ; result &amp;&amp; filename != end; ++filename) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1160</th>
+  <td class="line-code diff_in">
+    <pre>            std::ifstream file(filename-&gt;c_str());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1161</th>
+  <td class="line-code diff_in">
+    <pre>            bool bStdin = filename-&gt;compare(&quot;-&quot;)== 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1162</th>
+  <td class="line-code diff_in">
+    <pre>            if (!file &amp;&amp; !bStdin) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1163</th>
+  <td class="line-code diff_in">
+    <pre>                std::cerr &lt;&lt; *filename &lt;&lt; &quot;: &quot;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1164</th>
+  <td class="line-code diff_in">
+    <pre>                          &lt;&lt; _(&quot;Failed to open command file for reading\n&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1117</th>
+  <th class="line-num">1165</th>
+  <td class="line-code ">
+    <pre>                return false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1118</th>
+  <th class="line-num">1166</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1167</th>
+  <td class="line-code diff_in">
+    <pre>            result = parseCmdStream(modifyCmds,bStdin?std::cin:file, *filename);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1119</th>
+  <th class="line-num">1168</th>
+  <td class="line-code ">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1120</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        return <span>true</span>;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1169</th>
+  <td class="line-code diff_in">
+    <pre>        return <span>result</span>;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1121</th>
+  <th class="line-num">1170</th>
+  <td class="line-code ">
+    <pre>    } // parseCmdFile</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1122</th>
+  <th class="line-num">1171</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">1123</th>
+  <th class="line-num">1172</th>
+  <td class="line-code ">
+    <pre>    bool parseCmdLines(ModifyCmds&amp; modifyCmds,</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/exiv2app.hpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">147</th>
+  <th class="line-num">147</th>
+  <td class="line-code ">
+    <pre>        pmList,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">148</th>
+  <th class="line-num">148</th>
+  <td class="line-code ">
+    <pre>        pmComment,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">149</th>
+  <th class="line-num">149</th>
+  <td class="line-code ">
+    <pre>        pmPreview,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">150</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>		</span>pmStructure,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">151</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>		</span>pmXMP,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">152</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>		</span>pmIccProfile,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">153</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre><span>		</span>pmRecursive</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">150</th>
+  <td class="line-code diff_in">
+    <pre><span>        </span>pmStructure,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">151</th>
+  <td class="line-code diff_in">
+    <pre><span>        </span>pmXMP,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">152</th>
+  <td class="line-code diff_in">
+    <pre><span>        </span>pmIccProfile,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">153</th>
+  <td class="line-code diff_in">
+    <pre><span>        </span>pmRecursive</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">154</th>
+  <th class="line-num">154</th>
+  <td class="line-code ">
+    <pre>    };</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">155</th>
+  <th class="line-num">155</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">156</th>
+  <th class="line-num">156</th>
+  <td class="line-code ">
+    <pre>    //! Individual items to print, bitmap</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">157</th>
+  <th class="line-num">157</th>
+  <td class="line-code ">
+    <pre>    enum PrintItem {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">158</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prTag   =    1,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">159</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prGroup =    2,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">160</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prKey   =    4,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">161</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prName  =    8,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">162</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prLabel =   16,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">163</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prType  =   32,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">164</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prCount =   64,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">165</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prSize  =  128,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">166</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prValue =  256,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">167</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prTrans =  512,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">168</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prHex   = 1024,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">169</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        prSet   = 2048</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">158</th>
+  <td class="line-code diff_in">
+    <pre>        prTag   =   0x01,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">159</th>
+  <td class="line-code diff_in">
+    <pre>        prGroup =   0x02,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">160</th>
+  <td class="line-code diff_in">
+    <pre>        prKey   =   0x04,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">161</th>
+  <td class="line-code diff_in">
+    <pre>        prName  =   0x08,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">162</th>
+  <td class="line-code diff_in">
+    <pre>        prLabel =   0x10,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">163</th>
+  <td class="line-code diff_in">
+    <pre>        prType  =   0x20,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">164</th>
+  <td class="line-code diff_in">
+    <pre>        prCount =   0x40,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">165</th>
+  <td class="line-code diff_in">
+    <pre>        prSize  =   0x80,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">166</th>
+  <td class="line-code diff_in">
+    <pre>        prValue =  0x100,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">167</th>
+  <td class="line-code diff_in">
+    <pre>        prTrans =  0x200,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">168</th>
+  <td class="line-code diff_in">
+    <pre>        prHex   =  0x400,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">169</th>
+  <td class="line-code diff_in">
+    <pre>        prSet   =  0x800,</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">170</th>
+  <td class="line-code diff_in">
+    <pre>        prFirst = 0x1000</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">170</th>
+  <th class="line-num">171</th>
+  <td class="line-code ">
+    <pre>    };</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">171</th>
+  <th class="line-num">172</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">172</th>
+  <th class="line-num">173</th>
+  <td class="line-code ">
+    <pre>    //! Enumerates common targets, bitmap</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"></ul><span><span class="items">(1-1/1)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

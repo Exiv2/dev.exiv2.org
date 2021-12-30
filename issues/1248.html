@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1248: floating point exception / crash on malformed input - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="xGsVw7XEimJeTMujFAN/3php8a1qPNlvXnICigLouhwmJr4sx75GYgso1K+r1HPtp/ul1JvfeNWjUpICQdFdcw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1248: floating point exception / crash on malformed input" href="https://dev.exiv2.org/issues/1248.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1248</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>floating point exception / crash on malformed input</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4430">Hanno Böck</a> <a title="21 Oct 2016 21:17" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago.
+        Updated <a title="01 Nov 2016 08:49" href="/projects/exiv2/activity?from=2016-11-01">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">not-a-bug</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">21 Oct 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">5.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>The attached file will cause a floating point exception with "exiv2 print".</p>
+
+
+	<p>Here's a stack trace:<br />18792ERROR: AddressSanitizer: FPE on unknown address 0x7f50fa97325b (pc 0x7f50fa97325b bp 0x7ffdcda38c80 sp 0x7ffdcda38b90 T0)<br />    #0 0x7f50fa97325a in Exiv2::ValueType&lt;std::pair&lt;int, int&gt; >::toLong(long) const /f/exiv2/trunk/include/exiv2/value.hpp:1666:32<br />    #1 0x7f50fab94125 in std::ostream&#38; Exiv2::Internal::printTag&lt;27, Exiv2::Internal::exifFlash&gt;(std::ostream&#38;, Exiv2::Value const&#38;, Exiv2::ExifData const*) /f/exiv2/trunk/src/tags_int.hpp:229:44<br />    #2 0x7f50fa94d256 in Exiv2::Exifdatum::write(std::ostream&#38;, Exiv2::ExifData const*) const /f/exiv2/trunk/src/exif.cpp:230:16<br />    #3 0x55fdcd in Action::Print::printTag(Exiv2::ExifData const&#38;, std::string const&#38;, std::string const&#38;) const /f/exiv2/trunk/src/actions.cpp:497:13<br />    #4 0x5485a2 in Action::Print::printSummary() /f/exiv2/trunk/src/actions.cpp:360:13<br />    #5 0x544a58 in Action::Print::run(std::string const&#38;) /f/exiv2/trunk/src/actions.cpp:244:44<br />    #6 0x4fe07f in main /f/exiv2/trunk/src/exiv2.cpp:170:19<br />    #7 0x7f50f920378f in __libc_start_main (/lib64/libc.so.6+0x2078f)<br />    #8 0x421eb8 in _start (/r/exiv2/exiv2+0x421eb8)</p>
+
+
+	<p>AddressSanitizer can not provide additional info.<br />SUMMARY: AddressSanitizer: FPE /f/exiv2/trunk/include/exiv2/value.hpp:1666:32 in Exiv2::ValueType&lt;std::pair&lt;int, int&gt; >::toLong(long) const<br />18792ABORTING</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1089">exiv2-fpe-printTag.jpg</a>    <span class="size">(65 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1089/exiv2-fpe-printTag.jpg">exiv2-fpe-printTag.jpg</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Hanno Böck, 21 Oct 2016 21:17</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1090">exiv2-fpe-print0x9207-printTag.jpg</a>    <span class="size">(65 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1090/exiv2-fpe-print0x9207-printTag.jpg">exiv2-fpe-print0x9207-printTag.jpg</a>  </td>
+  <td>fpe in printTag / print0x9207</td>
+  <td>
+      <span class="author">Hanno Böck, 22 Oct 2016 20:52</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1091">heapoverflow-printIFDStructure-382.jpg</a>    <span class="size">(220 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1091/heapoverflow-printIFDStructure-382.jpg">heapoverflow-printIFDStructure-382.jpg</a>  </td>
+  <td>heapoverflow-printIFDStructure-382.jpg</td>
+  <td>
+      <span class="author">Hanno Böck, 22 Oct 2016 21:01</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1092">heapoverflow-byteSwap4-printIFDStructure-429.jpg</a>    <span class="size">(18 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1092/heapoverflow-byteSwap4-printIFDStructure-429.jpg">heapoverflow-byteSwap4-printIFDStructure-429.jpg</a>  </td>
+  <td>heapoverflow-byteSwap4-printIFDStructure-429.jpg</td>
+  <td>
+      <span class="author">Hanno Böck, 22 Oct 2016 21:01</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1248" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="eWLRdaDOyEVZDfbnePybe4blUYIQn68+b+Lnm8hJTXebL3qa0rQERQxp6evHK5dIuXcF++F8DoSSwncTi3CqGA==" />
+  <table class="list issues odd-even"><tr id="relation-255" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1247" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1247">Bug #1247</a>: out of bounds read access in Exiv2::Image::setIccProfile</td><td class="status">Closed</td><td class="start_date">21 Oct 2016</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1248/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1248&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5715" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Oct 2016 23:00" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago
+      <span id="journal-5715-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5715-notes" class="wiki"><p>Hanno</p>
+
+
+	<p>What are you doing here?  This is another malformed file.  It's very helpful to have those files, however I can't deal with an avalanche of illegal files at the moment.  I'm in the end game of completing v0.26.  The team will meet on Sunday to discuss RC1 v0.26:  <a class="external" href="http://clanmills.com/exiv2/Exiv2v0-26RC1.pdf">http://clanmills.com/exiv2/Exiv2v0-26RC1.pdf</a></p>
+
+
+	<p>How about proceeding as follows:</p>
+
+
+	<p>1) We change the title of <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: out of bounds read access in Exiv2::Image::setIccProfile (Closed)" href="/issues/1247">#1247</a> to "Exceptions/Crashes due to malformed input files" <br />2) When you find another file, update <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: out of bounds read access in Exiv2::Image::setIccProfile (Closed)" href="/issues/1247">#1247</a> with the file and symptoms.</p>
+
+
+	<p>Find all that you can and we'll deal with them in v0.27.</p>
+
+
+	<p>Are you aware of the term "fuzzing"?  I believe this is the art of creating illegal files to put software under stress.  I am aware that libexiv2 can be exploited in this way, however I have never had time to work on this topic.  Images are read by the function readMetadata() in the image handlers src/tiffimage.cpp, src/jpgimage.cpp/etc.  It's probably necessary to go through those functions line-by-line and devise files to break the code.  Then engineer a fix in the code. And that won't be the end of the project - far from it.  We can modify metadata/delete metadata which could also put the code under great stress.   Such a project is probably a very considerable undertaking.</p>
+
+
+	<p>Dealing with this by dumping files on me one-at-a-time is very inefficient use of my time.  The fix you provided earlier to <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: out of bounds read access in Exiv2::Image::setIccProfile (Closed)" href="/issues/1247">#1247</a> was incorrect and generated compiler warnings on GCC.  And I added your test file to our test harness.  So, you've taken up 2 hours of my day.  2 hours that I would prefer to use on the bug hunt for v0.26 <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Bug Hunt for v0.26 (Closed)" href="/issues/1230">#1230</a>.</p>
+
+
+	<p>If you'd like to take on the challenge of finding <em><strong>and</strong></em> fixing all of this, I will happily assist/mentor you.  However I'd like to avoid a very discouraging avalanche of bug reports.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5716" class="journal has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Oct 2016 23:18" href="/projects/exiv2/activity?from=2016-10-21">about 5 years</a> ago
+      <span id="journal-5716-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>image format</i></li>
+       <li><strong>Target version</strong> set to <i>0.28</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5718" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4430">Hanno Böck</a> <a title="22 Oct 2016 11:02" href="/projects/exiv2/activity?from=2016-10-22">about 5 years</a> ago
+      <span id="journal-5718-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5718-notes" class="wiki"><p>These files are actually a result of fuzzing. I'm using american fuzzy lop in combination with address sanitizer. See here [1] [2] for some docs.</p>
+
+
+	<p>If you feel it's more appropriate I can add them all to one bug.</p>
+
+
+	<p>[1] <a class="external" href="https://fuzzing-project.org/tutorial2.html">https://fuzzing-project.org/tutorial2.html</a><br />[2] <a class="external" href="https://fuzzing-project.org/tutorial3.html">https://fuzzing-project.org/tutorial3.html</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5719" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Oct 2016 12:51" href="/projects/exiv2/activity?from=2016-10-22">about 5 years</a> ago
+      <span id="journal-5719-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5719-notes" class="wiki"><p>Hanno</p>
+
+
+	<p>Thanks for doing this.  I did more work on <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: out of bounds read access in Exiv2::Image::setIccProfile (Closed)" href="/issues/1247">#1247</a> last night and again this morning (I'm in England).  I've thought of a way to cure/hide this by adding a function <em><strong><code>Image::lint()</code></strong></em> which would have signal handlers.  <em><strong><code>Image::lint()</code></strong></em> would "sniff" files by running readMetadata() and printStructure() in a safe context.</p>
+
+
+	<p>I have closed <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: out of bounds read access in Exiv2::Image::setIccProfile (Closed)" href="/issues/1247">#1247</a>.  As you discover additional issues, please update this issue <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: floating point exception / crash on malformed input (Closed)" href="/issues/1248">#1248</a>.   I'll add the <em><strong><code>Image::lint()</code></strong></em> function in v0.27 and this will make the code immune to crashes on opening files.  <em><strong><code>Image::lint()</code></strong></em> will make the library safer.  I will also look at small changes in readMetadata() and printStructure() on a case-by-case basis.</p>
+
+
+	<p>We are having a Team Meeting tomorrow at 13:00 UTC 2016-10-23.  You are welcome to join us if you wish.  <a class="external" href="http://dev.exiv2.org/boards/3/topics/2767">http://dev.exiv2.org/boards/3/topics/2767</a></p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5720" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Oct 2016 14:31" href="/projects/exiv2/activity?from=2016-10-22">about 5 years</a> ago
+      <span id="journal-5720-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Estimated time</strong> set to <i>100.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5722" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4430">Hanno Böck</a> <a title="22 Oct 2016 20:52" href="/projects/exiv2/activity?from=2016-10-22">about 5 years</a> ago
+      <span id="journal-5722-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1090">exiv2-fpe-print0x9207-printTag.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1090/exiv2-fpe-print0x9207-printTag.jpg">exiv2-fpe-print0x9207-printTag.jpg</a> added</li>
+    </ul>
+    <div id="journal-5722-notes" class="wiki"><p>Attached a file causing a different floating point exception (may be the same underlying bug).</p>
+
+
+	<p>Stack trace:<br />15656ERROR: AddressSanitizer: FPE on unknown address 0x000000736534 (pc 0x000000736534 bp 0x0c0800001924 sp 0x7ffd491c0430 T0)<br />    #0 0x736533 in Exiv2::ValueType&lt;std::pair&lt;int, int&gt; >::toLong(long) const /f/exiv2/trunk/include/exiv2/value.hpp:1666:32<br />    #1 0x885227 in std::ostream&#38; Exiv2::Internal::printTag&lt;9, Exiv2::Internal::exifMeteringMode&gt;(std::ostream&#38;, Exiv2::Value const&#38;, Exiv2::ExifData const*) /f/exiv2/trunk/src/tags_int.hpp:229:44<br />    #2 0x8627b9 in Exiv2::Internal::print0x9207(std::ostream&#38;, Exiv2::Value const&#38;, Exiv2::ExifData const*) /f/exiv2/trunk/src/tags.cpp:2733:16<br />    #3 0x7093e4 in Exiv2::Exifdatum::write(std::ostream&#38;, Exiv2::ExifData const*) const /f/exiv2/trunk/src/exif.cpp:230:16<br />    #4 0x610fcd in Action::Print::printTag(Exiv2::ExifData const&#38;, std::string const&#38;, std::string const&#38;) const /f/exiv2/trunk/src/actions.cpp:497:13<br />    #5 0x5fb699 in Action::Print::printSummary() /f/exiv2/trunk/src/actions.cpp:405:9<br />    #6 0x5f5c58 in Action::Print::run(std::string const&#38;) /f/exiv2/trunk/src/actions.cpp:244:44<br />    #7 0x5af24f in main /f/exiv2/trunk/src/exiv2.cpp:170:19<br />    #8 0x7f99f63e778f in __libc_start_main (/lib64/libc.so.6+0x2078f)<br />    #9 0x4d3088 in _start (/r/exiv2/exiv2+0x4d3088)</p>
+
+
+	<p>AddressSanitizer can not provide additional info.<br />SUMMARY: AddressSanitizer: FPE /f/exiv2/trunk/include/exiv2/value.hpp:1666:32 in Exiv2::ValueType&lt;std::pair&lt;int, int&gt; >::toLong(long) const<br />15656ABORTING</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5723" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4430">Hanno Böck</a> <a title="22 Oct 2016 21:01" href="/projects/exiv2/activity?from=2016-10-22">about 5 years</a> ago
+      <span id="journal-5723-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1091">heapoverflow-printIFDStructure-382.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1091/heapoverflow-printIFDStructure-382.jpg">heapoverflow-printIFDStructure-382.jpg</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/1092">heapoverflow-byteSwap4-printIFDStructure-429.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1092/heapoverflow-byteSwap4-printIFDStructure-429.jpg">heapoverflow-byteSwap4-printIFDStructure-429.jpg</a> added</li>
+    </ul>
+    <div id="journal-5723-notes" class="wiki"><p>Attached are two files causing (different) heap buffer overflows (one writing and one reading) in exiv2.</p>
+
+
+	<p>I have to add that these don't crash exiv2 for me. This is not uncommon for memory safety bugs, it often depends on system, compiler behavior or memory layout whether these cause an issue or not. You can reliably see these bugs with address sanitizer, which is a feature of gcc and clang and can be enabled by passing "-fsanitize=address" to the compiler flags.</p>
+
+
+	<p>Address Sanitizer output for heapoverflow-printIFDStructure-382.jpg:<br />12115ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000edd3 at pc 0x00000076004c bp 0x7fffe4bdfb90 sp 0x7fffe4bdfb88<br />WRITE of size 4 at 0x60200000edd3 thread T0<br />    #0 0x76004b in Exiv2::Image::printIFDStructure(Exiv2::BasicIo&#38;, std::ostream&#38;, Exiv2::PrintStructureOption, unsigned int, bool, char, int) /f/exiv2/trunk/src/image.cpp:382:17<br />    #1 0x761168 in Exiv2::Image::printTiffStructure(Exiv2::BasicIo&#38;, std::ostream&#38;, Exiv2::PrintStructureOption, int, unsigned long) /f/exiv2/trunk/src/image.cpp:494:13<br />    #2 0x89c0f9 in Exiv2::TiffImage::printStructure(std::ostream&#38;, Exiv2::PrintStructureOption, int) /f/exiv2/trunk/src/tiffimage.cpp:348:9<br />    #3 0x894d98 in Exiv2::TiffImage::readMetadata() /f/exiv2/trunk/src/tiffimage.cpp:191:9<br />    #4 0x5f658c in Action::Print::printSummary() /f/exiv2/trunk/src/actions.cpp:289:9<br />    #5 0x5f5c58 in Action::Print::run(std::string const&#38;) /f/exiv2/trunk/src/actions.cpp:244:44<br />    #6 0x5af24f in main /f/exiv2/trunk/src/exiv2.cpp:170:19<br />    #7 0x7fc2bc7b278f in __libc_start_main (/lib64/libc.so.6+0x2078f)<br />    #8 0x4d3088 in _start (/r/exiv2/exiv2+0x4d3088)</p>
+
+
+	<p>0x60200000edd3 is located 2 bytes to the right of 1-byte region [0x60200000edd0,0x60200000edd1)<br />allocated by thread T0 here:<br />    #0 0x5abd40 in operator new[](unsigned long) (/r/exiv2/exiv2+0x5abd40)<br />    #1 0x7589fa in Exiv2::DataBuf::DataBuf(long) /f/exiv2/trunk/include/exiv2/types.hpp:204:46<br />    #2 0x7589fa in Exiv2::Image::printIFDStructure(Exiv2::BasicIo&#38;, std::ostream&#38;, Exiv2::PrintStructureOption, unsigned int, bool, char, int) /f/exiv2/trunk/src/image.cpp:381<br />    #3 0x761168 in Exiv2::Image::printTiffStructure(Exiv2::BasicIo&#38;, std::ostream&#38;, Exiv2::PrintStructureOption, int, unsigned long) /f/exiv2/trunk/src/image.cpp:494:13</p>
+
+
+	<p>Address Sanitizer output for heapoverflow-byteSwap4-printIFDStructure-429.jpg:<br />31059ERROR: AddressSanitizer: heap-buffer-overflow on address 0x62700001b930 at pc 0x00000075fee6 bp 0x7ffc51df1a90 sp 0x7ffc51df1a88<br />READ of size 1 at 0x62700001b930 thread T0<br />    #0 0x75fee5 in Exiv2::Image::byteSwap4(Exiv2::DataBuf&#38;, unsigned long, bool) /f/exiv2/trunk/src/image.cpp:265:16<br />    #1 0x75fee5 in Exiv2::Image::printIFDStructure(Exiv2::BasicIo&#38;, std::ostream&#38;, Exiv2::PrintStructureOption, unsigned int, bool, char, int) /f/exiv2/trunk/src/image.cpp:429<br />    #2 0x761168 in Exiv2::Image::printTiffStructure(Exiv2::BasicIo&#38;, std::ostream&#38;, Exiv2::PrintStructureOption, int, unsigned long) /f/exiv2/trunk/src/image.cpp:494:13<br />    #3 0x89c0f9 in Exiv2::TiffImage::printStructure(std::ostream&#38;, Exiv2::PrintStructureOption, int) /f/exiv2/trunk/src/tiffimage.cpp:348:9<br />    #4 0x894d98 in Exiv2::TiffImage::readMetadata() /f/exiv2/trunk/src/tiffimage.cpp:191:9<br />    #5 0x5f658c in Action::Print::printSummary() /f/exiv2/trunk/src/actions.cpp:289:9<br />    #6 0x5f5c58 in Action::Print::run(std::string const&#38;) /f/exiv2/trunk/src/actions.cpp:244:44<br />    #7 0x5af24f in main /f/exiv2/trunk/src/exiv2.cpp:170:19<br />    #8 0x7f94d781178f in __libc_start_main (/lib64/libc.so.6+0x2078f)<br />    #9 0x4d3088 in _start (/r/exiv2/exiv2+0x4d3088)</p>
+
+
+	<p>0x62700001b930 is located 0 bytes to the right of 12336-byte region [0x627000018900,0x62700001b930)<br />allocated by thread T0 here:<br />    #0 0x5abd40 in operator new[](unsigned long) (/r/exiv2/exiv2+0x5abd40)<br />    #1 0x7589fa in Exiv2::DataBuf::DataBuf(long) /f/exiv2/trunk/include/exiv2/types.hpp:204:46<br />    #2 0x7589fa in Exiv2::Image::printIFDStructure(Exiv2::BasicIo&#38;, std::ostream&#38;, Exiv2::PrintStructureOption, unsigned int, bool, char, int) /f/exiv2/trunk/src/image.cpp:381<br />    #3 0x761168 in Exiv2::Image::printTiffStructure(Exiv2::BasicIo&#38;, std::ostream&#38;, Exiv2::PrintStructureOption, int, unsigned long) /f/exiv2/trunk/src/image.cpp:494:13</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5724" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Oct 2016 21:31" href="/projects/exiv2/activity?from=2016-10-22">about 5 years</a> ago
+      <span id="journal-5724-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5724-notes" class="wiki"><p>Thanks for working on this, Hanno.  I've thought of a serious limitation with my idea of the function <em><strong><code>Image::lint()</code></strong></em>.  It has to modify and restore signal handlers.  If signal handlers are process wide, messing with them in a single function can never be thread-safe without a lock.  I never want to add a hidden lock to libexiv2.  None of this misery occurs with clang where the code throws an Exiv2 exception.  The host application doesn't crash and can inform user that the file cannot be read.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5725" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Oct 2016 08:06" href="/projects/exiv2/activity?from=2016-10-23">about 5 years</a> ago
+      <span id="journal-5725-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5725-notes" class="wiki"><p>I'm wondering if there is any point in working on this issue.  It isn't an issue when you build with clang.  The problem is 100% due to elderly compilers such as GCC and CL.  It does not make sense to pollute the Exiv2 code with checks to remedy deficiencies in the build tools.</p>
+
+
+	<p>The idea/proposal to write <em><strong><code>Image::lint()</code></strong></em> can never be implemented in a thread safe manner.  <a class="external" href="http://stackoverflow.com/questions/5282099/signal-handling-in-pthreads">http://stackoverflow.com/questions/5282099/signal-handling-in-pthreads</a></p>
+
+
+	<p>I feel this issue and <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: out of bounds read access in Exiv2::Image::setIccProfile (Closed)" href="/issues/1247">#1247</a> are "not a bug" and should be closed.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5726" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Oct 2016 08:32" href="/projects/exiv2/activity?from=2016-10-23">about 5 years</a> ago
+      <span id="journal-5726-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5726-notes" class="wiki"><p>More proof that this is a build tools issue.  I test last night's MSVC/2015 build.  No problem: <pre>C:\temp\dist\2015\x64\dll\Release\bin&gt;exiv2 -vV | grep -e svn -e date -e time -e compiler
+compiler=MSVC
+date=Oct 23 2016
+time=02:46:49
+svn=4655
+have_gmtime_r=0
+have_timegm=0
+xmlns=mediapro:http://ns.iview-multimedia.com/mediapro/1.0/
+
+C:\temp\dist\2015\x64\dll\Release\bin&gt;exiv2 -pa \Users\rmills\gnu\exiv2\trunk\test\data\exiv2-bug1247.jpg
+Exiv2 exception in print action for file \Users\rmills\gnu\exiv2\trunk\test\data\exiv2-bug1247.jpg:
+Not a valid ICC Profile
+
+C:\temp\dist\2015\x64\dll\Release\bin&gt;exiv2 -pR \Users\rmills\gnu\exiv2\trunk\test\data\exiv2-bug1247.jpg
+STRUCTURE OF JPEG FILE: \Users\rmills\gnu\exiv2\trunk\test\data\exiv2-bug1247.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI
+       2 | 0xffe2 APP2  |      16 | ICC_PROFILE.... chunk 0/0
+      18 | 0xffffffffff É"ÿ∙Exiv2 exception in print action for file \Users\rmills\gnu\exiv2\trunk\test\data\exiv2-bug1247.jpg:
+This does not look like a JPEG image
+
+C:\temp\dist\2015\x64\dll\Release\bin&gt;</pre>Two simple questions:</p>
+
+
+	<p>1) Why are we working on this?<br />2) Is there any reason I should not close this issue?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5727" class="journal has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Oct 2016 10:25" href="/projects/exiv2/activity?from=2016-10-24">about 5 years</a> ago
+      <span id="journal-5727-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>image format</i> to <i>not-a-bug</i></li>
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>Target version</strong> changed from <i>0.28</i> to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>100.00 h</i> to <i>5.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-5732" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4430">Hanno Böck</a> <a title="31 Oct 2016 12:25" href="/projects/exiv2/activity?from=2016-10-31">about 5 years</a> ago
+      <span id="journal-5732-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5732-notes" class="wiki"><p>I'm not sure why you come to the conclusion these are not bugs....</p>
+
+
+	<p>You say these don't affect clang, I can't reproduce that. All four issues also happen with clang (latest version 3.9.0, on Linux). I'm also not entirely sure if your comments are only related to the fpe issue or about all issues (but you asked me to put unrelated bugs into one bugreport...)</p>
+
+
+	<p>The floating point exception issues are "only" crashes, so I might understand you say that you don't want to fix them, but the buffer overflows are security issues. If it's not your intention to fix those then this is very problematic and at the very least you need to clearly state that exiv2 is not suitable for untrusted input.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5733" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Oct 2016 12:50" href="/projects/exiv2/activity?from=2016-10-31">about 5 years</a> ago
+      <span id="journal-5733-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5733-notes" class="wiki"><p>I'm very unwilling to stick lots of code into Exiv2 to deal with illegal files.  It will be a very considerable undertaking which might have unbounded scope.  I'll build it with clang 3.9 and see what happens.  If it throws an exception, I don't want to dig deeper.</p>
+
+
+	<p>I have to point out that I deal almost alone with Exiv2.  I have to say "No" to some requests.  I am not under any obligation to you to say that it is untrusted or anything else for that matter.  If you had the courtesy to say "Thank You for investigating this Robin and being willing to commit 100 hours to this matter", I would feel more enthusiasm for your request.  However you have been shown no appreciation for my cooperation.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5734" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Oct 2016 12:54" href="/projects/exiv2/activity?from=2016-10-31">about 5 years</a> ago
+      <span id="journal-5734-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5734-notes" class="wiki"><p>One more comment.  If you think this is a very important matter, the best way to have it resolved is for you to join the team and work on the issue.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5735" class="journal has-notes">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Oct 2016 14:33" href="/projects/exiv2/activity?from=2016-10-31">about 5 years</a> ago
+      <span id="journal-5735-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5735-notes" class="wiki"><p>You are correct.  It does crash on clang 3.9 on Linux.<pre>750 rmills@rmillsmbp-ubuntu:~/gnu/exiv2/trunk $ exiv2 -vVg compiler -g version -g date -g time
+exiv2 0.25 001900 (64 bit build)
+compiler=Clang
+version=4.2.1 Compatible Clang 3.9.0 (tags/RELEASE_390/final)
+date=Oct 31 2016
+time=14:25:26
+id=$Id: version.cpp 4590 2016-09-30 16:45:54Z robinwmills $
+have_gmtime_r=1
+have_timegm=1
+xmlns=mediapro:http://ns.iview-multimedia.com/mediapro/1.0/
+751 rmills@rmillsmbp-ubuntu:~/gnu/exiv2/trunk $ exiv2 -pa test/data/exiv2-bug1247.jpg
+Exiv2 exception in print action for file test/data/exiv2-bug1247.jpg:
+Not a valid ICC Profile
+752 rmills@rmillsmbp-ubuntu:~/gnu/exiv2/trunk $ exiv2 -pR test/data/exiv2-bug1247.jpg
+STRUCTURE OF JPEG FILE: test/data/exiv2-bug1247.jpg
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe2 APP2  |      16 | ICC_PROFILE.... chunk 0/0
+Segmentation fault (core dumped)
+753 rmills@rmillsmbp-ubuntu:~/gnu/exiv2/trunk $ </pre>However, I'm not working on this.  If I have a <em><strong>GSoC</strong></em> student to work on <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Better raw file support and test (Assigned)" href="/issues/992">#992</a> in 2017, I will ask him to investigate this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5736" class="journal has-notes">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="31 Oct 2016 19:08" href="/projects/exiv2/activity?from=2016-10-31">about 5 years</a> ago
+      <span id="journal-5736-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5736-notes" class="wiki"><p>Apple Clang does not crash.  It throws an exception.  Here's the clang version info for the current Xcode (8.1 8B62) on Sierra 10.12.1 <pre>558 rmills@rmillsmbp:~/gnu/exiv2/trunk $ clang --version
+Apple LLVM version 8.0.0 (clang-800.0.42.1)
+Target: x86_64-apple-darwin16.1.0
+Thread model: posix
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+559 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>Perhaps this has something to do with the Apple Sandbox.  We need to understand more to decide how best to deal with this.  Hammering nails into the Exiv2 image handling code to protect against any/every possible image spec violation sounds like the road to nowhere.  Clearly, we could launch an external image-lint program (which could be exiv2 with a signal handler).  This adds considerable overhead to opening images - however it would help.  By testing the "safety" of the image in a separate process, we avoid the need for a lock in libexiv2.</p>
+
+
+	<p>I know nothing about hacking and exploiting buffer overflows.  Perhaps we need more caution about them.  This is a mind-boggling issue. The code to defend our image read/write code could be larger than the current library.  It appears that Apple have generated code which catches the crash.  We need more research on how to handle this within a library.  And preferably a method that doesn't require us to add thousands of <em><strong><code>if</code></strong></em> statements.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5738" class="journal has-notes">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Nov 2016 08:49" href="/projects/exiv2/activity?from=2016-11-01">about 5 years</a> ago
+      <span id="journal-5738-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5738-notes" class="wiki"><p>Here is a tool that we could investigate.  <a class="external" href="http://safecode.cs.illinois.edu/index.html">http://safecode.cs.illinois.edu/index.html</a>  It's a little elderly, however I found a September 2015 version:  <a class="external" href="https://github.com/jtcriswell/safecode-llvm37/tree/master/cmake">https://github.com/jtcriswell/safecode-llvm37/tree/master/cmake</a>  The LLVM web site promotes SAFECode as a current project <a class="external" href="http://llvm.org">http://llvm.org</a>  For sure that isn't working in clang 8.0 on MacOS-X: <pre>579 rmills@rmillsmbp:~/gnu/exiv2/trunk $ clang --version
+Apple LLVM version 8.0.0 (clang-800.0.42.1)
+Target: x86_64-apple-darwin16.1.0
+Thread model: posix
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+580 rmills@rmillsmbp:~/gnu/exiv2/trunk $ ./configure "CXXFLAGS=-g -fmemsafety" 
+checking for g++... g++
+checking whether the C++ compiler works... no
+configure: error: in `/Users/rmills/gnu/exiv2/trunk':
+configure: error: C++ compiler cannot create executables
+See `config.log' for more details
+581 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>Nor Linux with clang 3.9 on Ubuntu:<pre>827 rmills@rmillsmbp-ubuntu:~/gnu/exiv2/trunk $ which clang
+/usr/bin/clang
+828 rmills@rmillsmbp-ubuntu:~/gnu/exiv2/trunk $ clang --version
+clang version 3.9.0-1ubuntu1 (tags/RELEASE_390/final)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+829 rmills@rmillsmbp-ubuntu:~/gnu/exiv2/trunk $ ./configure "CXXFLAGS=-g -fmemsafety"checking for g++... g++
+checking whether the C++ compiler works... no
+configure: error: in `/home/rmills/gnu/exiv2/trunk':
+configure: error: C++ compiler cannot create executables
+See `config.log' for more details
+830 rmills@rmillsmbp-ubuntu:~/gnu/exiv2/trunk $</pre>Alien Skin Software are an Exiv2 User.  I have been discussing with them to add options to <em><strong><code>ImageFactory::open</code></strong></em> for something in which they are interested. <a class="external" href="http://dev.exiv2.org/issues/1245#note-2">http://dev.exiv2.org/issues/1245#note-2</a></p>
+
+
+	<p>Currently, we have an option bool bUseCurl.  <pre>    class EXIV2API ImageFactory {
+    ...
+    public:
+    ...
+        static BasicIo::AutoPtr createIo(const std::string&#38; path, bool useCurl = true);
+    ...
+        static Image::AutoPtr open(const std::string&#38; path, bool useCurl = true);
+    ...
+    };</pre>bool useCurl could be replaced with an enum bitmask.  We could add an option <em><strong><code>checkSafe</code></strong></em> which would invoke exiv2(.exe) in a separate process.  We have code in src/version.cpp to detect the location of the libexiv2.vv.so (.dylib, .dll) library at run-time.  We can take advantage of that to determine the path to exiv2(.exe).</p>
+
+
+	<p>Returning to Hanno's request that we say that Exiv2 is <em><strong>"not suitable for untrusted input"</strong></em>.  I will not do that.  The default (for all open source software) is that the user must determine suitability for his/her purposes.  We do not claim that Exiv2 is safe for all files.  I doubt if we could ever make such a claim even if we pepper our code with checks for malicious images.  I don't believe in 2016 that it is possible to guarantee the safety and reliability of any software.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1248.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1248.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

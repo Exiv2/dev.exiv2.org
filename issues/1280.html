@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1280: crash in Exiv2 shared library when a video file is under construction - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="8OPZd1SBWq3XcqMV5ykQNDcugIOr/iwrxkI9RStBiQwSrnKYJvuWrYIWvBlY/hwHCLzU+lodjZE7Yq3NaHhuYw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1280: crash in Exiv2 shared library when a video file is under construction" href="https://dev.exiv2.org/issues/1280.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1280</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>crash in Exiv2 shared library when a video file is under construction</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4748">Wil Cowb</a> <a title="10 Mar 2017 05:41" href="/projects/exiv2/activity?from=2017-03-10">over 4 years</a> ago.
+        Updated <a title="11 Mar 2017 11:19" href="/projects/exiv2/activity?from=2017-03-11">over 4 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">video</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">10 Mar 2017</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hello,<br />I started compressing an mp4 file saving the output to the original directory. digiKam detected a change, trigered rescan which in turn called exiv2 (<a class="external" href="https://cgit.kde.org/digikam.git/tree/libs/dmetadata">https://cgit.kde.org/digikam.git/tree/libs/dmetadata</a>) and then exiv2 crashed.<br />I guess  Exiv2 code could use some wrap around this situation to prevent a crash. At least, a C++ exception could be generated, not a crash. C++ exception will be catched by digiKam.<br />More details can be found here:<br /><a class="external" href="https://bugs.kde.org/show_bug.cgi?id=376951">https://bugs.kde.org/show_bug.cgi?id=376951</a></p>
+
+
+	<p>Exiv2 0.26-svn</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1280" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="N1PljFQ1GVhUoGISMFmgryj5A3nVq9uVmvcAHMBKZCrVHk5jJk/VWAHEfR6PjqycF2tXACRIei9n15CUg3ODRQ==" />
+  <table class="list issues odd-even"><tr id="relation-261" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1068" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1068">Bug #1068</a>: Video Code Umbrella</td><td class="status">Closed</td><td class="start_date">26 Apr 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1280/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1280&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-5885" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Mar 2017 06:46" href="/projects/exiv2/activity?from=2017-03-10">over 4 years</a> ago
+      <span id="journal-5885-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>video</i></li>
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>0.28</i></li>
+    </ul>
+    <div id="journal-5885-notes" class="wiki"><p>Regrettably nothing can be done about this at the moment as I am preparing the v0.26 release.</p>
+
+
+	<p>I agree that the library shouldn't crash and I am aware that the video code requires additional "hardening".  The video code should not be compiled into libexiv2.  The handling of crashes is an application responsibility and should be handled gracefully by digiKam.</p>
+
+
+	<p>I think digiKam should consider shipping the libexiv2 shared library with their application.  To rely on the "platform" provided version of libexiv2 shared library can cause difficulties if the API of the shared exiv2 library is modified.  Bundling a copy of libexiv2.dll (on Windows), libexiv2.dylib (on Mac), libexiv2.so (on Linux) is a modest addition to the installer and avoids API issues for users and developers.  It also enable digiKam to resolve issues by replacing the share library that is exclusively used by their application.  Before I retired, I worked for Adobe for many years and they always ship the appropriate shared libraries with applications to avoid mismatched share library/application issues with shipping products.</p>
+
+
+	<p>Another aspect of this issue is troublesome.  It sounds as though one thread of digiKam is building your file and another is trying to parse the same file.  There is code no code in Exiv2 to handle an incomplete file.  The assumption is that the file is complete and is written to the standard.  Perhaps digiKam requires a mutex (or other locking mechanism) to avoid this situation.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5897" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Mar 2017 19:04" href="/projects/exiv2/activity?from=2017-03-10">over 4 years</a> ago
+      <span id="journal-5897-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Closed</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> changed from <i>0.28</i> to <i>0.26</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-5897-notes" class="wiki"><p>I've linked this issue to <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Video Code Umbrella (Closed)" href="/issues/1068">#1068</a> which is the "Video Code Umbrella".  I'm hoping a member of Team Exiv2 will volunteer to do some video maintenance in 2017.  So this issue will be visible to that effort.</p>
+
+
+	<p>However, on the current description, it sounds impossible to consistently replicate this behaviour and is probably a defect of the digiKam architecture.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5901" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="10 Mar 2017 21:25" href="/projects/exiv2/activity?from=2017-03-10">over 4 years</a> ago
+      <span id="journal-5901-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5901-notes" class="wiki"><p>Robin,</p>
+
+
+	<p>This is not a digiKAm architecture failure. It's a crash from Exiv2 with video file which do not generate a C++ exception. Digikam::DMetadata interface use C++ exception catcher everywhere. If something go wrong in Exiv2, it's must generate an exception. It's not the case currently, and video support failures have been reported a lots of time by digiKam users. This is abnormal...</p>
+
+
+	<p>Gilles Caulier</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5905" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Mar 2017 10:59" href="/projects/exiv2/activity?from=2017-03-11">over 4 years</a> ago
+      <span id="journal-5905-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5905-notes" class="wiki"><p>I strongly disagree with your judgement.  A crash cannot be caught by an Exception handler.  It is a process wide event.</p>
+
+
+	<p>I am aware that the video code requires considerable work.  It was introduced in 2012 by following your recommendation to involve a student from Google Summer of Code.  I really like the student who did this work and the student who worked in 2013 on the write code.  I want to visit them in India last year.  However the legacy of that work has consumed a lot of my time and introduced many issues in the code.  You are aware that I am the principal contributor to Exiv2.  It's more-or-less an unpaid full time job.  I regret that I have not been able to visit the video code and to make it more solid and reliable.  In 2014, it was decided to make the video code a compile option.  I voted to remove the code.</p>
+
+
+	<p>Gilles:  I feel you underestimate the effort that I invest on your behalf.  Your lack of judgement has created the current state of things.  I am dealing with the mess you created.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5906" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="11 Mar 2017 11:07" href="/projects/exiv2/activity?from=2017-03-11">over 4 years</a> ago
+      <span id="journal-5906-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5906-notes" class="wiki"><p>"...with the mess you created..."</p>
+
+
+	<p>Seriously. I prefer to not respond... (:=(((</p>
+
+
+	<p>You are right : remove video code immediately from Exiv2. You will sleep better i'm sure...</p>
+
+
+	<p>Gilles Caulier</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5907" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Mar 2017 11:19" href="/projects/exiv2/activity?from=2017-03-11">over 4 years</a> ago
+      <span id="journal-5907-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-5907-notes" class="wiki"><p>It's too late in the v0.26 project to remove the video code.  I hope to get somebody to work on this in v0.27.  Their judgement may be to remove it.  They may fix it.  Time will tell.</p>
+
+
+	<p>I will be leaving the Exiv2 project in December 2017 after 10 years of solid service.  I regret that you and I have not formed a better working relationship.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1280.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1280.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

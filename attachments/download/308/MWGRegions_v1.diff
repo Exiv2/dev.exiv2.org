@@ -1,0 +1,63 @@
+Index: properties.cpp
+===================================================================
+--- properties.cpp	(Revision 2643)
++++ properties.cpp	(Arbeitskopie)
+@@ -91,6 +91,7 @@
+     extern const XmpPropertyInfo xmpPlusInfo[];
+     extern const XmpPropertyInfo xmpMediaProInfo[];
+     extern const XmpPropertyInfo xmpExpressionMediaInfo[];
++    extern const XmpPropertyInfo xmpMWGRegionsInfo[];
+ 
+     extern const XmpNsInfo xmpNsInfo[] = {
+         // Schemas   -   NOTE: Schemas which the XMP-SDK doesn't know must be registered in XmpParser::initialize - Todo: Automate this
+@@ -117,6 +118,7 @@
+         { "http://ns.useplus.org/ldf/xmp/1.0/",           "plus",           xmpPlusInfo,      N_("PLUS License Data Format schema")           },
+         { "http://ns.iview-multimedia.com/mediapro/1.0/", "mediapro",       xmpMediaProInfo,  N_("iView Media Pro schema")                    },
+         { "http://ns.microsoft.com/expressionmedia/1.0/", "expressionmedia",xmpExpressionMediaInfo, N_("Expression Media schema")             },
++        { "http://www.metadataworkinggroup.com/schemas/regions/", "mwg-rs", xmpMWGRegionsInfo,N_("Metadata Working Group Regions schema")     },
+ 
+         // Structures
+         { "http://ns.adobe.com/xap/1.0/g/",                   "xapG",    0, N_("Colorant structure")           },
+@@ -127,6 +129,7 @@
+         { "http://ns.adobe.com/xap/1.0/sType/ResourceRef#",   "stRef",   0, N_("ResourceRef structure")        },
+         { "http://ns.adobe.com/xap/1.0/sType/Version#",       "stVer",   0, N_("Version structure")            },
+         { "http://ns.adobe.com/xap/1.0/sType/Job#",           "stJob",   0, N_("Basic Job/Workflow structure") },
++        { "http://ns.adobe.com/xmp/sType/Area#",              "stArea",  0, N_("Area structure") },
+ 
+         // Qualifiers
+         { "http://ns.adobe.com/xmp/Identifier/qual/1.0/", "xmpidq", 0, N_("Qualifier for xmp:Identifier") }
+@@ -937,6 +940,21 @@
+         { 0, 0, 0, invalidTypeId, xmpInternal, 0 }
+     };
+ 
++    extern const XmpPropertyInfo xmpMWGRegionsInfo[] = {
++        { "Regions",             N_("Regions"),             "RegionInfo",       xmpText, xmpInternal, N_("Main structure containing region based information") },
++        { "AppliedToDimensions", N_("AppliedToDimensions"), "Dimensions",       xmpText, xmpExternal, N_("Width and height of image when storing region data") },
++        { "RegionList",          N_("RegionList"),          "bag RegionStruct", xmpBag,  xmpExternal, N_("List of Region structures")                          },
++        { "Area",                N_("Area"),                "Area",             xmpText, xmpExternal, N_("Descriptive markers of catalog items by content") },
++        { "Type",                N_("Type"),                "closed Choice of Text", xmpText, xmpExternal, N_("Type purpose of region (Face|Pet|Focus|BarCode)") },
++        { "Name",                N_("Name"),                "Text",             xmpText, xmpExternal, N_("Name/ short description of content in image region") },
++        { "Description",         N_("Description"),         "Text",             xmpText, xmpExternal, N_("Usage scenario for a given focus area (EvaluatedUsed|EvaluatedNotUsed|NotEvaluatedNotUsed)") },
++        { "FocusUsage",          N_("FocusUsage"),          "closed Choice of Text", xmpText, xmpExternal, N_("Descriptive markers of catalog items by content") },
++        { "BarCodeValue",        N_("BarCodeValue"),        "Text",             xmpText, xmpExternal, N_("Decoded BarCode value string") },
++        { "Extensions",          N_("Extensions"),          "Text",             undefined, xmpInternal, N_("Any top level XMP property to describe the region content") },
++        // End of list marker
++        { 0, 0, 0, invalidTypeId, xmpInternal, 0 }
++    };
++
+     extern const XmpPrintInfo xmpPrintInfo[] = {
+         {"Xmp.crs.CropUnits",                 EXV_PRINT_TAG(crsCropUnits)   },
+         {"Xmp.exif.ApertureValue",            print0x9202                   },
+Index: xmp.cpp
+===================================================================
+--- xmp.cpp	(Revision 2643)
++++ xmp.cpp	(Arbeitskopie)
+@@ -410,6 +410,8 @@
+             SXMPMeta::RegisterNamespace("http://ns.useplus.org/ldf/xmp/1.0/", "plus");
+             SXMPMeta::RegisterNamespace("http://ns.iview-multimedia.com/mediapro/1.0/", "mediapro");
+             SXMPMeta::RegisterNamespace("http://ns.microsoft.com/expressionmedia/1.0/", "expressionmedia");
++            SXMPMeta::RegisterNamespace("http://www.metadataworkinggroup.com/schemas/regions/", "mwg-rs");
++            SXMPMeta::RegisterNamespace("http://ns.adobe.com/xmp/sType/Area#", "stArea");
+ #else
+             initialized_ = true;
+ #endif

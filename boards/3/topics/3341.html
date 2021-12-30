@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Extract PreviewImage (not thumbnail) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="FVIIS/4zUWAzVwfTIcXt0X8fw+qEQEGeD2bAZqarv933H6OkjEmdYGYzGN+eEuHiQI2Xk3Wj4CTyRlDu5ZJYsg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Extract PreviewImage (not thumbnail)</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/10028">Albert Shan</a> <a title="22 Jan 2019 12:29" href="/projects/exiv2/activity?from=2019-01-22">almost 3 years</a> ago</span></p>
+<div class="wiki">
+<p>I found that JPEG files that come from digital cameras often have an additional higher resolution preview image.</p>
+
+
+	<p>I'm testing some Sony A73 and Fuji X-H1 files, and ExifTool tells me there is a PreviewImage like this:</p>
+
+
+	<p>$ exiftool DSC00507.JPG | grep Prev<br />Preview Image Size              : 1616x1080<br />Preview Image                   : (Binary data 1050996 bytes, use -b option to extract)</p>
+
+
+	<p>This is a larger preview image in addition to the thumbnail.  The thumbnail is only 160x120 pixels.</p>
+
+
+	<p>I did this in my code:</p>
+	<pre><code>Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename);<br />    Exiv2::PreviewManager loader(*image);<br />    Exiv2::PreviewPropertiesList list = loader.getPreviewProperties();</code></pre>
+
+
+	<p>And when I iterate through the PreviewPropertiesList, I only get one item, and that is the thumbnail of the JPEG, but the above PreviewImage at 1610x1080 resolution is missing.</p>
+
+
+	<p>So how do I get the preview image?</p>
+
+
+	<p>Albert</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (14)</h3>
+  <div class="message reply" id="message-3342">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3342#message-3342">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Jan 2019 14:31" href="/projects/exiv2/activity?from=2019-01-22">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>This is an interesting matter.  Exif metadata is stored as a TIFF and embedded in the JPEG.  JPEG files consists of segments which are restricted to 64k max.  So, thumbnails are usually small so they and the metadata all live within the 64k limit.  The Exif specification forbids the writer from referencing data outside the 64k segment.  However, I believe some Sony images break the rule.  This is not a good idea because it makes it almost impossible to rewrite the file.  So any changes to the metadata will probably result in the preview being lost.  I can easily imagine that an Engineer at Sony didn't understand the importance of ensuring that the embedded TIFF must not have an external reference because they are not involved with editing metadata.</p>
+
+
+	<p>If you only wish to read the preview, I may be able to provide a workaround.  The command <strong><code>$ exiv2 -pR image-path</code></strong> will "print recursively" and enable you to find the "illegal" preview and the utility <strong><code>dd</code></strong> can extract it.  The whole thing can be automated into a short bash script.</p>
+
+
+	<p>Another work-around is to use the Raw ARW file and avoid JPEG.</p>
+
+
+	<p>If you could provide a sample image from your camera, I'll be happy to investigate this for you.</p>
+
+
+<hr />
+
+
+	<p>The Exiv2 project has moved to <a class="external" href="https://github.com/exiv2/exiv2">https://github.com/exiv2/exiv2</a>.  I haven't yet found a way to make our Redmine server "Read only".  May I ask you to open a new issue on GitHub about this for two reasons:</p>
+
+
+	<p>1) More folks read and may join this discussion.<br />2) A member of Team Exiv2 has accepted the challenge BigTiff (64 bit tiff) for Exiv2 v0.28.  He'll be very interested in this matter.</p>
+
+
+	<p>A few years ago, I started to investigate these Sony "external" references.  That was my first journey into <strong><code>class TiffReader</code></strong> and I didn't have enough knowledge to preserve those previews from <strong><code>JpegBase::writeMetadata()</code></strong>.  However since then, I've solved some puzzles in that <strong><code>class TiffReader</code></strong>, and the time may have come to revisit this topic.</p>
+
+
+	<p><a class="external" href="http://dev.exiv2.org/boards/3/topics/1131?r=1137#message-1137">http://dev.exiv2.org/boards/3/topics/1131?r=1137#message-1137</a></p>
+
+
+	<p>However, the most immediate matter is to a good test file.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3343">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3343#message-3343">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/10028">Albert Shan</a> <a title="22 Jan 2019 14:37" href="/projects/exiv2/activity?from=2019-01-22">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Thanks for the fast reply.  It is not just Sony doing, I think most camera manufacturers are doing something similar.</p>
+
+
+	<p>Here is the link to a Fujifilm JPEG:</p>
+
+
+	<p><a class="external" href="https://www.dropbox.com/s/xdnaaprfkpd20vz/XH1F5365.JPG?dl=0">https://www.dropbox.com/s/xdnaaprfkpd20vz/XH1F5365.JPG?dl=0</a></p>
+
+
+	<p>Inside, there is a 320x240 preview image, I can extract it with ExifTool with the -PreviewImage switch.  But how do I extract that in a C++ program using Exiv2?</p>
+
+
+	<p>I want to do this with Exiv2 for performance reason.</p>
+
+
+	<p>Thanks,<br />Albert</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3344">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3344#message-3344">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/10028">Albert Shan</a> <a title="22 Jan 2019 14:40" href="/projects/exiv2/activity?from=2019-01-22">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Here is the link to a Sony A73 JPEG:</p>
+
+
+	<p><a class="external" href="https://www.dropbox.com/s/70lwzp4wk6criv2/DSC00672.JPG?dl=0">https://www.dropbox.com/s/70lwzp4wk6criv2/DSC00672.JPG?dl=0</a></p>
+
+
+	<p>Inside, there is a 1610x1080 preview image.  Also, I believe all these preview images are JPEGs, not TIFFs.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3346">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3346#message-3346">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Jan 2019 16:05" href="/projects/exiv2/activity?from=2019-01-22">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the files.  This is going to take some effort at my end.  I added <strong>"print recursively/-pR"</strong> in Exiv2 v0.26 for several reasons:</p>
+
+
+	<p>1) For debugging files.<br />2) To help me "really" understand tiff.</p>
+
+
+	<p>The code in <strong><code>class TiffReader</code></strong> is inspirational and really hard to understand.  We've been asked to support BigTiff (64 bit tiff) and <strong><code>class TiffReader</code></strong> cannot be refactored without understanding.  I'm almost there with understanding.  <strong><code>class TiffReader</code></strong> is really really good.</p>
+
+
+	<p>However when I wrote <strong>"print recursively/-pR"</strong> in 2015, I didn't know how many of the MakerNotes work.  They are usually another embedded tiff.  I know much more about that now.  For sure the current code isn't dealing well with your two files.  So, I don't have a work-around for you yet.  However I am motivated to work on this.</p>
+
+
+	<p>I'm off to the States tomorrow to visit family and enjoy some winter sunshine in Florida.  I will spend time on this.  I encourage you to report this on GitHub.  I don't expect anybody else will <em><strong>jump into</strong></em> this topic, however that's a more visible place to discuss this important matter.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3348">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3348#message-3348">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/10028">Albert Shan</a> <a title="23 Jan 2019 01:08" href="/projects/exiv2/activity?from=2019-01-23">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I emailed Phil (author of ExifTool), and he said the PreviewImage are stored in MakerNotes, and different manufacturers do this differently.</p>
+
+
+	<p>He told me to try the -htmldump -v2 switches.  I did that on the 2 files above and I simply redirect (>) the output to a html file.</p>
+
+
+	<p>Open this html file in a browser, and you can move your mouse to a tag and it'll highlight the data area for you (very nice).  It really does help to see what's inside the JPEG file.</p>
+
+
+	<p>I can see that the Sony preview image is in the MPImage2:MPImage data area.  The data size confirms it, as it is the same as the preview image size extracted by ExifTool.</p>
+
+
+	<p>The Fuji one is a bit tricky.  I think it is embedded in the APP2 FPXR segment.  The data in this area closely resemble the size of the preview image size.  See:</p>
+
+
+	<p><a class="external" href="https://help.accusoft.com/ImageGear/v18.2/Windows/ActiveX/IGAX-10-23.html">https://help.accusoft.com/ImageGear/v18.2/Windows/ActiveX/IGAX-10-23.html</a></p>
+
+
+	<p>I'm sure the Fuji Preview image is there, because I can see the JPEG header visually :)</p>
+
+
+	<p>The question is: is there a way for Exiv2 to extract the data in those specific tags?  If yes, then it won't be too hard to extract this preview image in the MakerNotes.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3351">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3351#message-3351">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Jan 2019 06:23" href="/projects/exiv2/activity?from=2019-01-23">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks.  Phil often reads the correspondence concerning Exiv2 and offers advice.  He's very helpful.  And I often use ExifTool's -v5 option to investigate how he is able to locate data that Exiv2 does not find.</p>
+
+
+	<p>Please understand that the Open Source Community gets no assistance from Camera Manufacturers.  We have to deal with this by reverse engineering their files.</p>
+
+
+<blockquote>
+
+	<p>The question is: is there a way for Exiv2 to extract the data in those specific tags? If yes, then it won't be too hard to extract this preview image in the MakerNotes.</p>
+
+
+</blockquote>
+
+	<p>It's not possible today.  However I'm going to work on <strong><code>"print recursively/-pR"</code></strong> and get it correctly dump your files.</p>
+
+
+	<p>I can see the APP2 segments in the Fuji file.<br /><pre>617 rmills@rmillsmbp:~/gnu/github/exiv2 $ exiv2 -pS ~/Downloads/Albert/XH1F5365.JPG 
+STRUCTURE OF JPEG FILE: /Users/rmills/Downloads/Albert/XH1F5365.JPG
+ address | marker       |  length | data
+       0 | 0xffd8 SOI  
+       2 | 0xffe1 APP1  |   65468 | Exif..II*......................
+   65472 | 0xffe2 APP2  |     136 | FPXR........../.F.U.J.I.F.I.L.M
+   65610 | 0xffe2 APP2  |      52 | FPXR.......................@...
+   65664 | 0xffe2 APP2  |   20864 | FPXR...........................
+   86530 | 0xffc4 DHT   |     418 
+   86950 | 0xffdb DQT   |     132 
+   87084 | 0xffdd DRI   |       4 
+   87090 | 0xffc0 SOF0  |      17 
+   87109 | 0xffda SOS  
+618 rmills@rmillsmbp:~/gnu/github/exiv2 $ </pre>I live in England.  I'm off to the States today to visit family and get some winter sunshine in Florida.  I have your files on my laptop and I will investigate this.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3353">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3353#message-3353">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/10028">Albert Shan</a> <a title="23 Jan 2019 10:57" href="/projects/exiv2/activity?from=2019-01-23">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>I found that Canon does not embed Preview Image in their JPEG (I looked at 5DIII files, ExifTool does not report any preview image).  Nikon does, and it seems that the preview image is always in the same place (PreviewIFD:PreviewImage data).</p>
+
+
+	<p>I also learn today that Exiv2 does not read HEIC files.  And I don't know how to get it to read a video file, say I want to get the dimension of the video.  I've compiled the source with video option turned ON, but still no luck.</p>
+
+
+	<p>Of course I understand this is Open Source stuff, so it is unrealistic to expect a lot of help.  But your replies are certainly very insightful.</p>
+
+
+	<p>Anyway, thanks for the help.  Please enjoy your holidays with your family and don't worry about this too much until you have more time.</p>
+
+
+	<p>Albert</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3355">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3355#message-3355">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jan 2019 21:24" href="/projects/exiv2/activity?from=2019-01-24">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm happy to help you.  I'm 68 and retired.  Working on Exiv2 keeps my brain active.</p>
+
+
+	<p>HEIC files.  The Apple/iOS native format?  We don't support that.</p>
+
+
+	<p>Reading video should work.  Which version of the code are you using?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3370">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3370#message-3370">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/10028">Albert Shan</a> <a title="18 Feb 2019 05:22" href="/projects/exiv2/activity?from=2019-02-18">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm using the latest code.</p>
+
+
+	<p>Yes, HEIC is the Apple iOS native format.  ExifTool from Phil Harvey can read the EXIF metadata off of it, but won't allow the values to be edited.</p>
+
+
+	<p>Exiv2 can't read HEIC.  I wonder will HEIC be supported ever?</p>
+
+
+	<p>And to Robin: have you had a chance to find out how to extract the preview image yet?  It'd be nice if it can be extracted, it'd make creating preview image so much faster than reading the entire JPEG, especially cameras these days have very high MP count.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3371">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3371#message-3371">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Feb 2019 20:21" href="/projects/exiv2/activity?from=2019-02-19">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Apologies.  I'm still on vacation and forgot about your requests.  Can I ask you to raise two issues on <a class="external" href="https://github.com/exiv2/exiv2">https://github.com/exiv2/exiv2</a>.  We'd like to make Redmine "read-only" and deal with users on github.com</p>
+
+
+	<p>1) Previews in your files.</p>
+
+
+	<p>Please link this discussion to your issue report.</p>
+
+
+<pre>743 rmills@rmillsmbp:~/clanmills $ dir ~/Downloads/Albert/
+-rw-r--r--@ 1 rmills  staff    12M 22 Jan 09:54 /Users/rmills/Downloads/Albert/XH1F5365.JPG
+-rw-r--r--@ 1 rmills  staff   7.0M 22 Jan 09:54 /Users/rmills/Downloads/Albert/DSC00672.JPG
+744 rmills@rmillsmbp:~/clanmills $ exiv2 -pa --grep make/i ~/Downloads/XH1F5365.JPG 
+Exif.Image.Make                              Ascii       9  FUJIFILM
+Exif.Photo.MakerNote                         Undefined 1056  (Binary value suppressed)
+Exif.MakerNote.Offset                        Long        1  2176
+Exif.MakerNote.ByteOrder                     Ascii       3  II
+Exif.Photo.LensMake                          Ascii      13  FUJIFILM
+745 rmills@rmillsmbp:~/clanmills $ exiv2 -pa --grep make/i ~/Downloads/DSC00672.JPG 
+Exif.Image.Make                              Ascii       5  SONY
+Exif.Photo.MakerNote                         Undefined 37520  (Binary value suppressed)
+Exif.MakerNote.Offset                        Long        1  994
+Exif.MakerNote.ByteOrder                     Ascii       3  II
+Exif.Thumbnail.Make                          Ascii       5  SONY
+746 rmills@rmillsmbp:~/clanmills $ </pre>
+
+	<p>2) HEIC Support</p>
+
+
+	<p>I believe somebody else has raised this.  However support for BigTiff and CR3 are higher priority.  I don't when, or indeed if, HEIC will be supported.  When Apple announced this about 2 years ago, I got the impression that HEIC files are only used for image storage on iOS.  The HEIC file can be exported into other formats (JPEG, Tiff etc) for external use.</p>
+
+
+	<p>I would be very helpful if you could provide HEIC example files.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3372">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3372#message-3372">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/10028">Albert Shan</a> <a title="20 Feb 2019 04:05" href="/projects/exiv2/activity?from=2019-02-20">over 2 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've just added a new issue for extracting preview image in JPEG.</p>
+
+
+	<p>As for HEIC, there is already an open issue:</p>
+
+
+	<p><a class="external" href="https://github.com/Exiv2/exiv2/issues/318">https://github.com/Exiv2/exiv2/issues/318</a></p>
+
+
+	<p>Support for HEIF is the same as HEIC.</p>
+
+
+	<p>BTW, how do I attach a sample HEIC file in GitHub?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3373">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3373#message-3373">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Feb 2019 04:22" href="/projects/exiv2/activity?from=2019-02-20">over 2 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for getting back to me.  I believe you can drag'n'drop files into issues on GitHub.  Or you put them on a public file server (such as Dropbox) and publish the URL.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3374">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3374#message-3374">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/10028">Albert Shan</a> <a title="20 Feb 2019 04:45" href="/projects/exiv2/activity?from=2019-02-20">over 2 years</a> ago
+  </h4>
+  <div class="wiki"><p>GitHub does not support uploading HEIC file :(</p>
+
+
+	<p>So I added a Dropbox link to a HEIC file in the comment.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3376">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3341?r=3376#message-3376">RE: Extract PreviewImage (not thumbnail)</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Mar 2019 16:51" href="/projects/exiv2/activity?from=2019-03-01">over 2 years</a> ago
+  </h4>
+  <div class="wiki"><p><a class="external" href="https://github.com/Exiv2/exiv2/issues/710">https://github.com/Exiv2/exiv2/issues/710</a></p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-14/14)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>exiv2-0.21.1_psd_preview.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="gqujxp6OQ3yrBrmUekFxRU4gQ3hpzI4Cl1gdG5cp7Npg5ggp7PSPfP5ippjFln12cbIXAZgvL7hqeI2T1BALtQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/248/exiv2-0.21.1_psd_preview.patch">Download (7.1 KB)</a></div>
+
+<h2>
+  <a href="/boards/3/topics/913">PSD preview implementation</a> » exiv2-0.21.1_psd_preview.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/124">Michael Ulbrich</a>, 22 Apr 2011 15:51</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/248" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      exiv2-0.21.1/src/image.cpp	2011-04-21 13:58:21.000000000 +0200
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">257</th>
+  <th class="line-num">257</th>
+  <td class="line-code ">
+    <pre>        comment_ = comment;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">258</th>
+  <th class="line-num">258</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">259</th>
+  <th class="line-num">259</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">260</th>
+  <td class="line-code diff_in">
+    <pre>    const DataBuf&amp; Image::preview() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">261</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">262</th>
+  <td class="line-code diff_in">
+    <pre>        return preview_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">263</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">264</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">265</th>
+  <td class="line-code diff_in">
+    <pre>    DataBuf&amp; Image::preview()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">266</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">267</th>
+  <td class="line-code diff_in">
+    <pre>        return preview_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">268</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">269</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">260</th>
+  <th class="line-num">270</th>
+  <td class="line-code ">
+    <pre>    void Image::setByteOrder(ByteOrder byteOrder)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">261</th>
+  <th class="line-num">271</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">262</th>
+  <th class="line-num">272</th>
+  <td class="line-code ">
+    <pre>        byteOrder_ = byteOrder;</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      exiv2-0.21.1/src/image.hpp	2011-04-22 22:11:09.000000000 +0200
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">385</th>
+  <th class="line-num">385</th>
+  <td class="line-code ">
+    <pre>        bool supportsMetadata(MetadataId metadataId) const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">386</th>
+  <th class="line-num">386</th>
+  <td class="line-code ">
+    <pre>        //! Return the flag indicating the source when writing XMP metadata.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">387</th>
+  <th class="line-num">387</th>
+  <td class="line-code ">
+    <pre>        bool writeXmpFromPacket() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">388</th>
+  <td class="line-code diff_in">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">389</th>
+  <td class="line-code diff_in">
+    <pre>          @return modifiable reference to this image&#39;s native preview</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">390</th>
+  <td class="line-code diff_in">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">391</th>
+  <td class="line-code diff_in">
+    <pre>        virtual DataBuf&amp; preview();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">392</th>
+  <td class="line-code diff_in">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">393</th>
+  <td class="line-code diff_in">
+    <pre>          @return read only reference to this image&#39;s native preview</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">394</th>
+  <td class="line-code diff_in">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">395</th>
+  <td class="line-code diff_in">
+    <pre>        virtual const DataBuf&amp; preview() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">388</th>
+  <th class="line-num">396</th>
+  <td class="line-code ">
+    <pre>        //@}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">389</th>
+  <th class="line-num">397</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">390</th>
+  <th class="line-num">398</th>
+  <td class="line-code ">
+    <pre>    protected:</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">397</th>
+  <th class="line-num">405</th>
+  <td class="line-code ">
+    <pre>        std::string       xmpPacket_;         //!&lt; XMP packet</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">398</th>
+  <th class="line-num">406</th>
+  <td class="line-code ">
+    <pre>        int               pixelWidth_;        //!&lt; image pixel width</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">399</th>
+  <th class="line-num">407</th>
+  <td class="line-code ">
+    <pre>        int               pixelHeight_;       //!&lt; image pixel height</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">408</th>
+  <td class="line-code diff_in">
+    <pre>        DataBuf           preview_;           //!&lt; generic preview image</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">400</th>
+  <th class="line-num">409</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">401</th>
+  <th class="line-num">410</th>
+  <td class="line-code ">
+    <pre>    private:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">402</th>
+  <th class="line-num">411</th>
+  <td class="line-code ">
+    <pre>        //! @name NOT implemented</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      exiv2-0.21.1/src/preview.cpp	2011-04-22 23:52:35.000000000 +0200
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">236</th>
+  <th class="line-num">236</th>
+  <td class="line-code ">
+    <pre>    //! Function to create new LoaderTiff</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">237</th>
+  <th class="line-num">237</th>
+  <td class="line-code ">
+    <pre>    Loader::AutoPtr createLoaderTiff(PreviewId id, const Image &amp;image, int parIdx);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">238</th>
+  <th class="line-num">238</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">239</th>
+  <td class="line-code diff_in">
+    <pre>    //! Loader for PSD previews in Jpeg format</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">240</th>
+  <td class="line-code diff_in">
+    <pre>    class LoaderPsdJpeg : public Loader {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">241</th>
+  <td class="line-code diff_in">
+    <pre>    public:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">242</th>
+  <td class="line-code diff_in">
+    <pre>        // Constructor</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">243</th>
+  <td class="line-code diff_in">
+    <pre>        LoaderPsdJpeg(PreviewId id, const Image &amp;image, int parIdx);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">244</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">245</th>
+  <td class="line-code diff_in">
+    <pre>        //! Get properties of a preview image with given params</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">246</th>
+  <td class="line-code diff_in">
+    <pre>        virtual PreviewProperties getProperties() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">247</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">248</th>
+  <td class="line-code diff_in">
+    <pre>        //! Get a buffer that contains the preview image</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">249</th>
+  <td class="line-code diff_in">
+    <pre>        virtual DataBuf getData() const;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">250</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">251</th>
+  <td class="line-code diff_in">
+    <pre>        //! Read preview image dimensions</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">252</th>
+  <td class="line-code diff_in">
+    <pre>        virtual bool readDimensions();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">253</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">254</th>
+  <td class="line-code diff_in">
+    <pre>    };</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">255</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">256</th>
+  <td class="line-code diff_in">
+    <pre>    //! Function to create new LoaderPsdJpeg</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">257</th>
+  <td class="line-code diff_in">
+    <pre>    Loader::AutoPtr createLoaderPsdJpeg(PreviewId id, const Image &amp;image, int parIdx);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">258</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">239</th>
+  <th class="line-num">259</th>
+  <td class="line-code ">
+    <pre>// *****************************************************************************</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">240</th>
+  <th class="line-num">260</th>
+  <td class="line-code ">
+    <pre>// class member definitions</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">241</th>
+  <th class="line-num">261</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">265</th>
+  <th class="line-num">285</th>
+  <td class="line-code ">
+    <pre>        { 0,                   createLoaderExifJpeg,     5 },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">266</th>
+  <th class="line-num">286</th>
+  <td class="line-code ">
+    <pre>        { 0,                   createLoaderExifJpeg,     6 },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">267</th>
+  <th class="line-num">287</th>
+  <td class="line-code ">
+    <pre>        { &quot;image/x-canon-cr2&quot;, createLoaderExifJpeg,     7 },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">268</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        { 0,                   createLoaderExifJpeg,     8 }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">288</th>
+  <td class="line-code diff_in">
+    <pre>        { 0,                   createLoaderExifJpeg,     8 },</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">289</th>
+  <td class="line-code diff_in">
+    <pre>        { 0,                   createLoaderPsdJpeg,      0 }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">269</th>
+  <th class="line-num">290</th>
+  <td class="line-code ">
+    <pre>    };</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">270</th>
+  <th class="line-num">291</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">271</th>
+  <th class="line-num">292</th>
+  <td class="line-code ">
+    <pre>    const LoaderExifJpeg::Param LoaderExifJpeg::param_[] = {</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">663</th>
+  <th class="line-num">684</th>
+  <td class="line-code ">
+    <pre>        return DataBuf(mio.mmap(), mio.size());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">664</th>
+  <th class="line-num">685</th>
+  <td class="line-code ">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">665</th>
+  <th class="line-num">686</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">687</th>
+  <td class="line-code diff_in">
+    <pre>    LoaderPsdJpeg::LoaderPsdJpeg(PreviewId id, const Image &amp;image, int parIdx)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">688</th>
+  <td class="line-code diff_in">
+    <pre>        : Loader(id, image)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">689</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">690</th>
+  <td class="line-code diff_in">
+    <pre>        if (image_.preview().size_ &gt; 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">691</th>
+  <td class="line-code diff_in">
+    <pre>            size_ = image_.preview().size_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">692</th>
+  <td class="line-code diff_in">
+    <pre>            valid_ = true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">693</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">694</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">695</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">696</th>
+  <td class="line-code diff_in">
+    <pre>    Loader::AutoPtr createLoaderPsdJpeg(PreviewId id, const Image &amp;image, int parIdx)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">697</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">698</th>
+  <td class="line-code diff_in">
+    <pre>        return Loader::AutoPtr(new LoaderPsdJpeg(id, image, parIdx));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">699</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">700</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">701</th>
+  <td class="line-code diff_in">
+    <pre>    PreviewProperties LoaderPsdJpeg::getProperties() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">702</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">703</th>
+  <td class="line-code diff_in">
+    <pre>        PreviewProperties prop = Loader::getProperties();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">704</th>
+  <td class="line-code diff_in">
+    <pre>        prop.mimeType_ = &quot;image/jpeg&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">705</th>
+  <td class="line-code diff_in">
+    <pre>        prop.extension_ = &quot;.jpg&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">706</th>
+  <td class="line-code diff_in">
+    <pre>#ifdef EXV_UNICODE_PATH</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">707</th>
+  <td class="line-code diff_in">
+    <pre>        prop.wextension_ = EXV_WIDEN(&quot;.jpg&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">708</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">709</th>
+  <td class="line-code diff_in">
+    <pre>        return prop;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">710</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">711</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">712</th>
+  <td class="line-code diff_in">
+    <pre>    DataBuf LoaderPsdJpeg::getData() const</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">713</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">714</th>
+  <td class="line-code diff_in">
+    <pre>        if (!valid()) return DataBuf();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">715</th>
+  <td class="line-code diff_in">
+    <pre>        return DataBuf(image_.preview().pData_, image_.preview().size_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">716</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">717</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">718</th>
+  <td class="line-code diff_in">
+    <pre>    bool LoaderPsdJpeg::readDimensions()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">719</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">720</th>
+  <td class="line-code diff_in">
+    <pre>        if (!valid()) return false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">721</th>
+  <td class="line-code diff_in">
+    <pre>        if (width_ || height_) return true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">722</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">723</th>
+  <td class="line-code diff_in">
+    <pre>        try {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">724</th>
+  <td class="line-code diff_in">
+    <pre>            Image::AutoPtr image = ImageFactory::open(image_.preview().pData_, image_.preview().size_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">725</th>
+  <td class="line-code diff_in">
+    <pre>            if (image.get() == 0) return false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">726</th>
+  <td class="line-code diff_in">
+    <pre>            image-&gt;readMetadata();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">727</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">728</th>
+  <td class="line-code diff_in">
+    <pre>            width_ = image-&gt;pixelWidth();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">729</th>
+  <td class="line-code diff_in">
+    <pre>            height_ = image-&gt;pixelHeight();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">730</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">731</th>
+  <td class="line-code diff_in">
+    <pre>        catch (const AnyError&amp; /* error */ ) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">732</th>
+  <td class="line-code diff_in">
+    <pre>#ifndef SUPPRESS_WARNINGS</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">733</th>
+  <td class="line-code diff_in">
+    <pre>            EXV_WARNING &lt;&lt; &quot;Invalid JPEG preview image.\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">734</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">735</th>
+  <td class="line-code diff_in">
+    <pre>            return false;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">736</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">737</th>
+  <td class="line-code diff_in">
+    <pre>        return true;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">738</th>
+  <td class="line-code diff_in">
+    <pre>    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">739</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">666</th>
+  <th class="line-num">740</th>
+  <td class="line-code ">
+    <pre>}                                       // namespace</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">667</th>
+  <th class="line-num">741</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">668</th>
+  <th class="line-num">742</th>
+  <td class="line-code ">
+    <pre>// *****************************************************************************</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      exiv2-0.21.1/src/psdimage.cpp	2011-04-22 23:06:29.000000000 +0200
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">296</th>
+  <th class="line-num">296</th>
+  <td class="line-code ">
+    <pre>                break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">297</th>
+  <th class="line-num">297</th>
+  <td class="line-code ">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">298</th>
+  <th class="line-num">298</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">299</th>
+  <td class="line-code diff_in">
+    <pre>            // - PS 4.0 preview data is fetched from ThumbnailResource</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">300</th>
+  <td class="line-code diff_in">
+    <pre>            // - PS &gt;= 5.0 preview data is fetched from ThumbnailResource2</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">301</th>
+  <td class="line-code diff_in">
+    <pre>            case kPhotoshopResourceID_ThumbnailResource:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">302</th>
+  <td class="line-code diff_in">
+    <pre>            case kPhotoshopResourceID_ThumbnailResource2:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">303</th>
+  <td class="line-code diff_in">
+    <pre>            {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">304</th>
+  <td class="line-code diff_in">
+    <pre>                /* Photoshop thumbnail resosurce header</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">305</th>
+  <td class="line-code diff_in">
+    <pre>                offset length   name           description</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">306</th>
+  <td class="line-code diff_in">
+    <pre>                ====== =======  ====           ===========</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">307</th>
+  <td class="line-code diff_in">
+    <pre>                 0     4 bytes  format         = 1 (kJpegRGB). Also supports kRawRGB (0).</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">308</th>
+  <td class="line-code diff_in">
+    <pre>                 4     4 bytes  width          Width of thumbnail in pixels.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">309</th>
+  <td class="line-code diff_in">
+    <pre>                 8     4 bytes  height         Height of thumbnail in pixels.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">310</th>
+  <td class="line-code diff_in">
+    <pre>                12     4 bytes  widthbytes     Padded row bytes as (width * bitspixel + 31) / 32 * 4.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">311</th>
+  <td class="line-code diff_in">
+    <pre>                16     4 bytes  size           Total size as widthbytes * height * planes</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">312</th>
+  <td class="line-code diff_in">
+    <pre>                20     4 bytes  compressedsize Size after compression. Used for consistentcy check.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">313</th>
+  <td class="line-code diff_in">
+    <pre>                24     2 bytes  bitspixel      = 24. Bits per pixel.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">314</th>
+  <td class="line-code diff_in">
+    <pre>                26     2 bytes  planes         = 1. Number of planes.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">315</th>
+  <td class="line-code diff_in">
+    <pre>                28     Variable Data           JFIF data in RGB format.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">316</th>
+  <td class="line-code diff_in">
+    <pre>                               Note: For resource ID 1033 the data is in BGR format.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">317</th>
+  <td class="line-code diff_in">
+    <pre>                */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">318</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">319</th>
+  <td class="line-code diff_in">
+    <pre>                byte buf[28];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">320</th>
+  <td class="line-code diff_in">
+    <pre>                if (io_-&gt;read(buf, 28) != 28)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">321</th>
+  <td class="line-code diff_in">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">322</th>
+  <td class="line-code diff_in">
+    <pre>                    throw Error(3, &quot;Photoshop&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">323</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">324</th>
+  <td class="line-code diff_in">
+    <pre>                uint32_t format_ = getLong(buf, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">325</th>
+  <td class="line-code diff_in">
+    <pre>                uint32_t size_ = getLong(buf + 20, bigEndian);    // compressedsize</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">326</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">327</th>
+  <td class="line-code diff_in">
+    <pre>                if (format_ == 1 &amp;&amp; size_ &gt; 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">328</th>
+  <td class="line-code diff_in">
+    <pre>                    DataBuf preview(size_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">329</th>
+  <td class="line-code diff_in">
+    <pre>                    io_-&gt;read(preview.pData_, preview.size_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">330</th>
+  <td class="line-code diff_in">
+    <pre>                    if (io_-&gt;error() || io_-&gt;eof()) throw Error(14);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">331</th>
+  <td class="line-code diff_in">
+    <pre>                    preview_ = preview;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">332</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">333</th>
+  <td class="line-code diff_in">
+    <pre>                break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">334</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">335</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">299</th>
+  <th class="line-num">336</th>
+  <td class="line-code ">
+    <pre>            default:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">300</th>
+  <th class="line-num">337</th>
+  <td class="line-code ">
+    <pre>            {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">301</th>
+  <th class="line-num">338</th>
+  <td class="line-code ">
+    <pre>                break;</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"></ul><span><span class="items">(1-1/1)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Store an ICC Profile - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ZBVg18iWLUuawgDXJBb8oVgEqe1rpibr0WJFwAKLUD+GWMs4uuzhS8+mH9ubwfCSZ5b9lJpFh1EsQtVIQbK3UA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Store an ICC Profile</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4107">Tim Zaman</a> <a title="07 May 2015 09:22" href="/projects/exiv2/activity?from=2015-05-07">over 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>Exiv2 is an excellent toolkit. It has one major shortcomming. It seems (checked the interwebs) I have never seen anyone upload an ICC profile succesfully in the metadata, in a way that is actually used (by f.e. Photoshop).<br />You can use the <strong>Exif.Image.CurrentICCProfile</strong> key, but that's not sufficient. I believe the profile should also be copied to the <strong>APP2</strong> region.</p>
+
+
+	<p>The following actually indeeds copied the profile, but not where it should be, not to the APP2 header.<br /><pre>
+exifData["Exif.Photo.ColorSpace"] = WORKSPACE_UNSPECIFIED;
+Exiv2::DataBuf  exifBuf(profbuf, proflen);
+Exiv2::Value::AutoPtr v = Exiv2::Value::create(Exiv2::undefined);
+v-&gt;read(profbuf, proflen, Exiv2::invalidByteOrder);
+Exiv2::ExifKey key("Exif.Image.InterColorProfile");
+exifData.add(key, v.get());
+</pre></p>
+
+
+	<p>Photoshop or any other viewer really doesn't care about the above statement, it will just tell you your document is not color managed.</p>
+
+
+	<p>My statement is simple, and it's the only thing that's missing in exiv2 imo, how to upload your own icc profile to the app2 header? I asked this one year ago ago in this forum, but to no avail. The problem in my question then was, that the profile is actually not copied in a exiv2 copy loop. Probably same source of problem.</p>
+
+
+	<p>T</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (6)</h3>
+  <div class="message reply" id="message-2060">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2059?r=2060#message-2060">RE: Store an ICC Profile</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 May 2015 09:43" href="/projects/exiv2/activity?from=2015-05-07">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your praise for Exiv2.  Andreas is "the man" and deserves most of the praise.  Volker, Brad and Gilles also added lots of great features.</p>
+
+
+	<p>I recently considered adding ICC support.  I think managing color profiles is a large undertaking and comparable to adding a new category of metadata such as Exif, IPTC or XMP.  I documented my concerns elsewhere and rather puzzled that I can't find it at the moment.</p>
+
+
+	<p>I know that you may consider this to be "the top priority" for development.  I assure that somebody else would say "CMake/MSVC support is most important", or "Video support", or "Jenkins build server", or "iOS/Android mobile support", "updating the XMPsdk"  and so on.  You get the picture: everybody says <em>"What <strong>I</strong> want is the most important thing to be added."</em></p>
+
+
+	<p>So, I have a standard response <em>"If you really want to see this developed, please join Team Exiv2 and contribute this feature.  I will support you and review your code."</em>  However I cannot undertake the work to add ICC profile support, and don't have a volunteer available to do this for you.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2061">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2059?r=2061#message-2061">RE: Store an ICC Profile</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 May 2015 09:51" href="/projects/exiv2/activity?from=2015-05-07">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Tim</p>
+
+
+	<p>Can you have a look at <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Access to ICC Profile (TAG: 0x8773) data in Exif as uninterpretted binary (Closed)" href="/issues/756">#756</a> please?    <a class="external" href="http://dev.exiv2.org/issues/756#note-3">http://dev.exiv2.org/issues/756#note-3</a>  You'll see my thoughts about the effort that might lie in this request.</p>
+
+
+	<p>I recently added a feature -pS to reveal the structure of the file.  You can use that as the basis of a script to extract the APP2 segment.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2062">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2059?r=2062#message-2062">RE: Store an ICC Profile</a>
+    -
+    Added by <a class="user active" href="/users/4107">Tim Zaman</a> <a title="07 May 2015 10:04" href="/projects/exiv2/activity?from=2015-05-07">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks guys.</p>
+
+
+	<p>I meant to say there was this one thing (icc support) that i missed, if it had that, it would be utterly perfect. For me, exiv2 would be perfect and done :). Thanks for your support though, last question, do you think there is maybe some hacky way of using exiv2 to get Mr. ICC in that APP2?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2063">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2059?r=2063#message-2063">RE: Store an ICC Profile</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 May 2015 10:33" href="/projects/exiv2/activity?from=2015-05-07">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks.  Yes there is a way.  You have to rewrite the APP2 with dd (the disk destroyer).  I discussed something very like this will as user some time ago:  <a class="external" href="http://dev.exiv2.org/boards/3/topics/1608?r=1617#message-1617">http://dev.exiv2.org/boards/3/topics/1608?r=1617#message-1617</a></p>
+
+
+	<p>So the recipe is:<br />1) To extract the profile<br />use exiv2 -ps to find the APP2 segment<br />use dd to extract it</p>
+
+
+	<p>2) To replace the profile:<br />use exiv2 -pS to find the profile<br />use dd to insert a profile into the file</p>
+
+
+	<p>Of course, I hasten point out that I have never done this.  I believe it will work - however you know how it is with software!  The proof is in the eating.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2064">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2059?r=2064#message-2064">RE: Store an ICC Profile</a>
+    -
+    Added by <a class="user active" href="/users/4107">Tim Zaman</a> <a title="07 May 2015 10:45" href="/projects/exiv2/activity?from=2015-05-07">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks, for a cli implementation i'll stick to exiftool then. Lectori benevolo salutem, do note that one can write sRGB and Adobe profiles in this way:</p>
+
+
+<pre>
+//Adobe 1998
+exifData["Exif.Photo.ColorSpace"] = WORKSPACE_ADOBERGB; //Uncalibrated
+exifData["Exif.Iop.InteroperabilityIndex"] = "R03"; //Adobe
+exifData["Exif.Iop.InteroperabilityVersion"] = "0100";
+
+//sRGB
+exifData["Exif.Photo.ColorSpace"] = WORKSPACE_SRGB; //1=sRGB
+exifData["Exif.Iop.InteroperabilityIndex"] = "R98"; //Adobe
+exifData["Exif.Iop.InteroperabilityVersion"] = "0100";
+</pre>
+
+	<p>I guess i'll stick to my own (half assed) icc implementation for now. If anyone reads this and is up to fixing this in exiv2 c++ will chip in $100 for making exiv2 perfect. imo.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2065">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2059?r=2065#message-2065">RE: Store an ICC Profile</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 May 2015 11:47" href="/projects/exiv2/activity?from=2015-05-07">over 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ah, my latin teacher would be proud of you.  I'm glad you're OK about this.  Regrettably, I can't undertake every request.  I suggest you open a Feature Request and it will be considered in time.  Our priority for the moment is to ship v0.25 and then the other matters I mentioned above.  And we've agreed to add webp/webm support in v0.26.   So, ICC profiles are unlikely to get attention before v0.27.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-6/6)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+Index: config/configure.ac
+===================================================================
+--- config/configure.ac	(revision 4324)
++++ config/configure.ac	(working copy)
+@@ -318,8 +318,10 @@
+ case "$host_os" in
+ *mingw* | *cygwin*)
+     LDFLAGS="$LDFLAGS -no-undefined -lpsapi -lwldap32 -lws2_32" ;;
++*linux-gnu*)
++    LDFLAGS="$LDFLAGS -ldl -lpthread" ;;
+ *)
+-    LDFLAGS="$LDFLAGS -ldl -lpthread" ;;
++    LDFLAGS="$LDFLAGS -lpthread" ;;
+ esac
+ 
+ # 1099

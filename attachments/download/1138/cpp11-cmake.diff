@@ -1,0 +1,63 @@
+diff -urwEB exiv2-0.26-svn.org/CMakeLists.txt exiv2-0.26-svn-1/CMakeLists.txt
+--- exiv2-0.26-svn.org/CMakeLists.txt	2017-01-10 15:04:35.000000000 -0500
++++ exiv2-0.26-svn-1/CMakeLists.txt	2017-01-13 12:44:58.000000000 -0500
+@@ -38,6 +38,10 @@
+ SET( GENERIC_LIB_SOVERSION  "14" )
+ 
+ # options and their default values
++OPTION( EXIV2_CPP_STANDARD           "Set the C++ Standard to compile with"                 11  )
++OPTION( EXIV2_CPP_STANDARD_REQUIRED  "Set C++ Standard to required"                         ON  )
++OPTION( EXIV2_CPP_EXTENSION          "Set C++ Extensions to required"                       OFF )
++OPTION( EXIV2_ENABLE_VERBOSITY       "Enable verbosity"                                     OFF )
+ OPTION( EXIV2_ENABLE_SHARED        "Build exiv2 as a shared library (dll)"                 ON  )
+ OPTION( EXIV2_ENABLE_XMP           "Build with XMP metadata support"                       ON  )
+ OPTION( EXIV2_ENABLE_LIBXMP        "Build a static convenience Library for XMP"            ON  )
+@@ -60,6 +64,11 @@
+ 
+ ENDIF()
+ 
++SET ( CMAKE_VERBOSE_MAKEFILE ${EXIV2_ENABLE_VERBOSITY} )
++IF ( NOT ${EXIV2_CPP_STANDARD} )
++    SET ( EXIV2_CPP_STANDARD 11 )
++ENDIF ()
++
+ # set include path for FindXXX.cmake files
+ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/config/")
+ 
+@@ -86,14 +95,16 @@
+ 
+     message(STATUS Compiler: ${COMPILER} " Major:" ${GCC_MAJOR} " Minor:" ${GCC_MINOR})
+ 
+-    IF ( CYGWIN OR ( ${GCC_MAJOR} GREATER 5 ))
+-        ADD_DEFINITIONS( -std=gnu++98 ) # to support snprintf
+-    ELSE()
+-        ADD_DEFINITIONS( -std=c++98 )
+-    ENDIF()
+-
+ ENDIF( MINGW OR UNIX )
+ 
++set( CMAKE_CXX_STANDARD ${EXIV2_CPP_STANDARD} )
++set( CMAKE_CXX_STANDARD_REQUIRED ${EXIV2_CPP_STANDARD_REQUIRED} )
++set( CMAKE_CXX_EXTENSIONS ${EXIV2_CPP_EXTENSION} )
++
++IF ( ${EXIV2_CPP_STANDARD} LESS 98 AND ${EXIV2_CPP_STANDARD} GREATER 10  )
++    ADD_DEFINITIONS( -DEXV_USING_CPP_ELEVEN=1  )
++ENDIF()
++
+ IF( EXIV2_ENABLE_COMMERCIAL )
+     SET (EXIV2_ENABLE_LENSDATA OFF)
+     SET (EXIV2_ENABLE_NLS OFF)
+diff -urwEB exiv2-0.26-svn.org/config/CMakeChecks.txt exiv2-0.26-svn-1/config/CMakeChecks.txt
+--- exiv2-0.26-svn.org/config/CMakeChecks.txt	2017-01-10 15:04:16.000000000 -0500
++++ exiv2-0.26-svn-1/config/CMakeChecks.txt	2017-01-13 12:42:37.000000000 -0500
+@@ -319,6 +319,10 @@
+ 
+ MESSAGE( STATUS "------------------------------------------------------------------" )
+ MESSAGE( STATUS "${PACKAGE_STRING} configure results        <${PACKAGE_URL}>"        )
++MESSAGE( STATUS "C++ standard                        ${EXIV2_CPP_STANDARD}"          )
++OptionOutput( "C++ standard required               " EXIV2_CPP_STANDARD_REQUIRED     )
++OptionOutput( "C++ extensions required             " EXIV2_CPP_EXTENSION             )
++OptionOutput( "Enabled compilation verbosity       " EXIV2_ENABLE_VERBOSITY          )
+ OptionOutput( "Building PNG support:               " EXIV2_ENABLE_PNG AND ZLIB_FOUND )
+ OptionOutput( "Building shared library:            " EXIV2_ENABLE_SHARED             )
+ OptionOutput( "XMP metadata support:               " EXIV2_ENABLE_XMP                )

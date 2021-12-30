@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>exiv2 don&#39;t show or erase IPTC history  - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="5+fcEQgJVe0jiNHoInrIc6NdUEB37YJC4wE+q6nc6+IFqnf+enOZ7XbszuSdrcRAnM8EOYYOI/geIa4j6uUMjQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>exiv2 don&#39;t show or erase IPTC history </h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/3957">Jerome Longet</a> <a title="03 Sep 2013 07:11" href="/projects/exiv2/activity?from=2013-09-03">about 8 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,<br />I discovered few days ago on images handled by our website, that historic IPTC values are stored !</p>
+
+
+	<p>When printing datas from exiv2, this is not shown.</p>
+
+
+	<p>My issue is not really on reading Tags, but on writing them, because some partners, are not looking at the latest values, but show or use all values ....</p>
+
+
+	<p>This means that old entries are not override when i rewrite them even if i delete them before.</p>
+
+
+	<p>The used version is (debian stable package):<br />exiv2 0.23 001700 (64 bit build)</p>
+
+
+	<p>For eg, here is iptc output from exiv2 :</p>
+
+
+	<p>exiv2 -pi ETH0138028.jpg</p>
+
+
+	<p>Iptc.Application2.RecordVersion              Short       1  2<br />Iptc.Application2.SpecialInstructions        String     57  RESPECTER LE CONTEXTE DE LA PRISE DE VUE ET DE LA LEGENDE<br />Iptc.Application2.Caption                    String    128  école maternelle, une enfant dans les sanitaires se lave les mains. Kindergarden School, child in the bathroom wash their hands.<br />Iptc.Application2.Headline                   String     41  Scolarité, école maternelle. Kindergarten<br />Iptc.Application2.Byline                     String     21  Emmanuelle THIERCELIN<br />Iptc.Application2.Source                     String     10  Divergence<br />Iptc.Application2.ObjectName                 String     10  ETH0138028<br />Iptc.Application2.DateCreated                Date        8  2011-04-30<br />Iptc.Application2.CountryName                String      6  France<br />Iptc.Application2.TransmissionReference      String      7  ETH0138<br />Iptc.Application2.Category                   String      3  EDU<br />Iptc.Application2.SuppCategory               String      8  Magazine<br />Iptc.Application2.Keywords                   String      7  enfance<br />Iptc.Application2.Copyright                  String     33  ©Emmanuelle Thiercelin/Divergence<br />Iptc.Application2.Keywords                   String     12  vie scolaire<br />Iptc.Application2.Keywords                   String      7  enfants<br />Iptc.Application2.Keywords                   String      6  enfant<br />Iptc.Application2.CountryCode                String      3  FRA</p>
+
+
+	<p>As you can see, no history only the latest values.</p>
+
+
+	<p>Using another tool to extract datas, history is shown, file has been written 3 times and values are each time added in a new IPTC packet!</p>
+
+
+<pre>
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'&gt;
+
+&lt;rdf:Description rdf:about='ETH0138028.jpg'
+ &lt;IPTC:ApplicationRecordVersion&gt;2&lt;/IPTC:ApplicationRecordVersion&gt;
+ &lt;IPTC:SpecialInstructions&gt;RESPECTER LE CONTEXTE DE LA PRISE DE VUE ET DE LA LEGENDE&lt;/IPTC:SpecialInstructions&gt;
+ &lt;IPTC:ExifCameraInfo&gt;Image Description:    Ã©cole maternelle, une enfant dans les sanitaires se lave les mains.
+Kindergarden School, child in the bathroom wash their hands.
+Orientation:    1 
+Resolution:    300.000 
+ResolutionUnit:    2 
+Software:    Adobe Photoshop CS2 Macintosh
+Artist:    Emmanuelle Thiercelin
+Copyright:    Â©Emmanuelle Thiercelin / fedephoto.com
+ColorSpace:    65535 
+&lt;/IPTC:ExifCameraInfo&gt;
+ &lt;IPTC:Caption-Abstract&gt;école maternelle, une enfant dans les sanitaires se lave les mains. Kindergarden School, child in the bathroom wash their hands.&lt;/IPTC:Caption-Abstract&gt;
+ &lt;IPTC:Headline&gt;Scolarité, école maternelle. Kindergarten&lt;/IPTC:Headline&gt;
+ &lt;IPTC:By-line&gt;Emmanuelle THIERCELIN&lt;/IPTC:By-line&gt;
+ &lt;IPTC:Source&gt;Divergence&lt;/IPTC:Source&gt;
+ &lt;IPTC:ObjectName&gt;ETH0138028&lt;/IPTC:ObjectName&gt;
+ &lt;IPTC:DateCreated&gt;2011:04:30&lt;/IPTC:DateCreated&gt;
+ &lt;IPTC:Country-PrimaryLocationName&gt;France&lt;/IPTC:Country-PrimaryLocationName&gt;
+ &lt;IPTC:OriginalTransmissionReference&gt;ETH0138&lt;/IPTC:OriginalTransmissionReference&gt;
+ &lt;IPTC:Category&gt;EDU&lt;/IPTC:Category&gt;
+ &lt;IPTC:SupplementalCategories&gt;Magazine&lt;/IPTC:SupplementalCategories&gt;
+ &lt;IPTC:Keywords&gt;
+  &lt;rdf:Bag&gt;
+   &lt;rdf:li&gt;enfance&lt;/rdf:li&gt;
+   &lt;rdf:li&gt;vie scolaire&lt;/rdf:li&gt;
+  &lt;/rdf:Bag&gt;
+ &lt;/IPTC:Keywords&gt;
+ &lt;IPTC:CopyrightNotice&gt;©Emmanuelle Thiercelin/Divergence&lt;/IPTC:CopyrightNotice&gt;
+ &lt;IPTC:Country-PrimaryLocationCode&gt;FRA&lt;/IPTC:Country-PrimaryLocationCode&gt;
+ &lt;IPTC2:ApplicationRecordVersion&gt;2&lt;/IPTC2:ApplicationRecordVersion&gt;
+ &lt;IPTC2:Caption-Abstract&gt;Žcole maternelle, une enfant dans les sanitaires se lave les mains.
+Kindergarden School, child in the bathroom wash their hands.&lt;/IPTC2:Caption-Abstract&gt;
+ &lt;IPTC2:Headline&gt;ScolaritŽ, Žcole maternelle&lt;/IPTC2:Headline&gt;
+ &lt;IPTC2:SpecialInstructions&gt;RESPECTER LE CONTEXTE DE LA PRISE DE VUE ET DE LA LEGENDE&lt;/IPTC2:SpecialInstructions&gt;
+ &lt;IPTC2:By-line&gt;Emmanuelle Thiercelin&lt;/IPTC2:By-line&gt;
+ &lt;IPTC2:Source&gt;Fedephoto&lt;/IPTC2:Source&gt;
+ &lt;IPTC2:ObjectName&gt;ETH0004028&lt;/IPTC2:ObjectName&gt;
+ &lt;IPTC2:Country-PrimaryLocationName&gt;France&lt;/IPTC2:Country-PrimaryLocationName&gt;
+ &lt;IPTC2:OriginalTransmissionReference&gt;ETH0004&lt;/IPTC2:OriginalTransmissionReference&gt;
+ &lt;IPTC2:Category&gt;Ill&lt;/IPTC2:Category&gt;
+ &lt;IPTC2:SupplementalCategories&gt;Magazine&lt;/IPTC2:SupplementalCategories&gt;
+ &lt;IPTC2:Keywords&gt;
+  &lt;rdf:Bag&gt;
+   &lt;rdf:li&gt;enfance&lt;/rdf:li&gt;
+   &lt;rdf:li&gt;enfants&lt;/rdf:li&gt;
+  &lt;/rdf:Bag&gt;
+ &lt;/IPTC2:Keywords&gt;
+ &lt;IPTC2:CopyrightNotice&gt;©Emmanuelle Thiercelin / fedephoto.com&lt;/IPTC2:CopyrightNotice&gt;
+ &lt;IPTC2:Country-PrimaryLocationCode&gt;FRA&lt;/IPTC2:Country-PrimaryLocationCode&gt;
+ &lt;IPTC2:ExifCameraInfo&gt;Orientation:    1 
+Resolution:    300.000 
+ResolutionUnit:    2 
+Software:    Adobe Photoshop CS Macintosh
+ColorSpace:    1 
+&lt;/IPTC2:ExifCameraInfo&gt;
+ &lt;IPTC3:ApplicationRecordVersion&gt;2&lt;/IPTC3:ApplicationRecordVersion&gt;
+ &lt;IPTC3:Caption-Abstract&gt;Žcole maternelle, une enfant dans les sanitaires se lave les mains.
+Kindergarden School, child in the bathroom wash their hands.&lt;/IPTC3:Caption-Abstract&gt;
+ &lt;IPTC3:Headline&gt;ScolaritŽ, Žcole maternelle. Kindergarten&lt;/IPTC3:Headline&gt;
+ &lt;IPTC3:SpecialInstructions&gt;RESPECTER LE CONTEXTE DE LA PRISE DE VUE ET DE LA LEGENDE&lt;/IPTC3:SpecialInstructions&gt;
+ &lt;IPTC3:By-line&gt;Emmanuelle Thiercelin&lt;/IPTC3:By-line&gt;
+ &lt;IPTC3:Source&gt;Divergence&lt;/IPTC3:Source&gt;
+ &lt;IPTC3:ObjectName&gt;ETH0138028&lt;/IPTC3:ObjectName&gt;
+ &lt;IPTC3:DateCreated&gt;2011:04:30&lt;/IPTC3:DateCreated&gt;
+ &lt;IPTC3:Country-PrimaryLocationName&gt;France&lt;/IPTC3:Country-PrimaryLocationName&gt;
+ &lt;IPTC3:OriginalTransmissionReference&gt;ETH0138&lt;/IPTC3:OriginalTransmissionReference&gt;
+ &lt;IPTC3:Category&gt;EDU&lt;/IPTC3:Category&gt;
+ &lt;IPTC3:SupplementalCategories&gt;Magazine&lt;/IPTC3:SupplementalCategories&gt;
+ &lt;IPTC3:Keywords&gt;
+  &lt;rdf:Bag&gt;
+   &lt;rdf:li&gt;enfance&lt;/rdf:li&gt;
+   &lt;rdf:li&gt;vie scolaire&lt;/rdf:li&gt;
+  &lt;/rdf:Bag&gt;
+ &lt;/IPTC3:Keywords&gt;
+ &lt;IPTC3:CopyrightNotice&gt;©Emmanuelle Thiercelin/Divergence&lt;/IPTC3:CopyrightNotice&gt;
+ &lt;IPTC3:Country-PrimaryLocationCode&gt;FRA&lt;/IPTC3:Country-PrimaryLocationCode&gt;
+ &lt;IPTC3:ExifCameraInfo&gt;Image Description:    Ã©cole maternelle, une enfant dans les sanitaires se lave les mains.
+Kindergarden School, child in the bathroom wash their hands.
+Orientation:    1 
+Resolution:    300.000 
+ResolutionUnit:    2 
+Software:    Adobe Photoshop CS2 Macintosh
+Artist:    Emmanuelle Thiercelin
+Copyright:    Â©Emmanuelle Thiercelin / fedephoto.com
+ColorSpace:    65535 
+&lt;/IPTC3:ExifCameraInfo&gt;
+&lt;/rdf:Description&gt;
+&lt;/rdf:RDF&gt;
+</pre>
+
+	<p>If you have an idea to manage this issue, many thanks for yours answers</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (17)</h3>
+  <div class="message reply" id="message-1609">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1609#message-1609">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2013 07:22" href="/projects/exiv2/activity?from=2013-09-03">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jerome</p>
+
+
+	<p>Thanks for bringing up this subject.   I think your question is, "Can Exiv2 show IPTC history?", to which you've given the answer "No".  Our IPTC code was added by Brad and perhaps he can comment on this matter.</p>
+
+
+	<p>Two questions:<br />1) Can you please attach the test image to this issue report?<br />2) Which tool produced the output you have given?</p>
+
+
+	<p>I'm not sure which website is "our website".  Is this something essential to understanding this issue?</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1610">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1610#message-1610">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/3957">Jerome Longet</a> <a title="03 Sep 2013 08:29" href="/projects/exiv2/activity?from=2013-09-03">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi, <br />Thanks for your answer. You will find the file in attachment.<br />The tool used is exiftool</p>
+
+
+	<p>exiftool -X -iptc:all ETH0138028.jpg>ETH0138028.jpg.xml</p>
+
+
+	<p>My issue is not to get history, but to be sure that when i write a tag, all history is erased.</p>
+
+
+	<p>When i write a tag, i always use a file containing all tasks at once. <br />First deletion of each tag i want to write using del.<br />And add to add the tag and it's values.</p>
+
+
+	<p>exiv2 -m taskfile shotfile</p>
+
+
+	<p>Regards<br />Jerome longet</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/525">ETH0138028.jpg</a>    <span class="size">(1.69 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/525/ETH0138028.jpg">ETH0138028.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-1611">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1611#message-1611">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2013 09:07" href="/projects/exiv2/activity?from=2013-09-03">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks very much for the image and the clarification of the issue.  exiftool is great.</p>
+
+
+	<p>I do not expect Brad to step up on this one as I know he's very busy.  If Brad doesn't comment on this, I will hunt through the code.</p>
+
+
+	<p>For sure it sounds as though you could script this to do del on every IPTC tag before doing the add.  So another couple of questions, and then I'll get on with the work.</p>
+
+
+	<p>1) Can you script a work-around?<br />2) Is this urgent?</p>
+
+
+	<p>If this isn't urgent, I'd like to defer this until mid-October.  It's OK to ping me next month to remind me about this.  Is that OK?</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1612">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1612#message-1612">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/3957">Jerome Longet</a> <a title="03 Sep 2013 10:20" href="/projects/exiv2/activity?from=2013-09-03">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi,<br />if i delete entries and add the same entrie, history is incremented. The only way i founded is to clear all tags using exiftool and replay my task file using exiv. But the issue is i rewrite all tags, EXIF, IPTC, XMP etc..... with issues about encoding and so .....</p>
+
+
+	<p>This is urgent, because our pictures are used and manipulated on our site <a class="external" href="http://www.divergence-images.com/">http://www.divergence-images.com/</a> without any issue (we only use exiv2), but exported to another photographer platform like pixpalace who use other tools that had highlighted this issue.</p>
+
+
+	<p>Do as your best to tell me how to manage that with exiv2.<br />Jerome longet</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1613">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1613#message-1613">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Sep 2013 10:50" href="/projects/exiv2/activity?from=2013-09-03">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jerome</p>
+
+
+	<p>Right.  Thank you very much for expressing this clearly.  I will take a look at it in the next few days (probably at the weekend).  You're welcome to email directly if you wish at <a class="email" href="mailto:robin@clanmills.com">robin@clanmills.com</a></p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1614">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1614#message-1614">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2013 15:16" href="/projects/exiv2/activity?from=2013-09-06">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jerome</p>
+
+
+	<p>I've spent about 6 hours today looking at this.  The file you provided as two IPTC IRBs (Image Resource Blocks) and I think that may be a problem.  When seems to be "history" is data in the the other resource block.</p>
+
+
+	<p>I tried adding hundreds of IPTC keywords to a JPG and exiv2 never added a second IRB.  So, I'm wondering if PhotoShop (which appears several times in the data) is formatting IPTC into multiple IRBs.  I will investigate the free/legal download of PhotoShop CS2 for Mac.</p>
+
+
+	<p>Without a straightforward work-flow that "corrupts" the IPTC data, I don't think I can solve this matter.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1615">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1615#message-1615">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/3957">Jerome Longet</a> <a title="06 Sep 2013 15:32" href="/projects/exiv2/activity?from=2013-09-06">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi many thanks for this investigation !<br />I also made lot of tests from my side. We manage about 700 000 picture from photographers, and we have issues with this one only and with all his shots.</p>
+
+
+	<p>The only solution i found is to erase all IPTC tags at once using exiftool. It clean's the IRBs and just after import the latest IPTC tags backed up with exiv2.</p>
+
+
+	<p>I didn't found a way to delete IPTC IRBs in the exiv doc.... Is it possible ?</p>
+
+
+	<p>If can help, i will ask to the concerned photographer to explain me the way he manage his shots tags !</p>
+
+
+	<p>Regards<br />Jerome longet</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1616">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1616#message-1616">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Sep 2013 15:47" href="/projects/exiv2/activity?from=2013-09-06">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Well three heads are better than one!  Sure, please ask your user and we might say 'Ah-ha' and solve this.</p>
+
+
+	<p>I tried to install PS/CS2 on my incredible 13"MBP/R running Mountain Lion.  'Installation failed'.</p>
+
+
+	<p>I think I can create a sample app to remove all IPTC/IRBs.  Let me see if I can get that to work on Saturday.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1617">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1617#message-1617">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Sep 2013 12:40" href="/projects/exiv2/activity?from=2013-09-09">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jerome</p>
+
+
+	<p>Apologies.  I didn't have time at the weekend to investigate this.  However, I've looked at it today.</p>
+
+
+	<a name="Good-News"></a>
+<h2 >Good News<a href="#Good-News" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>There is an option -da to delete all IPTC data in a file:<pre>exiv2 -di R.jpg</pre><br />This is described in the exiv2 man page:<pre>       -d tgt Delete target(s) for the 'delete' action. Possible targets are:
+              a : all supported metadata (the default)
+              e : Exif section
+              t : Exif thumbnail only
+              i : IPTC data
+              x : XMP packet
+              c : JPEG comment
+</pre></p>
+
+
+	<a name="About-my-investigation"></a>
+<h2 >About my investigation<a href="#About-my-investigation" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>We have a new feature in development for 0.25 (in branches/gsoc13).  We added option --struc to samples/exifprint to print the structure of a JPEG.  On your file:<br /><pre>
+692 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ bin/exifprint --struc ETH0138028.jpg 
+STRUCTURE OF FILE:
+  offset | marker     | size | signature
+       2   0xd8 SOI          
+       4   0xe0 APP0      16   JFIF.....,.,..
+      22   0xe1 APP1    5372   Exif..MM.*....................
+    5396   0xe1 APP1    7186   http://ns.adobe.com/xap/1.0/.&lt;
+   12584   0xed APP13  18072   Photoshop 3.0.8BIM............
+   30658   0xed APP13  18064   Photoshop 3.0.8BIM............
+   48724   0xe2 APP2     576   ICC_PROFILE......0ADBE....mntr
+   49302   0xee APP14     14   Adobe.d@....
+   49318   0xdb DQT      132   
+   49452   0xc0 SOF0      17   
+   49471   0xdd DRI        4   
+   49477   0xc4 DHT      418   
+   49897   0xda SOS       12   
+-----------------
+693 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ exiv2 -di ETH0138028.jpg 
+694 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ bin/exifprint --struc ETH0138028.jpg 
+STRUCTURE OF FILE:
+  offset | marker     | size | signature
+       2   0xd8 SOI          
+       4   0xe0 APP0      16   JFIF.....,.,..
+      22   0xe1 APP1    5372   Exif..MM.*....................
+    5396   0xe1 APP1    7186   http://ns.adobe.com/xap/1.0/.&lt;
+   12584   0xed APP13  14060   Photoshop 3.0.8BIM.%........j.
+   26646   0xed APP13  18064   Photoshop 3.0.8BIM............
+   44712   0xe2 APP2     576   ICC_PROFILE......0ADBE....mntr
+   45290   0xee APP14     14   Adobe.d@....
+   45306   0xdb DQT      132   
+   45440   0xc0 SOF0      17   
+   45459   0xdd DRI        4   
+   45465   0xc4 DHT      418   
+   45885   0xda SOS       12   
+-----------------
+695 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ 
+</pre><br />You can see that the file became smaller and the second APP13 went from 30658 to 26646 bytes.  However there are still 2 of APP13 blocks.</p>
+
+
+	<p>I've done little tests to create and delete Iptc.Application2.Keywords in a file.  Multiple APP13 blocks appear and disappear on demand (the max length of an APP13 block is 65535 byte).  The script to do that is: <pre>
+699 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ for i in {0..5000}; do exiv2 "-Madd Iptc.Application2.Keywords xxxxx${i}yyyyyyyyyy" R.jpg ; done
+700 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ bin/exifprint --struc R.jpg
+STRUCTURE OF FILE:
+  offset | marker     | size | signature
+       2   0xd8 SOI          
+       4   0xe1 APP1    6264   Exif..II*.....................
+    6270   0xe1 APP1    2607   http://ns.adobe.com/xap/1.0/.&lt;
+    8879   0xed APP13  65535   Photoshop 3.0.8BIM............
+   74416   0xed APP13  53503   Photoshop 3.0.yyyyyyyyyy.....x
+  127921   0xdb DQT      132   
+  128055   0xc0 SOF0      17   
+  128074   0xc4 DHT      418   
+  128494   0xda SOS       12   
+-----------------
+701 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ exiv2 "-Mdel Iptc.Application2.Keywords" R.jpg
+702 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ bin/exifprint --struc R.jpg
+STRUCTURE OF FILE:
+  offset | marker     | size | signature
+       2   0xd8 SOI          
+       4   0xe1 APP1    6264   Exif..II*.....................
+    6270   0xe1 APP1    2607   http://ns.adobe.com/xap/1.0/.&lt;
+    8879   0xed APP13    108   Photoshop 3.0.8BIM.......3....
+    8989   0xdb DQT      132   
+    9123   0xc0 SOF0      17   
+    9142   0xc4 DHT      418   
+    9562   0xda SOS       12   
+-----------------
+703 rmills@rmills-mbp:~ </pre></p>
+
+
+	<p>You can see that the file added a second APP13 block and successfully reverted to 1 block when I deleted the Keywords.</p>
+
+
+	<a name="Moving-forward"></a>
+<h2 >Moving forward<a href="#Moving-forward" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>To really make progress with this we need the work-flow that produced the files with the two APP13 blocks.  Can you ask your user about this please?</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1618">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1618#message-1618">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/3957">Jerome Longet</a> <a title="18 Sep 2013 14:56" href="/projects/exiv2/activity?from=2013-09-18">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,<br />sorry, i was not available past days. I got the worflow :</p>
+
+
+For old "diapos" (slides):
+	<ul>
+	<li>Scan the picture and save to Tiff.</li>
+		<li>Edit it in "fotostation version 5.1" <a class="external" href="http://www.fotoware.com/en/Products/FotoStation/">http://www.fotoware.com/en/Products/FotoStation/</a></li>
+		<li>That's it....</li>
+	</ul>
+
+
+For Digital pictures :
+	<ul>
+	<li>Edit it in "fotostation" </li>
+		<li>That's it....</li>
+	</ul>
+
+
+	<p>Here is in attachment a brand new and clean version of ETH0138028.jpg annotated few days ago from the Tiff version in fotostation. We can see everything is clean !</p>
+
+
+	<p>As it's an old picture (2008), i think the photographer annotated it in an old photoshop version and updated it after with fotostation, but she don't remember ;-).</p>
+
+
+	<p>If i understand well, removing all IPTC using "-di" don't remove Blocks, so the good way is to remove IPTC by keys using actions "-Mdel Iptc.Application2.IPCTKEY" until, i got only 1 block ?</p>
+
+
+	<p>Many thanks for your support !</p>
+
+
+	<p>Regards<br />Jerome</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/541">ETH0138028_actuel.jpg</a>    <span class="size">(2.25 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/541/ETH0138028_actuel.jpg">ETH0138028_actuel.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-1619">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1619#message-1619">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2013 15:41" href="/projects/exiv2/activity?from=2013-09-18">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jerome</p>
+
+
+	<p>Thanks for the update.  Well that's simple.  I never like to say "looks like a bug in FotoStation" - however that's what I am thinking.</p>
+
+
+<pre>
+538 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ bin/exifprint --struc ETH0138028_actuel.jpg 
+STRUCTURE OF FILE:
+  offset | marker     | size | signature
+       2   0xd8 SOI          
+       4   0xe0 APP0      16   JFIF.....,.,..
+      22   0xe1 APP1    5392   Exif..MM.*....................
+    5416   0xed APP13  15830   Photoshop 3.0.8BIM............
+   21248   0xe1 APP1   22518   http://ns.adobe.com/xap/1.0/.&lt;
+   43768   0xe2 APP2    3160   ICC_PROFILE......HLino....mntr
+   46930   0xee APP14     14   Adobe.d@....
+   46946   0xdb DQT      132   
+   47080   0xc0 SOF0      17   
+   47099   0xdd DRI        4   
+   47105   0xc4 DHT      418   
+   47525   0xda SOS       12   
+-----------------
+556 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ cp ~/temp/iptc/ETH0138028.jpg .   # nice new copy of "rogue" file
+557 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ bin/exifprint --struc ETH0138028.jpg # it has two APP13 blocks
+STRUCTURE OF FILE:
+  offset | marker     | size | signature
+       2   0xd8 SOI          
+       4   0xe0 APP0      16   JFIF.....,.,..
+      22   0xe1 APP1    5372   Exif..MM.*....................
+    5396   0xe1 APP1    7186   http://ns.adobe.com/xap/1.0/.&lt;
+   12584   0xed APP13  18072   Photoshop 3.0.8BIM............
+   30658   0xed APP13  18064   Photoshop 3.0.8BIM............
+   48724   0xe2 APP2     576   ICC_PROFILE......0ADBE....mntr
+   49302   0xee APP14     14   Adobe.d@....
+   49318   0xdb DQT      132   
+   49452   0xc0 SOF0      17   
+   49471   0xdd DRI        4   
+   49477   0xc4 DHT      418   
+   49897   0xda SOS       12   
+-----------------
+558 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ exiv2 -pi ETH0138028.jpg | wc # and 142 iptc tages
+    142     628   10201
+559 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ exiv2 "-Mdel Iptc.Application2.Keywords" ETH0138028.jpg # remove the Keywords
+560 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ exiv2 -pi ETH0138028.jpg | wc # 14 iptc tags left
+     14      91    1192
+561 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ for i in $(exiv2 -pi  ETH0138028.jpg | cut -f 1 -d' '); do exiv2 "-Mdel $i" ETH0138028.jpg ; done # remove them one at a time
+562 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ exiv2 -pi ETH0138028.jpg | wc # no more iptc tags
+      0       0       0
+563 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ bin/exifprint --struc ETH0138028.jpg # still got two APP13 blocks
+STRUCTURE OF FILE:
+  offset | marker     | size | signature
+       2   0xd8 SOI          
+       4   0xe0 APP0      16   JFIF.....,.,..
+      22   0xe1 APP1    5372   Exif..MM.*....................
+    5396   0xe1 APP1    7186   http://ns.adobe.com/xap/1.0/.&lt;
+   12584   0xed APP13  15824   Photoshop 3.0.8BIM............
+   28410   0xed APP13  18064   Photoshop 3.0.8BIM............
+   46476   0xe2 APP2     576   ICC_PROFILE......0ADBE....mntr
+   47054   0xee APP14     14   Adobe.d@....
+   47070   0xdb DQT      132   
+   47204   0xc0 SOF0      17   
+   47223   0xdd DRI        4   
+   47229   0xc4 DHT      418   
+   47649   0xda SOS       12   
+-----------------
+564 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ exiv2 -di ETH0138028.jpg # use the DI command
+565 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ bin/exifprint --struc ETH0138028.jpg # file is smaller, but still has 2 APP13 blocks
+STRUCTURE OF FILE:
+  offset | marker     | size | signature
+       2   0xd8 SOI          
+       4   0xe0 APP0      16   JFIF.....,.,..
+      22   0xe1 APP1    5372   Exif..MM.*....................
+    5396   0xe1 APP1    7186   http://ns.adobe.com/xap/1.0/.&lt;
+   12584   0xed APP13  14060   Photoshop 3.0.8BIM.%........j.
+   26646   0xed APP13  18064   Photoshop 3.0.8BIM............
+   44712   0xe2 APP2     576   ICC_PROFILE......0ADBE....mntr
+   45290   0xee APP14     14   Adobe.d@....
+   45306   0xdb DQT      132   
+   45440   0xc0 SOF0      17   
+   45459   0xdd DRI        4   
+   45465   0xc4 DHT      418   
+   45885   0xda SOS       12   
+-----------------
+566 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ 
+</pre>
+
+	<p>I will email FotoWare tomorrow and ask them for a free copy of their product for Engineering purposes.  They're Germans and they'll be friendly and cooperative.</p>
+
+
+	<p>I'll let you know.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1620">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1620#message-1620">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/3957">Jerome Longet</a> <a title="18 Sep 2013 15:52" href="/projects/exiv2/activity?from=2013-09-18">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Waouh ! Blocks are really persistants !</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1621">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1621#message-1621">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2013 15:58" href="/projects/exiv2/activity?from=2013-09-18">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jerome</p>
+
+
+	<p>It appears to me that FotoStation has put something nasty into the file.  You've discovered how to remove the APP13 blocks with exiftool and that helps.  However I think the problem is the two APP13 blocks introduced by FotoStation.  Of course, I could be wrong and I am quite unfairly blaming FotoStation.  (And we all know that Germans make Great Software).</p>
+
+
+	<p>I have the email written and ready to send to <a class="email" href="mailto:sales@fotoware.com">sales@fotoware.com</a>.  Can you email me and I can copy you in the correspondence with them.  I am <a class="email" href="mailto:robin@clanmills.com">robin@clanmills.com</a>.  Thanks.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1624">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1624#message-1624">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Sep 2013 14:55" href="/projects/exiv2/activity?from=2013-09-19">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jérôme</p>
+
+
+	<p>I didn't receive a reply from FotoWare, however thank you for providing this link for an eval of FotoStation:<br /><a class="external" href="http://www.fotoware.com/en/Downloads/">http://www.fotoware.com/en/Downloads/</a></p>
+
+
+	<p>I've discovered that you can easily remove the APP13 sections from the JPG as follows:</p>
+
+
+<pre>
+707 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ bin/exifprint  --struc ETH0138028.jpg 
+STRUCTURE OF FILE:
+  offset | marker     | size | signature
+       2   0xd8 SOI          
+       4   0xe0 APP0      16   JFIF.....,.,..
+      22   0xe1 APP1    5372   Exif..MM.*....................
+    5396   0xe1 APP1    7186   http://ns.adobe.com/xap/1.0/.&lt;
+   12584   0xed APP13  18072   Photoshop 3.0.8BIM............
+   30658   0xed APP13  18064   Photoshop 3.0.8BIM............
+   48724   0xe2 APP2     576   ICC_PROFILE......0ADBE....mntr
+   49302   0xee APP14     14   Adobe.d@....
+   49318   0xdb DQT      132   
+   49452   0xc0 SOF0      17   
+   49471   0xdd DRI        4   
+   49477   0xc4 DHT      418   
+   49897   0xda SOS       12   
+-----------------
+708 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ (dd bs=$((12584-1)) count=1 if=ETH0138028.jpg ; dd bs=$((48724-1)) skip=1 if=ETH0138028.jpg) &gt; foo.jpg 2&gt;/dev/null 
+710 rmills@rmills-mbp:~/gnu/exiv2/gsoc13 $ 
+</pre><br />The values <strong>12584</strong> and <strong>48724</strong> for dd came from the output of bin/exifprint.
+
+	<p>Let's discuss the best way to automate this for your system.  Possibilities are:  bash script, add option -dI to exiv2, modify or add a new sample application?</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1628">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1628#message-1628">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Sep 2013 05:54" href="/projects/exiv2/activity?from=2013-09-23">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've received a reply from FotoWare and a permanent license for FotoStation.  Thank You to CEO Christopher Frenning.  Here is my reply:</p>
+
+
+<blockquote>
+
+	<p>Christopher.</p>
+
+
+	<p>Thank you for your response. Very much appreciated.</p>
+
+
+	<p>My user discovered the eval download last week and I installed that on my MacBook Pro (my preferred platform). When I installed FotoStation, I discovered that you use Exiv2 (statically linked, I see). Things can't get better.</p>
+
+
+	<p>Thank You for the offer of Permanent License. It will only be used for Exiv2 support and if I discover that I love using FotoStation, I'll purchase a license for personal use.</p>
+
+
+	<p>We've made good progress with this. I suspect the trail to the work-flow that resulted in the corrupted files can never be re-discovered. And of course I don't know which version/platform of FotoStation or libexiv2 is in use. <br />I've proposed a solution to my user which involves adding new options to exiv2(.exe) 0.25 (expected late 2013)</p>
+
+
+	<p>1) -pS to print JPG structure.</p>
+
+
+	<p>2) -dI to remove APP13 blocks from a JPG.</p>
+
+
+	<p>These options only enable my user to detect and repair the damage. The root cause remains hidden. When this re-appears (and it will), I will be tooled up with the permanent licence to investigate and fix this.</p>
+
+
+	<p>Thank you for helping. And thank you for using Exiv2.</p>
+
+
+</blockquote>
+
+	<p>I'm going to proceed to add those options to Exiv2 (on the gsoc13 branch).</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1629">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1629#message-1629">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/3957">Jerome Longet</a> <a title="25 Sep 2013 16:31" href="/projects/exiv2/activity?from=2013-09-25">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>HI robin,<br />Thanks for this huge investigation &#38; happy to be able to use those options directly on a futur version. How can i be pinged when it will be integrated on a stable release ?</p>
+
+
+	<p>Regards<br />Jerome</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1630">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1608?r=1630#message-1630">RE: exiv2 don&#39;t show or erase IPTC history </a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Sep 2013 21:37" href="/projects/exiv2/activity?from=2013-09-25">about 8 years</a> ago
+  </h4>
+  <div class="wiki"><p>Jerome</p>
+
+
+	<p>You're welcome.  I've discovered that FotoStation uses Exiv2 - so I'm doubly motived to get to the bottom of this.  Here's what I said to FotoWare:</p>
+
+
+<blockquote>
+
+	<p>Christopher and Andrers</p>
+
+
+	<p>Thanks very much. I mistakenly thought your business was in Germany. Norway - even better. If Anders wants to look at the files, they are available on <a class="external" href="http://dev.exiv2.org/boards/3/topics/1608">http://dev.exiv2.org/boards/3/topics/1608</a> along with a lengthy discussion and analysis.</p>
+
+
+	<p>I have edited the metadata in the original image with FotoStation. I added some IPTC, Xmp and Exif tags. Everything seems OK to me.</p>
+
+
+	<p>FotoStation is a very nice application. I'm going to mark this issue as "resolved" as I don't believe we can make much more progress without more information from the end user.</p>
+
+
+</blockquote>
+
+	<p>You'll see that I haven't reproduced this in Foto Station with your user's files.  For sure, I'll need the platform/version of Foto Station involved.  And probably screen shots of the work flow (tags and values added).  I realise the time and effort required by you and your user to document this.  If you have different ideas, I will of course listen.</p>
+
+
+	<p>I have added feature request 922 for the options we have discussed adding to exiv2(.exe).  I have added to as a watcher and you will receive email as we progress the issue:  <a class="external" href="http://dev.exiv2.org/issues/922">http://dev.exiv2.org/issues/922</a></p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-17/17)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

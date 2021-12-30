@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1157: Out of memory error with user defined to_string template - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="v+7osokszZijQ3ebRnVDnYjRjboFWaFJZQF/O954LM5do0Nd+1YBmPYnaJf5ok+ut0PZw/S6APOYIe+znUHLoQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1157: Out of memory error with user defined to_string template" href="https://dev.exiv2.org/issues/1157.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1157</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Out of memory error with user defined to_string template</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Jan 2016 16:59" href="/projects/exiv2/activity?from=2016-01-27">almost 6 years</a> ago.
+        Updated <a title="26 Feb 2016 18:06" href="/projects/exiv2/activity?from=2016-02-26">over 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">api</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">27 Jan 2016</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">15.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>If you iterate over the Exif meta-data doing to_string(exifData[i->key()])</p>
+
+
+	<p>where <pre><code class="cplusplus syntaxhl">   <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+    <span class="n">string</span> <span class="n">to_string</span><span class="p">(</span><span class="n">T</span> <span class="n">value</span><span class="p">){</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">os</span><span class="p">;</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">value</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+    <span class="p">};</span></code></pre></p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/954">Capture.JPG</a>    <span class="size">(81.7 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/954/Capture.JPG">Capture.JPG</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Mikayel Egibyan, 02 Feb 2016 13:58</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/955">Capture1.JPG</a>    <span class="size">(214 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/955/Capture1.JPG">Capture1.JPG</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Mikayel Egibyan, 02 Feb 2016 13:58</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/956">559572663_061680528a_o.jpg</a>    <span class="size">(675 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/956/559572663_061680528a_o.jpg">559572663_061680528a_o.jpg</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Mikayel Egibyan, 02 Feb 2016 13:58</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/957">1583369269_c03be2a6b2_o.jpg</a>    <span class="size">(230 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/957/1583369269_c03be2a6b2_o.jpg">1583369269_c03be2a6b2_o.jpg</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Mikayel Egibyan, 02 Feb 2016 13:58</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4761" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Jan 2016 17:06" href="/projects/exiv2/activity?from=2016-01-27">almost 6 years</a> ago
+      <span id="journal-4761-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4761-notes" class="wiki"><p>This was reported by private email from Mikayel Egibyan.</p>
+
+
+	<p>If you iterate over the Exif meta-data doing to_string(exifData[i->key()])  many-many times (more than 1000 times) on the same stream/kernel, there is a memory crash.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4762" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Jan 2016 17:11" href="/projects/exiv2/activity?from=2016-01-27">almost 6 years</a> ago
+      <span id="journal-4762-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>80</i></li>
+    </ul>
+    <div id="journal-4762-notes" class="wiki"><p>I’ve modified samples/exifprint.cpp to use your template.  Here’s the output:<pre>.../trunk $ bin/exifprint ~/Stonehenge.jpg  | tail -10
+09 count = 208990
+WGS-84          count = 208991
+2015:07:16 count = 208992
+JPEG (old-style) count = 208993
+300 count = 208994
+300 count = 208995
+inch count = 208996
+4442 count = 208997
+10837 count = 208998
+Entered count = 208999
+$</pre>This code doesn’t seem to be leaking!  I increased the constant “1000” to “10000”.  It runs just over one minute on the Mac.  Memory in use by exifprint is constant at 1.1mb<pre>$ time (./bin/exifprint ~/Stonehenge.jpg | tail -2)
+10837 count = 2089998
+Entered count = 2089999
+
+real    1m16.180s
+user    1m20.564s
+sys    0m10.574s
+$</pre>What are you doing with the strings returned by to_string?  If you’re pushing them into a std::vector or something, perhaps they don’t go out of scope and will not be deallocated.</p>
+
+
+	<p>There’s nothing special about Stonehenge.jpg - it’s a file I use a lot for testing.  You can get it from <a class="external" href="http://clanmills.com/Stonehenge.jpg">http://clanmills.com/Stonehenge.jpg</a></p>
+
+
+<pre><code class="cplusplus syntaxhl"><span class="c1">// ***************************************************************** -*- C++ -*-</span>
+<span class="c1">// exifprint.cpp, $Rev: 4108 $</span>
+<span class="c1">// Sample program to print the Exif metadata of an image</span>
+
+<span class="cp">#include &lt;exiv2/exiv2.hpp&gt;
+</span>
+<span class="cp">#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;cassert&gt;
+</span>
+    <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">to_string</span><span class="p">(</span><span class="n">T</span> <span class="n">value</span><span class="p">){</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">os</span><span class="p">;</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">value</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+    <span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="k">try</span> <span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Usage: "</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" file</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="n">strcmp</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s">"--version"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="n">exv_grep_keys_t</span> <span class="n">keys</span><span class="p">;</span>
+        <span class="n">Exiv2</span><span class="o">::</span><span class="n">dumpLibraryInfo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span><span class="n">keys</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">Exiv2</span><span class="o">::</span><span class="n">Image</span><span class="o">::</span><span class="n">AutoPtr</span> <span class="n">image</span> <span class="o">=</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">ImageFactory</span><span class="o">::</span><span class="n">open</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">image</span><span class="o">-&gt;</span><span class="n">readMetadata</span><span class="p">();</span>
+
+    <span class="n">Exiv2</span><span class="o">::</span><span class="n">ExifData</span> <span class="o">&amp;</span><span class="n">exifData</span> <span class="o">=</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">exifData</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">exifData</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">error</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="n">error</span> <span class="o">+=</span> <span class="s">": No Exif data found in the file"</span><span class="p">;</span>
+        <span class="k">throw</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">Error</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">Exiv2</span><span class="o">::</span><span class="n">ExifData</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">end</span> <span class="o">=</span> <span class="n">exifData</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span> <span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">Exiv2</span><span class="o">::</span><span class="n">ExifData</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">exifData</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">end</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+<span class="c">#if 0
+        const char* tn = i-&gt;typeName();
+        std::cout &lt;&lt; std::setw(44) &lt;&lt; std::setfill(' ') &lt;&lt; std::left
+                  &lt;&lt; i-&gt;key() &lt;&lt; " " 
+                  &lt;&lt; "0x" &lt;&lt; std::setw(4) &lt;&lt; std::setfill('0') &lt;&lt; std::right
+                  &lt;&lt; std::hex &lt;&lt; i-&gt;tag() &lt;&lt; " " 
+                  &lt;&lt; std::setw(9) &lt;&lt; std::setfill(' ') &lt;&lt; std::left
+                  &lt;&lt; (tn ? tn : "Unknown") &lt;&lt; " " 
+                  &lt;&lt; std::dec &lt;&lt; std::setw(3)
+                  &lt;&lt; std::setfill(' ') &lt;&lt; std::right
+                  &lt;&lt; i-&gt;count() &lt;&lt; "  " 
+                  &lt;&lt; std::dec &lt;&lt; i-&gt;value()
+                  &lt;&lt; "\n";
+#endif
+</span>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">to_string</span><span class="p">(</span><span class="n">exifData</span><span class="p">[</span><span class="n">i</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">()])</span> <span class="o">&lt;&lt;</span> <span class="s">" count = "</span> <span class="o">&lt;&lt;</span> <span class="n">count</span><span class="o">++</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//catch (std::exception&amp; e) {</span>
+<span class="c1">//catch (Exiv2::AnyError&amp; e) {</span>
+<span class="k">catch</span> <span class="p">(</span><span class="n">Exiv2</span><span class="o">::</span><span class="n">Error</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Caught Exiv2 exception '"</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">"'</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+    </div>
+  </div>
+  
+  <div id="change-4776" class="journal has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="01 Feb 2016 11:34" href="/projects/exiv2/activity?from=2016-02-01">almost 6 years</a> ago
+      <span id="journal-4776-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>80</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4783" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Feb 2016 12:56" href="/projects/exiv2/activity?from=2016-02-02">almost 6 years</a> ago
+      <span id="journal-4783-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Closed</i> to <i>Assigned</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> set to <i>4.00 h</i></li>
+    </ul>
+    <div id="journal-4783-notes" class="wiki"><p>I'm reopening this case as Mikayel has sent files by private email.</p>
+
+
+	<p>Mikayel:<br />Please update this issue report and attach your files.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4784" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="02 Feb 2016 13:58" href="/projects/exiv2/activity?from=2016-02-02">almost 6 years</a> ago
+      <span id="journal-4784-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/954">Capture.JPG</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/954/Capture.JPG">Capture.JPG</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/955">Capture1.JPG</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/955/Capture1.JPG">Capture1.JPG</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/956">559572663_061680528a_o.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/956/559572663_061680528a_o.jpg">559572663_061680528a_o.jpg</a> added</li>
+       <li><strong>File</strong> <a href="/attachments/957">1583369269_c03be2a6b2_o.jpg</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/957/1583369269_c03be2a6b2_o.jpg">1583369269_c03be2a6b2_o.jpg</a> added</li>
+    </ul>
+    <div id="journal-4784-notes" class="wiki"><p>Thanks for the investigation Robin.</p>
+
+
+	<p>Please find attached the crashes that I have using your code, and even old exifprint.cpp.</p>
+
+
+	<p>Please note that I use: /MT ReleaseDLL x64 and /MTd DebugDLL x64 builds.</p>
+
+
+	<p>Thanks,<br />Mikayel</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4785" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Feb 2016 16:28" href="/projects/exiv2/activity?from=2016-02-02">almost 6 years</a> ago
+      <span id="journal-4785-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4785-notes" class="wiki"><p>I think you have a mixed up build environment.  Normally, I use static everywhere, or dynamic everywhere.</p>
+
+
+	<p>I believe it is possible to build static DLLs and a static application and use static C run-time.  I don't think I've ever done that.</p>
+
+
+	<p>Is there a reason not to use the /MD+DLL build environments in msvc2005?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4786" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Feb 2016 19:23" href="/projects/exiv2/activity?from=2016-02-02">almost 6 years</a> ago
+      <span id="journal-4786-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-4786-notes" class="wiki"><p>I think you are in a lot of trouble with this, Mikayel.  I don't know how to fix this.  I've modified x64\release to generate a DLL.  It uses /MT.  I've linked exifprint.exe with that and reproduced your crash.</p>
+
+
+	<p>I think the problem is that exifprint.exe is using a different heap from libexiv2.dll.  So when you iterate, you are using something that has been allocated from the DLL's heap.  When you free this resource in exifprint.cpp, you crash  because it does not recognise the object as part of its heap.</p>
+
+
+	<p>The only fix I know is to use exiv2/msvc2005 as intended.  If you want to link your app as /MT, you must link the static build of libexiv2.  I'm surprised your application does not use /MD as functions such as ::free() and ::malloc() are in the C-rtlib and shared by every DLL in your process.</p>
+
+
+	<p>I've looked over all the settings offered by MSVC for heap control and can't see anything to address this issue.  You may want to ask for help in an MSVC Forum, however I don't believe anybody else in Team Exiv2 can be of further help with this issue.</p>
+
+
+	<p>If you discover a fix - please share it on this thread for future reference.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4787" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Feb 2016 07:15" href="/projects/exiv2/activity?from=2016-02-03">almost 6 years</a> ago
+      <span id="journal-4787-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4787-notes" class="wiki"><p>Mikayel</p>
+
+
+	<p>As you know, I always want to help.  I found this blog:  <a class="external" href="http://www.davidlenihan.com/2008/01/choosing_the_correct_cc_runtim.html">http://www.davidlenihan.com/2008/01/choosing_the_correct_cc_runtim.html</a> in which the author says:</p>
+
+
+	<ul>
+	<li>Use the debug version only internally, release for anything that could be used by customers</li>
+		<li>Use the DLL version except in special situations</li>
+		<li>Use consistent settings throughout your project (the runtime library setting can be done per source file)</li>
+		<li>Don't worry if your runtime library settings match other libraries you use (unless the library comes in multiple runtime library versions)</li>
+	</ul>
+
+
+	<p>That article references the following article in which Microsoft warn against using C runtime objects across DLL boundaries.  Regrettably, that's what  you are doing:  <a class="external" href="https://msdn.microsoft.com/en-us/library/ms235460.aspx">https://msdn.microsoft.com/en-us/library/ms235460.aspx</a></p>
+
+
+	<p>It seems to me that using /MT (or /MTd) is only suitable for very small applications in which you want to bind the whole application into a single .exe.  When you build with /MT, a copy of the run-time library is bundled into the object you build.  When you build with /MD, you are using a process-wide run-time library which is a DLL.  That DLL changes for different versions of MSVC.  For example, if you are using Visual Studio 2005, it is called MSVCR80.dll</p>
+
+
+	<p>I don't know anything about the application from which you are calling libexiv2.  You should build that application with /MD and use the DLLs generated by msvc2005.  If you cannot change that application, then I believe you will have to link the static libraries generated by msvc2005.  However, I don't think you can say "generate DLLs <strong><em>AND</strong></em> use /MT" because you are violating the conditions described above by Microsoft.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4788" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Feb 2016 07:51" href="/projects/exiv2/activity?from=2016-02-03">almost 6 years</a> ago
+      <span id="journal-4788-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>Estimated time</strong> changed from <i>4.00 h</i> to <i>5.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4790" class="journal has-notes has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Feb 2016 20:21" href="/projects/exiv2/activity?from=2016-02-08">almost 6 years</a> ago
+      <span id="journal-4790-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>5.00 h</i> to <i>10.00 h</i></li>
+    </ul>
+    <div id="journal-4790-notes" class="wiki"><p>Mikayel</p>
+
+
+	<p>I've done more work on this and I am certain your trouble is being caused by attempting to freeing object across DLL boundaries.  Here's the proof.</p>
+
+
+	<p><strong>1 Build x64/Release as a DLL</strong></p>
+
+
+	<p>a) libexiv2/Properties/General<br />Configuration Type: Dynamic Library (dll)</p>
+
+
+	<p>b) C++/Preprocessor:  add EXV_HAVE_DLL;EXV_BUILDING_LIB</p>
+
+
+	<p>c) Build libexiv2 and check that the following have been build:<pre>C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\release&gt;dir *.lib *.dll
+ Volume in drive C has no label.
+ Volume Serial Number is 0899-EF40
+
+ Directory of C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\release
+
+02/08/2016  07:10 PM           455,576 libexiv2.lib  &lt;--- beautiful new Release /MT linker stub library
+02/08/2016  12:30 PM           394,172 libexpat.lib
+02/08/2016  12:30 PM         7,032,036 xmpsdk.lib
+02/08/2016  12:30 PM           169,788 zlib1.lib
+
+ Directory of C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\release
+
+02/08/2016  07:10 PM         3,165,696 libexiv2.dll  &lt;--- beautiful new Release /MT DLL
+               5 File(s)     11,217,268 bytes
+               0 Dir(s)  20,407,341,056 bytes free
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\release&gt;</pre></p>
+
+
+	<p><strong>2 exifprint x64/Release</strong></p>
+
+
+	<p>a) C/C++ Preprocessor:  add ;EXV_HAVE_DLL</p>
+
+
+	<p>b) Build exifprint</p>
+
+
+	<p>c) Test exifprint:<pre>C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\release&gt;exifprint --version | grep -e date -e time -e
+ svn -e libexiv2
+date=Feb  8 2016
+time=19:08:34
+svn=0
+library=C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\release\libexiv2.dll  &lt;-- using our beautiful /MT dll
+have_gmtime_r=0
+have_timegm=0
+xmlns=mediapro:http://ns.iview-multimedia.com/mediapro/1.0/
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\release&gt;</pre><em><strong>Problem is when we give him a file, the iterator crashes</em></strong><pre>C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\release&gt;exifprint http://clanmills.com/Stonehenge.jpg
+
+Exif.Image.Make                              0x010f Ascii      18  NIKON CORPORATION
+Exif.Image.Model                             0x0110 Ascii      12  NIKON D5300
+---- crash ----
+
+C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\release&gt;</pre></p>
+
+
+	<p><strong>3 Modify exifprint.cpp</strong></p>
+
+
+	<p>Add our own global cplusplus new/delete operators.  Only don't allow delete() to do anything! <pre>C:\cygwin64\home\rmills\gnu\exiv2\trunk\msvc2005\bin\x64\release&gt;exifprint http://clanmills.com/Stonehenge.jpg
+
+Exif.Image.Make                              0x010f Ascii      18  NIKON CORPORATION
+Exif.Image.Model                             0x0110 Ascii      12  NIKON D5300
+Exif.Image.Orientation                       0x0112 Short       1  1
+Exif.Image.XResolution                       0x011a Rational    1  300/1
+Exif.Image.YResolution                       0x011b Rational    1  300/1
+Exif.Image.ResolutionUnit                    0x0128 Short       1  2
+Exif.Image.Software                          0x0131 Ascii      10  Ver.1.00
+.... runs smoothly to end...</pre>Here's the code change:<pre><code class="cplusplus syntaxhl"><span class="c1">// ***************************************************************** -*- C++ -*-</span>
+<span class="c1">// exifprint.cpp, $Rev: 4108 $</span>
+<span class="c1">// Sample program to print the Exif metadata of an image</span>
+
+<span class="cp">#include &lt;exiv2/exiv2.hpp&gt;
+</span>
+<span class="cp">#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;cassert&gt;
+</span>
+<span class="cp">#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;exception&gt;
+#include &lt;new&gt;
+</span>
+<span class="c1">// replacement of a minimal set of functions:</span>
+<span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">sz</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// std::printf("global op new called, size = %zu\n",sz);</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">malloc</span><span class="p">(</span><span class="n">sz</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="k">throw</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="c1">// std::puts("global op delete called");</span>
+        <span class="c1">// std::free(ptr);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span> <span class="n">std</span><span class="o">::</span><span class="n">exception</span><span class="o">&amp;</span>  <span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="k">try</span> <span class="p">{</span>
+<span class="p">...</span>
+<span class="p">}</span></code></pre></p>
+
+
+	<p><strong>4 Commentary</strong></p>
+
+
+	<p>This is <strong>NOT</strong> a work-around.  This demonstrates the exact nature of the problem.</p>
+
+
+	<p>You will have to take this puzzle up with a software architect at your company.  If your company insists on using /MT with libexiv2.dll, you will have to redefine new() and delete() appropriately.  Your company's software architecture is creating this problem and your company will have to resolve this.</p>
+
+
+	<p>Please stop sending me private emails about this (unless you wish to thank me for the 10 hours unpaid consultancy you have been given).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4799" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="11 Feb 2016 01:17" href="/projects/exiv2/activity?from=2016-02-11">almost 6 years</a> ago
+      <span id="journal-4799-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4799-notes" class="wiki"><p>Thanks much Robin for your help! I value it!</p>
+
+
+	<p>The solutions is to easy to discover quickly:</p>
+
+
+	<p>NEVER pass the result of Exiv2 library to 3rd party library, application, dll, etc... without making a copy.<br />Basically you need to ensure that nothing else but Exiv2 deletes the allocated memory. This is true for all types, especially strings.</p>
+
+
+	<p>Mikayel</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4800" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Feb 2016 07:03" href="/projects/exiv2/activity?from=2016-02-11">almost 6 years</a> ago
+      <span id="journal-4800-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4800-notes" class="wiki"><p>Thanks, Mikayel</p>
+
+
+	<p>I haven't understood your fix.  Can you modify exifprint.cpp to demonstrate your fix, please?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4806" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4340">Mikayel Egibyan</a> <a title="24 Feb 2016 13:40" href="/projects/exiv2/activity?from=2016-02-24">over 5 years</a> ago
+      <span id="journal-4806-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4806-notes" class="wiki"><p>Pardon me, I didn't notice your message.</p>
+
+
+	<p>Here is the way that I copy the output of Exiv2 before I pass it further:<pre><code class="cplusplus syntaxhl">    <span class="kt">size_t</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">buf</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">len</span><span class="p">];</span>
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">but</span><span class="p">;</span></code></pre>Mikayel</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4807" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Feb 2016 14:01" href="/projects/exiv2/activity?from=2016-02-24">over 5 years</a> ago
+      <span id="journal-4807-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4807-notes" class="wiki"><p>I'll update msvc2005/ReadMe.txt with this ingenious tip.  So the recipe is "copy the string" (as you said).</p>
+
+
+	<p>Incidentally, I looked up the auto_ptr pattern in wikipedia. <a class="external" href="https://en.wikipedia.org/wiki/Auto_ptr">https://en.wikipedia.org/wiki/Auto_ptr</a>.   It contains the following ominous warning:</p>
+
+
+<blockquote>
+
+	<p>may not be used in STL containers that may perform element copies in their operations</p>
+
+
+</blockquote>
+
+	<p>The auto_ptr are clearly a tricky customer, and the debugger doesn't understand it either.</p>
+
+
+	<p>The auto_ptr is used extensively by exiv2.  I believe auto_ptr is something to ensure that memory doesn't leak when exceptions are thrown.  A very good example of a problem being created to solve a problem.  Exception handling is a poor error handling strategy.  It is an invisible goto that crosses function boundaries.  I much prefer returning error codes.  Few engineers agree with me, however I am entitled to my opinion.  In this case, the exception is being thrown across DLL boundaries and the DLLs are using static libraries.  So the Value auto_ptr was allocated by the DLL and deleted by the host process which is using a different heap.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4808" class="journal has-notes">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Feb 2016 19:42" href="/projects/exiv2/activity?from=2016-02-24">over 5 years</a> ago
+      <span id="journal-4808-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4808-notes" class="wiki"><p>Mikayel</p>
+
+
+	<p>I really don't believe your fix solves this matter.  You may have found a way of making your code stable, however I don't believe you have resolved the underlying issue.  Please read the following (mostly frightening and blood curling discussion):  <a class="external" href="http://stackoverflow.com/questions/16736195/inline-class-constructor-to-avoid-vc-memory-crash">http://stackoverflow.com/questions/16736195/inline-class-constructor-to-avoid-vc-memory-crash</a></p>
+
+
+	<p>The article referenced above claims that some relief from this problem arrived with MSVC 2012.  If you're using MSVC 2012 or later, perhaps you are being spared the worst cases of the situation.  It is my opinion that /MT DLLs are only suitable for small applications and should be avoided.  I recommend that you link all your code and DLLs with /MD.  I urge you to discuss this with your company's software architects.  I am willing to join that discussion on Skype (or phone, Google+ or FaceTime) if you wish.</p>
+
+
+	<p>Looking at this situation from an Exiv2 viewpoint, I feel the only correct way to fix this issue is for the host application to pass pointers to <em><strong>malloc/free/realloc</strong></em> functions to be used by Exiv2.  This is a non-trivial change to Exiv2.  The default values of these functions would be the system's default implementation.  So existing Exiv2 applications would require no changes.  Other standard C library functions such as <em><strong>fopen/fclose/fwrite/fread...</strong></em> may benefit from similar treatment.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4809" class="journal has-notes">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Feb 2016 17:47" href="/projects/exiv2/activity?from=2016-02-26">over 5 years</a> ago
+      <span id="journal-4809-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4809-notes" class="wiki"><p>I have this <em><strong>mostly</strong></em> solved.  I say <em><strong>mostly</strong></em> because the solution is incomplete, however I'll explain what else is necessary later.</p>
+
+
+	<p>The solution is for the host application to define the functions to be used by the library to allocate/free memory.  So exifprint.cpp becomes:<pre><code class="cplusplus syntaxhl"><span class="c1">// Sample program to print the Exif metadata of an image</span>
+
+<span class="cp">#include &lt;exiv2/exiv2.hpp&gt;
+</span>
+<span class="cp">#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;cassert&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="k">try</span> <span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Usage: "</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" file</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="n">strcmp</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s">"--version"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="n">exv_grep_keys_t</span> <span class="n">keys</span><span class="p">;</span>
+        <span class="n">Exiv2</span><span class="o">::</span><span class="n">dumpLibraryInfo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span><span class="n">keys</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">Exiv2</span><span class="o">::</span><span class="n">Image</span><span class="o">::</span><span class="n">AutoPtr</span> <span class="n">image</span> <span class="o">=</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">ImageFactory</span><span class="o">::</span><span class="n">open</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">image</span><span class="o">-&gt;</span><span class="n">readMetadata</span><span class="p">();</span>
+
+    <span class="n">Exiv2</span><span class="o">::</span><span class="n">ExifData</span> <span class="o">&amp;</span><span class="n">exifData</span> <span class="o">=</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">exifData</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">exifData</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">error</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="n">error</span> <span class="o">+=</span> <span class="s">": No Exif data found in the file"</span><span class="p">;</span>
+        <span class="k">throw</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">Error</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">Exiv2</span><span class="o">::</span><span class="n">setMemoryFunctions</span><span class="p">(</span><span class="o">::</span><span class="n">malloc</span><span class="p">,</span><span class="o">::</span><span class="n">free</span><span class="p">);</span> <span class="c1">// &lt;----- tell Exiv2 to use our malloc and free</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">Exiv2</span><span class="o">::</span><span class="n">ExifData</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">exifData</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">exifData</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">i</span><span class="o">-&gt;</span><span class="n">typeName</span><span class="p">();</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">44</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="sc">' '</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">left</span>
+                  <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> 
+                  <span class="o">&lt;&lt;</span> <span class="s">"0x"</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="sc">'0'</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">right</span>
+                  <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">hex</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="o">-&gt;</span><span class="n">tag</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> 
+                  <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="sc">' '</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">left</span>
+                  <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">tn</span> <span class="o">?</span> <span class="n">tn</span> <span class="o">:</span> <span class="s">"Unknown"</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> 
+                  <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">dec</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+                  <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="sc">' '</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">right</span>
+                  <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">"  "</span> 
+                  <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">dec</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">()</span>
+                  <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">Exiv2</span><span class="o">::</span><span class="n">setMemoryFunctions</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span> <span class="c1">// &lt;-- restore Exiv2 default functions</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//catch (std::exception&amp; e) {</span>
+<span class="c1">//catch (Exiv2::AnyError&amp; e) {</span>
+<span class="k">catch</span> <span class="p">(</span><span class="n">Exiv2</span><span class="o">::</span><span class="n">Error</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Caught Exiv2 exception '"</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">"'</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>Now we have to declare and define setMemoryFunctions() in the library.</p>
+
+
+	<p><em><strong>1 Declare Exiv2::setMemoryFunctions()</em></strong></p>
+
+
+	<p>Modify include/exiv2/exiv2.hpp as follows:<pre><code class="cplusplus syntaxhl"><span class="p">...</span>
+<span class="cp">#include "xmpsidecar.hpp" 
+</span>
+<span class="k">typedef</span> <span class="kt">void</span><span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="n">malloc_fp</span><span class="p">)(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">);</span>
+<span class="k">typedef</span> <span class="kt">void</span>  <span class="p">(</span><span class="o">*</span><span class="n">free_fp</span>  <span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">);</span>
+
+<span class="k">namespace</span> <span class="n">Exiv2</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="n">malloc_fp</span> <span class="n">_malloc</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">static</span> <span class="n">free_fp</span>   <span class="n">_free</span>   <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">EXIV2API</span> <span class="kt">void</span> <span class="n">setMemoryFunctions</span><span class="p">(</span><span class="n">malloc_fp</span> <span class="n">malloc</span><span class="p">,</span> <span class="n">free_fp</span> <span class="n">free</span><span class="p">);</span>
+<span class="p">}</span>
+
+    <span class="c1">// replacement of a minimal set of functions:</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">sz</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// std::printf("new called, size = %zu\n",sz);</span>
+        <span class="k">return</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">_malloc</span> <span class="o">?</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">_malloc</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">malloc</span><span class="p">(</span><span class="n">sz</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="c1">// std::puts("delete called");</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">_free</span> <span class="p">)</span> <span class="n">Exiv2</span><span class="o">::</span><span class="n">_free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+            <span class="k">else</span>                <span class="n">std</span><span class="o">::</span><span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span> <span class="n">std</span><span class="o">::</span><span class="n">exception</span><span class="o">&amp;</span>  <span class="p">)</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="cp">#endif                                  // #ifndef EXIV2_HPP_</span></code></pre></p>
+
+
+	<p><em><strong>2 Define setMemoryFunctions in basicio.cpp</strong></em></p>
+
+
+	<p>Update src/basicio.cpp as follows:<pre><code class="cplusplus syntaxhl"><span class="cp"># include &lt;windows.h&gt;
+# include &lt;io.h&gt;
+#endif
+</span>
+<span class="cp">#include &lt;exiv2/exiv2.hpp&gt;
+</span>
+<span class="c1">// *****************************************************************************</span>
+<span class="c1">// class member definitions</span>
+<span class="k">namespace</span> <span class="n">Exiv2</span> <span class="p">{</span>
+
+<span class="cp">#ifdef EXV_BUILDING_LIB
+</span>    <span class="n">EXIV2API</span> <span class="kt">void</span> <span class="n">setMemoryFunctions</span><span class="p">(</span><span class="n">malloc_fp</span> <span class="n">malloc</span><span class="p">,</span> <span class="n">free_fp</span> <span class="n">free</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_malloc</span><span class="o">=</span><span class="n">malloc</span><span class="p">;</span>
+        <span class="n">_free</span>  <span class="o">=</span><span class="n">free</span>  <span class="p">;</span>
+    <span class="p">}</span>
+<span class="cp">#endif
+</span>    <span class="n">BasicIo</span><span class="o">::~</span><span class="n">BasicIo</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="p">}</span></code></pre><em><strong>3 Build and Test</strong></em></p>
+
+
+	<p>Good, isn't it?</p>
+
+
+<hr />
+
+
+	<p>It is possible to update MSVC2005 to compile this code when building /MT DLLs.  I <em><strong>will not support this</strong></em> for the following reasons:</p>
+
+
+	<p>1) There are more changes required:</p>
+
+
+	<p>Exiv2 allocates memory with operator new, ::malloc(), ::calloc(), std::malloc(), ::realloc().  I will have to identify and modify all that code.</p>
+
+
+	<p>2) All the sample applications will require modification</p>
+
+
+	<p>3) If I move the calls to Exiv2::setMemoryFunctions() to the first and last lines of exifprint.cpp, the application asserts during exit.  This is some synchronisation issue with the conflicting static libraries which I don't want to debug.</p>
+
+
+	<p>4) I am sure there will be more crashes to be investigated before the test suite performs perfectly.</p>
+
+
+	<p>5) I do not wish to encourage anybody to use /MT DLLs.</p>
+
+
+	<p>6) There are users with their own MSVC build environments.  C++ code changes to deal with /MT DLLs will probably damage their build environments.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4810" class="journal has-details">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Feb 2016 18:06" href="/projects/exiv2/activity?from=2016-02-26">over 5 years</a> ago
+      <span id="journal-4810-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> changed from <i>10.00 h</i> to <i>15.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1157.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1157.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

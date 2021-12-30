@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>White balance issues being corrupted or removed - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="LhuDrgwutzpTEkrm/7ZpWpFhgDgp5Mrj0eEtVdrOv7DMVihBflR7OgZ2VepAYWVprvPUQdgHa1kswb3dmfdY3w==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>White balance issues being corrupted or removed</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/7169">Rob Kent</a> <a title="21 Jun 2018 15:43" href="/projects/exiv2/activity?from=2018-06-21">over 3 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi All,</p>
+
+
+	<p>I've written a little C++ program to add lens information to my (predominantly Sony) raw files when I shoot with classic/manual lenses. The issue I am having is that, when I write the modified EXIF data back to the raw file, darktable complains that it is unable to read the white balance information from the image. An example of what I am doing is below:</p>
+
+
+<pre>
+Image::AutoPtr image=ImageFactory::open(filePath.toStdString());
+if(image.get()==0) return false;
+
+image-&gt;readMetadata();
+ExifData exifData=image-&gt;exifData();
+
+exifData["Exif.Photo.LensMake"]="Helios";
+
+image-&gt;setExifData(exifData);
+image-&gt;writeMetadata();
+
+</pre>
+
+	<p>I'm writing a lot more tags than than that, but I was wondering if my basic approach is flawed. Am I missing or doing something wrong?</p>
+
+
+	<p>All help gratefully appreciated,</p>
+
+
+	<p>Rob</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (11)</h3>
+  <div class="message reply" id="message-3154">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3153?r=3154#message-3154">RE: White balance issues being corrupted or removed</a>
+    -
+    Added by <a class="user active" href="/users/7169">Rob Kent</a> <a title="21 Jun 2018 16:16" href="/projects/exiv2/activity?from=2018-06-21">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Further to my last:</p>
+
+
+	<p>I should say that if I set these tags and then read them back on the command line, with exiv2 or exiftool, they report fine, its just in Darktable and it only complains about not being able to read the white balance information.</p>
+
+
+	<p>I <em><strong>can</strong></em> set the following tags without Darktable complaining:</p>
+
+
+	<p>Exif.Photo.LensModel<br />Exif.Photo.FocalLength<br />Exif.Photo.FNumber<br />Exif.Photo.MaxApertureValue<br />Exif.Image.Artist<br />Exif.Image.Copyright</p>
+
+
+	<p>I <em><strong>cannot</strong></em> set any of the following, either individually or together:</p>
+
+
+	<p>Exif.Photo.LensSpecification<br />Exif.Photo.LensMake<br />Exif.Photo.LensSerialNumber<br />Exif.Image.FocalLength<br />Exif.Image.FNumber<br />Exif.Image.ApertureValue<br />Exif.Photo.ApertureValue<br />Exif.Image.MaxApertureValue</p>
+
+
+	<p>The two that really matter to me are LensSerialNumber and LensSpecification.</p>
+
+
+	<p>Does anyone have any idea as to why I might be able to set some and not others? <strong>Should</strong> I be able to set these or am I doing something stupid? I seem to be able to set all these values via exiftool command line without any issues.</p>
+
+
+	<p>Any help or suggestions would be gratefully appreciated,</p>
+
+
+	<p>Rob</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3156">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3153?r=3156#message-3156">RE: White balance issues being corrupted or removed</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Jun 2018 20:16" href="/projects/exiv2/activity?from=2018-06-21">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Rob</p>
+
+
+	<p>Can you attach a file from your camera and I will investigate.  I'm currently on vacation and will look at this next week.</p>
+
+
+	<p>There are several matters to consider:<br />1) There are tag which cannot be changed in the metadata.  Most of them relate the high-resolution image such as Resolution.  When the function image->IsImage() returns true, exiv2 will (silently) ignore modification to the tag.  The tags you have listed (Exif.Image.ApertureValue may be restricted.</p>
+
+
+	<p>2) darktable may impose additional restrictions about which exiv2 knows nothing.</p>
+
+
+	<p>3) I strongly encourage to use the command-line utility exiv2(.exe) which you can download or build from source to eliminate darktable from the mix.  I see you're using your own code, and that's "more-or-less" what's done in exiv2(.exe)</p>
+
+
+	<p>4) The function image->IsImage() is implemented for each of the common file formats (JPG, PNG, TIFF etc).  As darktable is a raw image processor, I expect you're using RAW images.  You'll have to look at the image processor for your raw image as it could be CRW, CR2 or another format.</p>
+
+
+	<p>I hope that helps you for the moment.  Please send sample images and I will investigate further when I get home.  Our Redmine service restricts images to 20mb and I if you're image are larger, please use a cloud sharing service such as DropBox to send me images.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3157">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3153?r=3157#message-3157">RE: White balance issues being corrupted or removed</a>
+    -
+    Added by <a class="user active" href="/users/7169">Rob Kent</a> <a title="22 Jun 2018 07:21" href="/projects/exiv2/activity?from=2018-06-22">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Firstly, sorry to disturb your vacation.</p>
+
+
+	<p>I strongly suspect that I am doing something wrong in the code as I am using RAW files directly from a Sony A7ii, the metadata from which can be successfully modified with exiftool without upsetting either Darktable or Lightroom.</p>
+
+
+	<p>1) This may be true for some of them, but I can seem to edit them via exiftool CLI.<br />2) Possibly, but Lightroom also doesn't seem to like the resulting files.<br />3) I am integrating libexiv2 in to another project and would rather not pipe to the command line.<br />4) I am indeed using RAW image (Sony ARW, which I beleive are a TIFF variant?). I have tried using the TiffImage class directly, as follows, with no better results:</p>
+
+
+<pre>
+TiffImage::AutoPtr image=ImageFactory::open(filePath.toStdString());
+image-&gt;readMetadata();
+ExifData exifData=image-&gt;exifData();
+
+exifData["Exif.Photo.LensMake"]="Helios";
+
+image-&gt;setExifData(exifData);
+image-&gt;writeMetadata();
+</pre>
+
+	<p>I assume I am still doing something wrong.</p>
+
+
+	<p>Thanks very much for your help,</p>
+
+
+	<p>Rob</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3164">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3153?r=3164#message-3164">RE: White balance issues being corrupted or removed</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Jun 2018 17:07" href="/projects/exiv2/activity?from=2018-06-28">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Rob</p>
+
+
+	<p>I like helping folks.  It's often fun!  Together, we'll get to the bottom of this.  I've used one of our test ARW files and can set Exif.Photo.LensMake with a fairly recent build of the exiv2 application:<br /><pre>549 rmills@rmillsmbp:~/temp $ exiv2 -vV | grep -ie date -ie time
+date=Apr 29 2018
+time=11:47:38
+have_gmtime_r=1
+have_timegm=1
+xmlns=mediapro:http://ns.iview-multimedia.com/mediapro/1.0/
+550 rmills@rmillsmbp:~/temp $ curl -O http://exiv2.dyndns.org:8080/userContent/testfiles/raw/sony/RAW_SONY_A330.ARW 
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 9376k  100 9376k    0     0  12.6M      0 --:--:-- --:--:-- --:--:-- 12.7M
+551 rmills@rmillsmbp:~/temp $ exiv2 -pa --grep lens/i RAW_SONY_A330.ARW 
+Exif.Sony2.LensID                            Long        1  Sony AF DT 55-200mm F4-5.6 SAM (SAL55200-2)
+552 rmills@rmillsmbp:~/temp $ exiv2 -M'set Exif.Photo.LensMake rmills' RAW_SONY_A330.ARW 
+553 rmills@rmillsmbp:~/temp $ exiv2 -pa --grep lens/i RAW_SONY_A330.ARW 
+Exif.Sony2.LensID                            Long        1  Sony AF DT 55-200mm F4-5.6 SAM (SAL55200-2)
+Exif.Photo.LensMake                          Ascii       7  rmills
+554 rmills@rmillsmbp:~/temp $ </pre>Let's try to focus on libexiv2, your code and files.  We can discuss LightRoom, darktable and exiftool later.  I have great respect for LightRoom, darktable and exiftool.  However, like Pooh Bear, I am a bear of exceeding small brain!  Too many simultaneous topics confuse me.</p>
+
+
+	<p>Thank you for your code.  Can you provide a small test file, please.  Keep the lens cap on and set the camera to its minimum image size. My Nikon D5300 default raw is 6000x4000 (24mb) and also supports a "medium" 4496x3000 (15mb) and "small" 2992x2000 (6mb).  Our redmine installation limits uploads to 20mb.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3168">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3153?r=3168#message-3168">RE: White balance issues being corrupted or removed</a>
+    -
+    Added by <a class="user active" href="/users/7169">Rob Kent</a> <a title="02 Jul 2018 07:15" href="/projects/exiv2/activity?from=2018-07-02">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+<pre>
+$ exiv2 -vV |grep -ie date -ie time
+date=Jun 20 2018
+time=18:53:17
+have_gmtime_r=1
+have_timegm=1
+xmlns=mediapro:http://ns.iview-multimedia.com/mediapro/1.0/
+</pre>
+
+	<p>I too can set and read back the tags, either with the command line application as you demonstrate or with my own code; both methods cause Darktable to complain the white balance information can't be read (the were readable before editing) and Lightroom just won't open them. I tried this with the test image you listed above with the same result, so I don't think its just my code. I can only assume (lib)exiv2 is corrupting the headers in some way when certain tags are written?</p>
+
+
+	<p>Thanks very much for your help,</p>
+
+
+	<p>Rob</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3169">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3153?r=3169#message-3169">RE: White balance issues being corrupted or removed</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Jul 2018 09:57" href="/projects/exiv2/activity?from=2018-07-02">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Are you saying:</p>
+
+
+	<p>1) Download  <a class="external" href="http://exiv2.dyndns.org:8080/userContent/testfiles/raw/sony/RAW_SONY_A330.ARW">http://exiv2.dyndns.org:8080/userContent/testfiles/raw/sony/RAW_SONY_A330.ARW</a><br />2) Lightroom and Darktable are happy<br />3) exiv2 -M'set Exif.Photo.LensMake rmills' RAW_SONY_A330.ARW <br />4) Lightroom and Darktable are now unhappy</p>
+
+
+	<p>Have I understood your issue?</p>
+
+
+	<p>There are file analysis tools built into exiv2.  For example, to dump the structure of the file:<pre>$ exiv2 -pS image</pre>To recursively dump image structures embedded in the file: <pre>$ exiv2 -pR image</pre>I've used those tools as follows:  <pre>
+714 rmills@rmillsmbp:~/temp $ curl -O http://exiv2.dyndns.org:8080/userContent/testfiles/raw/sony/RAW_SONY_A330.ARW
+715 rmills@rmillsmbp:~/temp $ exiv2 -pR RAW_SONY_A330.ARW &gt; before.txt
+716 rmills@rmillsmbp:~/temp $ exiv2 -M'set Exif.Photo.LensMake rmills' RAW_SONY_A330.ARW
+717 rmills@rmillsmbp:~/temp $ exiv2 -pR RAW_SONY_A330.ARW &gt; after.txt
+718 rmills@rmillsmbp:~/temp $ diff before.txt after.txt 
+</pre><br />Most of the data in the file has relocated within the file (written at a different offset within the file).  However I haven't spotted anything that has been removed or corrupted.</p>
+
+
+	<p>I've performed the same process using the option <strong><code>$ exiv2 -pa image</code></strong> which dumps all metadata.  There are differences, however nothing that seems significant.  Or, to put it another way, I believe I can explain all the differences.  The metadata does not seem to have been disturbed.</p>
+
+
+	<p>I need to know why Lightroom and Darktable are unhappy.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3170">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3153?r=3170#message-3170">RE: White balance issues being corrupted or removed</a>
+    -
+    Added by <a class="user active" href="/users/7169">Rob Kent</a> <a title="02 Jul 2018 10:45" href="/projects/exiv2/activity?from=2018-07-02">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Yes, that is exactly the issue. Darktable consistently complains that it is unable to read the white balance data. As I said in one of previous posts, some tags are fine and some cause the issue. It might, therefore, be worth changing a tag that works fine and one that causes issues and seeing what moves in the file? For example: set 'Exif.Photo.LensModel' (darktable will be happy) and set 'Exif.Photo.LensMake' (darktable will be unhappy) and compare the difference in structure?</p>
+
+
+	<p>Thanks very much for help,</p>
+
+
+	<p>Rob</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3171">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3153?r=3171#message-3171">RE: White balance issues being corrupted or removed</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Jul 2018 16:12" href="/projects/exiv2/activity?from=2018-07-02">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've done this and the differences are tiny (and seem correct).<pre>732 rmills@rmillsmbp:~/temp $ exiv2 -M'set Exif.Photo.LensModel rmills' RAW_SONY_A330.ARW
+736 rmills@rmillsmbp:~/temp $ exiv2 -pa RAW_SONY_A330.ARW &gt; after2.txt 
+737 rmills@rmillsmbp:~/temp $ diff after.txt  after2.txt 
+738 rmills@rmillsmbp:~/temp $ </pre>Have you spoken to the darktable people about this?   I'm hunting for something I cannot reproduce without darktable.  I'm not familiar with darktable, even if I pull down darktable and reproduce this, I have to understand what is causing darktable to be unhappy.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3172">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3153?r=3172#message-3172">RE: White balance issues being corrupted or removed</a>
+    -
+    Added by <a class="user active" href="/users/7169">Rob Kent</a> <a title="02 Jul 2018 16:17" href="/projects/exiv2/activity?from=2018-07-02">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I will contact the darktable community and see if they have any ideas.</p>
+
+
+	<p>The other thing I will do is set the same tag with exiftool and exiv2 and see what the differences are (if any).</p>
+
+
+	<p>Thanks for you ongoing help.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3173">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3153?r=3173#message-3173">RE: White balance issues being corrupted or removed</a>
+    -
+    Added by <a class="user active" href="/users/7169">Rob Kent</a> <a title="02 Jul 2018 16:31" href="/projects/exiv2/activity?from=2018-07-02">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>So, I used your example file 'RAW_SONY_A330.ARW' and ran the following commands:</p>
+
+
+<pre>
+$ cp RAW_SONY_A330.ARW RAW_SONY_A330_Exiv2.ARW
+$ cp RAW_SONY_A330.ARW RAW_SONY_A330_ExifTool.ARW
+$ exiv2 -pa RAW_SONY_A330.ARW &gt; before.txt
+$ exiv2 -M'set Exif.Photo.LensMake Helios' RAW_SONY_A330_Exiv2.ARW
+$ exiv2 -pa RAW_SONY_A330_Exiv2.ARW &gt; exiv2.txt
+$ exiftool -LensMake=Helios RAW_SONY_A330_ExifTool.ARW
+$ exiv2 -pa RAW_SONY_A330_ExifTool.ARW &gt; exiftool.txt
+</pre>
+
+	<p>Both the original and the exiftool modified version open fine in Darktable, the exiv2 version does not. BOth modified version report 'Helios' as the lens make as expected when using either exiv2 CLI or exiftool. There are differences when I run exiv2 -pa on the two modified versions. I attach all three output txt files to see if the differences can help narrow down the problem.</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1231">before.txt</a>    <span class="size">(7.82 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1231/before.txt">before.txt</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1232">exiv2.txt</a>    <span class="size">(7.88 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1232/exiv2.txt">exiv2.txt</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1233">exiftool.txt</a>    <span class="size">(7.88 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1233/exiftool.txt">exiftool.txt</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+  <div class="message reply" id="message-3174">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3153?r=3174#message-3174">RE: White balance issues being corrupted or removed</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 Jul 2018 18:15" href="/projects/exiv2/activity?from=2018-07-02">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Here are the four differences between exiftool.txt and exiv2.txt<pre>                                                            exiftool.txt   exiv2.txt
+Exif.SubImage1.StripOffsets                  Long        1  606984         565768
+Exif.Image.JPEGInterchangeFormat             Long        1  76614          35398
+Exif.Image.DNGPrivateData                    Byte        4  122 123 0 0    16 142 0 0
+Exif.Thumbnail.JPEGInterchangeFormat         Long        1  73016          31800</pre></p>
+
+
+	<p><em><strong>Exif.SubImage1.StripOffsets</strong></em><br />StripOffsets which has to do with the storage of the image pixels.  It's an offset in the file to the start of the first row (or something like that).  For sure the image looks ok on the Mac Preview application.</p>
+
+
+	<p><em><strong>Exif.Image.DNGPrivateData</strong></em><br />I think this is an offset to private data (written by the manufacturer)<br /><a class="external" href="https://www.awaresystems.be/imaging/tiff/tifftags/dngprivatedata.html">https://www.awaresystems.be/imaging/tiff/tifftags/dngprivatedata.html</a></p>
+
+
+	<p><em><strong>JPEGInterchangeFormat.</strong></em><br />It's a long (4 bytes).  It has something to with the defining how the image has been stored/compressed.  <a class="external" href="https://www.awaresystems.be/imaging/tiff/tifftags/jpeginterchangeformat.html">https://www.awaresystems.be/imaging/tiff/tifftags/jpeginterchangeformat.html</a></p>
+
+
+	<p>I feel we have to ask somebody at darktable to look/debug RAW_SONY_A330_Exiv2.ARW and explain why it does not retrieve the WhiteBalance.  Perhaps darktable has a log file with this information.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-11/11)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

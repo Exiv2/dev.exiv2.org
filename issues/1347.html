@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1347: Segfault in Digikam when saving/loading certain TIFF images - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="JLNGsQBwCiI1sOkUmF9WW7F70+JP/dVFzmo2vkjPS6zG/u1ecgrGImDU9hgniFpojumHm74edP8zSqY2C/asww==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1347: Segfault in Digikam when saving/loading certain TIFF images" href="https://dev.exiv2.org/issues/1347.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1347</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Segfault in Digikam when saving/loading certain TIFF images</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/7114">V Engmark</a> <a title="29 Apr 2018 10:09" href="/projects/exiv2/activity?from=2018-04-29">over 3 years</a> ago.
+        Updated <a title="08 Nov 2018 09:43" href="/projects/exiv2/activity?from=2018-11-08">about 3 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">insufficient information</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Dec 2018" href="/versions/55">0.27</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">29 Apr 2018</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Already reported at &lt;<a class="external" href="https://bugs.kde.org/show_bug.cgi?id=393635&amp;gt;">https://bugs.kde.org/show_bug.cgi?id=393635&amp;gt;</a>, I was told to report it here as well.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1242">_MG_5144_v1.TIFF</a>    <span class="size">(13.4 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1242/_MG_5144_v1.TIFF">_MG_5144_v1.TIFF</a>  </td>
+  <td>Example image crashing Digikam</td>
+  <td>
+      <span class="author">V Engmark, 22 Sep 2018 09:41</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1243">exiv2-0.27-clang-scan-build-report.tar.lzma</a>    <span class="size">(168 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1243/exiv2-0.27-clang-scan-build-report.tar.lzma">exiv2-0.27-clang-scan-build-report.tar.lzma</a>  </td>
+  <td>clang scan-build HTML reports</td>
+  <td>
+      <span class="author">Gilles Caulier, 23 Sep 2018 09:24</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1244">exiv2-0.27-cppcheck-report.tar.lzma</a>    <span class="size">(430 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1244/exiv2-0.27-cppcheck-report.tar.lzma">exiv2-0.27-cppcheck-report.tar.lzma</a>  </td>
+  <td>cppcheck HTML reports</td>
+  <td>
+      <span class="author">Gilles Caulier, 23 Sep 2018 09:35</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-6182" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/7114">V Engmark</a> <a title="29 Apr 2018 10:11" href="/projects/exiv2/activity?from=2018-04-29">over 3 years</a> ago
+      <span id="journal-6182-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6182-notes" class="wiki"><p>That would be <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=393635">https://bugs.kde.org/show_bug.cgi?id=393635</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-6183" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="29 Apr 2018 10:19" href="/projects/exiv2/activity?from=2018-04-29">over 3 years</a> ago
+      <span id="journal-6183-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>tiff parser</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Priority</strong> changed from <i>High</i> to <i>Normal</i></li>
+       <li><strong>Target version</strong> set to <i>0.27</i></li>
+    </ul>
+    <div id="journal-6183-notes" class="wiki"><p>Can you attach the test image, please?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6184" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/7114">V Engmark</a> <a title="29 Apr 2018 10:21" href="/projects/exiv2/activity?from=2018-04-29">over 3 years</a> ago
+      <span id="journal-6184-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6184-notes" class="wiki"><p>Here you go: <a class="external" href="https://transfernow.net/612xx2l6shgd">https://transfernow.net/612xx2l6shgd</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-6201" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 May 2018 13:18" href="/projects/exiv2/activity?from=2018-05-10">over 3 years</a> ago
+      <span id="journal-6201-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6201-notes" class="wiki"><p>Apologies for the delay in dealing with this.  I hosted the Exiv2 Developer's Meeting at my home last weekend and been very busy with other Exiv2 matters.</p>
+
+
+	<p>I don't have an account with transfernow.net  Can you attach the files to this issue, please?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6253" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2018 12:33" href="/projects/exiv2/activity?from=2018-09-18">about 3 years</a> ago
+      <span id="journal-6253-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>tiff parser</i> to <i>insufficient information</i></li>
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-6269" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/7114">V Engmark</a> <a title="22 Sep 2018 09:41" href="/projects/exiv2/activity?from=2018-09-22">about 3 years</a> ago
+      <span id="journal-6269-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1242">_MG_5144_v1.TIFF</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1242/_MG_5144_v1.TIFF">_MG_5144_v1.TIFF</a> added</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-6270" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Sep 2018 16:47" href="/projects/exiv2/activity?from=2018-09-22">about 3 years</a> ago
+      <span id="journal-6270-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>insufficient information</i> to <i>tiff parser</i></li>
+       <li><strong>Status</strong> changed from <i>Closed</i> to <i>Assigned</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>20</i></li>
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-6270-notes" class="wiki"><p>Thanks for the file.  I've reopened the case.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6271" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Sep 2018 19:22" href="/projects/exiv2/activity?from=2018-09-22">about 3 years</a> ago
+      <span id="journal-6271-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>tiff parser</i> to <i>insufficient information</i></li>
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-6271-notes" class="wiki"><p>Regrettably, your file doesn't give me anything to investigate.  Neither Exiv2 v0.26 nor the current 'master' (which will release as v0.27 later in 2018) exhibit problems with your file.  <pre>539 rmills@rmillsmbp:~/gnu/exiv2/v0.26 $ exiv2 -pa ~/Downloads/_MG_5144_v1.TIFF | wc
+Warning: Directory Image3, entry 0x0111: Strip 0 is outside of the data area; ignored.
+     238   30271  296580
+540 rmills@rmillsmbp:~/gnu/exiv2/v0.26 $ cd ../../github/exiv2/exiv2/build
+541 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ bin/exiv2 -pa ~/Downloads/_MG_5144_v1.TIFF | wc
+Warning: Directory Image3, entry 0x0111: Strip 0 is outside of the data area; ignored.
+     238   30271  296580
+542 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ </pre>I'm happy to work to resolve your issue when we have a definition that can be reproduced with the command-line program exiv2.  I'm unable to investigate any issue which can only be produced using digiKam.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6272" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Sep 2018 20:12" href="/projects/exiv2/activity?from=2018-09-22">about 3 years</a> ago
+      <span id="journal-6272-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>20</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-6273" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/7114">V Engmark</a> <a title="22 Sep 2018 20:53" href="/projects/exiv2/activity?from=2018-09-22">about 3 years</a> ago
+      <span id="journal-6273-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6273-notes" class="wiki"><p>The Digikam people insist it's an Exiv2 problem - please see <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=393635#c16">https://bugs.kde.org/show_bug.cgi?id=393635#c16</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-6274" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Sep 2018 21:13" href="/projects/exiv2/activity?from=2018-09-22">about 3 years</a> ago
+      <span id="journal-6274-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6274-notes" class="wiki"><p>Please ask the DigiKam Engineers to reproduce your issue with the eviv2 command-line program and your issue will be investigated.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6275" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Sep 2018 07:57" href="/projects/exiv2/activity?from=2018-09-23">about 3 years</a> ago
+      <span id="journal-6275-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6275-notes" class="wiki"><p>I've read digicam's bug report and I see it's in printStructure().  A great deal of work has been done for v0.27 concerning printStructure() and I'm confident that this issue has been resolved.  I'm on vacation this week, however I'm hoping to releasee Exiv2 v0.27 RC1 when I return home in early October.  I recommend that dikiKam build with Exiv2 v0.27 RC1 and verify that this issue has been resolved.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6276" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="23 Sep 2018 09:00" href="/projects/exiv2/activity?from=2018-09-23">about 3 years</a> ago
+      <span id="journal-6276-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6276-notes" class="wiki"><p>If the Exiv2 code from git/master is enough stable, i can start to embed this Exiv2 0.27 pre-version in the digiKam bundles (AppImage for Linux, PKG for MacOS, and MXE for windows).</p>
+
+
+	<p>To clarify your ideas and viewpoints about the Exiv2 use-case in DK : Exiv2 API are used in a Qt wrapper which is used multi-threaded everywhere. This point is very important, as trying to reproduce a bug in Exiv2 CLI tool cannot be enough to validate a report as a bug.</p>
+
+
+	<p>All the Exiv2 API must be re-entrant and must support multi-core (we dont not use mutex in this wrapper for the moment). Multi-threading is the way to use this king of library to process metadata in the background without to block the GUI. This permit also to speed-up process using all computer core, and not only one.</p>
+
+
+	<p>In DK, we use multi-core everywhere : database queries, image processing, file management, and of course metadata. DK play with metadata only through Exiv2. This can be around the file from disk, but also in memory though byte-array, for exemple to prepare the registration of photo informations in database.</p>
+
+
+	<p>And of course, there is a famous point of XMP SDK from Adobe. We have a copy inside DK core to build the DNG SDK from Adobe in goal to convert RAW file to DNG. All source code from Adobe are bad quality, as i can see through the reports from static analyzer. So, i'm sure that re-entrancy is not respected everywhere with XMP SDK (it's easy to see, with source code and the way to implement some classes).</p>
+
+
+	<p>So you must considerate the XMP SDK as a critical section in Exiv2. You must take a care.</p>
+
+
+	<p>This is imply to have few test units in Exiv2 which test the re-entrancy of all API with a complete collection of images. Re-using the exist test to run in separated thread can be a solution.</p>
+
+
+	<p>The DK users base is very important, especially since the Windows version become better and better (thanks to MXE cross-compilation). We can provide an alpha version of Exiv2 in the pre-release bundles published weekly. We will receive quickly a feedback about the code stability.</p>
+
+
+	<p>Gilles Caulier</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6277" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="23 Sep 2018 09:08" href="/projects/exiv2/activity?from=2018-09-23">about 3 years</a> ago
+      <span id="journal-6277-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6277-notes" class="wiki"><p>Another point very import : in digiKam bundle, e disable few option that don't use or considerate as very instable :</p>
+
+
+	<p><a class="external" href="https://cgit.kde.org/digikam.git/tree/project/bundles/3rdparty/ext_exiv2/CMakeLists.txt">https://cgit.kde.org/digikam.git/tree/project/bundles/3rdparty/ext_exiv2/CMakeLists.txt</a></p>
+
+
+	<p>For exemple, the video support in Exiv2 crash digiKam in few seconds. We use ffmpeg metadata parser instead in digiKam.</p>
+
+
+	<p>Gilles Caulier</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6278" class="journal has-notes has-details">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="23 Sep 2018 09:24" href="/projects/exiv2/activity?from=2018-09-23">about 3 years</a> ago
+      <span id="journal-6278-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1243">exiv2-0.27-clang-scan-build-report.tar.lzma</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1243/exiv2-0.27-clang-scan-build-report.tar.lzma">exiv2-0.27-clang-scan-build-report.tar.lzma</a> added</li>
+    </ul>
+    <div id="journal-6278-notes" class="wiki"><p>Exiv2 0.27 git code parsed with clang scan-build static analyzer.</p>
+
+
+	<p>Enjoy the XMP SDK source code...</p>
+
+
+	<p>Gilles Caulier</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6279" class="journal has-notes">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="23 Sep 2018 09:27" href="/projects/exiv2/activity?from=2018-09-23">about 3 years</a> ago
+      <span id="journal-6279-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-6279-notes" class="wiki"><p>Note about clang scan-build report : it compile files and parse at the same time. So, only compiled files are checked.</p>
+
+
+	<p>I use this script to configure Exiv2 :</p>
+
+
+	<p><a class="external" href="https://cgit.kde.org/digikam.git/tree/project/scripts/bootstrap-exiv2.sh">https://cgit.kde.org/digikam.git/tree/project/scripts/bootstrap-exiv2.sh</a></p>
+
+
+	<p>So take a care, not all Exiv2 code are compiled in this report, as it's the configuration used for digiKam...</p>
+
+
+	<p>Gilles Caulier</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6280" class="journal has-notes has-details">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="23 Sep 2018 09:35" href="/projects/exiv2/activity?from=2018-09-23">about 3 years</a> ago
+      <span id="journal-6280-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1244">exiv2-0.27-cppcheck-report.tar.lzma</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1244/exiv2-0.27-cppcheck-report.tar.lzma">exiv2-0.27-cppcheck-report.tar.lzma</a> added</li>
+    </ul>
+    <div id="journal-6280-notes" class="wiki"><p>Exiv2 0.27 git code parsed with cppcheck static analyzer.</p>
+
+
+	<p>Note : no code are compiled here and all source code are parsed as well...</p>
+
+
+	<p>Gilles Caulier</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6285" class="journal has-notes has-details">
+    <div id="note-18">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-18" class="journal-link">#18</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Sep 2018 18:58" href="/projects/exiv2/activity?from=2018-09-23">about 3 years</a> ago
+      <span id="journal-6285-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Closed</i> to <i>Assigned</i></li>
+    </ul>
+    <div id="journal-6285-notes" class="wiki"><p>Thank You, Gilles, for all this valuable feedback.  I hope you're good and recovered from your accident.</p>
+
+
+	<p>Your observations about multi-threading are valid.  Perhaps we should be give multi-threading more consideration in v0.28.  I'm glad to let you know that I have a couple of very good engineers working with me on Exiv2 and they have undertaken most of the work for v0.27.  I've been hoping to retire from Exiv2 and perhaps I really will retire in another year or two!</p>
+
+
+	<p>The primary goal of v0.27 has been to fix lots of security flaws which have been reported during the last 12 months.  I hope to publish RC1 in early October and aiming for GM in December.  Exiv2 v0.27 will have "long term support" and "dot releases" (exiv2 v0.27.1 , v0.27.2 etc) will have security features added in parallel to the development of v0.28.</p>
+
+
+	<p>I believe one of your DK colleagues discussed printStructure() with me last year.  Here's my reply.  <a class="external" href="http://dev.exiv2.org/boards/3/topics/3080?r=3081#message-3081">http://dev.exiv2.org/boards/3/topics/3080?r=3081#message-3081</a></p>
+
+
+	<p>I'm on vacation at the moment.  I'll have to find time to review your various contributions and decide how to proceed.  If you have specific changes you want in Exiv2 v0.27 RC1, I recommend that your report an issue (preferably as a PR) to <a class="external" href="http://github.com/exiv2/exiv2">http://github.com/exiv2/exiv2</a> and Dan or Luis (my wonderful team mates) may accept and integrate your suggestions.</p>
+
+
+	<p>I am very pleased that you are interested in integrating Exiv2 v0.27 RC1 into digiKam.  During the 6 month review period for Exiv2 v0.26, I don't recall anybody reporting anything concerning any release candidate.  No matter how much testing Team Exiv2 performs, there are execution paths which are unique to applications such as digiKam.  Your feedback is valuable and appreciated.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6315" class="journal has-notes has-details">
+    <div id="note-19">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-19" class="journal-link">#19</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Nov 2018 09:43" href="/projects/exiv2/activity?from=2018-11-08">about 3 years</a> ago
+      <span id="journal-6315-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-6315-notes" class="wiki"><p>I'm going to close this issue.  The files attached to this issue are not exhibiting issues.</p>
+
+
+	<p>I know that Gilles means well by giving my vast amounts of information about threading and all manner of concerns.  This needs to be distilled into specific issues and reported on <a class="external" href="https://github.com/exiv2/exiv2">https://github.com/exiv2/exiv2</a> in 2019.  The team is totally focused on achieving Exiv2 v0.27 GM by the end of 2018.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1347.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1347.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

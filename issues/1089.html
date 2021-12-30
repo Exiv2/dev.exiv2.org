@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1089: single 0-byte exif comment leads to SIGABRT (134) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="pSvOcdNgUqjEAPmKWgGv0iiV9EfKfDs8ZDjEvzrg5FxHZmWeoRqeqJFk5obl1qPhFwegPjufmoaZGFQ3edkDMw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1089: single 0-byte exif comment leads to SIGABRT (134)" href="https://dev.exiv2.org/issues/1089.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1089</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>single 0-byte exif comment leads to SIGABRT (134)</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4443">Felix Bolte</a> <a title="29 May 2015 23:20" href="/projects/exiv2/activity?from=2015-05-29">over 6 years</a> ago.
+        Updated <a title="06 Dec 2015 21:01" href="/projects/exiv2/activity?from=2015-12-06">almost 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">exif</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">29 May 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>after some fuzzing with <a href="http://lcamtuf.coredump.cx/afl/" class="external">afl</a>, a bug showed up when listing exif data (after setting an XPComment to a single 0-byte) due to a creation of a string with a size of -1:<br /><pre>
+felix@between:~/afl-1.79b/trunk/build$ ./bin/exiv2 -p a ../makes_exiv2_fail.jpeg
+felix@between:~/afl-1.79b/trunk/build$ ./bin/exiv2 -M"set Exif.Image.XPComment 70" ~/afl-1.79b/trunk/makes_exiv2_fail.jpeg
+felix@between:~/afl-1.79b/trunk/build$ ./bin/exiv2 -p a ../makes_exiv2_fail.jpeg
+Exif.Image.XPComment                         Byte        1  Warning: iconv: Invalid argument (errno = 22) inbytesleft = 1
+70
+felix@between:~/afl-1.79b/trunk/build$ ./bin/exiv2 -M"set Exif.Image.XPComment 0" ~/afl-1.79b/trunk/makes_exiv2_fail.jpeg
+felix@between:~/afl-1.79b/trunk/build$ ./bin/exiv2 -p a ../makes_exiv2_fail.jpeg
+terminate called after throwing an instance of 'std::length_error'
+  what():  basic_string::_S_create
+Exif.Image.XPComment                         Byte        1  Aborted
+felix@between:~/afl-1.79b/trunk/build$ echo $?
+134
+felix@between:~/afl-1.79b/trunk/build$ ./bin/exiv2 -M"set Exif.Image.XPComment 70 0" ~/afl-1.79b/trunk/makes_exiv2_fail.jpeg
+felix@between:~/afl-1.79b/trunk/build$ ./bin/exiv2 -p a ../makes_exiv2_fail.jpeg
+Exif.Image.XPComment                         Byte        2  F
+felix@between:~/afl-1.79b/trunk/build$ ./bin/exiv2 -M"set Exif.Image.XPComment 70 0 70" ~/afl-1.79b/trunk/makes_exiv2_fail.jpeg
+felix@between:~/afl-1.79b/trunk/build$ ./bin/exiv2 -p a ../makes_exiv2_fail.jpeg
+Exif.Image.XPComment                         Byte        3  Warning: iconv: Invalid argument (errno = 22) inbytesleft = 1
+70 0 70
+felix@between:~/afl-1.79b/trunk/build$ ./bin/exiv2 -M"set Exif.Image.XPComment 70 0 70 0" ~/afl-1.79b/trunk/makes_exiv2_fail.jpeg
+felix@between:~/afl-1.79b/trunk/build$ ./bin/exiv2 -p a ../makes_exiv2_fail.jpeg
+Exif.Image.XPComment                         Byte        4  FF
+[...]
+</pre></p>
+
+
+	<p>i wrote a simple patch, which fixes this special case ... nevertheless the other question is, if the iconv warnings on odd bytes should be fixed as well or not?<br />so i wrote a second version which removes the last byte if it is an odd byte and improved the ucs-2 stripping of trailing 0-characters (btw: why are we doing that anyhow?) to iterate over the string multiple times ...</p>
+
+
+	<p>... please have a look if one of the patches (attached) is ok for you (i am not sure if v2 is necessary at all (e.g. if we are on windows without iconv))!</p>
+
+
+<pre>
+felix@between:~/afl-1.79b/trunk/build$ gdb -q ./bin/exiv2
+Reading symbols from /home/felix/afl-1.79b/trunk/build/bin/exiv2...done.
+(gdb) run -p a ../makes_exiv2_fail.jpeg
+Starting program: /home/felix/afl-1.79b/trunk/build/bin/exiv2 -p a ../makes_exiv2_fail.jpeg
+warning: no loadable sections found in added symbol-file system-supplied DSO at 0x7ffff7ffa000
+terminate called after throwing an instance of 'std::length_error'
+  what():  basic_string::_S_create
+Exif.Image.XPComment                         Byte        1  
+Program received signal SIGABRT, Aborted.
+0x00007ffff6f5d0d5 in __GI_raise (sig=&lt;optimized out&gt;) at ../nptl/sysdeps/unix/sysv/linux/raise.c:64
+64    ../nptl/sysdeps/unix/sysv/linux/raise.c: No such file or directory.
+(gdb) bt
+#0  0x00007ffff6f5d0d5 in __GI_raise (sig=&lt;optimized out&gt;) at ../nptl/sysdeps/unix/sysv/linux/raise.c:64
+#1  0x00007ffff6f6083b in __GI_abort () at abort.c:91
+#2  0x00007ffff75b269d in __gnu_cxx::__verbose_terminate_handler() () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#3  0x00007ffff75b0846 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff75b0873 in std::terminate() () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#5  0x00007ffff75b096e in __cxa_throw () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff755d907 in std::__throw_length_error(char const*) () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#7  0x00007ffff7599aa2 in std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator&lt;char&gt; const&#38;) () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#8  0x00007ffff759b495 in char* std::string::_S_construct&lt;char const*&gt;(char const*, char const*, std::allocator&lt;char&gt; const&#38;, std::forward_iterator_tag) () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#9  0x00007ffff759b61d in std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::basic_string(char const*, unsigned long, std::allocator&lt;char&gt; const&#38;) ()
+   from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#10 0x00007ffff7a23d29 in Exiv2::Internal::printUcs2 (os=..., value=...) at /home/felix/afl-1.79b/trunk/src/tags.cpp:2325
+#11 0x00007ffff79b3804 in Exiv2::Exifdatum::write (this=0x6481b0, os=..., pMetadata=0x6499f0) at /home/felix/afl-1.79b/trunk/src/exif.cpp:230
+#12 0x00007ffff79dcd90 in Exiv2::Metadatum::print (this=0x6481b0, pMetadata=0x6499f0) at /home/felix/afl-1.79b/trunk/src/metadatum.cpp:80
+#13 0x000000000042ac0c in Action::Print::printMetadatum (this=0x649760, md=..., pImage=0x6499e0) at /home/felix/afl-1.79b/trunk/src/actions.cpp:711
+#14 0x0000000000429a1f in Action::Print::printMetadata (this=0x649760, image=0x6499e0) at /home/felix/afl-1.79b/trunk/src/actions.cpp:536
+#15 0x0000000000429957 in Action::Print::printList (this=0x649760) at /home/felix/afl-1.79b/trunk/src/actions.cpp:526
+#16 0x0000000000426b05 in Action::Print::run (this=0x649760, path=...) at /home/felix/afl-1.79b/trunk/src/actions.cpp:241
+#17 0x0000000000419c88 in main (argc=4, argv=0x7fffffffe258) at /home/felix/afl-1.79b/trunk/src/exiv2.cpp:171
+</pre>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/794">0001-strip_ucs_only_if_size_bigger_equals_two.patch</a>    <span class="size">(847 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/794/0001-strip_ucs_only_if_size_bigger_equals_two.patch">0001-strip_ucs_only_if_size_bigger_equals_two.patch</a>  </td>
+  <td>patch_v1</td>
+  <td>
+      <span class="author">Felix Bolte, 29 May 2015 23:20</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/795">0002-strip_ucs_only_if_size_bigger_equals_two_v2.patch</a>    <span class="size">(1.14 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/795/0002-strip_ucs_only_if_size_bigger_equals_two_v2.patch">0002-strip_ucs_only_if_size_bigger_equals_two_v2.patch</a>  </td>
+  <td>patch_v2</td>
+  <td>
+      <span class="author">Felix Bolte, 29 May 2015 23:20</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3986" href="/projects/exiv2/repository/exiv2/revisions/3986">Revision 3986</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3986/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Oct 2015 00:10" href="/projects/exiv2/activity?from=2015-10-11">about 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: single 0-byte exif comment leads to SIGABRT (134) (Closed)" href="/issues/1089">#1089</a>.  Thank You to Felix for reporting this and providing a patch.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4003" class="journal has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Aug 2015 17:58" href="/projects/exiv2/activity?from=2015-08-21">about 6 years</a> ago
+      <span id="journal-4003-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4280" class="journal has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Sep 2015 11:10" href="/projects/exiv2/activity?from=2015-09-24">about 6 years</a> ago
+      <span id="journal-4280-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Estimated time</strong> set to <i>3.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4367" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Oct 2015 00:12" href="/projects/exiv2/activity?from=2015-10-11">about 6 years</a> ago
+      <span id="journal-4367-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>3.00 h</i> to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-4367-notes" class="wiki"><p>Submitted: <a class="changeset" title="#1089.  Thank You to Felix for reporting this and providing a patch." href="/projects/exiv2/repository/exiv2/revisions/3986">r3986</a> Thank You Felix for reporting this and for providing the patch.</p>
+
+
+	<p>I submitted your 0002 patch plus some cosmetic changes including detabbing the file.</p>
+
+
+	<p>To answer your question <em>"why are we skipping trailing null pairs?"</em>, the honest answer is <em>"I don't know because I didn't write the code!"</em>.  However I suspect that unconverted bytes are represented as null pairs and it might be better to remove them all, trailing or embedded.  For now, I'm happy to accept your patch as it prevents the crash and makes the code more robust.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4525" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Dec 2015 21:01" href="/projects/exiv2/activity?from=2015-12-06">almost 6 years</a> ago
+      <span id="journal-4525-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-4525-notes" class="wiki"><p>I'm going to close this one.  Thanks again to Felix for this contribution.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1089.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1089.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #796: Build static lib on windows with mingw64? - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="J9BLYqhflBoSvwp1q3shHSGQxo7qheJI6bXhTN6e+4HFneCN2iVYGkfbFXkUrC0uHgKS9xtmQ/IUlXHEnacc7g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #796: Build static lib on windows with mingw64?" href="https://dev.exiv2.org/issues/796.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #796</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Build static lib on windows with mingw64?</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/1135">Simson Garfinkel</a> <a title="27 Oct 2011 11:12" href="/projects/exiv2/activity?from=2011-10-27">about 10 years</a> ago.
+        Updated <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">27 Oct 2011</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>I am attempting to build exiv2 with the mingw32 and mingw64 cross-compiler. I am able to build a .a file but I cannot link with the .a file; I get unresolved externals:</p>
+
+
+	<p>Below is the error that I'm getting:</p>
+
+
+<pre>
+x86_64-w64-mingw32-g++  -g  -D_FORTIFY_SOURCE=2 -Wall -D_FORTIFY_SOURCE=2 -Wall  -Wno-format  --static -mthreads     -o bulk_extractor.exe bulk_extractor.o threadpool.o context_list.o histogram.o utils.o support.o base64_forensic.o feature_recorder.o feature_recorder_set.o image_process.o image_process_fts.o sbuf.o md5.o scan_ccns2.o scan_find.o scan_net.o scan_wordlist.o scan_exif.o scan_base64.o xml.o scan_zip.o scan_gzip.o scan_pdf.o scan_aes.o scan_json.o scan_winprefetch.o scan_hiberfile.o pyxpress.o scan_email.o scan_accts.o scan_kml.o scan_gps.o  -lewf -lz  -lpthreadGC2 -lws2_32 -lgdi32   -lexiv2 -lexpat
+scan_exif.o: In function `scan_exif':
+/home/simsong/domex/src/bulk_extractor/src/scan_exif.cpp:168: undefined reference to `__imp__ZN5Exiv212ImageFactory4openEPKhl'
+/home/simsong/domex/src/bulk_extractor/src/scan_exif.cpp:169: undefined reference to `__imp__ZNK5Exiv25Image4goodEv'
+/home/simsong/domex/src/bulk_extractor/src/scan_exif.cpp:202: undefined reference to `__imp__ZNK5Exiv25Value8toStringEv'
+/home/simsong/domex/src/bulk_extractor/src/scan_exif.cpp:204: undefined reference to `__imp__ZNK5Exiv25Value8toStringEv'
+/home/simsong/domex/src/bulk_extractor/src/scan_exif.cpp:214: undefined reference to `__imp__ZNK5Exiv25Value8toStringEv'
+/home/simsong/domex/src/bulk_extractor/src/scan_exif.cpp:217: undefined reference to `__imp__ZNK5Exiv25Value8toStringEv'
+/home/simsong/domex/src/bulk_extractor/src/scan_exif.cpp:220: undefined reference to `__imp__ZNK5Exiv25Value8toStringEv'
+scan_exif.o:/home/simsong/domex/src/bulk_extractor/src/scan_exif.cpp:223: more undefined references to `__imp__ZNK5Exiv25Value8toStringEv' follow
+scan_exif.o: In function `Exiv2::LogMsg::setLevel(Exiv2::LogMsg::Level)':
+/usr/x86_64-w64-mingw32/sys-root/mingw/include/exiv2/error.hpp:116: undefined reference to `__imp__ZN5Exiv26LogMsg6level_E'
+collect2: ld returned 1 exit status
+make[2]: *** [bulk_extractor.exe] Error 1
+make[2]: Leaving directory `/home/simsong/domex/src/bulk_extractor/src'
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory `/home/simsong/domex/src/bulk_extractor'
+make: *** [all] Error 2
+
+</pre>
+
+	<p>Here is the usage for the exiv2 configure:</p>
+
+
+<pre>
+$ ./configure --help
+`configure' configures exiv2 0.22 to adapt to many kinds of systems.
+
+Usage: ./configure [OPTION]... [VAR=VALUE]...
+
+To assign environment variables (e.g., CC, CFLAGS...), specify them as
+VAR=VALUE.  See below for descriptions of some of the useful variables.
+
+Defaults for the options are specified in brackets.
+
+Configuration:
+  -h, --help              display this help and exit
+      --help=short        display options specific to this package
+      --help=recursive    display the short help of all the included packages
+  -V, --version           display version information and exit
+  -q, --quiet, --silent   do not print `checking ...' messages
+      --cache-file=FILE   cache test results in FILE [disabled]
+  -C, --config-cache      alias for `--cache-file=config.cache'
+  -n, --no-create         do not create output files
+      --srcdir=DIR        find the sources in DIR [configure dir or `..']
+
+Installation directories:
+  --prefix=PREFIX         install architecture-independent files in PREFIX
+                          [/usr/local]
+  --exec-prefix=EPREFIX   install architecture-dependent files in EPREFIX
+                          [PREFIX]
+
+By default, `make install' will install all the files in
+`/usr/local/bin', `/usr/local/lib' etc.  You can specify
+an installation prefix other than `/usr/local' using `--prefix',
+for instance `--prefix=$HOME'.
+
+For better control, use the options below.
+
+Fine tuning of the installation directories:
+  --bindir=DIR            user executables [EPREFIX/bin]
+  --sbindir=DIR           system admin executables [EPREFIX/sbin]
+  --libexecdir=DIR        program executables [EPREFIX/libexec]
+  --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
+  --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
+  --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
+  --libdir=DIR            object code libraries [EPREFIX/lib]
+  --includedir=DIR        C header files [PREFIX/include]
+  --oldincludedir=DIR     C header files for non-gcc [/usr/include]
+  --datarootdir=DIR       read-only arch.-independent data root [PREFIX/share]
+  --datadir=DIR           read-only architecture-independent data [DATAROOTDIR]
+  --infodir=DIR           info documentation [DATAROOTDIR/info]
+  --localedir=DIR         locale-dependent data [DATAROOTDIR/locale]
+  --mandir=DIR            man documentation [DATAROOTDIR/man]
+  --docdir=DIR            documentation root [DATAROOTDIR/doc/exiv2]
+  --htmldir=DIR           html documentation [DOCDIR]
+  --dvidir=DIR            dvi documentation [DOCDIR]
+  --pdfdir=DIR            pdf documentation [DOCDIR]
+  --psdir=DIR             ps documentation [DOCDIR]
+
+System types:
+  --build=BUILD     configure for building on BUILD [guessed]
+  --host=HOST       cross-compile to build programs to run on HOST [BUILD]
+
+Optional Features:
+  --disable-option-checking  ignore unrecognized --enable/--with options
+  --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
+  --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --disable-nls           do not use Native Language Support
+  --disable-rpath         do not hardcode runtime library paths
+  --enable-shared[=PKGS]  build shared libraries [default=yes]
+  --enable-static[=PKGS]  build static libraries [default=yes]
+  --enable-fast-install[=PKGS]
+                          optimize for fast installation [default=yes]
+  --disable-libtool-lock  avoid locking (might break parallel builds)
+  --disable-dependency-tracking  speeds up one-time build
+  --disable-visibility    do not use symbol visibility support
+  --disable-lensdata      do not use the lens database for Nikon lens names
+  --enable-commercial     compile with the EXV_COMMERCIAL_VERSION symbol set
+  --disable-xmp           do not compile XMP support and the XMP Toolkit
+
+Optional Packages:
+  --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
+  --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-gnu-ld           assume the C compiler uses GNU ld default=no
+  --with-libiconv-prefix[=DIR]  search for libiconv in DIR/include and DIR/lib
+  --without-libiconv-prefix     don't search for libiconv in includedir and libdir
+  --with-libintl-prefix[=DIR]  search for libintl in DIR/include and DIR/lib
+  --without-libintl-prefix     don't search for libintl in includedir and libdir
+  --with-pic              try to use only PIC/non-PIC objects [default=use
+                          both]
+  --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
+  --with-zlib=DIR root directory path of zlib installation defaults to
+            /usr/local or /usr if not found in /usr/local
+  --without-zlib to disable zlib usage completely
+  --with-expat[=DIR]    use libexpat in DIR
+
+Some influential environment variables:
+  CXX         C++ compiler command
+  CXXFLAGS    C++ compiler flags
+  LDFLAGS     linker flags, e.g. -L&lt;lib dir&gt; if you have libraries in a
+              nonstandard directory &lt;lib dir&gt;
+  LIBS        libraries to pass to the linker, e.g. -l&lt;library&gt;
+  CPPFLAGS    (Objective) C/C++ preprocessor flags, e.g. -I&lt;include dir&gt; if
+              you have headers in a nonstandard directory &lt;include dir&gt;
+  CXXCPP      C++ preprocessor
+  CC          C compiler command
+  CFLAGS      C compiler flags
+  CPP         C preprocessor
+
+Use these variables to override the choices made by `configure' or to help
+it to find libraries and programs with nonstandard names/locations.
+
+Report bugs to &lt;ahuggel@gmx.net&gt;.
+$
+</pre>
+
+	<p>And here is the command I'm using to create exiv2:</p>
+
+
+<pre>
+./configure --host=x86_64-w64-mingw32 --prefix=/usr/x86_64-w64-mingw32/sys-root/mingw --enable-static --without-libiconv-prefix
+</pre>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2033" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Nov 2011 22:08" href="/projects/exiv2/activity?from=2011-11-19">about 10 years</a> ago
+      <span id="journal-2033-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>build</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.23</i></li>
+    </ul>
+    <div id="journal-2033-notes" class="wiki"><p>I'm going to investigate this.  The pyexiv2 project would like a 64 bit GCC build of exiv2 (although the MSVC/x64/ReleaseDLL 64 bit build works fine with pyexiv2).</p>
+
+
+	<p>In what environment/platform are you issuing the ./configure commands?  Are you cross-compiling from Linux, or are using MinGW/64 or what?</p>
+
+
+	<p>I don't want to guess the time required to get this fixed.  If it's easy, it might be done in a day or two.  However if it's troublesome, it'll probably have to be put to the side until Christmas (or possibly later).</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2034" class="journal has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Nov 2011 22:10" href="/projects/exiv2/activity?from=2011-11-19">about 10 years</a> ago
+      <span id="journal-2034-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2035" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 Nov 2011 00:06" href="/projects/exiv2/activity?from=2011-11-20">about 10 years</a> ago
+      <span id="journal-2035-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2035-notes" class="wiki"><p>Although for Android, there may be some general pointers for cross-compilation with the configure script here: <a class="external" href="http://dev.exiv2.org/boards/3/topics/768">http://dev.exiv2.org/boards/3/topics/768</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-2104" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 Apr 2012 20:59" href="/projects/exiv2/activity?from=2012-04-20">over 9 years</a> ago
+      <span id="journal-2104-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> deleted (<del><i>0.23</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2590" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 16:07" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2590-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-2590-notes" class="wiki"><p>I wasn't able to cross compile this on my Ubuntu machine.  Deferred for 0.25.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3072" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Jan 2015 14:50" href="/projects/exiv2/activity?from=2015-01-08">almost 7 years</a> ago
+      <span id="journal-3072-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-3072-notes" class="wiki"><p>I am now supporting MinGW (both 32 and 64 bit builds) on the build server.  The build server runs on a Mac Mini and has virtual machines running Linux and Windows.  I have been unable to build a static version of the library on MinGW.</p>
+
+
+	<p>This bug has been outstanding for 3 years and I'm marking it as "Resolved" with the sad reason of "cannot fix/will not fix".</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3620" class="journal has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 16:18" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3620-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3908" class="journal has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3908-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/796.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/796.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

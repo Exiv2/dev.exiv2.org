@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Trap or suppress warnings when using Exiv2 library? - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="OPqn7q63vVKzbss7bSsKWpUzckaSwSrwu1i9lYmvaeratwwB3M1xUuYK1DfS/AZpqqEmP2Mii0pGeC0dypaOhQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Trap or suppress warnings when using Exiv2 library?</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/402">Hank Barta</a> <a title="03 Mar 2010 13:23" href="/projects/exiv2/activity?from=2010-03-03">over 11 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi folks,<br />I'm working on some code that will use Exiv2 to extract EXIF information from digital camera images. During my initial testing, some images produce a warning:</p>
+
+
+<pre>
+Warning: Directory NikonPreview, entry 0x0201: Data area exceeds data buffer, ignoring it.
+</pre>
+
+	<p>Is there some way to programatically trap or suppress warnings like this? I have searched the documentation and this forum for a clue to this and not found anything. Perhaps it is just my search skills...</p>
+
+
+	<p>A pointer in the right direction would be most appreciated!</p>
+
+
+	<p>thanks,<br />hank</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (14)</h3>
+  <div class="message reply" id="message-448">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=448#message-448">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="03 Mar 2010 18:57" href="/projects/exiv2/activity?from=2010-03-03">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Hank,</p>
+
+
+	<p>These warnings are written to standard error and the only control that is available in the library is a compile-time #define SUPPRESS_WARNINGS. So if you have control over the library in your environment you can just compile it with this define set.</p>
+
+
+	<p>There is a long outstanding issue (<a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: silence warnings from code (Closed)" href="/issues/614">#614</a> and the related issue <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Error handler: Applications should be able to register an error handler (Closed)" href="/issues/476">#476</a>, which is even older) for finer control at runtime, exactly what you're asking for, but that's not anywhere near the top of my todo list and I'm not aware of anyone else working on this. If you're willing to take this up yourself, I would be happy to discuss the approach.</p>
+
+
+	<p>Finally, since an application can control standard error, it is still possible to do something about it from your program. IIRC in ufraw Udi controls exiv2 warnings by suppressing or redirecting standard error; take a look at the ufraw source code for details.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-452">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=452#message-452">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="05 Mar 2010 06:59" href="/projects/exiv2/activity?from=2010-03-05">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hank,</p>
+
+
+	<p>If you have the time to do it, please proceed with it. Myself, I'm finding it monotonous to rely on "2>/dev/null" to suppress errors on the command line or in shell scripts. It's only a redirection, after all. And in some scripts, it gets ignored -- either that or I forget which ones have it and which don't and wind up "double-dipping," which as you know produces a reversion to defaults.</p>
+
+
+	<p>Maybe it's time for an <em>.exiv2rc</em>?</p>
+
+
+	<p>S.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-453">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=453#message-453">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/402">Hank Barta</a> <a title="05 Mar 2010 08:12" href="/projects/exiv2/activity?from=2010-03-05">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi guys,<br />Thanks for the suggestions.</p>
+
+
+	<p>I have added -DSUPPRESS_WARNINGS to the compile line and the warning persists, so I interpret that to mean that the library itself has to be built with the switch enabled.</p>
+
+
+	<p>My first consideration on working with that is what sort of can-O-worms it opens for me WRT my system. I am running Ubuntu Desktop. I searched for and did not find a source package for libexiv2. I'm not familiar enough with Linux development to know if I can effectively build and test libraries w/out messing up the rest of my system. I suppose at worst I could set up a VM and develop within that. (I also suppose it is possible to develop and test libraries w/out the need to replace system libraries. To not have that capability would just be silly.)</p>
+
+
+	<p>I guess the next thing to do is ask Andreas to describe what he would like to see done in this regard. While I wait for that response I will examine the issues that Andreas listed above and see about fetching a copy of the source.</p>
+
+
+	<p>thanks,<br />hank</p></div>
+  
+  </div>
+  <div class="message reply" id="message-454">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=454#message-454">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="05 Mar 2010 19:49" href="/projects/exiv2/activity?from=2010-03-05">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>It is quite easy to build exiv2 from source.  There are some dependancies (expat and zlib spring to mind - there may be others).   However most opensource is easily to build on Ubuntu.  You can download the code from the exiv2 web site as a tar bundle, or use svn checkout.  Once in the exiv2 directory you issue the terminal commands:</p>
+
+
+	<p>$ make config<br />$ ./configure<br />$ make<br />$ sudo make install</p>
+
+
+	<p>Of course you'll need to install the C++ compiler/development tools.  However the Ubuntu Synaptic Package Installer will do this for you.  In addition, the Package Installer can install development versions of most of the dependent libraries (such as expat).  So you probably won't need to pull down and build them. The good news is that the recipe "make config ; ./configure ; make ; sudo make install" works on most open-source code.  So even if you have to build all depenancies, it's not especially onerous.</p>
+
+
+	<p>Building software from source may seem a little painful, however it is the price of admission to this world.  It's called 'opensource' because it is source!  And the skills learned to build exiv2 can be reused with lots of other projects.</p>
+
+
+	<p>If you feel up to the challenge, it would be great if you could tackle this task and report back your experience (hopefully good).  If you'd prefer not to accept the challenge then here's my offer:</p>
+
+
+	<p>I've been asked to look at a pyexiv2/exiv2/phatch issue next week on Lucid alpha-3 (the RC for Ubunut 10-4).  I'm off running in the Napa Valley Marathon this weekend, so this will have to wait until one evening next wee.  I plan to set up a clean virtual machine and install Lucid.  I'll build exiv2 and build from scratch.  I'll be happy to list everything I do here.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-455">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=455#message-455">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/402">Hank Barta</a> <a title="06 Mar 2010 11:27" href="/projects/exiv2/activity?from=2010-03-06">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,<br />Thanks for the tip. It's actually the "make install" part that concerns me as at best, it will clobber the libraries already installed by Ubuntu and at worst, it will install libraries in different (public) locations. I'll have to see what options the config script offers to provide an alternate installation.</p>
+
+
+	<p>No need to sell me on open source. I've been running Ubuntu since their first release and Debian, Slakware and Yggdrasil before that. My open source roots go back to SCO SysV r3.2 and comp.sources.unix.</p>
+
+
+	<p>Good luck in the marathon!</p>
+
+
+	<p>Having looked at the issues listed above (but not the code) I've formulated a tentative plan to refine handling for errors and warnings. I would add virtual functions to the classes that produce errors and warnings that would be called to handle the conditions. Default behavior would be to report the condition as does the existing code. Developers using the libraries could simply subclass those classes and redefine those functions to provide whatever behavior they require.</p>
+
+
+	<p>For the purpose of managing the behavior of applications that already use libexiv2, the default behavior could be enhanced to use environment variables or config file to alter the default behavior.</p>
+
+
+	<p>Now is the time to object if this direction is not suitable or desirable.</p>
+
+
+	<p>thanks,<br />hank</p></div>
+  
+  </div>
+  <div class="message reply" id="message-457">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=457#message-457">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="06 Mar 2010 19:54" href="/projects/exiv2/activity?from=2010-03-06">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hank</p>
+
+
+	<p>Well this all sounds quite OK with me.  As far as I know, exiv2 installs into /usr/local/{bin|include|lib|man|share} and doesn't install/overwrite anything 'public'.  I've never worried about this - so I've never bothered to figure who/what exactly gets done (nor wanted anything other than the default).</p>
+
+
+	<p>I would like to share my thoughts with your about environment strings and configuration files and stuff.  However before I offer any further input on this, I'd like Andreas to 'chime in' with his thoughts about the changes you are suggesting.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-458">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=458#message-458">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="07 Mar 2010 01:37" href="/projects/exiv2/activity?from=2010-03-07">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>From the README:</p>
+
+
+<pre>
+The default install locations are /usr/local/lib for the library,
+/usr/local/bin for the exiv2 utility and /usr/local/include/exiv2 for the
+header files. Use the --prefix=directory option of the configure script to
+change the default. Run './configure --help' to see a list of all options.
+
+To uninstall Exiv2 from a UNIX-like system, run:
+
+    $ make uninstall
+</pre>
+
+	<p>That way you can easily install to a custom directory, say <code>/home/hank/src/exiv2/trunk</code>. The only thing to consider is that you may also need to adjust some environment variables, namely PATH, LD_LIBRARY_PATH and PKG_CONFIG_PATH to tell your system about this choice.</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-459">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=459#message-459">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="07 Mar 2010 03:37" href="/projects/exiv2/activity?from=2010-03-07">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>Having looked at the issues listed above (but not the code) I've formulated a tentative plan to refine handling for errors and warnings. I would add virtual functions to the classes that produce errors and warnings that would be called to handle the conditions. Default behavior would be to report the condition as does the existing code. Developers using the libraries could simply subclass those classes and redefine those functions to provide whatever behavior they require.</p>
+
+
+	<p>For the purpose of managing the behavior of applications that already use libexiv2, the default behavior could be enhanced to use environment variables or config file to alter the default behavior.</p>
+
+
+	<p>Now is the time to object if this direction is not suitable or desirable.</p>
+
+
+</blockquote>
+
+	<p>Great! That sounds like someone who is ready to start hacking!</p>
+
+
+	<p>The current library code is very basic. Warnings are simply written out to standard error, like this:</p>
+
+
+<pre>
+#ifndef SUPPRESS_WARNINGS
+            std::cerr &lt;&lt; "Warning: " 
+                      &lt;&lt; "Directory " &lt;&lt; tiffGroupName(group())
+                      &lt;&lt; ", entry 0x" &lt;&lt; std::setw(4)
+                      &lt;&lt; std::setfill('0') &lt;&lt; std::hex &lt;&lt; tag()
+                      &lt;&lt; ": Size or data offset value not set, ignoring them.\n";
+#endif
+</pre>
+
+	<p>There is a bit more code to support exceptions, but most of it is behind the scenes. Library code that throws an exception looks like this:</p>
+
+
+<pre>
+            if (!ret) throw Error(45, schemaNs);
+</pre>
+
+	<p>I think the two can remain independent, i.e., any enhanced logic for warnings doesn't need to touch the Error classes, which are strictly for exceptions. It can go into the same files, though: <code>error.hpp</code> and <code>error.cpp</code>.</p>
+
+
+	<p>The library writes a lot of warnings like the one above (a quick count showed more than 120), and it's easy for a library developer to write warnings like this. Thus it's probably worth implementing something that requires little change of the existing code and is similarly simple to use. What about an Exiv2::Warning class with an output operator, so that the above becomes</p>
+
+
+<pre>
+            Exiv2::Warning &lt;&lt; "Warning: Directory " &lt;&lt; tiffGroupName(group()) &lt;&lt; ...
+</pre>
+
+	<p>And warning levels as requested in <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: silence warnings from code (Closed)" href="/issues/614">#614</a> could be added using manipulators, like:</p>
+
+
+<pre>
+            Exiv2::Warning &lt;&lt; Exiv2::info &lt;&lt; "Directory " &lt;&lt; tiffGroupName(group()) &lt;&lt; ...
+</pre>
+
+	<p>However, if this fancy design requires anything out of the ordinary, in particular, initialization code, e.g., something like an Exiv2::init() function that applications need to call before the library can be used, then I'd rather go for a simpler solution and put up with more changes and less readable warning code in the library (hiding and automagically execute such initialization code is also not an option).</p>
+
+
+	<p>A simpler solution could just be a function that takes a warning level and a string with the warning text, used like this:</p>
+
+
+<pre>
+            std::ostringstream os;
+            os &lt;&lt; "Warning: Directory " &lt;&lt; tiffGroupName(group()) &lt;&lt; ...
+            Exiv2::warning(Exiv2::info, os.str());
+</pre>
+
+	<p>The basic requirement for an application that wants to implement custom behaviour is that it must be able to do that at runtime and without changing or re-compiling the library. If that can be done by subclassing something, then great; I doubt that is possible though (but would be happy to be shown otherwise). Alternatively, maybe the application can simply register a custom function with the library which is then called to process warnings.</p>
+
+
+	<p>I'm not keen to introduce a config file or the use of environment variables for this functionality. The library should continue to do what it's doing now by default without any initialization and if that behaviour can be configured (e.g., to set the desired warning level for output or to change the output stream or to set a custom output function), then that should be done through function calls.</p>
+
+
+	<p>Whichever way, let's discuss the design in detail and draft it here before you spend time changing a lot of code.</p>
+
+
+	<p>Finally, before you continue, consider that I require the copyright of all contributed code to be assigned to me; contributors get credit as source code authors. If you're not ok with that, please don't proceed.</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-466">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=466#message-466">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/402">Hank Barta</a> <a title="25 Mar 2010 07:08" href="/projects/exiv2/activity?from=2010-03-25">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>"The library writes a lot of warnings like the one above (a quick count showed more than 120),"</p>
+
+
+<pre>
+hbarta@cypress:~/Documents/Projects/trunk/C++/Exiv2-dev/trunk$ find .. -name "*.?pp"| xargs grep \"Warning|wc -l
+106
+</pre>
+
+	<p>These are all in the /src directory. Am I missing some?</p>
+
+
+	<p>I have no difficulty assigning copyright of any changes I make to you.</p>
+
+
+	<p>-hank</p></div>
+  
+  </div>
+  <div class="message reply" id="message-467">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=467#message-467">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="25 Mar 2010 19:01" href="/projects/exiv2/activity?from=2010-03-25">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>These are all in the /src directory. Am I missing some?</p>
+
+
+</blockquote>
+
+	<p>Yes, they are all in the src/ directory, in the *.cpp files. Some say "Error" rather than "Warning" though, in an attempt to indicate the severity. (IIRC I counted <code>SUPPRESS_WARNINGS</code> in all these files.)</p>
+
+
+	<p>-ahu.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-473">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=473#message-473">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/402">Hank Barta</a> <a title="07 Apr 2010 15:43" href="/projects/exiv2/activity?from=2010-04-07">over 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>I have decided to take a different approach based on the pattern demonstrated in the samples found on <a class="external" href="http://alexvn.freeservers.com/s1/download.html">http://alexvn.freeservers.com/s1/download.html</a> for redirecting cout/cerr. The following code works on a Linux system:</p>
+
+
+<pre>
+/*
+ * Demonstrate redirecting std::cerr to some other location
+ */
+
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+
+using namespace std;
+
+int main(int argc, char** argv)
+{
+    cerr &lt;&lt; "Hello World" &lt;&lt; endl;
+    ofstream    nullstr("/dev/nul"); // open a file stream to /dev/null
+
+    streambuf* os = cerr.rdbuf(nullstr.rdbuf()); // replace cerr's streambuf 
+                                                 // with one that goes to 
+                                                 // /dev/null, saving the 
+                                                 // original streambuf
+
+    cerr &lt;&lt; "This should never be seen" &lt;&lt; endl;
+
+    cerr.rdbuf(os); // restore cerr's original streambuf to prevent bad 
+                    // things on exit.
+
+    cerr &lt;&lt; "Goodbye World" &lt;&lt; endl;
+
+    return 0;
+}
+</pre>
+
+	<p>A secondary benefit (at least to me) is that it will work with an unmodified library so I need not go through the difficulty of building and using my own copy of the library side by side with the older version installed as part of my distro.</p>
+
+
+	<p>Unfortunately, it does nothing to move you any closer to solutions for the other issues you listed.</p>
+
+
+	<p>-hank</p></div>
+  
+  </div>
+  <div class="message reply" id="message-656">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=656#message-656">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="16 Sep 2010 22:36" href="/projects/exiv2/activity?from=2010-09-16">about 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>And for those of us for whom Exiv2 is an app more than a library...what options do <ins>we</ins> have for "quieting" or trapping errors?<br />Or have I been misreading all of the threads and issue posts on this?</p>
+
+
+	<p>And on top of it all, I forgot which link brings one to the latest manpage edit. I'm betting there's a -q or --quiet option now, but I'd prefer to know for sure before I try it (don't want to get an error <strong>G</strong>).</p>
+
+
+	<p>Steve W.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-660">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=660#message-660">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="17 Sep 2010 01:21" href="/projects/exiv2/activity?from=2010-09-17">about 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, the exiv2 command line tool now has a -q option which suppresses warnings and errors. It is currently available in the SVN repository and will be released with 0.21. <code>exiv2 -h</code> is a quick way to check what options your version has.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-676">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/447?r=676#message-676">RE: Trap or suppress warnings when using Exiv2 library?</a>
+    -
+    Added by <a class="user active" href="/users/339">Steve Wright</a> <a title="01 Oct 2010 13:26" href="/projects/exiv2/activity?from=2010-10-01">about 11 years</a> ago
+  </h4>
+  <div class="wiki"><p>And after "-q" -- don't forget <strong>"file and error"</strong> (easy to remember -- just think "Trial &#38; Error")</p>
+
+
+	<p>I think I might have suggested it in another thread: what most annoyed me about Exiv2's error reporting to date wasn't so much the frequency of occurrence but more in what they were missing when invoked in loops in scripts and such: the name of the file that threw the error.</p>
+
+
+	<p>Attached you'll find my script "exivate" which has stood me well for a month as a work-around to this missing element of error reporting. It doesn't do it to stdout, as that might slow down script execution, but I've so far relied on it as a "checker/tester" to see how files will pass muster when other scripts invoking the CLI tool are run on them.</p>
+
+
+	<p>Steve W.</p></div>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/209">exivate.sh.txt</a>    <span class="size">(498 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/209/exivate.sh.txt">exivate.sh.txt</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-14/14)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

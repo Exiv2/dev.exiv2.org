@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Corrupted TIFF images (Windows only) with latest trunk - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="wGXjQSSsuGgiYwHmZnLF25YALwEhqdCx4LtFn8IcmQ8iKEiuVtZ0aHcHHurZpcnoqZJ7eNBKcQsdm9UXgSV+YA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Corrupted TIFF images (Windows only) with latest trunk</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/221">Paul Miller</a> <a title="08 Apr 2011 09:51" href="/projects/exiv2/activity?from=2011-04-08">over 10 years</a> ago</span></p>
+<div class="wiki">
+<p>This is a strange one. But on Windows, if I have a largish TIFF and I'm writing EXIF data to it (grabbed from a RAW image), sometimes we end up with a file of name.tif34872 (number appended) and sometimes we get a .tif but it's corrupt. Works with smaller TIFs.</p>
+
+
+	<p>Again this seems to work fine on Mac.</p>
+
+
+	<p>I've seen TIFF corruption problems with older versions, but they were fixed with previous versions. I've just updated from 2.0 from 2.1.1.</p>
+
+
+	<p>Any suggestions?</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (14)</h3>
+  <div class="message reply" id="message-881">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=881#message-881">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/221">Paul Miller</a> <a title="08 Apr 2011 13:16" href="/projects/exiv2/activity?from=2011-04-08">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I could be wrong about this being Windows only. I just converted 3900x2616 Nikon .NEF file to 16 bit TIF and transferred the EXIF data over (this was in my program, not using the standalone exiv2 program) and the resulting image was corrupted too. Could it be related to image size? Smaller images seemed to have worked better.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-882">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=882#message-882">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/221">Paul Miller</a> <a title="08 Apr 2011 13:16" href="/projects/exiv2/activity?from=2011-04-08">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Paul Miller wrote:</p>
+
+
+<blockquote>
+
+	<p>I could be wrong about this being Windows only. I just converted 3900x2616 Nikon .NEF file to 16 bit TIF and transferred the EXIF data over on my Mac (this was in my program, not using the standalone exiv2 program) and the resulting image was corrupted too. Could it be related to image size? Smaller images seemed to have worked better.</p>
+
+
+</blockquote></div>
+  
+  </div>
+  <div class="message reply" id="message-883">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=883#message-883">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="08 Apr 2011 14:08" href="/projects/exiv2/activity?from=2011-04-08">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Paul</p>
+
+
+	<p>Are you using the Windows binary from the web site, or did you build this yourself?  If you built it yourself, how did you build it?  msvc, msvc64, MinGW, Cygwin, or some other way?</p>
+
+
+	<p>Are you describing two different issues here?<br />1) filename is sometimes corrupted<br />2) file contents are sometimes corrupted</p>
+
+
+	<p>And can you post an example of a bad (and a good) file somewhere, so we can download and reproduce the issue.</p>
+
+
+	<p>Thanks.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-884">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=884#message-884">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/221">Paul Miller</a> <a title="08 Apr 2011 14:21" href="/projects/exiv2/activity?from=2011-04-08">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I built the source myself from the latest svn repo, using Visual Studio 2008 (RTM, not SP1). Also built from source on Mac using gcc 4.2 for i386 and x86_64 arches. Linking statically.</p>
+
+
+	<p>The two issues seem to be related - is it possible it's writing a temp file (the name with numbers at the end) and then gives up/crashes -but only some of the time? Though my app isn't crashing.</p>
+
+
+	<p>I'm on my Mac right now and can't repro it reliably there but I'll get some images posted over the weekend.</p>
+
+
+	<p>Thanks as usual for being very responsive!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-885">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=885#message-885">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="08 Apr 2011 14:41" href="/projects/exiv2/activity?from=2011-04-08">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Paul</p>
+
+
+	<p>We aim to please (and it's Friday afternoon and I'm bored at work).</p>
+
+
+	<p>It's quite possible that the two issues are caused by single memory/corruption.  Thanks for confirming that there are two artifacts (the corrupted file-name, and the corrupted image).  I have an iMac at home (and Windows and Linux) and if you have test files which you'd like me to investigate, I'll look at them on Sunday.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-887">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=887#message-887">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="09 Apr 2011 03:06" href="/projects/exiv2/activity?from=2011-04-09">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Is there anything unusual about your setup, e.g., are you writing to an external disk, a different partition etc.?</p>
+
+
+	<p>The files that end in a number are temporary files as you suspected. They are renamed eventually. Temporary files are only used if the image is larger than 1MB otherwise exiv2 uses a temporary memory buffer instead.</p>
+
+
+	<p>I can't see any recent change in that area (basicio.cpp), we'll definitely need samples of these corrupted TIFFs to have only a remote chance to track this down. More likely we'll need a reproducer. The detailed steps how you could create a corrupted TIFF may be useful even if it doesn't happen always.</p>
+
+
+	<p>If you want to check for memory corruption issues yourself, run your program in Valgrind (available for Mac OSX but not Windows).</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-888">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=888#message-888">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/221">Paul Miller</a> <a title="09 Apr 2011 12:35" href="/projects/exiv2/activity?from=2011-04-09">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ok while working on a test case I realized that the corruption only seems to happen when using LZW compression. If I use NONE or ZIP TIFF compression the file seems to be tagged properly. Can anyone else confirm?</p>
+
+
+	<p>I'll continue to work on my simple test case to see if I can replicate the same problem as in my full-blown application.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-889">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=889#message-889">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/221">Paul Miller</a> <a title="09 Apr 2011 13:25" href="/projects/exiv2/activity?from=2011-04-09">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Sorry that was a red-herring. I have my test program working now and it doesn't matter which compression option is used.</p>
+
+
+	<p>So I have a reproducible case now. I have a source Nikon image I'm reading the EXIF data from, then I'm generating a largish 16-bit TIFF image (just a checkerboard grid) and attempting to apply the EXIF data to that image. Sometimes, it throws an exception when trying to rename the temp file to the final .tif file. Other times it completes but the resulting image cannot be opened in Photoshop - it's corrupted.</p>
+
+
+	<p>I've uploaded my test kit here: <a class="external" href="http://www.fxtech.com/files/exiftest.zip">http://www.fxtech.com/files/exiftest.zip</a></p>
+
+
+	<p>This contains my large Nikon image that I'm extracting the EXIF data from, the test program and Visual Studio project (which will need to be modified to build on another machine, since it pulls in LIBTIFF, ZLIB, and the EXIV2 libraries, which are not included), and a sample out.tif which is in the corrupted form. Also is the Windows binary for you to try like this:</p>
+	<pre><code>exiftest.exe</code></pre>
+
+
+	<p>This will load the _DSC0733.NEF EXIF data and write out.tif, with EXIF data (this results in the corrupted image).</p>
+	<pre><code>exiftest.exe 1</code></pre>
+
+
+	<p>This will skip the EXIF writing stage, and just generate the out.tif, which <strong>CAN</strong> be opened in Photoshop.</p>
+
+
+	<p>I suspect it's one or more of the tags in this image that is causing the problem, and possibly the resulting size of the image. I hope this is useful to someone. Let me know if you have any problems reproducing this!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-890">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=890#message-890">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/133">Robin Mills</a> <a title="09 Apr 2011 13:52" href="/projects/exiv2/activity?from=2011-04-09">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Paul</p>
+
+
+	<p>Thanks for doing the digging on this and posting those files (they've arrived safely!).</p>
+
+
+	<p>504 /Users/rmills/Downloads/exiftest $ dir<br />-rwxr-xr-x@ 1 rmills  staff   1.9M Apr  9  2011 exiftest.exe<br />-rwxr-xr-x@ 1 rmills  staff    15K Apr  9  2011 exiftest.vcproj<br />-rwxr-xr-x@ 1 rmills  staff   2.4M Apr  9  2011 out.tif<br />-rwxr-xr-x  1 rmills  staff   3.9K Apr  9  2011 exiftest.cpp<br />-rwxr-xr-x@ 1 rmills  staff    98K Jul 19  2010 zlib1.dll<br />-rwxr-xr-x@ 1 rmills  staff    20M Dec 14  2006 _DSC0733.NEF<br />505 /Users/rmills/Downloads/exiftest $</p>
+
+
+	<p>I'll have a look in this on Sunday (or Monday evening).  Is this a Windows only or a platform independent issue?</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-891">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=891#message-891">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/221">Paul Miller</a> <a title="09 Apr 2011 14:37" href="/projects/exiv2/activity?from=2011-04-09">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Definitely on Windows. I'll try to get my test program up and running on the Mac tomorrow morning and see if I can repro there.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-892">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=892#message-892">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="09 Apr 2011 20:18" href="/projects/exiv2/activity?from=2011-04-09">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Paul,</p>
+
+
+	<p>These appear to be two different issues:<br />1) Copying metadata from a NEF into a TIFF image results in a corrupted TIFF image<br />2) "Sometimes, it throws an exception when trying to rename the temp file to the final .tif file."</p>
+
+
+	<p>The first one is easier to deal with, I believe all that is required is to prune the Exif data before setting it in the TIFF image. In particular, remove Exif.Image.SubIFDs and all Exif.SubImage*.* tags. Exiv2 does this if you copy Exif data to a JPEG, see ExifParser::encode in src/exif.cpp for sample code. However if the target is a TIFF, it doesn't do this currently (because the same parser is used to write TIFFs and NEFs).</p>
+
+
+	<p>For the second issue, what is the exception thrown?</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-893">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=893#message-893">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/221">Paul Miller</a> <a title="10 Apr 2011 07:50" href="/projects/exiv2/activity?from=2011-04-10">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I added the internal code to strip those tags out and now it's writing valid TIFF files - great!</p>
+
+
+	<p>The first time I ran the updated code it failed on the rename of the temp file though, but now I can't reproduce it. I'll keep an eye out for that one.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-928">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=928#message-928">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/221">Paul Miller</a> <a title="31 May 2011 08:07" href="/projects/exiv2/activity?from=2011-05-31">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm still getting random crashes when saving EXIF data to somewhat large (over 100MB) TIFF images. It doesn't happen all the time, but when it does I get this exception:</p>
+
+
+	<p>FILENAME.tifXXXX: Failed to rename file to FILENAME.tif: File exists</p>
+
+
+	<p>Well, yeah FILENAME.tif exists - that's the file I'm writing to. I suspect there is some kind of race condition with the deletion of the .tif and renaming of the temp file to it. Maybe the memory unmap operation is asynchronous? This is way down in the guts of the exif write code so I still don't know what is going on.</p>
+
+
+	<p>Anyone else ever see this?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-929">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/880?r=929#message-929">RE: Corrupted TIFF images (Windows only) with latest trunk</a>
+    -
+    Added by <a class="user active" href="/users/221">Paul Miller</a> <a title="31 May 2011 08:14" href="/projects/exiv2/activity?from=2011-05-31">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>AHA - I found the problem in my code. Referencing deleted memory - oh my! Explains everything.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-14/14)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

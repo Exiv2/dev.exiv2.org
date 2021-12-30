@@ -1,0 +1,95 @@
+Index: src/CMakeLists.txt
+===================================================================
+--- src/CMakeLists.txt	(revision 2894)
++++ src/CMakeLists.txt	(working copy)
+@@ -256,29 +256,20 @@
+ ##
+ # copy zlib and expat dlls to output directory (TODO: rewrite for NMake)
+ IF ( MSVC AND EXIV2_ENABLE_SHARED )
+-	if (OUT_OF_SOURCE) 
+-	    ADD_CUSTOM_COMMAND(
+-	      TARGET exiv2lib
+-	      POST_BUILD
+-	      COMMAND copy /y $(SolutionDir)..\\..\\${E}\\$(ConfigurationName)\\*.dll $(SolutionDir)\\bin\\${P_DIR}\\${T_DIR}\\$(ConfigurationName)
+-	    )
+-	    ADD_CUSTOM_COMMAND(
+-	      TARGET exiv2lib
+-	      POST_BUILD
+-	      COMMAND copy /y $(SolutionDir)..\\..\\${Z}\\$(ConfigurationName)\\*.dll $(SolutionDir)\\bin\\${P_DIR}\\${T_DIR}\\$(ConfigurationName)
+-	    )
+-    else()
+-	    ADD_CUSTOM_COMMAND(
+-	      TARGET exiv2lib
+-	      POST_BUILD
+-	      COMMAND copy /y $(SolutionDir)..\\${E}\\$(ConfigurationName)\\*.dll $(SolutionDir)\\bin\\${P_DIR}\\${T_DIR}\\$(ConfigurationName)
+-	    )
+-	    ADD_CUSTOM_COMMAND(
+-	      TARGET exiv2lib
+-	      POST_BUILD
+-	      COMMAND copy /y $(SolutionDir)..\\${Z}\\$(ConfigurationName)\\*.dll $(SolutionDir)\\bin\\${P_DIR}\\${T_DIR}\\$(ConfigurationName)
+-	    )
+-    endif()
++    get_filename_component(EXPAT_LIBRARY_DIR ${EXPAT_LIBRARY} PATH)
++    string(REGEX REPLACE "/" "\\\\" EXPAT_LIBRARY_DIR ${EXPAT_LIBRARY_DIR})
++    get_filename_component(ZLIB_LIBRARY_DIR ${ZLIB_LIBRARY} PATH)
++    string(REGEX REPLACE "/" "\\\\" ZLIB_LIBRARY_DIR ${ZLIB_LIBRARY_DIR})
++    ADD_CUSTOM_COMMAND(
++      TARGET exiv2lib
++      POST_BUILD
++      COMMAND copy /y ${EXPAT_LIBRARY_DIR}\\*.dll $(SolutionDir)\\bin\\${P_DIR}\\${T_DIR}\\$(ConfigurationName)
++    )
++    ADD_CUSTOM_COMMAND(
++      TARGET exiv2lib
++      POST_BUILD
++      COMMAND copy /y ${ZLIB_LIBRARY_DIR}\\*.dll $(SolutionDir)\\bin\\${P_DIR}\\${T_DIR}\\$(ConfigurationName)
++    )
+ ENDIF()
+ INSTALL( TARGETS exiv2lib ${INSTALL_TARGET_STANDARD_ARGS} )
+ 
+Index: samples/CMakeLists.txt
+===================================================================
+--- samples/CMakeLists.txt	(revision 2894)
++++ samples/CMakeLists.txt	(working copy)
+@@ -14,6 +14,8 @@
+ 	#	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../zlib-1.2.7/$(ConfigurationName))
+ 	endif()
+ endif()
++include_directories("${CMAKE_SOURCE_DIR}/include")
++
+ 
+ SET( SAMPLES addmoddel.cpp
+              convert-test.cpp
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(revision 2894)
++++ CMakeLists.txt	(working copy)
+@@ -72,25 +72,15 @@
+ 	
+     # link dependent libraries
+     if ( NOT EXPAT_LIBRARY  )
+-    	if (OUT_OF_SOURCE)
+-    		set(EXPAT_LIBRARY      ../../../${E}/$(ConfigurationName)/expat)
+-    		set(EXPAT_INCLUDE_DIR  ../${E}/lib)
+-		else()
+-    		set(EXPAT_LIBRARY      ../../${E}/$(ConfigurationName)/expat)
+-    		set(EXPAT_INCLUDE_DIR  ../${E}/lib)
+-    	endif()
++        set(EXPAT_LIBRARY      ${CMAKE_SOURCE_DIR}/../${E}/$(ConfigurationName)/expat)
++        set(EXPAT_INCLUDE_DIR  ${CMAKE_SOURCE_DIR}/../${E}/lib)
+     	include_directories( ${EXPAT_INCLUDE_DIR} msvc64\\include src\\include)
+ 	endif()
+ 	
+ 	FIND_PACKAGE(ZLIB QUIET)
+     if ( NOT ZLIB_FOUND )
+-        if (OUT_OF_SOURCE)
+-            set(ZLIB_LIBRARY       ../../../${Z}/$(ConfigurationName)/zlib )
+-            set(ZLIB_INCLUDE_DIR   ../${Z})
+-        else()
+-            set(ZLIB_LIBRARY       ../../${Z}/$(ConfigurationName)/zlib)
+-            set(ZLIB_INCLUDE_DIR   ../${Z})
+-        endif()
++        set(ZLIB_LIBRARY       ${CMAKE_SOURCE_DIR}/../${Z}/$(ConfigurationName)/zlib)
++        set(ZLIB_INCLUDE_DIR   ${CMAKE_SOURCE_DIR}/../${Z})
+     endif()
+     include_directories(${ZLIB_INCLUDE_DIR})
+ 	

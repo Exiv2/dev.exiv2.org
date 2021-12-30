@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Exception when exiv2 writes to this file - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="0yzAIykfXsuZmcZIzhiws+Ws3sDZe78AHZmiBWzI8PAxYWvMW2WSy8z92URxz7yA2j6KuSiYHrrguTKNL/EXnw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Exception when exiv2 writes to this file</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/244">Jonathan Potter</a> <a title="08 Feb 2018 07:28" href="/projects/exiv2/activity?from=2018-02-08">almost 4 years</a> ago</span></p>
+<div class="wiki">
+<p>One of our users reported that the attached JPG can't be tagged.</p>
+
+
+	<p>It ends up throwing an exception in tags.cpp in the ExifKey constructor:</p>
+	<pre><code>ExifKey::ExifKey(uint16_t tag, const std::string&#38; groupName)<br />        : p_(new Impl)
+    {<br />        IfdId ifdId = groupId(groupName);<br />        // Todo: Test if this condition can be removed<br />        if (!Internal::isExifIfd(ifdId) &#38;&#38; !Internal::isMakerIfd(ifdId)) {<br />--&gt;         throw Error(23, ifdId);<br />        }<br />        const TagInfo* ti = tagInfo(tag, ifdId);<br />        if (ti == 0) {<br />            throw Error(23, ifdId);<br />        }<br />        p_-&gt;groupName_ = groupName;<br />        p_-&gt;makeKey(tag, ifdId, ti);<br />    }</code></pre>
+
+
+	<p>ifdId is equal to "lastId". I tried removing the condition as per the comment, but the tagInfo() call then returns null and the second exception is thrown instead :)</p>
+</div>
+<div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1211">20180104_143102_001.jpg</a>    <span class="size">(4.63 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1211/20180104_143102_001.jpg">20180104_143102_001.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (3)</h3>
+  <div class="message reply" id="message-3056">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3055?r=3056#message-3056">RE: Exception when exiv2 writes to this file</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Feb 2018 07:56" href="/projects/exiv2/activity?from=2018-02-08">almost 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Regrettably your file seems to be corrupted.  <pre>565 rmills@rmillsmbp:~/Downloads $ exiv2 -pa ~/Downloads/20180104_143102_001.jpg &gt;/dev/null
+Warning: Directory Photo has an unexpected next pointer; ignored.
+Warning: Directory Photo, entry 0x0000 has unknown Exif (TIFF) type 0; setting type size 1.
+Error: Upper boundary of data for directory Photo, ...
+... entry 0x0000 is out of bounds: Offset = 0x00000001, size = 303109, ...
+... exceeds buffer size by 280109 Bytes; truncating the entry
+566 rmills@rmillsmbp:~/Downloads $ </pre>There is illegal data in the file which causes the lastId anomaly.  You've correctly observed that there are two paths to throw Error(23).  I believe the illegal Exif metadata is the true source of the issue with this file.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3057">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3055?r=3057#message-3057">RE: Exception when exiv2 writes to this file</a>
+    -
+    Added by <a class="user active" href="/users/244">Jonathan Potter</a> <a title="08 Feb 2018 08:07" href="/projects/exiv2/activity?from=2018-02-08">almost 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ok, thanks! Will report this back to the user. Sorry for the spurious report.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3058">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3055?r=3058#message-3058">RE: Exception when exiv2 writes to this file</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Feb 2018 08:10" href="/projects/exiv2/activity?from=2018-02-08">almost 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>It's always a pleasure to help my friends "Down Under" (I'm guessing from the image that you're in Australia).</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-3/3)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

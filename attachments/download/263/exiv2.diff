@@ -1,0 +1,58 @@
+diff -ru exiv2-0.21.1/src/properties.cpp exiv2-0.21.1-mp/src/properties.cpp
+--- exiv2-0.21.1/src/properties.cpp	2011-02-13 14:39:15.000000000 +0000
++++ exiv2-0.21.1-mp/src/properties.cpp	2011-07-13 21:34:27.399696666 +0000
+@@ -91,6 +91,8 @@
+     extern const XmpPropertyInfo xmpPlusInfo[];
+     extern const XmpPropertyInfo xmpMediaProInfo[];
+     extern const XmpPropertyInfo xmpExpressionMediaInfo[];
++    extern const XmpPropertyInfo xmpMPRegionInfo[];
++    extern const XmpPropertyInfo xmpMPRegions[];
+ 
+     extern const XmpNsInfo xmpNsInfo[] = {
+         // Schemas   -   NOTE: Schemas which the XMP-SDK doesn't know must be registered in XmpParser::initialize - Todo: Automate this
+@@ -117,6 +119,9 @@
+         { "http://ns.useplus.org/ldf/xmp/1.0/",           "plus",           xmpPlusInfo,      N_("PLUS License Data Format schema")           },
+         { "http://ns.iview-multimedia.com/mediapro/1.0/", "mediapro",       xmpMediaProInfo,  N_("iView Media Pro schema")                    },
+         { "http://ns.microsoft.com/expressionmedia/1.0/", "expressionmedia",xmpExpressionMediaInfo, N_("Expression Media schema")             },
++        { "http://ns.microsoft.com/photo/1.2/",           "MP",             0,                N_("Microsoft MP schema")                       },
++        { "http://ns.microsoft.com/photo/1.2/t/RegionInfo#","MPRI",         xmpMPRegionInfo,  N_("MP Region Info") },
++        { "http://ns.microsoft.com/photo/1.2/t/Region#",  "MPReg",          xmpMPRegions,     N_("MP Regions") },
+ 
+         // Structures
+         { "http://ns.adobe.com/xap/1.0/g/",                   "xapG",    0, N_("Colorant structure")           },
+@@ -935,6 +940,22 @@
+         // End of list marker
+         { 0, 0, 0, invalidTypeId, xmpInternal, 0 }
+     };
++
++    extern const XmpPropertyInfo xmpMPRegionInfo[] = {
++        // End of list marker
++        { "MPRI:Regions",      N_("MPRI:Regions"),      "Text", xmpBag,  xmpExternal, N_("Bag of MPReg") },
++        { "DateRegionsValid",  N_("DateRegionsValid"),  "Text", xmpText, xmpExternal, N_("Date the last rectangle was created") },
++        { 0, 0, 0, invalidTypeId, xmpInternal, 0 }
++    };
++
++    extern const XmpPropertyInfo xmpMPRegions[] = {
++        { "PersonDisplayName", N_("PersonDisplayName"), "Text", xmpText, xmpExternal, N_("Name") },
++        { "Rectangle",         N_("Rectangle"),         "Text", xmpText, xmpExternal, N_("Face rectangle in the format X.XX Y.YY W.WW H.HH") },
++        { "PersonEmailDigest", N_("PersonEmailDigest"), "Text", xmpText, xmpExternal, N_("SHA-1 digest of person's email") },
++        { "PersonLiveCID",     N_("PersonLiveCID"),     "Text", xmpText, xmpExternal, N_("Person's Windows Live CID") },
++        // End of list marker
++        { 0, 0, 0, invalidTypeId, xmpInternal, 0 }
++    };
+ 
+     extern const XmpPrintInfo xmpPrintInfo[] = {
+         {"Xmp.crs.CropUnits",                 EXV_PRINT_TAG(crsCropUnits)   },
+diff -ru exiv2-0.21.1/src/xmp.cpp exiv2-0.21.1-mp/src/xmp.cpp
+--- exiv2-0.21.1/src/xmp.cpp	2011-02-13 14:39:15.000000000 +0000
++++ exiv2-0.21.1-mp/src/xmp.cpp	2011-07-13 20:49:40.538373001 +0000
+@@ -388,6 +388,9 @@
+             SXMPMeta::RegisterNamespace("http://ns.useplus.org/ldf/xmp/1.0/", "plus");
+             SXMPMeta::RegisterNamespace("http://ns.iview-multimedia.com/mediapro/1.0/", "mediapro");
+             SXMPMeta::RegisterNamespace("http://ns.microsoft.com/expressionmedia/1.0/", "expressionmedia");
++            SXMPMeta::RegisterNamespace("http://ns.microsoft.com/photo/1.2/", "MP");
++            SXMPMeta::RegisterNamespace("http://ns.microsoft.com/photo/1.2/t/RegionInfo#", "MPRI");
++            SXMPMeta::RegisterNamespace("http://ns.microsoft.com/photo/1.2/t/Region#", "MPReg");
+ #else
+             initialized_ = true;
+ #endif

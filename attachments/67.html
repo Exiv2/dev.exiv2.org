@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>exiv2_psdimage_write_iptc.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="tQNq6EtmN5D+Ft3FAKD1eLBL/lMS5tCSCdf/pbeEb3tXTsEHORz7kKtywsm/d/lLj9mqKuMFcSj0928t9L2IFA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/67/exiv2_psdimage_write_iptc.patch">Download (10.3 KB)</a></div>
+
+<h2>
+  <a href="/boards/3/topics/21">patch: write IPTC to psd</a> » exiv2_psdimage_write_iptc.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/124">Michael Ulbrich</a>, 16 Jan 2009 12:53</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/67" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      exiv2-0.18/src/psdimage.cpp	2009-01-16 14:03:15.000000000 +0100
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">47</th>
+  <th class="line-num">47</th>
+  <td class="line-code ">
+    <pre>#include &lt;string&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">48</th>
+  <th class="line-num">48</th>
+  <td class="line-code ">
+    <pre>#include &lt;cstring&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">49</th>
+  <th class="line-num">49</th>
+  <td class="line-code ">
+    <pre>#include &lt;iostream&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">50</th>
+  <td class="line-code diff_in">
+    <pre>#include &lt;iomanip&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">51</th>
+  <td class="line-code diff_in">
+    <pre>#include &lt;cassert&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">52</th>
+  <td class="line-code diff_in">
+    <pre>#include &lt;memory&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">50</th>
+  <th class="line-num">53</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">51</th>
+  <th class="line-num">54</th>
+  <td class="line-code ">
+    <pre>// Todo: Consolidate with existing code in struct Photoshop (jpgimage.hpp):</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">52</th>
+  <th class="line-num">55</th>
+  <td class="line-code ">
+    <pre>//       Extend this helper to a proper class with all required functionality,</pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">304</th>
+  <th class="line-num">307</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">305</th>
+  <th class="line-num">308</th>
+  <td class="line-code ">
+    <pre>    void PsdImage::writeMetadata()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">306</th>
+  <th class="line-num">309</th>
+  <td class="line-code ">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">307</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        // Todo: implement me!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">308</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>        throw(Error(31, &quot;Photoshop&quot;));</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">310</th>
+  <td class="line-code diff_in">
+    <pre>        if (io_-&gt;open() != 0)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">311</th>
+  <td class="line-code diff_in">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">312</th>
+  <td class="line-code diff_in">
+    <pre>            throw Error(9, io_-&gt;path(), strError());</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">313</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">314</th>
+  <td class="line-code diff_in">
+    <pre>        IoCloser closer(*io_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">315</th>
+  <td class="line-code diff_in">
+    <pre>        BasicIo::AutoPtr tempIo(io_-&gt;temporary()); // may throw</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">316</th>
+  <td class="line-code diff_in">
+    <pre>        assert (tempIo.get() != 0);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">317</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">318</th>
+  <td class="line-code diff_in">
+    <pre>        doWriteMetadata(*tempIo); // may throw</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">319</th>
+  <td class="line-code diff_in">
+    <pre>        io_-&gt;close();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">320</th>
+  <td class="line-code diff_in">
+    <pre>        io_-&gt;transfer(*tempIo); // may throw</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">321</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">309</th>
+  <th class="line-num">322</th>
+  <td class="line-code ">
+    <pre>    } // PsdImage::writeMetadata</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">310</th>
+  <th class="line-num">323</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">324</th>
+  <td class="line-code diff_in">
+    <pre>    void PsdImage::doWriteMetadata(BasicIo&amp; outIo)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">325</th>
+  <td class="line-code diff_in">
+    <pre>    {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">326</th>
+  <td class="line-code diff_in">
+    <pre>        if (!io_-&gt;isopen()) throw Error(20);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">327</th>
+  <td class="line-code diff_in">
+    <pre>        if (!outIo.isopen()) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">328</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">329</th>
+  <td class="line-code diff_in">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">330</th>
+  <td class="line-code diff_in">
+    <pre>        std::cout &lt;&lt; &quot;Exiv2::PsdImage::doWriteMetadata: Writing PSD file &quot; &lt;&lt; io_-&gt;path() &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">331</th>
+  <td class="line-code diff_in">
+    <pre>        std::cout &lt;&lt; &quot;Exiv2::PsdImage::doWriteMetadata: tmp file created &quot; &lt;&lt; outIo.path() &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">332</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">333</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">334</th>
+  <td class="line-code diff_in">
+    <pre>        // Ensure that this is the correct image type</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">335</th>
+  <td class="line-code diff_in">
+    <pre>        if (!isPsdType(*io_, true))</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">336</th>
+  <td class="line-code diff_in">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">337</th>
+  <td class="line-code diff_in">
+    <pre>            if (io_-&gt;error() || io_-&gt;eof()) throw Error(20);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">338</th>
+  <td class="line-code diff_in">
+    <pre>            throw Error(22);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">339</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">340</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">341</th>
+  <td class="line-code diff_in">
+    <pre>        io_-&gt;seek(0, BasicIo::beg);    // rewind</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">342</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">343</th>
+  <td class="line-code diff_in">
+    <pre>        DataBuf lbuf(4096);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">344</th>
+  <td class="line-code diff_in">
+    <pre>        byte buf[8];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">345</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">346</th>
+  <td class="line-code diff_in">
+    <pre>        // Get Photoshop header from original file</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">347</th>
+  <td class="line-code diff_in">
+    <pre>        byte psd_head[26];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">348</th>
+  <td class="line-code diff_in">
+    <pre>        if (io_-&gt;read(psd_head, 26) != 26)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">349</th>
+  <td class="line-code diff_in">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">350</th>
+  <td class="line-code diff_in">
+    <pre>            throw Error(3, &quot;Photoshop&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">351</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">352</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">353</th>
+  <td class="line-code diff_in">
+    <pre>        // Write Photoshop header data out to new PSD file</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">354</th>
+  <td class="line-code diff_in">
+    <pre>        if (outIo.write(psd_head, 26) != 26) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">355</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">356</th>
+  <td class="line-code diff_in">
+    <pre>        // Read colorDataLength from original PSD </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">357</th>
+  <td class="line-code diff_in">
+    <pre>        if (io_-&gt;read(buf, 4) != 4)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">358</th>
+  <td class="line-code diff_in">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">359</th>
+  <td class="line-code diff_in">
+    <pre>            throw Error(3, &quot;Photoshop&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">360</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">361</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">362</th>
+  <td class="line-code diff_in">
+    <pre>        uint32_t colorDataLength = getLong(buf, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">363</th>
+  <td class="line-code diff_in">
+    <pre>        </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">364</th>
+  <td class="line-code diff_in">
+    <pre>        // Write colorDataLength</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">365</th>
+  <td class="line-code diff_in">
+    <pre>        ul2Data(buf, colorDataLength, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">366</th>
+  <td class="line-code diff_in">
+    <pre>        if (outIo.write(buf, 4) != 4) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">367</th>
+  <td class="line-code diff_in">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">368</th>
+  <td class="line-code diff_in">
+    <pre>        std::cerr &lt;&lt; std::dec &lt;&lt; &quot;colorDataLength: &quot; &lt;&lt; colorDataLength &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">369</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">370</th>
+  <td class="line-code diff_in">
+    <pre>        // Copy colorData</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">371</th>
+  <td class="line-code diff_in">
+    <pre>        long readTotal = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">372</th>
+  <td class="line-code diff_in">
+    <pre>        long toRead = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">373</th>
+  <td class="line-code diff_in">
+    <pre>        while (readTotal &lt; colorDataLength) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">374</th>
+  <td class="line-code diff_in">
+    <pre>            toRead = colorDataLength - readTotal &lt; lbuf.size_ ? colorDataLength - readTotal : lbuf.size_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">375</th>
+  <td class="line-code diff_in">
+    <pre>            if (io_-&gt;read(lbuf.pData_, toRead) != toRead)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">376</th>
+  <td class="line-code diff_in">
+    <pre>            {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">377</th>
+  <td class="line-code diff_in">
+    <pre>                throw Error(3, &quot;Photoshop&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">378</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">379</th>
+  <td class="line-code diff_in">
+    <pre>            readTotal += toRead;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">380</th>
+  <td class="line-code diff_in">
+    <pre>            if (outIo.write(lbuf.pData_, toRead) != toRead) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">381</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">382</th>
+  <td class="line-code diff_in">
+    <pre>        if (outIo.error()) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">383</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">384</th>
+  <td class="line-code diff_in">
+    <pre>        uint32_t resLenOffset = io_-&gt;tell();  // remember for later update</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">385</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">386</th>
+  <td class="line-code diff_in">
+    <pre>        // Read length of all resource blocks from original PSD</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">387</th>
+  <td class="line-code diff_in">
+    <pre>        if (io_-&gt;read(buf, 4) != 4)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">388</th>
+  <td class="line-code diff_in">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">389</th>
+  <td class="line-code diff_in">
+    <pre>            throw Error(3, &quot;Photoshop&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">390</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">391</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">392</th>
+  <td class="line-code diff_in">
+    <pre>        uint32_t oldResLength = getLong(buf, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">393</th>
+  <td class="line-code diff_in">
+    <pre>        uint32_t newResLength = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">394</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">395</th>
+  <td class="line-code diff_in">
+    <pre>        // Write oldResLength (will be updated later)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">396</th>
+  <td class="line-code diff_in">
+    <pre>        ul2Data(buf, oldResLength, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">397</th>
+  <td class="line-code diff_in">
+    <pre>        if (outIo.write(buf, 4) != 4) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">398</th>
+  <td class="line-code diff_in">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">399</th>
+  <td class="line-code diff_in">
+    <pre>        std::cerr &lt;&lt; std::dec &lt;&lt; &quot;oldResLength: &quot; &lt;&lt; oldResLength &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">400</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">401</th>
+  <td class="line-code diff_in">
+    <pre>        // Write metadata resource blocks: IPTC_NAA, (TODO: ExifInfo, XMPPacket)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">402</th>
+  <td class="line-code diff_in">
+    <pre>        if (iptcData_.count() &gt; 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">403</th>
+  <td class="line-code diff_in">
+    <pre>            DataBuf rawIptc = IptcParser::encode(iptcData_);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">404</th>
+  <td class="line-code diff_in">
+    <pre>            if (rawIptc.size_ &gt; 0) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">405</th>
+  <td class="line-code diff_in">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">406</th>
+  <td class="line-code diff_in">
+    <pre>                std::cerr &lt;&lt; std::dec &lt;&lt; &quot;Writing IPTC_NAA: size: &quot; &lt;&lt; rawIptc.size_ &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">407</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">408</th>
+  <td class="line-code diff_in">
+    <pre>                ul2Data(buf, kPhotoshopResourceType, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">409</th>
+  <td class="line-code diff_in">
+    <pre>                if (outIo.write(buf, 4) != 4) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">410</th>
+  <td class="line-code diff_in">
+    <pre>                us2Data(buf, kPhotoshopResourceID_IPTC_NAA, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">411</th>
+  <td class="line-code diff_in">
+    <pre>                if (outIo.write(buf, 2) != 2) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">412</th>
+  <td class="line-code diff_in">
+    <pre>                us2Data(buf, 0, bigEndian);                      // NULL resource name</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">413</th>
+  <td class="line-code diff_in">
+    <pre>                if (outIo.write(buf, 2) != 2) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">414</th>
+  <td class="line-code diff_in">
+    <pre>                ul2Data(buf, rawIptc.size_, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">415</th>
+  <td class="line-code diff_in">
+    <pre>                if (outIo.write(buf, 4) != 4) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">416</th>
+  <td class="line-code diff_in">
+    <pre>                // Write encoded Iptc data</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">417</th>
+  <td class="line-code diff_in">
+    <pre>                if (outIo.write(rawIptc.pData_, rawIptc.size_) != rawIptc.size_) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">418</th>
+  <td class="line-code diff_in">
+    <pre>                newResLength += rawIptc.size_ + 12;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">419</th>
+  <td class="line-code diff_in">
+    <pre>                if (rawIptc.size_ &amp; 1)    // even padding</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">420</th>
+  <td class="line-code diff_in">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">421</th>
+  <td class="line-code diff_in">
+    <pre>                    buf[0] = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">422</th>
+  <td class="line-code diff_in">
+    <pre>                    if (outIo.write(buf, 1) != 1) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">423</th>
+  <td class="line-code diff_in">
+    <pre>                    newResLength++;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">424</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">425</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">426</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">427</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">428</th>
+  <td class="line-code diff_in">
+    <pre>        // Iterate over original resource blocks and copy those not already processed</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">429</th>
+  <td class="line-code diff_in">
+    <pre>        while (oldResLength &gt; 0)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">430</th>
+  <td class="line-code diff_in">
+    <pre>        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">431</th>
+  <td class="line-code diff_in">
+    <pre>            if (io_-&gt;read(buf, 8) != 8)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">432</th>
+  <td class="line-code diff_in">
+    <pre>            {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">433</th>
+  <td class="line-code diff_in">
+    <pre>                throw Error(3, &quot;Photoshop&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">434</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">435</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">436</th>
+  <td class="line-code diff_in">
+    <pre>            // read resource type and ID</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">437</th>
+  <td class="line-code diff_in">
+    <pre>            uint32_t resourceType = getLong(buf, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">438</th>
+  <td class="line-code diff_in">
+    <pre>            uint16_t resourceId = getShort(buf + 4, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">439</th>
+  <td class="line-code diff_in">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">440</th>
+  <td class="line-code diff_in">
+    <pre>            std::cerr &lt;&lt; std::hex &lt;&lt; &quot;resourceId: &quot; &lt;&lt; resourceId &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">441</th>
+  <td class="line-code diff_in">
+    <pre>            std::cerr &lt;&lt; std::dec;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">442</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">443</th>
+  <td class="line-code diff_in">
+    <pre>            if (resourceType != kPhotoshopResourceType)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">444</th>
+  <td class="line-code diff_in">
+    <pre>            { </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">445</th>
+  <td class="line-code diff_in">
+    <pre>                break; // bad resource type</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">446</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">447</th>
+  <td class="line-code diff_in">
+    <pre>            uint32_t resourceNameLength = buf[6];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">448</th>
+  <td class="line-code diff_in">
+    <pre>            uint32_t adjResourceNameLen = resourceNameLength &amp; ~1;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">449</th>
+  <td class="line-code diff_in">
+    <pre>            unsigned char resourceNameFirstChar = buf[7];</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">450</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">451</th>
+  <td class="line-code diff_in">
+    <pre>            // read rest of resource name, plus any padding</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">452</th>
+  <td class="line-code diff_in">
+    <pre>            DataBuf resName(256);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">453</th>
+  <td class="line-code diff_in">
+    <pre>            if (io_-&gt;read(resName.pData_, adjResourceNameLen) != adjResourceNameLen)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">454</th>
+  <td class="line-code diff_in">
+    <pre>            {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">455</th>
+  <td class="line-code diff_in">
+    <pre>                throw Error(3, &quot;Photoshop&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">456</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">457</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">458</th>
+  <td class="line-code diff_in">
+    <pre>            // read resource size (actual length w/o padding!)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">459</th>
+  <td class="line-code diff_in">
+    <pre>            if (io_-&gt;read(buf, 4) != 4) </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">460</th>
+  <td class="line-code diff_in">
+    <pre>            {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">461</th>
+  <td class="line-code diff_in">
+    <pre>                throw Error(3, &quot;Photoshop&quot;); </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">462</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">463</th>
+  <td class="line-code diff_in">
+    <pre>            uint32_t resourceSize = getLong(buf, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">464</th>
+  <td class="line-code diff_in">
+    <pre>            uint32_t curOffset = io_-&gt;tell();</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">465</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">466</th>
+  <td class="line-code diff_in">
+    <pre>            switch(resourceId)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">467</th>
+  <td class="line-code diff_in">
+    <pre>            {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">468</th>
+  <td class="line-code diff_in">
+    <pre>                case kPhotoshopResourceID_IPTC_NAA:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">469</th>
+  <td class="line-code diff_in">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">470</th>
+  <td class="line-code diff_in">
+    <pre>                    resourceSize = (resourceSize + 1) &amp; ~1;    // adjust for padding</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">471</th>
+  <td class="line-code diff_in">
+    <pre>                    break;   // already processed</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">472</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">473</th>
+  <td class="line-code diff_in">
+    <pre>/*</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">474</th>
+  <td class="line-code diff_in">
+    <pre>                case kPhotoshopResourceID_ExifInfo:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">475</th>
+  <td class="line-code diff_in">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">476</th>
+  <td class="line-code diff_in">
+    <pre>                    // TODO: skip here, if exiv2 writes it&#39;s own EXIF data</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">477</th>
+  <td class="line-code diff_in">
+    <pre>                    break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">478</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">479</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">480</th>
+  <td class="line-code diff_in">
+    <pre>                case kPhotoshopResourceID_XMPPacket:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">481</th>
+  <td class="line-code diff_in">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">482</th>
+  <td class="line-code diff_in">
+    <pre>                    // TODO: skip here, if exiv2 writes it&#39;s own XMP data</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">483</th>
+  <td class="line-code diff_in">
+    <pre>                    break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">484</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">485</th>
+  <td class="line-code diff_in">
+    <pre>*/</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">486</th>
+  <td class="line-code diff_in">
+    <pre>                default:</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">487</th>
+  <td class="line-code diff_in">
+    <pre>                {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">488</th>
+  <td class="line-code diff_in">
+    <pre>                    // Copy resource block to new PSD file</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">489</th>
+  <td class="line-code diff_in">
+    <pre>                    ul2Data(buf, kPhotoshopResourceType, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">490</th>
+  <td class="line-code diff_in">
+    <pre>                    if (outIo.write(buf, 4) != 4) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">491</th>
+  <td class="line-code diff_in">
+    <pre>                    us2Data(buf, resourceId, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">492</th>
+  <td class="line-code diff_in">
+    <pre>                    if (outIo.write(buf, 2) != 2) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">493</th>
+  <td class="line-code diff_in">
+    <pre>                    // Write resource name as Pascal string</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">494</th>
+  <td class="line-code diff_in">
+    <pre>                    buf[0] = resourceNameLength &amp; 0x000f;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">495</th>
+  <td class="line-code diff_in">
+    <pre>                    if (outIo.write(buf, 1) != 1) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">496</th>
+  <td class="line-code diff_in">
+    <pre>                    buf[0] = resourceNameFirstChar;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">497</th>
+  <td class="line-code diff_in">
+    <pre>                    if (outIo.write(buf, 1) != 1) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">498</th>
+  <td class="line-code diff_in">
+    <pre>                    if (outIo.write(resName.pData_, adjResourceNameLen) != adjResourceNameLen) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">499</th>
+  <td class="line-code diff_in">
+    <pre>                    ul2Data(buf, resourceSize, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">500</th>
+  <td class="line-code diff_in">
+    <pre>                    if (outIo.write(buf, 4) != 4) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">501</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">502</th>
+  <td class="line-code diff_in">
+    <pre>                    readTotal = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">503</th>
+  <td class="line-code diff_in">
+    <pre>                    toRead = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">504</th>
+  <td class="line-code diff_in">
+    <pre>                    resourceSize = (resourceSize + 1) &amp; ~1;        // pad to even</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">505</th>
+  <td class="line-code diff_in">
+    <pre>                    while (readTotal &lt; resourceSize) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">506</th>
+  <td class="line-code diff_in">
+    <pre>                        toRead = resourceSize - readTotal &lt; lbuf.size_ ? resourceSize - readTotal : lbuf.size_;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">507</th>
+  <td class="line-code diff_in">
+    <pre>                        if (io_-&gt;read(lbuf.pData_, toRead) != toRead)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">508</th>
+  <td class="line-code diff_in">
+    <pre>                        {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">509</th>
+  <td class="line-code diff_in">
+    <pre>                            throw Error(3, &quot;Photoshop&quot;);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">510</th>
+  <td class="line-code diff_in">
+    <pre>                        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">511</th>
+  <td class="line-code diff_in">
+    <pre>                        readTotal += toRead;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">512</th>
+  <td class="line-code diff_in">
+    <pre>                        if (outIo.write(lbuf.pData_, toRead) != toRead) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">513</th>
+  <td class="line-code diff_in">
+    <pre>                    }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">514</th>
+  <td class="line-code diff_in">
+    <pre>                    if (outIo.error()) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">515</th>
+  <td class="line-code diff_in">
+    <pre>                    newResLength += resourceSize + adjResourceNameLen + 12;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">516</th>
+  <td class="line-code diff_in">
+    <pre>                    break;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">517</th>
+  <td class="line-code diff_in">
+    <pre>                }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">518</th>
+  <td class="line-code diff_in">
+    <pre>            }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">519</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">520</th>
+  <td class="line-code diff_in">
+    <pre>            io_-&gt;seek(curOffset + resourceSize, BasicIo::beg);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">521</th>
+  <td class="line-code diff_in">
+    <pre>            oldResLength -= (12 + adjResourceNameLen + resourceSize);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">522</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">523</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">524</th>
+  <td class="line-code diff_in">
+    <pre>        // Copy remaining data</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">525</th>
+  <td class="line-code diff_in">
+    <pre>        long readSize = 0;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">526</th>
+  <td class="line-code diff_in">
+    <pre>        while ((readSize=io_-&gt;read(lbuf.pData_, lbuf.size_))) {</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">527</th>
+  <td class="line-code diff_in">
+    <pre>            if (outIo.write(lbuf.pData_, readSize) != readSize) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">528</th>
+  <td class="line-code diff_in">
+    <pre>        }</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">529</th>
+  <td class="line-code diff_in">
+    <pre>        if (outIo.error()) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">530</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">531</th>
+  <td class="line-code diff_in">
+    <pre>        // Update length of resources</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">532</th>
+  <td class="line-code diff_in">
+    <pre>#ifdef DEBUG</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">533</th>
+  <td class="line-code diff_in">
+    <pre>        std::cerr &lt;&lt; &quot;newResLength: &quot; &lt;&lt; newResLength &lt;&lt; &quot;\n&quot;;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">534</th>
+  <td class="line-code diff_in">
+    <pre>#endif</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">535</th>
+  <td class="line-code diff_in">
+    <pre>        outIo.seek(resLenOffset, BasicIo::beg);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">536</th>
+  <td class="line-code diff_in">
+    <pre>        ul2Data(buf, newResLength, bigEndian);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">537</th>
+  <td class="line-code diff_in">
+    <pre>        if (outIo.write(buf, 4) != 4) throw Error(21);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">538</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">539</th>
+  <td class="line-code diff_in">
+    <pre>    } // PsdImage::doWriteMetadata</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">540</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">541</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">311</th>
+  <th class="line-num">542</th>
+  <td class="line-code ">
+    <pre>    // *************************************************************************</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">312</th>
+  <th class="line-num">543</th>
+  <td class="line-code ">
+    <pre>    // free functions</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">313</th>
+  <th class="line-num">544</th>
+  <td class="line-code ">
+    <pre>    Image::AutoPtr newPsdInstance(BasicIo::AutoPtr io, bool /*create*/)</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      exiv2-0.18/src/psdimage.hpp	2009-01-14 15:00:45.000000000 +0100
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">127</th>
+  <th class="line-num">127</th>
+  <td class="line-code ">
+    <pre>        //! @name Manipulators</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">128</th>
+  <th class="line-num">128</th>
+  <td class="line-code ">
+    <pre>        //@{</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">129</th>
+  <th class="line-num">129</th>
+  <td class="line-code ">
+    <pre>        EXV_DLLLOCAL void processResourceBlock(uint16_t resourceId, uint32_t resourceSize);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">130</th>
+  <td class="line-code diff_in">
+    <pre>        /*!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">131</th>
+  <td class="line-code diff_in">
+    <pre>          @brief Provides the main implementation of writeMetadata() by</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">132</th>
+  <td class="line-code diff_in">
+    <pre>                writing all buffered metadata to the provided BasicIo.</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">133</th>
+  <td class="line-code diff_in">
+    <pre>          @param oIo BasicIo instance to write to (a temporary location).</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">134</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">135</th>
+  <td class="line-code diff_in">
+    <pre>          @return 4 if opening or writing to the associated BasicIo fails</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">136</th>
+  <td class="line-code diff_in">
+    <pre>         */</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">137</th>
+  <td class="line-code diff_in">
+    <pre>        EXV_DLLLOCAL void doWriteMetadata(BasicIo&amp; oIo);</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">130</th>
+  <th class="line-num">138</th>
+  <td class="line-code ">
+    <pre>        //@}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">131</th>
+  <th class="line-num">139</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">132</th>
+  <th class="line-num">140</th>
+  <td class="line-code ">
+    <pre>    }; // class PsdImage</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"></ul><span><span class="items">(1-1/1)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

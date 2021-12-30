@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1123: libexiv2 should hide XMP-SDK symbols - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="tPm0O0LlSG8ohjT2bG11zbtwVATIRpv342zTVKnDJUhWtB/UMJ+Eb33iK/rTunn+hOIAfTmlOk0eTEPc6vrCJw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1123: libexiv2 should hide XMP-SDK symbols" href="https://dev.exiv2.org/issues/1123.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1123</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>libexiv2 should hide XMP-SDK symbols</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 13:01" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago.
+        Updated <a title="06 Dec 2015 21:11" href="/projects/exiv2/activity?from=2015-12-06">almost 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">03 Oct 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">3.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p><a class="external" href="http://dev.exiv2.org/boards/3/topics/2137">http://dev.exiv2.org/boards/3/topics/2137</a></p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1123" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="+iUGA2dkaV3gzcfop4k1XY3u9l3Rxf+FsY0rsLnD3jQYaK3sFR6lXbWp2OQYXjlusnyiJCAmXj9Mrbs4+vo5Ww==" />
+  <table class="list issues odd-even"><tr id="relation-182" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1041" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/1041">Feature #1041</a>: CMake toolchain for windows</td><td class="status">Closed</td><td class="start_date">15 Mar 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1123/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1123&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3975" href="/projects/exiv2/repository/exiv2/revisions/3975">Revision 3975</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3975/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 20:05" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: libexiv2 should hide XMP-SDK symbols (Closed)" href="/issues/1123">#1123</a>.  Hide xmpsdk symbols when building with CMake.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-4315" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 13:45" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4315-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4315-notes" class="wiki"><p>Gilles</p>
+
+
+	<p>Is there a separate copy of xmpsdk linked to your application?  Could Exiv2 be calling your copy of XMPsdk instead of the statically linked version?</p>
+
+
+<pre>Program received signal SIGSEGV, Segmentation fault.
+0x00007ffff78b984b in DngXmpSdk::WXMPMeta_RegisterNamespace_1 (namespaceURI=0x7fffe63ba6d8 "http://ns.adobe.com/lightroom/1.0/", suggestedPrefix=0x7fffe63ba6ce "lr", registeredPrefix=0x7fffffffcf70, prefixSize=0x7fffe63ba6ce, wResult=0xffffffff)
+at /home/gilles/Devel/5.x/core/libs/3rdparty/dngwriter/extra/xmp_sdk/XMPCore/WXMPMeta.cpp:224
+224 XMP_ENTER_WRAPPER ( "WXMPMeta_RegisterNamespace_1" )
+(gdb) bt
+#0 0x00007ffff78b984b in DngXmpSdk::WXMPMeta_RegisterNamespace_1(DngXmpSdk::XMP_StringPtr, DngXmpSdk::XMP_StringPtr, DngXmpSdk::XMP_StringPtr*, DngXmpSdk::XMP_StringLen*, DngXmpSdk::WXMP_Result*) (namespaceURI=0x7fffe63ba6d8 "http://ns.adobe.com/lightroom/1.0/", suggestedPrefix=0x7fffe63ba6ce "lr", registeredPrefix=0x7fffffffcf70, prefixSize=0x7fffe63ba6ce, wResult=0xffffffff) at /home/gilles/Devel/5.x/core/libs/3rdparty/dngwriter/extra/xmp_sdk/XMPCore/WXMPMeta.cpp:224
+#1 0x00007fffe6300a9a in TXMPMeta&lt;std::string&gt;::RegisterNamespace(char const*, char const*) () at /lib/libexiv2.so.14
+#2 0x00007fffe62fccac in Exiv2::XmpParser::initialize(void ()(void, bool), void*) () at /lib/libexiv2.so.14
+#3 0x00007ffff4eacc9f in KExiv2Iface::KExiv2::initializeExiv2() () at /home/gilles/Devel/5.x/extra/libkexiv2/src/kexiv2.cpp:80
+#4 0x0000000000406b98 in main(int, char**) (argc=1, argv=0x7fffffffda68) at /home/gilles/Devel/5.x/core/app/main/main.cpp:99
+(gdb)</pre>
+
+	<p>The reason for my suspicion is the source files:<pre>/home/gilles/Devel/5.x/core/libs/3rdparty/dngwriter/extra/xmp_sdk/XMPCore/WXMPMeta.cpp:224
+Exiv2::XmpParser::initialize(void ()(void, bool), void*) () at /lib/libexiv2.so.14</pre><br />For sure Exiv2 is making a call to XMPsdk RegisterNamespace from src/xmp.cpp#397<pre>    bool XmpParser::initialize(XmpParser::XmpLockFct xmpLockFct, void* pLockData)
+    {
+        if (!initialized_) {
+#ifdef EXV_HAVE_XMP_TOOLKIT
+            xmpLockFct_ = xmpLockFct;
+            pLockData_ = pLockData;
+            initialized_ = SXMPMeta::Initialize();
+            SXMPMeta::RegisterNamespace("http://ns.adobe.com/lightroom/1.0/", "lr");
+....
+}</pre><br />I don't know what the argument prefixSize is about.  Maybe we're calling a different version of XMPsdk that has additional arguments for RegisterNamespace.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4316" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="03 Oct 2015 14:11" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4316-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4316-notes" class="wiki"><p>yes, we have XMPSDK code compiled in digiKam as well, to be able to compile DNGSDK from Adobe.</p>
+
+
+	<p>So the digiKam XMP SDK is internal. We don't use an external XMP Sdk library.</p>
+
+
+	<p>There is no reason to see Exiv2 symbols call XMPS sdk from digiKam core, where Exiv2 has been compiled and linked with a dedicated one.</p>
+
+
+	<p>Note that this happen since 0.25. We have already this kind of code in digiKam, without to see a crash.</p>
+
+
+	<p>Gilles</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4317" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 15:34" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4317-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4317-notes" class="wiki"><p>Did this arrive with v0.25 or more recently on the trunk?   I changed something recently concerning namespaces (<a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: method is missing in Exiv2 to get list of known XMP namespaces (Closed)" href="/issues/640">#640</a>) and may have caused you trouble.  I don't believe I changed any Adobe code.</p>
+
+
+	<p>Can you try with a 'vanilla' v0.25 and let me know.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4318" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="03 Oct 2015 15:52" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4318-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4318-notes" class="wiki"><p>Robin, this is only a Cmake build env issue. All is fine if Exiv2 is compiled with the default configure scripts.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4319" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="03 Oct 2015 16:00" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4319-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4319-notes" class="wiki"><p>Andreas,</p>
+
+
+	<p>As you said previously in forum entry; the visibility compiler options must be passed to compilation rules.</p>
+
+
+	<p>With CMake settings env. var VERBOSE to 1 permit to see all compilation details :</p>
+
+
+	<p>[gilles@localhost build.cmake]$ make<br />/usr/bin/cmake -H/home/gilles/Devel/exiv2 -B/home/gilles/Devel/exiv2/build.cmake --check-build-system CMakeFiles/Makefile.cmake 0<br />/usr/bin/cmake -E cmake_progress_start /home/gilles/Devel/exiv2/build.cmake/CMakeFiles /home/gilles/Devel/exiv2/build.cmake/CMakeFiles/progress.marks<br />make -f CMakeFiles/Makefile2 all<br />make<sup><a href="#fn1">1</a></sup>: Entering directory '/home/gilles/Devel/exiv2/build.cmake'<br />make -f xmpsdk/CMakeFiles/xmp.dir/build.make xmpsdk/CMakeFiles/xmp.dir/depend<br />make<sup><a href="#fn2">2</a></sup>: Entering directory '/home/gilles/Devel/exiv2/build.cmake'<br />cd /home/gilles/Devel/exiv2/build.cmake &#38;&#38; /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/gilles/Devel/exiv2 /home/gilles/Devel/exiv2/xmpsdk /home/gilles/Devel/exiv2/build.cmake /home/gilles/Devel/exiv2/build.cmake/xmpsdk /home/gilles/Devel/exiv2/build.cmake/xmpsdk/CMakeFiles/xmp.dir/DependInfo.cmake --color=<br />make<sup><a href="#fn2">2</a></sup>: Leaving directory '/home/gilles/Devel/exiv2/build.cmake'<br />make -f xmpsdk/CMakeFiles/xmp.dir/build.make xmpsdk/CMakeFiles/xmp.dir/build<br />make<sup><a href="#fn2">2</a></sup>: Entering directory '/home/gilles/Devel/exiv2/build.cmake'<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 88<br />[  1%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/ExpatAdapter.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/ExpatAdapter.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/ExpatAdapter.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 89<br />[  2%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/MD5.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/MD5.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/MD5.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[  2%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/ParseRDF.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/ParseRDF.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/ParseRDF.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 90<br />[  3%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/UnicodeConversions.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/UnicodeConversions.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/UnicodeConversions.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[  3%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/WXMPIterator.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/WXMPIterator.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/WXMPIterator.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 91<br />[  4%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/WXMPMeta.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/WXMPMeta.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/WXMPMeta.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 92<br />[  5%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/WXMPUtils.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/WXMPUtils.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/WXMPUtils.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[  5%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/XML_Node.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/XML_Node.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/XML_Node.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 93<br />[  6%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/XMPCore_Impl.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/XMPCore_Impl.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/XMPCore_Impl.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 94<br />[  7%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/XMPIterator.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/XMPIterator.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/XMPIterator.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[  7%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/XMPMeta-GetSet.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/XMPMeta-GetSet.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/XMPMeta-GetSet.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 95<br />[  8%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/XMPMeta-Parse.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/XMPMeta-Parse.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/XMPMeta-Parse.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 96<br />[  9%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/XMPMeta-Serialize.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/XMPMeta-Serialize.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/XMPMeta-Serialize.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[  9%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/XMPMeta.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/XMPMeta.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/XMPMeta.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 97<br />[ 10%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/XMPUtils-FileInfo.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/XMPUtils-FileInfo.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/XMPUtils-FileInfo.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 98<br />[ 11%] Building CXX object xmpsdk/CMakeFiles/xmp.dir/src/XMPUtils.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/c++   -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include    -fPIC -o CMakeFiles/xmp.dir/src/XMPUtils.cpp.o -c /home/gilles/Devel/exiv2/xmpsdk/src/XMPUtils.cpp<br />Linking CXX static library libxmp.a<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/cmake -P CMakeFiles/xmp.dir/cmake_clean_target.cmake<br />cd /home/gilles/Devel/exiv2/build.cmake/xmpsdk &#38;&#38; /usr/bin/cmake -E cmake_link_script CMakeFiles/xmp.dir/link.txt --verbose=1<br />/usr/bin/ar cr libxmp.a  CMakeFiles/xmp.dir/src/ExpatAdapter.cpp.o CMakeFiles/xmp.dir/src/MD5.cpp.o CMakeFiles/xmp.dir/src/ParseRDF.cpp.o CMakeFiles/xmp.dir/src/UnicodeConversions.cpp.o CMakeFiles/xmp.dir/src/WXMPIterator.cpp.o CMakeFiles/xmp.dir/src/WXMPMeta.cpp.o CMakeFiles/xmp.dir/src/WXMPUtils.cpp.o CMakeFiles/xmp.dir/src/XML_Node.cpp.o CMakeFiles/xmp.dir/src/XMPCore_Impl.cpp.o CMakeFiles/xmp.dir/src/XMPIterator.cpp.o CMakeFiles/xmp.dir/src/XMPMeta-GetSet.cpp.o CMakeFiles/xmp.dir/src/XMPMeta-Parse.cpp.o CMakeFiles/xmp.dir/src/XMPMeta-Serialize.cpp.o CMakeFiles/xmp.dir/src/XMPMeta.cpp.o CMakeFiles/xmp.dir/src/XMPUtils-FileInfo.cpp.o CMakeFiles/xmp.dir/src/XMPUtils.cpp.o<br />/usr/bin/ranlib libxmp.a<br />make<sup><a href="#fn2">2</a></sup>: Leaving directory '/home/gilles/Devel/exiv2/build.cmake'<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles  88 89 90 91 92 93 94 95 96 97 98<br />[ 11%] Built target xmp<br />make -f src/CMakeFiles/exiv2lib.dir/build.make src/CMakeFiles/exiv2lib.dir/depend<br />make<sup><a href="#fn2">2</a></sup>: Entering directory '/home/gilles/Devel/exiv2/build.cmake'<br />cd /home/gilles/Devel/exiv2/build.cmake &#38;&#38; /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/gilles/Devel/exiv2 /home/gilles/Devel/exiv2/src /home/gilles/Devel/exiv2/build.cmake /home/gilles/Devel/exiv2/build.cmake/src /home/gilles/Devel/exiv2/build.cmake/src/CMakeFiles/exiv2lib.dir/DependInfo.cmake --color=<br />make<sup><a href="#fn2">2</a></sup>: Leaving directory '/home/gilles/Devel/exiv2/build.cmake'<br />make -f src/CMakeFiles/exiv2lib.dir/build.make src/CMakeFiles/exiv2lib.dir/build<br />make<sup><a href="#fn2">2</a></sup>: Entering directory '/home/gilles/Devel/exiv2/build.cmake'<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 11%] Building CXX object src/CMakeFiles/exiv2lib.dir/asfvideo.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/asfvideo.cpp.o -c /home/gilles/Devel/exiv2/src/asfvideo.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 10<br />[ 12%] Building CXX object src/CMakeFiles/exiv2lib.dir/basicio.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/basicio.cpp.o -c /home/gilles/Devel/exiv2/src/basicio.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 12%] Building CXX object src/CMakeFiles/exiv2lib.dir/bmpimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/bmpimage.cpp.o -c /home/gilles/Devel/exiv2/src/bmpimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 11<br />[ 13%] Building CXX object src/CMakeFiles/exiv2lib.dir/canonmn.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/canonmn.cpp.o -c /home/gilles/Devel/exiv2/src/canonmn.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 12<br />[ 14%] Building CXX object src/CMakeFiles/exiv2lib.dir/casiomn.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/casiomn.cpp.o -c /home/gilles/Devel/exiv2/src/casiomn.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 14%] Building CXX object src/CMakeFiles/exiv2lib.dir/convert.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/convert.cpp.o -c /home/gilles/Devel/exiv2/src/convert.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 13<br />[ 15%] Building CXX object src/CMakeFiles/exiv2lib.dir/cr2image.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/cr2image.cpp.o -c /home/gilles/Devel/exiv2/src/cr2image.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 14<br />[ 16%] Building CXX object src/CMakeFiles/exiv2lib.dir/crwedit.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/crwedit.cpp.o -c /home/gilles/Devel/exiv2/src/crwedit.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 16%] Building CXX object src/CMakeFiles/exiv2lib.dir/crwimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/crwimage.cpp.o -c /home/gilles/Devel/exiv2/src/crwimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 15<br />[ 17%] Building CXX object src/CMakeFiles/exiv2lib.dir/datasets.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/datasets.cpp.o -c /home/gilles/Devel/exiv2/src/datasets.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 16<br />[ 18%] Building CXX object src/CMakeFiles/exiv2lib.dir/easyaccess.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/easyaccess.cpp.o -c /home/gilles/Devel/exiv2/src/easyaccess.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 18%] Building CXX object src/CMakeFiles/exiv2lib.dir/epsimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/epsimage.cpp.o -c /home/gilles/Devel/exiv2/src/epsimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 17<br />[ 19%] Building CXX object src/CMakeFiles/exiv2lib.dir/error.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/error.cpp.o -c /home/gilles/Devel/exiv2/src/error.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 18<br />[ 20%] Building CXX object src/CMakeFiles/exiv2lib.dir/exif.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/exif.cpp.o -c /home/gilles/Devel/exiv2/src/exif.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 20%] Building CXX object src/CMakeFiles/exiv2lib.dir/futils.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/futils.cpp.o -c /home/gilles/Devel/exiv2/src/futils.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 19<br />[ 21%] Building CXX object src/CMakeFiles/exiv2lib.dir/fujimn.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/fujimn.cpp.o -c /home/gilles/Devel/exiv2/src/fujimn.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 20<br />[ 22%] Building CXX object src/CMakeFiles/exiv2lib.dir/gifimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/gifimage.cpp.o -c /home/gilles/Devel/exiv2/src/gifimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 22%] Building CXX object src/CMakeFiles/exiv2lib.dir/http.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/http.cpp.o -c /home/gilles/Devel/exiv2/src/http.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 21<br />[ 23%] Building CXX object src/CMakeFiles/exiv2lib.dir/image.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/image.cpp.o -c /home/gilles/Devel/exiv2/src/image.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 23%] Building CXX object src/CMakeFiles/exiv2lib.dir/iptc.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/iptc.cpp.o -c /home/gilles/Devel/exiv2/src/iptc.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 22<br />[ 24%] Building CXX object src/CMakeFiles/exiv2lib.dir/jp2image.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/jp2image.cpp.o -c /home/gilles/Devel/exiv2/src/jp2image.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 23<br />[ 25%] Building CXX object src/CMakeFiles/exiv2lib.dir/jpgimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/jpgimage.cpp.o -c /home/gilles/Devel/exiv2/src/jpgimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 25%] Building CXX object src/CMakeFiles/exiv2lib.dir/makernote.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/makernote.cpp.o -c /home/gilles/Devel/exiv2/src/makernote.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 24<br />[ 26%] Building CXX object src/CMakeFiles/exiv2lib.dir/matroskavideo.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/matroskavideo.cpp.o -c /home/gilles/Devel/exiv2/src/matroskavideo.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 25<br />[ 27%] Building CXX object src/CMakeFiles/exiv2lib.dir/metadatum.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/metadatum.cpp.o -c /home/gilles/Devel/exiv2/src/metadatum.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 27%] Building CXX object src/CMakeFiles/exiv2lib.dir/minoltamn.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/minoltamn.cpp.o -c /home/gilles/Devel/exiv2/src/minoltamn.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 26<br />[ 28%] Building CXX object src/CMakeFiles/exiv2lib.dir/mrwimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/mrwimage.cpp.o -c /home/gilles/Devel/exiv2/src/mrwimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 27<br />[ 29%] Building CXX object src/CMakeFiles/exiv2lib.dir/nikonmn.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/nikonmn.cpp.o -c /home/gilles/Devel/exiv2/src/nikonmn.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 29%] Building CXX object src/CMakeFiles/exiv2lib.dir/olympusmn.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/olympusmn.cpp.o -c /home/gilles/Devel/exiv2/src/olympusmn.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 28<br />[ 30%] Building CXX object src/CMakeFiles/exiv2lib.dir/orfimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/orfimage.cpp.o -c /home/gilles/Devel/exiv2/src/orfimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 29<br />[ 31%] Building CXX object src/CMakeFiles/exiv2lib.dir/panasonicmn.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/panasonicmn.cpp.o -c /home/gilles/Devel/exiv2/src/panasonicmn.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 31%] Building CXX object src/CMakeFiles/exiv2lib.dir/pentaxmn.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/pentaxmn.cpp.o -c /home/gilles/Devel/exiv2/src/pentaxmn.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 30<br />[ 32%] Building CXX object src/CMakeFiles/exiv2lib.dir/pgfimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/pgfimage.cpp.o -c /home/gilles/Devel/exiv2/src/pgfimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 32%] Building CXX object src/CMakeFiles/exiv2lib.dir/preview.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/preview.cpp.o -c /home/gilles/Devel/exiv2/src/preview.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 31<br />[ 33%] Building CXX object src/CMakeFiles/exiv2lib.dir/properties.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/properties.cpp.o -c /home/gilles/Devel/exiv2/src/properties.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 32<br />[ 34%] Building CXX object src/CMakeFiles/exiv2lib.dir/psdimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/psdimage.cpp.o -c /home/gilles/Devel/exiv2/src/psdimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 34%] Building CXX object src/CMakeFiles/exiv2lib.dir/quicktimevideo.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/quicktimevideo.cpp.o -c /home/gilles/Devel/exiv2/src/quicktimevideo.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 33<br />[ 35%] Building CXX object src/CMakeFiles/exiv2lib.dir/rafimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/rafimage.cpp.o -c /home/gilles/Devel/exiv2/src/rafimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 34<br />[ 36%] Building CXX object src/CMakeFiles/exiv2lib.dir/riffvideo.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/riffvideo.cpp.o -c /home/gilles/Devel/exiv2/src/riffvideo.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 36%] Building CXX object src/CMakeFiles/exiv2lib.dir/rw2image.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/rw2image.cpp.o -c /home/gilles/Devel/exiv2/src/rw2image.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 35<br />[ 37%] Building CXX object src/CMakeFiles/exiv2lib.dir/samsungmn.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/samsungmn.cpp.o -c /home/gilles/Devel/exiv2/src/samsungmn.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 36<br />[ 38%] Building CXX object src/CMakeFiles/exiv2lib.dir/sigmamn.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/sigmamn.cpp.o -c /home/gilles/Devel/exiv2/src/sigmamn.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 38%] Building CXX object src/CMakeFiles/exiv2lib.dir/sonymn.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/sonymn.cpp.o -c /home/gilles/Devel/exiv2/src/sonymn.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 37<br />[ 39%] Building CXX object src/CMakeFiles/exiv2lib.dir/tags.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/tags.cpp.o -c /home/gilles/Devel/exiv2/src/tags.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 38<br />[ 40%] Building CXX object src/CMakeFiles/exiv2lib.dir/tgaimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/tgaimage.cpp.o -c /home/gilles/Devel/exiv2/src/tgaimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 40%] Building CXX object src/CMakeFiles/exiv2lib.dir/tiffcomposite.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/tiffcomposite.cpp.o -c /home/gilles/Devel/exiv2/src/tiffcomposite.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 39<br />[ 41%] Building CXX object src/CMakeFiles/exiv2lib.dir/tiffimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/tiffimage.cpp.o -c /home/gilles/Devel/exiv2/src/tiffimage.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 40<br />[ 42%] Building CXX object src/CMakeFiles/exiv2lib.dir/tiffvisitor.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/tiffvisitor.cpp.o -c /home/gilles/Devel/exiv2/src/tiffvisitor.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 42%] Building CXX object src/CMakeFiles/exiv2lib.dir/types.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/types.cpp.o -c /home/gilles/Devel/exiv2/src/types.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 41<br />[ 43%] Building CXX object src/CMakeFiles/exiv2lib.dir/utilsvideo.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/utilsvideo.cpp.o -c /home/gilles/Devel/exiv2/src/utilsvideo.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 43%] Building CXX object src/CMakeFiles/exiv2lib.dir/value.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/value.cpp.o -c /home/gilles/Devel/exiv2/src/value.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 42<br />[ 44%] Building CXX object src/CMakeFiles/exiv2lib.dir/version.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/version.cpp.o -c /home/gilles/Devel/exiv2/src/version.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 43<br />[ 45%] Building CXX object src/CMakeFiles/exiv2lib.dir/xmp.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/xmp.cpp.o -c /home/gilles/Devel/exiv2/src/xmp.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 45%] Building CXX object src/CMakeFiles/exiv2lib.dir/xmpsidecar.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/xmpsidecar.cpp.o -c /home/gilles/Devel/exiv2/src/xmpsidecar.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 44<br />[ 46%] Building CXX object src/CMakeFiles/exiv2lib.dir/ssh.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/ssh.cpp.o -c /home/gilles/Devel/exiv2/src/ssh.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles 45<br />[ 47%] Building CXX object src/CMakeFiles/exiv2lib.dir/pngchunk.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/pngchunk.cpp.o -c /home/gilles/Devel/exiv2/src/pngchunk.cpp<br />/usr/bin/cmake -E cmake_progress_report /home/gilles/Devel/exiv2/build.cmake/CMakeFiles <br />[ 47%] Building CXX object src/CMakeFiles/exiv2lib.dir/pngimage.cpp.o<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/c++   -DEXV_BUILDING_LIB -DEXV_HAVE_DLL -DEXV_HAVE_STDINT_H -DEXV_LOCALEDIR=\"/usr/share/locale\" -fPIC -I/home/gilles/Devel/exiv2/src -I/home/gilles/Devel/exiv2/include -I/home/gilles/Devel/exiv2/include/exiv2 -I/home/gilles/Devel/exiv2/build.cmake -I/home/gilles/Devel/exiv2/xmpsdk/include -I/home/gilles/Devel/exiv2/build.cmake/src    -o CMakeFiles/exiv2lib.dir/pngimage.cpp.o -c /home/gilles/Devel/exiv2/src/pngimage.cpp<br />Linking CXX shared library libexiv2.so</p>
+
+
+	<p>==> as i can see, there is no visibility option passed to compiler...</p>
+
+
+	<p>Gilles</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4320" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="03 Oct 2015 16:40" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4320-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4320-notes" class="wiki"><p>A quick hack to add visibility compiler options can be done as below :</p>
+
+
+	<p>Index: config/CMakeChecks.txt
+===================================================================<br />--- config/CMakeChecks.txt      (revision 3973)<br />+++ config/CMakeChecks.txt      (working copy)<br /><code>@ -36,7 +36,16 </code>@<br /> <abbr title=" CheckSymbolExists ">INCLUDE</abbr><br /> <abbr title=" CheckCSourceCompiles ">INCLUDE</abbr><br /> <abbr title=" CheckCXXSourceCompiles ">INCLUDE</abbr><br />+<abbr title=" CheckCXXCompilerFlag ">INCLUDE</abbr></p>
+
+
+	<p><ins><abbr title=" CMAKE_COMPILER_IS_GNUCXX ">IF</abbr><br /></ins><br />+    IF ( NOT WIN32 )<br />+        add_definitions( -fvisibility=hidden -fvisibility-inlines-hidden )<br />+    <abbr title=" NOT WIN32 ">ENDIF</abbr><br /><ins><br />+<abbr title="CMAKE_COMPILER_IS_GNUCXX">ENDIF</abbr><br /></ins><br /> <abbr title=" FindIconv ">INCLUDE</abbr></p>
+	<pre><code>SET( STDC_HEADERS ON )</code></pre>
+
+
+	<p>This introduce severe problems about exported symbols from library (which compile fine) with CLI tools...</p>
+
+
+	<p>Linking CXX executable ../bin/conntest<br />cd /home/gilles/Devel/exiv2/build.cmake/src &#38;&#38; /usr/bin/cmake -E cmake_link_script CMakeFiles/conntest.dir/link.txt --verbose=0<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `httpcon(std::string const&#38;, bool)':<br />conntest.cpp:(.text+0x5c): undefined reference to `Exiv2::Uri::Parse(std::string const&#38;)'<br />conntest.cpp:(.text+0x6b): undefined reference to `Exiv2::Uri::Decode(Exiv2::Uri&#38;)'<br />conntest.cpp:(.text+0x22a): undefined reference to `Exiv2::http(std::map&lt;std::string, std::string, std::less&lt;std::string&gt;, std::allocator&lt;std::pair&lt;std::string const, std::string&gt; > >&#38;, std::map&lt;std::string, std::string, std::less&lt;std::string&gt;, std::allocator&lt;std::pair&lt;std::string const, std::string&gt; > >&#38;, std::string&#38;)'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `curlcon(std::string const&#38;, bool)':<br />conntest.cpp:(.text+0x439): undefined reference to `Exiv2::getEnv(Exiv2::EnVar)'<br />conntest.cpp:(.text+0x4c3): undefined reference to `Exiv2::curlWriter(char*, unsigned long, unsigned long, std::string*)'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `sshcon(std::string const&#38;)':<br />conntest.cpp:(.text+0x708): undefined reference to `Exiv2::Uri::Parse(std::string const&#38;)'<br />conntest.cpp:(.text+0x717): undefined reference to `Exiv2::Uri::Decode(Exiv2::Uri&#38;)'<br />conntest.cpp:(.text+0x7da): undefined reference to `Exiv2::SSH::<abbr title="std::string const&#38;, std::string const&#38;, std::string const&#38;, std::string">SSH</abbr>'<br />conntest.cpp:(.text+0x866): undefined reference to `Exiv2::SSH::runCommand(std::string const&#38;, std::string*)'<br />conntest.cpp:(.text+0x917): undefined reference to `Exiv2::SSH::~<abbr title="">SSH</abbr>'<br />conntest.cpp:(.text+0x971): undefined reference to `Exiv2::SSH::~<abbr title="">SSH</abbr>'<br />conntest.cpp:(.text+0x9fd): undefined reference to `Exiv2::SSH::~<abbr title="">SSH</abbr>'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `sftpcon(std::string const&#38;)':<br />conntest.cpp:(.text+0xa64): undefined reference to `Exiv2::Uri::Parse(std::string const&#38;)'<br />conntest.cpp:(.text+0xa70): undefined reference to `Exiv2::Uri::Decode(Exiv2::Uri&#38;)'<br />conntest.cpp:(.text+0xb24): undefined reference to `Exiv2::SSH::<abbr title="std::string const&#38;, std::string const&#38;, std::string const&#38;, std::string">SSH</abbr>'<br />conntest.cpp:(.text+0xb4a): undefined reference to `Exiv2::SSH::getFileSftp(std::string const&#38;, sftp_file_struct*&#38;)'<br />conntest.cpp:(.text+0xb9f): undefined reference to `Exiv2::SSH::~<abbr title="">SSH</abbr>'<br />conntest.cpp:(.text+0xbf0): undefined reference to `Exiv2::SSH::~<abbr title="">SSH</abbr>'<br />conntest.cpp:(.text+0xc14): undefined reference to `Exiv2::SSH::~<abbr title="">SSH</abbr>'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `main':<br />conntest.cpp:(.text+0xcea): undefined reference to `Exiv2::fileProtocol(std::string const&#38;)'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o:(.gcc_except_table+0x200): undefined reference to `typeinfo for Exiv2::AnyError'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `Exiv2::AnyError::AnyError()':<br />conntest.cpp:(.text._ZN5Exiv28AnyErrorC2Ev[_ZN5Exiv28AnyErrorC5Ev]+0x1f): undefined reference to `vtable for Exiv2::AnyError'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `Exiv2::BasicError&lt;char&gt;::BasicError&lt;char [7], int&gt;(int, char const (&#38;) [7], int const&#38;)':<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA7_ciEEiRKT_RKT0_[_ZN5Exiv210BasicErrorIcEC5IA7_ciEEiRKT_RKT0_]+0x9a): undefined reference to `Exiv2::BasicError&lt;char&gt;::setMsg()'<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA7_ciEEiRKT_RKT0_[_ZN5Exiv210BasicErrorIcEC5IA7_ciEEiRKT_RKT0_]+0xff): undefined reference to `Exiv2::AnyError::~AnyError()'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `Exiv2::BasicError&lt;char&gt;::~BasicError()':<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcED2Ev[_ZN5Exiv210BasicErrorIcED5Ev]+0x62): undefined reference to `Exiv2::AnyError::~AnyError()'<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcED2Ev[_ZN5Exiv210BasicErrorIcED5Ev]+0xd7): undefined reference to `Exiv2::AnyError::~AnyError()'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `Exiv2::BasicError&lt;char&gt;::BasicError&lt;char [23]&gt;(int, char const (&#38;) [23])':<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA23_cEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IA23_cEEiRKT_]+0x8f): undefined reference to `Exiv2::BasicError&lt;char&gt;::setMsg()'<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA23_cEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IA23_cEEiRKT_]+0xf4): undefined reference to `Exiv2::AnyError::~AnyError()'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `Exiv2::BasicError&lt;char&gt;::BasicError&lt;char [59]&gt;(int, char const (&#38;) [59])':<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA59_cEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IA59_cEEiRKT_]+0x8f): undefined reference to `Exiv2::BasicError&lt;char&gt;::setMsg()'<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA59_cEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IA59_cEEiRKT_]+0xf4): undefined reference to `Exiv2::AnyError::~AnyError()'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `Exiv2::BasicError&lt;char&gt;::BasicError&lt;char const*&gt;(int, char const* const&#38;)':<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IPKcEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IPKcEEiRKT_]+0x8f): undefined reference to `Exiv2::BasicError&lt;char&gt;::setMsg()'<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IPKcEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IPKcEEiRKT_]+0xf4): undefined reference to `Exiv2::AnyError::~AnyError()'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `Exiv2::BasicError&lt;char&gt;::BasicError&lt;char [7], long&gt;(int, char const (&#38;) [7], long const&#38;)':<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA7_clEEiRKT_RKT0_[_ZN5Exiv210BasicErrorIcEC5IA7_clEEiRKT_RKT0_]+0x9a): undefined reference to `Exiv2::BasicError&lt;char&gt;::setMsg()'<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA7_clEEiRKT_RKT0_[_ZN5Exiv210BasicErrorIcEC5IA7_clEEiRKT_RKT0_]+0xff): undefined reference to `Exiv2::AnyError::~AnyError()'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `Exiv2::BasicError&lt;char&gt;::BasicError&lt;char [27]&gt;(int, char const (&#38;) [27])':<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA27_cEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IA27_cEEiRKT_]+0x8f): undefined reference to `Exiv2::BasicError&lt;char&gt;::setMsg()'<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA27_cEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IA27_cEEiRKT_]+0xf4): undefined reference to `Exiv2::AnyError::~AnyError()'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `Exiv2::BasicError&lt;char&gt;::BasicError&lt;char [28]&gt;(int, char const (&#38;) [28])':<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA28_cEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IA28_cEEiRKT_]+0x8f): undefined reference to `Exiv2::BasicError&lt;char&gt;::setMsg()'<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA28_cEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IA28_cEEiRKT_]+0xf4): undefined reference to `Exiv2::AnyError::~AnyError()'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o: In function `Exiv2::BasicError&lt;char&gt;::BasicError&lt;char [24]&gt;(int, char const (&#38;) [24])':<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA24_cEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IA24_cEEiRKT_]+0x8f): undefined reference to `Exiv2::BasicError&lt;char&gt;::setMsg()'<br />conntest.cpp:(.text._ZN5Exiv210BasicErrorIcEC2IA24_cEEiRKT_[_ZN5Exiv210BasicErrorIcEC5IA24_cEEiRKT_]+0xf4): undefined reference to `Exiv2::AnyError::~AnyError()'<br />CMakeFiles/conntest.dir/__/samples/conntest.cpp.o:(.rodata._ZTIN5Exiv210BasicErrorIcEE[_ZTIN5Exiv210BasicErrorIcEE]+0x10): undefined reference to `typeinfo for Exiv2::AnyError'<br />collect2: error: ld returned 1 exit status<br />src/CMakeFiles/conntest.dir/build.make:88: recipe for target 'bin/conntest' failed<br />make<sup><a href="#fn2">2</a></sup>: <b>* [bin/conntest] Error 1<br />make<sup><a href="#fn2">2</a></sup>: Leaving directory '/home/gilles/Devel/exiv2/build.cmake'<br />CMakeFiles/Makefile2:348: recipe for target 'src/CMakeFiles/conntest.dir/all' failed<br />make<sup><a href="#fn1">1</a></sup>: <strong></b> [src/CMakeFiles/conntest.dir/all] Error 2<br />make<sup><a href="#fn1">1</a></sup>: Leaving directory '/home/gilles/Devel/exiv2/build.cmake'<br />Makefile:117: recipe for target 'all' failed<br />make: *</strong>* [all] Error 2</p>
+
+
+	<p>After to see in-deep into the library source code, i see that cmake become a mess...</p>
+
+
+	<p>Also configurations about visibility is dispatched into 3 files. Serious !!!</p>
+
+
+	<p>config.h.in     // automake file that it will set at configure time<br />config.h.cmake  // cmake file that it will set at configure time<br />exv_conf.h      // ???</p>
+
+
+	<p>How it can be maintained as well...</p>
+
+
+	<p>I'm sure that i don't do it few years ago when i port Exiv2 to Cmake. I'm sure that visibility work fine with Cmake.</p>
+
+
+	<p>My recommendation is : if Cmake will not be maintained well in parallel than automake/autoconf, and i can understand this as i maintain a lots of opensource code since a while, included shared libs, well drop it. Do not lets the library in this situation.</p>
+
+
+	<p>Also Cmake is not adapted to port Exiv2 under Windows as i can see. A lots of VC++ projects exists, where typically Cmake can replace it as well in all situations. I do it with all my projects for Unix, OSX and Windows, and it's not small libs/implementations as Exiv2.</p>
+
+
+	<p>I prefer to see a library well maintained using a single compilation frameworks as automake instead an unstable stage.</p>
+
+
+	<p>But it's just my poor viewpoint/experience. I let's you to decide. In all case, my time to maintain the CMake code is not enough...</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4321" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 16:48" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4321-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4321-notes" class="wiki"><p>Gilles:<br />Can you try your <em>add_definitions( -fvisibility=hidden -fvisibility-inlines-hidden )</em> code in exiv2/xmpsdk/CMakeLists.txt please?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4322" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="03 Oct 2015 16:55" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4322-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4322-notes" class="wiki"><p>Patching config/CMakeChecks.txt add visibility to whole project... No need to patch XMP stuff.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4323" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 17:01" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4323-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4323-notes" class="wiki"><p>Well, I tried this and it links and passes the test suite on the Mac.<pre>777 rmills@rmillsmbp:~/gnu/exiv2/trunk $ svn diff
+Index: xmpsdk/CMakeLists.txt
+===================================================================
+--- xmpsdk/CMakeLists.txt    (revision 3974)
++++ xmpsdk/CMakeLists.txt    (working copy)
+@@ -28,5 +28,9 @@
+     INSTALL(TARGETS xmp ${INSTALL_TARGET_STANDARD_ARGS} )
+ ENDIF()
+
++if(NOT MSVC)
++    add_definitions( -fvisibility=hidden -fvisibility-inlines-hidden )
++endif()
++
+ # That's all Folks!
+ ##
+778 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>The Clang linker produced 400 warnings like this:<pre>ld: warning: direct access in XMPUtils::DuplicateSubtree(XMPMeta const&#38;, XMPMeta*, char const*, char const*, char const*, char const*, unsigned long) to global weak symbol typeinfo for XMP_Error means the weak symbol cannot be overridden at runtime. This was likely caused by different translation units being compiled with different visibility settings.</pre>I suspect there's a switch to calm his fears.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4324" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 17:11" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4324-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4324-notes" class="wiki"><p>Gilles</p>
+
+
+	<p>I share your concerns about our build environment.  I have put effort into trying to get CMake/Visual Studio to work.  For the moment, I consider our build environments to be:</p>
+
+
+	<p>1 autotools/autoconf for *nix systems (Mac, Linux, Cygwin, MinGW)<br />2 msvc2005 for Visual Studio 2005/8/10/12/13/15</p>
+
+
+	<p>Our build server uses these to build and run the test suite on every submission to trunk and selected branches.</p>
+
+
+	<p>We should have one build environment that works for everybody.  However, I have been unable to achieve this.  I wish somebody would take on the challenge of CMake/Visual Studio.  I will help them, encourage them and CHEER when they succeed.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4325" class="journal has-notes">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="03 Oct 2015 17:19" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4325-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4325-notes" class="wiki"><p>Well, you must to be clear everywhere.</p>
+
+
+	<p>Annotate that CMake still experimental/incomplete/bugous and that only automake/autoconf must be used under Unix for production purpose...</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4326" class="journal has-notes">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 18:23" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4326-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4326-notes" class="wiki"><p>The File README-CMAKE is quite explicit:<pre>-------------------------------------------------------------------------------
+NOTE: 
+
+* CMake scripts are "work in progress".
+  Use them only if you're prepared to fix them.
+  See TODO-CMAKE for known pending tasks. 
+
+* The existing automake (./configure), msvc2003 and msvc2005 build files will continue
+  to be supported by exiv2 until at least v0.26.
+  We will flag them as "deprecated" for at least one release cycle (about 12 months).
+  Our plan is to only support CMake when our scripts are feature-complete, stable and documented.
+
+  All help is appreciated.  If you know and understand CMake (especially with Visual Studio)
+  please consider contributing your time and skill to help Exiv2 and CMake work well together.
+
+Robin Mills
+robin@clanmills.com
+2015-02-23</pre>Now here are the issues with CMake/Visual Studio:</p>
+
+
+	<p>1 It cannot build curl<br />2 It cannot build openssl<br />3 It cannot build expat (without a change to expat's CMakeLists.txt)<br />4 There are many things about the generated project files which are not "the windows way".  For example, CMake cannot generate a project file in which x86/x64 are build options.  I don't think Visual Studio users will like the project files.</p>
+
+
+	<p>Our msvc2005 build environment works well on all versions of Visual Studio 2005 and up.  We have a distinct environment for msvc2003.</p>
+
+
+	<p>If Andreas agrees, we can announce with v0.26 that autotools (and msvc2003) will no longer be supported from v0.27 forward.  I'll be happy to adopt CMake as our default build environment on the build server (for Mac/Linux/Cygwin/MinGW with GCC or Clang).   However msvc2005 will remain our supported build environment for Visual Studio.</p>
+
+
+	<p>If a volunteer arrives to fix and support CMake/Visual Studio, we can consider deprecating msvc2005.  However while CMake appears unable to build dependent libraries,  we must keep msvc2005 for Visual Studio.</p>
+
+
+	<p>I had a very nice conversation last week on <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: CMake toolchain for windows (Closed)" href="/issues/1041">#1041</a> with Emmanuel d'Angelo and T Modes.  They are both optimistic of success.  I have added them (and Daniel) as watchers to this thread.</p>
+
+
+	<p>Please understand that I support the aim that CMake will be our primary build environment.  I have been unable to find a reliable working solution.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4327" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 18:42" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4327-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4327-notes" class="wiki"><p>I've just discovered that CMake cannot build libssh either.<pre>C:\cygwin64\home\rmills\gnu\libssh\build&gt;cm 2005 64 ..\libssh-0.5.5
+cmake CMakeLists.txt -G "Visual Studio 8 2005 Win64"  ..\libssh-0.5.5
+-- The C compiler identification is MSVC 14.0.50727
+-- Check for working C compiler using: Visual Studio 8 2005 Win64
+-- Check for working C compiler using: Visual Studio 8 2005 Win64 -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+CMake Error at C:/Program Files (x86)/CMake/share/cmake-3.3/Modules/FindPackageHandleStandardArgs.cmake:148 (message):
+  Could NOT find ZLIB (missing: ZLIB_LIBRARY)
+Call Stack (most recent call first):
+  C:/Program Files (x86)/CMake/share/cmake-3.3/Modules/FindPackageHandleStandardArgs.cmake:388 (_FPHSA_FAILURE_MESSAGE)
+  cmake/Modules/FindZLIB.cmake:111 (find_package_handle_standard_args)
+  CMakeLists.txt:48 (find_package)
+-- Configuring incomplete, errors occurred!
+See also "C:/cygwin64/home/rmills/gnu/libssh/build/CMakeFiles/CMakeOutput.log".</pre>Ah, well of course, we don't have zlib.  But we have.  I generated the projects with zlib-1.2.8 and they build OK and installed correctly:<pre> Directory of C:\Program Files\zlib\lib
+
+10/03/2015  07:36 PM    &lt;DIR&gt;          .
+10/03/2015  07:36 PM    &lt;DIR&gt;          ..
+09/26/2015  07:19 PM            14,392 zlib.lib
+10/03/2015  07:36 PM            14,886 zlibd.lib
+09/26/2015  07:19 PM           170,636 zlibstatic.lib
+10/03/2015  07:36 PM           273,878 zlibstaticd.lib
+</pre>Presumably, FindZLIB.cmake doesn't know where Visual Studio installed zlib.  And please notice that 32 bit libraries would overwrite 64 bit libraries.  And probably static/shared debug/release.</p>
+
+
+	<p>Is this an unfixable issue?  Of course not.  We have to wait for CMake/Visual Studio to get to "production strength" before we can adopt this as our primary build platform.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4328" class="journal has-notes has-details">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Oct 2015 20:20" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4328-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>3.00 h</i></li>
+    </ul>
+    <div id="journal-4328-notes" class="wiki"><p>Fix submitted <a class="changeset" title="#1123.  Hide xmpsdk symbols when building with CMake." href="/projects/exiv2/repository/exiv2/revisions/3975">r3975</a> to set the compiler flags <em>-fvisibility=hidden -fvisibility-inlines-hidden</em> for CMake using GCC or Clang.  Not set for Clang on Mac as this causes linker warnings.</p>
+
+
+	<p>Successfully built and passed the test suite on the build server:  <a class="external" href="http://exiv2.dyndns.org:8080/job/Exiv2-trunk/2174/">http://exiv2.dyndns.org:8080/job/Exiv2-trunk/2174/</a>  I've also successfully built/tested manually with CMake on Mac (AppleClang) /Linux (GCC and Clang) /Cygwin (GCC)</p>
+
+
+	<p>If we wish to continue the discussion about CMake/Visual Studio, lets continue in <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: CMake toolchain for windows (Closed)" href="/issues/1041">#1041</a>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4329" class="journal has-notes">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="03 Oct 2015 20:53" href="/projects/exiv2/activity?from=2015-10-03">about 6 years</a> ago
+      <span id="journal-4329-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4329-notes" class="wiki"><p>Just to confirm : Exiv2 0.25, compiled with automake => digiKam do not crash. So it's really a problem with cmake, not automake from Exiv2 side.</p>
+
+
+	<p>I can check with current implementation from svn/trunk if somebody can explain how to create configure script with autoconf. It's not explained in Exiv2 readme.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4330" class="journal has-notes">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Oct 2015 07:39" href="/projects/exiv2/activity?from=2015-10-04">about 6 years</a> ago
+      <span id="journal-4330-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4330-notes" class="wiki"><p>Gilles</p>
+
+
+	<p>Can you try CMake/trunk please?  I submitted a change <a class="changeset" title="#1123.  Hide xmpsdk symbols when building with CMake." href="/projects/exiv2/repository/exiv2/revisions/3975">r3975</a> which might fix things.</p>
+
+
+	<p>If CMake/trunk is still not right, you can use:<pre>  $ cd &lt;exiv2dir&gt;  
+  $ make config             # generate the configure script with autoconf
+  $ ./configure             # configure for your system
+  $ make -j                 # make
+  $ sudo make install 
+  $ make -j samples         # make the sample applications
+  $ make tests              # run the test suite</pre></p>
+
+
+	<p>The build procedure is documented in README:<pre>Building and Installing
+=======================
+
+You can build the libraries in the following ways:
+
+1 UNIX-like systems (including GNU/Linux, Mac OS X, Cygwin, MinGW)
+  - general notes follow
+  - FAQ concerning Cygwin/MSYS and Mac OS X:
+    http://dev.exiv2.org/projects/exiv2/wiki/FAQ
+
+2 Microsoft Visual C++
+  - see msvc2003/ReadMe.txt      (32bit build           Visual Studio/2003,2005,2008)
+  - see msvc2005/ReadMe.txt      (32bit and 64bit build Visual Studio/     2005,2008,2010,2012,2013,2015)
+
+3 CMake (experimental support for cmake on all platforms)
+  - see README-CMAKE for more information
+
+To build a commercial version of the Exiv2 library, see also section
+"Commercial version" at the end of this file.
+
+On UNIX-like systems, use the GNU configure script. Run the following
+commands from the top directory (containing this file) to configure,
+build and install the library and utility:
+
+    $ ./configure
+    $ make
+    $ sudo make install
+
+If you downloaded the source code from the subversion repository, you
+won't have a configure script. Run 'make config' to generate it and see
+the section "Hacking" below.
+
+The default install locations are /usr/local/lib for the library,
+/usr/local/bin for the exiv2 utility and /usr/local/include/exiv2 for the
+header files. Use the --prefix=directory option of the configure script to
+change the default. Run './configure --help' to see a list of all options.
+
+To uninstall Exiv2 from a UNIX-like system, run:
+
+    $ make uninstall</pre>And there are notes on the Wiki:  <a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/How_do_I_build_Exiv2_on_the_XYZ_platform">http://dev.exiv2.org/projects/exiv2/wiki/How_do_I_build_Exiv2_on_the_XYZ_platform</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4331" class="journal has-notes">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="04 Oct 2015 09:50" href="/projects/exiv2/activity?from=2015-10-04">about 6 years</a> ago
+      <span id="journal-4331-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4331-notes" class="wiki"><p>Bad new...</p>
+
+
+	<p>Exiv2 from svn trunk, compiled with automake/autoconf crash digiKam at startup, with exactly the same backtrace than before.</p>
+
+
+	<p>Note that Exiv2 0.25 offcial tarball, compiled in same condition do not crash digiKam.</p>
+
+
+	<p>So, something weird have been introduced in current implementation...</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4332" class="journal has-notes">
+    <div id="note-18">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-18" class="journal-link">#18</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Oct 2015 12:30" href="/projects/exiv2/activity?from=2015-10-04">about 6 years</a> ago
+      <span id="journal-4332-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4332-notes" class="wiki"><p>Gilles</p>
+
+
+	<p>Thanks for the update.  There are only 61 submissions since v0.25 and that 24 concerning <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: The web pages could use an overhaul (Closed)" href="/issues/1111">#1111</a> which is the makeover for exiv2.org</p>
+
+
+	<p>So only 37 builds to be dissected.  2**6 = 64.  We should be able to divide/conquer in 6 builds.  I can easily do the builds, however I don't have all the stuff you're using.  I can build every version of the library since v0.25 and put them in a big ZIP for you to test.  Or you can build them individually.  Let me know.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4334" class="journal has-notes">
+    <div id="note-19">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-19" class="journal-link">#19</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="04 Oct 2015 12:32" href="/projects/exiv2/activity?from=2015-10-04">about 6 years</a> ago
+      <span id="journal-4334-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4334-notes" class="wiki"><p>I can process to build Exiv2 for specific subversion version and try.</p>
+
+
+	<p>Ideally, as usual, dichotomy will be the best.</p>
+
+
+	<p>Can you indicate me which lead revisions to start regression tests ?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4335" class="journal has-notes">
+    <div id="note-20">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-20" class="journal-link">#20</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Oct 2015 12:40" href="/projects/exiv2/activity?from=2015-10-04">about 6 years</a> ago
+      <span id="journal-4335-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4335-notes" class="wiki"><p>Thanks, Gilles.  I was hoping you'd take this on.  v0.25 was tagged at <a class="changeset" title="Tagged release 0.25" href="/projects/exiv2/repository/exiv2/revisions/3871">r3871</a> and we're now at <a class="changeset" title="Updated Nikon Lens lookup table to v4.4.504.01 of Robert Rottmerhusen&#39;s fmountlens list." href="/projects/exiv2/repository/exiv2/revisions/3976">r3976</a>.  Not every submission is to the trunk of course, and there are quite a lot of website changes that can't be involved.  However, the usual binary-search (start in the middle and dissect) is the quickest way to find this mysterious miserable monster.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4344" class="journal has-notes">
+    <div id="note-21">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-21" class="journal-link">#21</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="05 Oct 2015 12:16" href="/projects/exiv2/activity?from=2015-10-05">about 6 years</a> ago
+      <span id="journal-4344-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4344-notes" class="wiki"><p>False error...</p>
+
+
+	<p>After investigating, i seen that i mixed install of libexiv2 from /usr/lib and /usr/local/lib.</p>
+
+
+	<p>The current implementation, compiled through automake/autoconf do not crash digiKam as expected.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4345" class="journal has-notes">
+    <div id="note-22">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-22" class="journal-link">#22</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="05 Oct 2015 12:33" href="/projects/exiv2/activity?from=2015-10-05">about 6 years</a> ago
+      <span id="journal-4345-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4345-notes" class="wiki"><p>Thanks for the update.  I'm glad this has been dealt with.</p>
+
+
+	<p>We've covered some interesting ground here.  I think we should adopt CMake as our "preferred" build platform for *nix systems when we ship v0.26.  And I think I'll switch the buildServer to build by default using CMake for *nix.  Visual Studio/msvc2005 stays until somebody convinces me that Visual Studio/CMake works.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4346" class="journal has-notes">
+    <div id="note-23">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-23" class="journal-link">#23</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Oct 2015 20:38" href="/projects/exiv2/activity?from=2015-10-06">about 6 years</a> ago
+      <span id="journal-4346-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4346-notes" class="wiki"><p>Gilles:</p>
+
+
+	<p>You've been successful with the autotools (./configure).  Can you confirm that CMake is also working correctly?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4355" class="journal has-notes">
+    <div id="note-24">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-24" class="journal-link">#24</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="09 Oct 2015 19:12" href="/projects/exiv2/activity?from=2015-10-09">about 6 years</a> ago
+      <span id="journal-4355-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4355-notes" class="wiki"><p>I just tested with current implementation and cmake. Work perfectly now with digiKam. No crash</p>
+
+
+	<p>Gilles</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4356" class="journal has-notes">
+    <div id="note-25">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-25" class="journal-link">#25</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Oct 2015 19:21" href="/projects/exiv2/activity?from=2015-10-09">about 6 years</a> ago
+      <span id="journal-4356-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4356-notes" class="wiki"><p>Very pleased to hear this, Gilles.  Thanks for the update.</p>
+
+
+	<p>I've been speaking today to Daniel and he's reporting great success with CMake/Visual Studio.  Maybe we'll get this resolved for you.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4532" class="journal has-notes has-details">
+    <div id="note-26">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-26" class="journal-link">#26</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="06 Dec 2015 21:11" href="/projects/exiv2/activity?from=2015-12-06">almost 6 years</a> ago
+      <span id="journal-4532-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-4532-notes" class="wiki"><p>I'm going to close this issue.</p>
+
+
+	<p>Very pleased to let you know that CMake/Visual Studio is now working well (<a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: CMake toolchain for windows (Closed)" href="/issues/1041">#1041</a>).</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1123.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1123.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

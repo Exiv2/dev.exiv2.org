@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>cannot open file on CIFS mount folder - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="WOv7NdsV3sr37+AGfu1yW2GdS+8go7Ae1k7zRnivxt66plDaqW8SyqKL/wrBOn5oXg8fltFAEaQrbmPOO5YhsQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>cannot open file on CIFS mount folder</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/7374">A B</a> <a title="10 Nov 2018 10:54" href="/projects/exiv2/activity?from=2018-11-10">about 3 years</a> ago</span></p>
+<div class="wiki">
+<p>Hello, my 1st post here, since I see some similar issues reported back in 2011 without resolution.</p>
+
+
+	<p>I'm happily running exiv2 (0.25 001900 32bit) for a couple of years on raspbian stretch mainly to extract nightly exif info from IR camera feeds.</p>
+
+
+	<p>Recently I was forced to use a CIFS mounted (via autofs) drive to store the images and despite all attempts to resolve 'usual' permission' issues (password, file_modes, uid/giu, nounix etc etc) I cannot get exiv2 command to work on any mounted images, but when copied onto any other linux system it works as expected and indeed other file manipulations (cp, display/edit) works.</p>
+
+
+	<p>I suspect it may not be a CIFS/Linux permissions issue so:-</p>
+
+
+	<p>Example:<br />$ exiv2 /media/300gb/RPi1-Pictures/test1.jpg<br />/media/300gb/RPi1-Pictures/test1.jpg: Failed to open the file</p>
+
+
+	<p>Permissions:<br />$ ls -l /media/300gb/RPi1-Pictures/test1.jpg<br />-rwxrwxrwx 1 pi pi 319705 Nov 10 10:51 /media/300gb/RPi1-Pictures/test1.jpg</p>
+
+
+	<p>Autofs Mount;<br />RPi1-Pictures fstype=cifs,rw,rsize=165000,wsize=165000,vers=1.0,username=pi,password=,uid=1000,gid=1000,file_mode=0777,dir_mode=0777 ://192.168.1.170/Elements1Tb/RPi1-Pictures</p>
+
+
+	<p>Could anyone point me towards a solution?</p>
+
+
+	<p>Thanks<br />Andrew</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (13)</h3>
+  <div class="message reply" id="message-3222">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3222#message-3222">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="10 Nov 2018 18:42" href="/projects/exiv2/activity?from=2018-11-10">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I can't think of any reason why exiv2 would "fail to open file" on a remote drive.</p>
+
+
+	<p>Two questions:<br />1) Can you edit/update ascii files on the remote drive with your favourite text editor?<br />2) Can you run regular linux utilities on the file.  For example:<br /><pre>$ od -a /media/300gb/RPi1-Pictures/test1.jpg | head -4 </pre></p>
+
+
+	<p>I have a Linux VM on my MacBook-pro running Parallels.  Parallels installs networking magic that exposes the Mac's ~ directory as /media/psf/Home.  I can seamlessly update files on the Mac from Linux.  For example (using my favourite test file which you can download from <a class="external" href="https://clanmills.com/Stonehenge.jpg">https://clanmills.com/Stonehenge.jpg</a>.<pre>568 rmills@rmillsmbp:~/bin $ exiv2 -pa --grep datetime/i ~/Stonehenge.jpg 
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:25:28   &lt;-- 20:25
+Exif.Photo.DateTimeOriginal                  Ascii      20  2015:07:16 15:38:54
+Exif.Photo.DateTimeDigitized                 Ascii      20  2015:07:16 15:38:54
+</pre>On Linux:<pre>rmills@rmillmbp-ubuntu:~$ od -a  /media/psf/Home/Stonehenge.jpg | head -4
+0000000 del   X del   a   ;   8   E   x   i   f nul nul   I   I   * nul
+0000020  bs nul nul nul  vt nul  si soh stx nul dc2 nul nul nul dc2 nul
+0000040 nul nul dle soh stx nul  ff nul nul nul   $ nul nul nul dc2 soh
+0000060 etx nul soh nul nul nul soh nul nul nul sub soh enq nul soh nul
+rmills@rmillsmbp-ubuntu:~$ exiv2 -pa --grep datetime/i  /media/psf/Home/Stonehenge.jpg 
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:25:28
+Exif.Photo.DateTimeOriginal                  Ascii      20  2015:07:16 15:38:54
+Exif.Photo.DateTimeDigitized                 Ascii      20  2015:07:16 15:38:54
+rmills@rmillsmbp-ubuntu:~$ rmills@rmillmbp-ubuntu:~$ exiv2 -a -00:01:00 /media/psf/Home/Stonehenge.jpg # Adjust age by negative one minute
+rmills@rmillsmbp-ubuntu:~$ exiv2 -pa --grep datetime/i  /media/psf/Home/Stonehenge.jpg 
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:24:28
+Exif.Photo.DateTimeOriginal                  Ascii      20  2015:07:16 15:37:54
+Exif.Photo.DateTimeDigitized                 Ascii      20  2015:07:16 15:37:54
+rmills@rmillmbp-ubuntu:~$ </pre>Back on the Mac, Stonehenge is a minute older!<br /><pre>569 rmills@rmillsmbp:~/bin $ exiv2 -pa --grep datetime/i ~/Stonehenge.jpg 
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:24:28 &lt;-- 20:24
+Exif.Photo.DateTimeOriginal                  Ascii      20  2015:07:16 15:37:54
+Exif.Photo.DateTimeDigitized                 Ascii      20  2015:07:16 15:37:54
+570 rmills@rmillsmbp:~/bin $ </pre>I vaguely remember a discussion about Exiv2 being unable to correctly access CIFS file-system files.  I think CIFS is SMB, is it not?  I use SMB to connect my MacOS-X machines. Since the last couple of upgrades to the OS (High Sierra and Mojave), AFS doesn't seem to work well for any purpose and this has nothing to do with Exiv2 - it's system wide.</p>
+
+
+	<p>I have thoughts about this matter and I'm sure we'll discuss this more in the days ahead.  Together we'll solve this.  I'm confident of our success in discovering the reason and remedy.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3223">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3223#message-3223">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="11 Nov 2018 08:33" href="/projects/exiv2/activity?from=2018-11-11">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I can confirm this problem with CIFS file system mounted under Linux :</p>
+
+
+	<p><a class="external" href="https://bugs.kde.org/show_bug.cgi?id=338462">https://bugs.kde.org/show_bug.cgi?id=338462</a></p>
+
+
+	<p>The digiKam console trace indicate that image editor stop while metadata are writen in remote file when image is saved after modification.</p>
+
+
+	<p>note : and yes, CIFS is Samba stuff...</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3224">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3224#message-3224">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Nov 2018 10:31" href="/projects/exiv2/activity?from=2018-11-11">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for this response, Gilles.</p>
+
+
+	<p>I'll look at this next week (starting Monday 2018-11-19).  I'm on vacation (long weekend running in Wales) and when I get home, my priority is Exiv2 v0.27 RC2 for Friday 2018-11-16.  Incidentally, we're aiming for RC3 on 2018-12-07 and GM on 2018-12-28.  I hope there will be no code changes between RC3 and GM.  Thank You very much for your input on Localisation.  As always, Luis is doing very good work.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3227">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3227#message-3227">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/7374">A B</a> <a title="11 Nov 2018 13:20" href="/projects/exiv2/activity?from=2018-11-11">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks Robin and merci Gilles,</p>
+
+
+	<p>Yes indeed my 'nas' router (linux / opensource) choose Samba/CIFs to share files using USB port.</p>
+
+
+	<p>Happy to say I kept my Digikam and Piwigo images and db on linux/NFS.</p>
+
+
+	<p>I needed to keep recoding hedgehog hibernation activity so last night I switched my images recording away from the CIF/Samba and confirm my metadata is back! So it seems the issue lies with the CIFs/Samba handling of metadata.</p>
+
+
+	<p>In response to Robin's question all seems OK:-</p>
+
+
+	<p>1. can edit simple text file<br /><pre>andrew@VESA-ubuntu:/nfs/all/USB1Tb$ touch test.txt
+andrew@VESA-ubuntu:/nfs/all/USB1Tb$ nano test.txt
+andrew@VESA-ubuntu:/nfs/all/USB1Tb$ cat test.txt
+hello
+andrew@VESA-ubuntu:/nfs/all/USB1Tb$ ls -l test.txt
+-rwxrwx--- 1 andrew andrew 6 nov.  11 13:54 test.txt
+andrew@VESA-ubuntu:/nfs/all/USB1Tb$ </pre></p>
+
+
+	<p>2. <strong><code>od</code></strong>  utility<br /><pre>andrew@VESA-ubuntu:/nfs/all/USB1Tb$ od -a test.txt
+0000000   h   e   l   l   o  nl
+0000006</pre></p>
+
+
+	<p>With this success I tried a manual simulation of my workflow using exiv2 on a single image, captured on raspberrypi (raspbian) copied to CIFs/Samba and this seems to work:-</p>
+
+
+<pre>andrew@VESA-ubuntu:/mnt/RPi3-home-pi/RPi1-Pictures$ exiv2 -g DateTime -pt 154192999801.jpg
+Exif.Image.DateTime                          Ascii      20  2018:11:11 10:53:18
+Exif.Photo.DateTimeOriginal                  Ascii      20  2018:11:11 10:53:18
+
+andrew@VESA-ubuntu:/mnt/RPi3-home-pi/RPi1-Pictures$ cp 154192999801.jpg /nfs/all/USB1Tb/
+andrew@VESA-ubuntu:/mnt/RPi3-home-pi/RPi1-Pictures$ cd /nfs/all/USB1Tb/
+
+andrew@VESA-ubuntu:/nfs/all/USB1Tb$ exiv2 -g DateTime -pt 154192999801.jpg
+Exif.Image.DateTime                          Ascii      20  2018:11:11 10:53:18
+Exif.Photo.DateTimeOriginal                  Ascii      20  2018:11:11 10:53:18
+
+andrew@VESA-ubuntu:/nfs/all/USB1Tb$ exiv2 -g DateTime ex -f 154192999801.jpg
+andrew@VESA-ubuntu:/nfs/all/USB1Tb$ ls -l 154192999801.*
+-rwxrwx--- 1 andrew andrew   181 nov.  11 14:03 154192999801.exv
+-rwxrwx--- 1 andrew andrew 61249 nov.  11 14:02 154192999801.jpg
+
+andrew@VESA-ubuntu:/nfs/all/USB1Tb$ exiv2 -g DateTime in -f 154192999801.JPG
+andrew@VESA-ubuntu:/nfs/all/USB1Tb$ exiv2 -g DateTime -pt 154192999801.JPG
+Exif.Image.DateTime                          Ascii      20  2018:11:11 10:53:18
+Exif.Photo.DateTimeOriginal                  Ascii      20  2018:11:11 10:53:18</pre>
+
+	<p>The difference from my failed workflow is that the image is recorded directly to the CIFs/samba from the Raspberrypi. I dare not switchback to confirm this since the hedgehog are busy. But once everything calms down and if you need it I can check.</p>
+
+
+	<p>AB<br />PS . Thanks again for your work.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3228">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3228#message-3228">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Nov 2018 14:41" href="/projects/exiv2/activity?from=2018-11-11">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I suspect this has something to do with memory-mapping the file.</p>
+
+
+	<p>Exiv2 uses BasicIo to perform I/O and has sub-classes such as FileIo , MemIo, HttpIo and others to use images on different media.  On the desktop, exiv2(.exe) usually uses memory-mapping and perhaps that's not valid for CIFS mounted files.</p>
+
+
+	<p>I'll look at this next week as releasing RC2 is the priority for this week.  I'm not sure how to set up CIFS from Linux as I've never given that matter any thought.  I'll send you some code to implement a sub-set of the utility <strong><code> od </code></strong> which I'll implement with/without memory mapping to validate/confirm/deny my hunch.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3229">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3229#message-3229">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="11 Nov 2018 15:04" href="/projects/exiv2/activity?from=2018-11-11">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andrew</p>
+
+
+	<p>We don't want to disturb the hedgehogs.  Gosh no.  And I'm in Wales to run in the Mountains.  And apparently this issue has been present for years.  So, this isn't urgent.  Interesting and curious.  If we need a code change, it'd be great to get it into exiv2 v0.27 RC3 (scheduled 2018-12-07).</p>
+
+
+	<p>I'm curious about the relationship with the rasperry <strong>&pi;</strong></p>
+
+
+	<p>I thought your issue is that the exiv2 command line program will not read (nor write) on the nas storage connected to Linux by a USB cable and mounted using CIFS.</p>
+
+
+	<p>So why discuss the <strong>&pi;</strong> ?  Are you saying that if you mount the nas using NFS, exiv2 works?  Or am I confused?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3230">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3230#message-3230">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/7374">A B</a> <a title="12 Nov 2018 08:49" href="/projects/exiv2/activity?from=2018-11-12">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks Robin, no rush for sure. Sorry for confusion.</p>
+
+
+	<p>The camera was back recording last night, the hedgehogs are close to shutdown anyhow, despite global warming..... which is part of this study but don't let me start on that.....</p>
+
+
+	<p>So the RaspberryPi is the IR camera, I just gave example of command line to demo the 'bug' in actual workflow which is:-</p>
+
+
+	<p>1. Raspberrypi (Zero W in field with IR cam) captures 2 stream of jpgs, the low-res has DateTime stamp. <br />2. Until last week the stream was saved over WiFi using NFSv4 to another Raspberrypi3 server. <br />3. At dawn the Raspberrypi3 runs FFmpeg and exiv2 on the jpgs to create timestamped video of action for research/archive.</p>
+
+
+	<p>This has worked well for 2 years or more. Then due to router upgrade, we decided to the router USB3 NAS to store the jpg stream thinking it would be easier/larger etc. But we lost exiv2 functions.</p>
+
+
+	<p>So, yes if we mount the NAS (USB HDD) using NFS exiv2 works as expected. <br />My manual attempt to run exiv2 on 11th also seemed to work via CIF storage also seems to work, which is confusing.</p>
+
+
+	<p>I'll double check everything and report back if you think it might help you, but on my side I'll stick with original Linux based NFS4 EXT4 storage.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3231">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3231#message-3231">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Nov 2018 09:05" href="/projects/exiv2/activity?from=2018-11-12">about 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andrew</p>
+
+
+	<p>Thanks for the clarification.  So, my task is to un-puzzle exiv2/CIFS refusing to open files.  How odd!  I'll investigate next week.  When I get home from Wales, I want to focus my attention on Exiv2 v0.27 RC2 and to release that this week.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3248">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3248#message-3248">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Nov 2018 19:59" href="/projects/exiv2/activity?from=2018-11-23">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andrew and Gilles</p>
+
+
+	<p>I haven't had time to look into this issue this week.  However it isn't forgotten.  Luis and I are both working hard to get the Exiv2 v0.27 GM by 28 December 2018.  We hoped to arrive at zero open issues for v0.27 today.  I suspect this CIFS issue has been in the code for years and doesn't impact every Samba mount. If I can't investigate this next week, I'll open an issue on GitHub to be sure it's never forgotten.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3264">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3264#message-3264">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Dec 2018 16:43" href="/projects/exiv2/activity?from=2018-12-14">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I'm pleased to say that Team Exiv2 is on track to release Exiv2 v0.27 on 28 December 2018 <em>(as scheduled)</em>.</p>
+
+
+	<p>I've spend an afternoon investigating this puzzle.  I can't get Samba to work between my Linux VMs.  Very frustrating.  They can see each other's shares with <strong><code>$ smbclient -L machine-name</code></strong>.  Why can't they mount each other's shares?  I don't know.</p>
+
+
+	<p>I can mount a Windows share from the Mac.  Windows 10 is mounted over SMB.  (the w7 name is historical, it's a up-to-date Windows 10).</p>
+
+
+<pre>513 rmills@rmillsmm:~ $ df
+Filesystem                                                 512-blocks       Used  Available Capacity  iused               ifree %iused  Mounted on
+...
+//rmills@rmillsmm-w7._smb._tcp.local/%5BC%5D%20rmillsmm-w7  226025464  196924712   29100752    88% 24615587             3637594   87%   /Volumes/[C] rmillsmm-w7
+514 rmills@rmillsmm:~ $ exiv2 -pa --grep datetime/i /Volumes/\[C\]\ rmillsmm-w7/Users/rmills/Stonehenge.jpg 
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:25:28
+Exif.Photo.DateTimeOriginal                  Ascii      20  2015:07:16 15:38:54 &lt;--- 15:38
+Exif.Photo.DateTimeDigitized                 Ascii      20  2015:07:16 15:38:54
+515 rmills@rmillsmm:~ $ exiv2 -a -00:01:00 /Volumes/\[C\]\ rmillsmm-w7/Users/rmills/Stonehenge.jpg 
+516 rmills@rmillsmm:~ $ exiv2 -pa --grep datetime/i /Volumes/\[C\]\ rmillsmm-w7/Users/rmills/Stonehenge.jpg 
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:24:28
+Exif.Photo.DateTimeOriginal                  Ascii      20  2015:07:16 15:37:54 &lt;--- 15:37
+Exif.Photo.DateTimeDigitized                 Ascii      20  2015:07:16 15:37:54
+518 rmills@rmillsmm:~ $ </pre>I ran the command in the debugger.  Exiv2 uses a FileIo object to perform the I/O. This is a BasiIo wrapper on FILE*.  He also used a FileIo object when I ran/debugged a copy of Stonehenge.jpg locally on the Mac.
+
+	<p>I know the code can use Memory Mapped File (and MemIo object).  Perhaps he only uses that for tiff files.</p>
+
+
+	<p>I have a suggestion.  When you build Exiv2, it generates a file exv_conf.h which is generated by the build system.  exv_conf.h is tricky because he's a generated file and it depends how you build (CMake/autotools/msvc) how he get created.   I can offer help with that if you're in doubt about the setting.</p>
+
+
+	<p>For version v0.27, Gilles will be happy to hear, we have our CMake support in very good shape (thanks to outstanding work by Luis) and will on support CMake in future.  You can build as follows:<br /><pre>
+$ &lt;exiv2dir&gt;
+$ mkdir build ; cd build ; 
+$ cmake ..
+...... shake rattle and roll .....
+$ grep MM exv_conf.h 
+#define EXV_HAVE_MMAP
+#define EXV_HAVE_SYS_MMAN_H
+$ bbedit "exv_conf.h"             # EDIT and comment off EXV_HAVE_MMAP
+$ make
+...... shake rattle and roll .....
+$ bin/exiv2 -vVg mm   # --verbose --version --grep mm
+exiv2 0.27.0.3
+library=/usr/lib/system/libcommonCrypto.dylib
+have_mmap=0   &lt;----------- Correct mmap isn't in the build
+have_sys_mman=1
+xmlns=xmpMM:http://ns.adobe.com/xap/1.0/mm/
+$ make test
+$ sudo make install
+</pre> I'm now stuck.  Gilles has produced evidence that CIFS/Exiv2 can "stall".  However without being able to reproduce this, it's hard for me to make progress.</p>
+
+
+	<p>I'll be happy to meet with you one-to-one on Skype and walk the builds with you.  You (or one of your co-workers) may be offer to help me with the CIFS networking.</p>
+
+
+	<p>I strongly encourage you to use the pre-release of Exiv2 v0.27 <a class="external" href="http://exiv2.dyndns.org">http://exiv2.dyndns.org</a>  I hope (and expect) the only change from RC3 to GM will be the version number.  No code/test/documentation changes.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3265">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3265#message-3265">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Dec 2018 12:33" href="/projects/exiv2/activity?from=2018-12-15">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>A good night's sleep, a few reboots, some googling and I've made progress with Samba.  I've put the following at the bottom of /etc/samba/smb.conf<br /><pre>[sambashare]
+comment=https://tutorials.ubuntu.com/tutorial/install-and-configure-samba
+path=/home/rmills/sambashare
+read only=no
+browsable=yes
+writeable = yes
+public = yes
+create mask = 0644
+directory mask = 0755
+force user = rmills</pre>I also modified <strong><code>workgroup = RMILLSMM</code></strong> in /etc/samba/smb.conf</p>
+
+
+	<p>And I added a samba user from the terminal:<br /><pre>$ sudo smbpasswd -a rmills</pre><br />I've done this on rmillsmm-ubuntu (Ubuntu 18.04 64 bit) and rmillsmm-ubuntu32 (Ubuntu 14.04 32 bit) and Mac, Windows, Linux can read and write on the samba shares.</p>
+
+
+	<p>I've stepped the code in the CLion debugger on Ubuntu 18.04.  It's using a FileIo object, so it's performing I/O with FILE*.  So, that brings my investigation to a dead-end.  I can't think of anything else that I can try in my office.  This puzzle has to reproduced on Andrew's system.</p>
+
+
+	<p>Andrew, what else can you tell me about your platform and version of exiv2?  Did you build exiv2 yourself?  Can you download exiv2 v0.27 RC3 from <a class="external" href="http://exiv2.dyndns.org">http://exiv2.dyndns.org</a> and try with that, please?  You should be able to do that without disturbing your production system.</p>
+
+
+	<p>Gilles:  I applied for a free open-source license for CLion.  JetBrains gave us three one-year licenses for all their products (Robin, Luis and Dan).  I'm delighted with CLion.  I've used it on Linux and Mac and it works really well.  Very good integration with CMake (and cppcheck and clang-tidy).  I haven't tried it on Windows yet.  It's great to have the same tools on every platform and, for the same reason, I like SmartGit and SmartSVN.  I'm confident of Exiv2 v0.27 GM on 28 December.  I know Luis wants to submit some changes inspired by cppcheck.  I'd prefer to modify the revision number in 0.27 RC3 and release that.  Luis can deal with cppcheck in the v0.28 project.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3302">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3302#message-3302">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/7374">A B</a> <a title="08 Jan 2019 12:03" href="/projects/exiv2/activity?from=2019-01-08">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your efforts and latest release Robin.</p>
+
+
+	<p>As you suggested I've built v0.27 on Raspbian Stretch and Ubuntu 18.04 for testing and conclude never work with animal or samba!</p>
+
+
+	<p>I just couldn't get exiv2 to process CIF mounted share images on Raspbian, I've tried all mounting options I know and my guess this is not a exiv2 specific issue but rather Raspbian CIF mount:-</p>
+
+
+	<p>*<br />pi@raspberrypiy:~/picamera$ exiv2 /mnt/USB1Tb/RPiY-Pictures/image19.jpg<br />/mnt/USB1Tb/RPiY-Pictures/image19.jpg: Failed to open the file</p>
+
+
+	<p>pi@raspberrypiy:~/picamera$ stat -L /mnt/USB1Tb/RPiY-Pictures/image19.jpg<br />  File: /mnt/USB1Tb/RPiY-Pictures/image19.jpg<br />  Size: 540256        Blocks: 2048       IO Block: 16384  regular file<br />Device: 13h/19d    Inode: 158940790805  Links: 1<br />Access: (0775/-rwxrwxr-x)  Uid: ( 1000/      pi)   Gid: ( 1000/      pi)<br />Access: 2019-01-08 11:53:50.427742000 +0100<br />Modify: 2019-01-08 11:53:50.427742000 +0100<br />Change: 2019-01-08 11:53:50.427742000 +0100
+*</p>
+
+
+	<p>yet this works on the local folder:</p>
+
+
+	<p>pi@raspberrypiy:~/picamera$ exiv2 -pv -g DateTime testpix/image19.jpg<br />0x0132 Image        DateTime                    Ascii      20  2019:01:08 11:22:40<br />0x9003 Photo        DateTimeOriginal            Ascii      20  2019:01:08 11:22:40<br />0x9004 Photo        DateTimeDigitized           Ascii      20  2019:01:08 11:22:40</p>
+
+
+	<p>BUT on my Ubuntu 18.04 it all works as required (metadata extracted and inserted across CIF files):-</p>
+
+
+	<p><strong><br />andrew@VESA-ubuntu:~$ exiv2 -pv --grep DateTime /nfs/all/USB1Tb/RPiY-Pictures/image1.jpg<br />andrew@VESA-ubuntu:~$ exiv2 -pv --grep DateTime /nfs/all/USB1Tb/RPiY-Pictures/image1.jpeg<br />0x0132 Image        DateTime                    Ascii      20  2019:01:08 11:53:51<br />0x9003 Photo        DateTimeOriginal            Ascii      20  2019:01:08 11:53:51<br />0x9004 Photo        DateTimeDigitized           Ascii      20  2019:01:08 11:53:51<br />andrew@VESA-ubuntu:~$ exiv2 ex DateTime /nfs/all/USB1Tb/RPiY-Pictures/image1.jpeg<br />DateTime: Failed to open the file<br />andrew@VESA-ubuntu:~$ exiv2 ex /nfs/all/USB1Tb/RPiY-Pictures/image1.jpeg<br />exiv2: Overwrite `/nfs/all/USB1Tb/RPiY-Pictures/image1.exv'? y<br />andrew@VESA-ubuntu:~$ exiv2 in /nfs/all/USB1Tb/RPiY-Pictures/image1.jpg<br />andrew@VESA-ubuntu:~$ exiv2 -pv --grep DateTime /nfs/all/USB1Tb/RPiY-Pictures/image1.jpg<br />0x0132 Image        DateTime                    Ascii      20  2019:01:08 11:53:51<br />0x9003 Photo        DateTimeOriginal            Ascii      20  2019:01:08 11:53:51<br />0x9004 Photo        DateTimeDigitized           Ascii      20  2019:01:08 11:53:51</strong></p>
+
+
+	<p>Robin I'm at the limit of my knowledge how to test further on raspbian and I leave it to you to priorities as required.</p>
+
+
+	<p>In the meantime for the spring return of the hogs, I've re-written the picamera code to collect metadata time stamps etc on the fly to no more fiddling with CIFs</p>
+
+
+	<p>Andrew</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3303">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3221?r=3303#message-3303">RE: cannot open file on CIFS mount folder</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Jan 2019 12:59" href="/projects/exiv2/activity?from=2019-01-08">almost 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Well some things are destined to remain a mystery.</p>
+
+
+	<p>By the way, exiv2 supports network I/O.  The focus of that is http, however we also support SSH and FTP.  So if you can have a webserver on the Raspery machine, you should be able to read the metadata via http.  Just like this:<pre>586 rmills@rmillsmbp:~ $ exiv2 -pa --grep datetime/i http://clanmills.com/Stonehenge.jpg
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:25:28
+Exif.Photo.DateTimeOriginal                  Ascii      20  2015:07:16 15:38:54
+Exif.Photo.DateTimeDigitized                 Ascii      20  2015:07:16 15:38:54
+587 rmills@rmillsmbp:~ $ </pre>I'm pleased that Exiv2 v0.27 was released  on 20 December 2018.  We plan "dot" releases (quarterly security and minor fixes) of v0.27 over the next couple of years.  Exiv2 v0.28 involves substantial rewrites and "modernisation" to C++11.  I'll be 68 next week and look forward to retiring from Exiv2 after v0.28 is completed.</p>
+
+
+	<p>Thanks for the update and best wishes to you for 2019.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-13/13)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #1076: Detect raw image size in Fuji RAF - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="P8Gizd6PLkqsXRFZs7sqjb831SnR322V0Q2A670U8ajdjAkirPXiSvk5DlUMbCa+gKWBUCA8zC8sLRBj/i0Wxw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #1076: Detect raw image size in Fuji RAF" href="https://dev.exiv2.org/issues/1076.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #1076</h2>
+
+<div class="issue tracker-2 status-1 priority-4 priority-default details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Detect raw image size in Fuji RAF</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4413">Max Pozdeev</a> <a title="10 May 2015 13:02" href="/projects/exiv2/activity?from=2015-05-10">over 6 years</a> ago.
+        Updated <a title="20 Apr 2016 17:06" href="/projects/exiv2/activity?from=2016-04-20">over 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">New</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">image format</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a href="/versions/31">1.0</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">10 May 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>The raw image size of sample image (reported by exiftool):<br />Raw Image Width                 : 4952<br />Raw Image Height                : 3288<br />Raw Image Full Width            : 5120<br />Raw Image Full Height           : 3288</p>
+
+
+	<p>Exiv2 has no such info, it shows 1920 x 1280 as image size.<br />Sample file - <a class="external" href="https://www.dropbox.com/s/9mily5394y7c6aj/fujifilm_x_pro1_14.raf?dl=0">https://www.dropbox.com/s/9mily5394y7c6aj/fujifilm_x_pro1_14.raf?dl=0</a></p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/785">exiftool.v.output</a>    <span class="size">(6 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/785/exiftool.v.output">exiftool.v.output</a>  </td>
+  <td>full exiftool output of sample image</td>
+  <td>
+      <span class="author">Alan Pater, 10 May 2015 16:50</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1076" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="9A4blyPWoa+TXBu8HooA6TiGA1b86Yhzlt5LfjuqNkEWQ7B4Uaxtr8Y4BLChXQzaBxRXLw0KKclr/tv2eJPRLg==" />
+  <table class="list issues odd-even"><tr id="relation-155" class="issue hascontextmenu issue tracker-2 status-2 priority-4 priority-default"><td class="checkbox"><input type="checkbox" name="ids[]" value="992" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-2 priority-4 priority-default" href="/issues/992">Feature #992</a>: Better raw file support and test</td><td class="status">Assigned</td><td class="start_date">18 Sep 2014</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1076/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1076&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3697" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="10 May 2015 16:50" href="/projects/exiv2/activity?from=2015-05-10">over 6 years</a> ago
+      <span id="journal-3697-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/785">exiftool.v.output</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/785/exiftool.v.output">exiftool.v.output</a> added</li>
+       <li><strong>Category</strong> set to <i>image format</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    <div id="journal-3697-notes" class="wiki"><p>Tested and confirmed with build from trunk. exiv2 cannot read that data from the image.</p>
+
+
+	<p>The related output from exiftool is:</p>
+
+
+<pre>
+
+JPEG SOS
+  PreviewImage = SCALAR(0x21e9710)
+  + [Fuji directory with 10 entries]
+  | 0)  RawImageFullSize = 3288 5120
+  | 1)  FujiFilm_RAF_0x0110 = 786460
+  | 2)  FujiFilm_RAF_0x0111 = 213914400
+  | 3)  FujiFilm_RAF_0x0112 = 320867520
+  | 4)  FujiFilm_RAF_0x0113 = 213914400
+  | 5)  FujiLayout = 12 12 12 12
+  | 6)  FujiFilm_RAF_0x0131 = SCALAR(0x2523db0)
+  | 7)  FujiFilm_RAF_0x0141 = 786468
+  | 8)  FujiFilm_RAF_0x9650 = 4290248804
+  | 9)  RAFData (SubDirectory) --&gt;
+  | + [BinaryData directory, 58648 bytes]
+  | | RawImageWidth = 4952
+  | | RawImageHeight = 3288
+  + [FujiIFD directory with 1 entries]
+  | 0)  FujiIFD (SubDirectory) --&gt;
+  | + [FujiIFD directory with 16 entries]
+  | | 0)  RawImageFullWidth = 5120
+  | | 1)  RawImageFullHeight = 3288
+  | | 2)  BitsPerSample = 12
+  | | 3)  FujiFilm_IFD_0xf004 = 4
+  | | 4)  FujiFilm_IFD_0xf005 = 1920
+  | | 5)  FujiFilm_IFD_0xf006 = 0
+  | | 6)  StripOffsets = 2048
+  | | 7)  StripByteCounts = 25251840
+  | | 8)  FujiFilm_IFD_0xf009 = 142
+  | | 9)  FujiFilm_IFD_0xf00a = 255 255 255 255 255 255 255 255 255 255 255 255 255 255[snip]
+  | | 10) FujiFilm_IFD_0xf00b = 267.4545455 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1 0 0[snip]
+  | | 11) WB_GRBLevelsStandard = 302 355 810 17 302 644 451 21
+  | | 12) WB_GRBLevelsDaylight = 302 541 512
+  | | 13) WB_GRBLevels = 302 541 512
+  | | 14) FujiFilm_IFD_0xf00f = 294.2 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1 0.00011 0.0[snip]
+  | | 15) FujiFilm_IFD_0xf010 = 267.4545455 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1 100[snip]
+
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-4510" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Nov 2015 19:47" href="/projects/exiv2/activity?from=2015-11-25">almost 6 years</a> ago
+      <span id="journal-4510-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-4510-notes" class="wiki"><p>Looks as though somebody has fixed this.  <pre>509 rmills@rmillsmbp:~/clanmills $ exiv2 -pa ~/Downloads/fujifilm_x_pro1_14.raf 
+Exif.Image.Make                              Ascii       9  FUJIFILM
+Exif.Image.Model                             Ascii       7  X-Pro1
+Exif.Image.Orientation                       Short       1  top, left
+Exif.Image.XResolution                       Rational    1  72
+Exif.Image.YResolution                       Rational    1  72
+Exif.Image.ResolutionUnit                    Short       1  inch
+Exif.Image.Software                          Ascii      30  Digital Camera X-Pro1 Ver1.00
+Exif.Image.DateTime                          Ascii      20  2012:03:06 11:05:59
+Exif.Image.YCbCrPositioning                  Short       1  Co-sited
+Exif.Image.Copyright                         Ascii       5      
+Exif.Image.ExifTag                           Long        1  354
+Exif.Photo.ExposureTime                      Rational    1  1/3800 s
+Exif.Photo.FNumber                           Rational    1  F2
+Exif.Photo.ExposureProgram                   Short       1  Aperture priority
+Exif.Photo.ISOSpeedRatings                   Short       1  200
+Exif.Photo.SensitivityType                   Short       1  1
+Exif.Photo.ExifVersion                       Undefined   4  2.30
+Exif.Photo.DateTimeOriginal                  Ascii      20  2012:03:06 11:05:59
+Exif.Photo.DateTimeDigitized                 Ascii      20  2012:03:06 11:05:59
+Exif.Photo.ComponentsConfiguration           Undefined   4  YCbCr
+Exif.Photo.CompressedBitsPerPixel            Rational    1  2
+Exif.Photo.ShutterSpeedValue                 SRational   1  1/3822 s
+Exif.Photo.ApertureValue                     Rational    1  F2
+Exif.Photo.BrightnessValue                   SRational   1  8.73
+Exif.Photo.ExposureBiasValue                 SRational   1  0 EV
+Exif.Photo.MaxApertureValue                  Rational    1  F1.6
+Exif.Photo.MeteringMode                      Short       1  Multi-segment
+Exif.Photo.LightSource                       Short       1  Unknown
+Exif.Photo.Flash                             Short       1  No, compulsory
+Exif.Photo.FocalLength                       Rational    1  35.0 mm
+Exif.Photo.MakerNote                         Undefined 816  (Binary value suppressed)
+Exif.MakerNote.Offset                        Long        1  1114
+Exif.MakerNote.ByteOrder                     Ascii       3  II
+Exif.Fujifilm.Version                        Undefined   4  48 49 51 48
+Exif.Fujifilm.SerialNumber                   Ascii      48  FPX 21119198     593130323434120209FD8030111764
+Exif.Fujifilm.Quality                        Ascii       8  NORMAL 
+Exif.Fujifilm.Sharpness                      Short       1  Normal
+Exif.Fujifilm.WhiteBalance                   Short       1  Auto
+Exif.Fujifilm.Color                          Short       1  Normal
+Exif.Fujifilm.FlashMode                      Short       1  Off
+Exif.Fujifilm.FlashStrength                  SRational   1  0/100
+Exif.Fujifilm.Macro                          Short       1  On
+Exif.Fujifilm.FocusMode                      Short       1  Auto
+Exif.Fujifilm.SlowSync                       Short       1  Off
+Exif.Fujifilm.PictureMode                    Short       1  Aperture-priority AE
+Exif.Fujifilm.Continuous                     Short       1  Off
+Exif.Fujifilm.SequenceNumber                 Short       1  0
+Exif.Fujifilm.BlurWarning                    Short       1  Off
+Exif.Fujifilm.FocusWarning                   Short       1  Off
+Exif.Fujifilm.ExposureWarning                Short       1  Off
+Exif.Fujifilm.DynamicRange                   Short       1  Standard
+Exif.Fujifilm.FilmMode                       Short       1  F0/Standard
+Exif.Fujifilm.DynamicRangeSetting            Short       1  Auto (100-400%)
+Exif.Fujifilm.MinFocalLength                 Rational    1  3500/100
+Exif.Fujifilm.MaxFocalLength                 Rational    1  0/100
+Exif.Fujifilm.MaxApertureAtMinFocal          Rational    1  140/100
+Exif.Fujifilm.MaxApertureAtMaxFocal          Rational    1  0/100
+Exif.Photo.FlashpixVersion                   Undefined   4  1.00
+Exif.Photo.ColorSpace                        Short       1  sRGB
+Exif.Photo.PixelXDimension                   Long        1  1920
+Exif.Photo.PixelYDimension                   Long        1  1280
+Exif.Photo.InteroperabilityTag               Long        1  1930
+Exif.Iop.InteroperabilityIndex               Ascii       4  R98
+Exif.Iop.InteroperabilityVersion             Undefined   4  1.00
+Exif.Photo.FocalPlaneXResolution             Rational    1  820
+Exif.Photo.FocalPlaneYResolution             Rational    1  820
+Exif.Photo.FocalPlaneResolutionUnit          Short       1  cm
+Exif.Photo.SensingMethod                     Short       1  One-chip color area
+Exif.Photo.FileSource                        Undefined   1  Digital still camera
+Exif.Photo.SceneType                         Undefined   1  Directly photographed
+Exif.Photo.CustomRendered                    Short       1  Normal process
+Exif.Photo.ExposureMode                      Short       1  Auto
+Exif.Photo.WhiteBalance                      Short       1  Auto
+Exif.Photo.FocalLengthIn35mmFilm             Short       1  53.0 mm
+Exif.Photo.SceneCaptureType                  Short       1  Standard
+Exif.Photo.Sharpness                         Short       1  Normal
+Exif.Photo.SubjectDistanceRange              Short       1  Unknown
+Exif.Photo.LensSpecification                 Rational    4  3500/100 0/100 140/100 0/100
+Exif.Photo.LensMake                          Ascii      13  FUJIFILM
+Exif.Photo.LensModel                         Ascii      64  XF35mmF1.4 R
+Exif.Photo.LensSerialNumber                  Ascii      11  21A01441
+Exif.Image.PrintImageMatching                Undefined 106  80 114 105 110 116 73 77 0 48 50 53 48 0 0 3 0 2 0 1 0 0 0 3 0 34 0 0 0 1 1 0 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 151 5 0 0 16 39 0 0 176 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 139 0 0 0 16 39 0 0 203 3 0 0 16 39 0 0 229 27 0 0 16 39 0 0
+Exif.Thumbnail.Compression                   Short       1  JPEG (old-style)
+Exif.Thumbnail.Orientation                   Short       1  top, left
+Exif.Thumbnail.XResolution                   Rational    1  72
+Exif.Thumbnail.YResolution                   Rational    1  72
+Exif.Thumbnail.ResolutionUnit                Short       1  inch
+Exif.Thumbnail.JPEGInterchangeFormat         Long        1  2078
+Exif.Thumbnail.JPEGInterchangeFormatLength   Long        1  9361
+Exif.Thumbnail.YCbCrPositioning              Short       1  Co-sited
+Exif.Image2.JPEGInterchangeFormat            Long        1  148
+Exif.Image2.JPEGInterchangeFormatLength      Long        1  543351
+510 rmills@rmillsmbp:~/clanmills $</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-4511" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4413">Max Pozdeev</a> <a title="26 Nov 2015 09:12" href="/projects/exiv2/activity?from=2015-11-26">almost 6 years</a> ago
+      <span id="journal-4511-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4511-notes" class="wiki"><p>Can not confirm, image size is detected as 1920 x 1280 .</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4512" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="26 Nov 2015 09:37" href="/projects/exiv2/activity?from=2015-11-26">almost 6 years</a> ago
+      <span id="journal-4512-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Assigned</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>0</i></li>
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>4.00 h</i></li>
+    </ul>
+    <div id="journal-4512-notes" class="wiki"><p>You are right.  Apologies.  I mistakenly thought the bug was "no metadata at all!".  I've reset the %Done to zero and assigned myself to investigate.</p>
+
+
+	<p>The engineer on Team Exiv2 who deals with MakerNotes has gone back to college (on top of his full-time demanding job) and I have agreed to deal with makernotes.  I'm on a learning curve here.  However I surprised myself by solving something quite complicated in the Pentax Maker Notes a few weeks ago.  So now it's time to investigate Fuji.  This might even be interesting!  The Exif committee avoided negotiating tags for many things by creating a considerable body of mysteriously (and largely undocumented) MakerNotes.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4638" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Jan 2016 11:33" href="/projects/exiv2/activity?from=2016-01-04">almost 6 years</a> ago
+      <span id="journal-4638-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>10</i></li>
+    </ul>
+    <div id="journal-4638-notes" class="wiki"><p>I'm reviewing all the outstanding issue for v0.26 to get a more accurate assessment of the project completing on time.  I'll set this at 10% done.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4938" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Apr 2016 19:03" href="/projects/exiv2/activity?from=2016-04-17">over 5 years</a> ago
+      <span id="journal-4938-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>% Done</strong> changed from <i>10</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-4938-notes" class="wiki"><p>I think this is a duplicate for <a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Update Fujifilm Filmmode tag (Closed)" href="/issues/1179">#1179</a> for which Pascal has submitted a patch and test files.  I'm going to mark this 100%/resolved.</p>
+
+
+<pre>566 rmills@rmillsmbp:~/gnu/exiv2/team/contrib/redmine $ exiv2 -pa ~/Downloads/filmstyles/*.RAF | grep -i dimen
+/Users/rmills/Downloads/filmstyles/DSCF0826.RAF  Exif.Photo.PixelXDimension                   Long        1  1920
+/Users/rmills/Downloads/filmstyles/DSCF0826.RAF  Exif.Photo.PixelYDimension                   Long        1  1280
+/Users/rmills/Downloads/filmstyles/DSCF0840.RAF  Exif.Photo.PixelXDimension                   Long        1  1920
+/Users/rmills/Downloads/filmstyles/DSCF0840.RAF  Exif.Photo.PixelYDimension                   Long        1  1280
+/Users/rmills/Downloads/filmstyles/DSCF0856.RAF  Exif.Photo.PixelXDimension                   Long        1  1920
+/Users/rmills/Downloads/filmstyles/DSCF0856.RAF  Exif.Photo.PixelYDimension                   Long        1  1280
+/Users/rmills/Downloads/filmstyles/DSCF0868.RAF  Exif.Photo.PixelXDimension                   Long        1  1920
+/Users/rmills/Downloads/filmstyles/DSCF0868.RAF  Exif.Photo.PixelYDimension                   Long        1  1280
+/Users/rmills/Downloads/filmstyles/DSCF0879.RAF  Exif.Photo.PixelXDimension                   Long        1  1920
+/Users/rmills/Downloads/filmstyles/DSCF0879.RAF  Exif.Photo.PixelYDimension                   Long        1  1280
+/Users/rmills/Downloads/filmstyles/DSCF0897.RAF  Exif.Photo.PixelXDimension                   Long        1  1920
+/Users/rmills/Downloads/filmstyles/DSCF0897.RAF  Exif.Photo.PixelYDimension                   Long        1  1280
+/Users/rmills/Downloads/filmstyles/DSCF1188.RAF  Exif.Photo.PixelXDimension                   Long        1  1920
+/Users/rmills/Downloads/filmstyles/DSCF1188.RAF  Exif.Photo.PixelYDimension                   Long        1  1280
+/Users/rmills/Downloads/filmstyles/DSCF1189.RAF  Exif.Photo.PixelXDimension                   Long        1  1920
+/Users/rmills/Downloads/filmstyles/DSCF1189.RAF  Exif.Photo.PixelYDimension                   Long        1  1280
+/Users/rmills/Downloads/filmstyles/DSCF1190.RAF  Exif.Photo.PixelXDimension                   Long        1  1920
+/Users/rmills/Downloads/filmstyles/DSCF1190.RAF  Exif.Photo.PixelYDimension                   Long        1  1280
+/Users/rmills/Downloads/filmstyles/DSCF1191.RAF  Exif.Photo.PixelXDimension                   Long        1  1920
+/Users/rmills/Downloads/filmstyles/DSCF1191.RAF  Exif.Photo.PixelYDimension                   Long        1  1280
+/Users/rmills/Downloads/filmstyles/DSCF1192.RAF  Exif.Photo.PixelXDimension                   Long        1  1920
+/Users/rmills/Downloads/filmstyles/DSCF1192.RAF  Exif.Photo.PixelYDimension                   Long        1  1280
+567 rmills@rmillsmbp:~/gnu/exiv2/team/contrib/redmine $</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-4943" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4413">Max Pozdeev</a> <a title="20 Apr 2016 16:44" href="/projects/exiv2/activity?from=2016-04-20">over 5 years</a> ago
+      <span id="journal-4943-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4943-notes" class="wiki"><p>Can not confirm. This issue is about "Raw image size".</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4944" class="journal has-notes has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Apr 2016 17:06" href="/projects/exiv2/activity?from=2016-04-20">over 5 years</a> ago
+      <span id="journal-4944-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>New</i></li>
+       <li><strong>Assignee</strong> deleted (<del><i>Robin Mills</i></del>)</li>
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>1.0</i></li>
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>0</i></li>
+       <li><strong>Estimated time</strong> deleted (<del><i>4.00 h</i></del>)</li>
+    </ul>
+    <div id="journal-4944-notes" class="wiki"><p>Max</p>
+
+
+	<p>I've run both exiftool and exiv2 on the .RAF files available from <a class="external" href="http://www.rawsamples.ch/index.php/en/">http://www.rawsamples.ch/index.php/en/</a>   You are right, there is something weird about this.</p>
+
+
+<pre>794 rmills@rmillsmbp:/mmHD/Users/rmills/Jenkins/testfiles/992 $ exiv2 -pa  --grep dimension/i fuji/RAW_FUJI_FINEPIX_HS10.RAF 
+Exif.Photo.PixelXDimension                   Long        1  2048
+Exif.Photo.PixelYDimension                   Long        1  1536
+795 rmills@rmillsmbp:/mmHD/Users/rmills/Jenkins/testfiles/992 $ exiftool  fuji/RAW_FUJI_FINEPIX_HS10.RAF | grep -i raw 
+File Name                       : RAW_FUJI_FINEPIX_HS10.RAF
+Raw Image Full Width            : 3664
+Raw Image Full Height           : 2742
+796 rmills@rmillsmbp:/mmHD/Users/rmills/Jenkins/testfiles/992 $  </pre>I am not going to do anything further on this matter for v0.26 and it will be deferred for v1.0.  There is an outstanding issue <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Better raw file support and test (Assigned)" href="/issues/992">#992</a> to review all our RAW support and this matter will be investigated as part of <a class="issue tracker-2 status-2 priority-4 priority-default" title="Feature: Better raw file support and test (Assigned)" href="/issues/992">#992</a>.  I think this would be a good project for a student to tackle during Google Summer of Code 2017.</div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1076.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1076.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

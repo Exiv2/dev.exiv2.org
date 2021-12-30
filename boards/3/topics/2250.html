@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Adding jpeg thumbnail - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="TBa9OGneC917OHBVWRJrDw0qRim5Je1yqv/Ey+wwkSSuWxbXG6TH3S5cb1nmxWc8MrgSUEjGTMhX31RDrwl2Sw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Adding jpeg thumbnail</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/4198">Mike Erickson</a> <a title="24 Sep 2015 18:17" href="/projects/exiv2/activity?from=2015-09-24">about 6 years</a> ago</span></p>
+<div class="wiki">
+<p>Is there something I'm missing when adding a jpeg preview thumbnail to an image that doesn't have one already? I have a buffer that contains a properly compressed and formatted jpeg image without any metadata. I want to add it as a preview to another jpeg. I add it thusly to the Exiv2::Image auto pointer:</p>
+
+
+	<p><code> Exiv2::ExifThumb exifThumb( exiv_meta_image->exifData() );<br /> exifThumb.setJpegThumbnail( buffer, size, std::make_pair( 96, 1 ), std::make_pair( 96, 1 ), 2/*RESUNIT_INCH in tiff.h*/ );<br /></code><br />I write the metadata out to the main jpeg file. All my other metadata changes are there, but no EXIF thumnbnail is present. What am I doing wrong?</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (5)</h3>
+  <div class="message reply" id="message-2251">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2250?r=2251#message-2251">RE: Adding jpeg thumbnail</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Sep 2015 13:23" href="/projects/exiv2/activity?from=2015-09-25">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mike.  Good to hear from you.  I hope you're well.</p>
+
+
+	<p>I don't know the answer to your question and don't have time today to investigate this.  However, I'll give you the recipe to find the solution.  Let me explain the exiv2 commands to insert a preview into an image and you can step the code in the debugger to discover how we achieve this.  Then you'll probably be able to answer your own question.</p>
+
+
+	<p>1 I'm using a photo I took at Stonehenge in July and using the wiz-bang 'webready' feature to extract its preview over http<pre>792 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pp http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg
+Preview 1: image/jpeg, 160x120 pixels, 10837 bytes
+793 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -ep  http://dev.exiv2.org/attachments/download/805/DSC_7154.jpg
+794 rmills@rmillsmbp:~/gnu/exiv2/trunk $ ls -alt *.jpg
+-rw-r--r--+ 1 rmills  staff    10837 25 Sep 13:40 DSC_7154-preview1.jpg
+795 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>2 Copy a test file (any jpg is fine) and list the previews:<pre>795 rmills@rmillsmbp:~/gnu/exiv2/trunk $ cp test/data/exiv2-bug884c.jpg .
+796 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pp exiv2-bug884c.jpg 
+Preview 1: image/jpeg, 640x480 pixels, 38828 bytes
+797 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>3 Rename the Stonehenge preview (DSC_7154-preview1.jpg) as exiv2-bug884c-thumb.jpg and insert it into exiv2-bug884c.jpg<pre>797 rmills@rmillsmbp:~/gnu/exiv2/trunk $ mv DSC_7154-preview1.jpg exiv2-bug884c-thumb.jpg 
+798 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -it exiv2-bug884c.jpg</pre>4 Success: you can see there's a new preview of 10837 bytes! <pre>799 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pp exiv2-bug884c.jpg 
+Preview 1: image/jpeg, 160x120 pixels, 10837 bytes
+Preview 2: image/jpeg, 640x480 pixels, 38828 bytes
+800 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>You can run the command <em>exiv2 -it exiv2-bug884c.jpg</em> in the debugger.  Set a break-point at Insert::insertThumbnail() in actions.cpp</p>
+
+
+	<p>And the <em><strong>bill for my help</strong></em> is:  Please report your solution back here to help another user.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2252">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2250?r=2252#message-2252">RE: Adding jpeg thumbnail</a>
+    -
+    Added by <a class="user active" href="/users/4198">Mike Erickson</a> <a title="25 Sep 2015 14:11" href="/projects/exiv2/activity?from=2015-09-25">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Strangely, my code as it exists works when writing a thumbnail to a TIFF file, but not to a jpeg.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2253">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2250?r=2253#message-2253">RE: Adding jpeg thumbnail</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Sep 2015 14:25" href="/projects/exiv2/activity?from=2015-09-25">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas wrote the code, so he may be able to explain this.  This is a nice little puzzle for you to end the week on a high-note.  Have a little step with the debugger and find the difference.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2254">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2250?r=2254#message-2254">RE: Adding jpeg thumbnail</a>
+    -
+    Added by <a class="user active" href="/users/4198">Mike Erickson</a> <a title="30 Sep 2015 14:31" href="/projects/exiv2/activity?from=2015-09-30">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Any tips? This seems broken or difficult to use. Even when I get the tiff written out and containing a thumbnail, the thumbnail appears stretched and mis-sized. I can verify my jpeg encoding is correct by sticking the buffer in a file on disk and opening it successfully with a variety of editors.</p>
+
+
+	<p>The main jpeg file never seems to contain the thumbnail when I add it the way that I am.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2255">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2250?r=2255#message-2255">RE: Adding jpeg thumbnail</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="30 Sep 2015 20:01" href="/projects/exiv2/activity?from=2015-09-30">about 6 years</a> ago
+  </h4>
+  <div class="wiki"><p>Mike</p>
+
+
+	<p>I was going to suggest sticking the data into a file to verify that the data is good.  However I see you've thought of that.  Here are a couple of extra steps you can try.</p>
+
+
+	<p>1) Use exiv2(.exe) -it to insert the thumbnail.  If exiv2 does it right, you can only be a few steps in the debugger from fixing this.<br />You need to give the thumb image the name foo-thumb.jpg for the file foo.jpg and (I'm guessing) foo-thumb.tif for foo.tif</p>
+
+
+	<p>2) If exiv2 also gets it wrong, can you dump the structure of your thumb name exiv2 -pS foo-thumb.tif<br />I spotted a comment in the code about ensuring there is no metadata in the thumbnail.  Yes, I know you said you had deleted all metadata from foo-thumb.tif - however try this to be certain.</p>
+
+
+	<p>3) If you're still stuck, please post your image and your thumb image and I'll look at it for you.  It's 9pm (3pm CST) in England now.  I'll be around until about 10pm (4pm CST).</p>
+
+
+	<p>Can you drop me an email if you're stuck as I didn't get a notification from Redmine.  I only found your request because I inspected Redmine and was thinking about packing it in for the day: <a class="email" href="mailto:robin@clanmills.com">robin@clanmills.com</a></p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-5/5)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

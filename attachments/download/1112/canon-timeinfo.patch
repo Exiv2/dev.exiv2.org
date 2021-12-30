@@ -1,0 +1,162 @@
+Index: src/canonmn.cpp
+===================================================================
+--- src/canonmn.cpp	(revision 4689)
++++ src/canonmn.cpp	(working copy)
+@@ -425,6 +425,7 @@
+         TagInfo(0x0015, "SerialNumberFormat", N_("Serial Number Format"), N_("Serial number format"), canonId, makerTags, unsignedLong, -1, EXV_PRINT_TAG(canonSerialNumberFormat)),
+         TagInfo(0x001a, "SuperMacro", N_("Super Macro"), N_("Super macro"), canonId, makerTags, signedShort, -1, EXV_PRINT_TAG(canonSuperMacro)),
+         TagInfo(0x0026, "AFInfo", N_("AF Info"), N_("AF info"), canonId, makerTags, unsignedShort, -1, printValue),
++        TagInfo(0x0035, "TimeInfo", N_("Time Info"), N_("Time zone information"), canonId, makerTags, signedLong, -1, printValue),
+         TagInfo(0x0083, "OriginalDecisionDataOffset", N_("Original Decision Data Offset"), N_("Original decision data offset"), canonId, makerTags, signedLong, -1, printValue),
+         TagInfo(0x00a4, "WhiteBalanceTable", N_("White Balance Table"), N_("White balance table"), canonId, makerTags, unsignedShort, -1, printValue),
+         TagInfo(0x0095, "LensModel", N_("Lens Model"), N_("Lens model"), canonId, makerTags, asciiString, -1, printValue),
+@@ -1585,6 +1586,57 @@
+         return tagInfoPr_;
+     }
+ 
++    extern const TagDetails canonTimeZoneCity[] = {
++        { 0x0000, N_("n/a")                 },
++        { 0x0001, N_("Chatham Islands")     },
++        { 0x0002, N_("Wellington")          },
++        { 0x0003, N_("Solomon Islands")     },
++        { 0x0004, N_("Sydney")              },
++        { 0x0005, N_("Adelaide")            },
++        { 0x0006, N_("Tokyo")               },
++        { 0x0007, N_("Hong Kong")           },
++        { 0x0008, N_("Bangkok")             },
++        { 0x0009, N_("Yangon")              },
++        { 0x000a, N_("Dhaka")               },
++        { 0x000b, N_("Kathmandu")           },
++        { 0x000c, N_("Delhi")               },
++        { 0x000d, N_("Karachi")             },
++        { 0x000e, N_("Kabul")               },
++        { 0x000f, N_("Dubai")               },
++        { 0x0010, N_("Tehran")              },
++        { 0x0011, N_("Moscow")              },
++        { 0x0012, N_("Cairo")               },
++        { 0x0013, N_("Paris")               },
++        { 0x0014, N_("London")              },
++        { 0x0015, N_("Azores")              },
++        { 0x0016, N_("Fernando de Noronha") },
++        { 0x0017, N_("Sao Paulo")           },
++        { 0x0018, N_("Newfoundland")        },
++        { 0x0019, N_("Santiago")            },
++        { 0x001a, N_("Caracas")             },
++        { 0x001b, N_("New York")            },
++        { 0x001c, N_("Chicago")             },
++        { 0x001d, N_("Denver")              },
++        { 0x001e, N_("Los Angeles")         },
++        { 0x001f, N_("Anchorage")           },
++        { 0x0020, N_("Honolulu")            },
++        { 0x0021, N_("Samoa")               },
++        { 0x7ffe, N_("(not set)")           },
++    };
++
++    // Canon Time Info Tag
++    const TagInfo CanonMakerNote::tagInfoTi_[] = {
++        TagInfo(0x0001, "TimeZone", N_("Time zone offset"), N_("Time zone offset in minutes"), canonTiId, makerTags, signedLong, 1, printValue),
++        TagInfo(0x0002, "TimeZoneCity", N_("Time zone city"), N_("Time zone city"), canonTiId, makerTags, signedLong, 1, EXV_PRINT_TAG(canonTimeZoneCity)),
++        TagInfo(0x0003, "DaylightSavings", N_("Daylight Savings"), N_("Daylight Saving Time"), canonTiId, makerTags, signedLong, 1, printValue),
++        TagInfo(0xffff, "(UnknownCanonTiTag)", "(UnknownCanonTiTag)", N_("Unknown Canon Time Info tag"), canonTiId, makerTags, signedLong, 1, printValue)
++    };
++
++    const TagInfo* CanonMakerNote::tagListTi()
++    {
++        return tagInfoTi_;
++    }
++
+     std::ostream& CanonMakerNote::printFiFileNumber(std::ostream& os,
+                                                     const Value& value,
+                                                     const ExifData* metadata)
+Index: src/canonmn_int.hpp
+===================================================================
+--- src/canonmn_int.hpp	(revision 4689)
++++ src/canonmn_int.hpp	(working copy)
+@@ -69,6 +69,8 @@
+         static const TagInfo* tagListCf();
+         //! Return read-only list of built-in Canon Picture Info tags
+         static const TagInfo* tagListPi();
++        //! Return read-only list of built-in Canon Time Info tags
++        static const TagInfo* tagListTi();
+         //! Return read-only list of built-in Canon File Info tags
+         static const TagInfo* tagListFi();
+         //! Return read-only list of built-in Canon Processing Info tags
+@@ -119,6 +121,7 @@
+         static const TagInfo tagInfoSi_[];
+         static const TagInfo tagInfoCf_[];
+         static const TagInfo tagInfoPi_[];
++        static const TagInfo tagInfoTi_[];
+         static const TagInfo tagInfoFi_[];
+         static const TagInfo tagInfoPa_[];
+         static const TagInfo tagInfoPr_[];
+Index: src/tags.cpp
+===================================================================
+--- src/tags.cpp	(revision 4689)
++++ src/tags.cpp	(working copy)
+@@ -103,6 +103,7 @@
+         { canonSiId,       "Makernote", "CanonSi",      CanonMakerNote::tagListSi      },
+         { canonCfId,       "Makernote", "CanonCf",      CanonMakerNote::tagListCf      },
+         { canonPiId,       "Makernote", "CanonPi",      CanonMakerNote::tagListPi      },
++        { canonTiId,       "Makernote", "CanonTi",      CanonMakerNote::tagListTi      },
+         { canonFiId,       "Makernote", "CanonFi",      CanonMakerNote::tagListFi      },
+         { canonPaId,       "Makernote", "CanonPa",      CanonMakerNote::tagListPa      },
+         { canonPrId,       "Makernote", "CanonPr",      CanonMakerNote::tagListPr      },
+Index: src/tags_int.hpp
+===================================================================
+--- src/tags_int.hpp	(revision 4689)
++++ src/tags_int.hpp	(working copy)
+@@ -81,6 +81,7 @@
+         canonCfId,
+         canonPiId,
+         canonPaId,
++        canonTiId,
+         canonFiId,
+         canonPrId,
+         casioId,
+Index: src/tiffimage.cpp
+===================================================================
+--- src/tiffimage.cpp	(revision 4689)
++++ src/tiffimage.cpp	(working copy)
+@@ -425,6 +425,18 @@
+         { 0, ttUnsignedShort, 1 }
+     };
+ 
++    //! Canon Time Info binary array - configuration
++    extern const ArrayCfg canonTiCfg = {
++        canonTiId,        // Group for the elements
++        invalidByteOrder, // Use byte order from parent
++        ttSignedLong,     // Type for array entry and size element
++        notEncrypted,     // Not encrypted
++        true,             // With size element
++        false,            // No fillers
++        false,            // Don't concatenate gaps
++        { 0, ttSignedLong, 1 }
++    };
++
+     //! Canon File Info binary array - configuration
+     extern const ArrayCfg canonFiCfg = {
+         canonFiId,        // Group for the elements
+@@ -1237,6 +1249,7 @@
+         { Tag::root, canonPaId,        canonId,          0x0005    },
+         { Tag::root, canonCfId,        canonId,          0x000f    },
+         { Tag::root, canonPiId,        canonId,          0x0012    },
++        { Tag::root, canonTiId,        canonId,          0x0035    },
+         { Tag::root, canonFiId,        canonId,          0x0093    },
+         { Tag::root, canonPrId,        canonId,          0x00a0    },
+         { Tag::root, nikon1Id,         exifId,           0x927c    },
+@@ -1569,6 +1582,7 @@
+         {    0x0005, canonId,          EXV_SIMPLE_BINARY_ARRAY(canonPaCfg)       },
+         {    0x000f, canonId,          EXV_SIMPLE_BINARY_ARRAY(canonCfCfg)       },
+         {    0x0012, canonId,          EXV_SIMPLE_BINARY_ARRAY(canonPiCfg)       },
++        {    0x0035, canonId,          EXV_SIMPLE_BINARY_ARRAY(canonTiCfg)       },
+         {    0x0093, canonId,          EXV_BINARY_ARRAY(canonFiCfg, canonFiDef)  },
+         {    0x00a0, canonId,          EXV_SIMPLE_BINARY_ARRAY(canonPrCfg)  },
+         { Tag::next, canonId,          ignoreTiffComponent                       },
+@@ -1580,6 +1594,7 @@
+         {  Tag::all, canonPaId,        newTiffBinaryElement                      },
+         {  Tag::all, canonCfId,        newTiffBinaryElement                      },
+         {  Tag::all, canonPiId,        newTiffBinaryElement                      },
++        {  Tag::all, canonTiId,        newTiffBinaryElement                      },
+         {  Tag::all, canonFiId,        newTiffBinaryElement                      },
+         {  Tag::all, canonPrId,        newTiffBinaryElement                      },
+ 

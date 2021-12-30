@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #663: Failure to write to Jpeg from Canon Ixus - digikam bug 214636 - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="p55MqAIbcDq2ojNbFQr2vqxufE1+MG89veLv5twSFq5F0+dHcGG8OuPGLFeq3fqNk/woNI/TzodAwn9unyvxwQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #663: Failure to write to Jpeg from Canon Ixus - digikam bug 214636" href="https://dev.exiv2.org/issues/663.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #663</h2>
+
+<div class="issue tracker-1 status-4 priority-4 priority-default details">
+    <div class="next-prev-links contextual">
+      <a title="#664" accesskey="p" href="/issues/664">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;f%5B%5D=author_id&amp;op%5Bauthor_id%5D=%3D&amp;op%5Bstatus_id%5D=%2A&amp;page=1&amp;per_page=100&amp;set_filter=1&amp;sort=id%3Adesc&amp;v%5Bauthor_id%5D%5B%5D=316&amp;v%5Bstatus_id%5D%5B%5D=">4 of 4</a>
+        </span> |
+      Next »
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Failure to write to Jpeg from Canon Ixus - digikam bug 214636</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/316">Marcel Wiesweg</a> <a title="20 Dec 2009 06:45" href="/projects/exiv2/activity?from=2009-12-20">almost 12 years</a> ago.
+        Updated <a title="28 Mar 2016 21:22" href="/projects/exiv2/activity?from=2016-03-28">over 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Feedback</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">jpeg parser</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a href="/versions/31">1.0</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">20 Dec 2009</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Exiv2 fails to write to the sample images provided with digikam bug 214636<br />( <a class="external" href="https://bugs.kde.org/attachment.cgi?id=38951">https://bugs.kde.org/attachment.cgi?id=38951</a> )<br />Output on command line:</p>
+
+
+	<p>exiv2 -M "set Xmp.dc.subject XmpBag Cuisine,Test"  "/media/fotos/Digikam Sample/JPEG/BugTag-214636/Photo2-beforemodif-tagCuisine.JPG"</p>
+
+
+	<p>Warning: Directory Image, entry 0x0001 has unknown Exif (TIFF) type 0; setting<br />type size 1.<br />Exiv2 exception in modify action for file /media/fotos/Digikam<br />Sample/JPEG/BugTag-214636/Photo2-beforemodif-tagCuisine.JPG:<br />Input data does not contain a valid image</p>
+
+
+	<p>See also <a class="external" href="http://bugs.kde.org/show_bug.cgi?id=214636">http://bugs.kde.org/show_bug.cgi?id=214636</a></p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/120">Photo2-beforemodif-tagCuisine_corr.JPG</a>    <span class="size">(61.8 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/120/Photo2-beforemodif-tagCuisine_corr.JPG">Photo2-beforemodif-tagCuisine_corr.JPG</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Michael Ulbrich, 22 Dec 2009 16:15</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/663" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="8IUTOTFaRFcvQLcS6dwCFlImXcgoCpMgZ/M074I5SisSyLjWQyCIV3okqB5WCw4lbbQJsdnpMpqa06RnwQCtRA==" />
+  <table class="list issues odd-even"><tr id="relation-49" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="533" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/533">Bug #533</a>: Support multiple APP13 Photoshop 3.0 segments in a JPEG</td><td class="status">Closed</td><td class="start_date"></td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/663/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=663&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 1961" href="/projects/exiv2/repository/exiv2/revisions/1961">Revision 1961</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/1961/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Dec 2009 06:44" href="/projects/exiv2/activity?from=2009-12-21">almost 12 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-4 priority-4 priority-default" title="Bug: Failure to write to Jpeg from Canon Ixus - digikam bug 214636 (Feedback)" href="/issues/663">#663</a>: Removed check for complete PS data.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 1963" href="/projects/exiv2/repository/exiv2/revisions/1963">Revision 1963</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/1963/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 Dec 2009 07:31" href="/projects/exiv2/activity?from=2009-12-23">almost 12 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-4 priority-4 priority-default" title="Bug: Failure to write to Jpeg from Canon Ixus - digikam bug 214636 (Feedback)" href="/issues/663">#663</a>: Reverted change made in <a class="changeset" title="#663: Removed check for complete PS data." href="/projects/exiv2/repository/exiv2/revisions/1961">r1961</a>.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1420" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Dec 2009 07:05" href="/projects/exiv2/activity?from=2009-12-21">almost 12 years</a> ago
+      <span id="journal-1420-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>jpeg parser</i></li>
+    </ul>
+    <div id="journal-1420-notes" class="wiki"><p>The image Photo2-beforemodif-tagCuisine.JPG has a weird JPEG structure: It contains two APP1 segments with XMP data (when there should be only one) and two APP13 Photoshop 3.0 segments, both of which are "invalid or incomplete" but (at least) one of them contains valid IPTC metadata. The worst is that it says 'digiKam' in all of the metadata, so I wonder whether Exiv2 was involved in creating this... but I'm not sure and have certainly never seen Exiv2 create such a mess.</p>
+
+
+	<p>Marcel, do you have any idea what happened to that picture? Any way to reproduce this?</p>
+
+
+	<p>I have checked-in a quick "fix", with which the command in the bug report works and which doesn't break any existing tests. As a result, the two APP13 segments are concatenated and written to only one APP13, but it still has invalid IRB data. Both Exiv2 and Exiftool seem to be able to deal with the resulting image.</p>
+
+
+	<p>Michael, Volker, could you please review whether that simple change is acceptable?</p>
+
+
+	<p>Thanks!</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1425" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/124">Michael Ulbrich</a> <a title="22 Dec 2009 16:15" href="/projects/exiv2/activity?from=2009-12-22">almost 12 years</a> ago
+      <span id="journal-1425-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/120">Photo2-beforemodif-tagCuisine_corr.JPG</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/120/Photo2-beforemodif-tagCuisine_corr.JPG">Photo2-beforemodif-tagCuisine_corr.JPG</a> added</li>
+    </ul>
+    <div id="journal-1425-notes" class="wiki"><p>Hi Andreas, all,</p>
+
+
+	<p>the original Photo1-beforemodif-tagLyon.JPG and Photo2-beforemodif-tagCuisine.JPG in <a class="external" href="https://bugs.kde.org/attachment.cgi?id=38951">https://bugs.kde.org/attachment.cgi?id=38951</a> both basically contain the same - "weird" as Andreas says, and I second that - metadata structure:</p>
+
+
+	<p>APP0, APP1 (EXIF), APP1 (XMP), APP13 (only IPTC IRB), APP13 (only IPTC IRB), APP1 (XMP).</p>
+
+
+	<p>APP13 / IRB / IPTC-Tag structure and lengths of both APP13 markers in Photo1 are correct, while IRB length of the first APP13 marker in Photo2 is wrong, which is the reason for the trunk version of exiv2 bailing out on this one. A fixed version Photo2-beforemodif-tagCuisine_corr.JPG is attached.</p>
+
+
+	<p>But that's a minor problem, the real problem IMHO lies in the "magic" duplication of APP markers.</p>
+
+
+	<p>Before we start to find a way how to gracefully modify this metadata structure, we should try to find out where and why this data originated. The situation is promising: Why not ask the author of the original report at bugs.kde.org about the particular steps of his workflow. If - and that's my assumption - after camera download these images' metadata has only been modified by digicam/exiv2, it should be fairly straight forward to find the bug in the software packages involved.</p>
+
+
+	<p>So much for now ... Michael</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1426" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/206">Volker Grabsch</a> <a title="22 Dec 2009 16:38" href="/projects/exiv2/activity?from=2009-12-22">almost 12 years</a> ago
+      <span id="journal-1426-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1426-notes" class="wiki"><p>The change introduced in revision 1961 is dangerous and should be reverted immediately.</p>
+
+
+	<p>The change disables a security mechanism which ensures that broken (or better: non-understood) APP13 sections are never overwritten. Without that mechanism writing IPTC metadata will cause data loss, because it would remove the non-understood APP13 sections.</p>
+
+
+	<p>Instead, we need to find the cause of the trouble. We need to clarify where exactly the broken APP13 marker was generated.</p>
+
+
+	<p>Greets,<br />Volker</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1427" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="23 Dec 2009 01:29" href="/projects/exiv2/activity?from=2009-12-23">almost 12 years</a> ago
+      <span id="journal-1427-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1427-notes" class="wiki"><p>Thanks for the feedback, Michael and Volker. I've asked on the digiKam bugtracker and since it's more important to find out if there is a bigger problem here, I'll back out the change and we'll wait and see if more such images with duplicated segments show up.</p>
+
+
+	<p>Andreas</p></div>
+    </div>
+  </div>
+  
+  <div id="change-1440" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="29 Dec 2009 18:45" href="/projects/exiv2/activity?from=2009-12-29">almost 12 years</a> ago
+      <span id="journal-1440-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Feedback</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4085" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Aug 2015 16:16" href="/projects/exiv2/activity?from=2015-08-23">about 6 years</a> ago
+      <span id="journal-4085-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> set to <i>53</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4894" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="28 Mar 2016 21:22" href="/projects/exiv2/activity?from=2016-03-28">over 5 years</a> ago
+      <span id="journal-4894-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>53</i> to <i>1.0</i></li>
+    </ul>
+    <div id="journal-4894-notes" class="wiki"><p>I haven't studied this matter.  I'd dumped it in "Review", however I'm going to move it to Target 1.0.  It might get attention in v0.27.  I haven't opened target v0.27 yet.  I'm hoping to close most of the review items, however this issue deserves attention.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/663.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/663.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

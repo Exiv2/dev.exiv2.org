@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1341: Date/Time Original not modified for NEFs - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="vzXQMSathW1t8T75LCoUgkU1yu+Pn3vQtWHbPZaWlqddeHveVNdJbTiVIfWT/Rixeqeeln582mpIQUu11a9xyA==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1341: Date/Time Original not modified for NEFs" href="https://dev.exiv2.org/issues/1341.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1341</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Date/Time Original not modified for NEFs</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/7083">Jean-Luc CECCOLI</a> <a title="07 Apr 2018 11:19" href="/projects/exiv2/activity?from=2018-04-07">over 3 years</a> ago.
+        Updated <a title="07 Nov 2018 17:54" href="/projects/exiv2/activity?from=2018-11-07">about 3 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">metadata</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Dec 2018" href="/versions/55">0.27</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">07 Apr 2018</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">2.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hello,<br />Ubuntu 16.04 LTS, exiv2 v2.5.<br />exiv2 -v ad -a -1:00:00 photo.nef states Date/Time Original is modified, but it actually keeps unmodified.<br />Is a fix for this planned ?<br />Rgrds,<br />J.-Luc</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-6166" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Apr 2018 13:28" href="/projects/exiv2/activity?from=2018-04-07">over 3 years</a> ago
+      <span id="journal-6166-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>metadata</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.27</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>10</i></li>
+       <li><strong>Estimated time</strong> set to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-6166-notes" class="wiki"><p>Amazing discovery.</p>
+
+
+	<p>Clearly <strong>NEF</strong> has a metadatum <em><strong>Exif.Image.DateTimeOriginal</strong></em> which is not being updated.<br />Both <strong>JPEG</strong> and <strong>NEF</strong> have <em><strong>Exif.Photo.DateTimeOriginal</strong></em> which is being correctly updated.</p>
+
+
+	<p><strong>JPEG</strong>: <pre>
+$ curl http://clanmills.com/Stonehenge.jpg &gt; S.jpg
+$ exiv2 -pa --grep Date/i S.jpg
+Exif.Image.DateTime                          Ascii      20  2015:07:16 20:25:28 &lt;-- Last edit 8:25pm
+Exif.Photo.DateTimeOriginal                  Ascii      20  2015:07:16 15:38:54 &lt;-- Taken at 3:38pm
+Exif.Photo.DateTimeDigitized                 Ascii      20  2015:07:16 15:38:54
+Exif.NikonWt.DateDisplayFormat               Byte        1  Y/M/D
+Exif.GPSInfo.GPSDateStamp                    Ascii      11  2015:07:16
+Xmp.xmp.ModifyDate                           XmpText    25  2015-07-16T20:25:28+01:00
+$ exiv2 --verbose -a -1:00:00 S.jpg
+File 1/1: S.jpg
+Adjusting `Exif.Image.DateTime' by -3600s to 2015:07:16 19:25:28
+Adjusting `Exif.Photo.DateTimeOriginal' by -3600s to 2015:07:16 14:38:54
+Adjusting `Exif.Photo.DateTimeDigitized' by -3600s to 2015:07:16 14:38:54
+$ exiv2 -pa --grep Date/i S.jpg
+Exif.Image.DateTime                          Ascii      20  2015:07:16 19:25:28 &lt;-- Now 7:25pm
+Exif.Photo.DateTimeOriginal                  Ascii      20  2015:07:16 14:38:54 &lt;-- Now 2:28pm
+Exif.Photo.DateTimeDigitized                 Ascii      20  2015:07:16 14:38:54
+Exif.NikonWt.DateDisplayFormat               Byte        1  Y/M/D
+Exif.GPSInfo.GPSDateStamp                    Ascii      11  2015:07:16
+Xmp.xmp.ModifyDate                           XmpText    25  2015-07-16T20:25:28+01:00
+</pre><strong>NEF:</strong><pre>
+$ cp /Volumes/Backup/Photos/2016/Raw/DSC_0001.NEF .
+$ exiv2 -pa --grep Date/i DSC_0001.NEF 
+Exif.Image.DateTime                          Ascii      20  2016:04:20 08:00:13 &lt;-- Last edit 8am
+Exif.Photo.DateTimeOriginal                  Ascii      20  2016:04:20 08:00:13 &lt;-- Taken at 8am
+Exif.Photo.DateTimeDigitized                 Ascii      20  2016:04:20 08:00:13
+Exif.NikonWt.DateDisplayFormat               Byte        1  Y/M/D
+Exif.Image.DateTimeOriginal                  Ascii      20  2016:04:20 08:00:13
+$ exiv2 --verbose -a -1:00:00 DSC_0001.NEF 
+File 1/1: DSC_0001.NEF
+Adjusting `Exif.Image.DateTime' by -3600s to 2016:04:20 07:00:13 
+Adjusting `Exif.Photo.DateTimeOriginal' by -3600s to 2016:04:20 07:00:13
+Adjusting `Exif.Photo.DateTimeDigitized' by -3600s to 2016:04:20 07:00:13
+$ exiv2 -pa --grep Date/i DSC_0001.NEF 
+Exif.Image.DateTime                          Ascii      20  2016:04:20 07:00:13 &lt;-- Now 7am
+Exif.Photo.DateTimeOriginal                  Ascii      20  2016:04:20 07:00:13 &lt;-- Now 7am
+Exif.Photo.DateTimeDigitized                 Ascii      20  2016:04:20 07:00:13
+Exif.NikonWt.DateDisplayFormat               Byte        1  Y/M/D
+Exif.Image.DateTimeOriginal                  Ascii      20  2016:04:20 08:00:13 &lt;-- Oh! 
+$ </pre>This will be fixed in v0.27 which is expected to be released later this year.  We don't have a target date for v0.27 at the moment.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6167" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Apr 2018 19:28" href="/projects/exiv2/activity?from=2018-04-07">over 3 years</a> ago
+      <span id="journal-6167-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>10</i> to <i>20</i></li>
+    </ul>
+    <div id="journal-6167-notes" class="wiki"><p>Ah!  This is intentional behaviour.  The code to preform this is in src/actions.cpp:<pre>   861            Exiv2::ExifKey key("Exif.Photo.DateTimeOriginal");
+   862            Exiv2::ExifData::iterator md = exifData.findKey(key);
+   863            if (md == exifData.end()) {
+   864                key = Exiv2::ExifKey("Exif.Image.DateTime");
+   865                md = exifData.findKey(key);
+   866            }
+   867            ...</pre><br />The code updates Exif.Photo.DateTimeOriginal or Exif.Image.DateTime, but not both!  Exif.Photo.DateTimeOriginal has priority.  This is exactly the behaviour we have seen in the test above.</p>
+
+
+	<p>I can of course modify the code to update both, however I think this is intended behaviour.</p>
+
+
+	<p>Can you describe your use case and the behaviour you would wish to see?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6168" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Apr 2018 20:34" href="/projects/exiv2/activity?from=2018-04-07">over 3 years</a> ago
+      <span id="journal-6168-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>20</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>2.00 h</i> to <i>1.00 h</i></li>
+    </ul>
+    <div id="journal-6168-notes" class="wiki"><p>Apologies.  I misread the code.  The code at 861 is modifying the filesystem timestamp using the metadata.  That's correct, it has to choose only only one.</p>
+
+
+	<p>The correct fix is:<pre>705 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ git diff
+diff --git a/src/actions.cpp b/src/actions.cpp
+index b167d19e..16a49a95 100644
+--- a/src/actions.cpp
++++ b/src/actions.cpp
+@@ -1701,6 +1701,7 @@ namespace Action {
+         }
+         int rc = adjustDateTime(exifData, "Exif.Image.DateTime", path);
+         rc += adjustDateTime(exifData, "Exif.Photo.DateTimeOriginal", path);
++        rc += adjustDateTime(exifData, "Exif.Image.DateTimeOriginal", path);
+         rc += adjustDateTime(exifData, "Exif.Photo.DateTimeDigitized", path);
+
+         if (rc == 0 ) {
+706 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ </pre>Here's the output:<pre>706 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ cp /Volumes/Backup/Photos/2016/Raw/DSC_0001.NEF .
+707 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ bin/exiv2 -pa --grep date/i DSC_0001.NEF 
+Exif.Image.DateTime                          Ascii      20  2016:04:20 08:00:13
+Exif.Photo.DateTimeOriginal                  Ascii      20  2016:04:20 08:00:13
+Exif.Photo.DateTimeDigitized                 Ascii      20  2016:04:20 08:00:13
+Exif.NikonWt.DateDisplayFormat               Byte        1  Y/M/D
+Exif.Image.DateTimeOriginal                  Ascii      20  2016:04:20 08:00:13
+708 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ bin/exiv2 --verbose --adjust -1:00:00 DSC_0001.NEF
+File 1/1: DSC_0001.NEF
+Adjusting `Exif.Image.DateTime' by -3600s to 2016:04:20 07:00:13
+Adjusting `Exif.Photo.DateTimeOriginal' by -3600s to 2016:04:20 07:00:13
+Adjusting `Exif.Image.DateTimeOriginal' by -3600s to 2016:04:20 07:00:13
+Adjusting `Exif.Photo.DateTimeDigitized' by -3600s to 2016:04:20 07:00:13
+709 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ bin/exiv2 -pa --grep date/i DSC_0001.NEF 
+Exif.Image.DateTime                          Ascii      20  2016:04:20 07:00:13
+Exif.Photo.DateTimeOriginal                  Ascii      20  2016:04:20 07:00:13
+Exif.Photo.DateTimeDigitized                 Ascii      20  2016:04:20 07:00:13
+Exif.NikonWt.DateDisplayFormat               Byte        1  Y/M/D
+Exif.Image.DateTimeOriginal                  Ascii      20  2016:04:20 07:00:13
+710 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/build $ </pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-6266" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Sep 2018 14:05" href="/projects/exiv2/activity?from=2018-09-18">about 3 years</a> ago
+      <span id="journal-6266-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>100</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> changed from <i>1.00 h</i> to <i>2.00 h</i></li>
+    </ul>
+    <div id="journal-6266-notes" class="wiki"><p>I still have to submit this change to 'master' for Exiv2 v0.27.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-6311" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="07 Nov 2018 17:54" href="/projects/exiv2/activity?from=2018-11-07">about 3 years</a> ago
+      <span id="journal-6311-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>100</i></li>
+    </ul>
+    <div id="journal-6311-notes" class="wiki"><p><a class="external" href="https://github.com/Exiv2/exiv2/pull/524">https://github.com/Exiv2/exiv2/pull/524</a></p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1341.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1341.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

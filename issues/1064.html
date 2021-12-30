@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1064: exiv2 -iX &lt;file.jpg&gt; deletes Makernote - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="/hf4gagxRtIyhRRMcRIpIrQouL5Mm0yBcaeVEj2Mb4QcWlNu2kuK0mfhC0DOxSURi7rsx7147TuMhwWafrWI6w==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1064: exiv2 -iX &lt;file.jpg&gt; deletes Makernote" href="https://dev.exiv2.org/issues/1064.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1064</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>exiv2 -iX &lt;file.jpg&gt; deletes Makernote</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4035">Alan Pater</a> <a title="24 Apr 2015 19:12" href="/projects/exiv2/activity?from=2015-04-24">over 6 years</a> ago.
+        Updated <a title="23 Aug 2016 19:41" href="/projects/exiv2/activity?from=2016-08-23">about 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">xmp</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="28 Apr 2017" href="/versions/52">0.26</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">24 Apr 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">5.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>exiv2 -iX &lt;file.jpg&gt; is used to import metadata from an XMP sidecar file which was typically created with the command: exiv2 -eX &lt;file.jpg&gt;.</p>
+
+
+	<p>If the jpg file contains a makernote, -iX deletes that makernote. This was tested on images with both Nikon makernotes and on images with Olympus makernotes.</p>
+
+
+	<p>The XMP sidecar file created by -eX does not contain any makernote information. The XMP specification does not say anything about storing makernotes in XMP sidecar files, so that behaviour is normal and correct.</p>
+
+
+	<p>Importing metadata from  XMP sidecar file should not delete makernotes.</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 4220" href="/projects/exiv2/repository/exiv2/revisions/4220">Revision 4220</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4220/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Mar 2016 07:51" href="/projects/exiv2/activity?from=2016-03-09">over 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Implement target/modifier - (stdin/stdout) for exiv2 options -i (insert) and -e (extract) (Closed)" href="/issues/1057">#1057</a>, <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 -iX &lt;file.jpg&gt; deletes Makernote (Closed)" href="/issues/1064">#1064</a>, <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Add options -pS and -dI to application exiv2 (Closed)" href="/issues/922">#922</a>, <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: XMP Rights field padded with spaces (Closed)" href="/issues/1148">#1148</a>.  Work in progress.  This is a composite patch of several matters in development.  None are totally complete at this time.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 4427" href="/projects/exiv2/repository/exiv2/revisions/4427">Revision 4427</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/4427/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Aug 2016 19:40" href="/projects/exiv2/activity?from=2016-08-23">about 5 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: exiv2 -iX &lt;file.jpg&gt; deletes Makernote (Closed)" href="/issues/1064">#1064</a> Fix -iX to merge (not replace) metadata from source to destination.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3484" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Apr 2015 20:05" href="/projects/exiv2/activity?from=2015-04-24">over 6 years</a> ago
+      <span id="journal-3484-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    <div id="journal-3484-notes" class="wiki"><p>I'm going to push this one to v0.26.  If this is a bug, it's been there a long time and nobody has mentioned it.  If this a feature request to preserve the Makernote in the image being edited, I want to defer it to 0.26.</p>
+
+
+	<p>I feel that exiv2 -eX should export the Makernote as the attribute exif.Makernote="..base64.." and exiv2 -iX should recreate the Makernote.  There are at least three reasons:</p>
+
+
+	<ol>
+	<li>It's symmetrical</li>
+		<li>It's consistent with exiv2 -e{tgt} and exiv2 -i{tgt} which create and read .exv "sidekick files"  </li>
+		<li>It's clean.  Preserving the Exif.Makernote when updating other Exif takes is ugly.  It might even be difficult to implement.</li>
+	</ol></div>
+    </div>
+  </div>
+  
+  <div id="change-3486" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="25 Apr 2015 03:24" href="/projects/exiv2/activity?from=2015-04-25">over 6 years</a> ago
+      <span id="journal-3486-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3486-notes" class="wiki"><p>Lot's of people will be happy if we can figure out a reliable way to store makernotes in XMP. But also, some say no, not possible, don't go there. So not everyone will be happy ...</p>
+
+
+	<p>Phil Harvey, exiftool: "... the MakerNote tag existed in the early Adobe XMP specification, they never defined an encoding method for the data, so the tag is essentially useless .." <a class="external" href="http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=1878.0">http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=1878.0</a></p>
+
+
+	<p>Leonard Rosenthol, Adobe Systems: "I've discussed this the XMP team and they do NOT recommend the inclusion of a "binary blob" of data inside of XMP, and ESPECIALLY NOT the MakerNote data."  <a class="external" href="http://lists.freedesktop.org/archives/create/2007-June/000835.html">http://lists.freedesktop.org/archives/create/2007-June/000835.html</a></p>
+
+
+	<p>Perhaps a -eMX option to export the makernote to a separate "binary blob" file alongside the xmp sidecar file? Then -iMX would re-import them both.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3574" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 May 2015 08:59" href="/projects/exiv2/activity?from=2015-05-02">over 6 years</a> ago
+      <span id="journal-3574-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3574-notes" class="wiki"><p>Thanks for digging into this, Alan.  We mustn't put the makernote into the XMP.  Adobe, undoubtably for very good reasons, have said "No.  Don't go there!".  We don't need to add an <strong>M</strong> flag to say <em>"Do a Microsoft and ignore the standard"</em>  We already have the .exv file that preserves the makernote.  We don't need a sidecar to the sidecar!</p>
+
+
+	<p>So that brings us back to the original topic which is to retain the image's makernote when reading in a sidecar.  What happens if the side car contradicts the makernote.  We don't have an code to rewrite/update the makernote.</p>
+
+
+	<p>We could compromise and retain the makernote if it doesn't contradict the sidecar.  However when there's conflict, we remove the makernote. That's a mess.  Somebody will report a bug saying, sometimes the makernote is deleted and sometimes it isn't.</p>
+
+
+	<p>So, how about an <strong>m</strong> import tgt to say "retain the makernote".  We can put out a warning if we think it's conflicted.</p>
+
+
+	<p>We could have import tgt <strong>m</strong> or <strong>M</strong>:<br /><strong>m</strong> =  retain makernote when not conflicted<br /><strong>M</strong> = retain makernote unconditionally</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3578" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="02 May 2015 13:31" href="/projects/exiv2/activity?from=2015-05-02">over 6 years</a> ago
+      <span id="journal-3578-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3578-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>So that brings us back to the original topic which is to retain the image's makernote when reading in a sidecar.  What happens if the side car contradicts the makernote.  We don't have an code to rewrite/update the makernote.</p>
+
+
+</blockquote>
+
+	<p>I don't think there are any conflicts between information in the<br />makernote and in XMP, IPTC or Exif. I thought makernotes are completely<br />separate tags in a completly different location inside the file.</p>
+
+
+	<p>For instance, all the Nikon makernote tags are under Exif.Nikon...</p>
+	<pre><code><a class="external" href="http://www.exiv2.org/tags-nikon.html">http://www.exiv2.org/tags-nikon.html</a></code></pre>
+
+
+	<p>All the Exif tags are under Exif.Image or Exif.Photo or Exif.GPSInfo.<br />There is no overlap.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3579" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="02 May 2015 13:43" href="/projects/exiv2/activity?from=2015-05-02">over 6 years</a> ago
+      <span id="journal-3579-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3579-notes" class="wiki"><p>Oh, the makernote tag is safely stored in the file.  If information for the XMP is derived from the MakerNotes, it could be edited in XMP.  When we read the XMP back, it could conflict.  Example:<pre>725 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pa -g eed ~/R.jpg 
+Exif.Photo.ISOSpeedRatings                   Short       1  400
+Exif.Nikon3.ISOSpeed                         Short       2  400
+Exif.Nikon3.CropHiSpeed                      Short       7  0 6016 4016 6016 4016 0 0
+726 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>The XMP looks like this:<pre>727 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -eX -f ~/R.jpg
+728 rmills@rmillsmbp:~/gnu/exiv2/trunk $ grep -i -B 2 -A 2 speed ~/R.xmp 
+    &lt;/rdf:Alt&gt;
+   &lt;/exif:UserComment&gt;
+   &lt;exif:ISOSpeedRatings&gt;
+    &lt;rdf:Seq&gt;
+     &lt;rdf:li&gt;400&lt;/rdf:li&gt;
+--
+--
+     &lt;rdf:li&gt;400&lt;/rdf:li&gt;
+    &lt;/rdf:Seq&gt;
+   &lt;/exif:ISOSpeedRatings&gt;
+   &lt;exif:Flash
+    exif:Fired="False" 
+731 rmills@rmillsmbp:~/gnu/exiv2/trunk $</pre>So if we modify the 400 to 200 and read it back into the image, we have 2 values for the ISOSpeedRatings.  I think a warning is all that required.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3580" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="02 May 2015 13:55" href="/projects/exiv2/activity?from=2015-05-02">over 6 years</a> ago
+      <span id="journal-3580-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3580-notes" class="wiki"><p>Agreed. ISO speed is not something anyone should be modifying after the fact.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3581" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="02 May 2015 14:03" href="/projects/exiv2/activity?from=2015-05-02">over 6 years</a> ago
+      <span id="journal-3581-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3581-notes" class="wiki"><p>Besides, we probably will not be able to edit Xmp.exif.ISOSpeedRatings.</p>
+
+
+	<p>"Editing existing XMP properties in XMP sidecars does not work" <br />    <a class="external" href="http://dev.exiv2.org/issues/639">http://dev.exiv2.org/issues/639</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3749" class="journal has-details">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 May 2015 08:35" href="/projects/exiv2/activity?from=2015-05-23">over 6 years</a> ago
+      <span id="journal-3749-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> deleted (<del><i>Robin Mills</i></del>)</li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4373" class="journal has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Oct 2015 08:59" href="/projects/exiv2/activity?from=2015-10-12">about 6 years</a> ago
+      <span id="journal-4373-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4636" class="journal has-notes has-details">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="04 Jan 2016 10:53" href="/projects/exiv2/activity?from=2016-01-04">almost 6 years</a> ago
+      <span id="journal-4636-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>10</i></li>
+       <li><strong>Estimated time</strong> set to <i>10.00 h</i></li>
+    </ul>
+    <div id="journal-4636-notes" class="wiki"><p>I'm adding a SWAG to my outstanding issues for v0.26 to get a more accurate assessment of the status of v0.26.  I can't remember anything about this - so I'll guess about a day's work.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5441" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Aug 2016 16:50" href="/projects/exiv2/activity?from=2016-08-23">about 5 years</a> ago
+      <span id="journal-5441-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>10</i> to <i>30</i></li>
+    </ul>
+    <div id="journal-5441-notes" class="wiki"><p>Here's my view of this issue.  -ie replaces the Makernote, -iX does not.  It feels like a bug in -iX.  However -iX reads from foo.xmp (not foo.exv).  The Sidecar (foo.xmp) does not have the makernote.  I think the fix for -iX to update the Exif data from the Sidecar and not to replace it.  Here's my analysis:</p>
+
+
+	<p><strong>1 Setup the test data:</strong><pre>810 rmills@rmillsmbp:~/gnu/exiv2/trunk $ curl -O --silent http://clanmills.com/Stonehenge.jpg
+811 rmills@rmillsmbp:~/gnu/exiv2/trunk $ mv Stonehenge.jpg  S.jpg
+812 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pR S.jpg | grep -i makernot
+         416 | 0x927c MakerNote                 | UNDEFINED |     3152 |       914 | Nikon.....II*.....9.........0211 ... 
+813 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pa --grep MakerNote S.jpg                   
+Exif.Photo.MakerNote                         Undefined 3152  (Binary value suppressed)
+Exif.MakerNote.Offset                        Long        1  914
+Exif.MakerNote.ByteOrder                     Ascii       3  II
+814 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -ea --verbose --force S.jpg                   
+File 1/1: S.jpg
+Writing Exif data from S.jpg to ./S.exv
+Writing IPTC data from S.jpg to ./S.exv
+Writing XMP data from S.jpg to ./S.exv
+815 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pR S.jpg | grep -i makernot
+         416 | 0x927c MakerNote                 | UNDEFINED |     3152 |       914 | Nikon.....II*.....9.........0211 ...
+816 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pa --grep MakerNote S.exv 
+Exif.Photo.MakerNote                         Undefined 3152  (Binary value suppressed)
+Exif.MakerNote.Offset                        Long        1  820
+Exif.MakerNote.ByteOrder                     Ascii       3  II
+817 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre><strong>2 -ie works</strong><pre>820 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pR S.jpg | grep -i makernote
+         416 | 0x927c MakerNote                 | UNDEFINED |     3152 |       914 | Nikon.....II*.....9.........0211 ...
+821 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pa S.jpg | grep -i makernote
+Exif.Photo.MakerNote                         Undefined 3152  (Binary value suppressed)
+Exif.MakerNote.Offset                        Long        1  914
+Exif.MakerNote.ByteOrder                     Ascii       3  II
+822 rmills@rmillsmbp:~/gnu/exiv2/trunk $ 
+</pre><strong>3 -iX requires S.xmp</strong><pre>829 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -iX --verbose --force S.jpg
+File 1/1: S.jpg
+./S.xmp: Failed to open the file
+830 rmills@rmillsmbp:~/gnu/exiv2/trunk $</pre><strong>4 The man page states</strong><pre>       -i tgt Insert target(s) for the 'insert' action. Possible  targets  are
+          the same as those for the -d option, plus an optional modifier:
+
+          X  :  Insert  metadata  from an XMP sidecar file &lt;file&gt;.xmp. The
+          remaining insert targets determine what metadata to insert  from
+          the  sidecar  file.  Possible  are  Exif,  IPTC  and XMP and the
+          default is all of these. Note that the inserted  XMP  properties
+          include those converted to Exif and IPTC.</pre><strong>5 Create S.xmp with -eX</strong></p>
+
+
+	<p>This is xmp and does not contain the makernote (as explained above).<pre>831 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -eX --verbose --force S.jpg
+File 1/1: S.jpg
+Writing Exif data from S.jpg to ./S.xmp
+Writing XMP data from S.jpg to ./S.xmp
+832 rmills@rmillsmbp:~/gnu/exiv2/trunk $ grep -i maker S.xmp
+833 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre><strong>6 -iX destroys the makernote</strong><pre>833 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -iX --verbose --force S.jpg
+File 1/1: S.jpg
+Writing Exif data from ./S.xmp to S.jpg
+Writing IPTC data from ./S.xmp to S.jpg
+Writing XMP data from ./S.xmp to S.jpg
+834 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pa S.jpg | grep -i makernote
+835 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pR S.jpg | grep -i makernote
+835 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre><strong>7 Conclusion</strong></p>
+
+
+	<p>I think -iX should "merge" the metadata from S.xmp into S.jpg. It currently replaces it.  I'm going to investigate how to achieve that.</p>
+
+
+	<p>If a user wishes to retain the existing behaviour, it can be easily achieved by deleting the Exif metadata with -de before using -iX.  For example: <pre>$ exiv2 -de -iX S.jpg</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-5442" class="journal has-notes has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Aug 2016 19:41" href="/projects/exiv2/activity?from=2016-08-23">about 5 years</a> ago
+      <span id="journal-5442-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Closed</i></li>
+       <li><strong>% Done</strong> changed from <i>30</i> to <i>100</i></li>
+       <li><strong>Estimated time</strong> changed from <i>10.00 h</i> to <i>5.00 h</i></li>
+    </ul>
+    <div id="journal-5442-notes" class="wiki"><p>Fix submitted: <a class="changeset" title="#1064 Fix -iX to merge (not replace) metadata from source to destination." href="/projects/exiv2/repository/exiv2/revisions/4427">r4427</a></p>
+
+
+	<p>Brilliant analysis, Robin.  The code in src/actions.cpp+1993 did not handle the preserve flag correctly.<pre>    int metacopy(const std::string&#38; source,
+                 const std::string&#38; tgt,
+                 int targetType,
+                 bool preserve);</pre></p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1064.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1064.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

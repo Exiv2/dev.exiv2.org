@@ -1,0 +1,35 @@
+Index: src/futils.cpp
+===================================================================
+--- src/futils.cpp	(revision 2035)
++++ src/futils.cpp	(working copy)
+@@ -92,8 +92,7 @@
+         std::ostringstream os;
+ #ifdef EXV_HAVE_STRERROR_R
+         const size_t n = 1024;
+-// _GNU_SOURCE: See Debian bug #485135
+-# if defined EXV_STRERROR_R_CHAR_P || defined _GNU_SOURCE
++# if defined EXV_STRERROR_R_CHAR_P
+         char *buf = 0;
+         char buf2[n];
+         std::memset(buf2, 0x0, n);
+Index: config/ConfigureChecks.cmake
+===================================================================
+--- config/ConfigureChecks.cmake	(revision 2035)
++++ config/ConfigureChecks.cmake	(working copy)
+@@ -144,12 +144,10 @@
+ endif( HAVE_SYS_TIME_H )
+ 
+ # strerror_r returns char*
+-check_c_source_compiles( "#include <string.h>
+-int main() {
+-char * c;
+-c = strerror_r(0,c,0);
+-return 0;
+-}" STRERROR_R_CHAR_P )
++check_cxx_source_compiles( "
++#include <cstring>
++int dfunc() { char cb[12]; return *(strerror_r(1, cb, sizeof(cb))) == '\0'; }
++" STRERROR_R_CHAR_P )
+ 
+ #function is declared with the above
+ if( STRERROR_R_CHAR_P )

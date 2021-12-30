@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>How can you read BlueBalance, GreenBalance and RedBalance with exiv2? - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="YxohFAA5f0ElUgnbKKZcBktomWNGN41HkjFvo/sHFuCBV4r7ckOzQXA2FteXcVA1dPrNGrfULP1vEf8ruD7xjw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/7087">Andreas S.</a> <a title="08 Apr 2018 14:45" href="/projects/exiv2/activity?from=2018-04-08">over 3 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>I'm trying to write a python script with the gexiv2 python3 bindings to create white balance presets. However I cound't find a way using the exiv2 command line tool or via python to read the BlueBalance, GreenBalance and RedBalance from the exiv metadata. It is possible using exiftool.</p>
+
+
+	<p>Does someone know how to do it?</p>
+
+
+	<p>Thanks.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (14)</h3>
+  <div class="message reply" id="message-3109">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3109#message-3109">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Apr 2018 15:27" href="/projects/exiv2/activity?from=2018-04-08">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Can you attach a test image and I'll investigate and let you know.</p>
+
+
+	<p>I recently helped somebody to build py3exiv2 on Centos.  Building py3exiv2 on MacOS or Windows is challenging (not impossible, however not easy).  <a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/BuildingPy3Exiv2onCentos">http://dev.exiv2.org/projects/exiv2/wiki/BuildingPy3Exiv2onCentos</a></p>
+
+
+	<p>I discussed something recently with somebody and red/green/blue was part of the discussion.  I can't remember what was discussed and your test image will probably restore my memory.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3110">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3110#message-3110">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/7087">Andreas S.</a> <a title="08 Apr 2018 15:47" href="/projects/exiv2/activity?from=2018-04-08">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Here is the file: <a class="external" href="https://xor.cryptomilk.org/dt/7M3_DAYLIGHT.ARW">https://xor.cryptomilk.org/dt/7M3_DAYLIGHT.ARW</a></p>
+
+
+	<p>I'm looking for the following values:</p>
+
+
+<pre>
+$ exiftool -s -t -WhiteBalance -WhiteBalanceFineTune -ColorTemperature -RedBalance -BlueBalance 7M3_DAYLIGHT.ARW
+WhiteBalance    Daylight
+WhiteBalanceFineTune    0
+ColorTemperature        Auto
+RedBalance      2.296875
+BlueBalance     1.617188
+</pre>
+
+	<p>I wasn't able to get the any of the *Balance tags using exiv2 on the command line either.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3111">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3111#message-3111">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Apr 2018 16:53" href="/projects/exiv2/activity?from=2018-04-08">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I don't have good news for you.  Here's what I see:<pre>609 rmills@rmillsmbp:~/Downloads $ exiv2 -pa --grep white/i 7M3_DAYLIGHT.ARW 
+Exif.Image.WhitePoint                        Rational    2  313/1000 329/1000
+Exif.SubImage1.WhiteLevel                    Short       1  16383
+Exif.Sony2.WhiteBalanceFineTune              Long        1  0
+Exif.Sony2.WhiteBalance                      Long        1  Daylight
+Exif.Sony2.WhiteBalance2                     Short       1  Daylight
+Exif.Photo.WhiteBalance                      Short       1  Manual
+610 rmills@rmillsmbp:~/Downloads $ </pre>There was something reported some time ago about this and didn't make much progress at that time:  <a class="external" href="http://dev.exiv2.org/issues/949">http://dev.exiv2.org/issues/949</a></p>
+
+
+	<p>I've looked at the exiftool Sony Tag documentation and can't see anything about RedBalance or BlueBalance.  <a class="external" href="https://sno.phy.queensu.ca/~phil/exiftool/TagNames/Sony.html">https://sno.phy.queensu.ca/~phil/exiftool/TagNames/Sony.html</a></p>
+
+
+	<p>I've look at the exiftool Minolta Tag documentation and it's documented:  <a class="external" href="https://sno.phy.queensu.ca/~phil/exiftool/TagNames/Minolta.html">https://sno.phy.queensu.ca/~phil/exiftool/TagNames/Minolta.html</a>  However, I'm not convinced that the Minolta documentation is relevant for your image.</p>
+
+
+	<p>I don't know how exiftool has discovered this:<pre>627 rmills@rmillsmbp:~/Downloads $ exiftool 7M3_DAYLIGHT.ARW  | grep -i blue
+Blue Balance                    : 1.617188
+CFA Pattern                     : [Red,Green][Green,Blue]
+628 rmills@rmillsmbp:~/Downloads $ exiftool -verbose 7M3_DAYLIGHT.ARW  | grep -i blue
+629 rmills@rmillsmbp:~/Downloads $ </pre>I have remembered where red/blue stuff was recently discussed.  I'm involved in an Open Source Community Effort to reverse engineer Canon's new CR3 format.  So although r/g/b was in that conversation, it does not relate to your ARW file.</p>
+
+
+	<p>Regrettably I don't believe Exiv2 can be of further help to you at this time.  Here's the current discussion document about v0.28.  As you can see, the top priority matter for 2019 is "Improved raw image code and test" <a class="external" href="http://dev.exiv2.org/news/3">http://dev.exiv2.org/news/3</a></p>
+
+
+	<p>Remarkably, I had a discussion with a user earlier today about IIQ files <em>(another raw format)</em> for which our support is limited.  That discussion lead to a similar conclusion.  Please understand that Team Exiv2 is a small group of volunteers.  The manufacturers are paid for equipment which take images with undocumented metadata.  It's a pity that manufacturers don't contribute to Exiv2.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3112">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3112#message-3112">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/7087">Andreas S.</a> <a title="08 Apr 2018 17:47" href="/projects/exiv2/activity?from=2018-04-08">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>So first, this is not only related to Sony, the same applies to Nikon! So I'm not sure if this is a vendor specific tag at all :-)</p>
+
+
+	<p>Example:</p>
+
+
+<pre>
+exiftool -s -t -WhiteBalance -WhiteBalanceFineTune -ColorTemperature -RedBalance -BlueBalance 2017-09-20_Peru_0202.nef
+WhiteBalance    Auto1
+WhiteBalanceFineTune    1 0
+RedBalance      2.179688
+BlueBalance     1.726563
+
+exiv2 -pa 2017-09-20_Peru_0202.nef | grep BalanceExif.Nikon3.WhiteBalance                     Ascii      13  AUTO1       
+Exif.Nikon3.WhiteBalanceBias                 SShort      2  1 0
+Binary file (standard input) matches
+</pre>
+
+	<p>I wanted to write a wb_extract.py for darktable to automatically generate C code from a bunch of RAW files for WhiteBalance presets. As there are python bindings for exiv2 I thought I would go with that but it looks like I have to postpone that :-)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3113">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3113#message-3113">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 Apr 2018 18:07" href="/projects/exiv2/activity?from=2018-04-08">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for your feedback.  May I ask if you are cross with me?  I have tried to answer your question.</p>
+
+
+	<p>The key Exif.Nikon3.WhiteBalanceBias indicates that in the Nikon3 MakerNote, there is a tag called "WhiteBalanceBias".  In an .ARW (a sony format, I understand), you will find keys such as "Exif.Sony2.WhiteBalance" which indicates that the tag is in the Sony2 MakerNote.  So different manufacturers store this information in different ways in their images.</p>
+
+
+	<p>The RedBalance/BlueBalance/GreenBalance Tags in Exiv2 are all in the manufacturer's makernotes:<pre>638 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/src $ grep -i -e RedBalance -e BlueBalance -e GreenBalance *.cpp 
+olympusmn_int.cpp:        TagInfo(0x1017, "RedBalance", N_("Red Balance"),
+olympusmn_int.cpp:        TagInfo(0x1018, "BlueBalance", N_("Blue Balance"),
+panasonicmn_int.cpp:        TagInfo(0x0011, "RedBalance", N_("Red Balance"), N_("Red balance (found in Digilux 2 RAW images)"), panaRawId, panaRaw, unsignedShort, -1, printValue),
+panasonicmn_int.cpp:        TagInfo(0x0012, "BlueBalance", N_("Blue Balance"), N_("Blue balance"), panaRawId, panaRaw, unsignedShort, -1, printValue),
+pentaxmn_int.cpp:        TagInfo(0x001b, "BlueBalance", N_("Blue balance"),
+pentaxmn_int.cpp:        TagInfo(0x001c, "RedBalance", N_("Red balance"),
+639 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/src $ </pre>WhitePoint and WhiteBalance are in the Exif standard (and there's other white metadata buried in the metadata):<pre>644 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/src $ exiv2 -pa --grep White/i ~/Downloads/7M3_DAYLIGHT.ARW 
+Exif.Image.WhitePoint                        Rational    2  313/1000 329/1000
+Exif.SubImage1.WhiteLevel                    Short       1  16383
+Exif.Sony2.WhiteBalanceFineTune              Long        1  0
+Exif.Sony2.WhiteBalance                      Long        1  Daylight
+Exif.Sony2.WhiteBalance2                     Short       1  Daylight
+Exif.Photo.WhiteBalance                      Short       1  Manual
+645 rmills@rmillsmbp:~/gnu/github/exiv2/exiv2/src $ </pre>The py3exiv2 binding for Exiv2 exposes <em>more or less</em> the same information as the Exiv2 command-line program as pythonic structures such as an array.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3114">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3114#message-3114">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/7087">Andreas S.</a> <a title="08 Apr 2018 20:46" href="/projects/exiv2/activity?from=2018-04-08">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ok, I see. I will wait till there is support for those values in exiv2 and then write the python script. Thanks for your help!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3116">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3116#message-3116">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Apr 2018 19:34" href="/projects/exiv2/activity?from=2018-04-09">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Andreas:</p>
+
+
+	<p>I don't want you to believe that I've agreed to research Blue/Red/GreenBalance and add support for those ARW keys to Exiv2.  The team is small and we have many requests.  This will be an unknown amount of work and feels less important that other projects being considered for v0.28.</p>
+
+
+	<p>I don't understand the relationship between darktable and python.  If you're generating C code using python, you can use something like popen3() in python to run exiftool and don't need me to do anything.  I hope everything works out well for you.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3117">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3117#message-3117">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/7087">Andreas S.</a> <a title="09 Apr 2018 19:39" href="/projects/exiv2/activity?from=2018-04-09">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I can use exiftool and there are scripts available using it to generate the values already. I just wanted to do it with exiv2. However it isn't possible right now. It isn't really a problem.</p>
+
+
+	<p>I'm working on open source projects too. I know what it means to not find time to work on some things, so don't worry :-)</p>
+
+
+	<p>Cheers,</p>
+	<pre><code>Andreas</code></pre></div>
+  
+  </div>
+  <div class="message reply" id="message-3118">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3118#message-3118">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="09 Apr 2018 20:03" href="/projects/exiv2/activity?from=2018-04-09">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've no doubt you understand this.  In fact, one of the best aspects of open-source is the support.  I'm certain that the support provided by Exiv2 (and many other projects) is better than you'll get from major software vendors in Silicon Valley.</p>
+
+
+	<p>One reason that open-source support is good is because you're usually speaking directly to the Engineer who does the code.  No middle-men, office-politicians, or marketing folk.  If I can do it easily, I'll add features to Exiv2 immediately.  No delay.  No messing.  In the case of this red/blue/green balance issue, it's not easy and will have to be stacked for the future.  When will it get done?  No idea!</p>
+
+
+	<p>Oh, if you really want this done, can you add an "Issue" on GitHub to be sure it's tracked and not forgotten.  Discussions on the Redmine Forum aren't tracked.  Be sure to reference this Redmine discussion in the GitHub Issue. <a class="external" href="https://github.com/Exiv2/exiv2/issues">https://github.com/Exiv2/exiv2/issues</a></p></div>
+  
+  </div>
+  <div class="message reply" id="message-3126">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3126#message-3126">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="19 Apr 2018 17:57" href="/projects/exiv2/activity?from=2018-04-19">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>For ARW files (and many other file types), the ExifTool Red/BlueBalance tags are Composite tags derived from the values of the following tags:</p>
+
+
+	<p>WB_RGGBLevels <br />WB_RGBGLevels <br />WB_RBGGLevels <br />WB_GRBGLevels <br />WB_GRGBLevels <br />WB_GBRGLevels <br />WB_RGBLevels <br />WB_GRBLevels <br />WB_RBLevels <br />WBBlueLevel <br />WBGreenLevel</p>
+
+
+	<p>You should be able to extract the appropriate tags from the list above using Exiv2 and calculate the balances yourself.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3127">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3127#message-3127">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Apr 2018 22:57" href="/projects/exiv2/activity?from=2018-04-19">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you, Phil for this insight.  Looking forward to meeting you one day in England, Canada, or somewhere.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3128">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3128#message-3128">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/7087">Andreas S.</a> <a title="20 Apr 2018 06:22" href="/projects/exiv2/activity?from=2018-04-20">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the info Phil, but Exiv2 doesn't know about Levels either.</p>
+
+
+	<p><code>exiv2 -pa _7M30999.ARW | grep -i level<br />Exif.SubImage1.WhiteLevel                    Short       1  16383<br />Exif.Sony2.FlashLevel                        SShort      1  Normal</code></p></div>
+  
+  </div>
+  <div class="message reply" id="message-3129">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3129#message-3129">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/3100">Phil Harvey</a> <a title="20 Apr 2018 11:29" href="/projects/exiv2/activity?from=2018-04-20">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Sorry, I assumed that Exiv2 was more up-to-date than that.  Here is what ExifTool extracts for this file:</p>
+
+
+	<p>% exiftool ~/Desktop/7M3_DAYLIGHT.ARW '-*level*' -G1<br />[SubIFD]        White Level                     : 16383<br />[Sony]          Flash Level                     : Normal<br />[Sony]          Battery Level                   : 38%<br />[Sony]          WB RGB Levels                   : 587 256 412<br />[SR2SubIFD]     Black Level                     : 512 512 512 512<br />[SR2SubIFD]     WB RGGB Levels Auto             : 2364 1024 1024 1640<br />[SR2SubIFD]     WB RGGB Levels                  : 2352 1024 1024 1656<br />[SR2SubIFD]     WB RGB Levels Daylight          : 2352 1024 1656<br />[SR2SubIFD]     WB RGB Levels Cloudy            : 2536 1024 1520<br />[SR2SubIFD]     WB RGB Levels Tungsten          : 1460 1024 2916<br />[SR2SubIFD]     WB RGB Levels Flash             : 2576 1024 1468<br />[SR2SubIFD]     WB RGB Levels 4500K             : 2124 1024 1856<br />[SR2SubIFD]     WB RGB Levels Shade             : 2788 1024 1372<br />[SR2SubIFD]     WB RGB Levels Fluorescent       : 2176 1024 2420<br />[SR2SubIFD]     WB RGB Levels Fluorescent P1    : 2256 1024 1772<br />[SR2SubIFD]     WB RGB Levels Fluorescent P2    : 2496 1024 1632<br />[SR2SubIFD]     WB RGB Levels Fluorescent M1    : 1700 1024 2900<br />[SR2SubIFD]     WB RGB Levels 8500K             : 2928 1024 1300<br />[SR2SubIFD]     WB RGB Levels 6000K             : 2516 1024 1536<br />[SR2SubIFD]     WB RGB Levels 3200K             : 1632 1024 2544<br />[SR2SubIFD]     WB RGB Levels 2500K             : 1272 1024 3484<br />[SR2SubIFD]     White Level                     : 15360 15360 15360</p></div>
+  
+  </div>
+  <div class="message reply" id="message-3130">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/3108?r=3130#message-3130">RE: How can you read BlueBalance, GreenBalance and RedBalance with exiv2?</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Apr 2018 14:56" href="/projects/exiv2/activity?from=2018-04-20">over 3 years</a> ago
+  </h4>
+  <div class="wiki"><p>Gentlemen</p>
+
+
+	<p>I am hosting a meeting of Team Exiv2 in my home in England in two weeks time.  Here's the discussion paper for the meeting: <a class="external" href="http://dev.exiv2.org/news/3">http://dev.exiv2.org/news/3</a></p>
+
+
+	<p>Your concerns about Balance and Levels will be discussed.  I can't promise that we will give this high priority as we have many other projects which also seek attention.</p>
+
+
+	<p>You have to understand that over the last 6 years, I have been supporting and developing Exiv2 mostly on my own.  I'm very pleased to have another couple of Engineers working with me over the last 9 months and perhaps more can be achieved as we move into the future.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-14/14)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

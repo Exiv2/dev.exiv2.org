@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #991: Windows build broken (CMake+svn_version.sh) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="HLCpQTx/WSKXsMh3oSw5SqJAFC1OEtgeYclJ2RcC7TT+/QKuTgWVIsLU13se+zV5ndJAVL/xeaSc6dlRVDsKWw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #991: Windows build broken (CMake+svn_version.sh)" href="https://dev.exiv2.org/issues/991.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #991</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Windows build broken (CMake+svn_version.sh)</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/2456">Daniel Kaneider</a> <a title="13 Sep 2014 11:00" href="/projects/exiv2/activity?from=2014-09-13">about 7 years</a> ago.
+        Updated <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">13 Sep 2014</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hi,</p>
+
+
+	<p>I just tried to compile Exiv2 using CMake and it didn't work on my Windows machine using VS2012. For some reason my Windows couldn't execute the <em>svn_version.sh</em> file...<br />On the other hand, that batch file generates a <em>svn_version.h</em> file which seems to be mandatory in the <code>src/CMakeLists.txt</code> file.</p>
+
+
+	<p>There may be different approaches to this problem:<br />- create and include a default <em>"svn_version.h"</em> file.<br />- replace the .sh hack with proper CMake commands. As I already suggested in <a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: SVN repository download size (Closed)" href="/issues/858">#858</a> you can use <code>FIND_PACKAGE(Subversion)</code> and related commands<br />- don't require <em>svn_version.h</em> for Windows/CMake compilation</p>
+
+
+	<p>Best,<br />Daniel</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/678">exiv2-cmake-svn-version.patch</a>    <span class="size">(770 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/678/exiv2-cmake-svn-version.patch">exiv2-cmake-svn-version.patch</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Daniel Kaneider, 16 Sep 2014 14:09</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/991" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="p3/eJaTiTcVvPPVL1x3lsIvAfWPNyT1gtNJc0j3V2kBFMnXK1piBxTpY6kdoyumDtFIpGjwqnNpJ8sxafuw9Lw==" />
+  <table class="list issues odd-even"><tr id="relation-115" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="994" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/994">Bug #994</a>: CMake: wrong build rule for svn_version.h</td><td class="status">Closed</td><td class="start_date">09 Oct 2014</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/991/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=991&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3364" href="/projects/exiv2/repository/exiv2/revisions/3364">Revision 3364</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3364/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Sep 2014 14:15" href="/projects/exiv2/activity?from=2014-09-16">about 7 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Issue: <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Windows build broken (CMake+svn_version.sh) (Closed)" href="/issues/991">#991</a> (Windows build broken (CMake+svn_version.sh).  Thank You, Daniel for the patch.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2913" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Sep 2014 14:52" href="/projects/exiv2/activity?from=2014-09-15">about 7 years</a> ago
+      <span id="journal-2913-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Priority</strong> changed from <i>Urgent</i> to <i>Normal</i></li>
+    </ul>
+    <div id="journal-2913-notes" class="wiki"><p>Daniel</p>
+
+
+	<p>I've just run a CMake build with MSVC 2005 and that does not attempt to execute svn_version.sh</p>
+
+
+	<p>When I added the feature to include the svn revision in to the the build of Exiv2, I decided that this would not be supported by MSVC.  So the code to generate the svn_version.h should not be executed for MSVC builds.  So in CMakeLists.txt, you'll find:<br /><pre>
+IF( NOT MSVC )
+   ...
+  MESSAGE(STATUS         "generating ${CMAKE_CURRENT_SOURCE_DIR}/src/svn_version.h")
+  EXECUTE_PROCESS( WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src       COMMAND ./svn_version.sh)
+ENDIF()
+</pre>And in version.hpp:<pre>
+// svn version has not been implemented yet for DevStudio
+#if     defined(_MSC_VER)
+#define SVN_VERSION 0
+#else
+#include "svn_version.h" 
+#endif
+</pre>So I'm surprised this is causing you difficulty, as I believe I have engineered things correctly.  Are you working on the trunk?</p>
+
+
+	<p>The reason to omit svn for MSVC is the dependency on locating svn.exe.  The svn version number feature is intended for development purposes to differentiate different branches and builds.  So for MSVC I report svn=0.</p>
+
+
+	<p>MSVC builds can't execute svn_version.sh because it's a bash script and intended for not MSVC environments (cygwin/mingw/linux/macosx).</p>
+
+
+	<p>I'll have to back-track and learn about FIND_PACKAGE(Subversion).  As you know, I'm not strong with CMake and don't understand the FIND magic. However, it's important for me to master this as we're about to introduce more optional libraries to support the WebReady feature in v0.25.</p>
+
+
+	<p>You will be pleased to learn that we're developing a Jenkins build server for Exiv2.  One of the challenges of Exiv2 is the size of the build/test matrix.  Having a machine dedicated to building in response to commits will significantly improve our day-to-day build/test coverage.  I purchased a Mac-Mini which runs the Virtual Machines running Windows and Linux in addition to the being a native Mac.  I only acquired the machine 5 weeks ago and it's work in progress at the moment. <a class="external" href="http://exiv2.dyndns.org:8080">http://exiv2.dyndns.org:8080</a></p></div>
+    </div>
+  </div>
+  
+  <div id="change-2914" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="16 Sep 2014 00:22" href="/projects/exiv2/activity?from=2014-09-16">about 7 years</a> ago
+      <span id="journal-2914-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2914-notes" class="wiki"><p>Robin,</p>
+
+
+	<p>Typically, you don't need to use a bash script to handle svn version ID.</p>
+
+
+	<p>This is how we do it with cmake about git version ID. There are 2 files :</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/extragear/graphics/digikam/repository/revisions/master/entry/cmake/templates/gitscript.cmake.in">https://projects.kde.org/projects/extragear/graphics/digikam/repository/revisions/master/entry/cmake/templates/gitscript.cmake.in</a></p>
+
+
+	<p>This is the cmake script which run git binary with right option to get last commit ID.</p>
+
+
+	<p><a class="external" href="https://projects.kde.org/projects/extragear/graphics/digikam/repository/revisions/master/entry/cmake/templates/gitversion.h.cmake.in">https://projects.kde.org/projects/extragear/graphics/digikam/repository/revisions/master/entry/cmake/templates/gitversion.h.cmake.in</a></p>
+
+
+	<p>This is the header file patched by previous cmake script to register git ID</p>
+
+
+	<p>In the past, digiKam has used svn, and we have handle svn commit ID by a similar way. But i cannot found relevant file in git history.</p>
+
+
+	<p>This can be certainly found in old digiKam archive. This kind of cmake script must be located in core/cmake/templates dir.</p>
+
+
+	<p>Note : it's always a good id to look in digiKam cmake code if a problem have not been already managed in the past. We have plenty of cmake code where you can find a good inspiration for Exiv2</p>
+
+
+	<p>Gilles</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2915" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Sep 2014 01:15" href="/projects/exiv2/activity?from=2014-09-16">about 7 years</a> ago
+      <span id="journal-2915-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2915-notes" class="wiki"><p>Thanks, Gilles</p>
+
+
+	<p>You are always very helpful.  For sure the FIND_PROGRAM magic in CMake looks very useful.  I appreciate that DigiKam and other projects are much more experienced in CMake.  I have much to learn about CMake, as you know.</p>
+
+
+	<p>We build with ./configure and CMake.  So the script svn_version.sh is invoked from either environment to update the file svn_version.h when the svn has been updated.  I don't use svn_version.h at all in MSVC builds.</p>
+
+
+	<p>I'm not convinced that Exiv2 has a bug here.  Let's wait for Daniel's comments.  I believe he will be able to build successfully with CMake.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2917" class="journal has-notes has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/2456">Daniel Kaneider</a> <a title="16 Sep 2014 14:09" href="/projects/exiv2/activity?from=2014-09-16">about 7 years</a> ago
+      <span id="journal-2917-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/678">exiv2-cmake-svn-version.patch</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/678/exiv2-cmake-svn-version.patch">exiv2-cmake-svn-version.patch</a> added</li>
+    </ul>
+    <div id="journal-2917-notes" class="wiki"><p>Hi Robin,</p>
+
+
+	<p>sorry that I didn't make it clear. CMake already failed in my case with the following error <br /><pre>
+CMake Error at src/CMakeLists.txt:191 (ADD_LIBRARY):
+  Cannot find source file:
+
+    svn_version.h
+</pre></p>
+
+
+	<p>You were also right, that there is some special handling in the main CMakeLists file and in the .cpp regarding this file for msvc. However, the <code>src/CmakeLists.txt</code> always tries to include the <strong>svn_version.h</strong> file. I wonder how this could work in your case. Im using 3358, and my error is confirmed by the repository at <a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/show/trunk/src">http://dev.exiv2.org/projects/exiv2/repository/show/trunk/src</a> where there is no svn_version.h file. Did you maybe use a non-clean source directory?</p>
+
+
+	<p>Anyway, with the small change, similar to the other places I fixed that place. Appending you find the patch. With that, I was able to compile to make an in-source build using VS 2012-x64. Sadly in-source, but thats another story you already know...</p>
+
+
+	<p>Thanks<br />Daniel</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2918" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Sep 2014 14:32" href="/projects/exiv2/activity?from=2014-09-16">about 7 years</a> ago
+      <span id="journal-2918-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-2918-notes" class="wiki"><p>Thank You, Daniel.  Yes - you are 100% correct.  I've submitted your patch <a class="changeset" title="Issue: #991 (Windows build broken (CMake+svn_version.sh).  Thank You, Daniel for the patch." href="/projects/exiv2/repository/exiv2/revisions/3364">r3364</a>.  Thank You for working on this - and thanks for pushing to get to the bottom of this.  I'm going to mark this "Resolved".</p>
+
+
+	<p>The MSVC build/test has been rather badly broken <a class="changeset" title="GSoC2013 Video Write Code. Thank You, Mahesh for a lot of hard work.  And Thanks to Abhinav for m..." href="/projects/exiv2/repository/exiv2/revisions/3355">r3355</a> .. <a class="changeset" title="Add script fixxml.sh to put the .vcproj and .vcxproj xml files on a line-count diet!" href="/projects/exiv2/repository/exiv2/revisions/3358">r3358</a>.  My submission <a class="changeset" title="Roll-back for 3355 (GSoC2013 video write code).  Regrettably, this appears to cause all MSVC buil..." href="/projects/exiv2/repository/exiv2/revisions/3359">r3359</a> should restore stability.</p>
+
+
+	<p>I've recruited a new build engineer <em>Nehal Wani</em> and hope he'll be able to spend more time on our CMake support next year.  As you know, there are many things to deal with in a software project and limited resources and skills.  So, while I regret that our CMake support is weak, I try my best to keep everything moving forward.  When we have the Jenkins build server fully operational, perhaps with 2 build engineers on the project, we'll can improve our CMake support.</p>
+
+
+	<p>You are right to be suspicious that a dirty build tree could contain a version of svn_version.h from an earlier ./configure build.  The Jenkins build does a "make distclean" on every build.  At the moment, we haven't added the code for Jenkins to build using CMake - however we intend to do so.</p>
+
+
+	<p>Thank You once more for your contribution to Exiv2.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3607" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 16:13" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3607-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3891" class="journal has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:41" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3891-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/991.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/991.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

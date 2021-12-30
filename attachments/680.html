@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>cmake-svn.patch - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="kULtFjxBSDadduoULkZ/npIFEiJmvZKG/hehI3oz0YlzD0b5TjuENsgS9RiRkXOtrZdGW5deMzwDNzGrOQo25g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="stylesheet" media="screen" href="/stylesheets/scm.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-attachments action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+  <a class="icon icon-download" href="/attachments/download/680/cmake-svn.patch">Download (3.86 KB)</a></div>
+
+<h2>
+  <a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Generating svn_version.h with CMake" href="/issues/993">Patch #993</a> » cmake-svn.patch
+</h2>
+
+<div class="attachments">
+<p>
+   <span class="author"><a class="user active" href="/users/2456">Daniel Kaneider</a>, 21 Sep 2014 11:14</span></p>
+</div>
+<div class="filecontent-container">
+  
+  <form action="/attachments/680" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <p>
+      View differences:
+      <label><input type="radio" name="type" id="type_inline" value="inline" onchange="this.form.submit()" checked="checked" /> inline</label>
+      <label><input type="radio" name="type" id="type_sbs" value="sbs" onchange="this.form.submit()" /> side by side</label>
+    </p>
+</form>  
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      CMakeLists.txt	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">154</th>
+  <th class="line-num">154</th>
+  <td class="line-code ">
+    <pre>    ADD_DEFINITIONS( -DEXV_HAVE_STDINT_H )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">155</th>
+  <th class="line-num">155</th>
+  <td class="line-code ">
+    <pre>ENDIF( ${EXV_HAVE_STDINT_H} )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">156</th>
+  <th class="line-num">156</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">157</th>
+  <td class="line-code diff_in">
+    <pre>FIND_PACKAGE(Subversion QUIET)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">158</th>
+  <td class="line-code diff_in">
+    <pre>SET(SVN_REVISION &quot;0&quot;)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">159</th>
+  <td class="line-code diff_in">
+    <pre>IF(SUBVERSION_FOUND)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">160</th>
+  <td class="line-code diff_in">
+    <pre>    IF(EXISTS &quot;${CMAKE_SOURCE_DIR}/.svn&quot;)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">161</th>
+  <td class="line-code diff_in">
+    <pre>        Subversion_WC_INFO(${PROJECT_SOURCE_DIR} svnExiv2)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">162</th>
+  <td class="line-code diff_in">
+    <pre>        SET(SVN_REVISION &quot;${svnExiv2_WC_REVISION}&quot;)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">163</th>
+  <td class="line-code diff_in">
+    <pre>    ENDIF()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">164</th>
+  <td class="line-code diff_in">
+    <pre>ENDIF()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">165</th>
+  <td class="line-code diff_in">
+    <pre>MESSAGE(STATUS  &quot;SVN version:  ${SVN_REVISION}&quot;)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">166</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">167</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">157</th>
+  <th class="line-num">168</th>
+  <td class="line-code ">
+    <pre>ADD_SUBDIRECTORY( xmpsdk )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">158</th>
+  <th class="line-num">169</th>
+  <td class="line-code ">
+    <pre>ADD_SUBDIRECTORY( src )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">159</th>
+  <th class="line-num">170</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr class="spacing">
+  <th class="line-num">...</th><th class="line-num">...</th><td></td>
+</tr>
+<tr>
+  <th class="line-num">165</th>
+  <th class="line-num">176</th>
+  <td class="line-code ">
+    <pre>    ADD_SUBDIRECTORY( po )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">166</th>
+  <th class="line-num">177</th>
+  <td class="line-code ">
+    <pre>ENDIF( EXIV2_ENABLE_BUILD_PO )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">167</th>
+  <th class="line-num">178</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">168</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>IF( NOT MSVC )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">169</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>  # Issue #722: out of source builds compiled against standard include files such as /usr/local/lib/include/exiv2</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">170</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>  # do not use CREATE_SYMLINK or CMAKE_CAN_SYMLINK as they don&#39;t work on CYGWIN</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">171</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>  EXECUTE_PROCESS( WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}           COMMAND ln -sf ${CMAKE_CURRENT_SOURCE_DIR}/src exiv2)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">172</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>  </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">173</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>  IF( EXIV2_ENABLE_BUILD_SAMPLES )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">174</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    EXECUTE_PROCESS( WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/samples COMMAND ln -sf ${CMAKE_CURRENT_SOURCE_DIR}/src exiv2)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">175</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>  ENDIF( EXIV2_ENABLE_BUILD_SAMPLES )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">176</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">177</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>  IF( EXIV2_ENABLE_BUILD_PO )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">178</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    EXECUTE_PROCESS( WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/po      COMMAND ln -sf ${CMAKE_CURRENT_SOURCE_DIR}/src exiv2)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">179</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>  ENDIF( EXIV2_ENABLE_BUILD_PO )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">180</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>  </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">181</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>  MESSAGE(STATUS         &quot;generating ${CMAKE_CURRENT_SOURCE_DIR}/src/svn_version.h&quot;)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">182</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>  EXECUTE_PROCESS( WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src       COMMAND ./svn_version.sh)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">183</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>ENDIF()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">184</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">185</th>
+  <th class="line-num">179</th>
+  <td class="line-code ">
+    <pre>##</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">186</th>
+  <th class="line-num">180</th>
+  <td class="line-code ">
+    <pre># tests</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">187</th>
+  <th class="line-num">181</th>
+  <td class="line-code ">
+    <pre>ADD_CUSTOM_TARGET(tests COMMAND make test  &quot;EXIV2_BINDIR=${CMAKE_BINARY_DIR}/bin&quot;  WORKING_DIRECTORY &quot;${CMAKE_SOURCE_DIR}/test/&quot; )</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/CMakeLists.txt	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">148</th>
+  <th class="line-num">148</th>
+  <td class="line-code ">
+    <pre>    ENDIF( ZLIB_FOUND )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">149</th>
+  <th class="line-num">149</th>
+  <td class="line-code ">
+    <pre>ENDIF( EXIV2_ENABLE_PNG )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">150</th>
+  <th class="line-num">150</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">151</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>IF( NOT MSVC )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">152</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    SET( LIBEXIV2_HDR     ${LIBEXIV2_HDR}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">153</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>                          svn_version.h</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">154</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>    )</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">151</th>
+  <td class="line-code diff_in">
+    <pre>CONFIGURE_FILE( ${CMAKE_CURRENT_SOURCE_DIR}/svn_version.h.in</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">152</th>
+  <td class="line-code diff_in">
+    <pre>                ${CMAKE_CURRENT_BINARY_DIR}/svn_version.h @ONLY)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">153</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">154</th>
+  <td class="line-code diff_in">
+    <pre>INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">155</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">156</th>
+  <td class="line-code diff_in">
+    <pre>IF( MSVC ) # to support the old VS solution builds</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">157</th>
+  <td class="line-code diff_in">
+    <pre>    ADD_DEFINITIONS(&quot;-DCMAKE_BUILD_SVN&quot;)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">155</th>
+  <th class="line-num">158</th>
+  <td class="line-code ">
+    <pre>ENDIF()</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">156</th>
+  <th class="line-num">159</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">160</th>
+  <td class="line-code diff_in">
+    <pre>SET( LIBEXIV2_HDR     ${LIBEXIV2_HDR}</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">161</th>
+  <td class="line-code diff_in">
+    <pre>                      svn_version.h</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">162</th>
+  <td class="line-code diff_in">
+    <pre>)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">163</th>
+  <td class="line-code diff_in">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">157</th>
+  <th class="line-num">164</th>
+  <td class="line-code ">
+    <pre>##</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">158</th>
+  <th class="line-num">165</th>
+  <td class="line-code ">
+    <pre># add xmp source if xmp is requested and xmp library not built</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">159</th>
+  <th class="line-num">166</th>
+  <td class="line-code ">
+    <pre>IF( EXIV2_ENABLE_XMP )</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/svn_version.h.in	(revision 0)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">1</th>
+  <td class="line-code diff_in">
+    <pre>#define SVN_VERSION @SVN_REVISION@</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/svn_version.sh	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">1</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>#!/bin/bash</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">2</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">3</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>## </pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">4</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre># update svn_version.h when the revision has changed</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">5</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>svn_version=$(svn info .. 2&gt;/dev/null | grep ^Revision | cut -f 2 -d&#39; &#39;)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">6</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>if [ -z &quot;$svn_version&quot; ]; then svn_version=0 ; fi</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">7</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>if [ -e svn_version.h ]; then</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">8</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>	old=$(cut -f 3 -d&#39; &#39; svn_version.h)</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">9</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>	if [ &quot;$old&quot; != &quot;$svn_version&quot; ]; then</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">10</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>		rm -rf svn_version.h</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">11</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>	fi</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">12</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>fi</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">13</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>if [ ! -e svn_version.h ]; then</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">14</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>	echo &quot;#define SVN_VERSION $svn_version&quot; &gt; svn_version.h</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">15</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>fi</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">16</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">17</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre># That&#39;s all Folks!</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">18</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>##</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="filecontent">
+<thead>
+  <tr>
+    <th colspan="3" class="filename">
+      src/version.hpp	(working copy)
+    </th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th class="line-num">38</th>
+  <th class="line-num">38</th>
+  <td class="line-code ">
+    <pre>#include &lt;string&gt;</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">39</th>
+  <th class="line-num">39</th>
+  <td class="line-code ">
+    <pre></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">40</th>
+  <th class="line-num">40</th>
+  <td class="line-code ">
+    <pre>// svn version has not been implemented yet for DevStudio</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">41</th>
+  <th class="line-num"></th>
+  <td class="line-code diff_out">
+    <pre>#if     defined(_MSC_VER)<span></span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num"></th>
+  <th class="line-num">41</th>
+  <td class="line-code diff_in">
+    <pre>#if     defined(_MSC_VER)<span> &amp;&amp; !defined(CMAKE_BUILD_SVN)</span></pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">42</th>
+  <th class="line-num">42</th>
+  <td class="line-code ">
+    <pre>#define SVN_VERSION 0</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">43</th>
+  <th class="line-num">43</th>
+  <td class="line-code ">
+    <pre>#else</pre>
+  </td>
+</tr>
+<tr>
+  <th class="line-num">44</th>
+  <th class="line-num">44</th>
+  <td class="line-code ">
+    <pre>#include &quot;svn_version.h&quot;</pre>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<span class="pagination filepreview">
+  <ul class="pages"></ul><span><span class="items">(1-1/1)</span> </span>
+</span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

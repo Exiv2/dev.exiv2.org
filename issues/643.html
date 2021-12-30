@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Feature #643: Extract metadata from MOV (Quicktime) files - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="E8dI4EcAjAURlV2Wp+xib91vmKYc3dMyhcPlxU+ZmcbxiuMPNXpABUTxQpoYO25c4v3M3+0+coh443VNDKB+qQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Feature #643: Extract metadata from MOV (Quicktime) files" href="https://dev.exiv2.org/issues/643.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #643</h2>
+
+<div class="issue tracker-2 status-1 priority-4 priority-default details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Extract metadata from MOV (Quicktime) files</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/216">Casper Roubos</a> <a title="01 Aug 2009 04:16" href="/projects/exiv2/activity?from=2009-08-01">over 12 years</a> ago.
+        Updated <a title="28 Feb 2017 20:13" href="/projects/exiv2/activity?from=2017-02-28">over 4 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">New</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="category attribute"><div class="label">Category:</div><div class="value">video</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a href="/versions/31">1.0</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">01 Aug 2009</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-0"><tr><td style="width: 100%;" class="todo"></td></tr></table><p class="percent">0%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Hi,</p>
+
+
+	<p>Is there already spoken of a feature that also can also read IPTC metadata from Quicktime movies?</p>
+
+
+	<p>Regards,<br />ikke_nl</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/1144">DSC_5363_metadata.MOV</a>    <span class="size">(3.44 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/1144/DSC_5363_metadata.MOV">DSC_5363_metadata.MOV</a>  </td>
+  <td>Adds XMP data to the original file.</td>
+  <td>
+      <span class="author">Ben Touchette, 28 Feb 2017 20:13</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/643" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="Ue7wT0hjbfkLQodAoZVEgaH/7e/wVRzU2O+fug+KOC6zo1ugOhmh+V4mmEweQkiynm25lgG2vW4lzw8yTLPfQQ==" />
+  <table class="list issues odd-even"><tr id="relation-173" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1068" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1068">Bug #1068</a>: Video Code Umbrella</td><td class="status">Closed</td><td class="start_date">26 Apr 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/643/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=643&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-1541" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/339">Steve Wright</a> <a title="15 Feb 2010 02:12" href="/projects/exiv2/activity?from=2010-02-15">almost 12 years</a> ago
+      <span id="journal-1541-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-1541-notes" class="wiki"><p>Old Mac OS / OS X user here (currently enjoying a "forced sojourn" in Windows XP Pro and Ubuntu). Not a developer or coder by any stretch, however.</p>
+
+
+	<p>I doubt there's a discrete "layer" or "block" in any or every MOV file from which meta information could be extracted. And even if there was, it's still a question of coming up with a reliable way to get at it.</p>
+
+
+	<p>From what I remember, it was easier to add or retrieve tags from the .mp4 format than .mov. The routine excuse that was always given was that, early on in the course of its development, Apple followed more than one "track" with the .mov format so that, in the end-up, several different methods of introducing relevant information to the file were developed (including the "hint" format of MOV, later revived for Quick Time Streaming Server), each one equally useful to content creators if not to the home user. And then they decided to add licensed, proprietary codecs, which meant puzzling out the best method of doing it the same way with (and sometimes in spite of) new and different tools to work with. Apple MPEG-4, being an MPEG-1 Layer 2 derivative, was newer and coders approached it from that perspective, with decidedly and understandably better results. MOV is a jungle of code and "we'll let you have this, but you have to pay for that" kind of thinking on both Apple's part and that of the licensors/lessors of the other codecs.</p>
+
+
+	<p>S.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4065" class="journal has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="23 Aug 2015 15:50" href="/projects/exiv2/activity?from=2015-08-23">about 6 years</a> ago
+      <span id="journal-4065-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>iptc</i> to <i>image format</i></li>
+       <li><strong>Target version</strong> set to <i>1.0</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4102" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="23 Aug 2015 17:02" href="/projects/exiv2/activity?from=2015-08-23">about 6 years</a> ago
+      <span id="journal-4102-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4102-notes" class="wiki"><p>Do quicktime files contain IPTC metadata? A superficial look on my part seems to show that they contain their own format. Perhaps we need a Exif.quicktime set of tags, similiar to makernotes rather then IPTC or XMP.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4116" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="24 Aug 2015 16:35" href="/projects/exiv2/activity?from=2015-08-24">about 6 years</a> ago
+      <span id="journal-4116-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> changed from <i>image format</i> to <i>video</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4118" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Aug 2015 13:24" href="/projects/exiv2/activity?from=2015-08-25">about 6 years</a> ago
+      <span id="journal-4118-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4118-notes" class="wiki"><p>Alan</p>
+
+
+	<p>There's code in the video codebase:<pre>
+754 rmills@rmillsmbp:~/gnu/exiv2/trunk $ find . -name "*" | grep quick
+./include/exiv2/quicktimevideo.hpp
+./src/quicktimevideo.cpp
+755 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>And in the test files:<pre>764 rmills@rmillsmbp:~/gnu/exiv2/testdata/trunk $ find . | grep quick
+./video/video-quicktime.mp4</pre>We're going to have to revisit and spend time on the video code.</p>
+
+
+	<p>For the moment, I've gone over all the issues in Redmine and allocated them to one of three "Target versions":</p>
+
+
+	<p>v0.26:  I hope we can ship that in spring 2016<br />v1.0: Eventually<br />Review: Most of those are ancient things and can be closed (or moved to v0.26 or v1.0)</p>
+
+
+	<p>When v0.26 is ready, the issue list should be around 30 items (all in 1.0) and we can decide what to target for v0.27.  I hope we'll find a volunteer to work on the video code in v0.27.</p>
+
+
+	<p>I'm rather worried about loosing Niels.  I've never understood the MakerNote and Niels has dealt so effectively with that.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4119" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Aug 2015 16:59" href="/projects/exiv2/activity?from=2015-08-25">about 6 years</a> ago
+      <span id="journal-4119-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4119-notes" class="wiki"><p>XMP can be stored in a quicktime (.mov) file.  It's described in Adobe's spec: XMPSpecificationPart3.pdf p29.  We have a QT test file exiv2/testdata/trunk/video/video-quicktime.mp4 however I don't believe it contains XMP.</p>
+
+
+	<p>I believe Abhinav's focus in the video-read project (GSoC2012) was to read "native" metadata in video file: duration, resolution and that kind of thing.  He probably assumed (not unreasonably) that XMP should be handled by the existing XMPsdk.  Mahesh followed Abhinav's lead and added write capability for the same "native" data.</p>
+
+
+	<p>Mahesh added some very good documents about the structure of RIFF and Matrovska files to the Wiki.  <a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki">http://dev.exiv2.org/projects/exiv2/wiki</a>  Perhaps I can use those document to implement -pS (printStructure) and -pX for video files.  If nothing else, those will be useful tools before revisiting the "native" video code.</p>
+
+
+	<p><a class="issue tracker-2 status-5 priority-4 priority-default closed" title="Feature: Upgrade xmpsdk source to Adobe&#39;s current version (Closed)" href="/issues/941">#941</a> is to upgrade to the latest XMPsdk and may provide Video/XMP support without additional effort by Team Exiv2.  That might be available for v0.26.</p>
+
+
+	<p>For the moment, "native" video support is a build option and declared "experimental".  I can't honestly seeing it getting attention in v0.26 and that's why I've set the Target version to 1.0.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4120" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="25 Aug 2015 17:13" href="/projects/exiv2/activity?from=2015-08-25">about 6 years</a> ago
+      <span id="journal-4120-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4120-notes" class="wiki"><p>Yes, I have seen that quicktime (.mov) files CAN contain XMP, but the samples I have don't seem to contain an XMP block.<br />The specific .MOV file I am looking at is: <a class="external" href="http://dev.exiv2.org/attachments/374/DSC_5363.MOV">http://dev.exiv2.org/attachments/374/DSC_5363.MOV</a></p>
+
+
+	<p>What confuses me is that exiv2 is still reporting the metadata in that file as Xmp.video properties even when the file does not contain any native XMP that I can see. Am I looking in the wrong place?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4121" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="25 Aug 2015 19:40" href="/projects/exiv2/activity?from=2015-08-25">about 6 years</a> ago
+      <span id="journal-4121-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-4121-notes" class="wiki"><p>I don't believe that file has XMP embedded.  My (stupid) way of looking is to use 'strings'  and grep it for 'adobe':<pre>688 rmills@rmillsmbp:~/gnu/exiv2/trunk/test/data $ strings ~/Downloads/DSC_5363.MOV | grep adobe
+689 rmills@rmillsmbp:~/gnu/exiv2/trunk/test/data $ </pre>Here's an example where I find an xml block (I think you helped me with 922a)<pre> 686 rmills@rmillsmbp:~/gnu/exiv2/trunk/test/data $ strings exiv2-bug922a.jpg | grep adobe
+http://ns.adobe.com/xap/1.0/
+" id="W5M0MpCehiHzreSzNTczkc9d"?&gt; &lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt; &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt; &lt;rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmp:Rating="0" xmp:ModifyDate="2015-02-13T20:46:51-06:00"&gt; &lt;dc:title&gt; &lt;rdf:Alt&gt; &lt;rdf:li xml:lang="x-default"&gt;the rest drink soda&lt;/rdf:li&gt; &lt;rdf:li xml:lang="en-GB"&gt;the Brits are in the bar&lt;/rdf:li&gt; &lt;rdf:li xml:lang="de-DE"&gt;the Germans like beer&lt;/rdf:li&gt; &lt;/rdf:Alt&gt; &lt;/dc:title&gt; &lt;/rdf:Description&gt; &lt;/rdf:RDF&gt; &lt;/x:xmpmeta&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 &lt;?xpacket end="w"?&gt;
+687 rmills@rmillsmbp:~/gnu/exiv2/trunk/test/data $ </pre>And pretty printing it with -pX yields:<pre>$ exiv2 -pX exiv2-bug922a.jpg | xmllint -pretty 1 - 
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:about="" xmp:Rating="0" xmp:ModifyDate="2015-02-13T20:46:51-06:00"&gt;
+      &lt;dc:title&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="x-default"&gt;the rest drink soda&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="en-GB"&gt;the Brits are in the bar&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="de-DE"&gt;the Germans like beer&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:title&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+688 rmills@rmillsmbp:~/gnu/exiv2/trunk/test/data $ </pre>If you can find a .MOV file with embedded XMP, can you add it to this issue report and I'll use it when I implement -pS for quicktime files.  And of course for matravoska, riff, and asf if you find them.<pre>-rw-r--r--+ 1 rmills  staff    66K 28 Jun 13:00 quicktimevideo.cpp
+-rw-r--r--+ 1 rmills  staff    48K 28 Jun 13:00 riffvideo.cpp
+-rw-r--r--+ 1 rmills  staff    30K 28 Jun 13:00 asfvideo.cpp
+-rw-r--r--+ 1 rmills  staff    35K 28 Jun 13:00 matroskavideo.cpp</pre>And it's quite possible that our video/XMP support is working OK already.</p>
+
+
+	<p>I can't say anything about reporting Xmp.Video anything.  A bug maybe?  I don't know.  I've never thought about this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-5873" class="journal has-notes has-details">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4722">Ben Touchette</a> <a title="28 Feb 2017 20:13" href="/projects/exiv2/activity?from=2017-02-28">over 4 years</a> ago
+      <span id="journal-5873-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/1144">DSC_5363_metadata.MOV</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/1144/DSC_5363_metadata.MOV">DSC_5363_metadata.MOV</a> added</li>
+    </ul>
+    <div id="journal-5873-notes" class="wiki"><p>Updated the DSC_5363.MOV file to add XMP metadata.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/643.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/643.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

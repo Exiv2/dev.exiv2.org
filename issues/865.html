@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Patch #865: Patches for locale and boost issue - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ckgoIh+iWWJZjP+IV37700FsCKogPStb7vwRZz1ANuaQBYPNbdiVYgzo4IToqffgfv5c09HeiuET3IHvfnnRiQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Patch #865: Patches for locale and boost issue" href="https://dev.exiv2.org/issues/865.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Patch #865</h2>
+
+<div class="issue tracker-4 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Patches for locale and boost issue</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3677">Mario anyc</a> <a title="02 Nov 2012 05:11" href="/projects/exiv2/activity?from=2012-11-02">about 9 years</a> ago.
+        Updated <a title="24 Jul 2013 15:19" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">build</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="31 Jul 2013" href="/versions/50">0.24</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">02 Nov 2012</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-50"><tr><td style="width: 50%;" class="closed" title="50%"></td><td style="width: 50%;" class="todo"></td></tr></table><p class="percent">50%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">1.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Exiv2 fails to build with et_EE locale (see [[<a class="external" href="https://bugs.gentoo.org/show_bug.cgi?id=382731]]">https://bugs.gentoo.org/show_bug.cgi?id=382731]]</a>) and with boost filesystem version 3 (see [[<a class="external" href="https://bugs.gentoo.org/show_bug.cgi?id=440842]]">https://bugs.gentoo.org/show_bug.cgi?id=440842]]</a>).</p>
+
+
+	<p>The locale issue can be fixed by prepending LC_ALL="C" to the sed commands in the Makefile. We fixed it by executing: sed -i -r "s,(\s+)sed\s,\1LC_ALL="C" sed ,g" src/Makefile<br />For this locale, [A-Z] does not include all letters of the alphabet.</p>
+
+
+	<p>For the boost issue I attached a patch. Only simple substitutions are necessary.</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/413">exiv2-0.23-boost-fs-contrib.patch</a>    <span class="size">(9.33 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/413/exiv2-0.23-boost-fs-contrib.patch">exiv2-0.23-boost-fs-contrib.patch</a>  </td>
+  <td>Patch to compile contrib/organize with actual boost library</td>
+  <td>
+      <span class="author">Mario anyc, 02 Nov 2012 05:11</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/414">exiv-0.23-locale.patch</a>    <span class="size">(840 Bytes)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/414/exiv-0.23-locale.patch">exiv-0.23-locale.patch</a>  </td>
+  <td>Fix sed command for special locales</td>
+  <td>
+      <span class="author">Mario anyc, 03 Nov 2012 09:40</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 2932" href="/projects/exiv2/repository/exiv2/revisions/2932">Revision 2932</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2932/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Nov 2012 09:10" href="/projects/exiv2/activity?from=2012-11-03">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Issue: <a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Patches for locale and boost issue (Closed)" href="/issues/865">#865</a>.  Thank you Mario for the patch.  <a class="external" href="http://dev.exiv2.org/issues/865">http://dev.exiv2.org/issues/865</a></p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 2933" href="/projects/exiv2/repository/exiv2/revisions/2933">Revision 2933</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/2933/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Nov 2012 10:37" href="/projects/exiv2/activity?from=2012-11-03">about 9 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p>Issue: <a class="issue tracker-4 status-5 priority-4 priority-default closed" title="Patch: Patches for locale and boost issue (Closed)" href="/issues/865">#865</a>.  Thank you Mario for the patch.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2312" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3677">Mario anyc</a> <a title="02 Nov 2012 06:48" href="/projects/exiv2/activity?from=2012-11-02">about 9 years</a> ago
+      <span id="journal-2312-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2312-notes" class="wiki"><p>A small correction: The bug corresponding to the boost issue is <a class="external" href="https://bugs.gentoo.org/show_bug.cgi?id=357605">https://bugs.gentoo.org/show_bug.cgi?id=357605</a>, the issue in <a class="external" href="https://bugs.gentoo.org/show_bug.cgi?id=440842">https://bugs.gentoo.org/show_bug.cgi?id=440842</a> is that setting a macro to stick to FS version 2 does not work anymore as a fix for the previous bug and instead, the proposed patch is required.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2313" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Nov 2012 09:11" href="/projects/exiv2/activity?from=2012-11-03">about 9 years</a> ago
+      <span id="journal-2313-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2313-notes" class="wiki"><p>Mario</p>
+
+
+	<p>Thanks for providing the patch which I've submitted: SVN:2932</p>
+
+
+	<p>I'm a little lost by your two messages.  The patch only contains C++ changes to contrib/organize/organize.cpp and doesn't have anything to do with Makefiles and sed.  Can you confirm that the patch is good and your self-correction in message 2 only concerns the boost paper trail.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2314" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3677">Mario anyc</a> <a title="03 Nov 2012 09:40" href="/projects/exiv2/activity?from=2012-11-03">about 9 years</a> ago
+      <span id="journal-2314-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/414">exiv-0.23-locale.patch</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/414/exiv-0.23-locale.patch">exiv-0.23-locale.patch</a> added</li>
+    </ul>
+    <div id="journal-2314-notes" class="wiki"><p>Ah, sorry, maybe I was a little bit too sloppy while writing the description. :)</p>
+
+
+	<p>Your commit fixes the boost issue, yes. The other issue concerns the src/Makefile. I wrote a proper patch that equals the result of the mentioned sed command. It prepends the two sed commands in the Makefile with LC_ALL="C" in order to make them behave as expected also with special locales. The second sed command in the Makefile failed for one of our users with et_EE locale as their alphabet has a different sorting and therefore the [A-Z] regexp behaves differently.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2315" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Nov 2012 10:38" href="/projects/exiv2/activity?from=2012-11-03">about 9 years</a> ago
+      <span id="journal-2315-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2315-notes" class="wiki"><p>Ah yes.  I now understand.  Thanks - that's ingenious.  I've submitted the change to src/Makefile: SVN 2933</p>
+
+
+	<p>A long-term project goal is to only support CMake and discontinue support for autotools and msvc.  The file exv_conf.h is generated by CMake without using sed and is not impacted by this change.  The msvc/msvc64 build environments use the static file exv_msvc.h instead of exv_conf.h and is not impacted by this change.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2316" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="03 Nov 2012 10:46" href="/projects/exiv2/activity?from=2012-11-03">about 9 years</a> ago
+      <span id="journal-2316-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>build</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.24</i></li>
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>50</i></li>
+       <li><strong>Estimated time</strong> set to <i>1.00 h</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2370" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Jan 2013 19:50" href="/projects/exiv2/activity?from=2013-01-15">almost 9 years</a> ago
+      <span id="journal-2370-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-2528" class="journal has-notes has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Jul 2013 15:19" href="/projects/exiv2/activity?from=2013-07-24">over 8 years</a> ago
+      <span id="journal-2528-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    <div id="journal-2528-notes" class="wiki"><p>Fixed in 0.24.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/865.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/865.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

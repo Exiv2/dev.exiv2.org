@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1058: xml:lang should be treated case insensitive - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="Q5QFNMEGmfVy49980czsr4nUxxBVMoiTp38eWItqfJOh2a7bs3xV9SeHwHBuG+CctkaTaaTRKSlaX47QyFOb/A==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1058: xml:lang should be treated case insensitive" href="https://dev.exiv2.org/issues/1058.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1058</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>xml:lang should be treated case insensitive</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3663">Tobias E.</a> <a title="19 Apr 2015 15:48" href="/projects/exiv2/activity?from=2015-04-19">over 6 years</a> ago.
+        Updated <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">xmp</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">19 Apr 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>According to the XMP specs (<a class="external" href="https://www.adobe.com/content/dam/Adobe/en/devnet/xmp/pdfs/XMPSpecificationPart1.pdf">https://www.adobe.com/content/dam/Adobe/en/devnet/xmp/pdfs/XMPSpecificationPart1.pdf</a>), chapter B.4 (page 42) the xml:lang qualifier is to be compared case insensitive. It would be great if libexiv2 could follow that. It's probably enough to specify a comparator in the definition of value_ in LangAltValue.</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1058" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="vraS0hQDdL2uPAjcnELHB/O1/vp0ClvwRG1WdylP8Gtc+zk9Znm4vftYF9Ajlcs0zCeqg4Xp+kq5Tcb/anYXBA==" />
+  <table class="list issues odd-even"><tr id="relation-130" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="601" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/601">Bug #601</a>: Metadata conversion enhancements </td><td class="status">Closed</td><td class="start_date">07 Jan 2009</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1058/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1058&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+<div id="issue-changesets">
+<h3>Associated revisions</h3>
+    <div class="changeset">
+    <p><a title="Revision 3703" href="/projects/exiv2/repository/exiv2/revisions/3703">Revision 3703</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3703/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Apr 2015 18:44" href="/projects/exiv2/activity?from=2015-04-19">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: xml:lang should be treated case insensitive (Closed)" href="/issues/1058">#1058</a>.   XMP spec chapter B.4 (page 42) the xml:lang qualifier is to be compared case insensitive.<br /><a class="external" href="https://www.adobe.com/content/dam/Adobe/en/devnet/xmp/pdfs/XMPSpecificationPart1.pdf">https://www.adobe.com/content/dam/Adobe/en/devnet/xmp/pdfs/XMPSpecificationPart1.pdf</a></p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3704" href="/projects/exiv2/repository/exiv2/revisions/3704">Revision 3704</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3704/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Apr 2015 20:25" href="/projects/exiv2/activity?from=2015-04-19">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: xml:lang should be treated case insensitive (Closed)" href="/issues/1058">#1058</a>.  Change comparator to return -1 : 0 : 1</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3706" href="/projects/exiv2/repository/exiv2/revisions/3706">Revision 3706</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3706/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Apr 2015 10:44" href="/projects/exiv2/activity?from=2015-04-20">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: xml:lang should be treated case insensitive (Closed)" href="/issues/1058">#1058</a>.  Fixing the exceptions from test/xmpparser-test.sh. The exceptions from test/conversions.sh require more investigation.</p>
+
+
+	<p>See the issue report for a longer discussion.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3707" href="/projects/exiv2/repository/exiv2/revisions/3707">Revision 3707</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3707/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Apr 2015 18:07" href="/projects/exiv2/activity?from=2015-04-20">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: xml:lang should be treated case insensitive (Closed)" href="/issues/1058">#1058</a>.  Calming the test suite.  LangAltValue comparator causes harmless changes in order of lang reporting.</p>
+    </div>
+    </div>
+    <div class="changeset">
+    <p><a title="Revision 3713" href="/projects/exiv2/repository/exiv2/revisions/3713">Revision 3713</a>
+        (<a href="/projects/exiv2/repository/exiv2/revisions/3713/diff">diff</a>)
+        <br />
+        <span class="author">Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Apr 2015 18:17" href="/projects/exiv2/activity?from=2015-04-21">over 6 years</a> ago</span></p>
+    <div class="wiki changeset-comments">
+        <p><a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: xml:lang should be treated case insensitive (Closed)" href="/issues/1058">#1058</a>.  xml:lang case insensitive.  Working well.  Added regression detector.</p>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3441" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Apr 2015 18:52" href="/projects/exiv2/activity?from=2015-04-19">over 6 years</a> ago
+      <span id="journal-3441-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-3441-notes" class="wiki"><p>Fix submitted: <a class="changeset" title="#1058.   XMP spec chapter B.4 (page 42) the xml:lang qualifier is to be compared case insensitive..." href="/projects/exiv2/repository/exiv2/revisions/3703">r3703</a><br />I'm not a metadata expert.  I'm a build engineer.  I've put in the fix you have suggested.  As you have raised this subject, perhaps you could provide test this and provide a suitable test file and an exiv2 command to show "old" and "new" behaviour.</p>
+
+
+	<p>My fix has thrown up exceptions in our test suite.<pre>Running xmpparser-test.sh ...
+Files /Users/rmills/gnu/exiv2/trunk/test/tmp/xmpparser-test.out-stripped and /Users/rmills/gnu/exiv2/trunk/test/data/xmpparser-test.out differ
+463c463
+&lt; Xmp.dc.title                                 LangAlt     1  lang="en-US" Sonnenuntergang am Strand
+---
+&gt; Xmp.dc.title                                 LangAlt     2  lang="de-DE" Sonnenuntergang am Strand, lang="en-US" Sunset on the beach
+result = 1</pre><br />We are also getting exceptions for conversions.sh.  I will be having a 1-to-1 with Alan, our conversions engineer, and I'll discuss this with him.<pre>Running conversions.sh ...
+Files /Users/rmills/gnu/exiv2/trunk/test/tmp/conversions.out-stripped and /Users/rmills/gnu/exiv2/trunk/test/data/conversions.out differ
+24c24,26
+&lt; Xmp.dc.description                           LangAlt     1  lang="de-DE" Ciao bella
+---
+&gt; Warning: Failed to convert Xmp.dc.description to Iptc.Application2.Caption
+&gt; Warning: Failed to convert Xmp.dc.description to Exif.Image.ImageDescription
+&gt; Xmp.dc.description                           LangAlt     2  lang="de-DE" The Exif image description, lang="it-IT" Ciao bella
+26c28
+&lt; Exif.Image.ImageDescription                  Ascii      11  Ciao bella
+---
+&gt; k.jpg: (No Exif data found in the file)
+28,29c30
+&lt; Iptc.Envelope.CharacterSet                   String      3  $%G
+&lt; Iptc.Application2.Caption                    String     10  Ciao bella
+---
+&gt; k.jpg: (No IPTC data found in the file)
+33,35c34,38
+&lt;      &lt;rdf:li xml:lang="x-default"&gt;Ciao bella&lt;/rdf:li&gt;
+&lt; Xmp.dc.description                           LangAlt     1  lang="x-default" Ciao bella
+&lt; Exif.Image.ImageDescription                  Ascii      11  Ciao bella
+---
+&gt; Warning: Failed to convert Xmp.dc.description to Iptc.Application2.Caption
+&gt; Warning: Failed to convert Xmp.dc.description to Exif.Image.ImageDescription
+&gt;      &lt;rdf:li xml:lang="x-default"&gt;How to fix this mess&lt;/rdf:li&gt;
+&gt; Xmp.dc.description                           LangAlt     3  lang="x-default" How to fix this mess, lang="de-DE" The Exif image description, lang="it-IT" Ciao bella
+&gt; Exif.Image.ImageDescription                  Ascii      21  How to fix this mess
+37c40
+&lt; Iptc.Application2.Caption                    String     10  Ciao bella
+---
+&gt; Iptc.Application2.Caption                    String     20  How to fix this mess
+result = 1
+553 rmills@rmillsmbp:~/gnu/exiv2/trunk $</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3442" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3663">Tobias E.</a> <a title="19 Apr 2015 19:10" href="/projects/exiv2/activity?from=2015-04-19">over 6 years</a> ago
+      <span id="journal-3442-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3442-notes" class="wiki"><p>Awesome, that was fast. :)<br />However, according to <a class="external" href="http://www.cplusplus.com/reference/map/map/">http://www.cplusplus.com/reference/map/map/</a> the comparator has to return <code>true</code> iff <code>str1 < str2</code>. Your function is testing <code>str1 == str2</code>.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3443" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="19 Apr 2015 20:29" href="/projects/exiv2/activity?from=2015-04-19">over 6 years</a> ago
+      <span id="journal-3443-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3443-notes" class="wiki"><p>I try to be quick.  It's easier for both of us.  I've updated the code.  <a class="changeset" title="#1058.  Change comparator to return -1 : 0 : 1" href="/projects/exiv2/repository/exiv2/revisions/3704">r3704</a>.  It would be of great help if you could provide a test file and an explanation of the behaviour you expect.</p>
+
+
+	<p>Alan's cancelled our 1-to-1 because of a power cut at his location and I can't discuss the issues in ./conversions.sh with him until later in the week.</p>
+
+
+	<p>This change has produced more exceptions from ./xmpparser-test.sh<pre>591 rmills@rmillsmbp:~/gnu/exiv2/trunk/test $ ./xmpparser-test.sh 
+Files /Users/rmills/gnu/exiv2/trunk/test/tmp/xmpparser-test.out-stripped and /Users/rmills/gnu/exiv2/trunk/test/data/xmpparser-test.out differ
+150c150
+&lt; Xmp.ns1.ArrayProp2                           LangAlt     2  lang="x-two" Item2.2 value, lang="x-one" Item2.1 value
+---
+&gt; Xmp.ns1.ArrayProp2                           LangAlt     2  lang="x-one" Item2.1 value, lang="x-two" Item2.2 value
+232d231
+&lt; &gt;      &lt;rdf:li xml:lang="x-two"&gt;Item2.2 value&lt;/rdf:li&gt;
+233a233
+&gt; &gt;      &lt;rdf:li xml:lang="x-two"&gt;Item2.2 value&lt;/rdf:li&gt;
+282,285d281
+&lt; 5c5
+&lt; &lt; Xmp.ns1.ArrayProp2                           LangAlt     2  lang="x-two" Item2.2 value, lang="x-one" Item2.1 value
+&lt; ---
+&lt; &gt; Xmp.ns1.ArrayProp2                           LangAlt     2  lang="x-one" Item2.1 value, lang="x-two" Item2.2 value
+288c284
+&lt; Xmp.dc.title                                 LangAlt     2  lang="en-US" Sunset on the beach, lang="de-DE" Sonnenuntergang am Strand
+---
+&gt; Xmp.dc.title                                 LangAlt     2  lang="de-DE" Sonnenuntergang am Strand, lang="en-US" Sunset on the beach
+345d340
+&lt;      &lt;rdf:li xml:lang="en-US"&gt;Sunset on the beach&lt;/rdf:li&gt;
+346a342
+&gt;      &lt;rdf:li xml:lang="en-US"&gt;Sunset on the beach&lt;/rdf:li&gt;
+467c463
+&lt; Xmp.dc.title                                 LangAlt     2  lang="en-US" Sunset on the beach, lang="de-DE" Sonnenuntergang am Strand
+---
+&gt; Xmp.dc.title                                 LangAlt     2  lang="de-DE" Sonnenuntergang am Strand, lang="en-US" Sunset on the beach
+592 rmills@rmillsmbp:~/gnu/exiv2/trunk/test $ </pre>I'm confident about my comparator returning  true when str1 < str2 and tested it on the bench:<pre>#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+
+    /*!
+      @brief %LangAltValueComparator
+
+      #1058
+      https://www.adobe.com/content/dam/Adobe/en/devnet/xmp/pdfs/XMPSpecificationPart1.pdf
+      XMP spec chapter B.4 (page 42) the xml:lang qualifier is to be compared case insensitive.
+      */
+    struct LangAltValueComparator {
+        bool operator() (const std::string&#38; str1, const std::string&#38; str2) const
+        {
+            int result = str1.size() &lt; str2.size() ? -1
+                       : str1.size() &gt; str2.size() ?  1
+                       : 0
+                       ;
+            std::string::const_iterator c1 = str1.begin();
+            std::string::const_iterator c2 = str2.begin();
+            if (  result==0 ) for (
+                ; result==0 &#38;&#38; c1 != str1.end()
+                ; ++c1, ++c2
+                ) {
+                result = tolower(*c1) &lt; tolower(*c2) ? -1
+                       : tolower(*c1) &gt; tolower(*c2) ?  1
+                       : 0
+                       ;
+            }
+            return result &lt; 0 ;
+        }
+    };
+
+typedef std::map&lt;std::string,std::string,LangAltValueComparator&gt; Dict_t;
+typedef Dict_t::const_iterator                                   Dict_i;
+
+int main ()
+{
+    Dict_t dict;
+
+    dict["robin"]="robin";
+    dict["mills"]="mills";
+    dict["Robin"]="Robin";
+    dict["Mills"]="Mills";
+    dict["ROBIN"]="ROBIN";
+    dict["MILLS"]="MILLS";
+
+    std::cout &lt;&lt; "dict length = " &lt;&lt; dict.size() &lt;&lt; std::endl;
+    for ( Dict_i i = dict.begin() ; i != dict.end() ; i++ ) {
+        std::cout &lt;&lt; i-&gt;first &lt;&lt; " : " &lt;&lt; i-&gt;second &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</pre>And the output is:<pre>539 rmills@rmillsmbp:~/gnu/exiv2/trunk $ make foo; ./foo
+make: `foo' is up to date.
+dict length = 2
+mills : MILLS
+robin : ROBIN
+540 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3445" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="20 Apr 2015 01:49" href="/projects/exiv2/activity?from=2015-04-20">over 6 years</a> ago
+      <span id="journal-3445-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3445-notes" class="wiki"><p>Well, I'm back online :-)</p>
+
+
+	<p>If I understand the issue correctly, the following should all be considered the same value:</p>
+
+
+<pre>
+lang="en-US" 
+lang="en-us" 
+lang="EN-US" 
+lang="eN-uS" 
+</pre><br />So if someone wants to change the English title, but makes a typo on the command line, it should not matter, exiv2 should change the correct title anyway.
+
+	<p>So<pre>
+exiv2 -M'set Xmp.dc.title lang="en-us" Sunrise on the beach' file.jpg
+exiv2 -M'set Xmp.dc.title lang="EN-US" Sunrise on the beach' file.jpg
+</pre>should both change</p>
+
+
+<pre>
+Xmp.dc.title   LangAlt  2    lang="de-DE" Sonnenuntergang am Strand, lang="en-US" Sunset on the beach
+</pre>to<pre>
+Xmp.dc.title   LangAlt  2    lang="de-DE" Sonnenuntergang am Strand, lang="en-US" Sunrise on the beach
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-3446" class="journal has-notes">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="20 Apr 2015 01:50" href="/projects/exiv2/activity?from=2015-04-20">over 6 years</a> ago
+      <span id="journal-3446-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3446-notes" class="wiki"><p>Robin, your fix seems to be swapping around the order of the different languages.<pre>
+Xmp.dc.title   LangAlt  2    lang="en-US" Sunset on the beach, lang="de-DE" Sonnenuntergang am Strand
+</pre></p></div>
+    </div>
+  </div>
+  
+  <div id="change-3448" class="journal has-notes">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Apr 2015 10:44" href="/projects/exiv2/activity?from=2015-04-20">over 6 years</a> ago
+      <span id="journal-3448-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3448-notes" class="wiki"><p>Alan</p>
+
+
+	<p>Thanks for explaining what this is about.  I learn something everyday (and forget two things every day)!</p>
+
+
+	<p>I've submitted a fix: <a class="changeset" title="#1058.  Fixing the exceptions from test/xmpparser-test.sh. The exceptions from test/conversions.s..." href="/projects/exiv2/repository/exiv2/revisions/3706">r3706</a> for the exceptions arriving from test/xmpparser.sh</p>
+
+
+	<p>I've puzzled for a couple of hours about why adding the comparator should change the output order.  For sure, they now appear in alphabetic order of the lang string.  So "de-DE" < "en-US" and so on.  "x-default" is always listed first.  I don't believe the order of presentation of the language key/value pair <em>"xx-yy" String</em> is important.  So I've decided to update the test suite reference file:<pre>810 rmills@rmillsmbp:~/gnu/exiv2/trunk/test/tmp $ cp xmpparser-test.out-stripped ../data/xmpparser-test.out</pre>We still have exceptions from test/conversions.sh<pre>
+Files .../tmp/conversions.out-stripped and .../data/conversions.out differ
+26c26
+&lt; Xmp.dc.description                           LangAlt     2  lang="it-IT" Ciao bella, lang="de-DE" The Exif image description
+---
+&gt; Xmp.dc.description                           LangAlt     2  lang="de-DE" The Exif image description, lang="it-IT" Ciao bella
+36,40c36,40
+&lt; Warning: Failed to convert Xmp.dc.description to Iptc.Application2.Caption
+&lt; Warning: Failed to convert Xmp.dc.description to Exif.Image.ImageDescription
+&lt; Xmp.dc.description                           LangAlt     2  lang="de-DE" The Exif image description, lang="it-IT" Ciao bella
+&lt; l.jpg: (No Exif data found in the file)
+&lt; l.jpg: (No IPTC data found in the file)
+---
+&gt;      &lt;rdf:li xml:lang="x-default"&gt;How to fix this mess&lt;/rdf:li&gt;
+&gt; Xmp.dc.description                           LangAlt     3  lang="x-default" How ..., lang="de-DE" The Exif ..., lang="it-IT" Ciao...
+&gt; Exif.Image.ImageDescription                  Ascii      21  How to fix this mess
+&gt; Iptc.Envelope.CharacterSet                   String      3  $%G
+&gt; Iptc.Application2.Caption                    String     20  How to fix this mess
+result = 1
+817 rmills@rmillsmbp:~/gnu/exiv2/trunk $ 
+</pre>You can see that some of those exceptions are the alphabetic report of the <em>lang="..."</em>, however not all.  The message "Warning: Failed to convert Xmp.dc.description to Iptc.Application2.Caption" is sinister.  Having failed to convert, the file does not have IPTC (and Exif) data and this is correctly detected and reported as "l.jpg: (No IPTC data found in the file)".  I will intend to investigate test/conversions.sh further.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3449" class="journal has-notes">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="20 Apr 2015 11:54" href="/projects/exiv2/activity?from=2015-04-20">over 6 years</a> ago
+      <span id="journal-3449-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3449-notes" class="wiki"><p>It looks to me that what is failing is line 68 in test/conversions.sh<br /><pre>
+runTest exiv2 -M'set Xmp.dc.description lang="x-default" How to fix this mess' l.xmp
+</pre><strong>'lang="x-default" How to fix this mess'</strong> is not being added to the description property. Without a x-default conversions to Exif and IPTC do not happen.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3450" class="journal has-notes">
+    <div id="note-8">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-8" class="journal-link">#8</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Apr 2015 12:11" href="/projects/exiv2/activity?from=2015-04-20">over 6 years</a> ago
+      <span id="journal-3450-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3450-notes" class="wiki"><p>I'm debugging this at the moment.</p>
+
+
+	<p>I haven't understood your message, Alan.  If it's not to be converted, why have we not seen this message before:<pre>Warning: Failed to convert Xmp.dc.description to Iptc.Application2.Caption</pre>There's something in the code about looking for language index = 0.  That looks suspicious.  Now that we're storing in alphabetic order, 'x-default' is unlikely to be index 0 when there's more than one language.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3451" class="journal has-notes">
+    <div id="note-9">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-9" class="journal-link">#9</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="20 Apr 2015 12:50" href="/projects/exiv2/activity?from=2015-04-20">over 6 years</a> ago
+      <span id="journal-3451-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3451-notes" class="wiki"><p>I don't know why the conversion does not happen without a "x-default", but that is the baseline. Test 4 of test/conversions.sh is the same. We see the message as a result of Test 4.</p>
+
+
+	<p>Test 5 tries to add an "x-default", so those messages should go away. Previous to the fix for this issue, they did go away. With the fix, "x-default" is no longer being added, so the messages appear for Test 5 also.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3452" class="journal has-notes">
+    <div id="note-10">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-10" class="journal-link">#10</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Apr 2015 12:56" href="/projects/exiv2/activity?from=2015-04-20">over 6 years</a> ago
+      <span id="journal-3452-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3452-notes" class="wiki"><p>It's something like that.  I think test4 has always, and and is still producing the message.  No change at that point.</p>
+
+
+	<p>I think something's going wrong when we try to add the x-default which is intended to remove the message.  However after failing to update, the message is reported and a confusing cascade of trouble follows.</p>
+
+
+	<p>Let me continue to debug this.  I'll update this report when I understand it better.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3455" class="journal has-notes has-details">
+    <div id="note-11">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-11" class="journal-link">#11</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="20 Apr 2015 18:27" href="/projects/exiv2/activity?from=2015-04-20">over 6 years</a> ago
+      <span id="journal-3455-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-3455-notes" class="wiki"><p>Fix submitted <a class="changeset" title="#1058.  Calming the test suite.  LangAltValue comparator causes harmless changes in order of lang..." href="/projects/exiv2/repository/exiv2/revisions/3707">r3707</a>.  I'm going change the status of this issue to Resolved.  Perhaps we should add a regression detector to the test suite.  Something like:</p>
+
+
+<pre>$ exiv2 -M'set Xmp.dc.title lang="en-GB" Sunrise on the beach' file.jpg
+$ exiv2 exiv2 -M'set Xmp.dc.title lang="de-DE" zee toweels ease on zee sun loungers' file.jpg
+$ exiv2 exiv2 -M'set Xmp.dc.title lang="DE-de"  Sonnenuntergang am Strand file.jpg</pre>
+
+	<p>If the Germans still have their towels on the loungers, we're in trouble.  For that matter, if the Germans outnumber the Brits, we'll also be very unhappy!</p>
+
+
+	<p>I'm not having a go at the Germans.  Some of the best guys I've worked with are Germans: Daniel B, Michael D, Tobias H, Uwe L ... and many more.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3457" class="journal has-notes has-details">
+    <div id="note-12">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-12" class="journal-link">#12</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Apr 2015 10:17" href="/projects/exiv2/activity?from=2015-04-21">over 6 years</a> ago
+      <span id="journal-3457-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Assigned</i></li>
+    </ul>
+    <div id="journal-3457-notes" class="wiki"><p>The comparator seems to be working correctly.  However there is something wrong because we can achieve duplicate lang="de-DE" values as follows: <pre>
+1173 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M'set Xmp.dc.title lang="en-GB" BRITS'  ~/R.jpg  
+1174 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M'set Xmp.dc.title lang="de-DE" GERMANS'  ~/R.jpg  
+1175 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pX ~/R.jpg | xmllint -pretty 1 - 
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:about="" xmp:Rating="0" xmp:ModifyDate="2015-02-13T20:46:51-06:00"&gt;
+      &lt;dc:title&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="de-DE"&gt;GERMANS&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="en-GB"&gt;BRITS&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:title&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+1176 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M'set Xmp.dc.title lang="de-DE" germans'  ~/R.jpg  
+1177 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pX ~/R.jpg | xmllint -pretty 1 - 
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:about="" xmp:Rating="0" xmp:ModifyDate="2015-02-13T20:46:51-06:00"&gt;
+      &lt;dc:title&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="de-DE"&gt;germans&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="en-GB"&gt;BRITS&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="de-DE"&gt;GERMANS&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:title&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+1178 rmills@rmillsmbp:~/gnu/exiv2/trunk $</pre>However the comparator is OK:<pre>1178 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M'set Xmp.dc.title lang="DE-de" the germans are upside down'  ~/R.jpg  
+1179 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pX ~/R.jpg | xmllint -pretty 1 - 
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:about="" xmp:Rating="0" xmp:ModifyDate="2015-02-13T20:46:51-06:00"&gt;
+      &lt;dc:title&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="de-DE"&gt;the germans are upside down&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="en-GB"&gt;BRITS&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="de-DE"&gt;GERMANS&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:title&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+1180 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>There is also something very destructive about lang="x-default":<pre>1180 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M'set Xmp.dc.title lang="x-default" boring title'  ~/R.jpg  
+1181 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pX ~/R.jpg | xmllint -pretty 1 - 
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:about="" xmp:Rating="0" xmp:ModifyDate="2015-02-13T20:46:51-06:00"&gt;
+      &lt;dc:title&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="en-GB"&gt;BRITS&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="de-DE"&gt;GERMANS&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:title&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+1182 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>There seems to be a contradiction in the code concerning element index = 0 being x-default.  The languages are stored in a map and the concept of index = 0 is suspect.</p>
+
+
+	<p>When I fix this, I will add a regression detector to the test suite.  If I don't get this fixed in the next day or so, I'll add to the test suite to detect and report this incorrect behaviour.</p>
+
+
+	<p>I'm not convinced that the -1:0:1 result from the comparator is correct.  I believe it's expected to return bool for match.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3460" class="journal has-notes">
+    <div id="note-13">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-13" class="journal-link">#13</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3663">Tobias E.</a> <a title="21 Apr 2015 14:00" href="/projects/exiv2/activity?from=2015-04-21">over 6 years</a> ago
+      <span id="journal-3460-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3460-notes" class="wiki"><p>Robin Mills wrote:</p>
+
+
+<blockquote>
+
+	<p>I'm not convinced that the -1:0:1 result from the comparator is correct.  I believe it's expected to return bool for match.</p>
+
+
+</blockquote>
+
+	<p>It is. It should return true when str1 < str2 and false otherwise.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3461" class="journal has-notes">
+    <div id="note-14">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-14" class="journal-link">#14</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Apr 2015 14:29" href="/projects/exiv2/activity?from=2015-04-21">over 6 years</a> ago
+      <span id="journal-3461-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3461-notes" class="wiki"><p>Tobias</p>
+
+
+	<p>Thanks.  I've changed the comparator in my local copy this morning.  That will be submitted soon.</p>
+
+
+	<p>You'll see that I've discovered, and documented a number of issues with this feature.  I've already updated the man page src/exiv2.1 (<a class="changeset" title="Manpage: add additional explanation and examples for the Xmp AltLang feature." href="/projects/exiv2/repository/exiv2/revisions/3709">r3709</a>) to explain this feature more clearly with examples.  The current trunk (from <a class="changeset" title="#1058.  Calming the test suite.  LangAltValue comparator causes harmless changes in order of lang..." href="/projects/exiv2/repository/exiv2/revisions/3707">r3707</a> forward) is much improved, however I'll update the code base and the test suite with additional fixes in the next few days.</p>
+
+
+	<p>Robin</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3464" class="journal has-details">
+    <div id="note-15">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-15" class="journal-link">#15</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Apr 2015 19:11" href="/projects/exiv2/activity?from=2015-04-21">over 6 years</a> ago
+      <span id="journal-3464-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3465" class="journal has-notes has-details">
+    <div id="note-16">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-16" class="journal-link">#16</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="21 Apr 2015 22:45" href="/projects/exiv2/activity?from=2015-04-21">over 6 years</a> ago
+      <span id="journal-3465-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Assigned</i></li>
+    </ul>
+    <div id="journal-3465-notes" class="wiki"><p>Ok, I fixed my build.</p>
+
+
+<pre>
+$ exiv2 -vVg svn
+exiv2 0.24 001800 (64 bit build)
+svn=3715
+</pre>
+
+	<p>This didn't work:</p>
+
+
+<pre>
+$ exiv2 -M'set Xmp.dc.description lang="IT-IT" ciao bella' 21.jpg
+$ exiv2 -g description  21.jpg
+Xmp.dc.description                           LangAlt     3  lang="x-default" How to fix this mess, lang="de-DE" The Exif image description, lang="it-IT" ciao bella!!!!
+</pre>
+
+	<p>But this did:</p>
+
+
+<pre>
+$ exiv2 -M'set Xmp.dc.description lang="it-it" ¡¡¡¡cIao beLLa' 21.jpg
+$ exiv2 -g description  21.jpg
+Xmp.dc.description                           LangAlt     3  lang="x-default" How to fix this mess, lang="de-DE" The Exif image description, lang="it-IT" ¡¡¡¡cIao beLLa
+</pre>
+
+	<p>By the way, the XMP specification prefers but does not define or require normalization to xx-XX.</p>
+
+
+<pre>
+B.4 Case-neutral xml:lang values
+
+The values of xml:lang qualifiers, and some standard XMP properties, obey the rules for language identifiers
+given in IETF RFC 3066. Implementers are encouraged to pay particular attention to these aspects of IETF
+RFC 3066:
+
+• Both two-letter and three-letter primary subtags as defined by ISO 639-1 and ISO 639-2 are supported.
+• When a language has both an ISO 639-1 two-character code and an ISO 639-2 three-character code, the
+tag derived from the ISO 639-1 two-character code is used.
+• All tags are treated as case-insensitive; there exist conventions for capitalization of some of them, but case
+is not allowed to carry meaning. For instance, ISO 3166 recommends that country codes be capitalized
+(MN Mongolia), while ISO 639 recommends that language codes be written in lower case (mn Mongolian).
+
+Since the values are required to be treated as case-insensitive, XMP processors are allowed to normalize them
+on input and to output the normalized values. The recommendations of ISO 639 and ISO 3166 are preferred.
+
+This document does not define or require a normalization policy. Since comparisons are case-insensitive,
+differences in policy can have no substantive effect.
+</pre></div>
+    </div>
+  </div>
+  
+  <div id="change-3466" class="journal has-notes">
+    <div id="note-17">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-17" class="journal-link">#17</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Apr 2015 23:00" href="/projects/exiv2/activity?from=2015-04-21">over 6 years</a> ago
+      <span id="journal-3466-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3466-notes" class="wiki"><p>Thanks for reporting this, Alan.  I'll look at this tomorrow.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3467" class="journal has-notes">
+    <div id="note-18">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-18" class="journal-link">#18</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Apr 2015 06:30" href="/projects/exiv2/activity?from=2015-04-22">over 6 years</a> ago
+      <span id="journal-3467-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3467-notes" class="wiki"><p>Alan</p>
+
+
+	<p>The spec doesn't require normalisation, however it require insensitivity.</p>
+
+
+<blockquote>
+
+	<p>Since the values are required to be treated as <strong>case-insensitive</strong>, XMP processors are allowed to normalize them</p>
+
+
+</blockquote>
+
+	<p>They are treated as case-insensitive (that's the point of the comparator).  I hadn't noticed that our implementation does normalize.  Now that I've realised that the implementation does normalize, I think it's possible that all this effort was pointless.  However I'm not going to drag the changes back out.  We've strengthened our test harness and improved the man pages and I've learn about a part of Exiv2 that I've never explored.  I should have insisted on a bug report with a properly defined fault before working on this.</p>
+
+
+	<p>I can't reproduce your findings.  I had similar trouble yesterday and spent about about 2 hours in the debugger.  Then I took a nice clean file and everything worked as I would expect.  I think it's possible that files which have been processed by the old code may be damaged in some way.  Try a nice new clean file.  Here's what I see with a nice clean file:<pre>932 rmills@rmillsmbp:~/gnu/exiv2/trunk $ cp ~/DSC_5900.jpg 21.jpg
+933 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -px 21.jpg
+Xmp.xmp.Rating                               XmpText     1  0
+Xmp.xmp.ModifyDate                           XmpText    25  2015-02-13T20:46:51-06:00
+934 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M'set Xmp.dc.description lang="IT-IT" ciao bella' 21.jpg
+935 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -px 21.jpg
+Xmp.xmp.Rating                               XmpText     1  0
+Xmp.xmp.ModifyDate                           XmpText    25  2015-02-13T20:46:51-06:00
+Xmp.dc.description                           LangAlt     1  lang="it-IT" ciao bella
+936 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M'set Xmp.dc.description lang="it-it" ITALIAN' 21.jpg
+937 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -px 21.jpg
+Xmp.xmp.Rating                               XmpText     1  0
+Xmp.xmp.ModifyDate                           XmpText    25  2015-02-13T20:46:51-06:00
+Xmp.dc.description                           LangAlt     1  lang="it-IT" ITALIAN
+938 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M'set Xmp.dc.description everybody else' 21.jpg
+939 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -px 21.jpg
+Xmp.xmp.Rating                               XmpText     1  0
+Xmp.xmp.ModifyDate                           XmpText    25  2015-02-13T20:46:51-06:00
+Xmp.dc.description                           LangAlt     2  lang="x-default" everybody else, lang="it-IT" ITALIAN
+940 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M'set Xmp.dc.description lang="it-it"' 21.jpg
+941 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -px 21.jpg
+Xmp.xmp.Rating                               XmpText     1  0
+Xmp.xmp.ModifyDate                           XmpText    25  2015-02-13T20:46:51-06:00
+Xmp.dc.description                           LangAlt     1  lang="x-default" everybody else
+942 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M'set Xmp.dc.description lang="it-it" Anybody for icecream' 21.jpg
+943 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -px 21.jpg
+Xmp.xmp.Rating                               XmpText     1  0
+Xmp.xmp.ModifyDate                           XmpText    25  2015-02-13T20:46:51-06:00
+Xmp.dc.description                           LangAlt     2  lang="x-default" everybody else, lang="it-IT" Anybody for icecream
+944 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>You'll see that I added similar code to test/bugfixes-test.sh yesterday (<a class="changeset" title="#1058.  xml:lang case insensitive.  Working well.  Added regression detector." href="/projects/exiv2/repository/exiv2/revisions/3713">r3713</a>)</p>
+
+
+	<p>If you have your original, possibly damaged file, you can dump the XMP with the command: <pre>$ exiv2 -pX file | xmllint -pretty 1 -</pre>Perhaps you could have a look at that to see if there is something odd about it.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3468" class="journal has-notes">
+    <div id="note-19">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-19" class="journal-link">#19</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3663">Tobias E.</a> <a title="22 Apr 2015 10:16" href="/projects/exiv2/activity?from=2015-04-22">over 6 years</a> ago
+      <span id="journal-3468-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3468-notes" class="wiki"><p>I don't think that it was pointless. With the following example you see that the old behaviour did indeed normalize what got put into the map, however when looking up a value the requested string was taken verbatim.</p>
+
+
+	<p>Code:<br /><pre>
+// g++ -W -Wall -g `pkg-config --cflags --libs exiv2` -o lang_test lang_test.cpp
+
+#include &lt;exiv2/easyaccess.hpp&gt;
+#include &lt;exiv2/image.hpp&gt;
+#include &lt;exiv2/exif.hpp&gt;
+
+#include &lt;iostream&gt;
+
+int main(int argc, char **argv)
+{
+  if(argc &lt; 2)
+  {
+    std::cerr &lt;&lt; "usage: " &lt;&lt; argv[0] &lt;&lt; " &lt;image filename&gt;" &lt;&lt; std::endl;
+    return 0;
+  }
+
+  Exiv2::Image::AutoPtr image;
+  Exiv2::XmpData::const_iterator xmp_pos;
+
+  image = Exiv2::ImageFactory::open(argv[1]);
+  if(image.get() == 0) exit(0);
+  image-&gt;readMetadata();
+
+  Exiv2::XmpData &#38;xmpData = image-&gt;xmpData();
+
+  if((xmp_pos = xmpData.findKey(Exiv2::XmpKey("Xmp.dc.title"))) != xmpData.end())
+  {
+    std::string str = xmp_pos-&gt;toString();
+    std::cout &lt;&lt; "Xmp.dc.title: " &lt;&lt; str &lt;&lt; std::endl &lt;&lt; std::endl;
+
+    const Exiv2::LangAltValue &#38;value = static_cast&lt;const Exiv2::LangAltValue &#38;&gt;(xmp_pos-&gt;value());
+
+    str = value.toString("de-de");
+    std::cout &lt;&lt; "  de-de: " &lt;&lt; str &lt;&lt; std::endl &lt;&lt; std::endl;
+
+    for(Exiv2::LangAltValue::ValueType::const_iterator it = value.value_.begin(); it != value.value_.end(); ++it)
+    {
+      std::string lang = it-&gt;first;
+      std::string text = it-&gt;second;
+      std::cout &lt;&lt; "  " &lt;&lt; lang &lt;&lt; ": " &lt;&lt; text &lt;&lt; std::endl;
+    }
+  }
+  else
+    std::cout &lt;&lt; "Xmp.dc.title missing" &lt;&lt; std::endl;
+
+  return 1;
+}
+</pre></p>
+
+
+	<p>XMP file:<br /><pre>
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+ &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+  &lt;rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;
+   &lt;dc:title&gt;
+    &lt;rdf:Alt&gt;
+     &lt;rdf:li xml:lang="x-default"&gt;standard&lt;/rdf:li&gt;
+     &lt;rdf:li xml:lang="de-De"&gt;german&lt;/rdf:li&gt;
+     &lt;rdf:li xml:lang="en-US"&gt;us english&lt;/rdf:li&gt;
+     &lt;rdf:li xml:lang="en-GB"&gt;proper english&lt;/rdf:li&gt;
+    &lt;/rdf:Alt&gt;
+   &lt;/dc:title&gt;
+  &lt;/rdf:Description&gt;
+ &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+</pre></p>
+
+
+	<p>Output without your change:<br /><pre>
+Xmp.dc.title: lang="x-default" standard, lang="de-DE" german, lang="en-GB" proper english, lang="en-US" us english
+
+  de-de: 
+
+  de-DE: german
+  en-GB: proper english
+  en-US: us english
+  x-default: standard
+</pre></p>
+
+
+	<p>So looking up <code>de-de</code> isn't returning anything which is wrong.</p>
+
+
+	<p>PS: I know that the XMP file is malformed, the x-default value has to be present with a real language identifier, too. But it doesn't matter here.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3469" class="journal has-notes">
+    <div id="note-20">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-20" class="journal-link">#20</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Apr 2015 11:20" href="/projects/exiv2/activity?from=2015-04-22">over 6 years</a> ago
+      <span id="journal-3469-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3469-notes" class="wiki"><p>Gosh, Tobias.  Your words are very helpful indeed.  I was thinking "Now that I know what this lang feature is about, I ought to go back and see how things used to be".  You've made that journey and provided the evidence that this has been worth the effort.</p>
+
+
+	<p>Oh and there's another useful by-product of this effort.  I updated sample/exiv2json.cpp to respect AltLang and create a JSON object.  <a class="external" href="http://dev.exiv2.org/issues/1054#note-3">http://dev.exiv2.org/issues/1054#note-3</a></p>
+
+
+	<p>I haven't understood your PS:</p>
+
+
+<blockquote>
+
+	<p>PS: I know that the XMP file is malformed, the x-default value has to be present with a real language identifier, too. But it doesn't matter here.</p>
+
+
+</blockquote>
+
+	<p>Is there something that requires attention here?  xmllint doesn't report the XML as malformed:<pre>529 rmills@rmillsmbp:~/gnu/exiv2/team/meetings $ exiv2 -pX ~/R.jpg | xmllint -pretty 1 -
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:about="" xmp:Rating="0" xmp:ModifyDate="2015-02-13T20:46:51-06:00"&gt;
+      &lt;dc:title&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="x-default"&gt;all other languages&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="en-GB"&gt;the Brits are in the bar&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="de-DE"&gt;wee german&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:title&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+530 rmills@rmillsmbp:~/gnu/exiv2/team/meetings $ </pre>By the way, I have dual citizenship.  I am British/European and a US Citizen.  Being Scottish, I don't speak proper English in England or the States!</p>
+
+
+	<p>If you and Alan are happy, I'd like to mark this resolved.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3470" class="journal has-notes">
+    <div id="note-21">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-21" class="journal-link">#21</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3663">Tobias E.</a> <a title="22 Apr 2015 13:52" href="/projects/exiv2/activity?from=2015-04-22">over 6 years</a> ago
+      <span id="journal-3470-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3470-notes" class="wiki"><p>The XML itself is well formed, but the XMP specs say in part 1, chapter 8.2.2.4 "Language Alternative" <br /><pre>
+An xml:lang value of "x-default" may be used to explicitly denote a default item. If used, the "x-default" item
+shall be first in the array and its simple text value should be repeated in another item in which xml:lang
+specifies its actual language. However, an "x-default" item may be the only item, in which case there is only a
+default value in no defined language.
+</pre></p>
+
+
+	<p>That's nothing exiv2 itself could handle I guess. Even if a user specified a default value and at least one language it would be unknown what language the default would be in.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3471" class="journal has-notes">
+    <div id="note-22">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-22" class="journal-link">#22</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="22 Apr 2015 14:24" href="/projects/exiv2/activity?from=2015-04-22">over 6 years</a> ago
+      <span id="journal-3471-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3471-notes" class="wiki"><p>I get the same result as Robin with his example commands:<br /><pre>
+asp@exiv2:~$ exiv2 -g description clean.jpg 
+Xmp.dc.description                           LangAlt     2  lang="x-default" everybody else, lang="it-IT" Anybody for icecream
+</pre><br />It's when I try to take it a bit further that it stops working for me:<br /><pre>
+asp@exiv2:~$ exiv2 -M'set Xmp.dc.description lang="de-DE" beer' clean.jpg 
+asp@exiv2:~$ exiv2 -g description clean.jpg 
+Xmp.dc.description                           LangAlt     3  lang="x-default" everybody else, lang="de-DE" beer, lang="it-IT" Anybody for icecream
+
+asp@exiv2:~$ exiv2 -M'set Xmp.dc.description lang="DE-de" oktoberfest' clean.jpg 
+asp@exiv2:~$ exiv2 -g description clean.jpg 
+Xmp.dc.description                           LangAlt     3  lang="x-default" everybody else, lang="de-DE" beer, lang="it-IT" Anybody for icecream
+
+asp@exiv2:~$ exiv2 -M'set Xmp.dc.description lang="IT-it" icecream for everybody' clean.jpg 
+asp@exiv2:~$ exiv2 -g description clean.jpg 
+Xmp.dc.description                           LangAlt     3  lang="x-default" everybody else, lang="de-DE" beer, lang="it-IT" Anybody for icecream
+</pre></p>
+
+
+<pre>
+asp@exiv2:~$ exiv2 -pX clean.jpg | xmllint -pretty 1 -
+
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:about=""&gt;
+      &lt;dc:description&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="x-default"&gt;everybody else&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="it-IT"&gt;icecream for everybody&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="de-DE"&gt;beer&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="it-IT"&gt;Anybody for icecream&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:description&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+</pre>
+
+	<p>Is it just me, or can this be reproduced?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3472" class="journal has-notes">
+    <div id="note-23">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-23" class="journal-link">#23</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Apr 2015 15:06" href="/projects/exiv2/activity?from=2015-04-22">over 6 years</a> ago
+      <span id="journal-3472-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3472-notes" class="wiki"><p>Alan:</p>
+
+
+	<p>The file "clean.jpg" is damaged.  It has two lang="it-IT" elements.  Do you have a work-flow to create such a file starting from test/data/exiv2-empty.jpg</p>
+
+
+	<p>I had a file like that yesterday and spent 2 hours in the debugger with it.  You might be able to fix it with a new feature I added to remove a language definition:<pre>$ exiv2 -M'set Xmp.dc.description lang="it-IT"'</pre>Setting a language (including x-default) to the empty string simply removes the language.  If you really want a language with an empty string, you'll need to set it to a string with a blank or a null byte or something.  I think it's desirable to be able to remove languages without removing the whole key and re-inserting the languages you want to keep using the <em>dentist's method</em>.  You know the <em>dentist's method</em>: you pull them out, one at a time!</p>
+
+
+	<p>Tobias:<br />Thanks for the clarification about "x-default".  Exiv2 isn't in the guessing business.  We're engineers and want things to be deterministic.  The idea that "x-default" must be first makes total sense.  If you're reading the XMP with an xml-player (such as expat events), you store the value when you see "x-default" and modify it when/if your language rolls past.  Perfect.  No backtracking necessary.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3473" class="journal has-notes">
+    <div id="note-24">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-24" class="journal-link">#24</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="22 Apr 2015 15:19" href="/projects/exiv2/activity?from=2015-04-22">over 6 years</a> ago
+      <span id="journal-3473-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3473-notes" class="wiki"><p>The work flow is from comment #18. Let me start from scratch and look at the xml ...</p>
+
+
+<pre>
+
+asp@exiv2:~$ cp ~/src/exiv2/trunk/test/data/exiv2-empty.jpg clean.jpg
+
+asp@exiv2:~$ exiv2 -M'set Xmp.dc.description lang="IT-IT" ciao bella' clean.jpg
+
+asp@exiv2:~$ exiv2 -pX clean.jpg | xmllint -pretty 1 -
+
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:about=""&gt;
+      &lt;dc:description&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="it-IT"&gt;ciao bella&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:description&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+
+asp@exiv2:~$ exiv2 -M'set Xmp.dc.description lang="it-it" ITALIAN' clean.jpg 
+
+asp@exiv2:~$ exiv2 -pX clean.jpg | xmllint -pretty 1 -
+
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:about=""&gt;
+      &lt;dc:description&gt;
+        &lt;rdf:Alt&gt;
+          &lt;rdf:li xml:lang="it-IT"&gt;ciao bella&lt;/rdf:li&gt;
+          &lt;rdf:li xml:lang="it-IT"&gt;ITALIAN&lt;/rdf:li&gt;
+        &lt;/rdf:Alt&gt;
+      &lt;/dc:description&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;
+
+</pre>
+
+	<p>If that is not what you get, then my system is broken.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3474" class="journal has-notes">
+    <div id="note-25">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-25" class="journal-link">#25</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4035">Alan Pater</a> <a title="22 Apr 2015 15:39" href="/projects/exiv2/activity?from=2015-04-22">over 6 years</a> ago
+      <span id="journal-3474-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3474-notes" class="wiki"><p>OK, sorry, it was my build again. A clean and fresh checkout and build of trunk and everything is working as it should be. I even tested with Spanish and Aymara. Everything works good.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3475" class="journal has-notes">
+    <div id="note-26">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-26" class="journal-link">#26</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Apr 2015 16:25" href="/projects/exiv2/activity?from=2015-04-22">over 6 years</a> ago
+      <span id="journal-3475-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3475-notes" class="wiki"><p>Right.  I think we've beaten this issue (and each other) to destruction here.  Very good team-work, Gentlemen.  I'm going to set the status to "Resolved".</p>
+
+
+	<p>"Resolved" means we intend no further work on this.  However should something arise, it'll be assigned for further activity.  During review prior to shipping it will be set to "Closed" and never opened again.  If something raises after being "closed", we'd open a new issue and reference this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3476" class="journal has-details">
+    <div id="note-27">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-27" class="journal-link">#27</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="22 Apr 2015 20:00" href="/projects/exiv2/activity?from=2015-04-22">over 6 years</a> ago
+      <span id="journal-3476-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3598" class="journal has-details">
+    <div id="note-28">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-28" class="journal-link">#28</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 15:59" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3598-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3833" class="journal has-details">
+    <div id="note-29">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-29" class="journal-link">#29</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:39" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3833-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1058.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1058.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2 - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="dyxJc4prf5qS4vFbMCtXp1GTTHzo5aI5Nx7MDjxNK2CVYeKc+BGzmseG7leP/FuUbgEYBRkGA4PKPlyGf3TMDw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/3209">Auke Nauta</a> <a title="15 Jan 2013 07:54" href="/projects/exiv2/activity?from=2013-01-15">almost 9 years</a> ago</span></p>
+<div class="wiki">
+<p>Dear Andreas,</p>
+
+
+	<p>A long time ago I wrote to you about a problem with a jpeg image I had.<br />It turned out to be caused by a makernote entry of 2 bytes (i.e. empty).</p>
+
+
+	<p>You fixed it in <a class="changeset" title="#810: Added sanity-checks for the minimum size of IFD makernotes before parsing." href="/projects/exiv2/repository/exiv2/revisions/2664">r2664</a> :)</p>
+
+
+	<p>Now, however, I have another jpeg which halts at the same place. <br />(I know it has some errors in the exif data, but my software needs to continue processing, without fatal errors...)<br />I include this jpeg with this mail.</p>
+
+
+	<p>Could you please have a look?</p>
+
+
+	<p>Thanks and greetings,<br />Auke</p>
+
+
+	<p>P.S.<br />The problem happens at line 1037 of tiffcomposite.cpp:</p>
+	<pre><code>uint32_t TiffMnEntry::doCount() const
+    {<br />        if (!mn_) {<br />            return TiffEntryBase::doCount();<br />        }<br />        // Count of IFD makernote in tag Exif.Photo.MakerNote is the size of the<br />        // Makernote in bytes<br />        assert(tiffType()  ttUndefined || tiffType()  ttUnsignedByte || tiffType() == ttSignedByte); // &lt;= PROBLEM HERE<br />        return mn_-&gt;size();<br />    }</code></pre>
+
+
+	<p>sample calling code:</p>
+	<pre><code>Image::AutoPtr srcimg=ImageFactory::open("File_281.jpg");<br />   srcimg-&gt;readMetadata();<br />   ExifData &#38;ed=srcimg-&gt;exifData();<br />   Blob blob;<br />   ExifParser::encode(blob, littleEndian, ed);</code></pre>
+</div>
+<div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/433">File_281.jpg</a>    <span class="size">(426 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/433/File_281.jpg">File_281.jpg</a>  </td>
+  <td></td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (10)</h3>
+  <div class="message reply" id="message-1373">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1367?r=1373#message-1373">RE: assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Jan 2013 22:49" href="/projects/exiv2/activity?from=2013-01-15">almost 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Auke</p>
+
+
+	<p>Very nice photo.</p>
+
+
+	<p>I'm not sure I've understood the issue here.  When I run your file through exiv2 -pt \Baby.jpg, I get three warnings:<br /><pre>
+C:\Users\rmills\Pictures&gt;exiv2 -pt \Baby.jpg | wc
+Warning: Directory Photo, entry 0x927c has unknown Exif (TIFF) type 39; setting type size 1.
+Warning: Directory Photo, entry 0xa003 has unknown Exif (TIFF) type 67; setting type size 1.
+Warning: Directory Photo, entry 0xa408 has unknown Exif (TIFF) type 35; setting type size 1.
+    168   34441  128691
+</pre><br />As you can see, exiv2 didn't crash and found 168 tags.  The warnings are comming from TiffReader::readTiffEntry().  I set a breakpoint in TiffMnEntry::doCount() and the program didn't go there.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1374">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1367?r=1374#message-1374">RE: assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2</a>
+    -
+    Added by <a class="user active" href="/users/3209">Auke Nauta</a> <a title="16 Jan 2013 00:29" href="/projects/exiv2/activity?from=2013-01-16">almost 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Indeed, when running the Exiv2 executable, no errors occur.<br />But please try to run this short piece of code:</p>
+	<pre><code>Image::AutoPtr srcimg=ImageFactory::open("File_281.jpg");<br />   srcimg-&gt;readMetadata();<br />   ExifData &#38;ed=srcimg-&gt;exifData();<br />   Blob blob;<br />   ExifParser::encode(blob, littleEndian, ed);</code></pre>
+
+
+	<p>On my system (Win7 x64, 16gb, VC2010, latest exiv2 trunk), it does crash at line 1037 of tiffcompsite.cpp.<br />I tried various older versions of exiv2. Releases prior to <a class="changeset" title="#810: Added sanity-checks for the minimum size of IFD makernotes before parsing." href="/projects/exiv2/repository/exiv2/revisions/2664">r2664</a> do not crash here.</p>
+
+
+	<p>I hope this helps to identify the problem.<br />Thanks and greetings,<br />Auke</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1375">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1367?r=1375#message-1375">RE: assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2</a>
+    -
+    Added by <a class="user active" href="/users/3209">Auke Nauta</a> <a title="16 Jan 2013 01:06" href="/projects/exiv2/activity?from=2013-01-16">almost 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>A quick and dirty solution is this:</p>
+	<pre><code>uint32_t TiffMnEntry::doCount() const
+    {<br />        if (!mn_) {<br />            return TiffEntryBase::doCount();<br />        }<br />        // Count of IFD makernote in tag Exif.Photo.MakerNote is the size of the<br />        // Makernote in bytes<br />          if (TiffType()==NULL) return 0; // &lt;= ADDED<br />        assert(tiffType()  ttUndefined || tiffType()  ttUnsignedByte || tiffType() == ttSignedByte);<br />        return mn_-&gt;size();<br />    }</code></pre>
+
+
+	<p>But probably you have a more elegant way of handling this (minor) issue...</p>
+
+
+	<p>Greetings,<br />Auke</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1380">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1367?r=1380#message-1380">RE: assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Jan 2013 20:16" href="/projects/exiv2/activity?from=2013-01-16">almost 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Auke</p>
+
+
+	<p>Ah.  Now I understand.  I'm not convinced by your fix - because it didn't work for me!  I have TiffType() with a value of 39 on my msvc64/Win32/Debug build (using MSVC2005).  The valid values are 1..13 (see tiffcomposite_int.hpp)</p>
+
+
+	<p>I think (but I am not certain) that a better fix might be:</p>
+
+
+<pre>
+uint32_t TiffMnEntry::doCount() const
+{
+    if (!mn_) {
+        return TiffEntryBase::doCount();
+    }
+    // Count of IFD makernote in tag Exif.Photo.MakerNote is the size of the
+    // Makernote in bytes
+    TiffType tt = TiffType(); 
+    return  (tt == ttUndefined || tt == ttUnsignedByte || tt == ttSignedByte) ? mn_-&gt;size() : 0 ;
+}
+</pre>
+
+	<p>Can you try this please?  I'm going to do more code analysis and testing before deciding what to do.  I see that the code is copying TiffComponents, however the cast below conjures up pDirEntry->tiffType_ with the value of 39.</p>
+
+
+	<p>I don't want to remove as assert without a very good reason, so I want to be quite certain about why this value is out of range.</p>
+
+
+<pre>
+    uint32_t TiffDirectory::writeDirEntry(IoWrapper&#38;     ioWrapper,
+                                          ByteOrder      byteOrder,
+                                          int32_t        offset,
+                                          TiffComponent* pTiffComponent,
+                                          uint32_t       valueIdx,
+                                          uint32_t       dataIdx,
+                                          uint32_t&#38;      imageIdx) const
+    {
+        assert(pTiffComponent);
+        TiffEntryBase* pDirEntry = dynamic_cast&lt;TiffEntryBase*&gt;(pTiffComponent);
+        assert(pDirEntry);
+</pre>
+
+	<p>I hope that helps.  I will appreciate your thoughts and any feedback you'd like to provide.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1382">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1367?r=1382#message-1382">RE: assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Jan 2013 21:45" href="/projects/exiv2/activity?from=2013-01-16">almost 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>My fix is hopeless. It fails the test suite on the Mac. (I prefer to debug/develop on Windows and test on Mac or Unix).  I'm getting the tiffType() value 39 on the Mac, so I think its coming from the file.  It's very unlikely that a simple uninitialized value would be the same on Windows and the Mac.</p>
+
+
+	<p>Your fix does work with your code and file, however your fix also causes the test suite to fail.</p>
+
+
+	<p>I hadn't understood there's a TiffType() and a tiffType() function.  I'll do more work on this in the next few days.</p>
+
+
+	<p>I'd appreciate any thoughts you have about this.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1383">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1367?r=1383#message-1383">RE: assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2</a>
+    -
+    Added by <a class="user active" href="/users/3209">Auke Nauta</a> <a title="17 Jan 2013 04:06" href="/projects/exiv2/activity?from=2013-01-17">almost 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Me writing TiffType() iso tiffType() was a typeing mistake :(<br />Indeed, using the proper tiffType() function, 39 is returned, which is a unknown value...</p>
+
+
+	<p>At the moment, I also do not know how to fix this properly.<br />Will look into it more next weekened...</p>
+
+
+	<p>Thanks and greetings,<br />Auke</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1384">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1367?r=1384#message-1384">RE: assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="17 Jan 2013 20:25" href="/projects/exiv2/activity?from=2013-01-17">almost 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Auke</p>
+
+
+	<p>I've looked at this again.  The failures in our test suite were my error.  I modified exifprint.cpp to contain your code.  I didn't remember that exifprint is used by the suite.</p>
+
+
+There are two typeType() functions.  
+	<ul>
+	<li>tiffType()<br />is a return on tiffType_<br />which we agree is 39 and out of bounds for your file.</li>
+		<li>TiffType() always returns NULL <br />I don't know where TiffType() is defined.<br />MSVC doesn't can't find it, and the debugger won't step into it.</li>
+	</ul>
+
+
+	<p>So, it seems to me that: <pre>if ( TypeType() == NULL ) return 0;</pre>is effectively:<pre>return 0;</pre>This will introduce a bug in the code by preventing mn_->size() from ever being called.</p>
+
+
+	<p>So, that leaves me with a proposal:<br /><pre>
+    uint32_t TiffMnEntry::doCount() const
+    {
+        uint32_t result = 0 ;
+        if (!mn_) {
+            result = TiffEntryBase::doCount();
+        } else {
+            int tt = tiffType();
+            if ( ttMin &lt;= tt &#38;&#38; tt &lt;= ttMax ) {
+                // Count of IFD makernote in tag Exif.Photo.MakerNote is the size of the Makernote in bytes
+                assert(tt == ttUndefined || tt == ttUnsignedByte || tt == ttSignedByte);
+                result = mn_-&gt;size();
+            }
+        }
+        return result;
+    }
+</pre>And you should add update tiff composite_int.hpp<pre>
+    const TiffType ttMin              = 1; //!&lt; Exif BYTE type
+    const TiffType ttUnsignedByte     = 1; //!&lt; Exif BYTE type
+    ...
+    const TiffType ttTiffIfd          =13; //!&lt; TIFF IFD type
+    const TiffType ttMax              =13; //!&lt; Exif BYTE type
+</pre>I'm unwilling to submit this change.  We know the data is out of bounds and we're evading the assert which would catch the error.</p>
+
+
+	<p>There's nothing to prevent you from "patching" your version of the library with this, or any other fix.  I you decide to patch, I'd like to ask you to do one of the following:</p>
+
+
+	<p>1 Run our test suite on your build.<br />or<br />2 Send me your patch and I'll test it for you.</p>
+
+
+	<p>If you adopt my proposal (involve ttMin and ttMax), I have successfully run our test suite using that fix.</p>
+
+
+	<p>If you're able to explore this matter further at the weekend, I'm willing to reconsider my position on this matter.  Perhaps you'll discover a solid fix that preserves the assert and forgives your file with good cause.  If you find such a fix, not only will I submit - I will also add your file and appropriate code to our test suite.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1385">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1367?r=1385#message-1385">RE: assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2</a>
+    -
+    Added by <a class="user active" href="/users/3209">Auke Nauta</a> <a title="18 Jan 2013 01:22" href="/projects/exiv2/activity?from=2013-01-18">almost 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin,</p>
+
+
+	<p>Thanks for your code. It looks good!</p>
+
+
+	<p>As my application can and will run into images with (partly) corrupted exif headers, and MUST continue, I would like to use this patch.<br />I ran my own test code using the patched exiv2 library and all went fine.</p>
+
+
+	<p>I understand that this fix cannot be submitted, as it will indeed circumvent the assert statement.<br />At the moment I do not see a better alternative (for my application, that is).</p>
+
+
+	<p>Which test code would you like me to run? (there are many test projects in the solution file...)</p>
+
+
+	<p>Thanks and greetings,<br />Auke</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1386">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1367?r=1386#message-1386">RE: assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Jan 2013 01:49" href="/projects/exiv2/activity?from=2013-01-18">almost 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>If you're using my code, you're good to go.  To run the tests, you'll need cygwin because the suite is written in bash.  In the topmost directory, run $ make tests.  To test a specific msvc64 build, you'll need to use the environment string EXIV2_BIN.  For example $ make tests EXIV2_BINDIR=$PWD/msvc64/bin/Win32/ReleaseDLL</p>
+
+
+	<p>Take care, Cygwin is case sensitive about path/filenames.</p>
+
+
+	<p>On Mac/Linux, it runs in about 1 minute.  On Cygwin, it's about 5 minutes.</p>
+
+
+	<p>If all is good, it will produce a short output mostly saying 'all tests passed'.</p>
+
+
+	<p>I ought to put a document on the wiki about this.  I'll do that next week.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-1387">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/1367?r=1387#message-1387">RE: assert(tiffType() == ttUndefined) error in tiffcomposite.cpp, part 2</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="18 Jan 2013 22:01" href="/projects/exiv2/activity?from=2013-01-18">almost 9 years</a> ago
+  </h4>
+  <div class="wiki"><p>Auke</p>
+
+
+	<p>I've added a Wiki page to cover the test suite:</p>
+
+
+	<p><a class="external" href="http://dev.exiv2.org/projects/exiv2/wiki/How_do_I_run_the_test_suite_for_Exiv2">http://dev.exiv2.org/projects/exiv2/wiki/How_do_I_run_the_test_suite_for_Exiv2</a></p>
+
+
+	<p>Comments about the page are welcome (on this thread).</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-10/10)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

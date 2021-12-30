@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #930: Macports 2.2: DigiKam 3.5 corrupts metadata of JPG, TiFF, PNG images ( libexif @0.6.21_0) - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="DUWcqZybzD5X4YJ8CG0KLfs95Oh5j98VS1Suqg43AxDvCDdG7uEAPgKFnXC3ugYexK+wkYhsfq+2dD4iTQ7kfw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #930: Macports 2.2: DigiKam 3.5 corrupts metadata of JPG, TiFF, PNG images ( libexif @0.6.21_0)" href="https://dev.exiv2.org/issues/930.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #930</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Macports 2.2: DigiKam 3.5 corrupts metadata of JPG, TiFF, PNG images ( libexif @0.6.21_0)</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/3999">Martin Möck</a> <a title="25 Oct 2013 03:18" href="/projects/exiv2/activity?from=2013-10-25">about 8 years</a> ago.
+        Updated <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">metadata</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">25 Oct 2013</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>According to the advice of the developer of digikam, I post my problem here again. It is NOT reproduceable under Linux.<br /><a class="external" href="https://bugs.kde.org/show_bug.cgi?id=326580">https://bugs.kde.org/show_bug.cgi?id=326580</a></p>
+
+
+	<p>After the update to digikam 3.5 and a digikam maintainance rescan pictures->database (SQLite) 150 GB pictures are corrupted: Finder/quicklookd, Preview and Photoshop Elements 8 are crashing with error EXC_BREAKPOINT (SIGTRAP), when I open any picture with Finder/Quicklook or via Open-dialog of PSE. Raw and PDF pictures are not affected.</p>
+
+
+	<p>Solution on jpeg pictures is to stripe exif data with a tool like <a class="external" href="http://imageoptim.com/">http://imageoptim.com/</a><br />After that, I can open the pictures in Quicklook, PSE, Preview again - but all the exif data is gone.</p>
+
+
+	<p>One corrupted picture is attached.</p>
+
+
+	<p>Reproducible: Always</p>
+
+
+	<p>Steps to Reproduce: better try not to reproduce the bug, unless you have a backup of your pictures</p>
+
+
+	<p>1. update macports digikam to version 3.5 <br />2. run maintainance + sync pictures with database. In the digikam preferences / Metadata / Write this information to the metadata / every checkbox is checked. In Reading and writing metadata prefs nothing is checked. (see screenshot attached)</p>
+
+
+	<p>After the sync is done, <br />3. try to preview a picture in MacOS X Finder/Quicklook by pressing space bar or <br />4. go to Photoshop Elements / open / choose any image digikam can write corrupted metadata to: jpg, tiff, png. Sigma raw files (X3F) and PDF are not affected <br />5. go to Apple preview and try to open a jpg picture - it crashes <br />6. GIMP 2.8.6 Macports version crashes NOT</p>
+
+
+	<p>The following ports are currently installed:<br />  aalib @1.4rc5_4 (active)<br />  akonadi @1.10.2_0+mysql5 (active)<br />  aspell @0.60.6.1_0 (active)<br />  aspell-dict-en @7.1_0 (active)<br />  at-spi2-atk @2.10.0_0 (active)<br />  at-spi2-core @2.10.1_0 (active)<br />  atk @2.10.0_0 (active)<br />  attica @0.4.2_0 (active)<br />  autoconf @2.69_2 (active)<br />  automake @1.14_0 (active)<br />  automoc @0.9.88_4 (active)<br />  avahi @0.6.31_9+gtk+gtk3+python27+x11 (active)<br />  babl @0.1.10_0 (active)<br />  bison @2.7.1_0 (active)<br />  boehmgc @7.2d_0 (active)<br />  boost @1.54.0_0+no_single+no_static+python27 (active)<br />  bzip2 @1.0.6_0 (active)<br />  cairo @1.12.16_1+x11 (active)<br />  cfitsio @3.340_0 (active)<br />  clang-3.3 @3.3_1+analyzer+python27 (active)<br />  clang_select @0.1_0 (active)<br />  clucene @2.3.3.4_0 (active)<br />  cmake @2.8.12_0 (active)<br />  coreutils @8.21_0 (active)<br />  cppunit @1.12.1_0 (active)<br />  curl @7.33.0_0+ssl (active)<br />  curl-ca-bundle @7.33.0_0 (active)<br />  cyrus-sasl2 @2.1.25_4+kerberos (active)<br />  db46 @4.6.21_8 (active)<br />  db_select @0.1_2 (active)<br />  dbus @1.6.12_0+startupitem (active)<br />  dbus-glib @0.100.2_0 (active)<br />  dbus-python27 @0.84.0_0 (active)<br />  dbusmenu-qt @0.9.2_0 (active)<br />  dcraw @9.19-20130617020400_0 (active)<br />  desktop-file-utils @0.15_1 (active)<br />  digikam @3.5.0_0 (active)<br />  dirac @1.0.2_1 (active)<br />  djvulibre @3.5.25_6 (active)<br />  docbook-xml @5.0_2 (active)<br />  docbook-xml-4.1.2 @5.0_1 (active)<br />  docbook-xml-4.2 @5.0_1 (active)<br />  docbook-xml-4.3 @5.0_1 (active)<br />  docbook-xml-4.4 @5.0_1 (active)<br />  docbook-xml-4.5 @5.0_1 (active)<br />  docbook-xml-5.0 @5.0_1 (active)<br />  docbook-xsl @1.78.1_0 (active)<br />  docbook-xsl-ns @1.76.1_0 (active)<br />  doxygen @1.8.5_1 (active)<br />  eggdbus @0.6_1 (active)<br />  eigen3 @3.2.0_0+cmake (active)<br />  enca @1.13_0 (active)<br />  enchant @1.6.0_1 (active)<br />  exiv2 @0.23_0 (active)<br />  expat @2.1.0_0 (active)<br />  ffmpeg @2.0.2_0+gpl2 (active)<br />  fftw-3 @3.3.3_3 (active)<br />  flac @1.3.0_0 (active)<br />  flex @2.5.37_1 (active)<br />  fontconfig @2.11.0_0 (active)<br />  freetype @2.5.0_1 (active)<br />  fribidi @0.19.5_0 (active)<br />  gawk @4.0.2_0 (active)<br />  gconf @2.32.4_2+x11 (active)<br />  gd2 @2.1.0_3+x11 (active)<br />  gdbm @1.10_2 (active)<br />  gdk-pixbuf2 @2.30.0_0+x11 (active)<br />  gegl @0.2.0_9+python27 (active)<br />  geoclue @0.12.99_3 (active)<br />  gettext @0.18.3.1_1 (active)<br />  ghostscript @9.10_0<br />  ghostscript @9.10_1+x11 (active)<br />  giflib @4.2.3_0+x11 (active)<br />  gimp @2.8.6_0 (active)<br />  gimp-app @2.8.2_1 (active)<br />  gimp-help-en @2.8.0_0+python27 (active)<br />  gimp-jp2 @2.2.0_6 (active)<br />  gimp-lqr-plugin @0.7.2_0 (active)<br />  gimp2 @2.8.6_3+help_browser+python27 (active)<br />  glib-networking @2.38.0_0 (active)<br />  glib2 @2.38.1_0 (active)<br />  gmake @3.82_0 (active)<br />  gmic @1.5.0.8_5 (active)<br />  gmp @5.1.2_0 (active)<br />  gnome-doc-utils @0.20.10_0+python27 (active)<br />  gnome-keyring @2.32.1_0 (active)<br />  gnome-mime-data @2.18.0_3 (active)<br />  gnome-vfs @2.24.4_1 (active)<br />  gnupg @1.4.14_0 (active)<br />  gnutls @3.1.10_1 (active)<br />  gobject-introspection @1.38.0_1 (active)<br />  gpgme @1.4.2_0 (active)<br />  gpsd @3.5_3 (active)<br />  grantlee @0.3.0_0 (active)<br />  GraphicsMagick @1.3.18_0+q8 (active)<br />  graphite2 @1.2.3_0 (active)<br />  gsettings-desktop-schemas @3.8.2_0 (active)<br />  gstreamer1 @1.0.9_0 (active)<br />  gstreamer1-gst-plugins-base @1.0.9_0 (active)<br />  gtk-doc @1.18_0+python27 (active)<br />  gtk-nodoka-engine @0.7.5_3 (active)<br />  gtk2 @2.24.22_0+x11 (active)<br />  gtk3 @3.10.1_0+x11 (active)<br />  gtkimageview @1.6.4_5 (active)<br />  gutenprint @5.2.9_1 (active)<br />  harfbuzz @0.9.22_0 (active)<br />  harfbuzz-icu @0.9.22_0 (active)<br />  help2man @1.43.3_0 (active)<br />  hicolor-icon-theme @0.12_0 (active)<br />  hunspell @1.3.2_0 (active)<br />  icns-gimp @0.1_1 (active)<br />  icu @51.2_1 (active)<br />  ilmbase @1.0.2_0 (active)<br />  ImageMagick @6.8.7-0_0+x11<br />  ImageMagick @6.8.7-2_0+x11 (active)<br />  intltool @0.50.2_2+perl5_12 (active)<br />  iso-codes @3.43_0 (active)<br />  jack @0.121.3_0 (active)<br />  jasper @1.900.1_10 (active)<br />  jbig2dec @0.11_1 (active)<br />  jbigkit @2.0_2 (active)<br />  jpeg @9_1 (active)<br />  kactivities @4.11.2_0 (active)<br />  kde-l10n-de @4.11.2_0 (active)<br />  kde4-baseapps @4.11.2_0 (active)<br />  kde4-runtime @4.11.2_0 (active)<br />  kdeartwork @4.11.2_0 (active)<br />  kdelibs4 @4.11.2_0+docs (active)<br />  kdepimlibs4 @4.11.2_0 (active)<br />  kerberos5 @1.11.3_0 (active)<br />  krusader @2.0.0_1 (active)<br />  lame @3.99.5_0 (active)<br />  lcms @1.19_5 (active)<br />  lcms2 @2.4_2 (active)<br />  ld64 @127.2_6+llvm33 (active)<br />  lensfun @0.2.8_0 (active)<br />  libart_lgpl @2.3.21_0 (active)<br />  libass @0.10.1_0 (active)<br />  libassuan @2.1.1_0 (active)<br />  libbluray @0.3.0_0 (active)<br />  libbonobo @2.32.1_1 (active)<br />  libbonoboui @2.24.5_7+x11 (active)<br />  libcanberra @0.30_3+x11 (active)<br />  libcomerr @1.42.7_2 (active)<br />  libcroco @0.6.8_0 (active)<br />  libdaemon @0.14_0 (active)<br />  libdmtx @0.7.2_5 (active)<br />  libedit @20121213-3.0_0 (active)<br />  libexif @0.6.21_0 (active)<br />  libffi @3.0.13_0 (active)<br />  libgcrypt @1.5.3_0 (active)<br />  libglade2 @2.6.4_7 (active)<br />  libgnome @2.32.1_0 (active)<br />  libgnome-keyring @2.32.0_0 (active)<br />  libgnomecanvas @2.30.3_4 (active)<br />  libgnomeui @2.24.5_10+x11 (active)<br />  libgpg-error @1.12_0 (active)<br />  libgphoto2 @2.5.2_1 (active)<br />  libgpod @0.8.0_11+python27 (active)<br />  libgsf @1.14.28_0 (active)<br />  libical @0.43_1 (active)<br />  libiconv @1.14_0 (active)<br />  libidl @0.8.14_2 (active)<br />  libidn @1.26_0 (active)<br />  libiodbc @3.52.8_4+x11 (active)<br />  libkdcraw @4.11.2_0 (active)<br />  libkdeedu @4.11.2_0 (active)<br />  libkexiv2 @4.11.2_0 (active)<br />  libkipi @4.11.2_0 (active)<br />  libksane @4.11.2_0 (active)<br />  liblqr @1-0.4.2_0 (active)<br />  libmng @1.0.10_3 (active)<br />  libmodplug @0.8.8.4_0 (active)<br />  libogg @1.3.1_0 (active)<br />  libopenraw @0.0.9_3 (active)<br />  libopus @1.0.3_0 (active)<br />  libpaper @1.1.24_0 (active)<br />  libpixman @0.30.2_0 (active)<br />  libplist @1.10_0+python27 (active)<br />  libpng @1.5.17_0 (active)<br />  libproxy @0.4.11_1+python27 (active)<br />  librsvg @2.36.4_2 (active)<br />  libsamplerate @0.1.8_0 (active)<br />  libsdl @1.2.15_3+x11 (active)<br />  libsecret @0.16_0 (active)<br />  libsndfile @1.0.25_0 (active)<br />  libsoup @2.44.1_0 (active)<br />  libspiro @20071029_0 (active)<br />  libssh @0.5.5_0 (active)<br />  libtasn1 @2.11_0 (active)<br />  libtheora @1.1.1_1 (active)<br />  libtool @2.4.2_3 (active)<br />  libusb @1.0.9_0<br />  libusb @1.0.17_0 (active)<br />  libusb-compat @0.1.4_0 (active)<br />  libvorbis @1.3.3_0 (active)<br />  libvpx @1.2.0_1 (active)<br />  libwmf @0.2.8.4_7 (active)<br />  libxml2 @2.9.1_0 (active)<br />  libxslt @1.1.28_0 (active)<br />  llvm-3.3 @3.3_1 (active)<br />  llvm_select @0.2_0 (active)<br />  lua @5.2.2_1 (active)<br />  lzo2 @2.06_0 (active)<br />  m4 @1.4.16_0 (active)<br />  macclipboard-gimp @0.7_0 (active)<br />  macfile-gimp @0.1_0 (active)<br />  marble @4.11.2_0 (active)<br />  mesa @8.0.4_2+python27 (active)<br />  mhash @0.9.9.9_0 (active)<br />  mpfr @3.1.1-p2_0 (active)<br />  mysql5 @5.1.72_0 (active)<br />  mysql5-server @5.1.72_0 (active)<br />  ncurses @5.9_2 (active)<br />  nepomuk-core @4.11.2_0 (active)<br />  nepomuk-widgets @4.11.2_0 (active)<br />  net-snmp @5.7.2_0 (active)<br />  nettle @2.6_1 (active)<br />  nosetests_select @0.1_0 (active)<br />  opencv @2.4.6.1_2 (active)<br />  openexr @1.7.0_0 (active)<br />  openjpeg @2.0.0_0 (active)<br />  openjpeg15 @1.5.0_0 (active)<br />  openldap @2.4.31_3 (active)<br />  openslp @1.2.1_2 (active)<br />  openssl @1.0.1e_1 (active)<br />  orbit2 @2.14.19_2 (active)<br />  orc @0.4.17_0 (active)<br />  oxygen-icons @4.11.2_0 (active)<br />  p5.12-getopt-long @2.400.0_0 (active)<br />  p5.12-locale-gettext @1.50.0_7 (active)<br />  p5.12-pathtools @3.330.0_3 (active)<br />  p5.12-scalar-list-utils @1.270.0_3 (active)<br />  p5.12-xml-parser @2.400.0_4 (active)<br />  p11-kit @0.20.1_0 (active)<br />  pango @1.36.0_0+x11 (active)<br />  pcre @8.33_0 (active)<br />  perl5 @5.12.4_0+perl5_12 (active)<br />  perl5.12 @5.12.4_2 (active)<br />  phonon @4.6.0_1 (active)<br />  pkgconfig @0.28_0 (active)<br />  policykit @0.104_1 (active)<br />  poppler @0.24.2_0 (active)<br />  poppler-data @0.4.6_0 (active)<br />  popt @1.16_0 (active)<br />  prison @1.0_0 (active)<br />  pth @2.0.7_0 (active)<br />  py27-cairo @1.10.0_2+x11 (active)<br />  py27-gdbm @2.7.5_0 (active)<br />  py27-gobject @2.28.6_0 (active)<br />  py27-libxml2 @2.9.1_0 (active)<br />  py27-mutagen @1.21_0 (active)<br />  py27-nose @1.3.0_0 (active)<br />  py27-numpy @1.7.1_0 (active)<br />  py27-pygtk @2.24.0_1+x11 (active)<br />  py27-setuptools @1.1.6_0 (active)<br />  python27 @2.7.5_1 (active)<br />  python_select @0.3_2 (active)<br />  qca @2.0.3_1 (active)<br />  qimageblitz @0.0.6_0 (active)<br />  qjson @0.7.1_1 (active)<br />  qrencode @3.1.1_2 (active)<br />  qt4-mac @4.8.5_0 (active)<br />  qt4-mac-mysql5-plugin @4.8.5_0 (active)<br />  qt4-mac-sqlite3-plugin @4.8.5_0 (active)<br />  raptor2 @2.0.8_0 (active)<br />  rarian @0.8.1_0 (active)<br />  rasqal @0.9.29_0 (active)<br />  readline @6.2.000_0 (active)<br />  redland @1.0.15_0+db46 (active)<br />  sane-backends @1.0.22_4 (active)<br />  schroedinger @1.0.11_0 (active)<br />  scons @2.3.0_0 (active)<br />  shared-desktop-ontologies @0.11.0_0 (active)<br />  shared-mime-info @1.2_0 (active)<br />  soprano @2.9.3_0 (active)<br />  speex @1.2rc1_0 (active)<br />  sqlite3 @3.8.0.2_0 (active)<br />  strigi @0.7.7_5 (active)<br />  swig @2.0.10_0 (active)<br />  swig-python @2.0.10_0 (active)<br />  taglib @1.8_0 (active)<br />  tcp_wrappers @20_2 (active)<br />  texi2html @5.0_0 (active)<br />  texinfo @4.13_2 (active)<br />  tiff @4.0.3_1 (active)<br />  ufraw @0.19.2_0 (active)<br />  urw-fonts @1.0.7pre44_0 (active)<br />  vala @0.20.1_0 (active)<br />  virtuoso @7.0.0_0 (active)<br />  w3m @0.5.3_2 (active)<br />  webkit-gtk @2.0.4_1+video (active)<br />  webp @0.3.1_0 (active)<br />  x264 @20130327_0 (active)<br />  Xft2 @2.3.1_0 (active)<br />  xmlcatmgr @2.2_1 (active)<br />  xorg-compositeproto @0.4.2_0 (active)<br />  xorg-damageproto @1.2.1_0 (active)<br />  xorg-dri2proto @2.8_0 (active)<br />  xorg-evieproto @1.1.1_0 (active)<br />  xorg-fixesproto @5.0_0 (active)<br />  xorg-glproto @1.4.16_0 (active)<br />  xorg-inputproto @2.3_0 (active)<br />  xorg-kbproto @1.0.6_0 (active)<br />  xorg-libice @1.0.8_0 (active)<br />  xorg-libpthread-stubs @0.3_0 (active)<br />  xorg-libsm @1.2.1_0 (active)<br />  xorg-libX11 @1.6.2_0 (active)<br />  xorg-libXau @1.0.8_0 (active)<br />  xorg-libxcb @1.9.1_0+python27 (active)<br />  xorg-libXcomposite @0.4.4_0 (active)<br />  xorg-libXcursor @1.1.14_0 (active)<br />  xorg-libXdamage @1.1.4_0 (active)<br />  xorg-libXdmcp @1.1.1_0 (active)<br />  xorg-libXevie @1.0.3_0 (active)<br />  xorg-libXext @1.3.2_0 (active)<br />  xorg-libXfixes @5.0.1_0 (active)<br />  xorg-libXi @1.7.2_0 (active)<br />  xorg-libXinerama @1.1.3_0 (active)<br />  xorg-libXmu @1.1.2_0 (active)<br />  xorg-libXrandr @1.4.2_0 (active)<br />  xorg-libXt @1.1.4_0 (active)<br />  xorg-libXtst @1.2.2_0 (active)<br />  xorg-randrproto @1.4.0_0 (active)<br />  xorg-recordproto @1.14.2_0 (active)<br />  xorg-renderproto @0.11.1_0 (active)<br />  xorg-util-macros @1.17.1_0 (active)<br />  xorg-xcb-proto @1.8_0+python27 (active)<br />  xorg-xcb-util @0.3.9_0 (active)<br />  xorg-xextproto @7.2.1_0 (active)<br />  xorg-xineramaproto @1.2.1_0 (active)<br />  xorg-xproto @7.0.24_0 (active)<br />  xpm @3.5.11_0 (active)<br />  xrender @0.9.8_0 (active)<br />  xsane @0.998_2 (active)<br />  XviD @1.3.2_3 (active)<br />  xz @5.0.5_0 (active)<br />  yasm @1.2.0_0 (active)<br />  zlib @1.2.8_0 (active)</p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/565">IMG_7719.jpg</a>    <span class="size">(4.88 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/565/IMG_7719.jpg">IMG_7719.jpg</a>  </td>
+  <td>JPG with corrupted metadata, which causes Finder, Preview, PSE on MacOS 10.6.8 to crash</td>
+  <td>
+      <span class="author">Martin Möck, 25 Oct 2013 03:18</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/566">Digikam_Metadata_prefs.png</a>    <span class="size">(43.6 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/566/Digikam_Metadata_prefs.png">Digikam_Metadata_prefs.png</a>  </td>
+  <td>Digikam metadata prefs</td>
+  <td>
+      <span class="author">Martin Möck, 25 Oct 2013 03:18</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/567">Digikam_Maintainance_prefs.png</a>    <span class="size">(68.1 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/567/Digikam_Maintainance_prefs.png">Digikam_Maintainance_prefs.png</a>  </td>
+  <td>Digikam maintainance prefs</td>
+  <td>
+      <span class="author">Martin Möck, 25 Oct 2013 03:18</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/568">IMG_7719.JPG</a>    <span class="size">(3.24 MB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/568/IMG_7719.JPG">IMG_7719.JPG</a>  </td>
+  <td>non-currupted version of the picture</td>
+  <td>
+      <span class="author">Martin Möck, 25 Oct 2013 03:29</span>
+  </td>
+  <td>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/760">DigiKam-IMG_7719.png</a>    <span class="size">(388 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/760/DigiKam-IMG_7719.png">DigiKam-IMG_7719.png</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Robin Mills, 12 Apr 2015 23:38</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2645" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/3999">Martin Möck</a> <a title="25 Oct 2013 03:29" href="/projects/exiv2/activity?from=2013-10-25">about 8 years</a> ago
+      <span id="journal-2645-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/568">IMG_7719.JPG</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/568/IMG_7719.JPG">IMG_7719.JPG</a> added</li>
+    </ul>
+    <div id="journal-2645-notes" class="wiki"><p>I forgot the non-currupted version of the picture</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3410" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Apr 2015 20:11" href="/projects/exiv2/activity?from=2015-04-12">over 6 years</a> ago
+      <span id="journal-3410-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Priority</strong> changed from <i>Urgent</i> to <i>Normal</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-3410-notes" class="wiki"><p>I'm going to mark this as "Resolved".  The issue cannot be reproduced:<pre>537 rmills@rmillsmbp:~/gnu/exiv2/trunk $ ls -alt IMG_7719.jpg 
+-rw-r--r--+ 1 rmills  staff  5119001 12 Apr 21:07 IMG_7719.jpg
+538 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -pa IMG_7719.jpg 
+Exif.Image.ProcessingSoftware                Ascii      14  digiKam-3.5.0
+Exif.Image.Make                              Ascii       6  Canon
+Exif.Image.Model                             Ascii      13  Canon EOS 5D
+...</pre>No crash on the trunk.  I suspect a new version of DigiKam will resolve this.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3411" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="12 Apr 2015 21:03" href="/projects/exiv2/activity?from=2015-04-12">over 6 years</a> ago
+      <span id="journal-3411-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3411-notes" class="wiki"><p>Robin, did you try to reproduce with Macports? Issue author already said that it is not reproducible on Linux.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3413" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Apr 2015 21:16" href="/projects/exiv2/activity?from=2015-04-12">over 6 years</a> ago
+      <span id="journal-3413-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3413-notes" class="wiki"><p>No Thomas, I did not.  I only ran the image on exiv2 on MacOS-X on the trunk.  And I'm not even sure that he's using Exiv2.  The bug title and the report shows "libexif @0.6.21_0 (active)".  There are two possibilities:</p>
+
+
+	<p>1) His version of DigiKam is using libexif and not libexiv2<br />2) He's using Exiv2 v0.21.0 which has been somehow labelled as "libexif @0.6.21_0" <br />v0.21 is a rather elderly version of exiv2 (about 6 years old).</p>
+
+
+	<p>So... my feeling is that he should update DigiKam.  I'm running mac ports right now to install DigiKam and I'll look at this when the golf is finished.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3414" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="12 Apr 2015 23:38" href="/projects/exiv2/activity?from=2015-04-12">over 6 years</a> ago
+      <span id="journal-3414-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/760">DigiKam-IMG_7719.png</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/760/DigiKam-IMG_7719.png">DigiKam-IMG_7719.png</a> added</li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-3414-notes" class="wiki"><p>Well, MacPorts has build DigiKam in about 2 hours.  Lots of dependencies (including exiv2 of course).</p>
+
+
+	<p>I got it to run.  You have start bus:<pre>620 rmills@rmillsmbp:/Applications $ launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+/opt/local/Library/LaunchAgents/org.freedesktop.dbus-session.plist: Operation already in progress
+621 rmills@rmillsmbp:/Applications $ ps ax | grep dbus
+94908   ??  S      0:00.01 /opt/local/bin/dbus-daemon --nofork --session
+95128 s000  R+     0:00.00 grep dbus
+622 rmills@rmillsmbp:/Applications $ </pre>I think it's running.  Then chown the preferences:<pre>625 rmills@rmillsmbp:/Applications $ sudo chown -R rmills ~/Library/Preferences/KDE
+626 rmills@rmillsmbp:/Applications $ </pre>And then the application magically appears in /Applications/Macports/KDE/digikam.  And here's Martin's image and metadata beautifully displayed:<br /><img src="/attachments/download/760/DigiKam-IMG_7719.png" alt="" /></p>
+
+
+	<p>For sure it's running libexiv2 v0.24<pre>517 rmills@rmillsmbp:/Applications/MacPorts/KDE4/digikam.app/Contents/MacOS $ otool -L digikam | grep exiv2
+    /opt/local/lib/libkexiv2.11.dylib (compatibility version 11.0.0, current version 11.2.0)
+518 rmills@rmillsmbp:/Applications/MacPorts/KDE4/digikam.app/Contents/MacOS $ depends digikam | grep exiv2
+/opt/local/lib/libexiv2.13.dylib
+/opt/local/lib/libkexiv2.11.dylib
+519 rmills@rmillsmbp:/Applications/MacPorts/KDE4/digikam.app/Contents/MacOS $ exiv2 -vV | grep libexiv2
+library=/usr/local/lib/libexiv2.13.dylib
+520 rmills@rmillsmbp:/Applications/MacPorts/KDE4/digikam.app/Contents/MacOS $ </pre>I think this is a wild goose chase.  The user is talking about DigiKam v3.5 and the current release is v4.8.  For sure, it's time for an upgrade.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3643" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 16:25" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3643-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3930" class="journal has-details">
+    <div id="note-7">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-7" class="journal-link">#7</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:42" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3930-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/930.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/930.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

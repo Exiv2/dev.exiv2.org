@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Compiling fails on zlib - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="dIQFln4DttYwLgyRfsxT8zkGNSC7dnAp0H+opfvizRKWya55DHl61mVKE53BG1/ABpRhWUqV0ZMtXzgtuNsqfQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Compiling fails on zlib</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/2076">Simon Eugster</a> <a title="20 Feb 2011 00:45" href="/projects/exiv2/activity?from=2011-02-20">over 10 years</a> ago</span></p>
+<div class="wiki">
+<p>Hi,</p>
+
+
+	<p>There seems to be an error in the CMakeLists.txt:<br />CMake Warning (dev) in src/CMakeLists.txt:<br />  A logical block opening on the line</p>
+	<pre><code>/data/cworkspace/exiv2/src/CMakeLists.txt:201 (IF)</code></pre>
+	<pre><code>closes on the line</code></pre>
+	<pre><code>/data/cworkspace/exiv2/src/CMakeLists.txt:205 (ENDIF)</code></pre>
+	<pre><code>with mis-matching arguments.<br />This warning is for project developers.  Use -Wno-dev to suppress it.</code></pre>
+
+
+	<p>Also I cannot compile exiv2 anymore. <br />Linking CXX shared library libexiv2.so                                                                                            <br />c++: /LIBPATH:../zlib-1.2.5/$(ConfigurationName): Datei oder Verzeichnis nicht gefunden                                           <br />make<sup><a href="#fn2">2</a></sup>: <b>* [src/libexiv2.so.10.0.0] Fehler 1<br />make<sup><a href="#fn1">1</a></sup>: <strong></b> [src/CMakeFiles/exiv2.dir/all] Fehler 2<br />make: *</strong>* [all] Fehler 2<br />which might be directly related to the CMake problem.</p>
+
+
+	<p>Simon</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (11)</h3>
+  <div class="message reply" id="message-817">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/816?r=817#message-817">RE: Compiling fails on zlib</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="20 Feb 2011 01:14" href="/projects/exiv2/activity?from=2011-02-20">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I already fixed this problem in svn trunk. I think all is fine with 0.21.1 release published recently...</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+  <div class="message reply" id="message-819">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/816?r=819#message-819">RE: Compiling fails on zlib</a>
+    -
+    Added by <a class="user active" href="/users/2076">Simon Eugster</a> <a title="20 Feb 2011 02:40" href="/projects/exiv2/activity?from=2011-02-20">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Cannot confirm. I'm using current SVN, a clean build directory, and I get the error mentioned above.</p>
+
+
+	<p>Is the SVN repo still here? svn://dev.exiv2.org/svn/trunk</p>
+
+
+	<p>Simon</p></div>
+  
+  </div>
+  <div class="message reply" id="message-821">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/816?r=821#message-821">RE: Compiling fails on zlib</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="20 Feb 2011 17:44" href="/projects/exiv2/activity?from=2011-02-20">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Yes, the URL is correct. Gilles was referring to this change: <a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/diff?rev=2443&#38;rev_to=2442">http://dev.exiv2.org/projects/exiv2/repository/diff?rev=2443&#38;rev_to=2442</a> and it seems there is still a typo on the line with the ENDIF: If you change</p>
+
+
+<pre>
+ENDIF( MING OR UNIX )
+</pre>
+
+	<p>to</p>
+
+
+<pre>
+ENDIF( MINGW OR UNIX )
+</pre>
+
+	<p>Does that help?</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-822">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/816?r=822#message-822">RE: Compiling fails on zlib</a>
+    -
+    Added by <a class="user active" href="/users/2076">Simon Eugster</a> <a title="20 Feb 2011 23:59" href="/projects/exiv2/activity?from=2011-02-20">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Unfortunately not. Still the same compile error (yet no CMake error anymore). I did clean the build directory before.</p>
+
+
+	<p>Simon</p></div>
+  
+  </div>
+  <div class="message reply" id="message-825">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/816?r=825#message-825">RE: Compiling fails on zlib</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="22 Feb 2011 02:41" href="/projects/exiv2/activity?from=2011-02-22">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Same problem here under mandriva :</p>
+
+
+	<p>[ 91%] Building CXX object src/CMakeFiles/exiv2.dir/pngimage.cpp.o                                                           <br />Linking CXX shared library libexiv2.so                                                                                       <br />c++: /LIBPATH:../zlib-1.2.5/$(ConfigurationName): No such file or directory                                                  <br />make<sup><a href="#fn2">2</a></sup>: <b>* [src/libexiv2.so.10.0.0] Error 1<br />make<sup><a href="#fn1">1</a></sup>: <strong></b> [src/CMakeFiles/exiv2.dir/all] Error 2<br />make: *</strong>* [all] Error 2</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+  <div class="message reply" id="message-829">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/816?r=829#message-829">RE: Compiling fails on zlib</a>
+    -
+    Added by <a class="user active" href="/users/2090">Gert Kello</a> <a title="22 Feb 2011 23:22" href="/projects/exiv2/activity?from=2011-02-22">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi.</p>
+
+
+	<p>I took a look, at following diff seems to fix build with mingw. Perhaps something fails for MSVCS...</p>
+
+
+	<p>Index: src/CMakeLists.txt
+===================================================================<br />--- src/CMakeLists.txt  (revision 2462)<br />+<ins>+ src/CMakeLists.txt  (working copy)<br /><code>@ -186,10 +186,10 </code>@<br /> SET_TARGET_PROPERTIES( exiv2 PROPERTIES VERSION ${GENERIC_LIB_VERSION}<br />                                         SOVERSION ${GENERIC_LIB_SOVERSION}<br />                                         DEFINE_SYMBOL EXV_BUILDING_LIB<br />-                                        LINK_FLAGS "/LIBPATH:../zlib-1.2.5/$(ConfigurationName)" <br /></ins>#                                        LINK_FLAGS "/LIBPATH:../zlib-1.2.5/$(ConfigurationName)" <br />                      )</p>
+
+
+	<p>-TARGET_LINK_LIBRARIES( exiv2 ) # ${EXPAT_LIBRARIES} )<br />+TARGET_LINK_LIBRARIES( exiv2 ${EXPAT_LIBRARIES} )</p>
+	<ol>
+	<li><abbr title=" MINGW OR UNIX ">IF</abbr><br />        if( EXIV2_ENABLE_LIBXMP )</li>
+	</ol></div>
+  
+  </div>
+  <div class="message reply" id="message-830">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/816?r=830#message-830">RE: Compiling fails on zlib</a>
+    -
+    Added by <a class="user active" href="/users/2090">Gert Kello</a> <a title="22 Feb 2011 23:24" href="/projects/exiv2/activity?from=2011-02-22">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Ups, forgot to take preview, didn't realize it will apply formatting... And no edit post available?</p>
+
+
+	<p>Here goes again<br /><pre>
+Index: src/CMakeLists.txt
+===================================================================
+--- src/CMakeLists.txt  (revision 2462)
++++ src/CMakeLists.txt  (working copy)
+@@ -186,10 +186,10 @@
+ SET_TARGET_PROPERTIES( exiv2 PROPERTIES VERSION ${GENERIC_LIB_VERSION}
+                                         SOVERSION ${GENERIC_LIB_SOVERSION}
+                                         DEFINE_SYMBOL EXV_BUILDING_LIB
+-                                        LINK_FLAGS "/LIBPATH:../zlib-1.2.5/$(ConfigurationName)" 
++#                                        LINK_FLAGS "/LIBPATH:../zlib-1.2.5/$(ConfigurationName)" 
+                      )
+
+-TARGET_LINK_LIBRARIES( exiv2 ) # ${EXPAT_LIBRARIES} )
++TARGET_LINK_LIBRARIES( exiv2 ${EXPAT_LIBRARIES} )
+
+ # IF( MINGW OR UNIX )
+        if( EXIV2_ENABLE_LIBXMP )</pre></p></div>
+  
+  </div>
+  <div class="message reply" id="message-831">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/816?r=831#message-831">RE: Compiling fails on zlib</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="22 Feb 2011 23:54" href="/projects/exiv2/activity?from=2011-02-22">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>This line have been added with this commit :</p>
+
+
+	<p><a class="external" href="http://dev.exiv2.org/projects/exiv2/repository/diff/trunk/src/CMakeLists.txt?rev=2427&#38;rev_to=2362">http://dev.exiv2.org/projects/exiv2/repository/diff/trunk/src/CMakeLists.txt?rev=2427&#38;rev_to=2362</a></p>
+
+
+	<p>I will fix it.</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+  <div class="message reply" id="message-832">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/816?r=832#message-832">RE: Compiling fails on zlib</a>
+    -
+    Added by <a class="user active" href="/users/2090">Gert Kello</a> <a title="23 Feb 2011 00:36" href="/projects/exiv2/activity?from=2011-02-23">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>You missed the changed to restore link of EXPAT_LIBRARIES</p>
+
+
+<pre>
+-TARGET_LINK_LIBRARIES( exiv2 ) # ${EXPAT_LIBRARIES} )
++TARGET_LINK_LIBRARIES( exiv2 ${EXPAT_LIBRARIES} )
+</pre></div>
+  
+  </div>
+  <div class="message reply" id="message-833">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/816?r=833#message-833">RE: Compiling fails on zlib</a>
+    -
+    Added by <a class="user active" href="/users/2076">Simon Eugster</a> <a title="23 Feb 2011 00:49" href="/projects/exiv2/activity?from=2011-02-23">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>With this change it is now compiling here! Thanks!</p>
+
+
+	<p>Simon</p></div>
+  
+  </div>
+  <div class="message reply" id="message-834">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/816?r=834#message-834">RE: Compiling fails on zlib</a>
+    -
+    Added by <a class="user active" href="/users/76">Gilles Caulier</a> <a title="23 Feb 2011 00:53" href="/projects/exiv2/activity?from=2011-02-23">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Expat linking restored...</p>
+
+
+	<p>Gilles Caulier</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-11/11)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

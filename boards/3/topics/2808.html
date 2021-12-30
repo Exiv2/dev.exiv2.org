@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Add XMP Tag in Bag without overwriting old Bag Element - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="xsr61ZSy/kkZVZQF/6QYjN0ep+xpLgNwS7vo39cv8Sokh1E65sgySUwxiwlAcxS/4ozzlZjNosq2m3hXlBYWRQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Add XMP Tag in Bag without overwriting old Bag Element</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/5035">David Poelz</a> <a title="14 Mar 2017 12:56" href="/projects/exiv2/activity?from=2017-03-14">over 4 years</a> ago</span></p>
+<div class="wiki">
+<p>I want to add a region Tag without overwriting the existing ones.</p>
+
+
+	<p>I found the following piece of command lines:<pre>
+
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:w 1600" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:h 800" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:unit pixel" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList ''" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name Firstname Lastname" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Type Face" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:x 0.275312" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:y 0.3775" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:w 0.164375" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:h 0.28125" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:unit normalized" pic.jpg </pre></p>
+
+
+	<p>This overwrites the first element in the RegionList Bag. Is there a way to add a new element to the RegionList Bag?</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (10)</h3>
+  <div class="message reply" id="message-2809">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2808?r=2809#message-2809">RE: Add XMP Tag in Bag without overwriteing old Bag Element</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Mar 2017 13:10" href="/projects/exiv2/activity?from=2017-03-14">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>David:</p>
+
+
+	<p>I believe this is possible.  Alan's our XMP/metadata engineer and can probably enlighten you.  I think this command needs a <em>bag</em> in it:<pre>exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList XmpBag" pic.jpg</pre>I think you have to add the XmpBag (or XmpSeq), then add the elements.</p>
+
+
+	<p>I haven't worked much in this part of the code.  I thought we had a test script or a discussion in the man page about this, however I seem to be mistaken.  Perhaps this was discussed in the forum.  Try searching for XmpBag and XmpSeq.</p>
+
+
+	<p>If you find the solution, please share it in this topic.  If you're stuck, come back and I'll investigate more deeply.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2810">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2808?r=2810#message-2810">RE: Add XMP Tag in Bag without overwriteing old Bag Element</a>
+    -
+    Added by <a class="user active" href="/users/5035">David Poelz</a> <a title="14 Mar 2017 13:53" href="/projects/exiv2/activity?from=2017-03-14">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hi Robin</p>
+
+
+	<p>thanks you you quick reply. I searched the forum ,the bug reports and the wiki for XMPBag and XMPSeq and read all resulting threads. Unfortunatly I didn't find a solution. If you could look at it again more deeply it would be great. Thanks in advance.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2811">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2808?r=2811#message-2811">RE: Add XMP Tag in Bag without overwriteing old Bag Element</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Mar 2017 14:27" href="/projects/exiv2/activity?from=2017-03-14">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've looked a little more about this.  And this seems to be working OK.  Here's my script.  I do have dual nationality, so I've represented that with an XmpBag:<pre>#!/bin/bash
+
+cp test/data/exiv2-empty.jpg empty.jpg
+exiv2 -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList ''" empty.jpg
+exiv2 -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name Robin Mills" empty.jpg
+exiv2 -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Nationality Scottish" empty.jpg
+exiv2 -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Name Hoo Can Fly" empty.jpg
+exiv2 -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Nationality Chinese" empty.jpg
+exiv2 -px empty.jpg ; echo ----
+exiv2 -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Nationality XmpBag Scottish" empty.jpg
+exiv2 -px empty.jpg ; echo ----
+exiv2 -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Nationality XmpBag American" empty.jpg
+exiv2 -px empty.jpg ; echo ----
+exiv2 -pX empty.jpg | xmllint --format -
+
+# That's all Folks!
+##</pre>And here's the output:<pre>Xmp.mwg-rs.Regions                           XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList         XmpText     0  type="Bag" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]      XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name XmpText    11  Robin Mills
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Nationality XmpText     8  Scottish
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]      XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Name XmpText    11  Hoo Can Fly
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Nationality XmpText     7  Chinese
+----
+Xmp.mwg-rs.Regions                           XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList         XmpText     0  type="Bag" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]      XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name XmpText    11  Robin Mills
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Nationality XmpBag      1  Scottish
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]      XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Name XmpText    11  Hoo Can Fly
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Nationality XmpText     7  Chinese
+----
+Xmp.mwg-rs.Regions                           XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList         XmpText     0  type="Bag" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]      XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name XmpText    11  Robin Mills
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Nationality XmpBag      2  Scottish, American
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]      XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Name XmpText    11  Hoo Can Fly
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Nationality XmpText     7  Chinese
+----
+&lt;?xml version="1.0"?&gt;
+&lt;?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?&gt;
+&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2"&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+    &lt;rdf:Description xmlns:mwg-rs="http://www.metadataworkinggroup.com/schemas/regions/" rdf:about=""&gt;
+      &lt;mwg-rs:Regions rdf:parseType="Resource"&gt;
+        &lt;mwg-rs:RegionList&gt;
+          &lt;rdf:Bag&gt;
+            &lt;rdf:li&gt;
+              &lt;rdf:Description mwg-rs:Name="Robin Mills"&gt;
+                &lt;mwg-rs:Nationality&gt;
+                  &lt;rdf:Bag&gt;
+                    &lt;rdf:li&gt;Scottish&lt;/rdf:li&gt;
+                    &lt;rdf:li&gt;American&lt;/rdf:li&gt;
+                  &lt;/rdf:Bag&gt;
+                &lt;/mwg-rs:Nationality&gt;
+              &lt;/rdf:Description&gt;
+            &lt;/rdf:li&gt;
+            &lt;rdf:li mwg-rs:Name="Hoo Can Fly" mwg-rs:Nationality="Chinese"/&gt;
+          &lt;/rdf:Bag&gt;
+        &lt;/mwg-rs:RegionList&gt;
+      &lt;/mwg-rs:Regions&gt;
+    &lt;/rdf:Description&gt;
+  &lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;
+&lt;?xpacket end="w"?&gt;</pre></p>
+
+
+	<p>As I've said, I'm not an XMP Engineer.  Perhaps you're expecting different behaviour.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2812">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2808?r=2812#message-2812">RE: Add XMP Tag in Bag without overwriting old Bag Element</a>
+    -
+    Added by <a class="user active" href="/users/5035">David Poelz</a> <a title="14 Mar 2017 15:38" href="/projects/exiv2/activity?from=2017-03-14">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>I think i meant something different</p>
+
+
+	<p>Step 1: I add a Region Tag to a picture. i can use the code<br /><pre>exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:w 1600" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:h 800" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:AppliedToDimensions/stDim:unit pixel" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList ''" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name Firstname Lastname" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Type Face" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:x 0.275312" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:y 0.3775" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:w 0.164375" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:h 0.28125" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:unit normalized" pic.jpg </pre></p>
+
+
+	<p>Step 2: I want to add add other element to the regionList but i need to find out if and how many elements there are already in the regionList so i can set the index [x] correctly. So i would do:</p>
+
+
+<pre>exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[x]/mwg-rs:Name AnotherFirstname AnotherLastname" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[x]/mwg-rs:Type Face" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[x]/mwg-rs:Area/stArea:x 0.5" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[x]/mwg-rs:Area/stArea:y 0.5" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[x]/mwg-rs:Area/stArea:w 0.3" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[x]/mwg-rs:Area/stArea:h 0.2" pic.jpg
+exiv2 mo -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[x]/mwg-rs:Area/stArea:unit normalized" pic.jpg </pre>
+
+	<p>How can i find X?</p>
+
+
+	<p>Or if i stay with your example: can you add "Hoo Can Fly" without  the index [2] ?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2813">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2808?r=2813#message-2813">RE: Add XMP Tag in Bag without overwriting old Bag Element</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Mar 2017 16:55" href="/projects/exiv2/activity?from=2017-03-14">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>A good question (although I've given you a good answer to a different question!).</p>
+
+
+	<p>Good old grep can help you:<pre>521 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -px empty.jpg | grep Name | grep "Hoo Can Fly" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Name XmpText    11  Hoo Can Fly
+522 rmills@rmillsmbp:~/gnu/exiv2/trunk $</pre>You might need to use XSLT's count() function on the XML.  Can I encourage you to take a look at the documentation for Adobe's XMPsdk.  Exiv2 puts a modest veneer over Adobe's code.  If Adobe provide a short hand for "the last+1", it'll probably work fine from Exiv2.  For sure the syntax <strong><code> []</code></strong> seems to be "the last one":<pre>532 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[]/mwg-rs:Name 'Andreas Huggel'" empty.jpg 
+533 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -px empty.jpg
+Xmp.mwg-rs.Regions                           XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList         XmpText     0  type="Bag" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]      XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name XmpText    11  Robin Mills
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Nationality XmpBag      2  Scottish, American
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]      XmpText     0  type="Struct" 
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Name XmpText    14  Andreas Huggel
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]/mwg-rs:Nationality XmpText     7  Chinese
+534 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>This has updated <code>Xmp.mwg-rs.Regions/mwg-rs:RegionList[2]</code>which has changed Hoo's name.  Perhaps there is a syntax for "last + 1".  I've unsuccessfully tried <strong><code>*</code></strong> and <strong><code>-1</code></strong> and <strong><code>0</code></strong>.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2814">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2808?r=2814#message-2814">RE: Add XMP Tag in Bag without overwriting old Bag Element</a>
+    -
+    Added by <a class="user active" href="/users/5035">David Poelz</a> <a title="15 Mar 2017 09:31" href="/projects/exiv2/activity?from=2017-03-15">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you that helps a lot. Initially i hoped that i can tell exiv2 to add the element as last+1. But now i know that I have to parse the existing xmp tags first and the enter the new data at the right position.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2815">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2808?r=2815#message-2815">RE: Add XMP Tag in Bag without overwriting old Bag Element</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Mar 2017 10:09" href="/projects/exiv2/activity?from=2017-03-15">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>You're welcome.  Happy Users, that's <em>wot we want</em>!   A couple of observations:</p>
+
+
+	<p>1) The XMPsdk embedded in Exiv2 supports the syntax <em><strong><code>[last()]</code></strong></em>, which amount to the same as <em><strong><code>[]</code></strong></em>.  It doesn't support <em><strong><code>[last()+1]</code></strong></em></p>
+
+
+	<p>2) Parsing XMPsdk output strings is non trivial.  For example:<pre>Xmp.mwg-rs.Regions/mwg-rs:RegionList[1]/mwg-rs:Name</pre>I have written a parser in <em><strong><code>&lt;exiv2dir&gt;/samples/exiv2json.cpp</code></strong></em>.  It uses a recursive algorithm and I recommend a double shot of expresso before reading that code.  If you discover/invent a simpler parser, I'll be happy to accept your suggestions.</p>
+
+
+	<p>My parser <em><strong><code>objectForKey()</code></strong></em> parses the string to a Jzon object which is supported in <em><strong><code>samples/Jzon.cpp</code></strong></em>.  I'll be happy to discuss the parser if you want to use that in your application.  I am willing to discuss it on Skype 'clanmills' (or FaceTime or Google Hangouts).</p>
+
+
+	<p>3) It's probably not too difficult to add syntax such as <em><strong><code>[+]</code></strong></em> to XMPsdk to represent <em><strong><code>[last()+1]</code></strong></em>.  However, I never change the XMPsdk code that ships in Exiv2.  As with the parser, I'll be happy to discuss this via Skype if you want to add this to your local sources.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2816">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2808?r=2816#message-2816">RE: Add XMP Tag in Bag without overwriting old Bag Element</a>
+    -
+    Added by <a class="user active" href="/users/5035">David Poelz</a> <a title="15 Mar 2017 11:07" href="/projects/exiv2/activity?from=2017-03-15">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thank you for your offer. I am a Java developer though and never touched C code. So I doubt that i am able to discuss you parser in any meaningfuly way :)</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2817">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2808?r=2817#message-2817">RE: Add XMP Tag in Bag without overwriting old Bag Element</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="15 Mar 2017 11:17" href="/projects/exiv2/activity?from=2017-03-15">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>Oh, the Java and C++/STL languages are almost identical.  The big difference is that Java runs using the JavaVM and C++ generates native code.  And Java is delivered with amazing libraries.  However the languages are very similar.</p>
+
+
+	<p>If you have difficulty parsing those strings, I can help you with the Java to get that done.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-2818">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/2808?r=2818#message-2818">RE: Add XMP Tag in Bag without overwriting old Bag Element</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Mar 2017 07:33" href="/projects/exiv2/activity?from=2017-03-16">over 4 years</a> ago
+  </h4>
+  <div class="wiki"><p>I've made more discoveries about this by reading the code in xmpsdk/src/XMPCore_Impl.cpp.  ExpandXPath() has the following comments:<pre>//    qualName                A top level property or struct field.
+//    *[index]                An element of an array.
+//    *[last()]                The last element of an array.
+//    *[fieldName="value"]    An element in an array of structs, chosen by a field value.
+//    *[@xml:lang="value"]    An element in an alt-text array, chosen by the xml:lang qualifier.
+//    *[?qualName="value"]    An element in an array, chosen by a qualifier value.
+//    @xml:lang                An xml:lang qualifier.
+//    ?qualName                A general qualifier.</pre>We can use this to add the name 'David' in <code>[3]</code><pre>637 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[3]/mwg-rs:Name David" empty.jpg
+638 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -px empty.jpg | grep David
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[3]/mwg-rs:Name XmpText     5  David
+639 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>And I can edit you!<pre>639 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[mwg-rs:Name='David']/mwg-rs:Name David Poelz" empty.jpg
+640 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -px empty.jpg | grep David
+Xmp.mwg-rs.Regions/mwg-rs:RegionList[3]/mwg-rs:Name XmpText    11  David Poelz</pre>However, there seems to be a bug in parsing the syntax: <em><strong><code>*[fieldName="value"]</code></strong></em> if value has a space: <pre>649 rmills@rmillsmbp:~/gnu/exiv2/trunk $ exiv2 -M "set Xmp.mwg-rs.Regions/mwg-rs:RegionList[mwg-rs:Name='David Poelz']/mwg-rs:Name David" empty.jpg
+Error: XMP Toolkit error 102: No terminating quote for array selector
+Error: Failed to encode XMP metadata.
+650 rmills@rmillsmbp:~/gnu/exiv2/trunk $ </pre>I cannot find any mention of this feature in the XMPsdk documentation:<pre>657 rmills@rmillsmbp:~/gnu/xmpsdk/XMP-Toolkit-SDK-CC201607 $ find . -name "*.pdf" -exec ls -alt {} \;
+-rw-r--r--+ 1 rmills staff 211367 Aug  1  2016 ./docs/XMPAddendumProgrammersGuide.pdf
+-rw-r--r--+ 1 rmills staff 263041 Aug  1  2016 ./docs/XMPFilesPluginSDK.pdf
+-rw-r--r--+ 1 rmills staff 644034 Aug  1  2016 ./docs/XMPProgrammersGuide.pdf
+-rw-r--r--+ 1 rmills staff 511034 Aug  1  2016 ./docs/XMPSpecificationPart1.pdf
+-rw-r--r--+ 1 rmills staff 383354 Aug  1  2016 ./docs/XMPSpecificationPart2.pdf
+-rw-r--r--+ 1 rmills staff 823648 Aug  1  2016 ./docs/XMPSpecificationPart3.pdf
+-rwxr-xr-x+ 1 rmills staff 10806 Aug  1  2016 ./samples/testfiles/BlueSquare.pdf
+-rw-r--r--+ 1 rmills staff 163352 Aug  1  2016 ./XMP-Toolkit-SDK-Overview.pdf
+658 rmills@rmillsmbp:~/gnu/xmpsdk/XMP-Toolkit-SDK-CC201607 $ </pre>I couldn't find anything about this in the XMPsdk forum: <a class="external" href="https://forums.adobe.com/thread/1817442">https://forums.adobe.com/thread/1817442</a>.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-10/10)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

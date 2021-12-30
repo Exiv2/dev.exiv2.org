@@ -1,0 +1,116 @@
+diff -urwEB exiv2-0.26.org/include/exiv2/basicio.hpp exiv2-0.26.delete/include/exiv2/basicio.hpp
+--- exiv2-0.26.org/include/exiv2/basicio.hpp	2016-12-13 17:09:14.000000000 -0500
++++ exiv2-0.26.delete/include/exiv2/basicio.hpp	2017-01-20 08:55:37.000000000 -0500
+@@ -552,6 +552,12 @@
+           @brief Returns the path to a temporary data storage location.
+          */
+         static std::string temporaryPath();
++#ifdef EXV_UNICODE_PATH
++        /*!
++          @brief Returns the unicode path to a temporary data storage location.
++         */
++        static std::wstring temporaryWPath();
++#endif
+ 
+     protected:
+         // Pimpl idiom
+diff -urwEB exiv2-0.26.org/include/exiv2/exv_conf.h exiv2-0.26.delete/include/exiv2/exv_conf.h
+--- exiv2-0.26.org/include/exiv2/exv_conf.h	2017-01-18 07:17:02.000000000 -0500
++++ exiv2-0.26.delete/include/exiv2/exv_conf.h	2017-01-20 08:42:26.621121801 -0500
+@@ -28,7 +28,7 @@
+ #define EXV_HAVE_LIBINTL_H 1
+ 
+ /* Define to 1 if you require video support. */
+-#define EXV_ENABLE_VIDEO 1
++/* #undef EXV_ENABLE_VIDEO */
+ 
+ /* Define to 1 if you require webready support. */
+ /* #undef EXV_ENABLE_WEBREADY */
+@@ -40,7 +40,7 @@
+ 
+ /* Define to 1 if translation of program messages to the user's
+    native language is requested. */
+-/* #undef EXV_ENABLE_NLS */
++#define EXV_ENABLE_NLS 1
+ 
+ /* Define to 1 if you have the `iconv' function. */
+ #define EXV_HAVE_ICONV 1
+diff -urwEB exiv2-0.26.org/src/basicio.cpp exiv2-0.26.delete/src/basicio.cpp
+--- exiv2-0.26.org/src/basicio.cpp	2017-01-03 12:16:25.000000000 -0500
++++ exiv2-0.26.delete/src/basicio.cpp	2017-01-20 10:24:02.000000000 -0500
+@@ -577,33 +577,54 @@
+ #else
+         nlink_t nlink = buf.st_nlink;
+ #endif
++#ifdef EXV_UNICODE_PATH
++        std::wstring wtmpname;
++#endif
++        std::string tmpname;
+ 
+         // If file is > 1MB and doesn't have hard links then use a file, otherwise
+         // use a memory buffer. I.e., files with hard links always use a memory
+         // buffer, which is a workaround to ensure that the links don't get broken.
+-        if (ret != 0 || (buf.st_size > 1048576 && nlink == 1)) {
++        if (ret != 0 || (buf.st_size > 1048576 && nlink == 1)) 
++		{
+             pid_t pid = ::getpid();
+             std::auto_ptr<FileIo> fileIo;
+ #ifdef EXV_UNICODE_PATH
+             if (p_->wpMode_ == Impl::wpUnicode) {
+-                std::wstring tmpname = wpath() + s2ws(toString(pid));
+-                fileIo = std::auto_ptr<FileIo>(new FileIo(tmpname));
++                wtmpname = temporaryWPath() + s2ws(toString(pid));
++                fileIo = std::auto_ptr<FileIo>(new FileIo(wtmpname));
+             }
+             else
+ #endif
+             {
+-                std::string tmpname = path() + toString(pid);
++                tmpname = temporaryPath() + toString(pid);
+                 fileIo = std::auto_ptr<FileIo>(new FileIo(tmpname));
+             }
+             if (fileIo->open("w+b") != 0) {
+ #ifdef EXV_UNICODE_PATH
+                 if (p_->wpMode_ == Impl::wpUnicode) {
+-                    throw WError(10, wpath(), "w+b", strError().c_str());
++#if defined(_MSC_VER) || defined(__MINGW__)
++                    if( !DeleteFileW( wtmpname.c_str() ) )
++#else
++                    if( remove( wtmpname.c_str() ) != 0 )
++#endif
++                    {
++                        perror("Error deleting file");
++                    }
++                    throw WError(10, temporaryWPath(), "w+b", strError().c_str());
+                 }
+                 else
+ #endif
+                 {
+-                    throw Error(10, path(), "w+b", strError());
++#if defined(_MSC_VER) || defined(__MINGW__)
++                    if( !DeleteFile( tmpname.c_str() ) )
++#else
++                    if( remove( tmpname.c_str() ) != 0 )
++#endif
++                    {
++                        perror("Error deleting file");
++                    }
++                    throw Error(10, temporaryPath(), "w+b", strError());
+                 }
+             }
+             fileIo->p_->copyXattrFrom(*this);
+@@ -638,6 +659,14 @@
+         return result;
+     }
+ 
++#ifdef EXV_UNICODE_PATH
++    std::wstring FileIo::temporaryWPath()
++    {
++		std::wstring result = s2ws(temporaryPath());
++		return result;
++    }
++#endif
++
+     long FileIo::write(const byte* data, long wcount)
+     {
+         assert(p_->fp_ != 0);

@@ -1,0 +1,11 @@
+--- nikonmn.cpp	2017-04-26 21:16:21.000000000 +0200
++++ nikonmn.cpp_bak	2017-11-23 12:34:15.172928058 +0100
+@@ -299,6 +299,8 @@
+                                                const Value& value,
+                                                const ExifData* exifData)
+     {
++        if ( ! exifData ) return os << "undefined" ;
++        
+         if ( value.count() >= 9 ) {
+             ByteOrder bo = getKeyString("Exif.MakerNote.ByteOrder",exifData) == "MM" ? bigEndian : littleEndian;
+             byte      p[4];

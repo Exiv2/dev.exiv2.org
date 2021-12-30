@@ -1,0 +1,53 @@
+Index: src/tags_int.hpp
+===================================================================
+--- src/tags_int.hpp	(revision 3288)
++++ src/tags_int.hpp	(working copy)
+@@ -184,7 +184,7 @@
+              tag values to human readable labels.
+      */
+     struct TagDetails {
+-        long val_;                              //!< Tag value
++        int64_t val_;                           //!< Tag value
+         const char* label_;                     //!< Translation of the tag value
+ 
+         //! Comparison operator for use with the find template
+Index: src/localtime.c
+===================================================================
+--- src/localtime.c	(revision 3288)
++++ src/localtime.c	(working copy)
+@@ -1119,11 +1119,18 @@
+ int *	number;
+ int	delta;
+ {
+-	int	number0;
+-
+-	number0 = *number;
++	int i = *number;
++	/*
++        ** Copied from: https://www.ietf.org/timezones/code/localtime.c
++	** If i >= 0 there can only be overflow if i + delta > INT_MAX
++	** or if delta > INT_MAX - i; given i >= 0, INT_MAX - i cannot overflow.
++	** If i < 0 there can only be overflow if i + delta < INT_MIN
++	** or if delta < INT_MIN - i; given i < 0, INT_MIN - i cannot overflow.
++	*/
++	if ((i >= 0) ? (delta > INT_MAX - i) : (delta < INT_MIN - i))
++		return TRUE;
+ 	*number += delta;
+-	return (*number < number0) != (delta < 0);
++	return FALSE;
+ }
+ 
+ static int
+Index: src/basicio.cpp
+===================================================================
+--- src/basicio.cpp	(revision 3288)
++++ src/basicio.cpp	(working copy)
+@@ -319,7 +319,7 @@
+             if (hKernel) {
+                 GetFileInformationByHandle_t pfcn_GetFileInformationByHandle = (GetFileInformationByHandle_t)GetProcAddress(hKernel, "GetFileInformationByHandle");
+                 if (pfcn_GetFileInformationByHandle) {
+-                    BY_HANDLE_FILE_INFORMATION fi = {0};
++                    BY_HANDLE_FILE_INFORMATION fi;
+                     if (pfcn_GetFileInformationByHandle(hFd, &fi)) {
+                         nlink = fi.nNumberOfLinks;
+                     }

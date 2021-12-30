@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #1104: Buffer overflow in Exiv2::RiffVideo::dateTimeOriginal - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="lVPAhKVCxti8dXy0XiHHG1t0kVvmvbU5vnY6H4OP18p3Hmtr1zgK2OkRY7jh9ssoZObFIhdeFINDVqqXwLYwpQ==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #1104: Buffer overflow in Exiv2::RiffVideo::dateTimeOriginal" href="https://dev.exiv2.org/issues/1104.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #1104</h2>
+
+<div class="issue tracker-1 status-2 priority-4 priority-default details">
+    <div class="next-prev-links contextual">
+      <a title="#703" accesskey="p" href="/issues/703">« Previous</a> |
+        <span class="position">
+          <a href="/issues?f%5B%5D=status_id&amp;f%5B%5D=assigned_to_id&amp;op%5Bassigned_to_id%5D=%3D&amp;op%5Bstatus_id%5D=o&amp;page=1&amp;per_page=100&amp;set_filter=1&amp;sort=updated_on%3Adesc%2Cpriority%3Adesc&amp;v%5Bassigned_to_id%5D%5B%5D=119&amp;v%5Bstatus_id%5D%5B%5D=">25 of 25</a>
+        </span> |
+      Next »
+    </div>
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Buffer overflow in Exiv2::RiffVideo::dateTimeOriginal</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4490">Jakub Wilk</a> <a title="10 Aug 2015 12:39" href="/projects/exiv2/activity?from=2015-08-10">over 6 years</a> ago.
+        Updated <a title="27 Mar 2016 09:32" href="/projects/exiv2/activity?from=2016-03-27">over 5 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Assigned</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">video</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a href="/versions/31">1.0</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">10 Aug 2015</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-10"><tr><td style="width: 10%;" class="closed" title="10%"></td><td style="width: 90%;" class="todo"></td></tr></table><p class="percent">10%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value">30.00 h</div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>Tested with svn <a class="changeset" title="#1093 ExifEX fixed typo missing comma" href="/projects/exiv2/repository/exiv2/revisions/3885">r3885</a>:</p>
+
+
+<pre>
+$ exiv2 pr crash.riff 
+*** Error in `exiv2': malloc(): memory corruption: 0x0000000000ed6aa0 ***
+Aborted
+</pre>
+
+	<p>Valgrind says it's a buffer overflow in <code>Exiv2::RiffVideo::dateTimeOriginal</code>:</p>
+
+
+<pre>
+==25760== Invalid write of size 8
+==25760==    at 0x5DE490B: __GI_mempcpy (memcpy.S:272)
+==25760==    by 0x5DD373D: _IO_file_xsgetn (fileops.c:1388)
+==25760==    by 0x5DC954E: fread (iofread.c:42)
+==25760==    by 0x51E4707: Exiv2::RiffVideo::dateTimeOriginal(long, int) (in /usr/local/lib/libexiv2.so.14.0.0)
+==25760==    by 0x51EA894: Exiv2::RiffVideo::decodeBlock() (in /usr/local/lib/libexiv2.so.14.0.0)
+==25760==    by 0x51EAC27: Exiv2::RiffVideo::readMetadata() (in /usr/local/lib/libexiv2.so.14.0.0)
+==25760==    by 0x41A87C: Action::Print::printSummary() (in /usr/local/bin/exiv2)
+==25760==    by 0x41D4C7: Action::Print::run(std::string const&#38;) (in /usr/local/bin/exiv2)
+==25760==    by 0x405D5D: main (in /usr/local/bin/exiv2)
+</pre>
+
+	<p>This bug was found using American fuzzy lop:<br /><a class="external" href="http://lcamtuf.coredump.cx/afl/">http://lcamtuf.coredump.cx/afl/</a></p>
+  </div>
+</div>
+  <hr />
+  <p><strong>Files</strong></p>
+  <div class="attachments">
+<div class="contextual">
+  
+</div>
+<table>
+<tr>
+  <td>
+    <a class="icon icon-attachment" href="/attachments/810">crash.riff</a>    <span class="size">(1.11 KB)</span>
+    <a class="icon-only icon-download" title="Download" href="/attachments/download/810/crash.riff">crash.riff</a>  </td>
+  <td></td>
+  <td>
+      <span class="author">Jakub Wilk, 10 Aug 2015 12:47</span>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+</div>
+
+<p><strong>Related issues</strong></p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/1104" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="+DBarP3hhWM422fNje6o1/DSWwSg15aceiM87uRUrIYaffFDj5tJY22/eMEyOaTkz0APfVE0NyaHA6xmp21L6Q==" />
+  <table class="list issues odd-even"><tr id="relation-213" class="issue hascontextmenu issue tracker-2 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1028" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-2 status-5 priority-4 priority-default closed" href="/issues/1028">Feature #1028</a>: Add GSoC13 video-write code</td><td class="status">Closed</td><td class="start_date">01 Feb 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr><tr id="relation-214" class="issue hascontextmenu issue tracker-1 status-5 priority-4 priority-default closed"><td class="checkbox"><input type="checkbox" name="ids[]" value="1068" /></td><td class="subject" style="width: 50%">Related to Exiv2 - <a class="issue tracker-1 status-5 priority-4 priority-default closed" href="/issues/1068">Bug #1068</a>: Video Code Umbrella</td><td class="status">Closed</td><td class="start_date">26 Apr 2015</td><td class="due_date"></td><td class="done_ratio"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent"></p></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu" href="#">Actions</a></td></tr></table>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/1104/relations" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+</p>
+
+<script>
+//<![CDATA[
+observeAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=1104&project_id=exiv2&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-3959" class="journal has-notes">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4490">Jakub Wilk</a> <a title="10 Aug 2015 12:45" href="/projects/exiv2/activity?from=2015-08-10">over 6 years</a> ago
+      <span id="journal-3959-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3959-notes" class="wiki"><p>In <a class="external" href="https://bugs.debian.org/781123#8">https://bugs.debian.org/781123#8</a>, Vasyl Kaigorodov wrote:</p>
+
+
+<blockquote>
+
+	<p>Just my 2c here - quickly looking at Valgrind backtrace, and the code -<br />looks like the issue is that with attached crafted .riff file RiffVideo::tagDecoder() gets "unsigned long" as<br />its' 2nd argument, which is then passed further to RiffVideo::dateTimeOriginal() as "long".<br />I'm not a CPP guru, but other functions there might suffer from the same issue:</p>
+
+
+	<p>junkHandler<br />aviHeaderTagsHandler<br />streamHandler<br />streamDataTagHandler</p>
+
+
+</blockquote></div>
+    </div>
+  </div>
+  
+  <div id="change-3960" class="journal has-notes has-details">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4490">Jakub Wilk</a> <a title="10 Aug 2015 12:47" href="/projects/exiv2/activity?from=2015-08-10">over 6 years</a> ago
+      <span id="journal-3960-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>File</strong> <a href="/attachments/810">crash.riff</a> <a class="icon-only icon-download" title="Download" href="/attachments/download/810/crash.riff">crash.riff</a> added</li>
+    </ul>
+    <div id="journal-3960-notes" class="wiki"><p>Of course I forgot the attachment. :)</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3962" class="journal has-notes">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/360">Thomas Beutlich</a> <a title="10 Aug 2015 22:03" href="/projects/exiv2/activity?from=2015-08-10">over 6 years</a> ago
+      <span id="journal-3962-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-3962-notes" class="wiki"><p>To answer your question on from <a class="external" href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=781123">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=781123</a> : video support of exiv2 v0.25 was not accidentally disabled but by purpose for the very reason of bugs like this one.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3995" class="journal has-details">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="21 Aug 2015 17:03" href="/projects/exiv2/activity?from=2015-08-21">about 6 years</a> ago
+      <span id="journal-3995-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Category</strong> set to <i>video</i></li>
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.26</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-4284" class="journal has-notes has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="24 Sep 2015 11:12" href="/projects/exiv2/activity?from=2015-09-24">about 6 years</a> ago
+      <span id="journal-4284-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>10</i></li>
+       <li><strong>Estimated time</strong> set to <i>30.00 h</i></li>
+    </ul>
+    <div id="journal-4284-notes" class="wiki"><p>I suspect there is rather a lot of effort required here to test for buffer overflows in the video code.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-4862" class="journal has-notes has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="27 Mar 2016 09:32" href="/projects/exiv2/activity?from=2016-03-27">over 5 years</a> ago
+      <span id="journal-4862-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Target version</strong> changed from <i>0.26</i> to <i>1.0</i></li>
+    </ul>
+    <div id="journal-4862-notes" class="wiki"><p>This is being deferred for v0.26.  I hope refactoring the video code will be the headline feature of v0.27.</p></div>
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/1104.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/1104.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

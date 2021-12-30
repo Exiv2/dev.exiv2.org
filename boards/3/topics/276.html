@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Renaming files - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ujEMWdNea/WsYQfizehityfbUchIXTvSTBsLkOrQ0rlYfKe2oSSn9fkFGO5yP26EGEkFsbm+mmixO5sYqek11g==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Renaming files</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/285">Nathan Sullivan</a> <a title="16 Nov 2009 12:39" href="/projects/exiv2/activity?from=2009-11-16">about 12 years</a> ago</span></p>
+<div class="wiki">
+<p>I wrote a simple batch file for Windows that renames all of the jpegs in a directory:</p>
+
+
+<pre>
+for /f %%a IN ('dir /b *.JPG') do exiv2 -r mv %%a
+
+for /f %%a IN ('dir /b *.JPG') do ren %%a abcd_%%a
+</pre>
+
+	<p>When exiv2 attempts to rename a file whose name already exists, it asks if I want to Overwrite Rename or Skip. Is there a way to make it accept Rename by default without interaction from the user? I have a couple thousand jpegs, and while it is rare this case occurs, it does happen occasionally and I want to avoid having to watch it.</p>
+
+
+	<p>Question unrelated to exiv2: I'm not that great at batch scripts, is there a way to combine the above two statements into one? I want to avoid having to loop through the entire directory renaming them twice. It would be better if did both actions one after the other for each file.</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (9)</h3>
+  <div class="message reply" id="message-277">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/276?r=277#message-277">RE: Renaming files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Nov 2009 13:16" href="/projects/exiv2/activity?from=2009-11-16">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Nathan</p>
+
+
+	<p>I'm not sure about disabling user interaction - I'll leave Andreas to speak about that.  It maybe a simple enhancement request (add a -q == quiet mode).  However my one line (bash) script (on the Mac) to sync the exif date with the file system is:</p>
+
+
+	<p>exiv2 -T *.jpg *.JPG *.jpeg *.JPEG</p>
+
+
+	<p>I believe that only updates the modified date or something - however I've found it totally adequate.  There is no user interaction.  For historical reasons, I use different magic on Windows (only because I wrote my batch script years before I knew about exiv2).</p>
+
+
+	<p>DOS/cmd.exe Question:<br />I believe DOS/cmd supports a syntax ( ... ) for multiple commands in a block.  Something like:</p>
+
+
+	<p>for /f %%f in (*.jpg) do (<br />  exiv2 ... %%f ....<br />  rename ...<br />)</p>
+
+
+	<p>This is much the same way as C (or Perl's) { .. } (or Pascal's BEGIN .. END, or bash's while ... do .. done/ if then ... fi</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-278">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/276?r=278#message-278">RE: Renaming files</a>
+    -
+    Added by <a class="user active" href="/users/285">Nathan Sullivan</a> <a title="16 Nov 2009 13:59" href="/projects/exiv2/activity?from=2009-11-16">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Found it:</p>
+
+
+<pre>
+for /f %%a IN ('dir /b *.JPG') do exiv2 -F mv %%a
+</pre>
+
+	<p>The -F option forces the rename. Your option works too, obviously. Thanks for recommending that, doing it that way seems better.</p>
+
+
+	<p>The other renaming problem I'm having might be able to be done with exiv2 also:</p>
+
+
+	<p>I set the filenames of all the jpegs in a directory to the date/time stamp, I also want to add a prefix to the beginning of each file name, something like:</p>
+
+
+	<p>abcd_20090705_150047.jpg</p>
+
+
+	<p>where abcd_ is the prefix I want to add. I messed around the the -r option, but couldn't get it to do both the date/time stamp and the prefix at the same time.</p>
+
+
+<pre>
+exiv2 -r abcd test.jpg
+</pre><br />Will rename the file test.jpg to abcd.jpg.
+
+	<p>Is there a way to do both the date/time stamp and prefix all in one command?</p></div>
+  
+  </div>
+  <div class="message reply" id="message-279">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/276?r=279#message-279">RE: Renaming files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Nov 2009 15:18" href="/projects/exiv2/activity?from=2009-11-16">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Nathan</p>
+
+
+	<p>I find DOS/cmd batch scripts are limited for this kind of thing and usually prefer to use Perl (or Python).  ActiveState Perl (and Python) is very easy to download and install.</p>
+
+
+	<p>It might be that you have to rename the files in two calls to exiv2.  I'll be honest - I never ask exiv2 to rename files.</p>
+
+
+	<p>I believe Brad's organize tool has a lot of machinery to rename files based on meta data.  <a class="external" href="http://dev.exiv2.org/boards/3/topics/show/44">http://dev.exiv2.org/boards/3/topics/show/44</a></p>
+
+
+	<p>organize.exe will run over directories (including optional recursive descent of a tree).  It also has a 'dryrun' option so you can gain confidence about its intentions.  It could well be that will do everything you want - without any batch script magic!  Having said that, I believe organize is primarily a tool for organizing images into a structured tree, you'll have to investigate its ability to rename individual images.</p>
+
+
+	<p>The default msvc/exiv2.sln build solution doesn't build organize because it would introduce a considerable dependancy on boost (which isn't required by exiv2 and the other sample applications).  So exiv2+organize.sln (and organize.vcproj) is provided to build organize.exe on Windows and documented in exiv2/msvc/ReadMe.txt.  If you want to play with organize.exe without spending the time installing all the boost stuff, I'll be happy to post a prebuilt binary for you to download and use.  Of course, if organize meets your needs, I encourage you to install boost as you will be able to rebuild organize.exe with future releases of exiv2.</p>
+
+
+	<p>Let me know if you'd like me to post organize.exe for you.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-280">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/276?r=280#message-280">RE: Renaming files</a>
+    -
+    Added by <a class="user active" href="/users/285">Nathan Sullivan</a> <a title="16 Nov 2009 17:20" href="/projects/exiv2/activity?from=2009-11-16">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Brad's organize tool is pretty awesome, something I'll definitely be using, but it doesn't quite do what I want. His sorts the files into directories based on the meta data, but doesn't rename them. And I would use python, but I'm less familiar with that than with a batch script. I got a nice chunky book on Python 3 but haven't cracked it open yet.</p>
+
+
+	<p>I figured out a command to do what I want:<br /><pre>
+exiv2 mv -r abcd_%Y%m%d_%H%M%S test.jpg
+</pre></p>
+
+
+	<p>So now my batch script looks like:<br /><pre>
+for /f %%a IN ('dir /b *.JPG') do exiv2 -F mv -r abcd_%%Y%%m%%d_%%H%%M%%S %%a
+</pre><br />(There are two % for each variable so the batch script will recognize it as %Y instead of just Y, and execute correctly.)</p>
+
+
+	<p>Thanks for taking the time to help me though, I really appreciate it.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-281">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/276?r=281#message-281">RE: Renaming files</a>
+    -
+    Added by <a class="user active" href="/users/119">Robin Mills</a> <a title="16 Nov 2009 17:38" href="/projects/exiv2/activity?from=2009-11-16">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>That's great.  I'm glad this has a happy ending.  I wonder if this will inspire Brad to add individual file renaming to organize?  Oh, well - that's Brad's business.  I'm really pleased that you've found what you want.  I love the %% - so ugly - so necessary.  I recently had a script that required \\\\ 4 slashes in loads of places.  It's easy to hate software.</p>
+
+
+	<p>Incidentally, I noticed that Brad published a binary version for windows of organize.exe on the page referenced above.  So you can download from there.  And Andreas has said he'll probably build and publish binaries of organize.exe in future.</p>
+
+
+	<p>I would like to encourage you to learn Python because it's a very elegant language.  Having said that, I don't use it as often as I should and resort to Perl.  When in trouble/under pressure/laziness - I  reach for the tool I know.</p>
+
+
+	<p>Robin</p></div>
+  
+  </div>
+  <div class="message reply" id="message-282">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/276?r=282#message-282">RE: Renaming files</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 Nov 2009 17:40" href="/projects/exiv2/activity?from=2009-11-16">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Nathan,</p>
+
+
+	<p>Just curious, is the for-loop really necessary? How is that different from</p>
+
+
+<pre>
+exiv2 -F -r 'abcd_%Y%m%d_%H%M%S' *.JPG
+</pre>
+
+	<p>Of course I might be totally off-track; I'm not familiar with the Windows scripting syntax.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-283">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/276?r=283#message-283">RE: Renaming files</a>
+    -
+    Added by <a class="user active" href="/users/285">Nathan Sullivan</a> <a title="16 Nov 2009 17:59" href="/projects/exiv2/activity?from=2009-11-16">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Robin, <br />I did download the binary version on the page you referenced. Very nice addition that.</p>
+
+
+	<p>Andreas,<br />Apparently no difference at all! Even better! Thanks.</p>
+
+
+	<p>I am getting a strange error when I do that though, if I execute:<br /><pre>
+exiv2 -F -r abcd_%Y%m%d_%H%M%S *.JPG
+</pre><br />And the files being renamed are: test.jpg, test1.jpg, etc.. I get this error:<br /><pre>
+test.jpg: Failed to open the file
+test1.jpg: Failed to open the file
+...etc..
+</pre><br />But, all the files are still renamed correctly: abcd_20090705_150047.jpg, and so on..<br />This error didn't occur with the for-loop.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-284">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/276?r=284#message-284">RE: Renaming files</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="16 Nov 2009 18:13" href="/projects/exiv2/activity?from=2009-11-16">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>That's really strange. An inconsistency with case sensitivity? What if you use</p>
+
+
+<pre>
+exiv2 -F -r abcd_%Y%m%d_%H%M%S *.jpg
+</pre>
+
+	<p>with <code>*.jpg</code> instead of <code>*.JPG</code> in the command for your test files?</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-285">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/276?r=285#message-285">RE: Renaming files</a>
+    -
+    Added by <a class="user active" href="/users/285">Nathan Sullivan</a> <a title="16 Nov 2009 18:32" href="/projects/exiv2/activity?from=2009-11-16">about 12 years</a> ago
+  </h4>
+  <div class="wiki"><p>Whoops. That was completely my fault. I had:<br /><pre>
+exiv2 -F -r abcd_%Y%m%d_%H%M%S *.jpg *.JPG
+</pre><br />When I ran it without the extra *.JPG it worked perfectly. I should've had *.jpeg in place of the second *.JPG.</p>
+
+
+	<p>Within my test files I have:  .jpeg .JPEG .jpg .JPG, all get converted correctly with no error messages when I use:<br /><pre>
+exiv2 -F -r abcd_%Y%m%d_%H%M%S *.jpg *.jpeg
+</pre></p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-9/9)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

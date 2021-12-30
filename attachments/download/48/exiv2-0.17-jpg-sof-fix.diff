@@ -1,0 +1,10 @@
+--- exiv2-0.17/src/jpgimage.cpp.orig	2008-06-14 00:40:19.000000000 +0200
++++ exiv2-0.17/src/jpgimage.cpp	2008-06-14 00:40:28.000000000 +0200
+@@ -407,6 +407,7 @@
+                          || marker == sof15_)) {
+                 // we hit a SOFn (start-of-frame) marker
+                 if (size < 8) throw Error(15);
++                io_->seek(size-bufRead, BasicIo::cur);
+                 pixelHeight_ = getUShort(buf.pData_ + 3, bigEndian);
+                 pixelWidth_ = getUShort(buf.pData_ + 5, bigEndian);
+                 if (pixelHeight_ != 0) --search;

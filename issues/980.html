@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Bug #980: Support HDR DNG images from HDRMerge - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="1XAkaG4ePIf+XBGk8T5ioWuheUBHez0O0Ip9GPv9KKE3PY+HHGTwh6s4DqhO6W6SVDMtObaYnLQtqu2QuMTPzg==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Exiv2 - Bug #980: Support HDR DNG images from HDRMerge" href="https://dev.exiv2.org/issues/980.atom" />
+<script src="/javascripts/context_menu.js?1550767427"></script><link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css?1550767427" /></head>
+<body class="project-exiv2 has-main-menu controller-issues action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="issues" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="issues" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+
+<ul>
+<li><a href="/projects/exiv2/issues?set_filter=1">View all issues</a></li>
+<li><a href="/projects/exiv2/issues/report">Summary</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Bug #980</h2>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="gravatar-with-child">
+    
+    
+  </div>
+
+<div class="subject">
+<div><h3>Support HDR DNG images from HDRMerge</h3></div>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/4197">Schnitzel Foo</a> <a title="14 Aug 2014 04:40" href="/projects/exiv2/activity?from=2014-08-14">over 7 years</a> ago.
+        Updated <a title="21 Jun 2015 16:41" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="priority attribute"><div class="label">Priority:</div><div class="value">Normal</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/119">Robin Mills</a></div></div><div class="category attribute"><div class="label">Category:</div><div class="value">image format</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value"><a title="17 May 2015" href="/versions/51">0.25</a></div></div></div><div class="splitcontentleft"><div class="start-date attribute"><div class="label">Start date:</div><div class="value">14 Aug 2014</div></div><div class="due-date attribute"><div class="label">Due date:</div><div class="value"></div></div><div class="progress attribute"><div class="label">% Done:</div><div class="value"><table class="progress progress-100"><tr><td style="width: 100%;" class="closed" title="100%"></td></tr></table><p class="percent">100%</p></div></div><div class="estimated-hours attribute"><div class="label">Estimated time:</div><div class="value"></div></div></div></div>
+
+
+</div>
+
+<hr />
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p>HDRMerge is an awesome FOSS program from Javier Celaya for generating a high dynamic range raw image in the DNG format from a bracketed raw set.<br /><a class="external" href="https://github.com/jcelaya/hdrmerge">https://github.com/jcelaya/hdrmerge</a></p>
+
+
+	<p>Please add support for correctly displaying the thumbnails from these raw images. They follow standards and should therefore be supported.<br />You can download a sample image from:<br /><a class="external" href="http://rawtherapee.com/shared/test_images/hdrmerge_045.dng">http://rawtherapee.com/shared/test_images/hdrmerge_045.dng</a></p>
+
+
+	<p>exiv2 0.24 seems to correctly extract the preview images (it identifies two of them in that DNG). If that DNG contains a thumbnail image, exiv2 does not extract it.</p>
+
+
+	<p>Reference bug report that lead me here: <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=338081">https://bugs.kde.org/show_bug.cgi?id=338081</a></p>
+
+
+	<p>Kind regards</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+  <div id="change-2834" class="journal has-notes has-details">
+    <div id="note-1">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-1" class="journal-link">#1</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Aug 2014 15:07" href="/projects/exiv2/activity?from=2014-08-14">over 7 years</a> ago
+      <span id="journal-2834-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Assigned</i></li>
+       <li><strong>Assignee</strong> set to <i>Robin Mills</i></li>
+       <li><strong>Target version</strong> set to <i>0.25</i></li>
+    </ul>
+    <div id="journal-2834-notes" class="wiki"><p>Thanks very much for bringing this to our attention.  I've taken a look at the image you provided and I'd like you to help me to understand the substance of this issue.<br /><pre>
+592 rmills@rmillsmbp:~/Downloads $ exiv2 -pa hdrmerge_045.dng | grep -i -e prev -e thum -e res -e width -e height -e length
+Exif.Image.NewSubfileType                    Long        1  Thumbnail/Preview image
+Exif.Image.ImageWidth                        Long        1  256
+Exif.Image.ImageLength                       Long        1  172
+Exif.Image.Compression                       Short       1  Uncompressed
+Exif.Image.XResolution                       Rational    1  100
+Exif.Image.YResolution                       Rational    1  100
+Exif.SubImage1.ImageWidth                    Long        1  3936
+Exif.SubImage1.ImageLength                   Long        1  2624
+Exif.SubImage1.Compression                   Short       1  Adobe Deflate
+Exif.SubImage1.TileWidth                     Long        1  496
+Exif.SubImage1.TileLength                    Long        1  528
+Exif.SubImage2.NewSubfileType                Long        1  Thumbnail/Preview image
+Exif.SubImage2.ImageWidth                    Long        1  1948
+Exif.SubImage2.ImageLength                   Long        1  1308
+Exif.SubImage2.Compression                   Short       1  JPEG
+Exif.Photo.FocalLength                       Rational    1  8.0 mm
+Exif.Photo.MakerNote                         Undefined 31792  (Binary value suppressed)
+Exif.Pentax.PreviewResolution                Short       2  640x480
+Exif.Pentax.FocalLength                      Long        1  0.0 mm
+Exif.Pentax.PreviewImageBorders              Byte        4  26 26 0 0
+Exif.Pentax.WB_RGGBLevelsFluorescentD        Short       4  17376 8192 8192 8847
+Exif.Pentax.WB_RGGBLevelsFluorescentN        Short       4  14528 8192 8192 10076
+Exif.Pentax.WB_RGGBLevelsFluorescentW        Short       4  13088 8192 8192 12206
+Exif.Photo.FocalLengthIn35mmFilm             Short       1  12.0 mm
+593 rmills@rmillsmbp:~/Downloads $ exiv2 -ep hdrmerge_045.dng 
+594 rmills@rmillsmbp:~/Downloads $ ls -alt *.tif
+-rw-r--r--+ 1 rmills  staff  132276 14 Aug 22:37 hdrmerge_045-preview1.tif
+-rw-r--r--+ 1 rmills  staff  234282 14 Aug 22:37 hdrmerge_045-preview2.tif
+595 rmills@rmillsmbp:~/Downloads $ tiffinfo *.tif
+hdrmerge_045-preview1.tif:
+TIFF Directory at offset 0x8 (8)
+  Image Width: 256 Image Length: 172
+  Resolution: 100, 100
+  Bits/Sample: 8
+  Compression Scheme: None
+  Photometric Interpretation: RGB color
+  Samples/Pixel: 3
+  Rows/Strip: 172
+  Planar Configuration: single image plane
+hdrmerge_045-preview2.tif:
+TIFF Directory at offset 0x8 (8)
+  Image Width: 1948 Image Length: 1308
+  Bits/Sample: 8
+  Compression Scheme: JPEG
+  Photometric Interpretation: YCbCr
+  YCbCr Subsampling: 2, 2
+  YCbCr Positioning: cosited
+  Samples/Pixel: 3
+  Rows/Strip: 1308
+  Planar Configuration: single image plane
+  Reference Black/White:
+     0:     0   255
+     1:   128   255
+     2:   128   255
+  YCbCrCoefficients: 0.299000,0.587000,0.114000
+596 rmills@rmillsmbp:~/Downloads $ exiv2 -v -V
+exiv2 0.24 001800 (64 bit build)
+Copyright (C) 2004-2013 Andreas Huggel.
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free
+Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA 02110-1301 USA
+exiv2=0.24.0
+platform=apple
+compiler=Clang
+bits=64
+dll=1
+debug=0
+version=4.2.1 Compatible Apple LLVM 5.1 (clang-503.0.40)
+date=Aug  9 2014
+time=09:31:53
+svn=3288
+executable=/usr/local/bin/exiv2
+library=/usr/local/lib/libexiv2.13.dylib
+... deleted lots of library=foo stuff ...
+library=/usr/lib/libz.1.dylib
+597 rmills@rmillsmbp:~/Downloads $ </pre><br />It appears to me that there are two preview images 256x172 and 1948x1308 and those have been successfully extracted.  It (correctly) does not extract the primary image 3936x2624</p>
+
+
+	<p>I'm puzzled by your statement:</p>
+
+
+<blockquote>
+
+	<p>exiv2 0.24 seems to correctly extract the preview images (it identifies two of them in that DNG). If that DNG contains a thumbnail image, exiv2 does not extract it.</p>
+
+
+</blockquote>
+
+	<p>Is there a missing word here?  Are you saying, if that DNG <strong>doesn't</strong> contain a thumbnail image, exiv2 does not extract it?  exiv2 never extracts the primary image.</p>
+
+
+	<p>Or are you saying that if there is only preview in the DNG, it will not be extracted?  I used the Adobe DNGConvertor to create a DNG from a .NEF created with my Nikon D5300.  That DNG also contains 2 preview images (low and medium size), so I don't have a DNG with only one preview.</p>
+
+
+	<p>Or are you expecting exiv2 to extract thumbnails of the original images used to by HDRMerge?</p>
+
+
+	<p>So, I'm a little lost.  Can you provide a test image and exiv2 command lines to reproduce the issue?</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2835" class="journal has-notes">
+    <div id="note-2">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-2" class="journal-link">#2</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4197">Schnitzel Foo</a> <a title="14 Aug 2014 15:22" href="/projects/exiv2/activity?from=2014-08-14">over 7 years</a> ago
+      <span id="journal-2835-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2835-notes" class="wiki"><p>How funny, I couldn't find a "reply" button... turns out it's called "update" here. :]</p>
+
+
+	<p>The wording is full and correct. See, this started with a request I filed for digiKam to support showing the thumbnails of these DNG files: <a class="external" href="https://bugs.kde.org/show_bug.cgi?id=338081">https://bugs.kde.org/show_bug.cgi?id=338081</a><br />"Note Exiv2 has also a method to extract preview from DNG. Please report this problem too in Exiv2 bugzilla."</p>
+
+
+	<p>As far as I can tell, exiv2 <strong>does</strong> read that DNG correctly. However, I was lead to believe that digiKam's lack of showing a thumbnail image for these DNG files is due to incomplete support, and that perhaps the DNG contains a thumbnail image which exiv2 fails to extract, even though it succeeds at extracting the embedded preview images. The exiv2 man page treats "preview" and "thumbnail" differently (I am not aware whether the DNG specification makes this distinction).<br />exiv2 -et img1.jpg img2.jpg<br />       Extracts the Exif thumbnails from the two files into img1-thumb.jpg and img2-thumb.jpg.<br />exiv2 -ep1,2 image.jpg<br />       Extracts previews 1 and 2 from the image to the files image-preview1.jpg and image-preview2.jpg.</p>
+
+
+	<p>So if digiKam via exiv2 can use the small <strong>preview</strong> as the thumbnail, then there is nothing to do here. I would just like you, the experts, to confirm :]</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2836" class="journal has-notes has-details">
+    <div id="note-3">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-3" class="journal-link">#3</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="14 Aug 2014 16:25" href="/projects/exiv2/activity?from=2014-08-14">over 7 years</a> ago
+      <span id="journal-2836-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Assigned</i> to <i>Resolved</i></li>
+    </ul>
+    <div id="journal-2836-notes" class="wiki"><p>Ah, right.  I've understood.  Thanks for clarifying this.  It's the difference between "Thumbnail" and "Preview" that's causing concern.</p>
+
+
+	<p>It seems to me that exiv2 is behaving correctly.  When I try to extract the thumbnail, here's the transcript:<br /><pre>
+637 rmills@rmillsmbp:~/Downloads $ exiv2 -et hdrmerge_045.dng 
+hdrmerge_045.dng: Image does not contain an Exif thumbnail
+638 rmills@rmillsmbp:~/Downloads $ 
+</pre></p>
+
+
+	<p>As for the difference between a Thumbnail and a Preview, I've run the following command on a JPG (taken with a Canon PowerShot)<br /><pre>
+640 rmills@rmillsmbp:~/Downloads $ exiv2 -pa ~/R.jpg | grep -i -e prev -e thum -e width -e height -e length
+Exif.Photo.FocalLength                       Rational    1  6.0 mm
+Exif.CanonCs.ZoomSourceWidth                 Short       1  3264
+Exif.CanonCs.ZoomTargetWidth                 Short       1  3264
+Exif.Canon.FocalLength                       Short       4  6.0 mm
+Exif.Canon.ThumbnailImageValidArea           Short       4  0 0 0 0
+Exif.Iop.RelatedImageWidth                   Short       1  3264
+Exif.Iop.RelatedImageLength                  Short       1  2448
+Exif.Thumbnail.Compression                   Short       1  JPEG (old-style)
+Exif.Thumbnail.XResolution                   Rational    1  180
+Exif.Thumbnail.YResolution                   Rational    1  180
+Exif.Thumbnail.ResolutionUnit                Short       1  inch
+Exif.Thumbnail.JPEGInterchangeFormat         Long        1  3788
+Exif.Thumbnail.JPEGInterchangeFormatLength   Long        1  2468
+641 rmills@rmillsmbp:~/Downloads $ 
+</pre><br />As you can see, there are a collection of tags "Exif.Thumbnail" which are processed by the -et options.</p>
+
+
+	<p>By comparison -ep operates on the tag:<br /><pre>
+Exif.SubImageN.NewSubfileType                Long        1  Thumbnail/Preview image
+</pre><br />So the library has registered it's unhappiness and did not extract the non-existant Exif.Thumbnail image from the DNG.</p>
+
+
+	<p>It seems to me that DigiKam (or any application), will have to know the difference between thumbnail and preview.  Your suggestion seems reasonable to me.  If the application does not find a Thumbnail, it should request Preview and use the smallest preview.</p>
+
+
+	<p>I am going to mark this issue as "Resolved" as I believe the library is behaving correctly.  You are of course welcome to disagree and we can continue the discussion.  If necessary, we can involve other Exiv2 team members.  The issue will not be "Closed" until review prior to the 0.25 release which is currently expected November 2014.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-2837" class="journal has-notes">
+    <div id="note-4">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-4" class="journal-link">#4</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/4197">Schnitzel Foo</a> <a title="15 Aug 2014 04:18" href="/projects/exiv2/activity?from=2014-08-15">over 7 years</a> ago
+      <span id="journal-2837-private_notes" class=""></span>
+    </h4>
+
+    <div id="journal-2837-notes" class="wiki"><p>Thank you for the explanation, it sounds like everything's working correctly here. I will update the digiKam report with this information.</p></div>
+    </div>
+  </div>
+  
+  <div id="change-3656" class="journal has-details">
+    <div id="note-5">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-5" class="journal-link">#5</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/119">Robin Mills</a> <a title="08 May 2015 16:30" href="/projects/exiv2/activity?from=2015-05-08">over 6 years</a> ago
+      <span id="journal-3656-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>100</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+  <div id="change-3880" class="journal has-details">
+    <div id="note-6">
+    <div class="contextual">
+      <span class="journal-actions"></span>
+      <a href="#note-6" class="journal-link">#6</a>
+    </div>
+    <h4>
+      
+      Updated by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="21 Jun 2015 16:41" href="/projects/exiv2/activity?from=2015-06-21">over 6 years</a> ago
+      <span id="journal-3880-private_notes" class=""></span>
+    </h4>
+
+    <ul class="details">
+       <li><strong>Status</strong> changed from <i>Resolved</i> to <i>Closed</i></li>
+    </ul>
+    
+    </div>
+  </div>
+  
+
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats">Also available in:  <span><a class="atom" rel="nofollow" href="/issues/980.atom">Atom</a></span>
+  <span><a class="pdf" rel="nofollow" href="/issues/980.pdf">PDF</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

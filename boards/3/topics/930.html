@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Exiv2::fileExists() fails on CIFS volume - Exiv2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="HXd8iSZJFqvW5oLTIItDe32KPvzGu+XQVrWNT2PIT0j/OtdmVDPaq4OCnd+fXE9IQhhqhTdYRGqrlR3HIPGoJw==" />
+<link rel='shortcut icon' href='/favicon.ico?1550767427' />
+<link rel="stylesheet" media="all" href="/stylesheets/jquery/jquery-ui-1.11.0.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/application.css?1550767427" />
+<link rel="stylesheet" media="all" href="/stylesheets/responsive.css?1550767427" />
+
+<script src="/javascripts/jquery-1.11.1-ui-1.11.0-ujs-4.3.1.js?1550767427"></script>
+<script src="/javascripts/application.js?1550767427"></script>
+<script src="/javascripts/responsive.js?1550767427"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="project-exiv2 has-main-menu controller-messages action-show avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+        <div class="flyout-menu__search">
+            <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="messages" value="1" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search">&#9906;</label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/login">Sign in</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a class="help" href="https://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/exiv2/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="scope" />
+        <input type="hidden" name="messages" value="1" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/exiv2/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Exiv2</span><div class="drdn-content"><div class="quick-search"><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=boards" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=boards">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Exiv2</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/exiv2">Overview</a></li><li><a class="activity" href="/projects/exiv2/activity">Activity</a></li><li><a class="roadmap" href="/projects/exiv2/roadmap">Roadmap</a></li><li><a class="issues" href="/projects/exiv2/issues">Issues</a></li><li><a class="news" href="/projects/exiv2/news">News</a></li><li><a class="wiki" href="/projects/exiv2/wiki">Wiki</a></li><li><a class="boards selected" href="/projects/exiv2/boards">Forums</a></li><li><a class="repository" href="/projects/exiv2/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left" onclick="moveTabLeft(this); return false;"></button>
+            <button class="tab-right" onclick="moveTabRight(this); return false;"></button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        <p class="breadcrumb"><a href="/projects/exiv2/boards">Forums</a> » <a href="/projects/exiv2/boards/3">Forum</a> » </p>
+
+<div class="contextual">
+    
+    
+    
+    
+</div>
+
+<h2>Exiv2::fileExists() fails on CIFS volume</h2>
+
+<div class="message">
+<p><span class="author">Added by <a class="user active" href="/users/2405">Matthias Welwarsky</a> <a title="10 Jun 2011 04:36" href="/projects/exiv2/activity?from=2011-06-10">over 10 years</a> ago</span></p>
+<div class="wiki">
+<p>I can't have exiv2 retrieve information from images stored on a NAS that I mount via Linux CIFS file system. It always errors out with "file does not exist". I googled around a bit and found that:</p>
+
+
+	<p>As documented in various places on the Intertubes, you need to #define _FILE_OFFSET_BITS 64 if you want stat(2) to work properly on CIFS mounted volumes on Linux. The reason is that glibc now uses stat64() syscall, but if the inode number is too large to fit into struct stat on a 32bit system there is an EOVERFLOW error. The required fix is to compile the project with -D_FILE_OFFSET_BITS=64.</p>
+
+
+	<p>Now, how do I get exiv2 to compile with that? I hacked the toplevel CMakeList.txt but I'm certain that there must be a proper configure check to be used.</p>
+
+
+	<p>Help?</p>
+
+
+	<p>See also feature_test_macros(7)</p>
+</div>
+
+</div>
+<br />
+
+<div id="replies">
+<h3 class="comments icon icon-comments">Replies (8)</h3>
+  <div class="message reply" id="message-931">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/930?r=931#message-931">RE: Exiv2::fileExists() fails on CIFS volume</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="12 Jun 2011 18:45" href="/projects/exiv2/activity?from=2011-06-12">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Thanks for the info. This sounds like the define should be added to the default configuration. Or is there any reason why it shouldn't be defined always?</p>
+
+
+	<p>If you use the autoconf build scripts (which is still the default and supported way to build exiv2) you can  export CPPFLAGS=-D_FILE_OFFSET_BITS=64 before running ./configure. I'm not sure if that works with cmake too.</p>
+
+
+	<p>Alternatively, add the define to config/config.h.in and/or config/config.h.cmake and/or msvc/include/exv_msvc.h if building with the autoconf scripts, cmake and/or MSVC on Windows respectively.</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-936">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/930?r=936#message-936">RE: Exiv2::fileExists() fails on CIFS volume</a>
+    -
+    Added by <a class="user active" href="/users/2501">Sean Droms</a> <a title="10 Jul 2011 07:02" href="/projects/exiv2/activity?from=2011-07-10">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hello, I am having the same issue as Matthias. I am trying to use jBrout or qPhotoTag to tag a large collection of photos on a cifs-mounted device (a DNS323 NAS in particular), but Exiv2 fails to modify the IPTC keywords. The error is:</p>
+
+
+<pre>
+Exiv2 exception in modify action for file /home/sean/pictures/test/IMG_2482.JPG:
+/home/sean/pictures/test/IMG_2482.JPG: Failed to open file (w+b):  (errno = 2)
+</pre>
+
+	<p>I tried to compile Exiv2 by adding the line "#define _FILE_OFFSET_BITS 64" to both config/config.h and config/config.h.in, then running configure, make, make install.</p>
+
+
+	<p>Even when I use the copy of exiv2 in the src directory after compiling, I get the same error.</p>
+
+
+<pre>
+sean@cittagazze:~/exiv2-0.21.1/src$ ./exiv2 -M"add Iptc.Application2.Keywords Evey-cifs" ~/pictures/test/IMG_2482.JPG 
+Exiv2 exception in modify action for file /home/sean/pictures/test/IMG_2482.JPG:
+/home/sean/pictures/test/IMG_2482.JPG: Failed to open file (w+b):  (errno = 2)
+</pre>
+
+	<p>Is there somewhere else I need to add the #define to make this work? Any help would be appreciated!</p>
+
+
+	<p>I am using Ubuntu 10.04.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-937">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/930?r=937#message-937">RE: Exiv2::fileExists() fails on CIFS volume</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="11 Jul 2011 02:53" href="/projects/exiv2/activity?from=2011-07-11">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Hmm, either that fix doesn't work in your environment or exiv2 wasn't rebuilt completely. To ensure that it is, can you try again, following exactly these steps:</p>
+
+
+	<p>1. Start from scratch, with a newly unzipped and untarred distribution<br />2. export CPPFLAGS=-D_FILE_OFFSET_BITS=64<br />3. Run configure, make, make install as usual</p>
+
+
+	<p>Does that help?</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-938">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/930?r=938#message-938">RE: Exiv2::fileExists() fails on CIFS volume</a>
+    -
+    Added by <a class="user active" href="/users/2501">Sean Droms</a> <a title="11 Jul 2011 06:03" href="/projects/exiv2/activity?from=2011-07-11">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>It does not change the outcome, unfortunately.</p>
+
+
+	<p>I ran, as you asked, on a completely fresh copy of exiv2-0.21.1,<br /><pre>
+export CPPFLAGS=-D_FILE_OFFSET_BITS=64
+configure
+make
+make install
+</pre></p>
+
+
+	<p>For what it's worth, during compilation, I do see the -D_FILE_OFFSET_BITS=64 present in each command.</p>
+
+
+	<p>Then, as before,<br /><pre>
+sean@cittagazze:~/exiv2-0.21.1/src$ ./exiv2 -M"add Iptc.Application2.Keywords Evey-cifs" ~/pictures/test/IMG_2482.JPG
+Exiv2 exception in modify action for file /home/sean/pictures/test/IMG_2482.JPG:
+/home/sean/pictures/test/IMG_2482.JPG: Failed to open file (w+b):  (errno = 2)
+</pre></p>
+
+
+	<p>It might be pointed out that I now have 3 copies of exiv2 on my system. One from the Ubuntu repository (v0.19 in /usr/bin/), one from this make install (v0.21 in /usr/local/bin/) and one in the src/ directory (v0.21). Of course, above I was running the one in src/, but trying with the one in /usr/local/bin gives the same result.</p>
+
+
+	<p>This probably doesn't matter, but when I run make install, the last block of output is:<br /><pre>
+installing pl.gmo as /usr/local/share/locale/pl/LC_MESSAGES/exiv2.mo
+installing ru.gmo as /usr/local/share/locale/ru/LC_MESSAGES/exiv2.mo
+installing sk.gmo as /usr/local/share/locale/sk/LC_MESSAGES/exiv2.mo
+if test "exiv2" = "gettext-tools"; then \
+      /bin/sh .././config/mkinstalldirs /usr/local/share/gettext/po; \
+      for file in Makefile.in.in remove-potcdate.sin quot.sed boldquot.sed en@quot.header en@boldquot.header insert-header.sin Rules-quot   Makevars.template; do \
+        /usr/bin/install -c -m 644 ./$file \
+                /usr/local/share/gettext/po/$file; \
+      done; \
+      for file in Makevars; do \
+        rm -f /usr/local/share/gettext/po/$file; \
+      done; \
+    else \
+      : ; \
+    fi
+make[1]: Leaving directory `/home/sean/exiv2-0.21.1/po'
+sean@cittagazze:~/exiv2-0.21.1$ 
+</pre></p>
+
+
+	<p>I don't know much about this process, but it didn't seem right to me.</p>
+
+
+	<p>I appreciate any other tips you could give me. I'm fairly new to compiling from source, so if there's something obvious I'm missing here, I apologize!</p></div>
+  
+  </div>
+  <div class="message reply" id="message-939">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/930?r=939#message-939">RE: Exiv2::fileExists() fails on CIFS volume</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="11 Jul 2011 06:58" href="/projects/exiv2/activity?from=2011-07-11">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><blockquote>
+
+	<p>For what it's worth, during compilation, I do see the -D_FILE_OFFSET_BITS=64 present in each command.</p>
+
+
+</blockquote>
+
+	<p>So it was compiled correctly. The output of make install also looks ok.</p>
+
+
+	<p>But I noticed that the error message that you get is not the same as that in the original report.<br />Can you show us the output of</p>
+
+
+	<p>ls -la /home/sean/pictures/test/IMG_2482.JPG</p>
+
+
+	<p>in particular, can you write to that file (permissions)?</p>
+
+
+	<p>Andreas</p></div>
+  
+  </div>
+  <div class="message reply" id="message-940">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/930?r=940#message-940">RE: Exiv2::fileExists() fails on CIFS volume</a>
+    -
+    Added by <a class="user active" href="/users/2501">Sean Droms</a> <a title="11 Jul 2011 07:10" href="/projects/exiv2/activity?from=2011-07-11">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Here is the output:</p>
+
+
+<pre>
+sean@cittagazze:~$ ls -la /home/sean/pictures/test/IMG_2482.JPG 
+-rwxrwxrwx 1 sean sean 2202031 2011-07-10 08:39 /home/sean/pictures/test/IMG_2482.JPG
+</pre>
+
+	<p>I'm generally able to modify files on the NAS. If you think it makes a difference, here is the fstab line I use to mount it at boot:</p>
+
+
+<pre>
+//nas/Volume_1    /media/nas    cifs    credentials=/home/sean/.smbcredentials,iocharset=utf8,file_mode=0770,dir_mode=0770,uid=sean,gid=sean    0    0
+</pre></div>
+  
+  </div>
+  <div class="message reply" id="message-941">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/930?r=941#message-941">RE: Exiv2::fileExists() fails on CIFS volume</a>
+    -
+    Added by <a class="user active" href="/users/53">Andreas Huggel</a> <a title="11 Jul 2011 22:29" href="/projects/exiv2/activity?from=2011-07-11">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>Do you use a symbolic link somewhere in the path /home/sean/pictures/test/ since the NAS is mounted on /media/nas?<br />If so, can you try the exiv2 command with the actual path that has no symlink?</p>
+
+
+	<p>Also it seems the mode parameters in your fstab line (0770) contradict the ls -la output (777)?</p>
+
+
+	<p>But quite frankly, I have no idea what the problem is.</p></div>
+  
+  </div>
+  <div class="message reply" id="message-942">
+    <div class="contextual">
+      
+      
+      
+    </div>
+  <h4>
+    
+    <a href="/boards/3/topics/930?r=942#message-942">RE: Exiv2::fileExists() fails on CIFS volume</a>
+    -
+    Added by <a class="user active" href="/users/2501">Sean Droms</a> <a title="18 Jul 2011 18:04" href="/projects/exiv2/activity?from=2011-07-18">over 10 years</a> ago
+  </h4>
+  <div class="wiki"><p>I get the same error even when using the path where my nas is mounted in /media. I am not sure what is causing the discrepancy between mode parameters.</p>
+
+
+	<p>Thank you for trying to help. I think I am going to give up on this issue, unfortunately.</p></div>
+  
+  </div>
+</div>
+<span class="pagination"><ul class="pages"></ul><span><span class="items">(1-8/8)</span> </span></span>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="https://www.redmine.org/">Redmine</a> &copy; 2006-2018 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

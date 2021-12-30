@@ -1,0 +1,76 @@
+Index: src/orfimage.cpp
+===================================================================
+--- src/orfimage.cpp	(revision 4770)
++++ src/orfimage.cpp	(working copy)
+@@ -119,8 +119,6 @@
+             throw Error(3, "ORF");
+         }
+         clearMetadata();
+-        std::ofstream devnull;
+-        printStructure(devnull, kpsRecursive, 0);
+         ByteOrder bo = OrfParser::decode(exifData_,
+                                          iptcData_,
+                                          xmpData_,
+Index: src/cr2image.cpp
+===================================================================
+--- src/cr2image.cpp	(revision 4770)
++++ src/cr2image.cpp	(working copy)
+@@ -107,8 +107,6 @@
+             throw Error(3, "CR2");
+         }
+         clearMetadata();
+-        std::ofstream devnull;
+-        printStructure(devnull, kpsRecursive, 0);
+         ByteOrder bo = Cr2Parser::decode(exifData_,
+                                          iptcData_,
+                                          xmpData_,
+Index: src/crwimage.cpp
+===================================================================
+--- src/crwimage.cpp	(revision 4770)
++++ src/crwimage.cpp	(working copy)
+@@ -131,16 +131,6 @@
+             throw Error(33);
+         }
+         clearMetadata();
+-        // read all metadata into memory
+-        // we should put this into clearMetadata(), however it breaks the test suite!
+-        try {
+-            std::ofstream devnull;
+-            printStructure(devnull,kpsRecursive,0);
+-        } catch (Exiv2::Error& /* e */) {
+-            DataBuf file(io().size());
+-            io_->read(file.pData_,file.size_);
+-        }
+-
+         CrwParser::decode(this, io_->mmap(), io_->size());
+ 
+     } // CrwImage::readMetadata
+Index: src/tiffimage.cpp
+===================================================================
+--- src/tiffimage.cpp	(revision 4770)
++++ src/tiffimage.cpp	(working copy)
+@@ -184,11 +184,6 @@
+             throw Error(3, "TIFF");
+         }
+         clearMetadata();
+-
+-        // recursively print the structure to /dev/null to ensure all metadata is in memory
+-        // must be recursive to handle NEFs which stores the raw image in a subIFDs
+-        std::ofstream devnull;
+-        printStructure(devnull,kpsRecursive,0);
+         ByteOrder bo = TiffParser::decode(exifData_,
+                                           iptcData_,
+                                           xmpData_,
+Index: src/rw2image.cpp
+===================================================================
+--- src/rw2image.cpp	(revision 4770)
++++ src/rw2image.cpp	(working copy)
+@@ -130,8 +130,6 @@
+             throw Error(3, "RW2");
+         }
+         clearMetadata();
+-        std::ofstream devnull;
+-        printStructure(devnull, kpsRecursive, 0);
+         ByteOrder bo = Rw2Parser::decode(exifData_,
+                                          iptcData_,
+                                          xmpData_,
